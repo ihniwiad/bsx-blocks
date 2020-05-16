@@ -21,27 +21,15 @@ registerBlockType( 'bsx-blocks/bsx-02-lazy-img', {
         },
         mediaURL: {
             type: 'string',
-            source: 'attribute',
-            selector: 'script',
-            attribute: 'data-src',
         },
         mediaAlt: {
             type: 'string',
-            source: 'attribute',
-            selector: 'script',
-            attribute: 'data-alt',
         },
         mediaWidth: {
             type: 'string',
-            source: 'attribute',
-            selector: 'script',
-            attribute: 'data-width',
         },
         mediaHeight: {
             type: 'string',
-            source: 'attribute',
-            selector: 'script',
-            attribute: 'data-height',
         },
         figcaption: {
             type: 'array',
@@ -151,7 +139,7 @@ registerBlockType( 'bsx-blocks/bsx-02-lazy-img', {
                 {
                     mediaURL && (
                         <figure>
-                            <script data-src={ mediaURL } data-alt={ mediaAlt } data-width={ mediaWidth } data-height={ mediaHeight }>document.write( '<img className="img-fluid" src="" alt={ mediaAlt } width={ mediaWidth } height={ mediaHeight } data-src={ mediaURL } data-fn="lazyload" />' );</script>
+                            <script>document.write( '<img className="img-fluid" src="" alt={ mediaAlt } width={ mediaWidth } height={ mediaHeight } data-src={ mediaURL } data-fn="lazyload" />' );</script>
                             <noscript><img className="img-fluid" src={ mediaURL } alt={ mediaAlt } width={ mediaWidth } height={ mediaHeight } /></noscript>
                         
                             {
