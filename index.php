@@ -13,3 +13,4 @@ defined( 'ABSPATH' ) || exit;
 
 include '01-include-bsx-styles/index.php';
 include '02-lazy-img/index.php';
+include '03-button/index.php';

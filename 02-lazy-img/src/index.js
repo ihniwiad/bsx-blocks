@@ -12,7 +12,7 @@ const {
 } = wp.components;
 
 registerBlockType( 'bsx-blocks/bsx-02-lazy-img', {
-    title: __( 'BSX Lazy Bild', 'bsx-blocks' ),
+    title: __( 'BSX Lazy Image', 'bsx-blocks' ),
     icon: 'format-image',
     category: 'layout',
     attributes: {
@@ -92,30 +92,32 @@ registerBlockType( 'bsx-blocks/bsx-02-lazy-img', {
                     value={ figcaption }
                     onChange={ onChangeFigcaption }
                 />
-                <div class="row form-row">
-                    <div class="col-3">
-                        <TextControl 
-                            label={ __( 'Width', 'bsx-blocks' ) }
-                            className="mediaWidth" 
-                            value={ mediaWidth } 
-                            onChange={ onChangeMediaWidth }
-                        />
-                    </div>
-                    <div class="col-3">
-                        <TextControl 
-                            label={ __( 'Height', 'bsx-blocks' ) }
-                            className="mediaHeight" 
-                            value={ mediaHeight } 
-                            onChange={ onChangeMediaHeight }
-                        />
-                    </div>
-                    <div class="col-6">
-                        <TextControl 
-                            label={ __( 'Alt', 'bsx-blocks' ) }
-                            className="mediaAlt" 
-                            value={ mediaAlt } 
-                            onChange={ onChangeMediaAlt }
-                        />
+                <div class="border rounded bg-light my-3 px-1">
+                    <div class="row form-row">
+                        <div class="col-3">
+                            <TextControl 
+                                label={ __( 'Width', 'bsx-blocks' ) }
+                                className="mediaWidth" 
+                                value={ mediaWidth } 
+                                onChange={ onChangeMediaWidth }
+                            />
+                        </div>
+                        <div class="col-3">
+                            <TextControl 
+                                label={ __( 'Height', 'bsx-blocks' ) }
+                                className="mediaHeight" 
+                                value={ mediaHeight } 
+                                onChange={ onChangeMediaHeight }
+                            />
+                        </div>
+                        <div class="col-6">
+                            <TextControl 
+                                label={ __( 'Alt', 'bsx-blocks' ) }
+                                className="mediaAlt" 
+                                value={ mediaAlt } 
+                                onChange={ onChangeMediaAlt }
+                            />
+                        </div>
                     </div>
                 </div>
             </div>

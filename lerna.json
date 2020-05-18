@@ -1,6 +1,7 @@
 {
   "packages": [
-    "02-lazy-img"
+    "02-lazy-img",
+    "03-button"
   ],
   "version": "independent"
 }
