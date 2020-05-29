@@ -2,16 +2,23 @@ const { __, setLocaleData } = wp.i18n;
 
 import { registerBlockType } from '@wordpress/blocks';
 import { RichText } from '@wordpress/block-editor';
-import { TextControl } from '@wordpress/components';
+import { TextControl, ToggleControl } from '@wordpress/components';
 import { withSelect } from '@wordpress/data';
 import ServerSideRender from '@wordpress/server-side-render';
 import { SelectControl } from '@wordpress/components';
 import { withState } from '@wordpress/compose';
 
+const { InspectorControls } = wp.blockEditor;
+const { PanelBody } = wp.components;
+
+//const { Fragment } = wp.element;
+
 
 // TODO: add button size `libnSize` `{ 'sm', 'lg' }`
 
-registerBlockType( 'bsx-blocks/bsx-03-button', {
+// TODO: add additional css classes
+
+registerBlockType( 'bsx-blocks/button', {
     title: __( 'BSX Button', 'bsx-blocks' ),
     icon: 'admin-links',
     category: 'layout',
@@ -61,7 +68,7 @@ registerBlockType( 'bsx-blocks/bsx-03-button', {
                 linkAttributes,
             },
             setAttributes,
-            posts,
+            isSelected,
         } = props;
 
         const onChangeLinkHref = ( value ) => {
@@ -74,7 +81,7 @@ registerBlockType( 'bsx-blocks/bsx-03-button', {
             setAttributes( { linkHash: value } );
         };
         const onChangeLinkTarget = ( value ) => {
-            setAttributes( { linkTarget: value } );
+            setAttributes( { linkTarget: !! value ? '_blank' : '' } );
         };
         const onChangeLinkRel = ( value ) => {
             setAttributes( { linkRel: value } );
@@ -88,88 +95,89 @@ registerBlockType( 'bsx-blocks/bsx-03-button', {
         const onChangeLinkAttributes = ( value ) => {
             setAttributes( { linkAttributes: value } );
         };
-        return (
-            <div className={ className }>
-                <ServerSideRender
-                    block="bsx-blocks/bsx-03-button"
-                    attributes={ props.attributes }
-                />
-                <div class="border rounded bg-light my-3 px-1">
-                    <div class="row form-row">
-                        <div class="col-3">
-                            <TextControl 
-                                label={ __( 'Button text', 'bsx-blocks' ) }
-                                value={ linkText } 
-                                onChange={ onChangeLinkText }
-                            />
+        return [
+            <InspectorControls>
+                <PanelBody title={ __( 'BSX Block Settings', 'bsx-blocks' ) }>
+                    <SelectControl 
+                        label={ __( 'State', 'bsx-blocks' ) }
+                        value={ linkState }
+                        onChange={ onChangeLinkState }
+                        options={ [
+                            { value: 'primary', label: __( 'Primary', 'bsx-blocks' ) },
+                            { value: 'secondary', label: __( 'Secondary', 'bsx-blocks' ) },
+                            { value: 'success', label: __( 'Success', 'bsx-blocks' ) },
+                            { value: 'danger', label: __( 'Danger', 'bsx-blocks' ) },
+                            { value: 'warning', label: __( 'Warning', 'bsx-blocks' ) },
+                            { value: 'info', label: __( 'Info', 'bsx-blocks' ) },
+                            { value: 'light', label: __( 'Light', 'bsx-blocks' ) },
+                            { value: 'dark', label: __( 'Dark', 'bsx-blocks' ) },
+                            { value: 'link', label: __( 'Link', 'bsx-blocks' ) },
+                        ] }
+                    />
+                    <SelectControl label={ __( 'State Type', 'bsx-blocks' ) }
+                        value={ linkStateType }
+                        onChange={ onChangeLinkStateType }
+                        options={ [
+                            { value: 'outline', label: __( 'Outline', 'bsx-blocks' ) },
+                            { value: '', label: __( 'Filled', 'bsx-blocks' ) },
+                        ] }
+                    />
+                    <TextControl 
+                        label={ __( 'Rel (optional)', 'bsx-blocks' ) }
+                        value={ linkRel } 
+                        onChange={ onChangeLinkRel }
+                    />
+                    <TextControl 
+                        label={ __( 'Attributes (optional)', 'bsx-blocks' ) }
+                        value={ linkAttributes } 
+                        placeholder={ __( 'data-1="foo" data-2="bar"', 'bsx-blocks' ) }
+                        onChange={ onChangeLinkAttributes }
+                    />
+                </PanelBody>
+            </InspectorControls>,
+            (
+                <div className={ className }>
+                    <ServerSideRender
+                        block="bsx-blocks/button"
+                        attributes={ props.attributes }
+                    />
+                    { isSelected && (
+                        <div class="border rounded bg-light my-3 px-1">
+                            <div class="row form-row">
+                                <div class="col-6">
+                                    <TextControl 
+                                        label={ __( 'Button text', 'bsx-blocks' ) }
+                                        value={ linkText } 
+                                        onChange={ onChangeLinkText }
+                                    />
+                                </div>
+                                <div class="col-3">
+                                    <TextControl 
+                                        label={ __( 'Href (Post ID)', 'bsx-blocks' ) }
+                                        value={ linkHref } 
+                                        onChange={ onChangeLinkHref }
+                                    />
+                                </div>
+                                <div class="col-3">
+                                    <TextControl 
+                                        label={ __( 'Hash (optional)', 'bsx-blocks' ) }
+                                        value={ linkHash } 
+                                        onChange={ onChangeLinkHash }
+                                    />
+                                </div>
+                                <div class="col-12">
+                                    <ToggleControl
+                                        label={ __( 'Open in new tab' ) }
+                                        checked={ linkTarget == '_blank' }
+                                        onChange={ onChangeLinkTarget }
+                                    />
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-3">
-                            <TextControl 
-                                label={ __( 'Href (Post ID)', 'bsx-blocks' ) }
-                                value={ linkHref } 
-                                onChange={ onChangeLinkHref }
-                            />
-                        </div>
-                        <div class="col-3">
-                            <TextControl 
-                                label={ __( 'Hash (optional)', 'bsx-blocks' ) }
-                                value={ linkHash } 
-                                onChange={ onChangeLinkHash }
-                            />
-                        </div>
-                        <div class="col-3">
-                            <SelectControl label={ __( 'State', 'bsx-blocks' ) }
-                                value={ linkState }
-                                onChange={ onChangeLinkState }
-                                options={ [
-                                    { value: 'primary', label: __( 'Primary', 'bsx-blocks' ) },
-                                    { value: 'secondary', label: __( 'Secondary', 'bsx-blocks' ) },
-                                    { value: 'success', label: __( 'Success', 'bsx-blocks' ) },
-                                    { value: 'danger', label: __( 'Danger', 'bsx-blocks' ) },
-                                    { value: 'warning', label: __( 'Warning', 'bsx-blocks' ) },
-                                    { value: 'info', label: __( 'Info', 'bsx-blocks' ) },
-                                    { value: 'light', label: __( 'Light', 'bsx-blocks' ) },
-                                    { value: 'dark', label: __( 'Dark', 'bsx-blocks' ) },
-                                    { value: 'link', label: __( 'Link', 'bsx-blocks' ) },
-                            ] }/>
-                        </div>
-                    </div>
-                    <div class="row form-row">
-                        <div class="col-3">
-                            <SelectControl label={ __( 'State', 'bsx-blocks' ) }
-                                value={ linkStateType }
-                                onChange={ onChangeLinkStateType }
-                                options={ [
-                                    { value: 'outline', label: __( 'Outline', 'bsx-blocks' ) },
-                                    { value: '', label: __( 'Filled', 'bsx-blocks' ) },
-                            ] }/>
-                        </div>
-                        <div class="col-3">
-                            <TextControl 
-                                label={ __( 'Target (optional)', 'bsx-blocks' ) }
-                                value={ linkTarget } 
-                                onChange={ onChangeLinkTarget }
-                            />
-                        </div>
-                        <div class="col-3">
-                            <TextControl 
-                                label={ __( 'Rel (optional)', 'bsx-blocks' ) }
-                                value={ linkRel } 
-                                onChange={ onChangeLinkRel }
-                            />
-                        </div>
-                        <div class="col-3">
-                            <TextControl 
-                                label={ __( 'Attributes (optional)', 'bsx-blocks' ) }
-                                value={ linkAttributes } 
-                                placeholder={ __( 'data-1="foo" data-2="bar"', 'bsx-blocks' ) }
-                                onChange={ onChangeLinkAttributes }
-                            />
-                        </div>
-                    </div>
+                    ) }
                 </div>
-            </div>
-        );
+            )
+        ];
     },
     save: ( attributes ) => {
         return null;

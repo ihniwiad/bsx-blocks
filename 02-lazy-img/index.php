@@ -2,9 +2,10 @@
 
 /**
  * Plugin Name: BSX Blocks
- * Description: This plugin includes BSX (Bootstrap Extended – a Bootstrap based style package) based blocks into WordPress.
+ * Plugin URI: https://github.com/ihniwiad/bsx-blocks
+ * Description: Lazyload image for BSX (a Bootstrap based style & js package) WordPress blocks.
  * Version: 1.0.1
- * Author: ihniwiad (https://github.com/ihniwiad)
+ * Author: ihniwiad
  *
  * @package bsx-blocks
  */
@@ -43,7 +44,7 @@ function bsx_blocks_02_lazy_img_register_block() {
         array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore' ),
         filemtime( plugin_dir_path( __FILE__ ) . 'build/index.js' )
     );
-    register_block_type( 'bsx-blocks/bsx-02-lazy-img', array(
+    register_block_type( 'bsx-blocks/lazy-img', array(
         'editor_style' => array( 'bsx-blocks-editor-atf-style', 'bsx-blocks-editor-style' ),
         'editor_script' => 'bsx-blocks-02-lazy-img',
     ) );

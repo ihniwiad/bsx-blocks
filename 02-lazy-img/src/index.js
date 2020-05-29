@@ -5,13 +5,13 @@ const {
 const {
     RichText,
     MediaUpload,
-} = wp.editor;
+} = wp.blockEditor;
 const { 
     Button,
     TextControl,
 } = wp.components;
 
-registerBlockType( 'bsx-blocks/bsx-02-lazy-img', {
+registerBlockType( 'bsx-blocks/lazy-img', {
     title: __( 'BSX Lazy Image', 'bsx-blocks' ),
     icon: 'format-image',
     category: 'layout',

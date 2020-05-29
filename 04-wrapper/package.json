@@ -1,0 +1,15 @@
+{
+  "name": "04-cols",
+  "version": "1.0.0",
+  "description": "04 Cols",
+  "author": "ihniwiad",
+  "license": "",
+  "main": "build/index.js",
+  "devDependencies": {
+    "@wordpress/scripts": "9.0.0"
+  },
+  "scripts": {
+    "start": "wp-scripts start",
+    "build": "wp-scripts build"
+  }
+}

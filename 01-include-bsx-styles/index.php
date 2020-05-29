@@ -2,9 +2,10 @@
 
 /**
  * Plugin Name: BSX Blocks
- * Description: This plugin includes BSX (Bootstrap Extended – a Bootstrap based style package) based blocks into WordPress.
+ * Plugin URI: https://github.com/ihniwiad/bsx-blocks
+ * Description: Style includes for BSX (a Bootstrap based style & js package) WordPress blocks.
  * Version: 1.0.1
- * Author: ihniwiad (https://github.com/ihniwiad)
+ * Author: ihniwiad
  *
  * @package bsx-blocks
  */

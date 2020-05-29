@@ -1,20 +1,16 @@
 <?php
 
 /**
- * Plugin Name: Myguten Block
- * Plugin URI: https://github.com/WordPress/gutenberg-examples
- * Description: This is a plugin demonstrating how to register new blocks for the Gutenberg editor.
- * Version: 1.0.2
- * Author: the Gutenberg Team
+ * Plugin Name: BSX Blocks
+ * Plugin URI: https://github.com/ihniwiad/bsx-blocks
+ * Description: Button for BSX (a Bootstrap based style & js package) WordPress blocks.
+ * Version: 1.0.1
+ * Author: ihniwiad
  *
- * @package gutenberg-examples
+ * @package bsx-blocks
  */
 
 defined( 'ABSPATH' ) || exit;
-
-
-// include blocks
-//include '01-include-bsx-styles/index.php';
 
 
 /**
@@ -33,6 +29,32 @@ function bsx_blocks_03_button_load_textdomain() {
  * render callback
  */
 function bsx_blocks_03_button_render_callback( $attributes, $content ) {
+
+    // TODO: check if link empty, make `button` node instead of `a`
+
+    // TODO: check if text link matches post url, if so, get id and make permalink by id
+    // NOTE: function getPostIdBySlug seems to be already declared earlier
+    /*
+    if ( ! function_exists( getPageSlugByUrl ) ) {
+        function getPageSlugByUrl( $url ) {
+            return str_replace( get_bloginfo( 'url' ), '', $url );
+        }
+    }
+
+    if ( ! function_exists( getPostIdBySlug ) ) {
+        function getPostIdBySlug( $pageSlug ) {
+            $page = get_page_by_path( $pageSlug );
+            if ( $page && $page->post_status == 'publish' ) {
+                return $page->ID;
+            }
+            else {
+                return null;
+            }
+        }
+    }
+    */
+
+    // TODO: add additional css classes
 
     // debug output
     $debug = false;
@@ -98,7 +120,7 @@ function bsx_blocks_03_button_register_block() {
         $asset_file['dependencies'],
         $asset_file['version']
     );
-    register_block_type( 'bsx-blocks/bsx-03-button', array(
+    register_block_type( 'bsx-blocks/button', array(
         'editor_style' => array( 'bsx-blocks-editor-atf-style', 'bsx-blocks-editor-style' ),
         'editor_script' => 'bsx-blocks-03-button',
         'render_callback' => 'bsx_blocks_03_button_render_callback',
