@@ -142,36 +142,34 @@ registerBlockType( 'bsx-blocks/button', {
                         attributes={ props.attributes }
                     />
                     { isSelected && (
-                        <div class="border rounded bg-light my-3 px-1">
-                            <div class="row form-row">
-                                <div class="col-6">
-                                    <TextControl 
-                                        label={ __( 'Button text', 'bsx-blocks' ) }
-                                        value={ linkText } 
-                                        onChange={ onChangeLinkText }
-                                    />
-                                </div>
-                                <div class="col-3">
-                                    <TextControl 
-                                        label={ __( 'Href (Post ID)', 'bsx-blocks' ) }
-                                        value={ linkHref } 
-                                        onChange={ onChangeLinkHref }
-                                    />
-                                </div>
-                                <div class="col-3">
-                                    <TextControl 
-                                        label={ __( 'Hash (optional)', 'bsx-blocks' ) }
-                                        value={ linkHash } 
-                                        onChange={ onChangeLinkHash }
-                                    />
-                                </div>
-                                <div class="col-12">
-                                    <ToggleControl
-                                        label={ __( 'Open in new tab' ) }
-                                        checked={ linkTarget == '_blank' }
-                                        onChange={ onChangeLinkTarget }
-                                    />
-                                </div>
+                    <div class="border bg-light mt-2 px-1">
+                            <div>
+                                <TextControl 
+                                    label={ __( 'Button text', 'bsx-blocks' ) }
+                                    value={ linkText } 
+                                    onChange={ onChangeLinkText }
+                                />
+                            </div>
+                            <div>
+                                <TextControl 
+                                    label={ __( 'Href (Post ID)', 'bsx-blocks' ) }
+                                    value={ linkHref } 
+                                    onChange={ onChangeLinkHref }
+                                />
+                            </div>
+                            <div>
+                                <ToggleControl
+                                    label={ __( 'Open in new tab' ) }
+                                    checked={ linkTarget == '_blank' }
+                                    onChange={ onChangeLinkTarget }
+                                />
+                            </div>
+                            <div>
+                                <TextControl 
+                                    label={ __( 'Hash (optional)', 'bsx-blocks' ) }
+                                    value={ linkHash } 
+                                    onChange={ onChangeLinkHash }
+                                />
                             </div>
                         </div>
                     ) }

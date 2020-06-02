@@ -5,11 +5,14 @@ const {
 const {
     RichText,
     MediaUpload,
+    InspectorControls,
 } = wp.blockEditor;
 const { 
     Button,
     TextControl,
+    PanelBody,
 } = wp.components;
+
 
 registerBlockType( 'bsx-blocks/lazy-img', {
     title: __( 'BSX Lazy Image', 'bsx-blocks' ),
@@ -49,11 +52,13 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 figcaption,
             },
             setAttributes,
+            isSelected,
         } = props;
         const onSelectImage = ( media ) => {
             setAttributes( {
                 mediaURL: media.url,
                 mediaID: media.id,
+                mediaAlt: media.alt,
             } );
         };
         const onChangeMediaAlt = ( value ) => {
@@ -92,9 +97,9 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                     value={ figcaption }
                     onChange={ onChangeFigcaption }
                 />
-                <div class="border rounded bg-light my-3 px-1">
-                    <div class="row form-row">
-                        <div class="col-3">
+                { isSelected && (
+                    <div class="border bg-light mt-2 px-1">
+                        <div>
                             <TextControl 
                                 label={ __( 'Width', 'bsx-blocks' ) }
                                 className="mediaWidth" 
@@ -102,7 +107,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                                 onChange={ onChangeMediaWidth }
                             />
                         </div>
-                        <div class="col-3">
+                        <div>
                             <TextControl 
                                 label={ __( 'Height', 'bsx-blocks' ) }
                                 className="mediaHeight" 
@@ -110,7 +115,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                                 onChange={ onChangeMediaHeight }
                             />
                         </div>
-                        <div class="col-6">
+                        <div>
                             <TextControl 
                                 label={ __( 'Alt', 'bsx-blocks' ) }
                                 className="mediaAlt" 
@@ -119,7 +124,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                             />
                         </div>
                     </div>
-                </div>
+                ) }
             </div>
         );
     },

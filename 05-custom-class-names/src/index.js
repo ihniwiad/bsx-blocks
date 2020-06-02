@@ -102,7 +102,6 @@ const withAdvancedControls = createHigherOrderComponent( ( BlockEdit ) => {
                         />
                     </InspectorAdvancedControls>
                 }
-
             </Fragment>
         );
     };
