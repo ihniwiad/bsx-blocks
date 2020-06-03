@@ -64,7 +64,7 @@ function addAttributes( settings ) {
  *
  * @return {function} BlockEdit Modified block edit component.
  */
-const withAdvancedControls = createHigherOrderComponent( ( BlockEdit ) => {
+const addAdvancedSettings = createHigherOrderComponent( ( BlockEdit ) => {
     return ( props ) => {
 
         const {
@@ -105,7 +105,7 @@ const withAdvancedControls = createHigherOrderComponent( ( BlockEdit ) => {
             </Fragment>
         );
     };
-}, 'withAdvancedControls' );
+}, 'addAdvancedSettings' );
 
 /**
  * Add custom element class in save element.
@@ -116,7 +116,7 @@ const withAdvancedControls = createHigherOrderComponent( ( BlockEdit ) => {
  *
  * @return {Object} extraProps Modified block element.
  */
-function applyExtraClass( extraProps, blockType, attributes ) {
+function addExtraProps( extraProps, blockType, attributes ) {
 
     const { visibleOnMobile } = attributes;
     
@@ -143,19 +143,19 @@ function applyExtraClass( extraProps, blockType, attributes ) {
 
 addFilter(
     'blocks.registerBlockType',
-    'editorskit/custom-attributes',
+    'bsx-blocks/add-custom-attributes',
     addAttributes
 );
 
 addFilter(
     'editor.BlockEdit',
-    'editorskit/custom-advanced-control',
-    withAdvancedControls
+    'bsx-blocks/custom-advanced-control',
+    addAdvancedSettings
 );
 
 addFilter(
     'blocks.getSaveContent.extraProps',
-    'editorskit/applyExtraClass',
-    applyExtraClass
+    'bsx-blocks/apply-extra-class',
+    addExtraProps
 );
 

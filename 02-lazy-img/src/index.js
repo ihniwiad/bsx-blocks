@@ -5,12 +5,10 @@ const {
 const {
     RichText,
     MediaUpload,
-    InspectorControls,
 } = wp.blockEditor;
 const { 
     Button,
     TextControl,
-    PanelBody,
 } = wp.components;
 
 

@@ -1,10 +1,10 @@
 {
-  "name": "05-custom-class-names",
+  "name": "05-global-block-settings",
   "version": "1.0.0",
-  "description": "05 Custom Class Names",
+  "description": "05 Global Block Settings",
+  "main": "build/index.js",
   "author": "ihniwiad",
   "license": "",
-  "main": "build/index.js",
   "devDependencies": {
     "@wordpress/scripts": "9.0.0"
   },
