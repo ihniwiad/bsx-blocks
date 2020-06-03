@@ -43,13 +43,6 @@ registerBlockType( 'bsx-blocks/wrapper', {
         dataTg: {
             type: 'string',
         },
-        dataTest: {
-            type: 'string',
-        },
-        visibleOnMobile: { 
-            type: 'boolean',
-            default: true,
-        },
     },
     edit: ( props ) => {
         const {
@@ -59,12 +52,11 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 id,
                 dataFn,
                 dataTg,
-                dataTest,
             },
             setAttributes,
         } = props;
         return (
-            <div className={ className } id={ id }>
+            <div className={ className }>
                 <InnerBlocks />
             </div>
         );
@@ -77,7 +69,6 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 id,
                 dataFn,
                 dataTg,
-                dataTest,
             },
             setAttributes,
         } = props;

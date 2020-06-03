@@ -53,15 +53,6 @@ export const addGlobalBlockSettings = createHigherOrderComponent( ( BlockEdit ) 
                                         dataTest: value,
                                     } );
                                 } } />
-                            <TextControl
-                                label={ __( 'Additional attributes' ) }
-                                help={ __( 'Some optional attributes to add to element.' ) }
-                                value={ props.attributes.additionalAttributes || '' }
-                                onChange={ ( value ) => {
-                                    props.setAttributes( {
-                                        additionalAttributes: value,
-                                    } );
-                                } } />
                         </PanelBody>
                     </InspectorControls>
                 </Fragment>
@@ -108,13 +99,13 @@ export function addAttribute( settings ) {
             } );
         }
     
-        if ( typeof settings.attributes.additionalAttributes === 'undefined' ) {
+        /*if ( typeof settings.attributes.additionalAttributes === 'undefined' ) {
             settings.attributes = Object.assign( settings.attributes, {
                 additionalAttributes: {
                     type: 'string',
                 },
             } );
-        }
+        }*/
     
         if ( typeof settings.attributes.dataTest === 'undefined' ) {
             settings.attributes = Object.assign( settings.attributes, {
@@ -146,7 +137,7 @@ export function addSaveProps( extraProps, blockType, attributes ) {
 
     // If the current block is valid, add our prop.
     if ( allowedBlocks.includes( blockType.name ) ) {
-        if ( attributes.additionalAttributes ) extraProps.additionalAttributes = attributes.additionalAttributes;
+        //if ( attributes.additionalAttributes ) extraProps.additionalAttributes = attributes.additionalAttributes;
         if ( attributes.id ) extraProps.id = attributes.id;
         if ( attributes.dataTest ) extraProps.dataTest = attributes.dataTest;
         // extraProps.className = classnames( extraProps.className, 'mobile-hidden' );

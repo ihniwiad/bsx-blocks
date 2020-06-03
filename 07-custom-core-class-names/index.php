@@ -23,8 +23,12 @@ function bsx_blocks_07_custom_core_class_names() {
 }
 add_action( 'enqueue_block_editor_assets', 'bsx_blocks_07_custom_core_class_names' );
 
-
+/**
+ *	Enqueue custom styles to resolve conflicts between core block editor style and theme style
+ */
 function bsx_blocks_07_add_editor_styles() {
-    add_editor_style( 'css/editor-style.css' );
+	wp_enqueue_style( 'css/editor-style.css',
+		plugins_url( 'css/editor-style.css', __FILE__ ) 
+	);
 }
-add_action( 'admin_init', 'bsx_blocks_07_add_editor_styles' );
+add_action( 'enqueue_block_assets', 'bsx_blocks_07_add_editor_styles' );
