@@ -70,9 +70,6 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         const onChangeMediaHeight = ( value ) => {
             setAttributes( { mediaHeight: value } );
         };
-        const onChangeIngredients = ( value ) => {
-            setAttributes( { ingredients: value } );
-        };
         const onChangeFigcaption = ( value ) => {
             setAttributes( { figcaption: value } );
         };
@@ -85,7 +82,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                         value={ mediaID }
                         render={ ( { open } ) => (
                             <Button className={ mediaID ? 'bsx-ui-img-btn h-100 w-100 px-0' : 'button button-large' } onClick={ open }>
-                                { ! mediaID ? __( 'Upload Image', 'bsx-blocks' ) : <img className={ 'img-fluid' } src={ mediaURL } alt={ __( 'Upload Recipe Image', 'bsx-blocks' ) } /> }
+                                { ! mediaID ? __( 'Upload Image', 'bsx-blocks' ) : <img className={ 'img-fluid' } src={ mediaURL } alt={ __( 'Upload Image', 'bsx-blocks' ) } /> }
                             </Button>
                         ) }
                     />
@@ -93,7 +90,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 <RichText
                     tagName="figcaption"
                     multiline={ false }
-                    placeholder={ __( 'Bildbeschreibung (optional)', 'bsx-blocks' ) }
+                    placeholder={ __( 'Caption (optional)', 'bsx-blocks' ) }
                     value={ figcaption }
                     onChange={ onChangeFigcaption }
                 />

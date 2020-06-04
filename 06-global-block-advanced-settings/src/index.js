@@ -18,6 +18,7 @@ const { ToggleControl, TextControl } = wp.components;
 const allowedBlocks = [ 
     'core/paragraph', 
     'core/heading',
+    'bsx-blocks/lazy-img',
     'bsx-blocks/wrapper',
 ];
 
@@ -35,11 +36,11 @@ function addAttributes( settings ) {
     //add allowedBlocks restriction
     if ( typeof settings.attributes !== 'undefined' && allowedBlocks.includes( settings.name ) ) {
     
-        if ( typeof settings.attributes.visibleOnMobile === 'undefined' ) {
+        if ( typeof settings.attributes.belowNavbar === 'undefined' ) {
             settings.attributes = Object.assign( settings.attributes, {
-                visibleOnMobile: { 
+                belowNavbar: { 
                     type: 'boolean',
-                    default: true,
+                    default: false,
                 }
             } );
         }
@@ -76,7 +77,7 @@ const addAdvancedSettings = createHigherOrderComponent( ( BlockEdit ) => {
 
         const {
             id,
-            visibleOnMobile,
+            belowNavbar,
         } = attributes;
         
         
@@ -93,12 +94,13 @@ const addAdvancedSettings = createHigherOrderComponent( ( BlockEdit ) => {
                                 props.setAttributes( {
                                     id: value,
                                 } );
-                            } } />
+                            } } 
+                        />
                         <ToggleControl
-                            label={ __( 'Mobile Devices Visibity' ) }
-                            checked={ !! visibleOnMobile }
-                            onChange={ () => setAttributes( {  visibleOnMobile: ! visibleOnMobile } ) }
-                            help={ !! visibleOnMobile ? __( 'Showing on mobile devices.' ) : __( 'Hidden on mobile devices.' ) }
+                            label={ __( 'Below narbar' ) }
+                            checked={ !! belowNavbar }
+                            onChange={ () => setAttributes( {  belowNavbar: ! belowNavbar } ) }
+                            help={ !! belowNavbar ? __( 'Block is not overlayed by navbar.' ) : __( 'Block is overlayed be navbar.' ) }
                         />
                     </InspectorAdvancedControls>
                 }
@@ -118,19 +120,17 @@ const addAdvancedSettings = createHigherOrderComponent( ( BlockEdit ) => {
  */
 function addExtraProps( extraProps, blockType, attributes ) {
 
-    const { visibleOnMobile } = attributes;
+    const { belowNavbar } = attributes;
     
     //check if attribute exists for old Gutenberg version compatibility
-    //add class only when visibleOnMobile = false
     //add allowedBlocks restriction
-    if ( typeof visibleOnMobile !== 'undefined' && ! visibleOnMobile && allowedBlocks.includes( blockType.name ) ) {
-        //extraProps.className = classnames( extraProps.className, 'mobile-hidden' );
+    if ( typeof belowNavbar !== 'undefined' && belowNavbar && allowedBlocks.includes( blockType.name ) ) {
 
         const classNames = typeof extraProps.className !== 'undefined' ? extraProps.className.split( ' ' ) : [];
         
-        if ( ! classNames.includes( 'mobile-hidden' ) ) {
+        if ( ! classNames.includes( 'below-navbar-content' ) ) {
             // add (if not already set)
-            classNames.push( 'mobile-hidden' );
+            classNames.push( 'below-navbar-content' );
         }
 
         extraProps.className = classNames.join( ' ' );

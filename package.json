@@ -3,14 +3,7 @@
   "version": "1.0.0",
   "description": "BSX Blocks",
   "author": "ihniwiad",
-  "license": "GPL-2.0-only",
-  "devDependencies": {
-    "@wordpress/scripts": "9.0.0",
-    "lerna": "^3.21.0"
-  },
-  "dependencies": {
-    "@wordpress/server-side-render": "^1.12.0"
-  },
+  "license": "",
   "scripts": {
     "start": "wp-scripts start",
     "build": "wp-scripts build"

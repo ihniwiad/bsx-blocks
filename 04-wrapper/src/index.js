@@ -1,3 +1,10 @@
+/*
+    TODO:
+        - what about empty `<p>` element at end?
+        - which HTML attributes to add?
+*/
+
+
 const { __, setLocaleData } = wp.i18n;
 
 import { registerBlockType } from '@wordpress/blocks';
@@ -72,10 +79,6 @@ registerBlockType( 'bsx-blocks/wrapper', {
             },
             setAttributes,
         } = props;
-
-        // TODO: build object before, then add to div
-        //const addAttr = { className: className };
-        //if ( id ) addAttr = Object.assign( addAttr, { id: id } );
 
         return (
             <div className={ className }>
