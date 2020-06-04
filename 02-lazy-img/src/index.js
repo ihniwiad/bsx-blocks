@@ -57,6 +57,8 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 mediaURL: media.url,
                 mediaID: media.id,
                 mediaAlt: media.alt,
+                mediaWidth: media.sizes.full.width,
+                mediaHeight: media.sizes.full.height,
             } );
         };
         const onChangeMediaAlt = ( value ) => {
