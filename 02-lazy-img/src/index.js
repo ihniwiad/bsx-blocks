@@ -27,10 +27,10 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             type: 'string',
         },
         mediaWidth: {
-            type: 'string',
+            type: 'number',
         },
         mediaHeight: {
-            type: 'string',
+            type: 'number',
         },
         figcaption: {
             type: 'array',
