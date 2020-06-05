@@ -100,7 +100,7 @@ const addAdvancedSettings = createHigherOrderComponent( ( BlockEdit ) => {
                             label={ __( 'Below narbar' ) }
                             checked={ !! belowNavbar }
                             onChange={ () => setAttributes( {  belowNavbar: ! belowNavbar } ) }
-                            help={ !! belowNavbar ? __( 'Block is not overlayed by navbar.' ) : __( 'Block is overlayed be navbar.' ) }
+                            help={ !! belowNavbar ? __( 'Block is overlayed by navbar.' ) : __( 'Block is not overlayed by navbar.' ) }
                         />
                     </InspectorAdvancedControls>
                 }

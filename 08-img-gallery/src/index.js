@@ -32,19 +32,25 @@ registerBlockType( 'bsx-blocks/img-gallery', {
             setAttributes,
             isSelected,
         } = props;
-        const onAddImage = ( media ) => {
-            addMediaListItem( { 
-                id: media.id,
-                url: media.url,
-                width: media.sizes.full.width,
-                height: media.sizes.full.height,
-                alt: media.alt,
-                thumbUrl: media.sizes.medium.url,
-                thumbWidth: media.sizes.medium.width,
-                thumbHeight: media.sizes.medium.height,
-                caption: media.alt,
+
+        const onAddImage = ( mediaStack ) => {
+            const addMedia = [];
+            mediaStack.forEach( ( media ) => {
+                addMedia.push( { 
+                    id: media.id,
+                    url: media.url,
+                    width: media.sizes.full.width,
+                    height: media.sizes.full.height,
+                    alt: media.alt,
+                    thumbUrl: media.sizes.medium.url,
+                    thumbWidth: media.sizes.medium.width,
+                    thumbHeight: media.sizes.medium.height,
+                    caption: media.alt,
+                } );
             } );
+            addMediaListItem( addMedia );
         };
+
         const onUpdateImage = ( media, index ) => {
             updateMediaListItem( { 
                 id: media.id,
@@ -58,6 +64,7 @@ registerBlockType( 'bsx-blocks/img-gallery', {
                 caption: media.alt,
             }, index );
         };
+
         const onClickDelete = ( index ) => {
             deleteMediaListItem( index );
         };
@@ -91,9 +98,7 @@ registerBlockType( 'bsx-blocks/img-gallery', {
             setAttributes( { mediaList: newMediaList } );
         }
 
-
-
-        const addMediaListItem = ( newItem ) => setAttributes( { mediaList: [ ...mediaList, newItem ] } );
+        const addMediaListItem = ( newItem ) => setAttributes( { mediaList: [ ...mediaList, ...newItem ] } );
 
         const updateMediaListItem = ( newItem, index ) => {
             const newMediaList = [
@@ -130,7 +135,7 @@ registerBlockType( 'bsx-blocks/img-gallery', {
         return (
             <div className={ className }>
 
-                <div class="row">
+                <div className="row">
                     {
                         mediaList.map( ( media, index ) => 
                             <div class="col-xs-6 col-sm-3 mb-4">
@@ -154,7 +159,7 @@ registerBlockType( 'bsx-blocks/img-gallery', {
                                         onChange={ ( value ) => { onChangeCaption( value, index ) } }
                                     />
                                 </div>
-                                <div className="d-flex mb-3">
+                                <div className="d-flex">
                                     <IconButton 
                                         className="button" 
                                         icon="arrow-left-alt2"
@@ -177,18 +182,19 @@ registerBlockType( 'bsx-blocks/img-gallery', {
                             </div>
                         )
                     }
-                </div>
 
-                <div className="bsx-ui-img-upload border bg-light p-2">
-                    <MediaUpload
-                        onSelect={ onAddImage }
-                        allowedTypes="image"
-                        render={ ( { open } ) => (
-                            <Button className="button button-large" onClick={ open }>
-                                { __( 'Add Image', 'bsx-blocks' ) }
-                            </Button>
-                        ) }
-                    />
+                    <div className="col-xs-6 col-sm-3 mb-4 bsx-ui-img-upload">
+                        <MediaUpload
+                            onSelect={ onAddImage }
+                            allowedTypes="image"
+                            multiple
+                            render={ ( { open } ) => (
+                                <Button className="button button-large w-100" onClick={ open }>
+                                    { __( 'Add Images', 'bsx-blocks' ) }
+                                </Button>
+                            ) }
+                        />
+                    </div>
                 </div>
             </div>
         );
