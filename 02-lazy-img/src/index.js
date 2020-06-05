@@ -5,10 +5,12 @@ const {
 const {
     RichText,
     MediaUpload,
+    InspectorControls,
 } = wp.blockEditor;
 const { 
     Button,
     TextControl,
+    PanelBody,
 } = wp.components;
 
 
@@ -73,57 +75,59 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         const onChangeFigcaption = ( value ) => {
             setAttributes( { figcaption: value } );
         };
-        return (
-            <div className={ className }>
-                <div className={ mediaID ? 'bsx-ui-img-upload' : 'bsx-ui-img-upload border bg-light p-2' }>
-                    <MediaUpload
-                        onSelect={ onSelectImage }
-                        allowedTypes="image"
-                        value={ mediaID }
-                        render={ ( { open } ) => (
-                            <Button className={ mediaID ? 'bsx-ui-img-btn h-100 w-100 px-0' : 'button button-large' } onClick={ open }>
-                                { ! mediaID ? __( 'Upload Image', 'bsx-blocks' ) : <img className={ 'img-fluid' } src={ mediaURL } alt={ __( 'Upload Image', 'bsx-blocks' ) } /> }
-                            </Button>
-                        ) }
+        return [
+            <InspectorControls>
+                <PanelBody title={ __( 'BSX Block Settings', 'bsx-blocks' ) }>
+                    <TextControl 
+                        label={ __( 'Width', 'bsx-blocks' ) }
+                        className="mediaWidth" 
+                        value={ mediaWidth } 
+                        onChange={ onChangeMediaWidth }
                     />
-                </div>
-                <RichText
-                    tagName="figcaption"
-                    multiline={ false }
-                    placeholder={ __( 'Caption (optional)', 'bsx-blocks' ) }
-                    value={ figcaption }
-                    onChange={ onChangeFigcaption }
-                />
-                { isSelected && (
-                    <div class="border bg-light mt-2 px-1">
-                        <div>
-                            <TextControl 
-                                label={ __( 'Width', 'bsx-blocks' ) }
-                                className="mediaWidth" 
-                                value={ mediaWidth } 
-                                onChange={ onChangeMediaWidth }
-                            />
-                        </div>
-                        <div>
-                            <TextControl 
-                                label={ __( 'Height', 'bsx-blocks' ) }
-                                className="mediaHeight" 
-                                value={ mediaHeight } 
-                                onChange={ onChangeMediaHeight }
-                            />
-                        </div>
-                        <div>
-                            <TextControl 
-                                label={ __( 'Alt', 'bsx-blocks' ) }
-                                className="mediaAlt" 
-                                value={ mediaAlt } 
-                                onChange={ onChangeMediaAlt }
-                            />
-                        </div>
+                    <TextControl 
+                        label={ __( 'Height', 'bsx-blocks' ) }
+                        className="mediaHeight" 
+                        value={ mediaHeight } 
+                        onChange={ onChangeMediaHeight }
+                    />
+                </PanelBody>
+            </InspectorControls>,
+            (
+                <div className={ className }>
+                    <div className={ mediaID ? 'bsx-ui-img-upload' : 'bsx-ui-img-upload border bg-light p-2' }>
+                        <MediaUpload
+                            onSelect={ onSelectImage }
+                            allowedTypes="image"
+                            value={ mediaID }
+                            render={ ( { open } ) => (
+                                <Button className={ mediaID ? 'bsx-ui-img-btn h-auto w-100 px-0' : 'button button-large' } onClick={ open }>
+                                    { ! mediaID ? __( 'Upload Image', 'bsx-blocks' ) : <img className={ 'img-fluid' } src={ mediaURL } alt={ __( 'Upload Image', 'bsx-blocks' ) } /> }
+                                </Button>
+                            ) }
+                        />
                     </div>
-                ) }
-            </div>
-        );
+                    <RichText
+                        tagName="figcaption"
+                        multiline={ false }
+                        placeholder={ __( 'Caption (optional)', 'bsx-blocks' ) }
+                        value={ figcaption }
+                        onChange={ onChangeFigcaption }
+                    />
+                    { isSelected && (
+                        <div class="border bg-light mt-2 px-1">
+                            <div>
+                                <TextControl 
+                                    label={ __( 'Alt', 'bsx-blocks' ) }
+                                    className="mediaAlt" 
+                                    value={ mediaAlt } 
+                                    onChange={ onChangeMediaAlt }
+                                />
+                            </div>
+                        </div>
+                    ) }
+                </div>
+            )
+        ];
     },
     save: ( props ) => {
         const {

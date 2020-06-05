@@ -1,4 +1,9 @@
 
+/* make editor wider */
+.wp-block {
+    max-width: unset !important;
+}
+
 /* columns (make core style ready for bootstrap style) */
 .block-editor-inner-blocks {
     width: 100%;
