@@ -101,7 +101,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                             value={ mediaID }
                             render={ ( { open } ) => (
                                 <Button className={ mediaID ? 'bsx-ui-img-btn h-auto w-100 px-0' : 'button button-large' } onClick={ open }>
-                                    { ! mediaID ? __( 'Upload Image', 'bsx-blocks' ) : <img className={ 'img-fluid' } src={ mediaURL } alt={ __( 'Upload Image', 'bsx-blocks' ) } /> }
+                                    { ! mediaID ? __( 'Select / upload Image', 'bsx-blocks' ) : <img className={ 'img-fluid' } src={ mediaURL } alt={ __( 'Select / upload Image', 'bsx-blocks' ) } /> }
                                 </Button>
                             ) }
                         />
