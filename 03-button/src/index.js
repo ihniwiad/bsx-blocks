@@ -3,7 +3,6 @@ const { __, setLocaleData } = wp.i18n;
 import { registerBlockType } from '@wordpress/blocks';
 import { RichText } from '@wordpress/block-editor';
 import { TextControl, ToggleControl } from '@wordpress/components';
-import { withSelect } from '@wordpress/data';
 import ServerSideRender from '@wordpress/server-side-render';
 import { SelectControl } from '@wordpress/components';
 import { withState } from '@wordpress/compose';
