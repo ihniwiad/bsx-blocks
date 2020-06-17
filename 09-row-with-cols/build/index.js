@@ -220,10 +220,10 @@ module.exports = _unsupportedIterableToArray;
 
 /***/ }),
 
-/***/ "./src/index.js":
-/*!**********************!*\
-  !*** ./src/index.js ***!
-  \**********************/
+/***/ "./src/col/block.js":
+/*!**************************!*\
+  !*** ./src/col/block.js ***!
+  \**************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -247,9 +247,7 @@ var _wp$components = wp.components,
     PanelBody = _wp$components.PanelBody,
     RangeControl = _wp$components.RangeControl,
     ToggleControl = _wp$components.ToggleControl;
-var _wp$data = wp.data,
-    withSelect = _wp$data.withSelect,
-    withDispatch = _wp$data.withDispatch;
+var withSelect = wp.data.withSelect;
 
 var makeColClassNames = function makeColClassNames(sizesArray) {
   var prefix = 'col';
@@ -273,8 +271,8 @@ var makeColClassNames = function makeColClassNames(sizesArray) {
 
       colClassNames.push(buildClassName);
     }
-  });
-  console.log('colClassNames.join( \' \' ): "' + colClassNames.join(' ') + '"');
+  }); //console.log( 'colClassNames.join( \' \' ): "' + colClassNames.join( ' ' ) + '"' );
+
   return colClassNames.join(' ');
 };
 
@@ -313,23 +311,18 @@ registerBlockType('bsx-blocks/col', {
     var clientId = _ref.clientId;
 
     var _select = select('core/block-editor'),
-        getBlockHierarchyRootClientId = _select.getBlockHierarchyRootClientId,
         getBlockParentsByBlockName = _select.getBlockParentsByBlockName,
-        getBlockAttributes = _select.getBlockAttributes; // get root (not parent)
-    //const parentClientId = getBlockHierarchyRootClientId( clientId );
+        getBlockAttributes = _select.getBlockAttributes; //console.log( 'parentClientId: "' + parentClientId + '"' );
 
 
-    console.log('parentClientId: "' + parentClientId + '"'); // getBlockParentsByBlockName
+    var ancestorClientIds = getBlockParentsByBlockName(clientId, 'bsx-blocks/row-with-cols'); //console.log( 'ancestorClientIds: "' + ancestorClientIds + '"' );
 
-    var ancestorClientIds = getBlockParentsByBlockName(clientId, 'bsx-blocks/row-with-cols');
-    console.log('ancestorClientIds: "' + ancestorClientIds + '"');
     ancestorClientIds.forEach(function (ancestorClientId, index) {
       console.log('ancestorClientId[ ' + index + ' ]: "' + ancestorClientId + '"');
     }); // get last item which is parent
 
     var parentClientId = ancestorClientIds[ancestorClientIds.length - 1];
-    var parentAttributes = getBlockAttributes(parentClientId);
-    console.log('parentAttributes: "' + parentAttributes + '"');
+    var parentAttributes = getBlockAttributes(parentClientId); //console.log( 'parentAttributes: "' + parentAttributes + '"' );
 
     if (!!parentAttributes) {
       for (var _i = 0, _Object$entries = Object.entries(parentAttributes); _i < _Object$entries.length; _i++) {
@@ -339,9 +332,9 @@ registerBlockType('bsx-blocks/col', {
 
         console.log('key: "' + key + '", value: "' + value + '"');
       }
-    }
+    } //console.log( 'parentAttributes.fromRowConfig: "' + parentAttributes.fromRowConfig + '"' );
 
-    console.log('parentAttributes.fromRowConfig: "' + parentAttributes.fromRowConfig + '"');
+
     return {
       parentAttributes: parentAttributes
     };
@@ -525,7 +518,7 @@ registerBlockType('bsx-blocks/col', {
       fromRowConfig: parentAttributes.fromRowConfig
     });
     return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
-      title: __('BSX Block Settings', 'bsx-blocks')
+      title: __('BSX Column Sizes (each single column)', 'bsx-blocks')
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RangeControl, {
       label: __('XS Column Width', 'bsx-blocks'),
       value: parseInt(sizeXs),
@@ -646,6 +639,78 @@ registerBlockType('bsx-blocks/col', {
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerBlocks.Content, null));
   }
 });
+
+/***/ }),
+
+/***/ "./src/index.js":
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _col_block_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./col/block.js */ "./src/col/block.js");
+/* harmony import */ var _row_block_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./row/block.js */ "./src/row/block.js");
+
+
+
+/***/ }),
+
+/***/ "./src/row/block.js":
+/*!**************************!*\
+  !*** ./src/row/block.js ***!
+  \**************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+
+var _wp$i18n = wp.i18n,
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData;
+var registerBlockType = wp.blocks.registerBlockType;
+var _wp$blockEditor = wp.blockEditor,
+    InnerBlocks = _wp$blockEditor.InnerBlocks,
+    InspectorControls = _wp$blockEditor.InspectorControls;
+var _wp$components = wp.components,
+    TextControl = _wp$components.TextControl,
+    PanelBody = _wp$components.PanelBody,
+    RangeControl = _wp$components.RangeControl,
+    ToggleControl = _wp$components.ToggleControl,
+    SelectControl = _wp$components.SelectControl;
+var _wp$data = wp.data,
+    withSelect = _wp$data.withSelect,
+    withDispatch = _wp$data.withDispatch;
+
+var makeRowClassNames = function makeRowClassNames(alignItems, justifyContent, noGutters, formRow) {
+  var prefix = 'col';
+  var rowClassNames = ['row'];
+
+  if (alignItems) {
+    rowClassNames.push('align-items-' + alignItems);
+  }
+
+  if (justifyContent) {
+    rowClassNames.push('justify-content-' + justifyContent);
+  }
+
+  if (noGutters) {
+    rowClassNames.push('no-gutters');
+  }
+
+  if (formRow) {
+    rowClassNames.push('form-row');
+  } //console.log( 'rowClassNames.join( \' \' ): "' + rowClassNames.join( ' ' ) + '"' );
+
+
+  return rowClassNames.join(' ');
+};
+
 registerBlockType('bsx-blocks/row-with-cols', {
   title: __('BSX Columns', 'bsx-blocks'),
   icon: 'grid-view',
@@ -657,13 +722,40 @@ registerBlockType('bsx-blocks/row-with-cols', {
     fromRowConfig: {
       type: 'string',
       default: 'Test hello! :D'
+    },
+    alignItems: {
+      type: 'string'
+    },
+    justifyContent: {
+      type: 'string'
+    },
+    noGutters: {
+      type: 'boolean'
+    },
+    formRow: {
+      type: 'boolean'
+    },
+    sizeXs: {
+      type: 'string'
+    },
+    sizeSm: {
+      type: 'string'
+    },
+    sizeMd: {
+      type: 'string'
+    },
+    sizeLg: {
+      type: 'string'
+    },
+    sizeXl: {
+      type: 'string'
     }
   },
-  edit: withSelect(function (select, _ref2) {
-    var clientId = _ref2.clientId;
+  edit: withSelect(function (select, _ref) {
+    var clientId = _ref.clientId;
 
-    var _select2 = select('core/block-editor'),
-        getBlocksByClientId = _select2.getBlocksByClientId;
+    var _select = select('core/block-editor'),
+        getBlocksByClientId = _select.getBlocksByClientId;
 
     var children = getBlocksByClientId(clientId)[0] ? getBlocksByClientId(clientId)[0].innerBlocks : [];
     return {
@@ -679,9 +771,18 @@ registerBlockType('bsx-blocks/row-with-cols', {
   })(function (props) {
     var clientId = props.clientId,
         className = props.className,
-        _props$attributes3 = props.attributes,
-        rowConfig = _props$attributes3.rowConfig,
-        fromRowConfig = _props$attributes3.fromRowConfig,
+        _props$attributes = props.attributes,
+        rowConfig = _props$attributes.rowConfig,
+        fromRowConfig = _props$attributes.fromRowConfig,
+        alignItems = _props$attributes.alignItems,
+        justifyContent = _props$attributes.justifyContent,
+        noGutters = _props$attributes.noGutters,
+        formRow = _props$attributes.formRow,
+        sizeXs = _props$attributes.sizeXs,
+        sizeSm = _props$attributes.sizeSm,
+        sizeMd = _props$attributes.sizeMd,
+        sizeLg = _props$attributes.sizeLg,
+        sizeXl = _props$attributes.sizeXl,
         setAttributes = props.setAttributes,
         isSelected = props.isSelected,
         children = props.children,
@@ -713,54 +814,372 @@ registerBlockType('bsx-blocks/row-with-cols', {
       });
     };
 
-    var applyWithSelect = withSelect(function (select, _ref3) {
-      var clientId = _ref3.clientId;
+    var onChangeAlignItems = function onChangeAlignItems(value) {
+      setAttributes({
+        alignItems: value
+      });
+    };
 
-      var _select3 = select('core/block-editor'),
-          getBlocksByClientId = _select3.getBlocksByClientId;
+    var onChangeJustifyContent = function onChangeJustifyContent(value) {
+      setAttributes({
+        justifyContent: value
+      });
+    };
 
-      var columns = getBlocksByClientId(clientId)[0] ? getBlocksByClientId(clientId)[0].innerBlocks : [];
-      return {
-        columns: columns
-      };
-    });
-    var applyWithDispatch = withDispatch(function (dispatch) {
-      var _dispatch2 = dispatch('core/block-editor'),
-          updateBlockAttributes = _dispatch2.updateBlockAttributes;
+    var onChangeNoGutters = function onChangeNoGutters(value) {
+      setAttributes({
+        noGutters: value
+      });
 
-      return {
-        updateBlockAttributes: updateBlockAttributes
-      };
-    });
-    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
-      title: __('BSX Block Settings', 'bsx-blocks')
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(TextControl, {
+      if (value === true) {
+        setAttributes({
+          formRow: false
+        });
+      }
+    };
+
+    var onChangeFormRow = function onChangeFormRow(value) {
+      setAttributes({
+        formRow: value
+      });
+
+      if (value === true) {
+        setAttributes({
+          noGutters: false
+        });
+      }
+    }; // xs
+
+
+    var onChangeXsColSize = function onChangeXsColSize(value) {
+      setAttributes({
+        sizeXs: !!value ? value.toString() : ''
+      });
+    };
+
+    var onChangeXsEqualSize = function onChangeXsEqualSize(value) {
+      if (value) {
+        setAttributes({
+          sizeXs: 'null'
+        });
+      } else if (sizeXs == 'null') {
+        setAttributes({
+          sizeXs: ''
+        });
+      }
+    };
+
+    var onChangeXsAutoSize = function onChangeXsAutoSize(value) {
+      if (value) {
+        setAttributes({
+          sizeXs: 'auto'
+        });
+      } else if (sizeXs == 'auto') {
+        setAttributes({
+          sizeXs: ''
+        });
+      }
+    }; // sm
+
+
+    var onChangeSmColSize = function onChangeSmColSize(value) {
+      setAttributes({
+        sizeSm: !!value ? value.toString() : ''
+      });
+    };
+
+    var onChangeSmEqualSize = function onChangeSmEqualSize(value) {
+      if (value) {
+        setAttributes({
+          sizeSm: 'null'
+        });
+      } else if (sizeSm == 'null') {
+        setAttributes({
+          sizeSm: ''
+        });
+      }
+    };
+
+    var onChangeSmAutoSize = function onChangeSmAutoSize(value) {
+      if (value) {
+        setAttributes({
+          sizeSm: 'auto'
+        });
+      } else if (sizeSm == 'auto') {
+        setAttributes({
+          sizeSm: ''
+        });
+      }
+    }; // md
+
+
+    var onChangeMdColSize = function onChangeMdColSize(value) {
+      setAttributes({
+        sizeMd: !!value ? value.toString() : ''
+      });
+    };
+
+    var onChangeMdEqualSize = function onChangeMdEqualSize(value) {
+      if (value) {
+        setAttributes({
+          sizeMd: 'null'
+        });
+      } else if (sizeMd == 'null') {
+        setAttributes({
+          sizeMd: ''
+        });
+      }
+    };
+
+    var onChangeMdAutoSize = function onChangeMdAutoSize(value) {
+      if (value) {
+        setAttributes({
+          sizeMd: 'auto'
+        });
+      } else if (sizeMd == 'auto') {
+        setAttributes({
+          sizeMd: ''
+        });
+      }
+    }; // lg
+
+
+    var onChangeLgColSize = function onChangeLgColSize(value) {
+      setAttributes({
+        sizeLg: !!value ? value.toString() : ''
+      });
+    };
+
+    var onChangeLgEqualSize = function onChangeLgEqualSize(value) {
+      if (value) {
+        setAttributes({
+          sizeLg: 'null'
+        });
+      } else if (sizeLg == 'null') {
+        setAttributes({
+          sizeLg: ''
+        });
+      }
+    };
+
+    var onChangeLgAutoSize = function onChangeLgAutoSize(value) {
+      if (value) {
+        setAttributes({
+          sizeLg: 'auto'
+        });
+      } else if (sizeLg == 'auto') {
+        setAttributes({
+          sizeLg: ''
+        });
+      }
+    }; // xl
+
+
+    var onChangeXlColSize = function onChangeXlColSize(value) {
+      setAttributes({
+        sizeXl: !!value ? value.toString() : ''
+      });
+    };
+
+    var onChangeXlEqualSize = function onChangeXlEqualSize(value) {
+      if (value) {
+        setAttributes({
+          sizeXl: 'null'
+        });
+      } else if (sizeXl == 'null') {
+        setAttributes({
+          sizeXl: ''
+        });
+      }
+    };
+
+    var onChangeXlAutoSize = function onChangeXlAutoSize(value) {
+      if (value) {
+        setAttributes({
+          sizeXl: 'auto'
+        });
+      } else if (sizeXl == 'auto') {
+        setAttributes({
+          sizeXl: ''
+        });
+      }
+    };
+
+    var rowClassNames = makeRowClassNames(alignItems, justifyContent, noGutters, formRow);
+    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
+      title: __('Columns Options', 'bsx-blocks')
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+      label: __('Vertical Align', 'bsx-blocks'),
+      value: alignItems,
+      onChange: onChangeAlignItems,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: 'start',
+        label: __('Start', 'bsx-blocks')
+      }, {
+        value: 'center',
+        label: __('Center', 'bsx-blocks')
+      }, {
+        value: 'end',
+        label: __('End', 'bsx-blocks')
+      }]
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+      label: __('Justify Content', 'bsx-blocks'),
+      value: justifyContent,
+      onChange: onChangeJustifyContent,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: 'start',
+        label: __('Start', 'bsx-blocks')
+      }, {
+        value: 'center',
+        label: __('Center', 'bsx-blocks')
+      }, {
+        value: 'end',
+        label: __('End', 'bsx-blocks')
+      }, {
+        value: 'between',
+        label: __('Between', 'bsx-blocks')
+      }, {
+        value: 'around',
+        label: __('Around', 'bsx-blocks')
+      }]
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+      label: __('No Gutters', 'bsx-blocks'),
+      checked: !!noGutters,
+      onChange: onChangeNoGutters
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+      label: __('Form Row', 'bsx-blocks'),
+      checked: !!formRow,
+      onChange: onChangeFormRow
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
+      title: __('Group Column Settings (overwriting single column settings)', 'bsx-blocks')
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RangeControl, {
+      label: __('XS Column Width', 'bsx-blocks'),
+      value: parseInt(sizeXs),
+      onChange: onChangeXsColSize,
+      min: 0,
+      max: 12,
+      help: __('1 ... 12 or empty', 'bsx-blocks'),
+      className: "mb-0"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+      label: __('XS Equal Width', 'bsx-blocks'),
+      checked: sizeXs == 'null',
+      onChange: onChangeXsEqualSize,
+      className: "mb-0"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+      label: __('XS Auto Width', 'bsx-blocks'),
+      checked: sizeXs == 'auto',
+      onChange: onChangeXsAutoSize
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RangeControl, {
+      label: __('SM Column Width', 'bsx-blocks'),
+      value: parseInt(sizeSm),
+      onChange: onChangeSmColSize,
+      min: 0,
+      max: 12,
+      help: __('1 ... 12 or empty', 'bsx-blocks'),
+      className: "mb-0"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+      label: __('SM Equal Width', 'bsx-blocks'),
+      checked: sizeSm == 'null',
+      onChange: onChangeSmEqualSize,
+      className: "mb-0"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+      label: __('SM Auto Width', 'bsx-blocks'),
+      checked: sizeSm == 'auto',
+      onChange: onChangeSmAutoSize
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RangeControl, {
+      label: __('MD Column Width', 'bsx-blocks'),
+      value: parseInt(sizeMd),
+      onChange: onChangeMdColSize,
+      min: 0,
+      max: 12,
+      help: __('1 ... 12 or empty', 'bsx-blocks'),
+      className: "mb-0"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+      label: __('MD Equal Width', 'bsx-blocks'),
+      checked: sizeMd == 'null',
+      onChange: onChangeMdEqualSize,
+      className: "mb-0"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+      label: __('MD Auto Width', 'bsx-blocks'),
+      checked: sizeMd == 'auto',
+      onChange: onChangeMdAutoSize
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RangeControl, {
+      label: __('LG Column Width', 'bsx-blocks'),
+      value: parseInt(sizeLg),
+      onChange: onChangeLgColSize,
+      min: 0,
+      max: 12,
+      help: __('1 ... 12 or empty', 'bsx-blocks'),
+      className: "mb-0"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+      label: __('LG Equal Width', 'bsx-blocks'),
+      checked: sizeLg == 'null',
+      onChange: onChangeLgEqualSize,
+      className: "mb-0"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+      label: __('LG Auto Width', 'bsx-blocks'),
+      checked: sizeLg == 'auto',
+      onChange: onChangeLgAutoSize
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RangeControl, {
+      label: __('XL Column Width', 'bsx-blocks'),
+      value: parseInt(sizeXl),
+      onChange: onChangeXlColSize,
+      min: 0,
+      max: 12,
+      help: __('1 ... 12 or empty', 'bsx-blocks'),
+      className: "mb-0"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+      label: __('XL Equal Width', 'bsx-blocks'),
+      checked: sizeXl == 'null',
+      onChange: onChangeXlEqualSize,
+      className: "mb-0"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+      label: __('XL Auto Width', 'bsx-blocks'),
+      checked: sizeXl == 'auto',
+      onChange: onChangeXlAutoSize
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
       label: __('Row config (test)', 'bsx-blocks'),
       value: rowConfig,
       onChange: onChangeRowConfig
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(TextControl, {
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
       label: __('Row config (test)', 'bsx-blocks'),
       value: fromRowConfig,
       onChange: onChangeFromRowConfig
-    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
-      className: "row",
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: rowClassNames,
       "data-row-config": rowConfig,
       "data-from-row-config": fromRowConfig
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerBlocks, {
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks, {
       template: colsTemplate,
       allowedBlocks: allowedBlocks
     }))];
   })),
   save: function save(props) {
     var className = props.className,
-        _props$attributes4 = props.attributes,
-        rowConfig = _props$attributes4.rowConfig,
-        fromRowConfig = _props$attributes4.fromRowConfig;
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
-      className: "row",
+        _props$attributes2 = props.attributes,
+        rowConfig = _props$attributes2.rowConfig,
+        fromRowConfig = _props$attributes2.fromRowConfig,
+        alignItems = _props$attributes2.alignItems,
+        justifyContent = _props$attributes2.justifyContent,
+        noGutters = _props$attributes2.noGutters,
+        formRow = _props$attributes2.formRow,
+        sizeXs = _props$attributes2.sizeXs,
+        sizeSm = _props$attributes2.sizeSm,
+        sizeMd = _props$attributes2.sizeMd,
+        sizeLg = _props$attributes2.sizeLg,
+        sizeXl = _props$attributes2.sizeXl;
+    var rowClassNames = makeRowClassNames(alignItems, justifyContent, noGutters, formRow);
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: rowClassNames,
       "data-row-config": rowConfig,
       "data-from-row-config": fromRowConfig
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerBlocks.Content, null));
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks.Content, null));
   }
 });
 
