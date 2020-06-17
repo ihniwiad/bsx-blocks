@@ -69,6 +69,9 @@ registerBlockType( 'bsx-blocks/col', {
         rowConfig: {
             type: 'string'
         },
+        fromRowConfig: {
+            type: 'string'
+        },
         sizeXs: {
             type: 'string',
         },
@@ -85,13 +88,54 @@ registerBlockType( 'bsx-blocks/col', {
             type: 'string',
         },
     },
-    edit: ( props ) => {
+    edit: withSelect( ( select, { clientId } ) => {
+        const { 
+            getBlockHierarchyRootClientId, 
+            getBlockParentsByBlockName, 
+            getBlockAttributes, 
+        } = select( 'core/block-editor' );
+
+        // get root (not parent)
+        //const parentClientId = getBlockHierarchyRootClientId( clientId );
+
+        console.log( 'parentClientId: "' + parentClientId + '"' );
+
+        // getBlockParentsByBlockName
+
+        const ancestorClientIds = getBlockParentsByBlockName( clientId, 'bsx-blocks/row-with-cols' );
+
+        console.log( 'ancestorClientIds: "' + ancestorClientIds + '"' );
+
+        ancestorClientIds.forEach( ( ancestorClientId, index ) => {
+            console.log( 'ancestorClientId[ ' + index + ' ]: "' + ancestorClientId + '"' );
+        } ); 
+
+        // get last item which is parent
+        const parentClientId = ancestorClientIds[ ancestorClientIds.length - 1 ];
+
+        const parentAttributes = getBlockAttributes( parentClientId );
+
+        console.log( 'parentAttributes: "' + parentAttributes + '"' );
+
+        if ( !! parentAttributes ) {
+            for ( let [ key, value ] of Object.entries( parentAttributes ) ) {
+                console.log( 'key: "' + key + '", value: "' + value + '"' );
+            }
+        }
+
+        console.log( 'parentAttributes.fromRowConfig: "' + parentAttributes.fromRowConfig + '"' );
+
+        return {
+            parentAttributes,
+        };
+    } )( ( props ) => {
 
         const {
             className,
             attributes: {
                 rowConfig,
                 colConfig,
+                fromRowConfig,
                 sizeXs,
                 sizeSm,
                 sizeMd,
@@ -99,6 +143,7 @@ registerBlockType( 'bsx-blocks/col', {
                 sizeXl,
             },
             setAttributes,
+            parentAttributes,
         } = props;
 
         const onChangeColConfig = ( value ) => {
@@ -212,6 +257,8 @@ registerBlockType( 'bsx-blocks/col', {
 
         const colClassName = makeColClassNames( [ sizeXs, sizeSm, sizeMd, sizeLg, sizeXl ] );
 
+        setAttributes( { fromRowConfig: parentAttributes.fromRowConfig } );
+
         return [
             <InspectorControls>
                 <PanelBody title={ __( 'BSX Block Settings', 'bsx-blocks' ) }>
@@ -221,8 +268,7 @@ registerBlockType( 'bsx-blocks/col', {
                         onChange={ onChangeXsColSize }
                         min={ 0 }
                         max={ 12 }
-                        disabled={ sizeXs == 'null' || sizeXs == 'auto' }
-                        help={ __( 'If disabled deactivate options below', 'bsx-blocks' ) }
+                        help={ __( '1 ... 12 or empty', 'bsx-blocks' ) }
                         className="mb-0"
                     />
                     <ToggleControl
@@ -243,8 +289,7 @@ registerBlockType( 'bsx-blocks/col', {
                         onChange={ onChangeSmColSize }
                         min={ 0 }
                         max={ 12 }
-                        disabled={ sizeSm == 'null' || sizeSm == 'auto' }
-                        help={ __( 'If disabled deactivate options below', 'bsx-blocks' ) }
+                        help={ __( '1 ... 12 or empty', 'bsx-blocks' ) }
                         className="mb-0"
                     />
                     <ToggleControl
@@ -265,8 +310,7 @@ registerBlockType( 'bsx-blocks/col', {
                         onChange={ onChangeMdColSize }
                         min={ 0 }
                         max={ 12 }
-                        disabled={ sizeMd == 'null' || sizeMd == 'auto' }
-                        help={ __( 'If disabled deactivate options below', 'bsx-blocks' ) }
+                        help={ __( '1 ... 12 or empty', 'bsx-blocks' ) }
                         className="mb-0"
                     />
                     <ToggleControl
@@ -287,8 +331,7 @@ registerBlockType( 'bsx-blocks/col', {
                         onChange={ onChangeLgColSize }
                         min={ 0 }
                         max={ 12 }
-                        disabled={ sizeLg == 'null' || sizeLg == 'auto' }
-                        help={ __( 'If disabled deactivate options below', 'bsx-blocks' ) }
+                        help={ __( '1 ... 12 or empty', 'bsx-blocks' ) }
                         className="mb-0"
                     />
                     <ToggleControl
@@ -309,8 +352,7 @@ registerBlockType( 'bsx-blocks/col', {
                         onChange={ onChangeXlColSize }
                         min={ 0 }
                         max={ 12 }
-                        disabled={ sizeXl == 'null' || sizeXl == 'auto' }
-                        help={ __( 'If disabled deactivate options below', 'bsx-blocks' ) }
+                        help={ __( '1 ... 12 or empty', 'bsx-blocks' ) }
                         className="mb-0"
                     />
                     <ToggleControl
@@ -333,7 +375,7 @@ registerBlockType( 'bsx-blocks/col', {
                 </PanelBody>
             </InspectorControls>,
             (
-                <div className={ colClassName } data-col-config={ colConfig } data-row-config={ rowConfig }>
+                <div className={ colClassName } data-col-config={ colConfig } data-row-config={ rowConfig } data-from-row-config={ fromRowConfig }>
                     <InnerBlocks 
                         renderAppender={ () => (
                             <InnerBlocks.ButtonBlockAppender />
@@ -342,7 +384,7 @@ registerBlockType( 'bsx-blocks/col', {
                 </div>
             )
         ];
-    },
+    } ),
     save: ( props ) => {
         const {
             //context,
@@ -350,6 +392,7 @@ registerBlockType( 'bsx-blocks/col', {
             attributes: {
                 colConfig,
                 rowConfig,
+                fromRowConfig,
                 sizeXs,
                 sizeSm,
                 sizeMd,
@@ -361,7 +404,7 @@ registerBlockType( 'bsx-blocks/col', {
         const colClassName = makeColClassNames( [ sizeXs, sizeSm, sizeMd, sizeLg, sizeXl ] );
 
         return (
-            <div className={ colClassName } data-col-config={ colConfig } data-row-config={ rowConfig }>
+            <div className={ colClassName } data-col-config={ colConfig } data-row-config={ rowConfig } data-from-row-config={ fromRowConfig }>
                 <InnerBlocks.Content />
             </div>
         );
@@ -375,7 +418,11 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
     category: 'layout',
     attributes: {
         rowConfig: {
-            type: 'string'
+            type: 'string',
+        },
+        fromRowConfig: {
+            type: 'string',
+            default: 'Test hello! :D',
         },
     },
     edit: withSelect( ( select, { clientId } ) => {
@@ -401,6 +448,7 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
             className,
             attributes: {
                 rowConfig,
+                fromRowConfig,
             },
             setAttributes,
             isSelected,
@@ -439,6 +487,12 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
 
         };
 
+        const onChangeFromRowConfig = ( value ) => {
+
+            setAttributes( { fromRowConfig: value } );
+
+        };
+
         const applyWithSelect = withSelect( ( select, { clientId } ) => {
             const { getBlocksByClientId } =
                 select( 'core/block-editor' );
@@ -467,10 +521,15 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
                         value={ rowConfig } 
                         onChange={ onChangeRowConfig }
                     />
+                    <TextControl 
+                        label={ __( 'Row config (test)', 'bsx-blocks' ) }
+                        value={ fromRowConfig } 
+                        onChange={ onChangeFromRowConfig }
+                    />
                 </PanelBody>
             </InspectorControls>,
             (
-                <div className="row" data-row-config={ rowConfig }>
+                <div className="row" data-row-config={ rowConfig } data-from-row-config={ fromRowConfig }>
                     <InnerBlocks 
                         template={ colsTemplate }
                         allowedBlocks={ allowedBlocks }
@@ -484,11 +543,12 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
             className,
             attributes: {
                 rowConfig,
+                fromRowConfig,
             },
         } = props;
 
         return (
-            <div className="row" data-row-config={ rowConfig }>
+            <div className="row" data-row-config={ rowConfig } data-from-row-config={ fromRowConfig }>
                 <InnerBlocks.Content />
             </div>
         );
