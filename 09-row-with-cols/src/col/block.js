@@ -11,6 +11,7 @@ const {
     PanelBody,
     RangeControl,
     ToggleControl,
+    Button,
 } = wp.components;
 
 const { 
@@ -71,6 +72,14 @@ registerBlockType( 'bsx-blocks/col', {
         fromRowConfig: {
             type: 'string'
         },
+        colType: {
+            type: 'string',
+            default: 'custom',
+        },
+        enableInheritanceFromRow: {
+            type: 'boolean',
+            default: true,
+        },
         sizeXs: {
             type: 'string',
         },
@@ -88,7 +97,7 @@ registerBlockType( 'bsx-blocks/col', {
         },
     },
     edit: withSelect( ( select, { clientId } ) => {
-        const {  
+        const { 
             getBlockParentsByBlockName, 
             getBlockAttributes, 
         } = select( 'core/block-editor' );
@@ -99,9 +108,11 @@ registerBlockType( 'bsx-blocks/col', {
 
         //console.log( 'ancestorClientIds: "' + ancestorClientIds + '"' );
 
+        /*
         ancestorClientIds.forEach( ( ancestorClientId, index ) => {
             console.log( 'ancestorClientId[ ' + index + ' ]: "' + ancestorClientId + '"' );
         } ); 
+        */
 
         // get last item which is parent
         const parentClientId = ancestorClientIds[ ancestorClientIds.length - 1 ];
@@ -109,12 +120,13 @@ registerBlockType( 'bsx-blocks/col', {
         const parentAttributes = getBlockAttributes( parentClientId );
 
         //console.log( 'parentAttributes: "' + parentAttributes + '"' );
-
+        /*
         if ( !! parentAttributes ) {
             for ( let [ key, value ] of Object.entries( parentAttributes ) ) {
                 console.log( 'key: "' + key + '", value: "' + value + '"' );
             }
         }
+        */
 
         //console.log( 'parentAttributes.fromRowConfig: "' + parentAttributes.fromRowConfig + '"' );
 
@@ -129,6 +141,8 @@ registerBlockType( 'bsx-blocks/col', {
                 rowConfig,
                 colConfig,
                 fromRowConfig,
+                colType,
+                enableInheritanceFromRow,
                 sizeXs,
                 sizeSm,
                 sizeMd,
@@ -248,13 +262,59 @@ registerBlockType( 'bsx-blocks/col', {
             }
         };
 
+        const onChangeEnableInheritanceFromRow = ( value ) => {
+            setAttributes( { enableInheritanceFromRow: value } );
+        };
+
+        const onClickEnableInheritanceFromRow = ( value ) => {
+            console.log( 'onClickEnableInheritanceFromRow' );
+
+            setAttributes( { 
+                sizeXs: parentAttributes.sizeXs, 
+                sizeSm: parentAttributes.sizeSm, 
+                sizeMd: parentAttributes.sizeMd, 
+                sizeLg: parentAttributes.sizeLg,
+                sizeXl: parentAttributes.sizeXl,
+            } );
+        };
+
         const colClassName = makeColClassNames( [ sizeXs, sizeSm, sizeMd, sizeLg, sizeXl ] );
 
         setAttributes( { fromRowConfig: parentAttributes.fromRowConfig } );
 
+
+        if ( !! props.attributes ) {
+            console.log( 'build col: ' );
+            for ( let [ key, value ] of Object.entries( props.attributes ) ) {
+                console.log( 'key: "' + key + '", value: "' + value + '"' );
+            }
+        }
+
         return [
             <InspectorControls>
-                <PanelBody title={ __( 'BSX Column Sizes (each single column)', 'bsx-blocks' ) }>
+                <PanelBody title={ __( 'Column Sizes (individual Column)', 'bsx-blocks' ) }>
+
+                    { colType === 'custom' && (
+                        <>
+                            <ToggleControl
+                                label={ __( 'Enable Inheritance', 'bsx-blocks' ) }
+                                checked={ !! enableInheritanceFromRow }
+                                onChange={ onChangeEnableInheritanceFromRow }
+                                help={ __( 'Allows overwriting single Column Settings from Row', 'bsx-blocks' ) }
+                            />
+
+                            <div class="components-base-control">
+                                <Button
+                                    onClick={ onClickEnableInheritanceFromRow }
+                                    isSecondary
+                                    disabled={ ! enableInheritanceFromRow }
+                                >
+                                    { __( 'Inherit Settings for this Column', 'bsx-blocks' ) }
+                                </Button>
+                            </div>
+                        </>
+                    ) }
+
                     <RangeControl 
                         label={ __( 'XS Column Width', 'bsx-blocks' ) }
                         value={ parseInt( sizeXs ) } 
@@ -368,7 +428,7 @@ registerBlockType( 'bsx-blocks/col', {
                 </PanelBody>
             </InspectorControls>,
             (
-                <div className={ colClassName } data-col-config={ colConfig } data-row-config={ rowConfig } data-from-row-config={ fromRowConfig }>
+                <div className={ colClassName } data-col-config={ colConfig } data-row-config={ rowConfig } data-from-row-config={ fromRowConfig } data-col-type={ colType }>
                     <InnerBlocks 
                         renderAppender={ () => (
                             <InnerBlocks.ButtonBlockAppender />
@@ -385,6 +445,8 @@ registerBlockType( 'bsx-blocks/col', {
                 colConfig,
                 rowConfig,
                 fromRowConfig,
+                colType,
+                enableInheritanceFromRow,
                 sizeXs,
                 sizeSm,
                 sizeMd,
@@ -396,7 +458,7 @@ registerBlockType( 'bsx-blocks/col', {
         const colClassName = makeColClassNames( [ sizeXs, sizeSm, sizeMd, sizeLg, sizeXl ] );
 
         return (
-            <div className={ colClassName } data-col-config={ colConfig } data-row-config={ rowConfig } data-from-row-config={ fromRowConfig }>
+            <div className={ colClassName } data-col-config={ colConfig } data-row-config={ rowConfig } data-from-row-config={ fromRowConfig } data-col-type={ colType }>
                 <InnerBlocks.Content />
             </div>
         );
