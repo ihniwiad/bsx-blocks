@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
 
 function bsx_blocks_07_custom_core_class_names() {
     wp_enqueue_script(
-        'bsx-blocks-custom-cors-class-names',
+        'bsx-blocks-custom-core-class-names',
         esc_url( plugins_url( 'build/index.js', __FILE__ ) ),
         array( 'wp-blocks', 'wp-element', 'wp-editor' ),
         filemtime( plugin_dir_path( __FILE__ ) . 'build/index.js' )
