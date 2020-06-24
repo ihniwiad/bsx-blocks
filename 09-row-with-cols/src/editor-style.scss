@@ -12,14 +12,12 @@ $bsxui-col-list-appender-selector:		'.block-list-appender' !default;
 
 // imports
 
-@import "../node_modules/bootstrap/scss/_functions";
-@import "../node_modules/bootstrap/scss/_variables";
+@import "../../node_modules/bootstrap/scss/_functions";
+@import "../../node_modules/bootstrap/scss/_variables";
 
-@import "../node_modules/bootstrap/scss/mixins/breakpoints";
-@import "../node_modules/bootstrap/scss/mixins/grid-framework";
-@import "../node_modules/bootstrap/scss/mixins/grid";
-
-//@import "../node_modules/bootstrap/scss/grid";
+@import "../../node_modules/bootstrap/scss/mixins/breakpoints";
+@import "../../node_modules/bootstrap/scss/mixins/grid-framework";
+@import "../../node_modules/bootstrap/scss/mixins/grid";
 
 
 // row mixin
@@ -71,8 +69,8 @@ $bsxui-justify-content-values: (
 	start: "start", 
 	center: "center", 
 	end: "end", 
-	between: "between",
-	around: "around"
+	between: "space-between",
+	around: "space-around"
 ) !default;
 
 @mixin bsxui-make-align-items-classes($map: $bsxui-justify-content-values) {
@@ -164,6 +162,7 @@ $bsxui-justify-content-values: (
 // col build
 @include make-editor-grid-columns();
 
+
 // form row col
 
 [data-form-row="true"]#{$bsxui-editor-col-selector} {
@@ -193,13 +192,9 @@ $bsxui-justify-content-values: (
 
 // resize block list appender
 
-[data-size] + #{$bsxui-col-list-appender-selector} {
+[data-size] ~ #{$bsxui-col-list-appender-selector} {
     width: 100%;
     padding-right: $grid-gutter-width / 2;
     padding-left: $grid-gutter-width / 2;
 }
 
-
-.test {
-	color: $primary;
-}

@@ -5,13 +5,24 @@ const sass          = require( 'gulp-sass' );
 const autoprefixer  = require( 'gulp-autoprefixer' );
 const rename        = require( 'gulp-rename' );
 const cleanCSS      = require( 'gulp-clean-css' );
+const clean         = require( 'gulp-clean' );
 const watch         = require( 'gulp-watch' );
 
 
 // scss
-const SCSS_SRC_PATH = './src/';
-const CSS_DEST_PATH = './build/';
+const SCSS_SRC_PATH = './src';
+const CSS_DEST_PATH = './build/css';
 
+
+// functions
+function cssFolderClean( cb ) {
+
+    return gulp.src( CSS_DEST_PATH, { read: false, allowEmpty: true } )
+        .pipe( clean() )
+    ;
+
+    cb();
+}
 
 function scssToCss( cb ) {
 
@@ -45,9 +56,21 @@ function cssCleanAndMinify( cb ) {
     cb();
 }
 
-exports.css = series(
+function scssWatch() {
+    watch( SCSS_SRC_PATH + '/**/*.scss', css );
+}
+
+
+// tasks
+const css = series(
+    cssFolderClean,
     scssToCss,
     cssCleanAndMinify,
 );
+const scss_watch = parallel( scssWatch );
 
+
+// exports
+exports.css = css;
+exports.css_watch = scss_watch;
 

@@ -82,18 +82,23 @@ registerBlockType( 'bsx-blocks/col', {
         },
         sizeXs: {
             type: 'string',
+            default: '',
         },
         sizeSm: {
             type: 'string',
+            default: '',
         },
         sizeMd: {
             type: 'string',
+            default: '4',
         },
         sizeLg: {
             type: 'string',
+            default: '',
         },
         sizeXl: {
             type: 'string',
+            default: '',
         },
     },
 
