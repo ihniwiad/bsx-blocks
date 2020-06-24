@@ -96,6 +96,25 @@ registerBlockType( 'bsx-blocks/col', {
             type: 'string',
         },
     },
+
+    getEditWrapperProps( attributes ) {
+        const {
+            sizeXs,
+            sizeSm,
+            sizeMd,
+            sizeLg,
+            sizeXl,
+        } = attributes;
+
+        return {
+            'data-size': sizeXs,
+            'data-size-sm': sizeSm,
+            'data-size-md': sizeMd,
+            'data-size-lg': sizeLg,
+            'data-size-xl': sizeXl,
+        };
+    },
+
     edit: withSelect( ( select, { clientId } ) => {
         const { 
             getBlockParentsByBlockName, 

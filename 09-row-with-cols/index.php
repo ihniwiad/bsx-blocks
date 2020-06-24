@@ -68,3 +68,13 @@ function bsx_blocks_09_row_with_cols_register_block() {
 
 }
 add_action( 'init', 'bsx_blocks_09_row_with_cols_register_block' );
+
+/**
+ *  Enqueue custom styles to resolve conflicts between core block editor style and theme style
+ */
+function bsx_blocks_09_row_with_cols_add_editor_styles() {
+    wp_enqueue_style( 'build/editor-style.css',
+        plugins_url( 'build/editor-style.css', __FILE__ ) 
+    );
+}
+add_action( 'enqueue_block_assets', 'bsx_blocks_09_row_with_cols_add_editor_styles' );

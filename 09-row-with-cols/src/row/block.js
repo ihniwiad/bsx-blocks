@@ -100,6 +100,23 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
             default: '',
         },
     },
+
+    getEditWrapperProps( attributes ) {
+        const {
+            alignItems,
+            justifyContent,
+            noGutters,
+            formRow,
+        } = attributes;
+
+        return {
+            'data-align-items': alignItems,
+            'data-justify-content': justifyContent,
+            'data-no-gutters': noGutters,
+            'data-form-row': formRow,
+        };
+    },
+
     edit: withSelect( ( select, { clientId } ) => {
         const { 
             getBlocksByClientId,
@@ -727,7 +744,7 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
                         ) ) }
                     </div>
                 </PanelBody>
-                <PanelBody title={ __( 'Row Options', 'bsx-blocks' ) }>
+                <PanelBody title={ __( 'Row Settings', 'bsx-blocks' ) }>
                     <SelectControl 
                         label={ __( 'Vertical Align', 'bsx-blocks' ) }
                         value={ alignItems }

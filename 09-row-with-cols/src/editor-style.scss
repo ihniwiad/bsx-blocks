@@ -1,0 +1,145 @@
+// editor style
+
+
+// selectors
+
+$row-with-cols-block-identifier: '[data-type="bsx-blocks/row-with-cols"]' !default;
+$editor-row-selector: #{$row-with-cols-block-identifier}#{' > .row > .block-editor-inner-blocks > .block-editor-block-list__layout'} !default;
+
+@import "../node_modules/bootstrap/scss/_functions";
+@import "../node_modules/bootstrap/scss/_variables";
+
+@import "../node_modules/bootstrap/scss/mixins/breakpoints";
+@import "../node_modules/bootstrap/scss/mixins/grid-framework";
+@import "../node_modules/bootstrap/scss/mixins/grid";
+
+//@import "../node_modules/bootstrap/scss/grid";
+
+
+// row mixin
+
+@mixin make-editor-row($gutter: $grid-gutter-width) {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -$gutter / 2;
+  margin-left: -$gutter / 2;
+}
+
+
+// row build
+
+#{$editor-row-selector} {
+	@include make-editor-row();
+}
+
+// no gutters row
+
+//.no-gutters {
+[data-no-gutters="true"]#{$editor-row-selector} {
+	margin-right: 0;
+	margin-left: 0;
+
+	//> .col,
+	//> [class*="col-"] {
+	@each $breakpoint in map-keys($grid-breakpoints) {
+    	$infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    	> [data-size#{$infix}] {
+			padding-right: 0;
+			padding-left: 0;
+    	}
+    }
+}
+
+
+// reset editor row inner width (.row)
+
+#{$row-with-cols-block-identifier} > .row {
+	display: block;
+	margin-left: 0;
+	margin-right: 0;
+}
+
+
+// col mixin
+
+@mixin make-editor-grid-columns($columns: $grid-columns, $gutter: $grid-gutter-width, $breakpoints: $grid-breakpoints) {
+  // Common properties for all breakpoints
+  %grid-column {
+    position: relative;
+    width: 100%;
+    padding-right: $gutter / 2;
+    padding-left: $gutter / 2;
+  }
+
+  @each $breakpoint in map-keys($breakpoints) {
+    $infix: breakpoint-infix($breakpoint, $breakpoints);
+
+    @if $columns > 0 {
+      // Allow columns to stretch full width below their breakpoints
+      @for $i from 1 through $columns {
+        //.col#{$infix}-#{$i} {
+        [data-size#{$infix}="#{$i}"] {
+          @extend %grid-column;
+        }
+      }
+    }
+
+    //.col#{$infix},
+    //.col#{$infix}-auto {
+    [data-size#{$infix}="null"],
+    [data-size#{$infix}="auto"] {
+      @extend %grid-column;
+    }
+
+    @include media-breakpoint-up($breakpoint, $breakpoints) {
+      // Provide basic `.col-{bp}` classes for equal-width flexbox columns
+      //.col#{$infix} {
+      [data-size#{$infix}="null"] {
+        flex-basis: 0;
+        flex-grow: 1;
+        min-width: 0; // See https://github.com/twbs/bootstrap/issues/25410
+        max-width: 100%;
+      }
+
+      //.col#{$infix}-auto {
+      [data-size#{$infix}="auto"] {
+        @include make-col-auto();
+      }
+
+      @if $columns > 0 {
+        @for $i from 1 through $columns {
+          //.col#{$infix}-#{$i} {
+          [data-size#{$infix}="#{$i}"] {
+            @include make-col($i, $columns);
+          }
+        }
+      }
+    }
+  }
+}
+
+
+// col build
+@include make-editor-grid-columns();
+
+
+// reset editor col inner width (.col{...})
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+	$infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+	[data-size#{$infix}] {
+	    > [class*="col"] {
+	    	width: 100%;
+		    padding-right: 0;
+		    padding-left: 0;
+		    max-width: unset;
+	    }
+	}
+}
+
+
+.test {
+	color: $primary;
+}
