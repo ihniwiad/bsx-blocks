@@ -13,18 +13,50 @@
   [data-no-gutters="true"][data-type="bsx-blocks/row-with-cols"] > .row > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-size] {
     padding-right: 0;
     padding-left: 0; }
-  [data-no-gutters="true"][data-type="bsx-blocks/row-with-cols"] > .row > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-size-sm] {
-    padding-right: 0;
-    padding-left: 0; }
-  [data-no-gutters="true"][data-type="bsx-blocks/row-with-cols"] > .row > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-size-md] {
-    padding-right: 0;
-    padding-left: 0; }
-  [data-no-gutters="true"][data-type="bsx-blocks/row-with-cols"] > .row > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-size-lg] {
-    padding-right: 0;
-    padding-left: 0; }
-  [data-no-gutters="true"][data-type="bsx-blocks/row-with-cols"] > .row > .block-editor-inner-blocks > .block-editor-block-list__layout > [data-size-xl] {
-    padding-right: 0;
-    padding-left: 0; }
+
+[data-align-items="start"][data-type="bsx-blocks/row-with-cols"] > .row > .block-editor-inner-blocks > .block-editor-block-list__layout {
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: start; }
+
+[data-align-items="center"][data-type="bsx-blocks/row-with-cols"] > .row > .block-editor-inner-blocks > .block-editor-block-list__layout {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center; }
+
+[data-align-items="end"][data-type="bsx-blocks/row-with-cols"] > .row > .block-editor-inner-blocks > .block-editor-block-list__layout {
+  -webkit-box-align: end;
+  -ms-flex-align: end;
+  align-items: end; }
+
+[data-justify-content="start"][data-type="bsx-blocks/row-with-cols"] > .row > .block-editor-inner-blocks > .block-editor-block-list__layout {
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: start; }
+
+[data-justify-content="center"][data-type="bsx-blocks/row-with-cols"] > .row > .block-editor-inner-blocks > .block-editor-block-list__layout {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center; }
+
+[data-justify-content="end"][data-type="bsx-blocks/row-with-cols"] > .row > .block-editor-inner-blocks > .block-editor-block-list__layout {
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: end; }
+
+[data-justify-content="between"][data-type="bsx-blocks/row-with-cols"] > .row > .block-editor-inner-blocks > .block-editor-block-list__layout {
+  -webkit-box-pack: between;
+  -ms-flex-pack: between;
+  justify-content: between; }
+
+[data-justify-content="around"][data-type="bsx-blocks/row-with-cols"] > .row > .block-editor-inner-blocks > .block-editor-block-list__layout {
+  -webkit-box-pack: around;
+  -ms-flex-pack: around;
+  justify-content: around; }
+
+[data-form-row="true"][data-type="bsx-blocks/row-with-cols"] > .row > .block-editor-inner-blocks > .block-editor-block-list__layout {
+  margin-right: -5px;
+  margin-left: -5px; }
 
 [data-type="bsx-blocks/row-with-cols"] > .row {
   display: block;
@@ -434,35 +466,24 @@
     flex: 0 0 100%;
     max-width: 100%; } }
 
+[data-form-row="true"][data-type="bsx-blocks/row-with-cols"] > .row > .block-editor-inner-blocks > .block-editor-block-list__layout > .block-editor-block-list__block {
+  padding-right: 5px;
+  padding-left: 5px; }
+
+[data-type="bsx-blocks/row-with-cols"] > .row > .block-editor-inner-blocks > .block-editor-block-list__layout > .block-editor-block-list__block[data-size] {
+  margin-left: unset;
+  margin-right: unset; }
+
 [data-size] > [class*="col"] {
   width: 100%;
   padding-right: 0;
   padding-left: 0;
   max-width: unset; }
 
-[data-size-sm] > [class*="col"] {
+[data-size] + .block-list-appender {
   width: 100%;
-  padding-right: 0;
-  padding-left: 0;
-  max-width: unset; }
-
-[data-size-md] > [class*="col"] {
-  width: 100%;
-  padding-right: 0;
-  padding-left: 0;
-  max-width: unset; }
-
-[data-size-lg] > [class*="col"] {
-  width: 100%;
-  padding-right: 0;
-  padding-left: 0;
-  max-width: unset; }
-
-[data-size-xl] > [class*="col"] {
-  width: 100%;
-  padding-right: 0;
-  padding-left: 0;
-  max-width: unset; }
+  padding-right: 15px;
+  padding-left: 15px; }
 
 .test {
   color: #007bff; }

@@ -3,8 +3,14 @@
 
 // selectors
 
-$row-with-cols-block-identifier: '[data-type="bsx-blocks/row-with-cols"]' !default;
-$editor-row-selector: #{$row-with-cols-block-identifier}#{' > .row > .block-editor-inner-blocks > .block-editor-block-list__layout'} !default;
+$bsxui-row-with-cols-block-selector: 		'[data-type="bsx-blocks/row-with-cols"]' !default;
+$bsxui-editor-row-selector: 				#{$bsxui-row-with-cols-block-selector}#{' > .row > .block-editor-inner-blocks > .block-editor-block-list__layout'} !default;
+// selector chain from columns block down to col block (not .col{...} itself)
+$bsxui-editor-col-selector:				#{$bsxui-editor-row-selector}#{' > .block-editor-block-list__block'} !default;
+$bsxui-col-list-appender-selector:		'.block-list-appender' !default;
+
+
+// imports
 
 @import "../node_modules/bootstrap/scss/_functions";
 @import "../node_modules/bootstrap/scss/_variables";
@@ -28,33 +34,68 @@ $editor-row-selector: #{$row-with-cols-block-identifier}#{' > .row > .block-edit
 
 // row build
 
-#{$editor-row-selector} {
+#{$bsxui-editor-row-selector} {
 	@include make-editor-row();
 }
 
 // no gutters row
 
 //.no-gutters {
-[data-no-gutters="true"]#{$editor-row-selector} {
+[data-no-gutters="true"]#{$bsxui-editor-row-selector} {
 	margin-right: 0;
 	margin-left: 0;
 
 	//> .col,
 	//> [class*="col-"] {
-	@each $breakpoint in map-keys($grid-breakpoints) {
-    	$infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+	> [data-size] {
+		padding-right: 0;
+		padding-left: 0;
+	}
+}
 
-    	> [data-size#{$infix}] {
-			padding-right: 0;
-			padding-left: 0;
-    	}
-    }
+// row items align
+
+[data-align-items="start"]#{$bsxui-editor-row-selector} {
+	align-items: start;
+}
+[data-align-items="center"]#{$bsxui-editor-row-selector} {
+	align-items: center;
+}
+[data-align-items="end"]#{$bsxui-editor-row-selector} {
+	align-items: end;
+}
+
+// row justify content
+
+$bsxui-justify-content-values: (
+	start: "start", 
+	center: "center", 
+	end: "end", 
+	between: "between",
+	around: "around"
+) !default;
+
+@mixin bsxui-make-align-items-classes($map: $bsxui-justify-content-values) {
+	@each $key, $val in $map {
+	    [data-justify-content="#{$key}"]#{$bsxui-editor-row-selector} {
+	    	justify-content: #{$val};
+	    }
+	}
+}
+
+@include bsxui-make-align-items-classes();
+
+// form row
+
+[data-form-row="true"]#{$bsxui-editor-row-selector} {
+	margin-right: -$form-grid-gutter-width / 2;
+	margin-left: -$form-grid-gutter-width / 2;
 }
 
 
 // reset editor row inner width (.row)
 
-#{$row-with-cols-block-identifier} > .row {
+#{$bsxui-row-with-cols-block-selector} > .row {
 	display: block;
 	margin-left: 0;
 	margin-right: 0;
@@ -123,20 +164,39 @@ $editor-row-selector: #{$row-with-cols-block-identifier}#{' > .row > .block-edit
 // col build
 @include make-editor-grid-columns();
 
+// form row col
+
+[data-form-row="true"]#{$bsxui-editor-col-selector} {
+	padding-right: $form-grid-gutter-width / 2;
+	padding-left: $form-grid-gutter-width / 2;
+}
+
+
+// fix editor col margin x
+#{$bsxui-editor-col-selector}[data-size] {
+    margin-left: unset;
+    margin-right: unset;
+}
+
 
 // reset editor col inner width (.col{...})
 
-@each $breakpoint in map-keys($grid-breakpoints) {
-	$infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+[data-size] {
+    > [class*="col"] {
+    	width: 100%;
+	    padding-right: 0;
+	    padding-left: 0;
+	    max-width: unset;
+    }
+}
 
-	[data-size#{$infix}] {
-	    > [class*="col"] {
-	    	width: 100%;
-		    padding-right: 0;
-		    padding-left: 0;
-		    max-width: unset;
-	    }
-	}
+
+// resize block list appender
+
+[data-size] + #{$bsxui-col-list-appender-selector} {
+    width: 100%;
+    padding-right: $grid-gutter-width / 2;
+    padding-left: $grid-gutter-width / 2;
 }
 
 
