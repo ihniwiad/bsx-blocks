@@ -173,6 +173,63 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
 
         const colsTemplates = [
             {
+                name: '1-1-1',
+                title: __( '3 Columns (1:1:1)', 'bsx-blocks' ),
+                icon: (
+                    <svg 
+                        width="48" 
+                        height="48" 
+                        viewBox="0 0 48 48" 
+                        xmlns="http://www.w3.org/2000/svg" 
+                        role="img" 
+                        aria-hidden="true" 
+                        focusable="false"
+                    >
+                        <path 
+                            fill-rule="evenodd" 
+                            clip-rule="evenodd" 
+                            d="M41 14a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h30a2 2 0 0 0 2-2V14zM28.5 34h-9V14h9v20zm2 0V14H39v20h-8.5zm-13 0H9V14h8.5v20z"
+                        />
+                    </svg>
+                ),
+                template: [ 
+                    [ 
+                        'bsx-blocks/col', 
+                        {
+                            colType: 'default',
+                            sizeXs: '',
+                            sizeSm: '',
+                            sizeMd: '4',
+                            sizeLg: '',
+                            sizeXl: '',
+                        },
+                    ], 
+                    [ 
+                        'bsx-blocks/col', 
+                        {
+                            colType: 'default',
+                            sizeXs: '',
+                            sizeSm: '',
+                            sizeMd: '4',
+                            sizeLg: '',
+                            sizeXl: '',
+                        },
+                    ], 
+                    [ 
+                        'bsx-blocks/col', 
+                        {
+                            colType: 'default',
+                            sizeXs: '',
+                            sizeSm: '',
+                            sizeMd: '4',
+                            sizeLg: '',
+                            sizeXl: '',
+                        },
+                    ],
+                ],
+                templateLock: false,
+            },
+            {
                 name: '1-1',
                 title: __( '2 Columns (1:1)', 'bsx-blocks' ),
                 icon: (
@@ -307,63 +364,6 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
                             sizeXl: '',
                         },
                     ], 
-                ],
-                templateLock: false,
-            },
-            {
-                name: '1-1-1',
-                title: __( '3 Columns (1:1:1)', 'bsx-blocks' ),
-                icon: (
-                    <svg 
-                        width="48" 
-                        height="48" 
-                        viewBox="0 0 48 48" 
-                        xmlns="http://www.w3.org/2000/svg" 
-                        role="img" 
-                        aria-hidden="true" 
-                        focusable="false"
-                    >
-                        <path 
-                            fill-rule="evenodd" 
-                            clip-rule="evenodd" 
-                            d="M41 14a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h30a2 2 0 0 0 2-2V14zM28.5 34h-9V14h9v20zm2 0V14H39v20h-8.5zm-13 0H9V14h8.5v20z"
-                        />
-                    </svg>
-                ),
-                template: [ 
-                    [ 
-                        'bsx-blocks/col', 
-                        {
-                            colType: 'default',
-                            sizeXs: '',
-                            sizeSm: '',
-                            sizeMd: '4',
-                            sizeLg: '',
-                            sizeXl: '',
-                        },
-                    ], 
-                    [ 
-                        'bsx-blocks/col', 
-                        {
-                            colType: 'default',
-                            sizeXs: '',
-                            sizeSm: '',
-                            sizeMd: '4',
-                            sizeLg: '',
-                            sizeXl: '',
-                        },
-                    ], 
-                    [ 
-                        'bsx-blocks/col', 
-                        {
-                            colType: 'default',
-                            sizeXs: '',
-                            sizeSm: '',
-                            sizeMd: '4',
-                            sizeLg: '',
-                            sizeXl: '',
-                        },
-                    ],
                 ],
                 templateLock: false,
             },
@@ -566,8 +566,9 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
             setAttributes( { enableInheritanceToCols: value } );
         };
 
-        const onClickEnableInheritanceToCols = () => {
-            console.log( 'onClickEnableInheritanceToCols' );
+        // value = { sizeXX: 'newValue' }
+        const inheritToCols = ( value ) => {
+            console.log( 'inheritToCols' );
 
             children.forEach( ( column, index ) => {
 
@@ -576,11 +577,11 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
                 if ( childrenAttributes[ index ].enableInheritanceFromRow ) {
 
                     const newAttributes = { 
-                        sizeXs: sizeXs,
-                        sizeSm: sizeSm,
-                        sizeMd: sizeMd,
-                        sizeLg: sizeLg,
-                        sizeXl: sizeXl,
+                        sizeXs: value.sizeXs != undefined ? value.sizeXs : sizeXs,
+                        sizeSm: value.sizeSm != undefined ? value.sizeSm : sizeSm,
+                        sizeMd: value.sizeMd != undefined ? value.sizeMd : sizeMd,
+                        sizeLg: value.sizeLg != undefined ? value.sizeLg : sizeLg,
+                        sizeXl: value.sizeXl != undefined ? value.sizeXl : sizeXl,
                     };
                     updateBlockAttributes( column.clientId, newAttributes );
 
@@ -592,125 +593,175 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
 
         // xs
         const onChangeXsColSize = ( value ) => {
-            setAttributes( { sizeXs: !! value ? value.toString() : '' } );
+            const attr = { sizeXs: !! value ? value.toString() : '' };
+            setAttributes( attr );
+            inheritToCols( attr );
         };
         const onChangeXsEqualSize = ( value ) => {
             if ( enableInheritanceToCols ) {
                 if ( value ) {
-                    setAttributes( { sizeXs: 'null' } );
+                    const attr = { sizeXs: 'null' };
+                    setAttributes( attr );
+                    inheritToCols( attr );
                 }
                 else if ( sizeXs == 'null' ) {
-                    setAttributes( { sizeXs: '' } );
+                    const attr = { sizeXs: '' };
+                    setAttributes( attr );
+                    inheritToCols( attr );
                 }
             }
         };
         const onChangeXsAutoSize = ( value ) => {
             if ( enableInheritanceToCols ) {
                 if ( value ) {
-                    setAttributes( { sizeXs: 'auto' } );
+                    const attr = { sizeXs: 'auto' };
+                    setAttributes( attr );
+                    inheritToCols( attr );
                 }
                 else if ( sizeXs == 'auto' ) {
-                    setAttributes( { sizeXs: '' } );
+                    const attr = { sizeXs: '' };
+                    setAttributes( attr );
+                    inheritToCols( attr );
                 }
             }
         };
 
         // sm
         const onChangeSmColSize = ( value ) => {
-            setAttributes( { sizeSm: !! value ? value.toString() : '' } );
+            const attr = { sizeSm: !! value ? value.toString() : '' };
+            setAttributes( attr );
+            inheritToCols( attr );
         };
         const onChangeSmEqualSize = ( value ) => {
             if ( enableInheritanceToCols ) {
                 if ( value ) {
-                    setAttributes( { sizeSm: 'null' } );
+                    const attr = { sizeSm: 'null' };
+                    setAttributes( attr );
+                    inheritToCols( attr );
                 }
                 else if ( sizeSm == 'null' ) {
-                    setAttributes( { sizeSm: '' } );
+                    const attr = { sizeSm: '' };
+                    setAttributes( attr );
+                    inheritToCols( attr );
                 }
             }
         };
         const onChangeSmAutoSize = ( value ) => {
             if ( enableInheritanceToCols ) {
                 if ( value ) {
-                    setAttributes( { sizeSm: 'auto' } );
+                    const attr = { sizeSm: 'auto' };
+                    setAttributes( attr );
+                    inheritToCols( attr );
                 }
                 else if ( sizeSm == 'auto' ) {
-                    setAttributes( { sizeSm: '' } );
+                    const attr = { sizeSm: '' };
+                    setAttributes( attr );
+                    inheritToCols( attr );
                 }
             }
         };
 
         // md
         const onChangeMdColSize = ( value ) => {
-            setAttributes( { sizeMd: !! value ? value.toString() : '' } );
+            const attr = { sizeMd: !! value ? value.toString() : '' };
+            setAttributes( attr );
+            inheritToCols( attr );
         };
         const onChangeMdEqualSize = ( value ) => {
             if ( enableInheritanceToCols ) {
                 if ( value ) {
-                    setAttributes( { sizeMd: 'null' } );
+                    const attr = { sizeMd: 'null' };
+                    setAttributes( attr );
+                    inheritToCols( attr );
                 }
                 else if ( sizeMd == 'null' ) {
-                    setAttributes( { sizeMd: '' } );
+                    const attr = { sizeMd: '' };
+                    setAttributes( attr );
+                    inheritToCols( attr );
                 }
             }
         };
         const onChangeMdAutoSize = ( value ) => {
             if ( enableInheritanceToCols ) {
                 if ( value ) {
-                    setAttributes( { sizeMd: 'auto' } );
+                    const attr = { sizeMd: 'auto' };
+                    setAttributes( attr );
+                    inheritToCols( attr );
                 }
                 else if ( sizeMd == 'auto' ) {
-                    setAttributes( { sizeMd: '' } );
+                    const attr = { sizeMd: '' };
+                    setAttributes( attr );
+                    inheritToCols( attr );
                 }
             }
         };
 
         // lg
         const onChangeLgColSize = ( value ) => {
-            setAttributes( { sizeLg: !! value ? value.toString() : '' } );
+            const attr = { sizeLg: !! value ? value.toString() : '' };
+            setAttributes( attr );
+            inheritToCols( attr );
         };
         const onChangeLgEqualSize = ( value ) => {
             if ( enableInheritanceToCols ) {
                 if ( value ) {
-                    setAttributes( { sizeLg: 'null' } );
+                    const attr = { sizeLg: 'null' };
+                    setAttributes( attr );
+                    inheritToCols( attr );
                 }
                 else if ( sizeLg == 'null' ) {
-                    setAttributes( { sizeLg: '' } );
+                    const attr = { sizeLg: '' };
+                    setAttributes( attr );
+                    inheritToCols( attr );
                 }
             }
         };
         const onChangeLgAutoSize = ( value ) => {
             if ( enableInheritanceToCols ) {
                 if ( value ) {
-                    setAttributes( { sizeLg: 'auto' } );
+                    const attr = { sizeLg: 'auto' };
+                    setAttributes( attr );
+                    inheritToCols( attr );
                 }
                 else if ( sizeLg == 'auto' ) {
-                    setAttributes( { sizeLg: '' } );
+                    const attr = { sizeLg: '' };
+                    setAttributes( attr );
+                    inheritToCols( attr );
                 }
             }
         };
 
         // xl
         const onChangeXlColSize = ( value ) => {
-            setAttributes( { sizeXl: !! value ? value.toString() : '' } );
+            const attr = { sizeXl: !! value ? value.toString() : '' };
+            setAttributes( attr );
+            inheritToCols( attr );
         };
         const onChangeXlEqualSize = ( value ) => {
             if ( enableInheritanceToCols ) {
                 if ( value ) {
-                    setAttributes( { sizeXl: 'null' } );
+                    const attr = { sizeXl: 'null' };
+                    setAttributes( attr );
+                    inheritToCols( attr );
                 }
                 else if ( sizeXl == 'null' ) {
-                    setAttributes( { sizeXl: '' } );
+                    const attr = { sizeXl: '' };
+                    setAttributes( attr );
+                    inheritToCols( attr );
                 }
             }
         };
         const onChangeXlAutoSize = ( value ) => {
             if ( enableInheritanceToCols ) {
                 if ( value ) {
-                    setAttributes( { sizeXl: 'auto' } );
+                    const attr = { sizeXl: 'auto' };
+                    setAttributes( attr );
+                    inheritToCols( attr );
                 }
                 else if ( sizeXl == 'auto' ) {
-                    setAttributes( { sizeXl: '' } );
+                    const attr = { sizeXl: '' };
+                    setAttributes( attr );
+                    inheritToCols( attr );
                 }
             }
         };
@@ -784,21 +835,11 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
                 { templateName === 'custom' && (
                     <PanelBody title={ __( 'Inherit Columns Settings', 'bsx-blocks' ) }>
                         <ToggleControl
-                            label={ __( 'Enable Inheritance', 'bsx-blocks' ) }
+                            label={ __( 'Enable inheritance to Columns', 'bsx-blocks' ) }
                             checked={ !! enableInheritanceToCols }
                             onChange={ onChangeEnableInheritanceToCols }
-                            help={ __( 'Equal Columns, overwriting single Columns Settings when clicking button below (if Columns allows inheritance)', 'bsx-blocks' ) }
+                            help={ __( 'If enabled all Columns settings can be overwritten here. To protect selected Columns from beeing overwritten, disable inheritance option in respective Column settings.', 'bsx-blocks' ) }
                         />
-
-                        <div class="components-base-control">
-                            <Button
-                                onClick={ onClickEnableInheritanceToCols }
-                                isSecondary
-                                disabled={ ! enableInheritanceToCols }
-                            >
-                                { __( 'Inherit Settings to Columns', 'bsx-blocks' ) }
-                            </Button>
-                        </div>
 
                         <RangeControl 
                             label={ __( 'XS Column Width', 'bsx-blocks' ) }

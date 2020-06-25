@@ -7,7 +7,6 @@
   "main": "build/index.js",
   "devDependencies": {
     "@wordpress/scripts": "^9.0.0",
-    "bootstrap": "^4.4.0",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^4.0.0",
     "gulp-clean": "^0.4.0",

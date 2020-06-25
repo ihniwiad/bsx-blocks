@@ -11,18 +11,12 @@ $bsxui-col-list-appender-selector:		'.block-list-appender' !default;
 
 
 // imports
-
-@import "../../node_modules/bootstrap/scss/_functions";
-@import "../../node_modules/bootstrap/scss/_variables";
-
-@import "../../node_modules/bootstrap/scss/mixins/breakpoints";
-@import "../../node_modules/bootstrap/scss/mixins/grid-framework";
-@import "../../node_modules/bootstrap/scss/mixins/grid";
+@import "../../build/_basic-style-vars-and-bootstrap-grid";
 
 
 // row mixin
 
-@mixin make-editor-row($gutter: $grid-gutter-width) {
+@mixin make-editor-row($gutter: $bsx-grid-gutter-width) {
   display: flex;
   flex-wrap: wrap;
   margin-right: -$gutter / 2;
@@ -102,7 +96,7 @@ $bsxui-justify-content-values: (
 
 // col mixin
 
-@mixin make-editor-grid-columns($columns: $grid-columns, $gutter: $grid-gutter-width, $breakpoints: $grid-breakpoints) {
+@mixin make-editor-grid-columns($columns: $grid-columns, $gutter: $bsx-grid-gutter-width, $breakpoints: $grid-breakpoints) {
   // Common properties for all breakpoints
   %grid-column {
     position: relative;
@@ -194,7 +188,7 @@ $bsxui-justify-content-values: (
 
 [data-size] ~ #{$bsxui-col-list-appender-selector} {
     width: 100%;
-    padding-right: $grid-gutter-width / 2;
-    padding-left: $grid-gutter-width / 2;
+    padding-right: $bsx-grid-gutter-width / 2;
+    padding-left: $bsx-grid-gutter-width / 2;
 }
 

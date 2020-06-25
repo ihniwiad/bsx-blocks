@@ -291,7 +291,7 @@ registerBlockType( 'bsx-blocks/col', {
         };
 
         const onClickEnableInheritanceFromRow = ( value ) => {
-            console.log( 'onClickEnableInheritanceFromRow' );
+            //console.log( 'onClickEnableInheritanceFromRow' );
 
             setAttributes( { 
                 sizeXs: parentAttributes.sizeXs, 
@@ -316,15 +316,15 @@ registerBlockType( 'bsx-blocks/col', {
 
         return [
             <InspectorControls>
-                <PanelBody title={ __( 'Column Sizes (individual Column)', 'bsx-blocks' ) }>
+                <PanelBody title={ __( 'Column Sizes (this Column)', 'bsx-blocks' ) }>
 
                     { colType === 'custom' && (
                         <>
                             <ToggleControl
-                                label={ __( 'Enable Inheritance', 'bsx-blocks' ) }
+                                label={ __( 'Enable inheritance from Row', 'bsx-blocks' ) }
                                 checked={ !! enableInheritanceFromRow }
                                 onChange={ onChangeEnableInheritanceFromRow }
-                                help={ __( 'Allows overwriting single Column Settings from Row', 'bsx-blocks' ) }
+                                help={ __( 'If enabled allows overwriting Column settings from Row', 'bsx-blocks' ) }
                             />
 
                             <div class="components-base-control">

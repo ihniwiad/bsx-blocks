@@ -3,7 +3,7 @@
 /**
  * Plugin Name: BSX Blocks
  * Plugin URI: https://github.com/ihniwiad/bsx-blocks
- * Description: Image gallery for BSX (a Bootstrap based style & js package) WordPress blocks.
+ * Description: Columns for BSX (a Bootstrap based style & js package) WordPress blocks.
  * Version: 1.0.0
  * Author: ihniwiad
  *
