@@ -4,11 +4,8 @@
   "description": "BSX Blocks",
   "author": "ihniwiad",
   "license": "",
-  "scripts": {
-    "start": "wp-scripts start",
-    "build": "wp-scripts build"
-  },
   "devDependencies": {
-    "bootstrap": "^4.5.0"
+    "gulp": "^4.0.2",
+    "gulp-string-replace": "^1.1.2"
   }
 }
