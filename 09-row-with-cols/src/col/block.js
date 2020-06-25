@@ -306,13 +306,14 @@ registerBlockType( 'bsx-blocks/col', {
 
         setAttributes( { fromRowConfig: parentAttributes.fromRowConfig } );
 
-
+        /*
         if ( !! props.attributes ) {
             console.log( 'build col: ' );
             for ( let [ key, value ] of Object.entries( props.attributes ) ) {
                 console.log( 'key: "' + key + '", value: "' + value + '"' );
             }
         }
+        */
 
         return [
             <InspectorControls>
