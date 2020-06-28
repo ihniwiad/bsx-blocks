@@ -774,10 +774,7 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
                     title={ __( 'Columns Layout', 'bsx-blocks' ) }
                 >
                     <div className="block-editor-block-styles">
-                        { colsTemplates.map( (
-                            template,
-                            index // eslint-disable-line no-shadow
-                        ) => (
+                        { colsTemplates.map( ( template, index ) => (
                             <Button
                                 label={ template.title }
                                 onClick={ () => {

@@ -42,7 +42,7 @@ function scssToCss( cb ) {
 
 function cssCleanAndMinify( cb ) {
 
-    return gulp.src( CSS_DEST_PATH + '/**/editor-style.css' )
+    return gulp.src( CSS_DEST_PATH + '/**/*.css' )
         .pipe( cleanCSS( { debug: true }, function( details ) {
             console.log( details.name + ': ' + details.stats.originalSize );
             console.log( details.name + ': ' + details.stats.minifiedSize );
