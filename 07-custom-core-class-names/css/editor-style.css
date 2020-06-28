@@ -8,3 +8,21 @@
 .block-editor-inner-blocks {
     width: 100%;
 }
+
+/* test */
+/*
+[data-editor-title="show"]:hover::before {
+    border: 1px dashed rgba(63, 0, 255, 0.75);
+}
+[data-editor-title="show"]:hover::after {
+    content: attr(aria-label);
+    position: absolute;
+    top: -31px;
+    background: rgba(63, 0, 255, 0.75);
+    font-size: 0.6rem;
+    color: #fff;
+    padding: 0 0.25em;
+    opacity: 0.65;
+    left: -14px;
+}
+*/
