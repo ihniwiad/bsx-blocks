@@ -21,5 +21,7 @@ include '06-global-block-advanced-settings/index.php';
 include '07-custom-core-class-names/index.php';
 include '08-img-gallery/index.php';
 include '09-row-with-cols/index.php';
+include '10-container/index.php';
+include '11-section/index.php';
 //include '90-config-sidebar/index.php';
 
