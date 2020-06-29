@@ -129,7 +129,6 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
 
         const childrenAttributes = [];
 
-
         children.forEach( ( column, index ) => {
             childrenAttributes.push( getBlockAttributes( column.clientId ) );
         } );

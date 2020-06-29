@@ -123,8 +123,13 @@ registerBlockType( 'bsx-blocks/col', {
     edit: withSelect( ( select, { clientId } ) => {
         const { 
             getBlockParentsByBlockName, 
+            getBlocksByClientId,
             getBlockAttributes, 
         } = select( 'core/block-editor' );
+
+        const children = getBlocksByClientId( clientId )[ 0 ]
+            ? getBlocksByClientId( clientId )[ 0 ].innerBlocks
+            : [];
 
         //console.log( 'parentClientId: "' + parentClientId + '"' );
 
@@ -156,6 +161,7 @@ registerBlockType( 'bsx-blocks/col', {
 
         return {
             parentAttributes,
+            children,
         };
     } )( ( props ) => {
 
@@ -175,7 +181,12 @@ registerBlockType( 'bsx-blocks/col', {
             },
             setAttributes,
             parentAttributes,
+            children,
         } = props;
+
+        const hasInnerBlocks = ( children ) => {
+            return children.length > 0;
+        }
 
         const onChangeColConfig = ( value ) => {
             setAttributes( { colConfig: value } );
@@ -455,9 +466,11 @@ registerBlockType( 'bsx-blocks/col', {
             (
                 <div className={ colClassName } data-col-config={ colConfig } data-row-config={ rowConfig } data-from-row-config={ fromRowConfig } data-col-type={ colType }>
                     <InnerBlocks 
-                        renderAppender={ () => (
-                            <InnerBlocks.ButtonBlockAppender />
-                        ) }
+                        renderAppender={
+                            hasInnerBlocks
+                            ? undefined
+                            : () => <InnerBlocks.ButtonBlockAppender />
+                        }
                     />
                 </div>
             )
