@@ -147,8 +147,6 @@ registerBlockType( 'bsx-blocks/img-gallery', {
             ];
             setAttributes( { mediaList: newMediaList2 } );
         }
-
-
         
         return (
             <div className={ className }>

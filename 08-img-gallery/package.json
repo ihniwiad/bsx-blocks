@@ -1,7 +1,7 @@
 {
-  "name": "08-img-gallery",
+  "name": "img-gallery",
   "version": "1.0.0",
-  "description": "08 Img Gallery",
+  "description": "Img Gallery",
   "author": "ihniwiad",
   "license": "",
   "main": "build/index.js",
