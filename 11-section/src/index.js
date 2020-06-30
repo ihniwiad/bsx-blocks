@@ -33,7 +33,7 @@ const makeClassNames = ( belowNavbar, marginBefore, marginAfter ) => {
     }
     else {
 	    if ( marginBefore ) {
-	    	classNames.push( 'mt-' + marginAfter );
+	    	classNames.push( 'mt-' + marginBefore );
 	    }
 	    if ( marginAfter ) {
 	    	classNames.push( 'mb-' + marginAfter );
