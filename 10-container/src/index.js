@@ -39,7 +39,7 @@ const makeContainerClassNames = ( isFluid, containerBreakpoint, marginBefore, ma
     }
     else {
 	    if ( marginBefore ) {
-	    	containerClassNames.push( 'mt-' + marginAfter );
+	    	containerClassNames.push( 'mt-' + marginBefore );
 	    }
 	    if ( marginAfter ) {
 	    	containerClassNames.push( 'mb-' + marginAfter );
