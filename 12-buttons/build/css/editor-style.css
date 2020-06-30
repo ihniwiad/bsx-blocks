@@ -1,5 +1,6 @@
 [data-type="bsx-blocks/button"] {
-  display: inline-block; }
+  display: inline-block;
+  vertical-align: top; }
 
 [data-type="bsx-blocks/button"] ~ .block-list-appender {
   display: inline-block;

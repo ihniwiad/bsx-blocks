@@ -336,10 +336,6 @@ registerBlockType('bsx-blocks/button', {
   category: 'layout',
   parent: ['bsx-blocks/buttons'],
   attributes: {
-    nodeName: {
-      type: 'string',
-      default: 'a'
-    },
     href: {
       type: 'string',
       default: ''
@@ -351,7 +347,7 @@ registerBlockType('bsx-blocks/button', {
     content: {
       type: 'array',
       source: 'children',
-      selector: 'a'
+      selector: '.btn'
     },
     target: {
       type: 'string',
@@ -385,7 +381,6 @@ registerBlockType('bsx-blocks/button', {
   edit: function edit(props) {
     var className = props.className,
         _props$attributes = props.attributes,
-        nodeName = _props$attributes.nodeName,
         href = _props$attributes.href,
         hash = _props$attributes.hash,
         content = _props$attributes.content,
@@ -396,7 +391,8 @@ registerBlockType('bsx-blocks/button', {
         dataFn = _props$attributes.dataFn,
         marginLeft = _props$attributes.marginLeft,
         marginRight = _props$attributes.marginRight,
-        setAttributes = props.setAttributes;
+        setAttributes = props.setAttributes,
+        isSelected = props.isSelected;
 
     var onChangeContent = function onChangeContent(value) {
       setAttributes({
@@ -461,18 +457,7 @@ registerBlockType('bsx-blocks/button', {
     var buttonClassNames = makeButtonClassNames(state, stateType, marginLeft, marginRight);
     return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(PanelBody, {
       title: __('Button Settings', 'bsx-blocks')
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(URLInput, {
-      value: href,
-      onChange: onChangeHref
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(ToggleControl, {
-      label: __('Open in new tab'),
-      checked: target == '_blank',
-      onChange: onChangeTarget
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(TextControl, {
-      label: __('Hash (optional)', 'bsx-blocks'),
-      value: hash,
-      onChange: onChangeHash
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(SelectControl, {
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(SelectControl, {
       label: __('State', 'bsx-blocks'),
       value: state,
       onChange: onChangeState,
@@ -559,7 +544,7 @@ registerBlockType('bsx-blocks/button', {
         value: '3',
         label: __('medium', 'bsx-blocks')
       }]
-    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("span", {
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("span", {
       className: buttonClassNames
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(RichText, {
       tagName: "a",
@@ -567,12 +552,24 @@ registerBlockType('bsx-blocks/button', {
       placeholder: __('Title', 'bsx-blocks'),
       value: content,
       onChange: onChangeContent
-    }))];
+    })), isSelected && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      class: "border bg-light mt-2 px-1"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(URLInput, {
+      value: href,
+      onChange: onChangeHref
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(ToggleControl, {
+      label: __('Open in new tab'),
+      checked: target == '_blank',
+      onChange: onChangeTarget
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(TextControl, {
+      label: __('Hash (optional)', 'bsx-blocks'),
+      value: hash,
+      onChange: onChangeHash
+    }))))];
   },
   save: function save(props) {
     var className = props.className,
         _props$attributes2 = props.attributes,
-        nodeName = _props$attributes2.nodeName,
         href = _props$attributes2.href,
         hash = _props$attributes2.hash,
         content = _props$attributes2.content,
@@ -590,12 +587,11 @@ registerBlockType('bsx-blocks/button', {
       rel: rel ? rel + ' noopener noreferrer' : 'noopener noreferrer',
       'data-fn': dataFn
     });
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("a", _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["Fragment"], null, content && !RichText.isEmpty(content) && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(RichText.Content, _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+      tagName: href ? 'a' : 'button',
+      value: content,
       className: buttonClassNames
-    }, saveAttributes), content && !RichText.isEmpty(content) && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(RichText.Content, {
-      tagName: "",
-      value: content
-    }));
+    }, saveAttributes)));
   }
 });
 

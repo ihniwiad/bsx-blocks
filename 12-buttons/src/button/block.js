@@ -68,10 +68,6 @@ registerBlockType( 'bsx-blocks/button', {
     category: 'layout',
     parent: [ 'bsx-blocks/buttons' ],
     attributes: {
-        nodeName: {
-            type: 'string',
-            default: 'a',
-        },
         href: {
             type: 'string',
             default: '',
@@ -83,7 +79,7 @@ registerBlockType( 'bsx-blocks/button', {
         content: {
             type: 'array',
             source: 'children',
-            selector: 'a',
+            selector: '.btn',
         },
         target: {
             type: 'string',
@@ -120,7 +116,6 @@ registerBlockType( 'bsx-blocks/button', {
         const {
             className,
             attributes: {
-                nodeName,
                 href,
                 hash,
                 content,
@@ -133,6 +128,7 @@ registerBlockType( 'bsx-blocks/button', {
                 marginRight,
             },
             setAttributes,
+            isSelected,
         } = props;
 
         const onChangeContent = ( value ) => {
@@ -173,20 +169,6 @@ registerBlockType( 'bsx-blocks/button', {
         return [
             <InspectorControls>
                 <PanelBody title={ __( 'Button Settings', 'bsx-blocks' ) }>
-                    <URLInput
-                        value={ href }
-                        onChange={ onChangeHref }
-                    />
-                    <ToggleControl
-                        label={ __( 'Open in new tab' ) }
-                        checked={ target == '_blank' }
-                        onChange={ onChangeTarget }
-                    />
-                    <TextControl 
-                        label={ __( 'Hash (optional)', 'bsx-blocks' ) }
-                        value={ hash } 
-                        onChange={ onChangeHash }
-                    />
                     <SelectControl 
                         label={ __( 'State', 'bsx-blocks' ) }
                         value={ state }
@@ -249,15 +231,41 @@ registerBlockType( 'bsx-blocks/button', {
                 </PanelBody>
             </InspectorControls>,
             (
-                <span className={ buttonClassNames }>
-                    <RichText
-                        tagName="a"
-                        multiline={ false }
-                        placeholder={ __( 'Title', 'bsx-blocks' ) }
-                        value={ content }
-                        onChange={ onChangeContent }
-                    />
-                </span>
+                <>
+                    <span className={ buttonClassNames }>
+                        <RichText
+                            tagName="a"
+                            multiline={ false }
+                            placeholder={ __( 'Title', 'bsx-blocks' ) }
+                            value={ content }
+                            onChange={ onChangeContent }
+                        />
+                    </span>
+                    { isSelected && (
+                        <div class="border bg-light mt-2 px-1">
+                            <div>
+                                <URLInput
+                                    value={ href }
+                                    onChange={ onChangeHref }
+                                />
+                            </div>
+                            <div>
+                                <ToggleControl
+                                    label={ __( 'Open in new tab' ) }
+                                    checked={ target == '_blank' }
+                                    onChange={ onChangeTarget }
+                                />
+                            </div>
+                            <div>
+                                <TextControl 
+                                    label={ __( 'Hash (optional)', 'bsx-blocks' ) }
+                                    value={ hash } 
+                                    onChange={ onChangeHash }
+                                />
+                            </div>
+                        </div>
+                    ) }
+                </>
             )
         ];
     },
@@ -265,7 +273,6 @@ registerBlockType( 'bsx-blocks/button', {
         const {
             className,
             attributes: {
-                nodeName,
                 href,
                 hash,
                 content,
@@ -289,16 +296,18 @@ registerBlockType( 'bsx-blocks/button', {
         } );
 
         return (
-            <a className={ buttonClassNames } { ...saveAttributes }>
+            <>
                 {
                     content && ! RichText.isEmpty( content ) && (
                         <RichText.Content 
-                            tagName="" 
+                            tagName={ href ? 'a' : 'button' } 
                             value={ content } 
+                            className={ buttonClassNames }
+                            { ...saveAttributes }
                         />
                     )
                 }
-            </a>
+            </>
         );
     },
 } );
