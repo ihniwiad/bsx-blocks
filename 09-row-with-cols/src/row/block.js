@@ -146,7 +146,6 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
             };
     } )( ( props ) => {
         const {
-            clientId,
             className,
             attributes: {
                 rowConfig,

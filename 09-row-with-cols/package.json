@@ -1,7 +1,7 @@
 {
-  "name": "09-row-with-cols",
+  "name": "row-with-cols",
   "version": "1.0.0",
-  "description": "09 Row with Cols",
+  "description": "Row with Cols",
   "author": "ihniwiad",
   "license": "",
   "main": "build/index.js",
