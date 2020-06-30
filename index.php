@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
 
 include '01-include-bsx-styles/index.php';
 include '02-lazy-img/index.php';
-include '03-button/index.php';
+//include '03-button/index.php';
 include '04-wrapper/index.php';
 include '05-global-block-settings/index.php';
 include '06-global-block-advanced-settings/index.php';
@@ -23,5 +23,6 @@ include '08-img-gallery/index.php';
 include '09-row-with-cols/index.php';
 include '10-container/index.php';
 include '11-section/index.php';
+include '12-buttons/index.php';
 //include '90-config-sidebar/index.php';
 

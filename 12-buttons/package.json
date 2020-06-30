@@ -1,0 +1,23 @@
+{
+  "name": "buttons",
+  "version": "1.0.0",
+  "description": "Buttons",
+  "author": "ihniwiad",
+  "license": "",
+  "main": "build/index.js",
+  "devDependencies": {
+    "@wordpress/scripts": "^9.0.0",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-clean": "^0.4.0",
+    "gulp-clean-css": "^3.4.2",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.6.0",
+    "gulp-watch": "^4.3.11"
+  },
+  "scripts": {
+    "build": "wp-scripts build",
+    "start": "wp-scripts start"
+  }
+}

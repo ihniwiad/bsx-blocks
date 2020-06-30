@@ -1,0 +1,26 @@
+// editor style
+
+
+// selectors
+
+$bsxui-button-block-selector:           '[data-type="bsx-blocks/button"]' !default;
+$bsxui-buttons-list-appender-selector:  '.block-list-appender' !default;
+
+
+// make button inline
+
+#{$bsxui-button-block-selector} {
+    display: inline-block;
+}
+
+
+// resize block list appender
+
+#{$bsxui-button-block-selector} ~ #{$bsxui-buttons-list-appender-selector} {
+    display: inline-block;
+    width: auto;
+    margin-left: 1em;
+    vertical-align: middle;
+}
+
+
