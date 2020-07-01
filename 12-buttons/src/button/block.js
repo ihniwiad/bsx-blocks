@@ -20,7 +20,7 @@ const {
     withSelect, 
 } = wp.data;
 
-const makeButtonClassNames = ( state, stateType, marginLeft, marginRight ) => {
+const makeButtonClassNames = ( state, stateType, size, marginLeft, marginRight ) => {
 
     const classNames = [ 'btn' ];
 
@@ -34,6 +34,10 @@ const makeButtonClassNames = ( state, stateType, marginLeft, marginRight ) => {
         }
         buildClassName += state;
         classNames.push( buildClassName );
+    }
+
+    if ( size ) {
+        classNames.push( prefix + size );
     }
 
     if ( marginLeft && marginLeft === marginRight ) {
@@ -97,6 +101,10 @@ registerBlockType( 'bsx-blocks/button', {
             type: 'string',
             default: 'outline',
         },
+        size: {
+            type: 'string',
+            default: '',
+        },
         dataFn: {
             type: 'string',
             default: '',
@@ -123,6 +131,7 @@ registerBlockType( 'bsx-blocks/button', {
                 rel,
                 state,
                 stateType,
+                size,
                 dataFn,
                 marginLeft,
                 marginRight,
@@ -152,6 +161,9 @@ registerBlockType( 'bsx-blocks/button', {
         const onChangeStateType = ( value ) => {
             setAttributes( { stateType: value } );
         };
+        const onChangeSize = ( value ) => {
+            setAttributes( { size: value } );
+        };
         const onChangeDataFn = ( value ) => {
             setAttributes( { dataFn: value } );
         };
@@ -164,7 +176,7 @@ registerBlockType( 'bsx-blocks/button', {
             setAttributes( { marginRight: value } );
         };
 
-        const buttonClassNames = makeButtonClassNames( state, stateType, marginLeft, marginRight );
+        const buttonClassNames = makeButtonClassNames( state, stateType, size, marginLeft, marginRight );
 
         return [
             <InspectorControls>
@@ -191,6 +203,15 @@ registerBlockType( 'bsx-blocks/button', {
                         options={ [
                             { value: 'outline', label: __( 'Outline', 'bsx-blocks' ) },
                             { value: '', label: __( 'Filled', 'bsx-blocks' ) },
+                        ] }
+                    />
+                    <SelectControl label={ __( 'Size', 'bsx-blocks' ) }
+                        value={ size }
+                        onChange={ onChangeSize }
+                        options={ [
+                            { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+                            { value: 'sm', label: __( 'Small', 'bsx-blocks' ) },
+                            { value: 'lg', label: __( 'Large', 'bsx-blocks' ) },
                         ] }
                     />
                     <TextControl 
@@ -236,13 +257,15 @@ registerBlockType( 'bsx-blocks/button', {
                         <RichText
                             tagName="a"
                             multiline={ false }
-                            placeholder={ __( 'Title', 'bsx-blocks' ) }
+                            placeholder={ __( 'Add Title...', 'bsx-blocks' ) }
                             value={ content }
                             onChange={ onChangeContent }
+                            allowedFormats={ [] }
+                            keepPlaceholderOnFocus
                         />
                     </span>
                     { isSelected && (
-                        <div class="border bg-light mt-2 px-1">
+                        <div class="bsxui-isselected-config-panel">
                             <div>
                                 <URLInput
                                     value={ href }
@@ -280,13 +303,14 @@ registerBlockType( 'bsx-blocks/button', {
                 rel,
                 state,
                 stateType,
+                size,
                 dataFn,
                 marginLeft,
                 marginRight,
             },
         } = props;
 
-        const buttonClassNames = makeButtonClassNames( state, stateType, marginLeft, marginRight );
+        const buttonClassNames = makeButtonClassNames( state, stateType, size, marginLeft, marginRight );
 
         const saveAttributes = makeSaveAttributes( {
             href: hash ? href + '#' + hash : href, 

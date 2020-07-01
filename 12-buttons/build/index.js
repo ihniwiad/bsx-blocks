@@ -284,7 +284,7 @@ var _wp$components = wp.components,
     SelectControl = _wp$components.SelectControl;
 var withSelect = wp.data.withSelect;
 
-var makeButtonClassNames = function makeButtonClassNames(state, stateType, marginLeft, marginRight) {
+var makeButtonClassNames = function makeButtonClassNames(state, stateType, size, marginLeft, marginRight) {
   var classNames = ['btn'];
   var prefix = 'btn-';
   var buildClassName = prefix;
@@ -296,6 +296,10 @@ var makeButtonClassNames = function makeButtonClassNames(state, stateType, margi
 
     buildClassName += state;
     classNames.push(buildClassName);
+  }
+
+  if (size) {
+    classNames.push(prefix + size);
   }
 
   if (marginLeft && marginLeft === marginRight) {
@@ -365,6 +369,10 @@ registerBlockType('bsx-blocks/button', {
       type: 'string',
       default: 'outline'
     },
+    size: {
+      type: 'string',
+      default: ''
+    },
     dataFn: {
       type: 'string',
       default: ''
@@ -388,6 +396,7 @@ registerBlockType('bsx-blocks/button', {
         rel = _props$attributes.rel,
         state = _props$attributes.state,
         stateType = _props$attributes.stateType,
+        size = _props$attributes.size,
         dataFn = _props$attributes.dataFn,
         marginLeft = _props$attributes.marginLeft,
         marginRight = _props$attributes.marginRight,
@@ -436,6 +445,12 @@ registerBlockType('bsx-blocks/button', {
       });
     };
 
+    var onChangeSize = function onChangeSize(value) {
+      setAttributes({
+        size: value
+      });
+    };
+
     var onChangeDataFn = function onChangeDataFn(value) {
       setAttributes({
         dataFn: value
@@ -454,7 +469,7 @@ registerBlockType('bsx-blocks/button', {
       });
     };
 
-    var buttonClassNames = makeButtonClassNames(state, stateType, marginLeft, marginRight);
+    var buttonClassNames = makeButtonClassNames(state, stateType, size, marginLeft, marginRight);
     return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(PanelBody, {
       title: __('Button Settings', 'bsx-blocks')
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(SelectControl, {
@@ -499,6 +514,20 @@ registerBlockType('bsx-blocks/button', {
       }, {
         value: '',
         label: __('Filled', 'bsx-blocks')
+      }]
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(SelectControl, {
+      label: __('Size', 'bsx-blocks'),
+      value: size,
+      onChange: onChangeSize,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: 'sm',
+        label: __('Small', 'bsx-blocks')
+      }, {
+        value: 'lg',
+        label: __('Large', 'bsx-blocks')
       }]
     }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(TextControl, {
       label: __('Rel (optional)', 'bsx-blocks'),
@@ -549,11 +578,13 @@ registerBlockType('bsx-blocks/button', {
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(RichText, {
       tagName: "a",
       multiline: false,
-      placeholder: __('Title', 'bsx-blocks'),
+      placeholder: __('Add Title...', 'bsx-blocks'),
       value: content,
-      onChange: onChangeContent
+      onChange: onChangeContent,
+      allowedFormats: [],
+      keepPlaceholderOnFocus: true
     })), isSelected && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
-      class: "border bg-light mt-2 px-1"
+      class: "bsxui-isselected-config-panel"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(URLInput, {
       value: href,
       onChange: onChangeHref
@@ -577,10 +608,11 @@ registerBlockType('bsx-blocks/button', {
         rel = _props$attributes2.rel,
         state = _props$attributes2.state,
         stateType = _props$attributes2.stateType,
+        size = _props$attributes2.size,
         dataFn = _props$attributes2.dataFn,
         marginLeft = _props$attributes2.marginLeft,
         marginRight = _props$attributes2.marginRight;
-    var buttonClassNames = makeButtonClassNames(state, stateType, marginLeft, marginRight);
+    var buttonClassNames = makeButtonClassNames(state, stateType, size, marginLeft, marginRight);
     var saveAttributes = makeSaveAttributes({
       href: hash ? href + '#' + hash : href,
       target: target,
