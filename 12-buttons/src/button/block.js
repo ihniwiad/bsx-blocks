@@ -315,7 +315,7 @@ registerBlockType( 'bsx-blocks/button', {
         const saveAttributes = makeSaveAttributes( {
             href: hash ? href + '#' + hash : href, 
             target: target, 
-            rel: rel ? rel + ' noopener noreferrer' : 'noopener noreferrer',
+            rel: href ? ( rel ? rel + ' noopener noreferrer' : 'noopener noreferrer' ) : '',
             'data-fn': dataFn,
         } );
 

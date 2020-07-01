@@ -616,7 +616,7 @@ registerBlockType('bsx-blocks/button', {
     var saveAttributes = makeSaveAttributes({
       href: hash ? href + '#' + hash : href,
       target: target,
-      rel: rel ? rel + ' noopener noreferrer' : 'noopener noreferrer',
+      rel: href ? rel ? rel + ' noopener noreferrer' : 'noopener noreferrer' : '',
       'data-fn': dataFn
     });
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["Fragment"], null, content && !RichText.isEmpty(content) && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(RichText.Content, _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
