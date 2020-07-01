@@ -725,6 +725,11 @@ registerBlockType('bsx-blocks/buttons', {
         marginAfter = _props$attributes.marginAfter,
         setAttributes = props.setAttributes,
         children = props.children;
+
+    var hasInnerBlocks = function hasInnerBlocks(children) {
+      return children.length > 0;
+    };
+
     var template = [['bsx-blocks/button', {}]];
     var allowedBlocks = ['bsx-blocks/button'];
 
@@ -819,7 +824,10 @@ registerBlockType('bsx-blocks/buttons', {
       className: wrapperClassNames
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks, {
       template: template,
-      allowedBlocks: allowedBlocks
+      allowedBlocks: allowedBlocks,
+      renderAppender: hasInnerBlocks ? undefined : function () {
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks.ButtonBlockAppender, null);
+      }
     }))];
   }),
   save: function save(props) {

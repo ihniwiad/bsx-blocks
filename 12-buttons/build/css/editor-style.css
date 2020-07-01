@@ -6,6 +6,12 @@
   display: inline-block;
   width: auto;
   margin-left: 1em;
+  margin-top: 2em;
   vertical-align: middle; }
+  [data-type="bsx-blocks/button"] ~ .block-list-appender > .block-list-appender__toggle {
+    padding: 2px;
+    border-radius: 50%;
+    outline: none;
+    background: transparent; }
 
 /*# sourceMappingURL=editor-style.css.map */

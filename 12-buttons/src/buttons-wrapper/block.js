@@ -101,6 +101,10 @@ registerBlockType( 'bsx-blocks/buttons', {
             children,
         } = props;
 
+        const hasInnerBlocks = ( children ) => {
+            return children.length > 0;
+        }
+
         const template = [ 
             [ 
                 'bsx-blocks/button', 
@@ -192,6 +196,11 @@ registerBlockType( 'bsx-blocks/buttons', {
                     <InnerBlocks 
                         template={ template }
                         allowedBlocks={ allowedBlocks }
+                        renderAppender={
+                            hasInnerBlocks
+                            ? undefined
+                            : () => <InnerBlocks.ButtonBlockAppender />
+                        }
                     />
                 </div>
             )

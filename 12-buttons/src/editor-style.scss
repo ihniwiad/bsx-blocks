@@ -3,8 +3,9 @@
 
 // selectors
 
-$bsxui-button-block-selector:           '[data-type="bsx-blocks/button"]' !default;
-$bsxui-buttons-list-appender-selector:  '.block-list-appender' !default;
+$bsxui-button-block-selector:           		'[data-type="bsx-blocks/button"]' !default;
+$bsxui-buttons-list-appender-selector:  		'.block-list-appender' !default;
+$bsxui-buttons-list-appender-button-selector:  	'.block-list-appender__toggle' !default;
 
 
 // make button inline
@@ -21,7 +22,15 @@ $bsxui-buttons-list-appender-selector:  '.block-list-appender' !default;
     display: inline-block;
     width: auto;
     margin-left: 1em;
+    margin-top: 2em;
     vertical-align: middle;
+
+    > #{$bsxui-buttons-list-appender-button-selector} {
+	    padding: 2px;
+		border-radius: 50%;
+		outline: none;
+		background: transparent;
+    }
 }
 
 
