@@ -94,14 +94,14 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             </InspectorControls>,
             (
                 <div className={ className }>
-                    <div className={ mediaID ? 'bsx-ui-img-upload' : 'bsx-ui-img-upload border bg-light p-2' }>
+                    <div className={ mediaID ? 'bsxui-img-upload-placeholder has-img' : 'bsxui-img-upload-placeholder is-empty' }>
                         <MediaUpload
                             onSelect={ onSelectImage }
                             allowedTypes="image"
                             value={ mediaID }
                             render={ ( { open } ) => (
-                                <Button className={ mediaID ? 'bsx-ui-img-btn h-auto w-100 px-0' : 'button button-large' } onClick={ open }>
-                                    { ! mediaID ? __( 'Select / upload Image', 'bsx-blocks' ) : <img className={ 'img-fluid' } src={ mediaURL } alt={ __( 'Select / upload Image', 'bsx-blocks' ) } /> }
+                                <Button className={ mediaID ? 'bsxui-img-upload-btn' : 'bsxui-btn' } onClick={ open }>
+                                    { ! mediaID ? __( 'Select / upload Image', 'bsx-blocks' ) : <img className={ 'upload-img' } src={ mediaURL } alt={ __( 'Select / upload Image', 'bsx-blocks' ) } /> }
                                 </Button>
                             ) }
                         />
@@ -114,7 +114,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                         onChange={ onChangeFigcaption }
                     />
                     { isSelected && (
-                        <div class="border bg-light mt-2 px-1">
+                        <div class="bsxui-isselected-config-panel">
                             <div>
                                 <TextControl 
                                     label={ __( 'Alt', 'bsx-blocks' ) }
