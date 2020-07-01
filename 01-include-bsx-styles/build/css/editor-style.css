@@ -1,0 +1,27 @@
+.bsxui-isselected-config-panel {
+  background: #ffffff;
+  border: 1px solid #dee2e6;
+  margin-top: 0.5rem;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem; }
+
+.bsxui-img-upload-placeholder {
+  background: #eeeeee; }
+  .bsxui-img-upload-placeholder.is-empty {
+    padding: 0.5rem; }
+
+.bsxui-btn {
+  background: rgba(237, 239, 240, 0.8);
+  border: 1px dashed #8d96a0; }
+
+.bsxui-img-upload-btn {
+  width: 100%;
+  height: auto;
+  padding: 0;
+  vertical-align: middle; }
+
+.upload-img {
+  max-width: 100%;
+  height: auto; }
+
+/*# sourceMappingURL=editor-style.css.map */

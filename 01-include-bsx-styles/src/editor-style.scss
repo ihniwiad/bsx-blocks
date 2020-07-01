@@ -1,0 +1,42 @@
+// editor style
+
+
+@import "../../src/_editor-style-variables";
+
+
+.bsxui-isselected-config-panel {
+	background: $bsxui-isselected-panel-bg-color; 
+	border: $bsxui-isselected-panel-border;
+	margin-top: $bsxui-isselected-panel-mt; 
+	padding-left: $bsxui-isselected-panel-px;
+	padding-right: $bsxui-isselected-panel-px;
+}
+
+
+.bsxui-img-upload-placeholder {
+	background: $bsxui-placeholder-bg-color;
+
+	&.is-empty {
+		padding: 0.5rem;
+	}
+
+	&.has-img {
+
+	}
+}
+.bsxui-btn {
+	background: $bsxui-area-button-bg-color;
+	border: $bsxui-interact-border;
+}
+.bsxui-img-upload-btn {
+	width: 100%;
+	height: auto;
+	padding: 0;
+	vertical-align: middle;
+}
+.upload-img {
+	max-width: 100%;
+	height: auto;
+}
+
+
