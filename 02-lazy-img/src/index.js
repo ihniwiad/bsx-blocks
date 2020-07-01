@@ -19,10 +19,10 @@ registerBlockType( 'bsx-blocks/lazy-img', {
     icon: 'format-image',
     category: 'layout',
     attributes: {
-        mediaID: {
+        mediaId: {
             type: 'number',
         },
-        mediaURL: {
+        mediaUrl: {
             type: 'string',
         },
         mediaAlt: {
@@ -44,11 +44,14 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         const {
             className,
             attributes: {
-                mediaID,
-                mediaURL,
-                mediaAlt,
+                mediaId,
+                mediaUrl,
                 mediaWidth,
                 mediaHeight,
+                mediaSmallUrl,
+                mediaSmallWidth,
+                mediaSmallHeight,
+                mediaAlt,
                 figcaption,
             },
             setAttributes,
@@ -56,12 +59,18 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         } = props;
         const onSelectImage = ( media ) => {
             setAttributes( {
-                mediaURL: media.url,
-                mediaID: media.id,
-                mediaAlt: media.alt,
+                mediaId: media.id,
+                mediaUrl: media.url,
                 mediaWidth: media.sizes.full.width,
                 mediaHeight: media.sizes.full.height,
+                mediaSmallUrl: media.sizes.medium.url,
+                mediaSmallWidth: media.sizes.medium.width,
+                mediaSmallHeight: media.sizes.medium.height,
+                mediaAlt: media.alt,
             } );
+            //console.log( 'mediaSmallUrl: ' + media.sizes.medium.url );
+            //console.log( 'mediaSmallWidth: ' + media.sizes.medium.width );
+            //console.log( 'mediaSmallHeight: ' + media.sizes.medium.height );
         };
         const onChangeMediaAlt = ( value ) => {
             setAttributes( { mediaAlt: value } );
@@ -80,13 +89,11 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 <PanelBody title={ __( 'BSX Block Settings', 'bsx-blocks' ) }>
                     <TextControl 
                         label={ __( 'Width', 'bsx-blocks' ) }
-                        className="mediaWidth" 
                         value={ mediaWidth } 
                         onChange={ onChangeMediaWidth }
                     />
                     <TextControl 
                         label={ __( 'Height', 'bsx-blocks' ) }
-                        className="mediaHeight" 
                         value={ mediaHeight } 
                         onChange={ onChangeMediaHeight }
                     />
@@ -94,49 +101,111 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             </InspectorControls>,
             (
                 <div className={ className }>
-                    <div className={ mediaID ? 'bsxui-img-upload-placeholder has-img' : 'bsxui-img-upload-placeholder is-empty' }>
-                        <MediaUpload
-                            onSelect={ onSelectImage }
-                            allowedTypes="image"
-                            value={ mediaID }
-                            render={ ( { open } ) => (
-                                <Button className={ mediaID ? 'bsxui-img-upload-btn' : 'bsxui-btn' } onClick={ open }>
-                                    { ! mediaID ? __( 'Select / upload Image', 'bsx-blocks' ) : <img className={ 'upload-img' } src={ mediaURL } alt={ __( 'Select / upload Image', 'bsx-blocks' ) } /> }
-                                </Button>
-                            ) }
-                        />
-                    </div>
-                    <RichText
-                        tagName="figcaption"
-                        multiline={ false }
-                        placeholder={ __( 'Caption (optional)', 'bsx-blocks' ) }
-                        value={ figcaption }
-                        onChange={ onChangeFigcaption }
-                    />
-                    { isSelected && (
-                        <div class="bsxui-isselected-config-panel">
-                            <div>
-                                <TextControl 
-                                    label={ __( 'Alt', 'bsx-blocks' ) }
-                                    className="mediaAlt" 
-                                    value={ mediaAlt } 
-                                    onChange={ onChangeMediaAlt }
+                    {
+                        mediaId ? (
+                            <img className={ 'upload-img' } src={ mediaUrl } alt={ mediaAlt } />
+                        )
+                        : 
+                        (
+                            <div className={ 'bsxui-img-upload-placeholder' }>
+                                <MediaUpload
+                                    onSelect={ onSelectImage }
+                                    allowedTypes="image"
+                                    value={ mediaId }
+                                    render={ ( { open } ) => (
+                                        <Button 
+                                            onClick={ open }
+                                            isSecondary
+                                        >
+                                            { __( 'Select / upload Image', 'bsx-blocks' ) }
+                                        </Button>
+                                    ) }
                                 />
                             </div>
+                        )
+                    }
+                    {
+                        figcaption && ! RichText.isEmpty( figcaption ) && (
+                            <RichText
+                                tagName="figcaption"
+                                multiline={ false }
+                                placeholder={ __( 'Caption (optional)', 'bsx-blocks' ) }
+                                value={ figcaption }
+                                onChange={ onChangeFigcaption }
+                                keepPlaceholderOnFocus
+                            />
+                        )
+                    }
+                    { isSelected && (
+                        <div class="bsxui-isselected-config-panel">
+                            {
+                                ! figcaption && RichText.isEmpty( figcaption ) && (
+                                    <RichText
+                                        tagName="figcaption"
+                                        multiline={ false }
+                                        placeholder={ __( 'Caption (optional)', 'bsx-blocks' ) }
+                                        value={ figcaption }
+                                        onChange={ onChangeFigcaption }
+                                        keepPlaceholderOnFocus
+                                    />
+                                )
+                            }
+                            {
+                                mediaId && (
+                                    <div className="bsxui-upload-btn-wrapper">
+                                        <MediaUpload
+                                            onSelect={ onSelectImage }
+                                            allowedTypes="image"
+                                            value={ mediaId }
+                                            render={ ( { open } ) => (
+                                                <Button 
+                                                    onClick={ open }
+                                                    isSecondary
+                                                >
+                                                    { __( 'Change / upload Image', 'bsx-blocks' ) }
+                                                </Button>
+                                            ) }
+                                        />
+                                    </div>
+                                )
+                            }
+                            <TextControl 
+                                label={ __( 'Alt', 'bsx-blocks' ) }
+                                value={ mediaAlt } 
+                                onChange={ onChangeMediaAlt }
+                            />
                         </div>
                     ) }
                 </div>
             )
         ];
     },
+
+/*
+<script>
+    document.write(
+        '<picture>'
+        + '<source media="(orientation: portrait) and (max-width: 799.98px)" srcset="" data-srcset="/documents/category/3677/example-img-006-720x720-thumb.jpg" data-width="720" data-height="720">\n'
+        + '<source media="(min-width: 1440px)" srcset="" data-srcset="/documents/category/3677/example-img-006-1440x720.jpg" data-width="1440" data-height="480">\n'
+        + '<source media="(min-width: 1140px)" srcset="" data-srcset="/documents/category/3677/example-img-006-1140x380.jpg" data-width="1140" data-height="380">\n'
+        + '<img class="img-fluid" alt="Example image" src="" data-fn="lazyload" data-src="/documents/category/3677/example-img-006-720x480.jpg" data-width="1140" data-height="380">'
+        + '</picture>'
+    );
+</script>
+<noscript><img class="img-fluid" src="/documents/category/3677/example-img-006-720x480.jpg" alt="Example image"></noscript>
+*/
+
     save: ( props ) => {
         const {
             className,
             attributes: {
-                mediaURL,
-                mediaAlt,
+                mediaUrl,
                 mediaWidth,
                 mediaHeight,
+                mediaSmallUrl,
+                mediaSmallWidth,
+                mediaSmallHeight,
+                mediaAlt,
                 figcaption,
             },
         } = props;
@@ -145,10 +214,15 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             <div className={ className }>
 
                 {
-                    mediaURL && (
+                    mediaUrl && (
                         <figure>
-                            <script>document.write( '<img className="img-fluid" src="" alt={ mediaAlt } width={ mediaWidth } height={ mediaHeight } data-src={ mediaURL } data-fn="lazyload" />' );</script>
-                            <noscript><img className="img-fluid" src={ mediaURL } alt={ mediaAlt } width={ mediaWidth } height={ mediaHeight } /></noscript>
+                            <script>document.write( '
+                                <picture>
+                                    <source media="(max-width: 459.98px)" srcset="" data-srcset={ mediaSmallUrl } data-width={ mediaSmallWidth } data-height={ mediaSmallHeight } />
+                                    <img className="img-fluid" src="" alt={ mediaAlt } width={ mediaWidth } height={ mediaHeight } data-src={ mediaUrl } data-fn="lazyload" />
+                                </picture>
+                            ' );</script>
+                            <noscript><img className="img-fluid" src={ mediaUrl } alt={ mediaAlt } width={ mediaWidth } height={ mediaHeight } /></noscript>
                         
                             {
                                 figcaption && ! RichText.isEmpty( figcaption ) && (

@@ -4,6 +4,8 @@
 @import "../../src/_editor-style-variables";
 
 
+// ‘is selected’ config panel
+
 .bsxui-isselected-config-panel {
 	background: $bsxui-isselected-panel-bg-color; 
 	border: $bsxui-isselected-panel-border;
@@ -13,26 +15,15 @@
 }
 
 
+// image upload
+
 .bsxui-img-upload-placeholder {
 	background: $bsxui-placeholder-bg-color;
-
-	&.is-empty {
-		padding: 0.5rem;
-	}
-
-	&.has-img {
-
-	}
+	padding: 0.5rem;
 }
-.bsxui-btn {
-	background: $bsxui-area-button-bg-color;
-	border: $bsxui-interact-border;
-}
-.bsxui-img-upload-btn {
-	width: 100%;
-	height: auto;
-	padding: 0;
-	vertical-align: middle;
+.bsxui-upload-btn-wrapper {
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
 }
 .upload-img {
 	max-width: 100%;
@@ -40,3 +31,9 @@
 }
 
 
+// wp-looking button (currently not in use)
+
+.bsxui-btn {
+	background: $bsxui-area-button-bg-color;
+	border: $bsxui-interact-border;
+}
