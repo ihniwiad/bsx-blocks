@@ -12,13 +12,14 @@ const {
     RangeControl,
     ToggleControl,
     Button,
+    SelectControl,
 } = wp.components;
 
 const { 
     withSelect, 
 } = wp.data;
 
-const makeColClassNames = ( sizesArray ) => {
+const makeColClassNames = ( sizesArray, marginAfter ) => {
 
     const prefix = 'col';
     const sizeIntervals = [ 'xs', 'sm', 'md', 'lg', 'xl' ];
@@ -51,6 +52,10 @@ const makeColClassNames = ( sizesArray ) => {
 
     } );
 
+    if ( marginAfter ) {
+        colClassNames.push( 'mb-' + marginAfter );
+    }
+
     //console.log( 'colClassNames.join( \' \' ): "' + colClassNames.join( ' ' ) + '"' );
 
     return colClassNames.join( ' ' );
@@ -63,15 +68,6 @@ registerBlockType( 'bsx-blocks/col', {
     category: 'layout',
     parent: [ 'bsx-blocks/row-with-cols' ],
     attributes: {
-        colConfig: {
-            type: 'string',
-        },
-        rowConfig: {
-            type: 'string'
-        },
-        fromRowConfig: {
-            type: 'string'
-        },
         colType: {
             type: 'string',
             default: 'custom',
@@ -99,6 +95,10 @@ registerBlockType( 'bsx-blocks/col', {
         sizeXl: {
             type: 'string',
             default: '',
+        },
+        marginAfter: {
+            type: 'string',
+            default: '3',
         },
     },
 
@@ -168,9 +168,6 @@ registerBlockType( 'bsx-blocks/col', {
         const {
             className,
             attributes: {
-                rowConfig,
-                colConfig,
-                fromRowConfig,
                 colType,
                 enableInheritanceFromRow,
                 sizeXs,
@@ -178,6 +175,7 @@ registerBlockType( 'bsx-blocks/col', {
                 sizeMd,
                 sizeLg,
                 sizeXl,
+                marginAfter,
             },
             setAttributes,
             parentAttributes,
@@ -187,10 +185,6 @@ registerBlockType( 'bsx-blocks/col', {
         const hasInnerBlocks = ( children ) => {
             return children.length > 0;
         }
-
-        const onChangeColConfig = ( value ) => {
-            setAttributes( { colConfig: value } );
-        };
 
         // xs
         const onChangeXsColSize = ( value ) => {
@@ -313,7 +307,11 @@ registerBlockType( 'bsx-blocks/col', {
             } );
         };
 
-        const colClassName = makeColClassNames( [ sizeXs, sizeSm, sizeMd, sizeLg, sizeXl ] );
+        const onChangeMarginAfter = ( value ) => {
+            setAttributes( { marginAfter: value } );
+        };
+
+        const colClassName = makeColClassNames( [ sizeXs, sizeSm, sizeMd, sizeLg, sizeXl ], marginAfter );
 
         setAttributes( { fromRowConfig: parentAttributes.fromRowConfig } );
 
@@ -350,6 +348,8 @@ registerBlockType( 'bsx-blocks/col', {
                             </div>
                         </>
                     ) }
+
+                    <hr/>
 
                     <RangeControl 
                         label={ __( 'XS Column Width', 'bsx-blocks' ) }
@@ -456,15 +456,27 @@ registerBlockType( 'bsx-blocks/col', {
                         onChange={ onChangeXlAutoSize }
                     />
 
-                    <TextControl 
-                        label={ __( 'Col config (test)', 'bsx-blocks' ) }
-                        value={ colConfig } 
-                        onChange={ onChangeColConfig }
+                    <hr/>
+
+                    <SelectControl 
+                        label={ __( 'Margin after', 'bsx-blocks' ) }
+                        value={ marginAfter }
+                        onChange={ onChangeMarginAfter }
+                        options={ [
+                            { value: '', label: __( '– none –', 'bsx-blocks' ) },
+                            { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
+                            { value: '2', label: __( 'small', 'bsx-blocks' ) },
+                            { value: '3', label: __( 'medium', 'bsx-blocks' ) },
+                            { value: '4', label: __( 'large', 'bsx-blocks' ) },
+                            { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
+                        ] }
+                        help={ __( 'Spacer after Column', 'bsx-blocks' ) }
                     />
+
                 </PanelBody>
             </InspectorControls>,
             (
-                <div className={ colClassName } data-col-config={ colConfig } data-row-config={ rowConfig } data-from-row-config={ fromRowConfig } data-col-type={ colType }>
+                <div className={ colClassName } data-col-type={ colType }>
                     <InnerBlocks 
                         renderAppender={
                             hasInnerBlocks
@@ -480,9 +492,6 @@ registerBlockType( 'bsx-blocks/col', {
         const {
             className,
             attributes: {
-                colConfig,
-                rowConfig,
-                fromRowConfig,
                 colType,
                 enableInheritanceFromRow,
                 sizeXs,
@@ -490,13 +499,14 @@ registerBlockType( 'bsx-blocks/col', {
                 sizeMd,
                 sizeLg,
                 sizeXl,
+                marginAfter,
             },
         } = props;
 
-        const colClassName = makeColClassNames( [ sizeXs, sizeSm, sizeMd, sizeLg, sizeXl ] );
+        const colClassName = makeColClassNames( [ sizeXs, sizeSm, sizeMd, sizeLg, sizeXl ], marginAfter );
 
         return (
-            <div className={ colClassName } data-col-config={ colConfig } data-row-config={ rowConfig } data-from-row-config={ fromRowConfig } data-col-type={ colType }>
+            <div className={ colClassName }>
                 <InnerBlocks.Content />
             </div>
         );

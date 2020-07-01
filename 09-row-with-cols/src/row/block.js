@@ -52,13 +52,6 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
     icon: 'grid-view',
     category: 'layout',
     attributes: {
-        rowConfig: {
-            type: 'string',
-        },
-        fromRowConfig: {
-            type: 'string',
-            default: 'Test hello! :D',
-        },
         templateName: {
             type: 'string',
             default: '1-1-1',
@@ -98,6 +91,10 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
         sizeXl: {
             type: 'string',
             default: '',
+        },
+        marginAfter: {
+            type: 'string',
+            default: '3',
         },
     },
 
@@ -148,8 +145,6 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
         const {
             className,
             attributes: {
-                rowConfig,
-                fromRowConfig,
                 templateName,
                 enableInheritanceToCols,
                 alignItems,
@@ -161,6 +156,7 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
                 sizeMd,
                 sizeLg,
                 sizeXl,
+                marginAfter,
             },
             setAttributes,
             isSelected,
@@ -474,24 +470,6 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
 
         const allowedBlocks = [ 'bsx-blocks/col' ];
 
-        //setAttributes( { template: colTemplates[ 0 ].name } );
-
-        const onChangeRowConfig = ( value ) => {
-
-            children.forEach( ( column, index ) => {
-                const newAttributes = { 
-                    rowConfig: value 
-                };
-                updateBlockAttributes( column.clientId, newAttributes );
-            } );
-
-            setAttributes( { rowConfig: value } );
-        };
-
-        const onChangeFromRowConfig = ( value ) => {
-            setAttributes( { fromRowConfig: value } );
-        };
-
         const onColsTemplateChange = ( value ) => {
 
             colsTemplate = getColsTemplate( value );
@@ -566,7 +544,7 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
 
         // value = { sizeXX: 'newValue' }
         const inheritToCols = ( value ) => {
-            console.log( 'inheritToCols' );
+            //console.log( 'inheritToCols: ' + typeof value );
 
             children.forEach( ( column, index ) => {
 
@@ -580,6 +558,7 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
                         sizeMd: value.sizeMd != undefined ? value.sizeMd : sizeMd,
                         sizeLg: value.sizeLg != undefined ? value.sizeLg : sizeLg,
                         sizeXl: value.sizeXl != undefined ? value.sizeXl : sizeXl,
+                        marginAfter: value.marginAfter != undefined ? value.marginAfter : marginAfter,
                     };
                     updateBlockAttributes( column.clientId, newAttributes );
 
@@ -764,6 +743,15 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
             }
         };
 
+        // margin bottom
+        const onChangeMarginAfter = ( value ) => {
+            if ( enableInheritanceToCols ) {
+                const attr = { marginAfter: value };
+                setAttributes( attr );
+                inheritToCols( attr );
+            }
+        };
+
         const rowClassNames = makeRowClassNames( alignItems, justifyContent, noGutters, formRow );
 
         return [
@@ -835,6 +823,8 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
                             onChange={ onChangeEnableInheritanceToCols }
                             help={ __( 'If enabled all Columns settings can be overwritten here. To protect selected Columns from beeing overwritten, disable inheritance option in respective Column settings.', 'bsx-blocks' ) }
                         />
+
+                        <hr/>
 
                         <RangeControl 
                             label={ __( 'XS Column Width', 'bsx-blocks' ) }
@@ -946,21 +936,28 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
                             onChange={ onChangeXlAutoSize }
                         />
 
-                        <TextControl 
-                            label={ __( 'Row config (test)', 'bsx-blocks' ) }
-                            value={ rowConfig } 
-                            onChange={ onChangeRowConfig }
+                        <hr/>
+
+                        <SelectControl 
+                            label={ __( 'Margin after', 'bsx-blocks' ) }
+                            value={ marginAfter }
+                            onChange={ onChangeMarginAfter }
+                            options={ [
+                                { value: '', label: __( '– none –', 'bsx-blocks' ) },
+                                { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
+                                { value: '2', label: __( 'small', 'bsx-blocks' ) },
+                                { value: '3', label: __( 'medium', 'bsx-blocks' ) },
+                                { value: '4', label: __( 'large', 'bsx-blocks' ) },
+                                { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
+                            ] }
+                            help={ __( 'Spacer after Column', 'bsx-blocks' ) }
                         />
-                        <TextControl 
-                            label={ __( 'From row config (test)', 'bsx-blocks' ) }
-                            value={ fromRowConfig } 
-                            onChange={ onChangeFromRowConfig }
-                        />
+
                     </PanelBody>
                 ) }
             </InspectorControls>,
             (
-                <div className={ rowClassNames } data-row-config={ rowConfig } data-from-row-config={ fromRowConfig } data-template-name={ templateName }>
+                <div className={ rowClassNames } data-template-name={ templateName }>
                     <InnerBlocks 
                         template={ colsTemplate }
                         templateLock={ colsTemplateLock }
@@ -974,8 +971,6 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
         const {
             className,
             attributes: {
-                rowConfig,
-                fromRowConfig,
                 templateName,
                 enableInheritanceToCols,
                 alignItems,
@@ -987,13 +982,14 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
                 sizeMd,
                 sizeLg,
                 sizeXl,
+                marginAfter,
             },
         } = props;
 
         const rowClassNames = makeRowClassNames( alignItems, justifyContent, noGutters, formRow );
 
         return (
-            <div className={ rowClassNames } data-row-config={ rowConfig } data-from-row-config={ fromRowConfig } data-template-name={ templateName }>
+            <div className={ rowClassNames }>
                 <InnerBlocks.Content />
             </div>
         );
