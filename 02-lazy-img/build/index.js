@@ -110,25 +110,63 @@ var _wp$components = wp.components,
     Button = _wp$components.Button,
     TextControl = _wp$components.TextControl,
     PanelBody = _wp$components.PanelBody;
+/*
+    TODO: 
+        - figure (and caption) optional
+        - text align for figure (toolbar)
+        - sizes { Max, Large, Medium, Small } -> get all image sizes from img.sizes
+        - make own srcset sizes
+*/
+
 registerBlockType('bsx-blocks/lazy-img', {
   title: __('BSX Lazy Image', 'bsx-blocks'),
   icon: 'format-image',
   category: 'layout',
   attributes: {
-    mediaId: {
+    hasFigure: {
+      boolean: 'string',
+      default: true
+    },
+    textAlign: {
+      type: 'string',
+      default: ''
+    },
+    imgSize: {
+      type: 'string',
+      default: ''
+    },
+    imgId: {
       type: 'number'
     },
-    mediaUrl: {
+    url: {
       type: 'string'
     },
-    mediaAlt: {
+    width: {
+      type: 'number'
+    },
+    height: {
+      type: 'number'
+    },
+    smallUrl: {
       type: 'string'
     },
-    mediaWidth: {
+    smallWidth: {
       type: 'number'
     },
-    mediaHeight: {
+    smallHeight: {
       type: 'number'
+    },
+    largeUrl: {
+      type: 'string'
+    },
+    largeWidth: {
+      type: 'number'
+    },
+    largeHeight: {
+      type: 'number'
+    },
+    alt: {
+      type: 'string'
     },
     figcaption: {
       type: 'array',
@@ -139,48 +177,64 @@ registerBlockType('bsx-blocks/lazy-img', {
   edit: function edit(props) {
     var className = props.className,
         _props$attributes = props.attributes,
-        mediaId = _props$attributes.mediaId,
-        mediaUrl = _props$attributes.mediaUrl,
-        mediaWidth = _props$attributes.mediaWidth,
-        mediaHeight = _props$attributes.mediaHeight,
-        mediaSmallUrl = _props$attributes.mediaSmallUrl,
-        mediaSmallWidth = _props$attributes.mediaSmallWidth,
-        mediaSmallHeight = _props$attributes.mediaSmallHeight,
-        mediaAlt = _props$attributes.mediaAlt,
+        imgId = _props$attributes.imgId,
+        url = _props$attributes.url,
+        width = _props$attributes.width,
+        height = _props$attributes.height,
+        smallUrl = _props$attributes.smallUrl,
+        smallWidth = _props$attributes.smallWidth,
+        smallHeight = _props$attributes.smallHeight,
+        largeUrl = _props$attributes.largeUrl,
+        largeWidth = _props$attributes.largeWidth,
+        largeHeight = _props$attributes.largeHeight,
+        alt = _props$attributes.alt,
         figcaption = _props$attributes.figcaption,
         setAttributes = props.setAttributes,
         isSelected = props.isSelected;
 
-    var onSelectImage = function onSelectImage(media) {
+    var onSelectImage = function onSelectImage(img) {
       setAttributes({
-        mediaId: media.id,
-        mediaUrl: media.url,
-        mediaWidth: media.sizes.full.width,
-        mediaHeight: media.sizes.full.height,
-        mediaSmallUrl: media.sizes.medium.url,
-        mediaSmallWidth: media.sizes.medium.width,
-        mediaSmallHeight: media.sizes.medium.height,
-        mediaAlt: media.alt
-      }); //console.log( 'mediaSmallUrl: ' + media.sizes.medium.url );
-      //console.log( 'mediaSmallWidth: ' + media.sizes.medium.width );
-      //console.log( 'mediaSmallHeight: ' + media.sizes.medium.height );
+        imgId: img.id,
+        url: img.url,
+        width: img.sizes.full.width,
+        height: img.sizes.full.height,
+        smallUrl: img.sizes.medium.url,
+        smallWidth: img.sizes.medium.width,
+        smallHeight: img.sizes.medium.height,
+        largeUrl: img.sizes.large.url,
+        largeWidth: img.sizes.large.width,
+        largeHeight: img.sizes.large.height,
+        alt: img.alt
+      }); // TEST – TODO: remove
+      //for ( let [ key, value ] of Object.entries( img.sizes ) ) {
+      //    console.log( 'key: "' + key + '", val: "' + value + '"' );
+      //}
+
+      /*
+      console.log( 'smallUrl: ' + img.sizes.medium.url );
+      console.log( 'smallWidth: ' + img.sizes.medium.width );
+      console.log( 'smallHeight: ' + img.sizes.medium.height );
+      console.log( 'largeUrl: ' + img.sizes.large.url );
+      console.log( 'largeWidth: ' + img.sizes.large.width );
+      console.log( 'largeHeight: ' + img.sizes.large.height );
+      */
     };
 
     var onChangeMediaAlt = function onChangeMediaAlt(value) {
       setAttributes({
-        mediaAlt: value
+        alt: value
       });
     };
 
     var onChangeMediaWidth = function onChangeMediaWidth(value) {
       setAttributes({
-        mediaWidth: value
+        width: value
       });
     };
 
     var onChangeMediaHeight = function onChangeMediaHeight(value) {
       setAttributes({
-        mediaHeight: value
+        height: value
       });
     };
 
@@ -194,24 +248,24 @@ registerBlockType('bsx-blocks/lazy-img', {
       title: __('BSX Block Settings', 'bsx-blocks')
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
       label: __('Width', 'bsx-blocks'),
-      value: mediaWidth,
+      value: width,
       onChange: onChangeMediaWidth
     }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
       label: __('Height', 'bsx-blocks'),
-      value: mediaHeight,
+      value: height,
       onChange: onChangeMediaHeight
     }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: className
-    }, mediaId ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
+    }, imgId ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
       className: 'upload-img',
-      src: mediaUrl,
-      alt: mediaAlt
+      src: url,
+      alt: alt
     }) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: 'bsxui-img-upload-placeholder'
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(MediaUpload, {
       onSelect: onSelectImage,
       allowedTypes: "image",
-      value: mediaId,
+      value: imgId,
       render: function render(_ref) {
         var open = _ref.open;
         return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Button, {
@@ -235,12 +289,12 @@ registerBlockType('bsx-blocks/lazy-img', {
       value: figcaption,
       onChange: onChangeFigcaption,
       keepPlaceholderOnFocus: true
-    }), mediaId && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    }), imgId && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "bsxui-upload-btn-wrapper"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(MediaUpload, {
       onSelect: onSelectImage,
       allowedTypes: "image",
-      value: mediaId,
+      value: imgId,
       render: function render(_ref2) {
         var open = _ref2.open;
         return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Button, {
@@ -250,7 +304,7 @@ registerBlockType('bsx-blocks/lazy-img', {
       }
     })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
       label: __('Alt', 'bsx-blocks'),
-      value: mediaAlt,
+      value: alt,
       onChange: onChangeMediaAlt
     })))];
   },
@@ -271,36 +325,39 @@ registerBlockType('bsx-blocks/lazy-img', {
   save: function save(props) {
     var className = props.className,
         _props$attributes2 = props.attributes,
-        mediaUrl = _props$attributes2.mediaUrl,
-        mediaWidth = _props$attributes2.mediaWidth,
-        mediaHeight = _props$attributes2.mediaHeight,
-        mediaSmallUrl = _props$attributes2.mediaSmallUrl,
-        mediaSmallWidth = _props$attributes2.mediaSmallWidth,
-        mediaSmallHeight = _props$attributes2.mediaSmallHeight,
-        mediaAlt = _props$attributes2.mediaAlt,
+        url = _props$attributes2.url,
+        width = _props$attributes2.width,
+        height = _props$attributes2.height,
+        smallUrl = _props$attributes2.smallUrl,
+        smallWidth = _props$attributes2.smallWidth,
+        smallHeight = _props$attributes2.smallHeight,
+        largeUrl = _props$attributes2.largeUrl,
+        largeWidth = _props$attributes2.largeWidth,
+        largeHeight = _props$attributes2.largeHeight,
+        alt = _props$attributes2.alt,
         figcaption = _props$attributes2.figcaption;
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: className
-    }, mediaUrl && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("figure", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("script", null, "document.write( '", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("picture", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("source", {
+    }, url && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("figure", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("script", null, "document.write( '", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("picture", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("source", {
       media: "(max-width: 459.98px)",
       srcset: "",
-      "data-srcset": mediaSmallUrl,
-      "data-width": mediaSmallWidth,
-      "data-height": mediaSmallHeight
+      "data-srcset": smallUrl,
+      "data-width": smallWidth,
+      "data-height": smallHeight
     }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
       className: "img-fluid",
       src: "",
-      alt: mediaAlt,
-      width: mediaWidth,
-      height: mediaHeight,
-      "data-src": mediaUrl,
+      alt: alt,
+      width: largeWidth,
+      height: largeHeight,
+      "data-src": largeUrl,
       "data-fn": "lazyload"
     })), "' );"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("noscript", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
       className: "img-fluid",
-      src: mediaUrl,
-      alt: mediaAlt,
-      width: mediaWidth,
-      height: mediaHeight
+      src: largeUrl,
+      alt: alt,
+      width: largeWidth,
+      height: largeHeight
     })), figcaption && !RichText.isEmpty(figcaption) && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText.Content, {
       tagName: "figcaption",
       className: "font-italic",
