@@ -66,9 +66,6 @@ const getSizesAndWithoutSizesTruncFromUrlTrunc = ( urlTrunc ) => {
 
 const makeSizedImgs = ( config ) => {
 
-    // TODO: make sizes only if ooriginal size is larger
-
-
     const ratio = config.originalWidth / config.originalHeight;
 
     const urlTruncAndExtension = getUrlTruncAndExtension( config.url );
@@ -91,11 +88,12 @@ const makeSizedImgs = ( config ) => {
 
     config.scaleList.forEach( ( scale, index ) => {
 
-        console.log( '-----> scale: ' + scale );
+        //console.log( '-----> scale: ' + scale );
 
         // calculate new size
         const scaledWidth = Math.round( width * scale );
 
+        // check if default size exists for current img (only if original img is larger)
         if ( scaledWidth <= config.originalWidth ) {
 
             const scaledHeight = Math.round( scaledWidth / ratio );
@@ -107,9 +105,11 @@ const makeSizedImgs = ( config ) => {
                 height: scaledHeight,
             } );
             
+            /*
             console.log( 'scaledUrl: ' + scaledUrl );
             console.log( 'scaledWidth: ' + scaledWidth );
             console.log( 'scaledHeight: ' + scaledHeight + ' = Math.round( ' + scaledWidth + ' / ' + ratio + ' )' );
+            */
         }
 
     } ); 
@@ -118,9 +118,9 @@ const makeSizedImgs = ( config ) => {
 
 }
 
-function getOriginalImgSizes( originalImgUrl ) {
+const getOriginalImgSizes = ( originalImgUrl ) => {
 
-    return new Promise( function( resolve, reject ) {
+    return new Promise( ( resolve, reject ) => {
 
         let img = document.createElement( 'img' );
         img.onload = () => { 
@@ -141,6 +141,25 @@ function getOriginalImgSizes( originalImgUrl ) {
     } );
 }
 
+const imageExists = ( url ) => {
+    return new Promise( ( resolve, reject ) => {
+        console.log( 'doing imageExists: ' + url );
+        const xhr = new XMLHttpRequest();
+        xhr.open( 'HEAD', url, true );
+        xhr.onreadystatechange = () => {
+            if ( xhr.readyState == 4 ) {
+                if ( xhr.status == 200 ) {
+                    resolve( true );
+                } 
+                else {
+                    resolve( false );
+                }
+            }
+        };
+        xhr.send( null );
+    } );
+} 
+
 registerBlockType( 'bsx-blocks/lazy-img', {
     title: __( 'BSX Lazy Image', 'bsx-blocks' ),
     icon: 'format-image',
@@ -160,6 +179,9 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         },
         imgId: {
             type: 'number',
+        },
+        imgSizes: {
+            type: 'array',
         },
         url: {
             type: 'string',
@@ -238,6 +260,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             className,
             attributes: {
                 imgId,
+                imgSizes,
                 mediumUrl,
                 mediumWidth,
                 mediumHeight,
@@ -309,7 +332,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
                 // get original, get sizes
 
-                console.log( 'getOriginalImgUrl( img.url ): ' + getOriginalImgUrl( img.url ) );
+                //console.log( 'getOriginalImgUrl( img.url ): ' + getOriginalImgUrl( img.url ) );
 
                 originalImgUrl = getOriginalImgUrl( img.url );
 
@@ -317,36 +340,18 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
                 let originalImgSizes;
 
-                console.log( 'originalImgSizes calling' );
+                //console.log( 'originalImgSizes calling' );
                 try {
                     originalImgSizes = await getOriginalImgSizes( originalImgUrl );
                 } catch( err ) {
                     console.error( err );
                 }
-                console.log( 'originalImgSizes done' );
+                //console.log( 'originalImgSizes done' );
 
                 originalWidth = originalImgSizes.width || 0;
                 originalHeight = originalImgSizes.height || 0;
 
-                console.log( 'after await: originalWidth: ' + originalWidth + ' – originalHeight: ' + originalHeight );
-
-                /*
-                const xhr = new XMLHttpRequest();
-                xhr.open( 'HEAD', originalImgUrl, true );
-                xhr.onreadystatechange = function(){
-                    if ( xhr.readyState == 4 ) {
-                        if ( xhr.status == 200 ) {
-                            const responseHeaders = xhr.getAllResponseHeaders();
-                            console.log( responseHeaders );
-                            alert( 'Size in bytes: ' + xhr.getResponseHeader( 'Content-Length' ) );
-                        } 
-                        else {
-                            alert( 'ERROR' );
-                        }
-                    }
-                };
-                xhr.send( null );
-                */
+                //console.log( 'after await: originalWidth: ' + originalWidth + ' – originalHeight: ' + originalHeight );
 
             }
             else {
@@ -359,64 +364,103 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
             }
 
-
-            // TEST – TODO: remove
-
-            function resolveAfter2Seconds() {
-                console.log("starting slow promise")
-                return new Promise(resolve => {
-                        setTimeout(function() {
-                        resolve("slow")
-                        console.log("slow promise is done")
-                    }, 2000)
-                })
-            }
-
-            function resolveAfter1Second() {
-                console.log("starting fast promise")
-                return new Promise(resolve => {
-                        setTimeout(function() {
-                        resolve("fast")
-                        console.log("fast promise is done")
-                    }, 1000)
-                })
-            }
-
-            async function parallel() {
-                console.log( '==PARALLEL with await Promise.all==' );
-
-                // Start 2 "jobs" in parallel and wait for both of them to complete
-                await Promise.all( [
-                    ( async () => console.log( await resolveAfter2Seconds() ) )(),
-                    ( async () => console.log( await resolveAfter1Second() ) )()
-                ] );
-            }
-            parallel()
-
             // /TEST
 
             console.log( 'originalWidth: ' + originalWidth + ' – originalHeight: ' + originalHeight );
 
 
             // config for making sizes (might change in newer WP versions)
-            const scaleReferenceSize = 'large';
-            const scaleList = [ 0.75, 1.5, 2 ];
-
-            // check if exist (smaller original size)
-
-
-
             const sizedImgsConfig = {
-                url: img.sizes[ scaleReferenceSize ].url,
-                scaleList: scaleList,
+                url: img.sizes[ 'large' ].url,
+                scaleList: [ 0.75, 1.5, 2 ],
                 originalWidth: originalWidth,
                 originalHeight: originalHeight,
             };
             const sizedImgs = makeSizedImgs( sizedImgsConfig );
 
-            const x0_75LargeImg = sizedImgs[ 0 ];
-            const x1_5LargeImg = sizedImgs[ 1 ];
-            const x2LargeImg = sizedImgs[ 2 ];
+            const x0_75LargeImg = sizedImgs[ 0 ] || {};
+            const x1_5LargeImg = sizedImgs[ 1 ] || {};
+            const x2LargeImg = sizedImgs[ 2 ] || {};
+
+
+
+
+
+            console.log( 'imageExists calling' );
+            let existingImgList = await Promise.all( [
+                imageExists( x0_75LargeImg.url ),
+                imageExists( x1_5LargeImg.url ),
+                imageExists( x2LargeImg.url ),
+            ] );
+            console.log( 'imageExists done' );
+
+            existingImgList.forEach( ( imageExists, index ) => {
+                console.log( 'imageExists[ ' + index + ' ]: ' + imageExists );
+            } ); 
+
+            // start build list of all really existing img sizes
+            const buildImgSizes = [];
+            // medium
+            if ( img.sizes.medium.url ) {
+                buildImgSizes.push( {
+                    url: img.sizes.medium.url,
+                    width: img.sizes.medium.width,
+                    height: img.sizes.medium.height, 
+                } );
+            }
+            if ( img.sizes.large.url ) {
+                // x0.75 large
+                if ( existingImgList[ 0 ] ) {
+                    buildImgSizes.push( {
+                        url: x0_75LargeImg.url,
+                        width: x0_75LargeImg.width,
+                        height: x0_75LargeImg.height, 
+                    } );
+                }
+                // large
+                buildImgSizes.push( {
+                    url: img.sizes.large.url,
+                    width: img.sizes.large.width,
+                    height: img.sizes.large.height, 
+                } );
+                // x1.5 large
+                if ( existingImgList[ 1 ] ) {
+                    buildImgSizes.push( {
+                        url: x1_5LargeImg.url,
+                        width: x1_5LargeImg.width,
+                        height: x1_5LargeImg.height, 
+                    } );
+                }
+                // x2 large
+                if ( existingImgList[ 1 ] ) {
+                    buildImgSizes.push( {
+                        url: x2LargeImg.url,
+                        width: x2LargeImg.width,
+                        height: x2LargeImg.height, 
+                    } );
+                }
+            }
+            // full (uploaded or down scaled size)
+            buildImgSizes.push( {
+                url: img.sizes.full.url,
+                width: img.sizes.full.width,
+                height: img.sizes.full.height, 
+            } );
+            // original (unscaled uploaded size)
+            if ( originalImgUrl ) {
+                buildImgSizes.push( {
+                    url: originalImgUrl,
+                    width: originalWidth,
+                    height: originalHeight, 
+                } );
+            }
+
+            // TEST
+            console.log( '-----> buildImgSizes:' );
+            buildImgSizes.forEach( ( imgSize, index ) => {
+                console.log( 'mgSize[ ' + index + ' ] ( ' + imgSize.width + 'x' + imgSize.height + ' ): "' + imgSize.url + '"' );
+            } ); 
+
 
             setAttributes( {
                 imgId: img.id,
@@ -450,14 +494,14 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 console.log( 'key: "' + key + '", val: "' + value + '"' );
             }
             */
-            
+            /*
             console.log( 'mediumUrl: ' + img.sizes.medium.url );
             console.log( 'mediumWidth: ' + img.sizes.medium.width );
             console.log( 'mediumHeight: ' + img.sizes.medium.height );
             console.log( 'largeUrl: ' + img.sizes.large.url );
             console.log( 'largeWidth: ' + img.sizes.large.width );
             console.log( 'largeHeight: ' + img.sizes.large.height );
-            
+            */
 
             //console.log( 'ratio thumbnail ( ' + img.sizes.thumbnail.width + ' / ' + img.sizes.thumbnail.height + ' ): ' + img.sizes.thumbnail.width / img.sizes.thumbnail.height );
             /*
@@ -626,6 +670,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         const {
             className,
             attributes: {
+                imgSizes,
                 mediumUrl,
                 mediumWidth,
                 mediumHeight,

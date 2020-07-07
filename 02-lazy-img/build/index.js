@@ -205,7 +205,6 @@ var getSizesAndWithoutSizesTruncFromUrlTrunc = function getSizesAndWithoutSizesT
 };
 
 var makeSizedImgs = function makeSizedImgs(config) {
-  // TODO: make sizes only if ooriginal size is larger
   var ratio = config.originalWidth / config.originalHeight;
   var urlTruncAndExtension = getUrlTruncAndExtension(config.url);
   var fileExtension = urlTruncAndExtension.extension;
@@ -221,9 +220,9 @@ var makeSizedImgs = function makeSizedImgs(config) {
 
   var returnList = [];
   config.scaleList.forEach(function (scale, index) {
-    console.log('-----> scale: ' + scale); // calculate new size
-
-    var scaledWidth = Math.round(width * scale);
+    //console.log( '-----> scale: ' + scale );
+    // calculate new size
+    var scaledWidth = Math.round(width * scale); // check if default size exists for current img (only if original img is larger)
 
     if (scaledWidth <= config.originalWidth) {
       var scaledHeight = Math.round(scaledWidth / ratio);
@@ -233,15 +232,17 @@ var makeSizedImgs = function makeSizedImgs(config) {
         width: scaledWidth,
         height: scaledHeight
       });
-      console.log('scaledUrl: ' + scaledUrl);
-      console.log('scaledWidth: ' + scaledWidth);
-      console.log('scaledHeight: ' + scaledHeight + ' = Math.round( ' + scaledWidth + ' / ' + ratio + ' )');
+      /*
+      console.log( 'scaledUrl: ' + scaledUrl );
+      console.log( 'scaledWidth: ' + scaledWidth );
+      console.log( 'scaledHeight: ' + scaledHeight + ' = Math.round( ' + scaledWidth + ' / ' + ratio + ' )' );
+      */
     }
   });
   return returnList;
 };
 
-function getOriginalImgSizes(originalImgUrl) {
+var getOriginalImgSizes = function getOriginalImgSizes(originalImgUrl) {
   return new Promise(function (resolve, reject) {
     var img = document.createElement('img');
 
@@ -261,7 +262,27 @@ function getOriginalImgSizes(originalImgUrl) {
     img.src = originalImgUrl;
     document.body.appendChild(img);
   });
-}
+};
+
+var imageExists = function imageExists(url) {
+  return new Promise(function (resolve, reject) {
+    console.log('doing imageExists: ' + url);
+    var xhr = new XMLHttpRequest();
+    xhr.open('HEAD', url, true);
+
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4) {
+        if (xhr.status == 200) {
+          resolve(true);
+        } else {
+          resolve(false);
+        }
+      }
+    };
+
+    xhr.send(null);
+  });
+};
 
 registerBlockType('bsx-blocks/lazy-img', {
   title: __('BSX Lazy Image', 'bsx-blocks'),
@@ -282,6 +303,9 @@ registerBlockType('bsx-blocks/lazy-img', {
     },
     imgId: {
       type: 'number'
+    },
+    imgSizes: {
+      type: 'array'
     },
     url: {
       type: 'string'
@@ -359,6 +383,7 @@ registerBlockType('bsx-blocks/lazy-img', {
     var className = props.className,
         _props$attributes = props.attributes,
         imgId = _props$attributes.imgId,
+        imgSizes = _props$attributes.imgSizes,
         mediumUrl = _props$attributes.mediumUrl,
         mediumWidth = _props$attributes.mediumWidth,
         mediumHeight = _props$attributes.mediumHeight,
@@ -390,96 +415,12 @@ registerBlockType('bsx-blocks/lazy-img', {
     }
 
     function _onSelectImage() {
-      _onSelectImage = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(img) {
-        var originalImgUrl, originalWidth, originalHeight, originalImgSizes, resolveAfter2Seconds, resolveAfter1Second, parallel, _parallel, scaleReferenceSize, scaleList, sizedImgsConfig, sizedImgs, x0_75LargeImg, x1_5LargeImg, x2LargeImg;
-
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+      _onSelectImage = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(img) {
+        var originalImgUrl, originalWidth, originalHeight, originalImgSizes, sizedImgsConfig, sizedImgs, x0_75LargeImg, x1_5LargeImg, x2LargeImg, existingImgList, buildImgSizes;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context.prev = _context.next) {
               case 0:
-                _parallel = function _parallel3() {
-                  _parallel = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
-                      while (1) {
-                        switch (_context3.prev = _context3.next) {
-                          case 0:
-                            console.log('==PARALLEL with await Promise.all=='); // Start 2 "jobs" in parallel and wait for both of them to complete
-
-                            _context3.next = 3;
-                            return Promise.all([_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-                              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-                                while (1) {
-                                  switch (_context.prev = _context.next) {
-                                    case 0:
-                                      _context.t0 = console;
-                                      _context.next = 3;
-                                      return resolveAfter2Seconds();
-
-                                    case 3:
-                                      _context.t1 = _context.sent;
-                                      return _context.abrupt("return", _context.t0.log.call(_context.t0, _context.t1));
-
-                                    case 5:
-                                    case "end":
-                                      return _context.stop();
-                                  }
-                                }
-                              }, _callee);
-                            }))(), _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-                              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-                                while (1) {
-                                  switch (_context2.prev = _context2.next) {
-                                    case 0:
-                                      _context2.t0 = console;
-                                      _context2.next = 3;
-                                      return resolveAfter1Second();
-
-                                    case 3:
-                                      _context2.t1 = _context2.sent;
-                                      return _context2.abrupt("return", _context2.t0.log.call(_context2.t0, _context2.t1));
-
-                                    case 5:
-                                    case "end":
-                                      return _context2.stop();
-                                  }
-                                }
-                              }, _callee2);
-                            }))()]);
-
-                          case 3:
-                          case "end":
-                            return _context3.stop();
-                        }
-                      }
-                    }, _callee3);
-                  }));
-                  return _parallel.apply(this, arguments);
-                };
-
-                parallel = function _parallel2() {
-                  return _parallel.apply(this, arguments);
-                };
-
-                resolveAfter1Second = function _resolveAfter1Second() {
-                  console.log("starting fast promise");
-                  return new Promise(function (resolve) {
-                    setTimeout(function () {
-                      resolve("fast");
-                      console.log("fast promise is done");
-                    }, 1000);
-                  });
-                };
-
-                resolveAfter2Seconds = function _resolveAfter2Seconds() {
-                  console.log("starting slow promise");
-                  return new Promise(function (resolve) {
-                    setTimeout(function () {
-                      resolve("slow");
-                      console.log("slow promise is done");
-                    }, 2000);
-                  });
-                };
-
                 console.log('img.url: ' + img.url); // TEST img object
 
                 /*
@@ -517,79 +458,132 @@ registerBlockType('bsx-blocks/lazy-img', {
                 originalHeight = 0;
 
                 if (!fullImgIsScaled(img.url)) {
-                  _context4.next = 28;
+                  _context.next = 20;
                   break;
                 }
 
                 // get original, get sizes
-                console.log('getOriginalImgUrl( img.url ): ' + getOriginalImgUrl(img.url));
+                //console.log( 'getOriginalImgUrl( img.url ): ' + getOriginalImgUrl( img.url ) );
                 originalImgUrl = getOriginalImgUrl(img.url); // TODO: load img, get original sizes
 
-                console.log('originalImgSizes calling');
-                _context4.prev = 13;
-                _context4.next = 16;
+                _context.prev = 7;
+                _context.next = 10;
                 return getOriginalImgSizes(originalImgUrl);
 
+              case 10:
+                originalImgSizes = _context.sent;
+                _context.next = 16;
+                break;
+
+              case 13:
+                _context.prev = 13;
+                _context.t0 = _context["catch"](7);
+                console.error(_context.t0);
+
               case 16:
-                originalImgSizes = _context4.sent;
-                _context4.next = 22;
-                break;
-
-              case 19:
-                _context4.prev = 19;
-                _context4.t0 = _context4["catch"](13);
-                console.error(_context4.t0);
-
-              case 22:
-                console.log('originalImgSizes done');
+                //console.log( 'originalImgSizes done' );
                 originalWidth = originalImgSizes.width || 0;
-                originalHeight = originalImgSizes.height || 0;
-                console.log('after await: originalWidth: ' + originalWidth + ' – originalHeight: ' + originalHeight);
-                /*
-                const xhr = new XMLHttpRequest();
-                xhr.open( 'HEAD', originalImgUrl, true );
-                xhr.onreadystatechange = function(){
-                    if ( xhr.readyState == 4 ) {
-                        if ( xhr.status == 200 ) {
-                            const responseHeaders = xhr.getAllResponseHeaders();
-                            console.log( responseHeaders );
-                            alert( 'Size in bytes: ' + xhr.getResponseHeader( 'Content-Length' ) );
-                        } 
-                        else {
-                            alert( 'ERROR' );
-                        }
-                    }
-                };
-                xhr.send( null );
-                */
+                originalHeight = originalImgSizes.height || 0; //console.log( 'after await: originalWidth: ' + originalWidth + ' – originalHeight: ' + originalHeight );
 
-                _context4.next = 30;
+                _context.next = 22;
                 break;
 
-              case 28:
+              case 20:
                 // get sizes from full img
                 // check which sizes exist
                 originalWidth = img.sizes.full.width;
                 originalHeight = img.sizes.full.height;
 
-              case 30:
-                parallel(); // /TEST
-
+              case 22:
+                // /TEST
                 console.log('originalWidth: ' + originalWidth + ' – originalHeight: ' + originalHeight); // config for making sizes (might change in newer WP versions)
 
-                scaleReferenceSize = 'large';
-                scaleList = [0.75, 1.5, 2]; // check if exist (smaller original size)
-
                 sizedImgsConfig = {
-                  url: img.sizes[scaleReferenceSize].url,
-                  scaleList: scaleList,
+                  url: img.sizes['large'].url,
+                  scaleList: [0.75, 1.5, 2],
                   originalWidth: originalWidth,
                   originalHeight: originalHeight
                 };
                 sizedImgs = makeSizedImgs(sizedImgsConfig);
-                x0_75LargeImg = sizedImgs[0];
-                x1_5LargeImg = sizedImgs[1];
-                x2LargeImg = sizedImgs[2];
+                x0_75LargeImg = sizedImgs[0] || {};
+                x1_5LargeImg = sizedImgs[1] || {};
+                x2LargeImg = sizedImgs[2] || {};
+                console.log('imageExists calling');
+                _context.next = 31;
+                return Promise.all([imageExists(x0_75LargeImg.url), imageExists(x1_5LargeImg.url), imageExists(x2LargeImg.url)]);
+
+              case 31:
+                existingImgList = _context.sent;
+                console.log('imageExists done');
+                existingImgList.forEach(function (imageExists, index) {
+                  console.log('imageExists[ ' + index + ' ]: ' + imageExists);
+                }); // start build list of all really existing img sizes
+
+                buildImgSizes = []; // medium
+
+                if (img.sizes.medium.url) {
+                  buildImgSizes.push({
+                    url: img.sizes.medium.url,
+                    width: img.sizes.medium.width,
+                    height: img.sizes.medium.height
+                  });
+                }
+
+                if (img.sizes.large.url) {
+                  // x0.75 large
+                  if (existingImgList[0]) {
+                    buildImgSizes.push({
+                      url: x0_75LargeImg.url,
+                      width: x0_75LargeImg.width,
+                      height: x0_75LargeImg.height
+                    });
+                  } // large
+
+
+                  buildImgSizes.push({
+                    url: img.sizes.large.url,
+                    width: img.sizes.large.width,
+                    height: img.sizes.large.height
+                  }); // x1.5 large
+
+                  if (existingImgList[1]) {
+                    buildImgSizes.push({
+                      url: x1_5LargeImg.url,
+                      width: x1_5LargeImg.width,
+                      height: x1_5LargeImg.height
+                    });
+                  } // x2 large
+
+
+                  if (existingImgList[1]) {
+                    buildImgSizes.push({
+                      url: x2LargeImg.url,
+                      width: x2LargeImg.width,
+                      height: x2LargeImg.height
+                    });
+                  }
+                } // full (uploaded or down scaled size)
+
+
+                buildImgSizes.push({
+                  url: img.sizes.full.url,
+                  width: img.sizes.full.width,
+                  height: img.sizes.full.height
+                }); // original (unscaled uploaded size)
+
+                if (originalImgUrl) {
+                  buildImgSizes.push({
+                    url: originalImgUrl,
+                    width: originalWidth,
+                    height: originalHeight
+                  });
+                } // TEST
+
+
+                console.log('-----> buildImgSizes:');
+                buildImgSizes.forEach(function (imgSize, index) {
+                  console.log('mgSize[ ' + index + ' ] ( ' + imgSize.width + 'x' + imgSize.height + ' ): "' + imgSize.url + '"');
+                });
                 setAttributes({
                   imgId: img.id,
                   mediumUrl: img.sizes.medium.url,
@@ -622,12 +616,15 @@ registerBlockType('bsx-blocks/lazy-img', {
                 }
                 */
 
-                console.log('mediumUrl: ' + img.sizes.medium.url);
-                console.log('mediumWidth: ' + img.sizes.medium.width);
-                console.log('mediumHeight: ' + img.sizes.medium.height);
-                console.log('largeUrl: ' + img.sizes.large.url);
-                console.log('largeWidth: ' + img.sizes.large.width);
-                console.log('largeHeight: ' + img.sizes.large.height); //console.log( 'ratio thumbnail ( ' + img.sizes.thumbnail.width + ' / ' + img.sizes.thumbnail.height + ' ): ' + img.sizes.thumbnail.width / img.sizes.thumbnail.height );
+                /*
+                console.log( 'mediumUrl: ' + img.sizes.medium.url );
+                console.log( 'mediumWidth: ' + img.sizes.medium.width );
+                console.log( 'mediumHeight: ' + img.sizes.medium.height );
+                console.log( 'largeUrl: ' + img.sizes.large.url );
+                console.log( 'largeWidth: ' + img.sizes.large.width );
+                console.log( 'largeHeight: ' + img.sizes.large.height );
+                */
+                //console.log( 'ratio thumbnail ( ' + img.sizes.thumbnail.width + ' / ' + img.sizes.thumbnail.height + ' ): ' + img.sizes.thumbnail.width / img.sizes.thumbnail.height );
 
                 /*
                 console.log( 'ratio medium ( ' + img.sizes.medium.width + ' / ' + img.sizes.medium.height + ' ): ' + img.sizes.medium.width / img.sizes.medium.height );
@@ -635,12 +632,12 @@ registerBlockType('bsx-blocks/lazy-img', {
                 console.log( 'ratio full ( ' + img.sizes.full.width + ' / ' + img.sizes.full.height + ' ): ' + img.sizes.full.width / img.sizes.full.height );
                 */
 
-              case 46:
+              case 42:
               case "end":
-                return _context4.stop();
+                return _context.stop();
             }
           }
-        }, _callee4, null, [[13, 19]]);
+        }, _callee, null, [[7, 13]]);
       }));
       return _onSelectImage.apply(this, arguments);
     }
@@ -784,6 +781,7 @@ registerBlockType('bsx-blocks/lazy-img', {
   save: function save(props) {
     var className = props.className,
         _props$attributes2 = props.attributes,
+        imgSizes = _props$attributes2.imgSizes,
         mediumUrl = _props$attributes2.mediumUrl,
         mediumWidth = _props$attributes2.mediumWidth,
         mediumHeight = _props$attributes2.mediumHeight,
