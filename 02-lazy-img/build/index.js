@@ -86,6 +86,53 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./node_modules/@babel/runtime/helpers/asyncToGenerator.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/asyncToGenerator.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
+  try {
+    var info = gen[key](arg);
+    var value = info.value;
+  } catch (error) {
+    reject(error);
+    return;
+  }
+
+  if (info.done) {
+    resolve(value);
+  } else {
+    Promise.resolve(value).then(_next, _throw);
+  }
+}
+
+function _asyncToGenerator(fn) {
+  return function () {
+    var self = this,
+        args = arguments;
+    return new Promise(function (resolve, reject) {
+      var gen = fn.apply(self, args);
+
+      function _next(value) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
+      }
+
+      function _throw(err) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
+      }
+
+      _next(undefined);
+    });
+  };
+}
+
+module.exports = _asyncToGenerator;
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
@@ -95,8 +142,14 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "@babel/runtime/regenerator");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "./node_modules/@babel/runtime/helpers/asyncToGenerator.js");
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__);
+
+
 
 var _wp$i18n = wp.i18n,
     __ = _wp$i18n.__,
@@ -112,11 +165,92 @@ var _wp$components = wp.components,
     PanelBody = _wp$components.PanelBody;
 /*
     TODO: 
+        - !!! check which img sizes exist (small img 200w will NOT have size large 1024w)
         - figure (and caption) optional
         - text align for figure (toolbar)
         - sizes { Max, Large, Medium, Small } -> get all image sizes from img.sizes
-        - make own srcset sizes
+        - make own srcset sizes (?)
 */
+
+var getFileUrlTruncAndExtension = function getFileUrlTruncAndExtension(fileUrl) {
+  var urlExplode = fileUrl.split('.');
+  var fileExtension = urlExplode[urlExplode.length - 1];
+  urlExplode.pop();
+  var urlWithoutFileExtension = urlExplode.join('.');
+  return {
+    trunc: urlWithoutFileExtension,
+    extension: fileExtension
+  };
+};
+
+var fullImgIsScaled = function fullImgIsScaled(fullUrl) {
+  var urlWithoutFileExtension = getFileUrlTruncAndExtension(fullUrl).trunc;
+  return urlWithoutFileExtension.lastIndexOf('-scaled') === urlWithoutFileExtension.length - 7;
+};
+
+var getOriginalImgUrl = function getOriginalImgUrl(fullUrl) {
+  var truncAndExtension = getFileUrlTruncAndExtension(fullUrl);
+  return truncAndExtension.trunc.substring(0, truncAndExtension.trunc.length - 7) + '.' + truncAndExtension.extension;
+};
+
+var makeSizedImg = function makeSizedImg(largeUrl, ratio, scale) {
+  // TODO: problem: full width and height is not original width and heigt but scaled, so it causes errors when rounding
+  var urlExplode = largeUrl.split('.');
+  var fileExtension = urlExplode[urlExplode.length - 1];
+  urlExplode.pop();
+  var urlWithoutFileExtension = urlExplode.join('.'); // get large sizes
+
+  var urlWithoutFileExtensionExplode = largeUrl.split('-');
+  var largeSizes = urlWithoutFileExtensionExplode[urlWithoutFileExtensionExplode.length - 1].split('x');
+  var largeWidth = largeSizes[0];
+  var largeHeight = largeSizes[1]; // get url trunc
+
+  urlWithoutFileExtensionExplode.pop();
+  var urlWithoutSizesAndFileExtension = urlWithoutFileExtensionExplode.join('-');
+  /*
+  console.log( 'urlWithoutFileExtension: ' + urlWithoutFileExtension );
+  console.log( 'fileExtension: ' + fileExtension );
+  console.log( 'urlWithoutSizesAndFileExtension: ' + urlWithoutSizesAndFileExtension );
+  */
+  // calculate new size
+
+  var scaledWidth = Math.round(largeWidth * scale);
+  var scaledHeight = Math.round(scaledWidth / ratio);
+  var scaledUrl = urlWithoutSizesAndFileExtension + '-' + scaledWidth + 'x' + scaledHeight + '.' + fileExtension;
+  /*
+  console.log( 'scaledUrl: ' + scaledUrl );
+  console.log( 'scaledWidth: ' + scaledWidth );
+  console.log( 'scaledHeight: ' + scaledHeight + ' = Math.roung( ' + scaledWidth + ' / ' + ratio + ' )' );
+  */
+
+  return {
+    url: scaledUrl,
+    width: scaledWidth,
+    height: scaledHeight
+  };
+};
+
+function getOriginalImgSizes(originalImgUrl) {
+  return new Promise(function (resolve, reject) {
+    var testImg = document.createElement('img');
+
+    testImg.onload = function () {
+      console.log('onload test img in function: ' + testImg.width + ' x ' + testImg.height);
+      resolve({
+        width: testImg.width,
+        height: testImg.height
+      });
+      testImg.remove;
+    };
+
+    testImg.onerror = function (err) {
+      reject(err);
+    };
+
+    testImg.src = originalImgUrl;
+    document.body.appendChild(testImg);
+  });
+}
 
 registerBlockType('bsx-blocks/lazy-img', {
   title: __('BSX Lazy Image', 'bsx-blocks'),
@@ -147,13 +281,22 @@ registerBlockType('bsx-blocks/lazy-img', {
     height: {
       type: 'number'
     },
-    smallUrl: {
+    mediumUrl: {
       type: 'string'
     },
-    smallWidth: {
+    mediumWidth: {
       type: 'number'
     },
-    smallHeight: {
+    mediumHeight: {
+      type: 'number'
+    },
+    x0_75LargeUrl: {
+      type: 'string'
+    },
+    x0_75LargeWidth: {
+      type: 'number'
+    },
+    x0_75LargeHeight: {
       type: 'number'
     },
     largeUrl: {
@@ -163,6 +306,24 @@ registerBlockType('bsx-blocks/lazy-img', {
       type: 'number'
     },
     largeHeight: {
+      type: 'number'
+    },
+    x1_5LargeUrl: {
+      type: 'string'
+    },
+    x1_5LargeWidth: {
+      type: 'number'
+    },
+    x1_5LargeHeight: {
+      type: 'number'
+    },
+    x2LargeUrl: {
+      type: 'string'
+    },
+    x2LargeWidth: {
+      type: 'number'
+    },
+    x2LargeHeight: {
       type: 'number'
     },
     alt: {
@@ -181,44 +342,179 @@ registerBlockType('bsx-blocks/lazy-img', {
         url = _props$attributes.url,
         width = _props$attributes.width,
         height = _props$attributes.height,
-        smallUrl = _props$attributes.smallUrl,
-        smallWidth = _props$attributes.smallWidth,
-        smallHeight = _props$attributes.smallHeight,
+        mediumUrl = _props$attributes.mediumUrl,
+        mediumWidth = _props$attributes.mediumWidth,
+        mediumHeight = _props$attributes.mediumHeight,
+        x0_75LargeUrl = _props$attributes.x0_75LargeUrl,
+        x0_75LargeWidth = _props$attributes.x0_75LargeWidth,
+        x0_75LargeHeight = _props$attributes.x0_75LargeHeight,
         largeUrl = _props$attributes.largeUrl,
         largeWidth = _props$attributes.largeWidth,
         largeHeight = _props$attributes.largeHeight,
+        x1_5LargeUrl = _props$attributes.x1_5LargeUrl,
+        x1_5LargeWidth = _props$attributes.x1_5LargeWidth,
+        x1_5LargeHeight = _props$attributes.x1_5LargeHeight,
+        x2LargeUrl = _props$attributes.x2LargeUrl,
+        x2LargeWidth = _props$attributes.x2LargeWidth,
+        x2LargeHeight = _props$attributes.x2LargeHeight,
         alt = _props$attributes.alt,
         figcaption = _props$attributes.figcaption,
         setAttributes = props.setAttributes,
         isSelected = props.isSelected;
 
-    var onSelectImage = function onSelectImage(img) {
-      setAttributes({
-        imgId: img.id,
-        url: img.url,
-        width: img.sizes.full.width,
-        height: img.sizes.full.height,
-        smallUrl: img.sizes.medium.url,
-        smallWidth: img.sizes.medium.width,
-        smallHeight: img.sizes.medium.height,
-        largeUrl: img.sizes.large.url,
-        largeWidth: img.sizes.large.width,
-        largeHeight: img.sizes.large.height,
-        alt: img.alt
-      }); // TEST – TODO: remove
-      //for ( let [ key, value ] of Object.entries( img.sizes ) ) {
-      //    console.log( 'key: "' + key + '", val: "' + value + '"' );
-      //}
+    function onSelectImage(_x) {
+      return _onSelectImage.apply(this, arguments);
+    }
 
-      /*
-      console.log( 'smallUrl: ' + img.sizes.medium.url );
-      console.log( 'smallWidth: ' + img.sizes.medium.width );
-      console.log( 'smallHeight: ' + img.sizes.medium.height );
-      console.log( 'largeUrl: ' + img.sizes.large.url );
-      console.log( 'largeWidth: ' + img.sizes.large.width );
-      console.log( 'largeHeight: ' + img.sizes.large.height );
-      */
-    };
+    function _onSelectImage() {
+      _onSelectImage = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(img) {
+        var originalWidth, originalHeight, originalImgUrl, originalImgSizes, ratio, x0_75LargeImg, x1_5LargeImg, x2LargeImg;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                console.log('img.url: ' + img.url); // TEST img object
+
+                /*
+                            for ( let [ key, value ] of Object.entries( img ) ) {
+                                console.log( 'key: "' + key + '", val: "' + value + '"' );
+                            }
+                
+                            console.log( 'img.nonces' );
+                            if ( img.nonces ) {
+                                for ( let [ key, value ] of Object.entries( img.nonces ) ) {
+                                    console.log( 'key: "' + key + '", val: "' + value + '"' );
+                                }
+                            }
+                
+                            console.log( 'img.sizes' );
+                            if ( img.sizes ) {
+                                for ( let [ key, value ] of Object.entries( img.sizes ) ) {
+                                    console.log( 'key: "' + key + '", val: "' + value + '"' );
+                                }
+                            }
+                
+                            console.log( 'img.compat' );
+                            if ( img.compat ) {
+                                for ( let [ key, value ] of Object.entries( img.compat ) ) {
+                                    console.log( 'key: "' + key + '", val: "' + value + '"' );
+                                }
+                            }
+                */
+
+                console.log('fullImgIsScaled( img.url ): ' + fullImgIsScaled(img.url)); //console.log( 'url               : ' + url );
+                //console.log( 'img.sizes.full.url: ' + img.sizes.full.url );
+
+                originalWidth = 0;
+                originalHeight = 0;
+
+                if (!fullImgIsScaled(img.url)) {
+                  _context.next = 17;
+                  break;
+                }
+
+                // get original, get sizes
+                console.log('getOriginalImgUrl( img.url ): ' + getOriginalImgUrl(img.url));
+                originalImgUrl = getOriginalImgUrl(img.url); // TODO: load img, get original sizes
+
+                console.log('calling');
+                _context.next = 10;
+                return getOriginalImgSizes(originalImgUrl);
+
+              case 10:
+                originalImgSizes = _context.sent;
+                console.log('done');
+                originalWidth = originalImgSizes.width;
+                originalHeight = originalImgSizes.height;
+                console.log('after await: originalWidth: ' + originalWidth + ' – originalHeight: ' + originalHeight);
+                /*
+                const xhr = new XMLHttpRequest();
+                xhr.open( 'HEAD', originalImgUrl, true );
+                xhr.onreadystatechange = function(){
+                    if ( xhr.readyState == 4 ) {
+                        if ( xhr.status == 200 ) {
+                            const responseHeaders = xhr.getAllResponseHeaders();
+                            console.log( responseHeaders );
+                            alert( 'Size in bytes: ' + xhr.getResponseHeader( 'Content-Length' ) );
+                        } 
+                        else {
+                            alert( 'ERROR' );
+                        }
+                    }
+                };
+                xhr.send( null );
+                */
+
+                _context.next = 19;
+                break;
+
+              case 17:
+                // get sizes from full img
+                // check which sizes exist
+                originalWidth = img.sizes.full.width;
+                originalHeight = img.sizes.full.height;
+
+              case 19:
+                console.log('originalWidth: ' + originalWidth + ' – originalHeight: ' + originalHeight);
+                ratio = originalWidth / originalHeight;
+                x0_75LargeImg = makeSizedImg(img.sizes.large.url, ratio, .75);
+                x1_5LargeImg = makeSizedImg(img.sizes.large.url, ratio, 1.5);
+                x2LargeImg = makeSizedImg(img.sizes.large.url, ratio, 2);
+                setAttributes({
+                  imgId: img.id,
+                  url: img.url,
+                  width: img.sizes.full.width,
+                  height: img.sizes.full.height,
+                  mediumUrl: img.sizes.medium.url,
+                  mediumWidth: img.sizes.medium.width,
+                  mediumHeight: img.sizes.medium.height,
+                  x0_75LargeUrl: x0_75LargeImg.url,
+                  x0_75LargeWidth: x0_75LargeImg.width,
+                  x0_75LargeHeight: x0_75LargeImg.height,
+                  largeUrl: img.sizes.large.url,
+                  largeWidth: img.sizes.large.width,
+                  largeHeight: img.sizes.large.height,
+                  x1_5LargeUrl: x1_5LargeImg.url,
+                  x1_5LargeWidth: x1_5LargeImg.width,
+                  x1_5LargeHeight: x1_5LargeImg.height,
+                  x2LargeUrl: x2LargeImg.url,
+                  x2LargeWidth: x2LargeImg.width,
+                  x2LargeHeight: x2LargeImg.height,
+                  alt: img.alt
+                }); // TEST – TODO: remove
+
+                /*
+                for ( let [ key, value ] of Object.entries( img.sizes ) ) {
+                    console.log( 'key: "' + key + '", val: "' + value + '"' );
+                }
+                */
+
+                console.log('mediumUrl: ' + img.sizes.medium.url);
+                console.log('mediumWidth: ' + img.sizes.medium.width);
+                console.log('mediumHeight: ' + img.sizes.medium.height);
+                console.log('largeUrl: ' + img.sizes.large.url);
+                console.log('largeWidth: ' + img.sizes.large.width);
+                console.log('largeHeight: ' + img.sizes.large.height); //console.log( 'ratio thumbnail ( ' + img.sizes.thumbnail.width + ' / ' + img.sizes.thumbnail.height + ' ): ' + img.sizes.thumbnail.width / img.sizes.thumbnail.height );
+
+                /*
+                console.log( 'ratio medium ( ' + img.sizes.medium.width + ' / ' + img.sizes.medium.height + ' ): ' + img.sizes.medium.width / img.sizes.medium.height );
+                console.log( 'ratio large ( ' + img.sizes.large.width + ' / ' + img.sizes.large.height + ' ): ' + img.sizes.large.width / img.sizes.large.height );
+                console.log( 'ratio full ( ' + img.sizes.full.width + ' / ' + img.sizes.full.height + ' ): ' + img.sizes.full.width / img.sizes.full.height );
+                */
+
+                console.log('calculated ratio: ' + ratio);
+
+              case 32:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+      return _onSelectImage.apply(this, arguments);
+    }
+
+    ;
 
     var onChangeMediaAlt = function onChangeMediaAlt(value) {
       setAttributes({
@@ -244,65 +540,97 @@ registerBlockType('bsx-blocks/lazy-img', {
       });
     };
 
-    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
+    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(PanelBody, {
       title: __('BSX Block Settings', 'bsx-blocks')
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(TextControl, {
       label: __('Width', 'bsx-blocks'),
       value: width,
       onChange: onChangeMediaWidth
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(TextControl, {
       label: __('Height', 'bsx-blocks'),
       value: height,
       onChange: onChangeMediaHeight
-    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
       className: className
-    }, imgId ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
+    }, imgId ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("img", {
       className: 'upload-img',
       src: url,
       alt: alt
-    }) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", null, "TEST:"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      class: "row"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      class: "col-4"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("img", {
+      className: "img-fluid",
+      src: x0_75LargeUrl,
+      alt: alt,
+      width: x0_75LargeWidth,
+      height: x0_75LargeHeight
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      class: "small"
+    }, x0_75LargeWidth, "x", x0_75LargeHeight)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      class: "col-4"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("img", {
+      className: "img-fluid",
+      src: x1_5LargeUrl,
+      alt: alt,
+      width: x1_5LargeWidth,
+      height: x1_5LargeHeight
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      class: "small"
+    }, x1_5LargeWidth, "x", x1_5LargeHeight)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      class: "col-4"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("img", {
+      className: "img-fluid",
+      src: x2LargeUrl,
+      alt: alt,
+      width: x2LargeWidth,
+      height: x2LargeHeight
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      class: "small"
+    }, x2LargeWidth, "x", x2LargeHeight)))) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
       className: 'bsxui-img-upload-placeholder'
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(MediaUpload, {
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(MediaUpload, {
       onSelect: onSelectImage,
       allowedTypes: "image",
       value: imgId,
       render: function render(_ref) {
         var open = _ref.open;
-        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Button, {
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(Button, {
           onClick: open,
           isSecondary: true
         }, __('Select / upload Image', 'bsx-blocks'));
       }
-    })), figcaption && !RichText.isEmpty(figcaption) && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText, {
+    })), figcaption && !RichText.isEmpty(figcaption) && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(RichText, {
       tagName: "figcaption",
       multiline: false,
       placeholder: __('Caption (optional)', 'bsx-blocks'),
       value: figcaption,
       onChange: onChangeFigcaption,
       keepPlaceholderOnFocus: true
-    }), isSelected && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    }), isSelected && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
       class: "bsxui-isselected-config-panel"
-    }, !figcaption && RichText.isEmpty(figcaption) && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText, {
+    }, !figcaption && RichText.isEmpty(figcaption) && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(RichText, {
       tagName: "figcaption",
       multiline: false,
       placeholder: __('Caption (optional)', 'bsx-blocks'),
       value: figcaption,
       onChange: onChangeFigcaption,
       keepPlaceholderOnFocus: true
-    }), imgId && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    }), imgId && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
       className: "bsxui-upload-btn-wrapper"
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(MediaUpload, {
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(MediaUpload, {
       onSelect: onSelectImage,
       allowedTypes: "image",
       value: imgId,
       render: function render(_ref2) {
         var open = _ref2.open;
-        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Button, {
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(Button, {
           onClick: open,
           isSecondary: true
         }, __('Change / upload Image', 'bsx-blocks'));
       }
-    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(TextControl, {
       label: __('Alt', 'bsx-blocks'),
       value: alt,
       onChange: onChangeMediaAlt
@@ -313,14 +641,14 @@ registerBlockType('bsx-blocks/lazy-img', {
   <script>
       document.write(
           '<picture>'
-          + '<source media="(orientation: portrait) and (max-width: 799.98px)" srcset="" data-srcset="/documents/category/3677/example-img-006-720x720-thumb.jpg" data-width="720" data-height="720">\n'
-          + '<source media="(min-width: 1440px)" srcset="" data-srcset="/documents/category/3677/example-img-006-1440x720.jpg" data-width="1440" data-height="480">\n'
-          + '<source media="(min-width: 1140px)" srcset="" data-srcset="/documents/category/3677/example-img-006-1140x380.jpg" data-width="1140" data-height="380">\n'
-          + '<img class="img-fluid" alt="Example image" src="" data-fn="lazyload" data-src="/documents/category/3677/example-img-006-720x480.jpg" data-width="1140" data-height="380">'
+          + '<source media="(orientation: portrait) and (max-width: 799.98px)" srcset="" data-srcset="/example-img-006-720x720-thumb.jpg" data-width="720" data-height="720">\n'
+          + '<source media="(min-width: 1440px)" srcset="" data-srcset="/example-img-006-1440x720.jpg" data-width="1440" data-height="480">\n'
+          + '<source media="(min-width: 1140px)" srcset="" data-srcset="/example-img-006-1140x380.jpg" data-width="1140" data-height="380">\n'
+          + '<img class="img-fluid" alt="Example image" src="" data-fn="lazyload" data-src="/example-img-006-720x480.jpg" data-width="1140" data-height="380">'
           + '</picture>'
       );
   </script>
-  <noscript><img class="img-fluid" src="/documents/category/3677/example-img-006-720x480.jpg" alt="Example image"></noscript>
+  <noscript><img class="img-fluid" src="/example-img-006-720x480.jpg" alt="Example image"></noscript>
   */
   save: function save(props) {
     var className = props.className,
@@ -328,43 +656,95 @@ registerBlockType('bsx-blocks/lazy-img', {
         url = _props$attributes2.url,
         width = _props$attributes2.width,
         height = _props$attributes2.height,
-        smallUrl = _props$attributes2.smallUrl,
-        smallWidth = _props$attributes2.smallWidth,
-        smallHeight = _props$attributes2.smallHeight,
+        mediumUrl = _props$attributes2.mediumUrl,
+        mediumWidth = _props$attributes2.mediumWidth,
+        mediumHeight = _props$attributes2.mediumHeight,
+        x0_75LargeUrl = _props$attributes2.x0_75LargeUrl,
+        x0_75LargeWidth = _props$attributes2.x0_75LargeWidth,
+        x0_75LargeHeight = _props$attributes2.x0_75LargeHeight,
         largeUrl = _props$attributes2.largeUrl,
         largeWidth = _props$attributes2.largeWidth,
         largeHeight = _props$attributes2.largeHeight,
+        x1_5LargeUrl = _props$attributes2.x1_5LargeUrl,
+        x1_5LargeWidth = _props$attributes2.x1_5LargeWidth,
+        x1_5LargeHeight = _props$attributes2.x1_5LargeHeight,
+        x2LargeUrl = _props$attributes2.x2LargeUrl,
+        x2LargeWidth = _props$attributes2.x2LargeWidth,
+        x2LargeHeight = _props$attributes2.x2LargeHeight,
         alt = _props$attributes2.alt,
         figcaption = _props$attributes2.figcaption;
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
       className: className
-    }, url && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("figure", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("script", null, "document.write( '", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("picture", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("source", {
+    }, url && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("figure", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("script", null, "document.write( '", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("picture", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("source", {
       media: "(max-width: 459.98px)",
       srcset: "",
-      "data-srcset": smallUrl,
-      "data-width": smallWidth,
-      "data-height": smallHeight
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
+      "data-srcset": mediumUrl,
+      "data-width": mediumWidth,
+      "data-height": mediumHeight
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("img", {
       className: "img-fluid",
       src: "",
       alt: alt,
+      "data-src": largeUrl,
       width: largeWidth,
       height: largeHeight,
-      "data-src": largeUrl,
       "data-fn": "lazyload"
-    })), "' );"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("noscript", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
+    })), "' );"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("noscript", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("img", {
       className: "img-fluid",
       src: largeUrl,
       alt: alt,
       width: largeWidth,
       height: largeHeight
-    })), figcaption && !RichText.isEmpty(figcaption) && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText.Content, {
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", null, "TEST:"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      class: "row"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      class: "col-4"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("img", {
+      className: "img-fluid",
+      src: x0_75LargeUrl,
+      alt: alt,
+      width: x0_75LargeWidth,
+      height: x0_75LargeHeight
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      class: "small"
+    }, x0_75LargeWidth, "x", x0_75LargeHeight)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      class: "col-4"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("img", {
+      className: "img-fluid",
+      src: x1_5LargeUrl,
+      alt: alt,
+      width: x1_5LargeWidth,
+      height: x1_5LargeHeight
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      class: "small"
+    }, x1_5LargeWidth, "x", x1_5LargeHeight)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      class: "col-4"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("img", {
+      className: "img-fluid",
+      src: x2LargeUrl,
+      alt: alt,
+      width: x2LargeWidth,
+      height: x2LargeHeight
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      class: "small"
+    }, x2LargeWidth, "x", x2LargeHeight))), figcaption && !RichText.isEmpty(figcaption) && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(RichText.Content, {
       tagName: "figcaption",
       className: "font-italic",
       value: figcaption
     })));
   }
 });
+
+/***/ }),
+
+/***/ "@babel/runtime/regenerator":
+/*!**********************************************!*\
+  !*** external {"this":"regeneratorRuntime"} ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+(function() { module.exports = this["regeneratorRuntime"]; }());
 
 /***/ }),
 

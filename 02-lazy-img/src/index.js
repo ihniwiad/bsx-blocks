@@ -15,11 +15,109 @@ const {
 
 /*
     TODO: 
+        - !!! check which img sizes exist (small img 200w will NOT have size large 1024w)
         - figure (and caption) optional
         - text align for figure (toolbar)
         - sizes { Max, Large, Medium, Small } -> get all image sizes from img.sizes
-        - make own srcset sizes
+        - make own srcset sizes (?)
 */
+
+const getFileUrlTruncAndExtension = ( fileUrl ) => {
+
+    const urlExplode = fileUrl.split( '.' );
+
+    const fileExtension = urlExplode[ urlExplode.length - 1 ];
+    urlExplode.pop();
+    const urlWithoutFileExtension = urlExplode.join( '.' );
+
+    return {
+        trunc: urlWithoutFileExtension,
+        extension: fileExtension,
+    };
+}
+
+const fullImgIsScaled = ( fullUrl ) => {
+
+    const urlWithoutFileExtension = getFileUrlTruncAndExtension( fullUrl ).trunc;
+
+    return urlWithoutFileExtension.lastIndexOf( '-scaled' ) === urlWithoutFileExtension.length - 7;
+}
+
+const getOriginalImgUrl = ( fullUrl ) => {
+
+    const truncAndExtension = getFileUrlTruncAndExtension( fullUrl );
+
+    return truncAndExtension.trunc.substring(0, truncAndExtension.trunc.length - 7) + '.' + truncAndExtension.extension;
+}
+
+const makeSizedImg = ( largeUrl, ratio, scale ) => {
+
+    // TODO: problem: full width and height is not original width and heigt but scaled, so it causes errors when rounding
+
+    const urlExplode = largeUrl.split( '.' );
+
+    const fileExtension = urlExplode[ urlExplode.length - 1 ];
+    urlExplode.pop();
+    const urlWithoutFileExtension = urlExplode.join( '.' );
+
+    // get large sizes
+    const urlWithoutFileExtensionExplode = largeUrl.split( '-' );
+    const largeSizes = urlWithoutFileExtensionExplode[ urlWithoutFileExtensionExplode.length - 1 ].split( 'x' );
+    const largeWidth = largeSizes[ 0 ];
+    const largeHeight = largeSizes[ 1 ];
+
+    // get url trunc
+    urlWithoutFileExtensionExplode.pop();
+    const urlWithoutSizesAndFileExtension = urlWithoutFileExtensionExplode.join( '-' );
+
+    /*
+    console.log( 'urlWithoutFileExtension: ' + urlWithoutFileExtension );
+    console.log( 'fileExtension: ' + fileExtension );
+    console.log( 'urlWithoutSizesAndFileExtension: ' + urlWithoutSizesAndFileExtension );
+    */
+
+    // calculate new size
+
+    const scaledWidth = Math.round( largeWidth * scale );
+    const scaledHeight = Math.round( scaledWidth / ratio );
+    const scaledUrl = urlWithoutSizesAndFileExtension + '-' + scaledWidth + 'x' + scaledHeight + '.' + fileExtension;
+
+    /*
+    console.log( 'scaledUrl: ' + scaledUrl );
+    console.log( 'scaledWidth: ' + scaledWidth );
+    console.log( 'scaledHeight: ' + scaledHeight + ' = Math.roung( ' + scaledWidth + ' / ' + ratio + ' )' );
+    */
+
+    return {
+        url: scaledUrl,
+        width: scaledWidth,
+        height: scaledHeight,
+    };
+
+}
+
+function getOriginalImgSizes( originalImgUrl ) {
+
+    return new Promise( function( resolve, reject ) {
+
+        let testImg = document.createElement( 'img' );
+        testImg.onload = () => { 
+            console.log( 'onload test img in function: ' + testImg.width + ' x ' + testImg.height );
+
+            resolve( {
+                width: testImg.width,
+                height: testImg.height,
+            } );
+
+            testImg.remove;
+        };
+        testImg.onerror = ( err ) => {
+            reject( err );
+        }
+        testImg.src = originalImgUrl;
+        document.body.appendChild( testImg );
+    } );
+}
 
 registerBlockType( 'bsx-blocks/lazy-img', {
     title: __( 'BSX Lazy Image', 'bsx-blocks' ),
@@ -50,13 +148,22 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         height: {
             type: 'number',
         },
-        smallUrl: {
+        mediumUrl: {
             type: 'string',
         },
-        smallWidth: {
+        mediumWidth: {
             type: 'number',
         },
-        smallHeight: {
+        mediumHeight: {
+            type: 'number',
+        },
+        x0_75LargeUrl: {
+            type: 'string',
+        },
+        x0_75LargeWidth: {
+            type: 'number',
+        },
+        x0_75LargeHeight: {
             type: 'number',
         },
         largeUrl: {
@@ -66,6 +173,24 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             type: 'number',
         },
         largeHeight: {
+            type: 'number',
+        },
+        x1_5LargeUrl: {
+            type: 'string',
+        },
+        x1_5LargeWidth: {
+            type: 'number',
+        },
+        x1_5LargeHeight: {
+            type: 'number',
+        },
+        x2LargeUrl: {
+            type: 'string',
+        },
+        x2LargeWidth: {
+            type: 'number',
+        },
+        x2LargeHeight: {
             type: 'number',
         },
         alt: {
@@ -85,45 +210,167 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 url,
                 width,
                 height,
-                smallUrl,
-                smallWidth,
-                smallHeight,
+                mediumUrl,
+                mediumWidth,
+                mediumHeight,
+                x0_75LargeUrl,
+                x0_75LargeWidth,
+                x0_75LargeHeight,
                 largeUrl,
                 largeWidth,
                 largeHeight,
+                x1_5LargeUrl,
+                x1_5LargeWidth,
+                x1_5LargeHeight,
+                x2LargeUrl,
+                x2LargeWidth,
+                x2LargeHeight,
                 alt,
                 figcaption,
             },
             setAttributes,
             isSelected,
         } = props;
-        const onSelectImage = ( img ) => {
+        async function onSelectImage( img ) {
+
+            console.log( 'img.url: ' + img.url );
+
+// TEST img object
+/*
+            for ( let [ key, value ] of Object.entries( img ) ) {
+                console.log( 'key: "' + key + '", val: "' + value + '"' );
+            }
+
+            console.log( 'img.nonces' );
+            if ( img.nonces ) {
+                for ( let [ key, value ] of Object.entries( img.nonces ) ) {
+                    console.log( 'key: "' + key + '", val: "' + value + '"' );
+                }
+            }
+
+            console.log( 'img.sizes' );
+            if ( img.sizes ) {
+                for ( let [ key, value ] of Object.entries( img.sizes ) ) {
+                    console.log( 'key: "' + key + '", val: "' + value + '"' );
+                }
+            }
+
+            console.log( 'img.compat' );
+            if ( img.compat ) {
+                for ( let [ key, value ] of Object.entries( img.compat ) ) {
+                    console.log( 'key: "' + key + '", val: "' + value + '"' );
+                }
+            }
+*/
+
+            console.log( 'fullImgIsScaled( img.url ): ' + fullImgIsScaled( img.url ) );
+            //console.log( 'url               : ' + url );
+            //console.log( 'img.sizes.full.url: ' + img.sizes.full.url );
+
+            let originalWidth = 0;
+            let originalHeight = 0;
+
+            if ( fullImgIsScaled( img.url ) ) {
+
+                // get original, get sizes
+
+                console.log( 'getOriginalImgUrl( img.url ): ' + getOriginalImgUrl( img.url ) );
+
+                const originalImgUrl = getOriginalImgUrl( img.url );
+
+                // TODO: load img, get original sizes
+
+                console.log( 'calling' );
+                let originalImgSizes = await getOriginalImgSizes( originalImgUrl );
+                console.log( 'done' );
+
+                originalWidth = originalImgSizes.width;
+                originalHeight = originalImgSizes.height;
+
+                console.log( 'after await: originalWidth: ' + originalWidth + ' – originalHeight: ' + originalHeight );
+
+                /*
+                const xhr = new XMLHttpRequest();
+                xhr.open( 'HEAD', originalImgUrl, true );
+                xhr.onreadystatechange = function(){
+                    if ( xhr.readyState == 4 ) {
+                        if ( xhr.status == 200 ) {
+                            const responseHeaders = xhr.getAllResponseHeaders();
+                            console.log( responseHeaders );
+                            alert( 'Size in bytes: ' + xhr.getResponseHeader( 'Content-Length' ) );
+                        } 
+                        else {
+                            alert( 'ERROR' );
+                        }
+                    }
+                };
+                xhr.send( null );
+                */
+            }
+            else {
+
+                // get sizes from full img
+                // check which sizes exist
+
+
+                originalWidth = img.sizes.full.width;
+                originalHeight = img.sizes.full.height;
+
+            }
+
+            console.log( 'originalWidth: ' + originalWidth + ' – originalHeight: ' + originalHeight );
+
+            let ratio = originalWidth / originalHeight;
+            const x0_75LargeImg = makeSizedImg( img.sizes.large.url, ratio, .75 );
+            const x1_5LargeImg = makeSizedImg( img.sizes.large.url, ratio, 1.5 );
+            const x2LargeImg = makeSizedImg( img.sizes.large.url, ratio, 2 );
+
             setAttributes( {
                 imgId: img.id,
                 url: img.url,
                 width: img.sizes.full.width,
                 height: img.sizes.full.height,
-                smallUrl: img.sizes.medium.url,
-                smallWidth: img.sizes.medium.width,
-                smallHeight: img.sizes.medium.height,
+                mediumUrl: img.sizes.medium.url,
+                mediumWidth: img.sizes.medium.width,
+                mediumHeight: img.sizes.medium.height,
+                x0_75LargeUrl: x0_75LargeImg.url,
+                x0_75LargeWidth: x0_75LargeImg.width,
+                x0_75LargeHeight:  x0_75LargeImg.height,
                 largeUrl: img.sizes.large.url,
                 largeWidth: img.sizes.large.width,
                 largeHeight: img.sizes.large.height,
+                x1_5LargeUrl: x1_5LargeImg.url,
+                x1_5LargeWidth: x1_5LargeImg.width,
+                x1_5LargeHeight: x1_5LargeImg.height,
+                x2LargeUrl: x2LargeImg.url,
+                x2LargeWidth: x2LargeImg.width,
+                x2LargeHeight: x2LargeImg.height,
                 alt: img.alt,
             } );
 
             // TEST – TODO: remove
-            //for ( let [ key, value ] of Object.entries( img.sizes ) ) {
-            //    console.log( 'key: "' + key + '", val: "' + value + '"' );
-            //}
             /*
-            console.log( 'smallUrl: ' + img.sizes.medium.url );
-            console.log( 'smallWidth: ' + img.sizes.medium.width );
-            console.log( 'smallHeight: ' + img.sizes.medium.height );
+            for ( let [ key, value ] of Object.entries( img.sizes ) ) {
+                console.log( 'key: "' + key + '", val: "' + value + '"' );
+            }
+            */
+            
+            console.log( 'mediumUrl: ' + img.sizes.medium.url );
+            console.log( 'mediumWidth: ' + img.sizes.medium.width );
+            console.log( 'mediumHeight: ' + img.sizes.medium.height );
             console.log( 'largeUrl: ' + img.sizes.large.url );
             console.log( 'largeWidth: ' + img.sizes.large.width );
             console.log( 'largeHeight: ' + img.sizes.large.height );
+            
+
+            //console.log( 'ratio thumbnail ( ' + img.sizes.thumbnail.width + ' / ' + img.sizes.thumbnail.height + ' ): ' + img.sizes.thumbnail.width / img.sizes.thumbnail.height );
+            /*
+            console.log( 'ratio medium ( ' + img.sizes.medium.width + ' / ' + img.sizes.medium.height + ' ): ' + img.sizes.medium.width / img.sizes.medium.height );
+            console.log( 'ratio large ( ' + img.sizes.large.width + ' / ' + img.sizes.large.height + ' ): ' + img.sizes.large.width / img.sizes.large.height );
+            console.log( 'ratio full ( ' + img.sizes.full.width + ' / ' + img.sizes.full.height + ' ): ' + img.sizes.full.width / img.sizes.full.height );
             */
+            console.log( 'calculated ratio: ' + ratio );
+
         };
         const onChangeMediaAlt = ( value ) => {
             setAttributes( { alt: value } );
@@ -156,7 +403,39 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 <div className={ className }>
                     {
                         imgId ? (
+
+                            <>
+
                             <img className={ 'upload-img' } src={ url } alt={ alt } />
+
+
+                            <div>
+                                TEST:
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <img className="img-fluid" src={ x0_75LargeUrl } alt={ alt } width={ x0_75LargeWidth } height={ x0_75LargeHeight } />
+                                    <div class="small">
+                                        { x0_75LargeWidth }x{ x0_75LargeHeight }
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <img className="img-fluid" src={ x1_5LargeUrl } alt={ alt } width={ x1_5LargeWidth } height={ x1_5LargeHeight } />
+                                    <div class="small">
+                                        { x1_5LargeWidth }x{ x1_5LargeHeight }
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <img className="img-fluid" src={ x2LargeUrl } alt={ alt } width={ x2LargeWidth } height={ x2LargeHeight } />
+                                    <div class="small">
+                                        { x2LargeWidth }x{ x2LargeHeight }
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            </>
+
                         )
                         : 
                         (
@@ -238,14 +517,14 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 <script>
     document.write(
         '<picture>'
-        + '<source media="(orientation: portrait) and (max-width: 799.98px)" srcset="" data-srcset="/documents/category/3677/example-img-006-720x720-thumb.jpg" data-width="720" data-height="720">\n'
-        + '<source media="(min-width: 1440px)" srcset="" data-srcset="/documents/category/3677/example-img-006-1440x720.jpg" data-width="1440" data-height="480">\n'
-        + '<source media="(min-width: 1140px)" srcset="" data-srcset="/documents/category/3677/example-img-006-1140x380.jpg" data-width="1140" data-height="380">\n'
-        + '<img class="img-fluid" alt="Example image" src="" data-fn="lazyload" data-src="/documents/category/3677/example-img-006-720x480.jpg" data-width="1140" data-height="380">'
+        + '<source media="(orientation: portrait) and (max-width: 799.98px)" srcset="" data-srcset="/example-img-006-720x720-thumb.jpg" data-width="720" data-height="720">\n'
+        + '<source media="(min-width: 1440px)" srcset="" data-srcset="/example-img-006-1440x720.jpg" data-width="1440" data-height="480">\n'
+        + '<source media="(min-width: 1140px)" srcset="" data-srcset="/example-img-006-1140x380.jpg" data-width="1140" data-height="380">\n'
+        + '<img class="img-fluid" alt="Example image" src="" data-fn="lazyload" data-src="/example-img-006-720x480.jpg" data-width="1140" data-height="380">'
         + '</picture>'
     );
 </script>
-<noscript><img class="img-fluid" src="/documents/category/3677/example-img-006-720x480.jpg" alt="Example image"></noscript>
+<noscript><img class="img-fluid" src="/example-img-006-720x480.jpg" alt="Example image"></noscript>
 */
 
     save: ( props ) => {
@@ -255,12 +534,21 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 url,
                 width,
                 height,
-                smallUrl,
-                smallWidth,
-                smallHeight,
+                mediumUrl,
+                mediumWidth,
+                mediumHeight,
+                x0_75LargeUrl,
+                x0_75LargeWidth,
+                x0_75LargeHeight,
                 largeUrl,
                 largeWidth,
                 largeHeight,
+                x1_5LargeUrl,
+                x1_5LargeWidth,
+                x1_5LargeHeight,
+                x2LargeUrl,
+                x2LargeWidth,
+                x2LargeHeight,
                 alt,
                 figcaption,
             },
@@ -274,12 +562,36 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                         <figure>
                             <script>document.write( '
                                 <picture>
-                                    <source media="(max-width: 459.98px)" srcset="" data-srcset={ smallUrl } data-width={ smallWidth } data-height={ smallHeight } />
-                                    <img className="img-fluid" src="" alt={ alt } width={ largeWidth } height={ largeHeight } data-src={ largeUrl } data-fn="lazyload" />
+                                    <source media="(max-width: 459.98px)" srcset="" data-srcset={ mediumUrl } data-width={ mediumWidth } data-height={ mediumHeight } />
+                                    <img className="img-fluid" src="" alt={ alt } data-src={ largeUrl } width={ largeWidth } height={ largeHeight } data-fn="lazyload" />
                                 </picture>
                             ' );</script>
                             <noscript><img className="img-fluid" src={ largeUrl } alt={ alt } width={ largeWidth } height={ largeHeight } /></noscript>
                         
+                            <div>
+                                TEST:
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <img className="img-fluid" src={ x0_75LargeUrl } alt={ alt } width={ x0_75LargeWidth } height={ x0_75LargeHeight } />
+                                    <div class="small">
+                                        { x0_75LargeWidth }x{ x0_75LargeHeight }
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <img className="img-fluid" src={ x1_5LargeUrl } alt={ alt } width={ x1_5LargeWidth } height={ x1_5LargeHeight } />
+                                    <div class="small">
+                                        { x1_5LargeWidth }x{ x1_5LargeHeight }
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <img className="img-fluid" src={ x2LargeUrl } alt={ alt } width={ x2LargeWidth } height={ x2LargeHeight } />
+                                    <div class="small">
+                                        { x2LargeWidth }x{ x2LargeHeight }
+                                    </div>
+                                </div>
+                            </div>
+
                             {
                                 figcaption && ! RichText.isEmpty( figcaption ) && (
                                     <RichText.Content tagName="figcaption" className="font-italic" value={ figcaption } />
