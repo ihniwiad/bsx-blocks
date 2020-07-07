@@ -172,8 +172,8 @@ var _wp$components = wp.components,
         - make own srcset sizes (?)
 */
 
-var getFileUrlTruncAndExtension = function getFileUrlTruncAndExtension(fileUrl) {
-  var urlExplode = fileUrl.split('.');
+var getUrlTruncAndExtension = function getUrlTruncAndExtension(url) {
+  var urlExplode = url.split('.');
   var fileExtension = urlExplode[urlExplode.length - 1];
   urlExplode.pop();
   var urlWithoutFileExtension = urlExplode.join('.');
@@ -184,50 +184,61 @@ var getFileUrlTruncAndExtension = function getFileUrlTruncAndExtension(fileUrl) 
 };
 
 var fullImgIsScaled = function fullImgIsScaled(fullUrl) {
-  var urlWithoutFileExtension = getFileUrlTruncAndExtension(fullUrl).trunc;
+  var urlWithoutFileExtension = getUrlTruncAndExtension(fullUrl).trunc;
   return urlWithoutFileExtension.lastIndexOf('-scaled') === urlWithoutFileExtension.length - 7;
 };
 
 var getOriginalImgUrl = function getOriginalImgUrl(fullUrl) {
-  var truncAndExtension = getFileUrlTruncAndExtension(fullUrl);
+  var truncAndExtension = getUrlTruncAndExtension(fullUrl);
   return truncAndExtension.trunc.substring(0, truncAndExtension.trunc.length - 7) + '.' + truncAndExtension.extension;
 };
 
-var makeSizedImg = function makeSizedImg(largeUrl, ratio, scale) {
-  // TODO: problem: full width and height is not original width and heigt but scaled, so it causes errors when rounding
-  var urlExplode = largeUrl.split('.');
-  var fileExtension = urlExplode[urlExplode.length - 1];
-  urlExplode.pop();
-  var urlWithoutFileExtension = urlExplode.join('.'); // get large sizes
-
-  var urlWithoutFileExtensionExplode = largeUrl.split('-');
-  var largeSizes = urlWithoutFileExtensionExplode[urlWithoutFileExtensionExplode.length - 1].split('x');
-  var largeWidth = largeSizes[0];
-  var largeHeight = largeSizes[1]; // get url trunc
-
+var getSizesAndWithoutSizesTruncFromUrlTrunc = function getSizesAndWithoutSizesTruncFromUrlTrunc(urlTrunc) {
+  var urlWithoutFileExtensionExplode = urlTrunc.split('-');
+  var sizes = urlWithoutFileExtensionExplode[urlWithoutFileExtensionExplode.length - 1].split('x');
   urlWithoutFileExtensionExplode.pop();
-  var urlWithoutSizesAndFileExtension = urlWithoutFileExtensionExplode.join('-');
+  return {
+    width: sizes[0],
+    height: sizes[1],
+    withoutSizesTrunc: urlWithoutFileExtensionExplode.join('-')
+  };
+};
+
+var makeSizedImgs = function makeSizedImgs(config) {
+  // TODO: make sizes only if ooriginal size is larger
+  var ratio = config.originalWidth / config.originalHeight;
+  var urlTruncAndExtension = getUrlTruncAndExtension(config.url);
+  var fileExtension = urlTruncAndExtension.extension;
+  var urlWithoutFileExtension = urlTruncAndExtension.trunc;
+  var sizesAndWithoutSizesTrunc = getSizesAndWithoutSizesTruncFromUrlTrunc(urlWithoutFileExtension);
+  var width = sizesAndWithoutSizesTrunc.width;
+  var urlWithoutSizesAndFileExtension = sizesAndWithoutSizesTrunc.withoutSizesTrunc;
   /*
   console.log( 'urlWithoutFileExtension: ' + urlWithoutFileExtension );
   console.log( 'fileExtension: ' + fileExtension );
   console.log( 'urlWithoutSizesAndFileExtension: ' + urlWithoutSizesAndFileExtension );
   */
-  // calculate new size
 
-  var scaledWidth = Math.round(largeWidth * scale);
-  var scaledHeight = Math.round(scaledWidth / ratio);
-  var scaledUrl = urlWithoutSizesAndFileExtension + '-' + scaledWidth + 'x' + scaledHeight + '.' + fileExtension;
-  /*
-  console.log( 'scaledUrl: ' + scaledUrl );
-  console.log( 'scaledWidth: ' + scaledWidth );
-  console.log( 'scaledHeight: ' + scaledHeight + ' = Math.roung( ' + scaledWidth + ' / ' + ratio + ' )' );
-  */
+  var returnList = [];
+  config.scaleList.forEach(function (scale, index) {
+    console.log('-----> scale: ' + scale); // calculate new size
 
-  return {
-    url: scaledUrl,
-    width: scaledWidth,
-    height: scaledHeight
-  };
+    var scaledWidth = Math.round(width * scale);
+
+    if (scaledWidth <= config.originalWidth) {
+      var scaledHeight = Math.round(scaledWidth / ratio);
+      var scaledUrl = urlWithoutSizesAndFileExtension + '-' + scaledWidth + 'x' + scaledHeight + '.' + fileExtension;
+      returnList.push({
+        url: scaledUrl,
+        width: scaledWidth,
+        height: scaledHeight
+      });
+      console.log('scaledUrl: ' + scaledUrl);
+      console.log('scaledWidth: ' + scaledWidth);
+      console.log('scaledHeight: ' + scaledHeight + ' = Math.round( ' + scaledWidth + ' / ' + ratio + ' )');
+    }
+  });
+  return returnList;
 };
 
 function getOriginalImgSizes(originalImgUrl) {
@@ -348,9 +359,6 @@ registerBlockType('bsx-blocks/lazy-img', {
     var className = props.className,
         _props$attributes = props.attributes,
         imgId = _props$attributes.imgId,
-        url = _props$attributes.url,
-        width = _props$attributes.width,
-        height = _props$attributes.height,
         mediumUrl = _props$attributes.mediumUrl,
         mediumWidth = _props$attributes.mediumWidth,
         mediumHeight = _props$attributes.mediumHeight,
@@ -366,6 +374,9 @@ registerBlockType('bsx-blocks/lazy-img', {
         x2LargeUrl = _props$attributes.x2LargeUrl,
         x2LargeWidth = _props$attributes.x2LargeWidth,
         x2LargeHeight = _props$attributes.x2LargeHeight,
+        url = _props$attributes.url,
+        width = _props$attributes.width,
+        height = _props$attributes.height,
         origUrl = _props$attributes.origUrl,
         origWidth = _props$attributes.origWidth,
         origHeight = _props$attributes.origHeight,
@@ -379,12 +390,96 @@ registerBlockType('bsx-blocks/lazy-img', {
     }
 
     function _onSelectImage() {
-      _onSelectImage = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(img) {
-        var originalWidth, originalHeight, originalImgUrl, originalImgSizes, ratio, x0_75LargeImg, x1_5LargeImg, x2LargeImg;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+      _onSelectImage = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(img) {
+        var originalImgUrl, originalWidth, originalHeight, originalImgSizes, resolveAfter2Seconds, resolveAfter1Second, parallel, _parallel, scaleReferenceSize, scaleList, sizedImgsConfig, sizedImgs, x0_75LargeImg, x1_5LargeImg, x2LargeImg;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
+                _parallel = function _parallel3() {
+                  _parallel = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+                      while (1) {
+                        switch (_context3.prev = _context3.next) {
+                          case 0:
+                            console.log('==PARALLEL with await Promise.all=='); // Start 2 "jobs" in parallel and wait for both of them to complete
+
+                            _context3.next = 3;
+                            return Promise.all([_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+                              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+                                while (1) {
+                                  switch (_context.prev = _context.next) {
+                                    case 0:
+                                      _context.t0 = console;
+                                      _context.next = 3;
+                                      return resolveAfter2Seconds();
+
+                                    case 3:
+                                      _context.t1 = _context.sent;
+                                      return _context.abrupt("return", _context.t0.log.call(_context.t0, _context.t1));
+
+                                    case 5:
+                                    case "end":
+                                      return _context.stop();
+                                  }
+                                }
+                              }, _callee);
+                            }))(), _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+                              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+                                while (1) {
+                                  switch (_context2.prev = _context2.next) {
+                                    case 0:
+                                      _context2.t0 = console;
+                                      _context2.next = 3;
+                                      return resolveAfter1Second();
+
+                                    case 3:
+                                      _context2.t1 = _context2.sent;
+                                      return _context2.abrupt("return", _context2.t0.log.call(_context2.t0, _context2.t1));
+
+                                    case 5:
+                                    case "end":
+                                      return _context2.stop();
+                                  }
+                                }
+                              }, _callee2);
+                            }))()]);
+
+                          case 3:
+                          case "end":
+                            return _context3.stop();
+                        }
+                      }
+                    }, _callee3);
+                  }));
+                  return _parallel.apply(this, arguments);
+                };
+
+                parallel = function _parallel2() {
+                  return _parallel.apply(this, arguments);
+                };
+
+                resolveAfter1Second = function _resolveAfter1Second() {
+                  console.log("starting fast promise");
+                  return new Promise(function (resolve) {
+                    setTimeout(function () {
+                      resolve("fast");
+                      console.log("fast promise is done");
+                    }, 1000);
+                  });
+                };
+
+                resolveAfter2Seconds = function _resolveAfter2Seconds() {
+                  console.log("starting slow promise");
+                  return new Promise(function (resolve) {
+                    setTimeout(function () {
+                      resolve("slow");
+                      console.log("slow promise is done");
+                    }, 2000);
+                  });
+                };
+
                 console.log('img.url: ' + img.url); // TEST img object
 
                 /*
@@ -417,11 +512,12 @@ registerBlockType('bsx-blocks/lazy-img', {
                 console.log('fullImgIsScaled( img.url ): ' + fullImgIsScaled(img.url)); //console.log( 'url               : ' + url );
                 //console.log( 'img.sizes.full.url: ' + img.sizes.full.url );
 
+                originalImgUrl = '';
                 originalWidth = 0;
                 originalHeight = 0;
 
                 if (!fullImgIsScaled(img.url)) {
-                  _context.next = 23;
+                  _context4.next = 28;
                   break;
                 }
 
@@ -430,21 +526,21 @@ registerBlockType('bsx-blocks/lazy-img', {
                 originalImgUrl = getOriginalImgUrl(img.url); // TODO: load img, get original sizes
 
                 console.log('originalImgSizes calling');
-                _context.prev = 8;
-                _context.next = 11;
+                _context4.prev = 13;
+                _context4.next = 16;
                 return getOriginalImgSizes(originalImgUrl);
 
-              case 11:
-                originalImgSizes = _context.sent;
-                _context.next = 17;
+              case 16:
+                originalImgSizes = _context4.sent;
+                _context4.next = 22;
                 break;
 
-              case 14:
-                _context.prev = 14;
-                _context.t0 = _context["catch"](8);
-                console.error(_context.t0);
+              case 19:
+                _context4.prev = 19;
+                _context4.t0 = _context4["catch"](13);
+                console.error(_context4.t0);
 
-              case 17:
+              case 22:
                 console.log('originalImgSizes done');
                 originalWidth = originalImgSizes.width || 0;
                 originalHeight = originalImgSizes.height || 0;
@@ -467,26 +563,35 @@ registerBlockType('bsx-blocks/lazy-img', {
                 xhr.send( null );
                 */
 
-                _context.next = 25;
+                _context4.next = 30;
                 break;
 
-              case 23:
+              case 28:
                 // get sizes from full img
                 // check which sizes exist
                 originalWidth = img.sizes.full.width;
                 originalHeight = img.sizes.full.height;
 
-              case 25:
-                console.log('originalWidth: ' + originalWidth + ' – originalHeight: ' + originalHeight);
-                ratio = originalWidth / originalHeight;
-                x0_75LargeImg = makeSizedImg(img.sizes.large.url, ratio, .75);
-                x1_5LargeImg = makeSizedImg(img.sizes.large.url, ratio, 1.5);
-                x2LargeImg = makeSizedImg(img.sizes.large.url, ratio, 2);
+              case 30:
+                parallel(); // /TEST
+
+                console.log('originalWidth: ' + originalWidth + ' – originalHeight: ' + originalHeight); // config for making sizes (might change in newer WP versions)
+
+                scaleReferenceSize = 'large';
+                scaleList = [0.75, 1.5, 2]; // check if exist (smaller original size)
+
+                sizedImgsConfig = {
+                  url: img.sizes[scaleReferenceSize].url,
+                  scaleList: scaleList,
+                  originalWidth: originalWidth,
+                  originalHeight: originalHeight
+                };
+                sizedImgs = makeSizedImgs(sizedImgsConfig);
+                x0_75LargeImg = sizedImgs[0];
+                x1_5LargeImg = sizedImgs[1];
+                x2LargeImg = sizedImgs[2];
                 setAttributes({
                   imgId: img.id,
-                  url: img.url,
-                  width: img.sizes.full.width,
-                  height: img.sizes.full.height,
                   mediumUrl: img.sizes.medium.url,
                   mediumWidth: img.sizes.medium.width,
                   mediumHeight: img.sizes.medium.height,
@@ -502,9 +607,12 @@ registerBlockType('bsx-blocks/lazy-img', {
                   x2LargeUrl: x2LargeImg.url,
                   x2LargeWidth: x2LargeImg.width,
                   x2LargeHeight: x2LargeImg.height,
-                  origUrl: origUrl,
-                  origWidth: origWidth,
-                  origHeight: origHeight,
+                  url: img.url,
+                  width: img.sizes.full.width,
+                  height: img.sizes.full.height,
+                  origUrl: originalImgUrl,
+                  origWidth: originalWidth,
+                  origHeight: originalHeight,
                   alt: img.alt
                 }); // TEST – TODO: remove
 
@@ -527,14 +635,12 @@ registerBlockType('bsx-blocks/lazy-img', {
                 console.log( 'ratio full ( ' + img.sizes.full.width + ' / ' + img.sizes.full.height + ' ): ' + img.sizes.full.width / img.sizes.full.height );
                 */
 
-                console.log('calculated ratio: ' + ratio);
-
-              case 38:
+              case 46:
               case "end":
-                return _context.stop();
+                return _context4.stop();
             }
           }
-        }, _callee, null, [[8, 14]]);
+        }, _callee4, null, [[13, 19]]);
       }));
       return _onSelectImage.apply(this, arguments);
     }
@@ -678,9 +784,6 @@ registerBlockType('bsx-blocks/lazy-img', {
   save: function save(props) {
     var className = props.className,
         _props$attributes2 = props.attributes,
-        url = _props$attributes2.url,
-        width = _props$attributes2.width,
-        height = _props$attributes2.height,
         mediumUrl = _props$attributes2.mediumUrl,
         mediumWidth = _props$attributes2.mediumWidth,
         mediumHeight = _props$attributes2.mediumHeight,
@@ -696,6 +799,12 @@ registerBlockType('bsx-blocks/lazy-img', {
         x2LargeUrl = _props$attributes2.x2LargeUrl,
         x2LargeWidth = _props$attributes2.x2LargeWidth,
         x2LargeHeight = _props$attributes2.x2LargeHeight,
+        url = _props$attributes2.url,
+        width = _props$attributes2.width,
+        height = _props$attributes2.height,
+        origUrl = _props$attributes2.origUrl,
+        origWidth = _props$attributes2.origWidth,
+        origHeight = _props$attributes2.origHeight,
         alt = _props$attributes2.alt,
         figcaption = _props$attributes2.figcaption;
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {

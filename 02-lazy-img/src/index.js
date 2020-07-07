@@ -22,9 +22,9 @@ const {
         - make own srcset sizes (?)
 */
 
-const getFileUrlTruncAndExtension = ( fileUrl ) => {
+const getUrlTruncAndExtension = ( url ) => {
 
-    const urlExplode = fileUrl.split( '.' );
+    const urlExplode = url.split( '.' );
 
     const fileExtension = urlExplode[ urlExplode.length - 1 ];
     urlExplode.pop();
@@ -38,37 +38,48 @@ const getFileUrlTruncAndExtension = ( fileUrl ) => {
 
 const fullImgIsScaled = ( fullUrl ) => {
 
-    const urlWithoutFileExtension = getFileUrlTruncAndExtension( fullUrl ).trunc;
+    const urlWithoutFileExtension = getUrlTruncAndExtension( fullUrl ).trunc;
 
     return urlWithoutFileExtension.lastIndexOf( '-scaled' ) === urlWithoutFileExtension.length - 7;
 }
 
 const getOriginalImgUrl = ( fullUrl ) => {
 
-    const truncAndExtension = getFileUrlTruncAndExtension( fullUrl );
+    const truncAndExtension = getUrlTruncAndExtension( fullUrl );
 
     return truncAndExtension.trunc.substring(0, truncAndExtension.trunc.length - 7) + '.' + truncAndExtension.extension;
 }
 
-const makeSizedImg = ( largeUrl, ratio, scale ) => {
+const getSizesAndWithoutSizesTruncFromUrlTrunc = ( urlTrunc ) => {
 
-    // TODO: problem: full width and height is not original width and heigt but scaled, so it causes errors when rounding
+    const urlWithoutFileExtensionExplode = urlTrunc.split( '-' );
+    const sizes = urlWithoutFileExtensionExplode[ urlWithoutFileExtensionExplode.length - 1 ].split( 'x' );
 
-    const urlExplode = largeUrl.split( '.' );
-
-    const fileExtension = urlExplode[ urlExplode.length - 1 ];
-    urlExplode.pop();
-    const urlWithoutFileExtension = urlExplode.join( '.' );
-
-    // get large sizes
-    const urlWithoutFileExtensionExplode = largeUrl.split( '-' );
-    const largeSizes = urlWithoutFileExtensionExplode[ urlWithoutFileExtensionExplode.length - 1 ].split( 'x' );
-    const largeWidth = largeSizes[ 0 ];
-    const largeHeight = largeSizes[ 1 ];
-
-    // get url trunc
     urlWithoutFileExtensionExplode.pop();
-    const urlWithoutSizesAndFileExtension = urlWithoutFileExtensionExplode.join( '-' );
+
+    return {
+        width: sizes[ 0 ],
+        height: sizes[ 1 ],
+        withoutSizesTrunc: urlWithoutFileExtensionExplode.join( '-' ),
+    };
+}
+
+const makeSizedImgs = ( config ) => {
+
+    // TODO: make sizes only if ooriginal size is larger
+
+
+    const ratio = config.originalWidth / config.originalHeight;
+
+    const urlTruncAndExtension = getUrlTruncAndExtension( config.url );
+
+    const fileExtension = urlTruncAndExtension.extension;
+    const urlWithoutFileExtension = urlTruncAndExtension.trunc;
+
+    const sizesAndWithoutSizesTrunc = getSizesAndWithoutSizesTruncFromUrlTrunc( urlWithoutFileExtension );
+
+    const width = sizesAndWithoutSizesTrunc.width;
+    const urlWithoutSizesAndFileExtension = sizesAndWithoutSizesTrunc.withoutSizesTrunc;
 
     /*
     console.log( 'urlWithoutFileExtension: ' + urlWithoutFileExtension );
@@ -76,23 +87,34 @@ const makeSizedImg = ( largeUrl, ratio, scale ) => {
     console.log( 'urlWithoutSizesAndFileExtension: ' + urlWithoutSizesAndFileExtension );
     */
 
-    // calculate new size
+    const returnList = [];
 
-    const scaledWidth = Math.round( largeWidth * scale );
-    const scaledHeight = Math.round( scaledWidth / ratio );
-    const scaledUrl = urlWithoutSizesAndFileExtension + '-' + scaledWidth + 'x' + scaledHeight + '.' + fileExtension;
+    config.scaleList.forEach( ( scale, index ) => {
 
-    /*
-    console.log( 'scaledUrl: ' + scaledUrl );
-    console.log( 'scaledWidth: ' + scaledWidth );
-    console.log( 'scaledHeight: ' + scaledHeight + ' = Math.roung( ' + scaledWidth + ' / ' + ratio + ' )' );
-    */
+        console.log( '-----> scale: ' + scale );
 
-    return {
-        url: scaledUrl,
-        width: scaledWidth,
-        height: scaledHeight,
-    };
+        // calculate new size
+        const scaledWidth = Math.round( width * scale );
+
+        if ( scaledWidth <= config.originalWidth ) {
+
+            const scaledHeight = Math.round( scaledWidth / ratio );
+            const scaledUrl = urlWithoutSizesAndFileExtension + '-' + scaledWidth + 'x' + scaledHeight + '.' + fileExtension;
+
+            returnList.push( {
+                url: scaledUrl,
+                width: scaledWidth,
+                height: scaledHeight,
+            } );
+            
+            console.log( 'scaledUrl: ' + scaledUrl );
+            console.log( 'scaledWidth: ' + scaledWidth );
+            console.log( 'scaledHeight: ' + scaledHeight + ' = Math.round( ' + scaledWidth + ' / ' + ratio + ' )' );
+        }
+
+    } ); 
+
+    return returnList;
 
 }
 
@@ -216,9 +238,6 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             className,
             attributes: {
                 imgId,
-                url,
-                width,
-                height,
                 mediumUrl,
                 mediumWidth,
                 mediumHeight,
@@ -234,6 +253,9 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 x2LargeUrl,
                 x2LargeWidth,
                 x2LargeHeight,
+                url,
+                width,
+                height,
                 origUrl,
                 origWidth,
                 origHeight,
@@ -279,6 +301,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             //console.log( 'url               : ' + url );
             //console.log( 'img.sizes.full.url: ' + img.sizes.full.url );
 
+            let originalImgUrl = '';
             let originalWidth = 0;
             let originalHeight = 0;
 
@@ -288,7 +311,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
                 console.log( 'getOriginalImgUrl( img.url ): ' + getOriginalImgUrl( img.url ) );
 
-                const originalImgUrl = getOriginalImgUrl( img.url );
+                originalImgUrl = getOriginalImgUrl( img.url );
 
                 // TODO: load img, get original sizes
 
@@ -324,30 +347,79 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 };
                 xhr.send( null );
                 */
+
             }
             else {
 
                 // get sizes from full img
                 // check which sizes exist
 
-
                 originalWidth = img.sizes.full.width;
                 originalHeight = img.sizes.full.height;
 
             }
 
+
+            // TEST – TODO: remove
+
+            function resolveAfter2Seconds() {
+                console.log("starting slow promise")
+                return new Promise(resolve => {
+                        setTimeout(function() {
+                        resolve("slow")
+                        console.log("slow promise is done")
+                    }, 2000)
+                })
+            }
+
+            function resolveAfter1Second() {
+                console.log("starting fast promise")
+                return new Promise(resolve => {
+                        setTimeout(function() {
+                        resolve("fast")
+                        console.log("fast promise is done")
+                    }, 1000)
+                })
+            }
+
+            async function parallel() {
+                console.log( '==PARALLEL with await Promise.all==' );
+
+                // Start 2 "jobs" in parallel and wait for both of them to complete
+                await Promise.all( [
+                    ( async () => console.log( await resolveAfter2Seconds() ) )(),
+                    ( async () => console.log( await resolveAfter1Second() ) )()
+                ] );
+            }
+            parallel()
+
+            // /TEST
+
             console.log( 'originalWidth: ' + originalWidth + ' – originalHeight: ' + originalHeight );
 
-            let ratio = originalWidth / originalHeight;
-            const x0_75LargeImg = makeSizedImg( img.sizes.large.url, ratio, .75 );
-            const x1_5LargeImg = makeSizedImg( img.sizes.large.url, ratio, 1.5 );
-            const x2LargeImg = makeSizedImg( img.sizes.large.url, ratio, 2 );
+
+            // config for making sizes (might change in newer WP versions)
+            const scaleReferenceSize = 'large';
+            const scaleList = [ 0.75, 1.5, 2 ];
+
+            // check if exist (smaller original size)
+
+
+
+            const sizedImgsConfig = {
+                url: img.sizes[ scaleReferenceSize ].url,
+                scaleList: scaleList,
+                originalWidth: originalWidth,
+                originalHeight: originalHeight,
+            };
+            const sizedImgs = makeSizedImgs( sizedImgsConfig );
+
+            const x0_75LargeImg = sizedImgs[ 0 ];
+            const x1_5LargeImg = sizedImgs[ 1 ];
+            const x2LargeImg = sizedImgs[ 2 ];
 
             setAttributes( {
                 imgId: img.id,
-                url: img.url,
-                width: img.sizes.full.width,
-                height: img.sizes.full.height,
                 mediumUrl: img.sizes.medium.url,
                 mediumWidth: img.sizes.medium.width,
                 mediumHeight: img.sizes.medium.height,
@@ -363,9 +435,12 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 x2LargeUrl: x2LargeImg.url,
                 x2LargeWidth: x2LargeImg.width,
                 x2LargeHeight: x2LargeImg.height,
-                origUrl,
-                origWidth,
-                origHeight,
+                url: img.url,
+                width: img.sizes.full.width,
+                height: img.sizes.full.height,
+                origUrl: originalImgUrl,
+                origWidth: originalWidth,
+                origHeight: originalHeight,
                 alt: img.alt,
             } );
 
@@ -390,7 +465,6 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             console.log( 'ratio large ( ' + img.sizes.large.width + ' / ' + img.sizes.large.height + ' ): ' + img.sizes.large.width / img.sizes.large.height );
             console.log( 'ratio full ( ' + img.sizes.full.width + ' / ' + img.sizes.full.height + ' ): ' + img.sizes.full.width / img.sizes.full.height );
             */
-            console.log( 'calculated ratio: ' + ratio );
 
         };
         const onChangeMediaAlt = ( value ) => {
@@ -552,9 +626,6 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         const {
             className,
             attributes: {
-                url,
-                width,
-                height,
                 mediumUrl,
                 mediumWidth,
                 mediumHeight,
@@ -570,6 +641,12 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 x2LargeUrl,
                 x2LargeWidth,
                 x2LargeHeight,
+                url,
+                width,
+                height,
+                origUrl,
+                origWidth,
+                origHeight,
                 alt,
                 figcaption,
             },
