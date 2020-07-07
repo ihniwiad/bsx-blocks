@@ -100,22 +100,22 @@ function getOriginalImgSizes( originalImgUrl ) {
 
     return new Promise( function( resolve, reject ) {
 
-        let testImg = document.createElement( 'img' );
-        testImg.onload = () => { 
-            console.log( 'onload test img in function: ' + testImg.width + ' x ' + testImg.height );
+        let img = document.createElement( 'img' );
+        img.onload = () => { 
+            console.log( 'onload test img in function: ' + img.width + ' x ' + img.height );
 
             resolve( {
-                width: testImg.width,
-                height: testImg.height,
+                width: img.width,
+                height: img.height,
             } );
 
-            testImg.remove;
+            img.remove;
         };
-        testImg.onerror = ( err ) => {
-            reject( err );
+        img.onerror = ( err ) => {
+            reject( 'Error on loading image "' + originalImgUrl + '"', err );
         }
-        testImg.src = originalImgUrl;
-        document.body.appendChild( testImg );
+        img.src = originalImgUrl;
+        document.body.appendChild( img );
     } );
 }
 
@@ -193,6 +193,15 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         x2LargeHeight: {
             type: 'number',
         },
+        origUrl: {
+            type: 'string',
+        },
+        origWidth: {
+            type: 'number',
+        },
+        origHeight: {
+            type: 'number',
+        },
         alt: {
             type: 'string',
         },
@@ -225,6 +234,9 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 x2LargeUrl,
                 x2LargeWidth,
                 x2LargeHeight,
+                origUrl,
+                origWidth,
+                origHeight,
                 alt,
                 figcaption,
             },
@@ -280,12 +292,18 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
                 // TODO: load img, get original sizes
 
-                console.log( 'calling' );
-                let originalImgSizes = await getOriginalImgSizes( originalImgUrl );
-                console.log( 'done' );
+                let originalImgSizes;
 
-                originalWidth = originalImgSizes.width;
-                originalHeight = originalImgSizes.height;
+                console.log( 'originalImgSizes calling' );
+                try {
+                    originalImgSizes = await getOriginalImgSizes( originalImgUrl );
+                } catch( err ) {
+                    console.error( err );
+                }
+                console.log( 'originalImgSizes done' );
+
+                originalWidth = originalImgSizes.width || 0;
+                originalHeight = originalImgSizes.height || 0;
 
                 console.log( 'after await: originalWidth: ' + originalWidth + ' – originalHeight: ' + originalHeight );
 
@@ -345,6 +363,9 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 x2LargeUrl: x2LargeImg.url,
                 x2LargeWidth: x2LargeImg.width,
                 x2LargeHeight: x2LargeImg.height,
+                origUrl,
+                origWidth,
+                origHeight,
                 alt: img.alt,
             } );
 
