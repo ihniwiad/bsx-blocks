@@ -175,7 +175,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         },
         imgSize: {
             type: 'string',
-            default: '',
+            default: '2',
         },
         imgId: {
             type: 'number',
@@ -705,7 +705,11 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                         <figure>
                             <script>document.write( '
                                 <picture>
-                                    <source media="(max-width: 459.98px)" srcset="" data-srcset={ mediumUrl } data-width={ mediumWidth } data-height={ mediumHeight } />
+                                    {
+                                        mediumUrl && (
+                                            <source media="(max-width: 459.98px)" srcset="" data-srcset={ mediumUrl } data-width={ mediumWidth } data-height={ mediumHeight } />
+                                        )
+                                    }
                                     <img className="img-fluid" src="" alt={ alt } data-src={ largeUrl } width={ largeWidth } height={ largeHeight } data-fn="lazyload" />
                                 </picture>
                             ' );</script>

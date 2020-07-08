@@ -299,7 +299,7 @@ registerBlockType('bsx-blocks/lazy-img', {
     },
     imgSize: {
       type: 'string',
-      default: ''
+      default: '2'
     },
     imgId: {
       type: 'number'
@@ -807,7 +807,7 @@ registerBlockType('bsx-blocks/lazy-img', {
         figcaption = _props$attributes2.figcaption;
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
       className: className
-    }, url && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("figure", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("script", null, "document.write( '", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("picture", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("source", {
+    }, url && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("figure", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("script", null, "document.write( '", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("picture", null, mediumUrl && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("source", {
       media: "(max-width: 459.98px)",
       srcset: "",
       "data-srcset": mediumUrl,
