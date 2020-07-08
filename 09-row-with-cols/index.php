@@ -44,16 +44,22 @@ function bsx_blocks_row_with_cols_register_block() {
         array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore' ),
         filemtime( plugin_dir_path( __FILE__ ) . 'build/index.js' )
     );
+    wp_register_style(
+        'bsx-blocks-row-with-cols-editor-style',
+        plugins_url( 'build/css/editor-style.css', __FILE__ ),
+        array( 'wp-edit-blocks' ),
+        filemtime( plugin_dir_path( __FILE__ ) . 'build/css/editor-style.css' )
+    );
     register_block_type( 'bsx-blocks/row-with-cols', array(
-        'editor_style' => array( 'bsx-blocks-editor-atf-style', 'bsx-blocks-editor-style' ),
+        'editor_style' => array( 'bsx-blocks-editor-atf-style', 'bsx-blocks-editor-style', 'bsx-blocks-ui-editor-style', 'bsx-blocks-row-with-cols-editor-style' ),
         'editor_script' => 'bsx-blocks-row-with-cols',
     ) );
     register_block_type( 'bsx-blocks/row', array(
-        'editor_style' => array( 'bsx-blocks-editor-atf-style', 'bsx-blocks-editor-style' ),
+        'editor_style' => array( 'bsx-blocks-editor-atf-style', 'bsx-blocks-editor-style', 'bsx-blocks-ui-editor-style', 'bsx-blocks-row-with-cols-editor-style' ),
         'editor_script' => 'bsx-blocks-row-with-cols',
     ) );
     register_block_type( 'bsx-blocks/col', array(
-        'editor_style' => array( 'bsx-blocks-editor-atf-style', 'bsx-blocks-editor-style' ),
+        'editor_style' => array( 'bsx-blocks-editor-atf-style', 'bsx-blocks-editor-style', 'bsx-blocks-ui-editor-style', 'bsx-blocks-row-with-cols-editor-style' ),
         'editor_script' => 'bsx-blocks-row-with-cols',
     ) );
 
@@ -69,12 +75,3 @@ function bsx_blocks_row_with_cols_register_block() {
 }
 add_action( 'init', 'bsx_blocks_row_with_cols_register_block' );
 
-/**
- *  Enqueue custom styles to resolve conflicts between core block editor style and theme style
- */
-function bsx_blocks_row_with_cols_add_editor_styles() {
-    wp_enqueue_style( 'bsx-blocks-row-with-cols-editor-style',
-        plugins_url( 'build/css/editor-style.css', __FILE__ ) 
-    );
-}
-add_action( 'enqueue_block_assets', 'bsx_blocks_row_with_cols_add_editor_styles' );

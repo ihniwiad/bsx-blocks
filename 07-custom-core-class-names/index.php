@@ -26,9 +26,11 @@ add_action( 'enqueue_block_editor_assets', 'bsx_blocks_07_custom_core_class_name
 /**
  *	Enqueue custom styles to resolve conflicts between core block editor style and theme style
  */
+/*
 function bsx_blocks_07_add_editor_styles() {
 	wp_enqueue_style( 'bsx-blocks-custom-core-class-names-editor-style',
 		plugins_url( 'css/editor-style.css', __FILE__ ) 
 	);
 }
 add_action( 'enqueue_block_assets', 'bsx_blocks_07_add_editor_styles' );
+*/

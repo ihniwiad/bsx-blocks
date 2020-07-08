@@ -30,15 +30,12 @@ function bsx_blocks_01_include_stylesheets() {
         array( 'wp-edit-blocks' ),
         filemtime( get_template_directory() . '/assets/css/style.css' ),
     );
+    wp_register_style(
+        'bsx-blocks-ui-editor-style',
+        plugins_url( 'build/css/editor-style.css', __FILE__ ),
+        array( 'wp-edit-blocks' ),
+        filemtime( plugin_dir_path( __FILE__ ) . 'build/css/editor-style.css' )
+    );
 }
 add_action( 'init', 'bsx_blocks_01_include_stylesheets' );
 
-/**
- *  Enqueue custom editor styles
- */
-function bsx_blocks_ui_add_editor_styles() {
-    wp_enqueue_style( 'bsx-blocks-ui-editor-style',
-        plugins_url( 'build/css/editor-style.css', __FILE__ ) 
-    );
-}
-add_action( 'enqueue_block_assets', 'bsx_blocks_ui_add_editor_styles' );

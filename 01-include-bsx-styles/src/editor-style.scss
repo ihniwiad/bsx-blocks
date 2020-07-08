@@ -4,6 +4,21 @@
 @import "../../src/_editor-style-variables";
 
 
+// make editor wider
+
+.wp-block {
+    max-width: unset !important;
+}
+
+
+// columns (make core style ready for bootstrap style)
+
+// NOTE: please check this style for conflicts or better do not use WP Core Columns, use BSX Columns instead
+//.block-editor-inner-blocks {
+//    width: 100%;
+//}
+
+
 // ‘is selected’ config panel
 
 .bsxui-isselected-config-panel {

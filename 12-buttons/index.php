@@ -44,16 +44,22 @@ function bsx_blocks_buttons_register_block() {
         array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore' ),
         filemtime( plugin_dir_path( __FILE__ ) . 'build/index.js' )
     );
+    wp_register_style(
+        'bsx-blocks-buttons-editor-style',
+        plugins_url( 'build/css/editor-style.css', __FILE__ ),
+        array( 'wp-edit-blocks' ),
+        filemtime( plugin_dir_path( __FILE__ ) . 'build/css/editor-style.css' )
+    );
     register_block_type( 'bsx-blocks/buttons', array(
-        'editor_style' => array( 'bsx-blocks-editor-atf-style', 'bsx-blocks-editor-style' ),
+        'editor_style' => array( 'bsx-blocks-editor-atf-style', 'bsx-blocks-editor-style', 'bsx-blocks-ui-editor-style', 'bsx-blocks-buttons-editor-style' ),
         'editor_script' => 'bsx-blocks-buttons',
     ) );
     register_block_type( 'bsx-blocks/button-wrapper', array(
-        'editor_style' => array( 'bsx-blocks-editor-atf-style', 'bsx-blocks-editor-style' ),
+        'editor_style' => array( 'bsx-blocks-editor-atf-style', 'bsx-blocks-editor-style', 'bsx-blocks-ui-editor-style', 'bsx-blocks-buttons-editor-style' ),
         'editor_script' => 'bsx-blocks-buttons',
     ) );
     register_block_type( 'bsx-blocks/button', array(
-        'editor_style' => array( 'bsx-blocks-editor-atf-style', 'bsx-blocks-editor-style' ),
+        'editor_style' => array( 'bsx-blocks-editor-atf-style', 'bsx-blocks-editor-style', 'bsx-blocks-ui-editor-style', 'bsx-blocks-buttons-editor-style' ),
         'editor_script' => 'bsx-blocks-buttons',
     ) );
 
@@ -69,12 +75,3 @@ function bsx_blocks_buttons_register_block() {
 }
 add_action( 'init', 'bsx_blocks_buttons_register_block' );
 
-/**
- *  Enqueue custom styles to resolve conflicts between core block editor style and theme style
- */
-function bsx_blocks_buttons_add_editor_styles() {
-    wp_enqueue_style( 'bsx-blocks-buttons-editor-style',
-        plugins_url( 'build/css/editor-style.css', __FILE__ ) 
-    );
-}
-add_action( 'enqueue_block_assets', 'bsx_blocks_buttons_add_editor_styles' );

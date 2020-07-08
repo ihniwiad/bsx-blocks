@@ -1,3 +1,6 @@
+.wp-block {
+  max-width: unset !important; }
+
 .bsxui-isselected-config-panel {
   background: #ffffff;
   border: 1px solid #dee2e6;
