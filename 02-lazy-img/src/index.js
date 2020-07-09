@@ -11,7 +11,9 @@ const {
     Button,
     TextControl,
     PanelBody,
+    RadioControl,
 } = wp.components;
+import { withState } from '@wordpress/compose';
 
 /*
     TODO: 
@@ -160,6 +162,8 @@ const imageExists = ( url ) => {
     } );
 } 
 
+const mobileMediaQuery = '(max-width: 459.98px)';
+
 registerBlockType( 'bsx-blocks/lazy-img', {
     title: __( 'BSX Lazy Image', 'bsx-blocks' ),
     icon: 'format-image',
@@ -175,13 +179,22 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         },
         imgSize: {
             type: 'string',
-            default: '2',
+            default: '3',
+        },
+        imgSizes: {
+            type: 'array',
         },
         imgId: {
             type: 'number',
         },
-        imgSizes: {
-            type: 'array',
+        mobileUrl: {
+            type: 'string',
+        },
+        mobileWidth: {
+            type: 'number',
+        },
+        mobileHeight: {
+            type: 'number',
         },
         url: {
             type: 'string',
@@ -260,7 +273,15 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             className,
             attributes: {
                 imgId,
+                imgSize,
                 imgSizes,
+                mobileUrl,
+                mobileWidth,
+                mobileHeight,
+                url,
+                width,
+                height,
+
                 mediumUrl,
                 mediumWidth,
                 mediumHeight,
@@ -276,17 +297,16 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 x2LargeUrl,
                 x2LargeWidth,
                 x2LargeHeight,
-                url,
-                width,
-                height,
                 origUrl,
                 origWidth,
                 origHeight,
+
                 alt,
                 figcaption,
             },
             setAttributes,
             isSelected,
+            setState,
         } = props;
         async function onSelectImage( img ) {
 
@@ -383,9 +403,6 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             const x2LargeImg = sizedImgs[ 2 ] || {};
 
 
-
-
-
             console.log( 'imageExists calling' );
             let existingImgList = await Promise.all( [
                 imageExists( x0_75LargeImg.url ),
@@ -398,8 +415,17 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 console.log( 'imageExists[ ' + index + ' ]: ' + imageExists );
             } ); 
 
+
             // start build list of all really existing img sizes
             const buildImgSizes = [];
+            // thumbnail
+            if ( img.sizes.thumbnail.url ) {
+                buildImgSizes.push( {
+                    url: img.sizes.thumbnail.url,
+                    width: img.sizes.thumbnail.width,
+                    height: img.sizes.thumbnail.height, 
+                } );
+            }
             // medium
             if ( img.sizes.medium.url ) {
                 buildImgSizes.push( {
@@ -461,15 +487,31 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 console.log( 'mgSize[ ' + index + ' ] ( ' + imgSize.width + 'x' + imgSize.height + ' ): "' + imgSize.url + '"' );
             } ); 
 
+            // check if img size index fits to new img
+            let newImgSize = imgSize;
+            if ( imgSize >= buildImgSizes.length ) {
+                newImgSize = buildImgSizes.length - 1;
+            }
+
+            // make mobile img size
+            let mobileImgSize = imgSize > 0 ? imgSize - 1 : 0;
 
             setAttributes( {
                 imgId: img.id,
+                imgSizes: buildImgSizes,
+                mobileUrl: newImgSize > 0 ? buildImgSizes[ newImgSize - 1 ].url : '',
+                mobileWidth: newImgSize > 0 ? buildImgSizes[ newImgSize - 1 ].width : 0,
+                mobileHeight: newImgSize > 0 ? buildImgSizes[ newImgSize - 1 ].height : 0,
+                url: buildImgSizes[ newImgSize ].url,
+                width: buildImgSizes[ newImgSize ].width,
+                height: buildImgSizes[ newImgSize ].height,
+
                 mediumUrl: img.sizes.medium.url,
                 mediumWidth: img.sizes.medium.width,
                 mediumHeight: img.sizes.medium.height,
                 x0_75LargeUrl: x0_75LargeImg.url,
                 x0_75LargeWidth: x0_75LargeImg.width,
-                x0_75LargeHeight:  x0_75LargeImg.height,
+                x0_75LargeHeight: x0_75LargeImg.height,
                 largeUrl: img.sizes.large.url,
                 largeWidth: img.sizes.large.width,
                 largeHeight: img.sizes.large.height,
@@ -479,10 +521,8 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 x2LargeUrl: x2LargeImg.url,
                 x2LargeWidth: x2LargeImg.width,
                 x2LargeHeight: x2LargeImg.height,
-                url: img.url,
-                width: img.sizes.full.width,
-                height: img.sizes.full.height,
                 origUrl: originalImgUrl,
+
                 origWidth: originalWidth,
                 origHeight: originalHeight,
                 alt: img.alt,
@@ -514,25 +554,57 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         const onChangeMediaAlt = ( value ) => {
             setAttributes( { alt: value } );
         };
+        const onChangeFigcaption = ( value ) => {
+            setAttributes( { figcaption: value } );
+        };
+        
         const onChangeMediaWidth = ( value ) => {
             setAttributes( { width: value } );
         };
         const onChangeMediaHeight = ( value ) => {
             setAttributes( { height: value } );
         };
-        const onChangeFigcaption = ( value ) => {
-            setAttributes( { figcaption: value } );
-        };
+        
+        const imgSizeRadioControlOptions = [];
+        imgSizes.forEach( ( imgSize, index ) => {
+            imgSizeRadioControlOptions.push( 
+                { value: index.toString(), label: imgSize.width + 'x' + imgSize.height } 
+            );
+        } );
+        const ImgWidthRadioControl = withState( {
+            value: imgSize,
+        } )( ( { value, setState, ...attributes } ) => (
+            <RadioControl
+                label={ __( 'Image size and format', 'bsx-blocks' ) }
+                selected={ value }
+                options={ imgSizeRadioControlOptions }
+                onChange={ 
+                    ( value ) => {
+                        setState( { value } ); 
+                        setAttributes( { 
+                            imgSize: value,
+                            mobileUrl: value > 0 ? imgSizes[ value - 1 ].url : '',
+                            mobileWidth: value > 0 ? imgSizes[ value - 1 ].width : 0,
+                            mobileHeight: value > 0 ? imgSizes[ value - 1 ].height : 0,
+                            url: imgSizes[ value ].url,
+                            width: imgSizes[ value ].width,
+                            height: imgSizes[ value ].height,
+                        } );
+                    } 
+                }
+            />
+        ) );
         return [
             <InspectorControls>
-                <PanelBody title={ __( 'BSX Block Settings', 'bsx-blocks' ) }>
+                <PanelBody title={ __( 'Image Size', 'bsx-blocks' ) }>
+                    <ImgWidthRadioControl />
                     <TextControl 
-                        label={ __( 'Width', 'bsx-blocks' ) }
+                        label={ __( 'Displayed image width', 'bsx-blocks' ) }
                         value={ width } 
                         onChange={ onChangeMediaWidth }
                     />
                     <TextControl 
-                        label={ __( 'Height', 'bsx-blocks' ) }
+                        label={ __( 'Displayed image height', 'bsx-blocks' ) }
                         value={ height } 
                         onChange={ onChangeMediaHeight }
                     />
@@ -542,39 +614,16 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 <div className={ className }>
                     {
                         imgId ? (
-
-                            <>
-
-                            <img className={ 'upload-img' } src={ url } alt={ alt } />
-
-
-                            <div>
-                                TEST:
-                            </div>
-                            <div class="row">
-                                <div class="col-4">
-                                    <img className="img-fluid" src={ x0_75LargeUrl } alt={ alt } width={ x0_75LargeWidth } height={ x0_75LargeHeight } />
-                                    <div class="small">
-                                        { x0_75LargeWidth }x{ x0_75LargeHeight }
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <img className="img-fluid" src={ x1_5LargeUrl } alt={ alt } width={ x1_5LargeWidth } height={ x1_5LargeHeight } />
-                                    <div class="small">
-                                        { x1_5LargeWidth }x{ x1_5LargeHeight }
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <img className="img-fluid" src={ x2LargeUrl } alt={ alt } width={ x2LargeWidth } height={ x2LargeHeight } />
-                                    <div class="small">
-                                        { x2LargeWidth }x{ x2LargeHeight }
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            </>
-
+                            <figure>
+                                <picture>
+                                    {
+                                        mobileUrl && (
+                                            <source media={ mobileMediaQuery } srcset={ mobileUrl } width={ mobileWidth } height={ mobileHeight } />
+                                        )
+                                    }
+                                    <img className={ 'img-fluid upload-img' } src={ url } alt={ alt } />
+                                </picture>
+                            </figure>
                         )
                         : 
                         (
@@ -670,7 +719,15 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         const {
             className,
             attributes: {
+                imgSize,
                 imgSizes,
+                mobileUrl,
+                mobileWidth,
+                mobileHeight,
+                url,
+                width,
+                height,
+
                 mediumUrl,
                 mediumWidth,
                 mediumHeight,
@@ -686,12 +743,10 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 x2LargeUrl,
                 x2LargeWidth,
                 x2LargeHeight,
-                url,
-                width,
-                height,
                 origUrl,
                 origWidth,
                 origHeight,
+
                 alt,
                 figcaption,
             },
@@ -706,38 +761,14 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                             <script>document.write( '
                                 <picture>
                                     {
-                                        mediumUrl && (
-                                            <source media="(max-width: 459.98px)" srcset="" data-srcset={ mediumUrl } data-width={ mediumWidth } data-height={ mediumHeight } />
+                                        mobileUrl && (
+                                            <source media={ mobileMediaQuery } srcset="" data-srcset={ mobileUrl } data-width={ mobileWidth } data-height={ mobileHeight } />
                                         )
                                     }
-                                    <img className="img-fluid" src="" alt={ alt } data-src={ largeUrl } width={ largeWidth } height={ largeHeight } data-fn="lazyload" />
+                                    <img className="img-fluid" src="" alt={ alt } data-src={ url } width={ width } height={ height } data-fn="lazyload" />
                                 </picture>
                             ' );</script>
-                            <noscript><img className="img-fluid" src={ largeUrl } alt={ alt } width={ largeWidth } height={ largeHeight } /></noscript>
-                        
-                            <div>
-                                TEST:
-                            </div>
-                            <div class="row">
-                                <div class="col-4">
-                                    <img className="img-fluid" src={ x0_75LargeUrl } alt={ alt } width={ x0_75LargeWidth } height={ x0_75LargeHeight } />
-                                    <div class="small">
-                                        { x0_75LargeWidth }x{ x0_75LargeHeight }
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <img className="img-fluid" src={ x1_5LargeUrl } alt={ alt } width={ x1_5LargeWidth } height={ x1_5LargeHeight } />
-                                    <div class="small">
-                                        { x1_5LargeWidth }x{ x1_5LargeHeight }
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <img className="img-fluid" src={ x2LargeUrl } alt={ alt } width={ x2LargeWidth } height={ x2LargeHeight } />
-                                    <div class="small">
-                                        { x2LargeWidth }x{ x2LargeHeight }
-                                    </div>
-                                </div>
-                            </div>
+                            <noscript><img className="img-fluid" src={ url } alt={ alt } width={ width } height={ height } /></noscript>
 
                             {
                                 figcaption && ! RichText.isEmpty( figcaption ) && (
@@ -748,7 +779,6 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                         </figure>
                     )
                 }
-
                 
             </div>
         );
