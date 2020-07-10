@@ -265,233 +265,235 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         } = props;
         async function onSelectImage( img ) {
 
-            console.log( 'img.url: ' + img.url );
+            if ( typeof img.url !== 'undefined' ) {
 
-// TEST img object
-/*
-            for ( let [ key, value ] of Object.entries( img ) ) {
-                console.log( 'key: "' + key + '", val: "' + value + '"' );
-            }
+                console.log( 'img.url: ' + img.url );
 
-            console.log( 'img.nonces' );
-            if ( img.nonces ) {
-                for ( let [ key, value ] of Object.entries( img.nonces ) ) {
+                // TEST img object
+                /*
+                for ( let [ key, value ] of Object.entries( img ) ) {
                     console.log( 'key: "' + key + '", val: "' + value + '"' );
                 }
-            }
 
-            console.log( 'img.sizes' );
-            if ( img.sizes ) {
+                console.log( 'img.nonces' );
+                if ( img.nonces ) {
+                    for ( let [ key, value ] of Object.entries( img.nonces ) ) {
+                        console.log( 'key: "' + key + '", val: "' + value + '"' );
+                    }
+                }
+
+                console.log( 'img.sizes' );
+                if ( img.sizes ) {
+                    for ( let [ key, value ] of Object.entries( img.sizes ) ) {
+                        console.log( 'key: "' + key + '", val: "' + value + '"' );
+                    }
+                }
+
+                console.log( 'img.compat' );
+                if ( img.compat ) {
+                    for ( let [ key, value ] of Object.entries( img.compat ) ) {
+                        console.log( 'key: "' + key + '", val: "' + value + '"' );
+                    }
+                }
+                */
+
+                console.log( 'fullImgIsScaled( img.url ): ' + fullImgIsScaled( img.url ) );
+                //console.log( 'url               : ' + url );
+                //console.log( 'img.sizes.full.url: ' + img.sizes.full.url );
+
+                let originalImgUrl = '';
+                let originalWidth = 0;
+                let originalHeight = 0;
+
+                if ( fullImgIsScaled( img.url ) ) {
+
+                    // get original, get sizes
+
+                    //console.log( 'getOriginalImgUrl( img.url ): ' + getOriginalImgUrl( img.url ) );
+
+                    originalImgUrl = getOriginalImgUrl( img.url );
+
+                    // TODO: load img, get original sizes
+
+                    let originalImgSizes;
+
+                    //console.log( 'originalImgSizes calling' );
+                    try {
+                        originalImgSizes = await getOriginalImgSizes( originalImgUrl );
+                    } catch( err ) {
+                        console.error( err );
+                    }
+                    //console.log( 'originalImgSizes done' );
+
+                    originalWidth = originalImgSizes.width || 0;
+                    originalHeight = originalImgSizes.height || 0;
+
+                    //console.log( 'after await: originalWidth: ' + originalWidth + ' – originalHeight: ' + originalHeight );
+
+                }
+                else {
+
+                    // get sizes from full img
+                    // check which sizes exist
+
+                    originalWidth = img.sizes.full.width;
+                    originalHeight = img.sizes.full.height;
+
+                }
+
+                // /TEST
+
+                console.log( 'originalWidth: ' + originalWidth + ' – originalHeight: ' + originalHeight );
+
+
+                // config for making sizes (might change in newer WP versions)
+                const sizedImgsConfig = {
+                    url: img.sizes[ 'large' ].url,
+                    scaleList: [ 0.75, 1.5, 2 ],
+                    originalWidth: originalWidth,
+                    originalHeight: originalHeight,
+                };
+                const sizedImgs = makeSizedImgs( sizedImgsConfig );
+
+                const x0_75LargeImg = sizedImgs[ 0 ] || {};
+                const x1_5LargeImg = sizedImgs[ 1 ] || {};
+                const x2LargeImg = sizedImgs[ 2 ] || {};
+
+
+                console.log( 'imageExists calling' );
+                let existingImgList = await Promise.all( [
+                    imageExists( x0_75LargeImg.url ),
+                    imageExists( x1_5LargeImg.url ),
+                    imageExists( x2LargeImg.url ),
+                ] );
+                console.log( 'imageExists done' );
+
+                existingImgList.forEach( ( imageExists, index ) => {
+                    console.log( 'imageExists[ ' + index + ' ]: ' + imageExists );
+                } ); 
+
+
+                // start build list of all really existing img sizes
+                const buildImgSizes = [];
+                // thumbnail
+                if ( img.sizes.thumbnail.url ) {
+                    buildImgSizes.push( {
+                        url: img.sizes.thumbnail.url,
+                        width: img.sizes.thumbnail.width,
+                        height: img.sizes.thumbnail.height, 
+                    } );
+                }
+                // medium
+                if ( img.sizes.medium.url ) {
+                    buildImgSizes.push( {
+                        url: img.sizes.medium.url,
+                        width: img.sizes.medium.width,
+                        height: img.sizes.medium.height, 
+                    } );
+                }
+                if ( img.sizes.large.url ) {
+                    // x0.75 large
+                    if ( existingImgList[ 0 ] ) {
+                        buildImgSizes.push( {
+                            url: x0_75LargeImg.url,
+                            width: x0_75LargeImg.width,
+                            height: x0_75LargeImg.height, 
+                        } );
+                    }
+                    // large
+                    buildImgSizes.push( {
+                        url: img.sizes.large.url,
+                        width: img.sizes.large.width,
+                        height: img.sizes.large.height, 
+                    } );
+                    // x1.5 large
+                    if ( existingImgList[ 1 ] ) {
+                        buildImgSizes.push( {
+                            url: x1_5LargeImg.url,
+                            width: x1_5LargeImg.width,
+                            height: x1_5LargeImg.height, 
+                        } );
+                    }
+                    // x2 large
+                    if ( existingImgList[ 1 ] ) {
+                        buildImgSizes.push( {
+                            url: x2LargeImg.url,
+                            width: x2LargeImg.width,
+                            height: x2LargeImg.height, 
+                        } );
+                    }
+                }
+                // full (uploaded or down scaled size)
+                buildImgSizes.push( {
+                    url: img.sizes.full.url,
+                    width: img.sizes.full.width,
+                    height: img.sizes.full.height, 
+                } );
+                // original (unscaled uploaded size)
+                if ( originalImgUrl ) {
+                    buildImgSizes.push( {
+                        url: originalImgUrl,
+                        width: originalWidth,
+                        height: originalHeight, 
+                    } );
+                }
+
+                // TEST
+                console.log( '-----> buildImgSizes:' );
+                buildImgSizes.forEach( ( imgSize, index ) => {
+                    console.log( 'mgSize[ ' + index + ' ] ( ' + imgSize.width + 'x' + imgSize.height + ' ): "' + imgSize.url + '"' );
+                } ); 
+
+                // check if img size index fits to new img
+                let newImgSize = imgSize;
+                if ( imgSize >= buildImgSizes.length ) {
+                    newImgSize = buildImgSizes.length - 1;
+                }
+
+                // do not use thumbnail for srcset if has square format, start with img sizes index 1 then
+                const newLowestSrcsetImgSizeIndex = img.sizes.thumbnail.width !== img.sizes.thumbnail.height ? 0 : 1;
+
+                // do not use thumbnail (square format) for srcset, start with img sizes index 1
+                setAttributes( {
+                    imgId: img.id,
+                    imgSizes: buildImgSizes,
+                    smallMobileUrl: newImgSize - smallMobileSizeStep >= newLowestSrcsetImgSizeIndex ? buildImgSizes[ newImgSize - smallMobileSizeStep ].url : '',
+                    smallMobileWidth: newImgSize - smallMobileSizeStep >= newLowestSrcsetImgSizeIndex ? buildImgSizes[ newImgSize - smallMobileSizeStep ].width : 0,
+                    smallMobileHeight: newImgSize - smallMobileSizeStep >= newLowestSrcsetImgSizeIndex ? buildImgSizes[ newImgSize - smallMobileSizeStep ].height : 0,
+                    mobileUrl: newImgSize - mobileSizeStep >= newLowestSrcsetImgSizeIndex ? buildImgSizes[ newImgSize - mobileSizeStep ].url : '',
+                    mobileWidth: newImgSize - mobileSizeStep >= newLowestSrcsetImgSizeIndex ? buildImgSizes[ newImgSize - mobileSizeStep ].width : 0,
+                    mobileHeight: newImgSize - mobileSizeStep >= newLowestSrcsetImgSizeIndex ? buildImgSizes[ newImgSize - mobileSizeStep ].height : 0,
+                    url: buildImgSizes[ newImgSize ].url,
+                    width: buildImgSizes[ newImgSize ].width,
+                    height: buildImgSizes[ newImgSize ].height,
+                    origWidth: originalWidth,
+                    origHeight: originalHeight,
+                    lowestSrcsetImgSizeIndex: newLowestSrcsetImgSizeIndex,
+                    alt: img.alt,
+                } );
+
+                // TEST – TODO: remove
+                /*
                 for ( let [ key, value ] of Object.entries( img.sizes ) ) {
                     console.log( 'key: "' + key + '", val: "' + value + '"' );
                 }
+                */
+                /*
+                console.log( 'mediumUrl: ' + img.sizes.medium.url );
+                console.log( 'mediumWidth: ' + img.sizes.medium.width );
+                console.log( 'mediumHeight: ' + img.sizes.medium.height );
+                console.log( 'largeUrl: ' + img.sizes.large.url );
+                console.log( 'largeWidth: ' + img.sizes.large.width );
+                console.log( 'largeHeight: ' + img.sizes.large.height );
+                */
+
+                //console.log( 'ratio thumbnail ( ' + img.sizes.thumbnail.width + ' / ' + img.sizes.thumbnail.height + ' ): ' + img.sizes.thumbnail.width / img.sizes.thumbnail.height );
+                /*
+                console.log( 'ratio medium ( ' + img.sizes.medium.width + ' / ' + img.sizes.medium.height + ' ): ' + img.sizes.medium.width / img.sizes.medium.height );
+                console.log( 'ratio large ( ' + img.sizes.large.width + ' / ' + img.sizes.large.height + ' ): ' + img.sizes.large.width / img.sizes.large.height );
+                console.log( 'ratio full ( ' + img.sizes.full.width + ' / ' + img.sizes.full.height + ' ): ' + img.sizes.full.width / img.sizes.full.height );
+                */
             }
-
-            console.log( 'img.compat' );
-            if ( img.compat ) {
-                for ( let [ key, value ] of Object.entries( img.compat ) ) {
-                    console.log( 'key: "' + key + '", val: "' + value + '"' );
-                }
-            }
-*/
-
-            console.log( 'fullImgIsScaled( img.url ): ' + fullImgIsScaled( img.url ) );
-            //console.log( 'url               : ' + url );
-            //console.log( 'img.sizes.full.url: ' + img.sizes.full.url );
-
-            let originalImgUrl = '';
-            let originalWidth = 0;
-            let originalHeight = 0;
-
-            if ( fullImgIsScaled( img.url ) ) {
-
-                // get original, get sizes
-
-                //console.log( 'getOriginalImgUrl( img.url ): ' + getOriginalImgUrl( img.url ) );
-
-                originalImgUrl = getOriginalImgUrl( img.url );
-
-                // TODO: load img, get original sizes
-
-                let originalImgSizes;
-
-                //console.log( 'originalImgSizes calling' );
-                try {
-                    originalImgSizes = await getOriginalImgSizes( originalImgUrl );
-                } catch( err ) {
-                    console.error( err );
-                }
-                //console.log( 'originalImgSizes done' );
-
-                originalWidth = originalImgSizes.width || 0;
-                originalHeight = originalImgSizes.height || 0;
-
-                //console.log( 'after await: originalWidth: ' + originalWidth + ' – originalHeight: ' + originalHeight );
-
-            }
-            else {
-
-                // get sizes from full img
-                // check which sizes exist
-
-                originalWidth = img.sizes.full.width;
-                originalHeight = img.sizes.full.height;
-
-            }
-
-            // /TEST
-
-            console.log( 'originalWidth: ' + originalWidth + ' – originalHeight: ' + originalHeight );
-
-
-            // config for making sizes (might change in newer WP versions)
-            const sizedImgsConfig = {
-                url: img.sizes[ 'large' ].url,
-                scaleList: [ 0.75, 1.5, 2 ],
-                originalWidth: originalWidth,
-                originalHeight: originalHeight,
-            };
-            const sizedImgs = makeSizedImgs( sizedImgsConfig );
-
-            const x0_75LargeImg = sizedImgs[ 0 ] || {};
-            const x1_5LargeImg = sizedImgs[ 1 ] || {};
-            const x2LargeImg = sizedImgs[ 2 ] || {};
-
-
-            console.log( 'imageExists calling' );
-            let existingImgList = await Promise.all( [
-                imageExists( x0_75LargeImg.url ),
-                imageExists( x1_5LargeImg.url ),
-                imageExists( x2LargeImg.url ),
-            ] );
-            console.log( 'imageExists done' );
-
-            existingImgList.forEach( ( imageExists, index ) => {
-                console.log( 'imageExists[ ' + index + ' ]: ' + imageExists );
-            } ); 
-
-
-            // start build list of all really existing img sizes
-            const buildImgSizes = [];
-            // thumbnail
-            if ( img.sizes.thumbnail.url ) {
-                buildImgSizes.push( {
-                    url: img.sizes.thumbnail.url,
-                    width: img.sizes.thumbnail.width,
-                    height: img.sizes.thumbnail.height, 
-                } );
-            }
-            // medium
-            if ( img.sizes.medium.url ) {
-                buildImgSizes.push( {
-                    url: img.sizes.medium.url,
-                    width: img.sizes.medium.width,
-                    height: img.sizes.medium.height, 
-                } );
-            }
-            if ( img.sizes.large.url ) {
-                // x0.75 large
-                if ( existingImgList[ 0 ] ) {
-                    buildImgSizes.push( {
-                        url: x0_75LargeImg.url,
-                        width: x0_75LargeImg.width,
-                        height: x0_75LargeImg.height, 
-                    } );
-                }
-                // large
-                buildImgSizes.push( {
-                    url: img.sizes.large.url,
-                    width: img.sizes.large.width,
-                    height: img.sizes.large.height, 
-                } );
-                // x1.5 large
-                if ( existingImgList[ 1 ] ) {
-                    buildImgSizes.push( {
-                        url: x1_5LargeImg.url,
-                        width: x1_5LargeImg.width,
-                        height: x1_5LargeImg.height, 
-                    } );
-                }
-                // x2 large
-                if ( existingImgList[ 1 ] ) {
-                    buildImgSizes.push( {
-                        url: x2LargeImg.url,
-                        width: x2LargeImg.width,
-                        height: x2LargeImg.height, 
-                    } );
-                }
-            }
-            // full (uploaded or down scaled size)
-            buildImgSizes.push( {
-                url: img.sizes.full.url,
-                width: img.sizes.full.width,
-                height: img.sizes.full.height, 
-            } );
-            // original (unscaled uploaded size)
-            if ( originalImgUrl ) {
-                buildImgSizes.push( {
-                    url: originalImgUrl,
-                    width: originalWidth,
-                    height: originalHeight, 
-                } );
-            }
-
-            // TEST
-            console.log( '-----> buildImgSizes:' );
-            buildImgSizes.forEach( ( imgSize, index ) => {
-                console.log( 'mgSize[ ' + index + ' ] ( ' + imgSize.width + 'x' + imgSize.height + ' ): "' + imgSize.url + '"' );
-            } ); 
-
-            // check if img size index fits to new img
-            let newImgSize = imgSize;
-            if ( imgSize >= buildImgSizes.length ) {
-                newImgSize = buildImgSizes.length - 1;
-            }
-
-            // do not use thumbnail for srcset if has square format, start with img sizes index 1 then
-            const newLowestSrcsetImgSizeIndex = img.sizes.thumbnail.width !== img.sizes.thumbnail.height ? 0 : 1;
-
-            // do not use thumbnail (square format) for srcset, start with img sizes index 1
-            setAttributes( {
-                imgId: img.id,
-                imgSizes: buildImgSizes,
-                smallMobileUrl: newImgSize - smallMobileSizeStep >= newLowestSrcsetImgSizeIndex ? buildImgSizes[ newImgSize - smallMobileSizeStep ].url : '',
-                smallMobileWidth: newImgSize - smallMobileSizeStep >= newLowestSrcsetImgSizeIndex ? buildImgSizes[ newImgSize - smallMobileSizeStep ].width : 0,
-                smallMobileHeight: newImgSize - smallMobileSizeStep >= newLowestSrcsetImgSizeIndex ? buildImgSizes[ newImgSize - smallMobileSizeStep ].height : 0,
-                mobileUrl: newImgSize - mobileSizeStep >= newLowestSrcsetImgSizeIndex ? buildImgSizes[ newImgSize - mobileSizeStep ].url : '',
-                mobileWidth: newImgSize - mobileSizeStep >= newLowestSrcsetImgSizeIndex ? buildImgSizes[ newImgSize - mobileSizeStep ].width : 0,
-                mobileHeight: newImgSize - mobileSizeStep >= newLowestSrcsetImgSizeIndex ? buildImgSizes[ newImgSize - mobileSizeStep ].height : 0,
-                url: buildImgSizes[ newImgSize ].url,
-                width: buildImgSizes[ newImgSize ].width,
-                height: buildImgSizes[ newImgSize ].height,
-                origWidth: originalWidth,
-                origHeight: originalHeight,
-                lowestSrcsetImgSizeIndex: newLowestSrcsetImgSizeIndex,
-                alt: img.alt,
-            } );
-
-            // TEST – TODO: remove
-            /*
-            for ( let [ key, value ] of Object.entries( img.sizes ) ) {
-                console.log( 'key: "' + key + '", val: "' + value + '"' );
-            }
-            */
-            /*
-            console.log( 'mediumUrl: ' + img.sizes.medium.url );
-            console.log( 'mediumWidth: ' + img.sizes.medium.width );
-            console.log( 'mediumHeight: ' + img.sizes.medium.height );
-            console.log( 'largeUrl: ' + img.sizes.large.url );
-            console.log( 'largeWidth: ' + img.sizes.large.width );
-            console.log( 'largeHeight: ' + img.sizes.large.height );
-            */
-
-            //console.log( 'ratio thumbnail ( ' + img.sizes.thumbnail.width + ' / ' + img.sizes.thumbnail.height + ' ): ' + img.sizes.thumbnail.width / img.sizes.thumbnail.height );
-            /*
-            console.log( 'ratio medium ( ' + img.sizes.medium.width + ' / ' + img.sizes.medium.height + ' ): ' + img.sizes.medium.width / img.sizes.medium.height );
-            console.log( 'ratio large ( ' + img.sizes.large.width + ' / ' + img.sizes.large.height + ' ): ' + img.sizes.large.width / img.sizes.large.height );
-            console.log( 'ratio full ( ' + img.sizes.full.width + ' / ' + img.sizes.full.height + ' ): ' + img.sizes.full.width / img.sizes.full.height );
-            */
-
         };
         const onChangeMediaAlt = ( value ) => {
             setAttributes( { alt: value } );
@@ -543,6 +545,9 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             <InspectorControls>
                 <PanelBody title={ __( 'Image Size', 'bsx-blocks' ) }>
                     <ImgWidthRadioControl />
+                    <div class="components-base-control">
+                        <a href={ imgSizes[ imgSize ].url } target="_blank">{ __( 'Preview selected image', 'bsx-blocks' ) }</a>
+                    </div>
                     <TextControl 
                         label={ __( 'Displayed image width', 'bsx-blocks' ) }
                         value={ width } 

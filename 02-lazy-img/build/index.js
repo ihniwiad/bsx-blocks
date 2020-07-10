@@ -458,33 +458,35 @@ registerBlockType('bsx-blocks/lazy-img', {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                if (!(typeof img.url !== 'undefined')) {
+                  _context.next = 47;
+                  break;
+                }
+
                 console.log('img.url: ' + img.url); // TEST img object
 
                 /*
-                            for ( let [ key, value ] of Object.entries( img ) ) {
-                                console.log( 'key: "' + key + '", val: "' + value + '"' );
-                            }
-                
-                            console.log( 'img.nonces' );
-                            if ( img.nonces ) {
-                                for ( let [ key, value ] of Object.entries( img.nonces ) ) {
-                                    console.log( 'key: "' + key + '", val: "' + value + '"' );
-                                }
-                            }
-                
-                            console.log( 'img.sizes' );
-                            if ( img.sizes ) {
-                                for ( let [ key, value ] of Object.entries( img.sizes ) ) {
-                                    console.log( 'key: "' + key + '", val: "' + value + '"' );
-                                }
-                            }
-                
-                            console.log( 'img.compat' );
-                            if ( img.compat ) {
-                                for ( let [ key, value ] of Object.entries( img.compat ) ) {
-                                    console.log( 'key: "' + key + '", val: "' + value + '"' );
-                                }
-                            }
+                for ( let [ key, value ] of Object.entries( img ) ) {
+                    console.log( 'key: "' + key + '", val: "' + value + '"' );
+                }
+                 console.log( 'img.nonces' );
+                if ( img.nonces ) {
+                    for ( let [ key, value ] of Object.entries( img.nonces ) ) {
+                        console.log( 'key: "' + key + '", val: "' + value + '"' );
+                    }
+                }
+                 console.log( 'img.sizes' );
+                if ( img.sizes ) {
+                    for ( let [ key, value ] of Object.entries( img.sizes ) ) {
+                        console.log( 'key: "' + key + '", val: "' + value + '"' );
+                    }
+                }
+                 console.log( 'img.compat' );
+                if ( img.compat ) {
+                    for ( let [ key, value ] of Object.entries( img.compat ) ) {
+                        console.log( 'key: "' + key + '", val: "' + value + '"' );
+                    }
+                }
                 */
 
                 console.log('fullImgIsScaled( img.url ): ' + fullImgIsScaled(img.url)); //console.log( 'url               : ' + url );
@@ -495,7 +497,7 @@ registerBlockType('bsx-blocks/lazy-img', {
                 originalHeight = 0;
 
                 if (!fullImgIsScaled(img.url)) {
-                  _context.next = 20;
+                  _context.next = 21;
                   break;
                 }
 
@@ -503,35 +505,35 @@ registerBlockType('bsx-blocks/lazy-img', {
                 //console.log( 'getOriginalImgUrl( img.url ): ' + getOriginalImgUrl( img.url ) );
                 originalImgUrl = getOriginalImgUrl(img.url); // TODO: load img, get original sizes
 
-                _context.prev = 7;
-                _context.next = 10;
+                _context.prev = 8;
+                _context.next = 11;
                 return getOriginalImgSizes(originalImgUrl);
 
-              case 10:
+              case 11:
                 originalImgSizes = _context.sent;
-                _context.next = 16;
+                _context.next = 17;
                 break;
 
-              case 13:
-                _context.prev = 13;
-                _context.t0 = _context["catch"](7);
+              case 14:
+                _context.prev = 14;
+                _context.t0 = _context["catch"](8);
                 console.error(_context.t0);
 
-              case 16:
+              case 17:
                 //console.log( 'originalImgSizes done' );
                 originalWidth = originalImgSizes.width || 0;
                 originalHeight = originalImgSizes.height || 0; //console.log( 'after await: originalWidth: ' + originalWidth + ' – originalHeight: ' + originalHeight );
 
-                _context.next = 22;
+                _context.next = 23;
                 break;
 
-              case 20:
+              case 21:
                 // get sizes from full img
                 // check which sizes exist
                 originalWidth = img.sizes.full.width;
                 originalHeight = img.sizes.full.height;
 
-              case 22:
+              case 23:
                 // /TEST
                 console.log('originalWidth: ' + originalWidth + ' – originalHeight: ' + originalHeight); // config for making sizes (might change in newer WP versions)
 
@@ -546,10 +548,10 @@ registerBlockType('bsx-blocks/lazy-img', {
                 x1_5LargeImg = sizedImgs[1] || {};
                 x2LargeImg = sizedImgs[2] || {};
                 console.log('imageExists calling');
-                _context.next = 31;
+                _context.next = 32;
                 return Promise.all([imageExists(x0_75LargeImg.url), imageExists(x1_5LargeImg.url), imageExists(x2LargeImg.url)]);
 
-              case 31:
+              case 32:
                 existingImgList = _context.sent;
                 console.log('imageExists done');
                 existingImgList.forEach(function (imageExists, index) {
@@ -680,12 +682,12 @@ registerBlockType('bsx-blocks/lazy-img', {
                 console.log( 'ratio full ( ' + img.sizes.full.width + ' / ' + img.sizes.full.height + ' ): ' + img.sizes.full.width / img.sizes.full.height );
                 */
 
-              case 46:
+              case 47:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[7, 13]]);
+        }, _callee, null, [[8, 14]]);
       }));
       return _onSelectImage.apply(this, arguments);
     }
@@ -755,7 +757,12 @@ registerBlockType('bsx-blocks/lazy-img', {
     });
     return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(PanelBody, {
       title: __('Image Size', 'bsx-blocks')
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(ImgWidthRadioControl, null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(TextControl, {
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(ImgWidthRadioControl, null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
+      class: "components-base-control"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("a", {
+      href: imgSizes[imgSize].url,
+      target: "_blank"
+    }, __('Preview selected image', 'bsx-blocks'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(TextControl, {
       label: __('Displayed image width', 'bsx-blocks'),
       value: width,
       onChange: onChangeMediaWidth
