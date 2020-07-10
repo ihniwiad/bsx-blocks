@@ -349,7 +349,10 @@ var imageExists = function imageExists(url) {
   });
 };
 
-var mobileMediaQuery = '(max-width: 459.98px)';
+var smallMobileSizeStep = 2;
+var smallMobileMediaQuery = '(max-width: 459.98px)';
+var mobileSizeStep = 1;
+var mobileMediaQuery = '(max-width: 767.98px)';
 registerBlockType('bsx-blocks/lazy-img', {
   title: __('BSX Lazy Image', 'bsx-blocks'),
   icon: 'format-image',
@@ -368,9 +371,19 @@ registerBlockType('bsx-blocks/lazy-img', {
       default: '3'
     },
     imgSizes: {
-      type: 'array'
+      type: 'array',
+      default: []
     },
     imgId: {
+      type: 'number'
+    },
+    smallMobileUrl: {
+      type: 'string'
+    },
+    smallMobileWidth: {
+      type: 'number'
+    },
+    smallMobileHeight: {
       type: 'number'
     },
     mobileUrl: {
@@ -391,59 +404,15 @@ registerBlockType('bsx-blocks/lazy-img', {
     height: {
       type: 'number'
     },
-    mediumUrl: {
-      type: 'string'
-    },
-    mediumWidth: {
-      type: 'number'
-    },
-    mediumHeight: {
-      type: 'number'
-    },
-    x0_75LargeUrl: {
-      type: 'string'
-    },
-    x0_75LargeWidth: {
-      type: 'number'
-    },
-    x0_75LargeHeight: {
-      type: 'number'
-    },
-    largeUrl: {
-      type: 'string'
-    },
-    largeWidth: {
-      type: 'number'
-    },
-    largeHeight: {
-      type: 'number'
-    },
-    x1_5LargeUrl: {
-      type: 'string'
-    },
-    x1_5LargeWidth: {
-      type: 'number'
-    },
-    x1_5LargeHeight: {
-      type: 'number'
-    },
-    x2LargeUrl: {
-      type: 'string'
-    },
-    x2LargeWidth: {
-      type: 'number'
-    },
-    x2LargeHeight: {
-      type: 'number'
-    },
-    origUrl: {
-      type: 'string'
-    },
     origWidth: {
       type: 'number'
     },
     origHeight: {
       type: 'number'
+    },
+    lowestSrcsetImgSizeIndex: {
+      type: 'number',
+      default: 1
     },
     alt: {
       type: 'string'
@@ -460,28 +429,15 @@ registerBlockType('bsx-blocks/lazy-img', {
         imgId = _props$attributes.imgId,
         imgSize = _props$attributes.imgSize,
         imgSizes = _props$attributes.imgSizes,
+        smallMobileUrl = _props$attributes.smallMobileUrl,
+        smallMobileWidth = _props$attributes.smallMobileWidth,
+        smallMobileHeight = _props$attributes.smallMobileHeight,
         mobileUrl = _props$attributes.mobileUrl,
         mobileWidth = _props$attributes.mobileWidth,
         mobileHeight = _props$attributes.mobileHeight,
         url = _props$attributes.url,
         width = _props$attributes.width,
         height = _props$attributes.height,
-        mediumUrl = _props$attributes.mediumUrl,
-        mediumWidth = _props$attributes.mediumWidth,
-        mediumHeight = _props$attributes.mediumHeight,
-        x0_75LargeUrl = _props$attributes.x0_75LargeUrl,
-        x0_75LargeWidth = _props$attributes.x0_75LargeWidth,
-        x0_75LargeHeight = _props$attributes.x0_75LargeHeight,
-        largeUrl = _props$attributes.largeUrl,
-        largeWidth = _props$attributes.largeWidth,
-        largeHeight = _props$attributes.largeHeight,
-        x1_5LargeUrl = _props$attributes.x1_5LargeUrl,
-        x1_5LargeWidth = _props$attributes.x1_5LargeWidth,
-        x1_5LargeHeight = _props$attributes.x1_5LargeHeight,
-        x2LargeUrl = _props$attributes.x2LargeUrl,
-        x2LargeWidth = _props$attributes.x2LargeWidth,
-        x2LargeHeight = _props$attributes.x2LargeHeight,
-        origUrl = _props$attributes.origUrl,
         origWidth = _props$attributes.origWidth,
         origHeight = _props$attributes.origHeight,
         alt = _props$attributes.alt,
@@ -496,7 +452,7 @@ registerBlockType('bsx-blocks/lazy-img', {
 
     function _onSelectImage() {
       _onSelectImage = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(img) {
-        var originalImgUrl, originalWidth, originalHeight, originalImgSizes, sizedImgsConfig, sizedImgs, x0_75LargeImg, x1_5LargeImg, x2LargeImg, existingImgList, buildImgSizes, newImgSize, mobileImgSize;
+        var originalImgUrl, originalWidth, originalHeight, originalImgSizes, sizedImgsConfig, sizedImgs, x0_75LargeImg, x1_5LargeImg, x2LargeImg, existingImgList, buildImgSizes, newImgSize, newLowestSrcsetImgSizeIndex;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -678,37 +634,26 @@ registerBlockType('bsx-blocks/lazy-img', {
 
                 if (imgSize >= buildImgSizes.length) {
                   newImgSize = buildImgSizes.length - 1;
-                } // make mobile img size
+                } // do not use thumbnail for srcset if has square format, start with img sizes index 1 then
 
 
-                mobileImgSize = imgSize > 0 ? imgSize - 1 : 0;
+                newLowestSrcsetImgSizeIndex = img.sizes.thumbnail.width !== img.sizes.thumbnail.height ? 0 : 1; // do not use thumbnail (square format) for srcset, start with img sizes index 1
+
                 setAttributes({
                   imgId: img.id,
                   imgSizes: buildImgSizes,
-                  mobileUrl: newImgSize > 0 ? buildImgSizes[newImgSize - 1].url : '',
-                  mobileWidth: newImgSize > 0 ? buildImgSizes[newImgSize - 1].width : 0,
-                  mobileHeight: newImgSize > 0 ? buildImgSizes[newImgSize - 1].height : 0,
+                  smallMobileUrl: newImgSize - smallMobileSizeStep >= newLowestSrcsetImgSizeIndex ? buildImgSizes[newImgSize - smallMobileSizeStep].url : '',
+                  smallMobileWidth: newImgSize - smallMobileSizeStep >= newLowestSrcsetImgSizeIndex ? buildImgSizes[newImgSize - smallMobileSizeStep].width : 0,
+                  smallMobileHeight: newImgSize - smallMobileSizeStep >= newLowestSrcsetImgSizeIndex ? buildImgSizes[newImgSize - smallMobileSizeStep].height : 0,
+                  mobileUrl: newImgSize - mobileSizeStep >= newLowestSrcsetImgSizeIndex ? buildImgSizes[newImgSize - mobileSizeStep].url : '',
+                  mobileWidth: newImgSize - mobileSizeStep >= newLowestSrcsetImgSizeIndex ? buildImgSizes[newImgSize - mobileSizeStep].width : 0,
+                  mobileHeight: newImgSize - mobileSizeStep >= newLowestSrcsetImgSizeIndex ? buildImgSizes[newImgSize - mobileSizeStep].height : 0,
                   url: buildImgSizes[newImgSize].url,
                   width: buildImgSizes[newImgSize].width,
                   height: buildImgSizes[newImgSize].height,
-                  mediumUrl: img.sizes.medium.url,
-                  mediumWidth: img.sizes.medium.width,
-                  mediumHeight: img.sizes.medium.height,
-                  x0_75LargeUrl: x0_75LargeImg.url,
-                  x0_75LargeWidth: x0_75LargeImg.width,
-                  x0_75LargeHeight: x0_75LargeImg.height,
-                  largeUrl: img.sizes.large.url,
-                  largeWidth: img.sizes.large.width,
-                  largeHeight: img.sizes.large.height,
-                  x1_5LargeUrl: x1_5LargeImg.url,
-                  x1_5LargeWidth: x1_5LargeImg.width,
-                  x1_5LargeHeight: x1_5LargeImg.height,
-                  x2LargeUrl: x2LargeImg.url,
-                  x2LargeWidth: x2LargeImg.width,
-                  x2LargeHeight: x2LargeImg.height,
-                  origUrl: originalImgUrl,
                   origWidth: originalWidth,
                   origHeight: originalHeight,
+                  lowestSrcsetImgSizeIndex: newLowestSrcsetImgSizeIndex,
                   alt: img.alt
                 }); // TEST – TODO: remove
 
@@ -774,7 +719,7 @@ registerBlockType('bsx-blocks/lazy-img', {
     imgSizes.forEach(function (imgSize, index) {
       imgSizeRadioControlOptions.push({
         value: index.toString(),
-        label: imgSize.width + 'x' + imgSize.height
+        label: imgSize.width + 'x' + imgSize.height + (imgSize.width === imgSize.height ? ' ' + __('(Square format)', 'bsx-blocks') : '')
       });
     });
     var ImgWidthRadioControl = Object(_wordpress_compose__WEBPACK_IMPORTED_MODULE_4__["withState"])({
@@ -794,9 +739,12 @@ registerBlockType('bsx-blocks/lazy-img', {
           });
           setAttributes({
             imgSize: value,
-            mobileUrl: value > 0 ? imgSizes[value - 1].url : '',
-            mobileWidth: value > 0 ? imgSizes[value - 1].width : 0,
-            mobileHeight: value > 0 ? imgSizes[value - 1].height : 0,
+            smallMobileUrl: value - smallMobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[value - smallMobileSizeStep].url : '',
+            smallMobileWidth: value - smallMobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[value - smallMobileSizeStep].width : 0,
+            smallMobileHeight: value - smallMobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[value - smallMobileSizeStep].height : 0,
+            mobileUrl: value - mobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[value - mobileSizeStep].url : '',
+            mobileWidth: value - mobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[value - mobileSizeStep].width : 0,
+            mobileHeight: value - mobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[value - mobileSizeStep].height : 0,
             url: imgSizes[value].url,
             width: imgSizes[value].width,
             height: imgSizes[value].height
@@ -816,7 +764,12 @@ registerBlockType('bsx-blocks/lazy-img', {
       onChange: onChangeMediaHeight
     }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
       className: className
-    }, imgId ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("figure", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("picture", null, mobileUrl && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("source", {
+    }, imgId ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("figure", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("picture", null, smallMobileUrl && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("source", {
+      media: mobileMediaQuery,
+      srcset: smallMobileUrl,
+      width: smallMobileWidth,
+      height: smallMobileHeight
+    }), mobileUrl && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("source", {
       media: mobileMediaQuery,
       srcset: mobileUrl,
       width: mobileWidth,
@@ -892,35 +845,28 @@ registerBlockType('bsx-blocks/lazy-img', {
         _props$attributes2 = props.attributes,
         imgSize = _props$attributes2.imgSize,
         imgSizes = _props$attributes2.imgSizes,
+        smallMobileUrl = _props$attributes2.smallMobileUrl,
+        smallMobileWidth = _props$attributes2.smallMobileWidth,
+        smallMobileHeight = _props$attributes2.smallMobileHeight,
         mobileUrl = _props$attributes2.mobileUrl,
         mobileWidth = _props$attributes2.mobileWidth,
         mobileHeight = _props$attributes2.mobileHeight,
         url = _props$attributes2.url,
         width = _props$attributes2.width,
         height = _props$attributes2.height,
-        mediumUrl = _props$attributes2.mediumUrl,
-        mediumWidth = _props$attributes2.mediumWidth,
-        mediumHeight = _props$attributes2.mediumHeight,
-        x0_75LargeUrl = _props$attributes2.x0_75LargeUrl,
-        x0_75LargeWidth = _props$attributes2.x0_75LargeWidth,
-        x0_75LargeHeight = _props$attributes2.x0_75LargeHeight,
-        largeUrl = _props$attributes2.largeUrl,
-        largeWidth = _props$attributes2.largeWidth,
-        largeHeight = _props$attributes2.largeHeight,
-        x1_5LargeUrl = _props$attributes2.x1_5LargeUrl,
-        x1_5LargeWidth = _props$attributes2.x1_5LargeWidth,
-        x1_5LargeHeight = _props$attributes2.x1_5LargeHeight,
-        x2LargeUrl = _props$attributes2.x2LargeUrl,
-        x2LargeWidth = _props$attributes2.x2LargeWidth,
-        x2LargeHeight = _props$attributes2.x2LargeHeight,
-        origUrl = _props$attributes2.origUrl,
         origWidth = _props$attributes2.origWidth,
         origHeight = _props$attributes2.origHeight,
         alt = _props$attributes2.alt,
         figcaption = _props$attributes2.figcaption;
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
       className: className
-    }, url && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("figure", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("script", null, "document.write( '", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("picture", null, mobileUrl && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("source", {
+    }, url && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("figure", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("script", null, "document.write( '", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("picture", null, smallMobileUrl && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("source", {
+      media: mobileMediaQuery,
+      srcset: "",
+      "data-srcset": smallMobileUrl,
+      "data-width": smallMobileWidth,
+      "data-height": smallMobileHeight
+    }), mobileUrl && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("source", {
       media: mobileMediaQuery,
       srcset: "",
       "data-srcset": mobileUrl,
