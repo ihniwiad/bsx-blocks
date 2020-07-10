@@ -440,6 +440,7 @@ registerBlockType('bsx-blocks/lazy-img', {
         height = _props$attributes.height,
         origWidth = _props$attributes.origWidth,
         origHeight = _props$attributes.origHeight,
+        lowestSrcsetImgSizeIndex = _props$attributes.lowestSrcsetImgSizeIndex,
         alt = _props$attributes.alt,
         figcaption = _props$attributes.figcaption,
         setAttributes = props.setAttributes,

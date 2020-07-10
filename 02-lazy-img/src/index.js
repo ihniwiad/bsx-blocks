@@ -255,6 +255,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 height,
                 origWidth,
                 origHeight,
+                lowestSrcsetImgSizeIndex,
                 alt,
                 figcaption,
             },
