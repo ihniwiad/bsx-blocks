@@ -251,7 +251,7 @@ var getOriginalImgSizes = function getOriginalImgSizes(originalImgUrl) {
     var img = document.createElement('img');
 
     img.onload = function () {
-      console.log('onload test img in function: ' + img.width + ' x ' + img.height);
+      //console.log( 'onload test img in function: ' + img.width + ' x ' + img.height );
       resolve({
         width: img.width,
         height: img.height
@@ -270,7 +270,7 @@ var getOriginalImgSizes = function getOriginalImgSizes(originalImgUrl) {
 
 var imageExists = function imageExists(url) {
   return new Promise(function (resolve, reject) {
-    console.log('doing imageExists: ' + url);
+    //console.log( 'doing imageExists: ' + url );
     var xhr = new XMLHttpRequest();
     xhr.open('HEAD', url, true);
 
@@ -398,11 +398,12 @@ registerBlockType('bsx-blocks/lazy-img', {
             switch (_context.prev = _context.next) {
               case 0:
                 if (!(typeof img.url !== 'undefined')) {
-                  _context.next = 48;
+                  _context.next = 41;
                   break;
                 }
 
-                console.log('img.url: ' + img.url); // TEST img object
+                //console.log( 'img.url: ' + img.url );
+                // TEST img object
 
                 /*
                 for ( let [ key, value ] of Object.entries( img ) ) {
@@ -427,16 +428,15 @@ registerBlockType('bsx-blocks/lazy-img', {
                     }
                 }
                 */
-
-                console.log('fullImgIsScaled( img.url ): ' + fullImgIsScaled(img.url)); //console.log( 'url               : ' + url );
+                //console.log( 'fullImgIsScaled( img.url ): ' + fullImgIsScaled( img.url ) );
+                //console.log( 'url               : ' + url );
                 //console.log( 'img.sizes.full.url: ' + img.sizes.full.url );
-
                 originalImgUrl = '';
                 originalWidth = 0;
                 originalHeight = 0;
 
                 if (!fullImgIsScaled(img.url)) {
-                  _context.next = 21;
+                  _context.next = 19;
                   break;
                 }
 
@@ -444,40 +444,37 @@ registerBlockType('bsx-blocks/lazy-img', {
                 //console.log( 'getOriginalImgUrl( img.url ): ' + getOriginalImgUrl( img.url ) );
                 originalImgUrl = getOriginalImgUrl(img.url); // TODO: load img, get original sizes
 
-                _context.prev = 8;
-                _context.next = 11;
+                _context.prev = 6;
+                _context.next = 9;
                 return getOriginalImgSizes(originalImgUrl);
 
-              case 11:
+              case 9:
                 originalImgSizes = _context.sent;
-                _context.next = 17;
+                _context.next = 15;
                 break;
 
-              case 14:
-                _context.prev = 14;
-                _context.t0 = _context["catch"](8);
+              case 12:
+                _context.prev = 12;
+                _context.t0 = _context["catch"](6);
                 console.error(_context.t0);
 
-              case 17:
+              case 15:
                 //console.log( 'originalImgSizes done' );
                 originalWidth = originalImgSizes.width || 0;
                 originalHeight = originalImgSizes.height || 0; //console.log( 'after await: originalWidth: ' + originalWidth + ' – originalHeight: ' + originalHeight );
 
-                _context.next = 23;
+                _context.next = 21;
                 break;
 
-              case 21:
+              case 19:
                 // get sizes from full img
                 // check which sizes exist
                 originalWidth = img.sizes.full.width;
                 originalHeight = img.sizes.full.height;
 
-              case 23:
-                // /TEST
-                console.log('originalWidth: ' + originalWidth + ' – originalHeight: ' + originalHeight);
-
+              case 21:
                 if (!(img.sizes.large != undefined)) {
-                  _context.next = 36;
+                  _context.next = 30;
                   break;
                 }
 
@@ -491,19 +488,15 @@ registerBlockType('bsx-blocks/lazy-img', {
                 sizedImgs = makeSizedImgs(sizedImgsConfig);
                 x0_75LargeImg = sizedImgs[0] || {};
                 x1_5LargeImg = sizedImgs[1] || {};
-                x2LargeImg = sizedImgs[2] || {};
-                console.log('imageExists calling');
-                _context.next = 33;
+                x2LargeImg = sizedImgs[2] || {}; //console.log( 'imageExists calling' );
+
+                _context.next = 29;
                 return Promise.all([imageExists(x0_75LargeImg.url), imageExists(x1_5LargeImg.url), imageExists(x2LargeImg.url)]);
 
-              case 33:
+              case 29:
                 existingImgList = _context.sent;
-                console.log('imageExists done');
-                existingImgList.forEach(function (imageExists, index) {
-                  console.log('imageExists[ ' + index + ' ]: ' + imageExists);
-                });
 
-              case 36:
+              case 30:
                 // start build list of all really existing img sizes
                 newImgSizes = []; // thumbnail
 
@@ -573,9 +566,9 @@ registerBlockType('bsx-blocks/lazy-img', {
                     height: originalHeight
                   });
                 } // TEST
+                //console.log( '-----> newImgSizes:' );
 
 
-                console.log('-----> newImgSizes:');
                 newImgSizes.forEach(function (imgSize, index) {
                   console.log('mgSize[ ' + index + ' ] ( ' + imgSize.width + 'x' + imgSize.height + ' ): "' + imgSize.url + '"');
                 }); // check if current img size index fits to new img (might be too large)
@@ -583,8 +576,7 @@ registerBlockType('bsx-blocks/lazy-img', {
                 newImgSizeIndex = parseInt(imgSizeIndex);
 
                 if (imgSizeIndex >= newImgSizes.length) {
-                  newImgSizeIndex = newImgSizes.length - 1;
-                  console.log('reduce initial imgSizeIndex to: ' + newImgSizeIndex);
+                  newImgSizeIndex = newImgSizes.length - 1; //console.log( 'reduce initial imgSizeIndex to: ' + newImgSizeIndex );
                 } // do not use thumbnail for srcset if has square format, start with img sizes index 1 then
 
 
@@ -631,12 +623,12 @@ registerBlockType('bsx-blocks/lazy-img', {
                 console.log( 'ratio full ( ' + img.sizes.full.width + ' / ' + img.sizes.full.height + ' ): ' + img.sizes.full.width / img.sizes.full.height );
                 */
 
-              case 48:
+              case 41:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[8, 14]]);
+        }, _callee, null, [[6, 12]]);
       }));
       return _onSelectImage.apply(this, arguments);
     }
