@@ -367,8 +367,8 @@ registerBlockType('bsx-blocks/lazy-img', {
       default: ''
     },
     imgSize: {
-      type: 'string',
-      default: '3'
+      type: 'number',
+      default: 3
     },
     imgSizes: {
       type: 'array',
@@ -453,13 +453,13 @@ registerBlockType('bsx-blocks/lazy-img', {
 
     function _onSelectImage() {
       _onSelectImage = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(img) {
-        var originalImgUrl, originalWidth, originalHeight, originalImgSizes, sizedImgsConfig, sizedImgs, x0_75LargeImg, x1_5LargeImg, x2LargeImg, existingImgList, buildImgSizes, newImgSize, newLowestSrcsetImgSizeIndex;
+        var originalImgUrl, originalWidth, originalHeight, originalImgSizes, existingImgList, x0_75LargeImg, x1_5LargeImg, x2LargeImg, sizedImgsConfig, sizedImgs, buildImgSizes, newImgSize, newLowestSrcsetImgSizeIndex;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 if (!(typeof img.url !== 'undefined')) {
-                  _context.next = 47;
+                  _context.next = 50;
                   break;
                 }
 
@@ -535,8 +535,14 @@ registerBlockType('bsx-blocks/lazy-img', {
 
               case 23:
                 // /TEST
-                console.log('originalWidth: ' + originalWidth + ' – originalHeight: ' + originalHeight); // config for making sizes (might change in newer WP versions)
+                console.log('originalWidth: ' + originalWidth + ' – originalHeight: ' + originalHeight);
 
+                if (!(img.sizes.large != undefined)) {
+                  _context.next = 36;
+                  break;
+                }
+
+                // config for making sizes (might change in newer WP versions)
                 sizedImgsConfig = {
                   url: img.sizes['large'].url,
                   scaleList: [0.75, 1.5, 2],
@@ -548,19 +554,21 @@ registerBlockType('bsx-blocks/lazy-img', {
                 x1_5LargeImg = sizedImgs[1] || {};
                 x2LargeImg = sizedImgs[2] || {};
                 console.log('imageExists calling');
-                _context.next = 32;
+                _context.next = 33;
                 return Promise.all([imageExists(x0_75LargeImg.url), imageExists(x1_5LargeImg.url), imageExists(x2LargeImg.url)]);
 
-              case 32:
+              case 33:
                 existingImgList = _context.sent;
                 console.log('imageExists done');
                 existingImgList.forEach(function (imageExists, index) {
                   console.log('imageExists[ ' + index + ' ]: ' + imageExists);
-                }); // start build list of all really existing img sizes
+                });
 
+              case 36:
+                // start build list of all really existing img sizes
                 buildImgSizes = []; // thumbnail
 
-                if (img.sizes.thumbnail.url) {
+                if (img.sizes.thumbnail != undefined && img.sizes.thumbnail.url) {
                   buildImgSizes.push({
                     url: img.sizes.thumbnail.url,
                     width: img.sizes.thumbnail.width,
@@ -569,7 +577,7 @@ registerBlockType('bsx-blocks/lazy-img', {
                 } // medium
 
 
-                if (img.sizes.medium.url) {
+                if (img.sizes.medium != undefined && img.sizes.medium.url) {
                   buildImgSizes.push({
                     url: img.sizes.medium.url,
                     width: img.sizes.medium.width,
@@ -577,7 +585,7 @@ registerBlockType('bsx-blocks/lazy-img', {
                   });
                 }
 
-                if (img.sizes.large.url) {
+                if (img.sizes.large != undefined && img.sizes.large.url) {
                   // x0.75 large
                   if (existingImgList[0]) {
                     buildImgSizes.push({
@@ -629,21 +637,24 @@ registerBlockType('bsx-blocks/lazy-img', {
 
 
                 console.log('-----> buildImgSizes:');
-                buildImgSizes.forEach(function (imgSize, index) {
-                  console.log('mgSize[ ' + index + ' ] ( ' + imgSize.width + 'x' + imgSize.height + ' ): "' + imgSize.url + '"');
+                buildImgSizes.forEach(function (imgSizeItem, index) {
+                  console.log('mgSize[ ' + index + ' ] ( ' + imgSizeItem.width + 'x' + imgSizeItem.height + ' ): "' + imgSizeItem.url + '"');
                 }); // check if img size index fits to new img
 
                 newImgSize = imgSize;
 
                 if (imgSize >= buildImgSizes.length) {
                   newImgSize = buildImgSizes.length - 1;
-                } // do not use thumbnail for srcset if has square format, start with img sizes index 1 then
+                  console.log('reduce initial imgSize to: ' + newImgSize);
+                }
 
+                console.log('newImgSize: ' + newImgSize); // do not use thumbnail for srcset if has square format, start with img sizes index 1 then
 
                 newLowestSrcsetImgSizeIndex = img.sizes.thumbnail.width !== img.sizes.thumbnail.height ? 0 : 1; // do not use thumbnail (square format) for srcset, start with img sizes index 1
 
                 setAttributes({
                   imgId: img.id,
+                  imgSize: newImgSize,
                   imgSizes: buildImgSizes,
                   smallMobileUrl: newImgSize - smallMobileSizeStep >= newLowestSrcsetImgSizeIndex ? buildImgSizes[newImgSize - smallMobileSizeStep].url : '',
                   smallMobileWidth: newImgSize - smallMobileSizeStep >= newLowestSrcsetImgSizeIndex ? buildImgSizes[newImgSize - smallMobileSizeStep].width : 0,
@@ -658,7 +669,8 @@ registerBlockType('bsx-blocks/lazy-img', {
                   origHeight: originalHeight,
                   lowestSrcsetImgSizeIndex: newLowestSrcsetImgSizeIndex,
                   alt: img.alt
-                }); // TEST – TODO: remove
+                });
+                console.log('imgSize (after setAttributes()): ' + imgSize); // TEST – TODO: remove
 
                 /*
                 for ( let [ key, value ] of Object.entries( img.sizes ) ) {
@@ -682,7 +694,7 @@ registerBlockType('bsx-blocks/lazy-img', {
                 console.log( 'ratio full ( ' + img.sizes.full.width + ' / ' + img.sizes.full.height + ' ): ' + img.sizes.full.width / img.sizes.full.height );
                 */
 
-              case 47:
+              case 50:
               case "end":
                 return _context.stop();
             }
@@ -718,11 +730,26 @@ registerBlockType('bsx-blocks/lazy-img', {
       });
     };
 
+    var onChangeImgSizeIndex = function onChangeImgSizeIndex(value) {
+      setAttributes({
+        imgSize: value,
+        smallMobileUrl: value - smallMobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[value - smallMobileSizeStep].url : '',
+        smallMobileWidth: value - smallMobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[value - smallMobileSizeStep].width : 0,
+        smallMobileHeight: value - smallMobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[value - smallMobileSizeStep].height : 0,
+        mobileUrl: value - mobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[value - mobileSizeStep].url : '',
+        mobileWidth: value - mobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[value - mobileSizeStep].width : 0,
+        mobileHeight: value - mobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[value - mobileSizeStep].height : 0,
+        url: imgSizes[value].url,
+        width: imgSizes[value].width,
+        height: imgSizes[value].height
+      });
+    };
+
     var imgSizeRadioControlOptions = [];
-    imgSizes.forEach(function (imgSize, index) {
+    imgSizes.forEach(function (imgSizeItem, index) {
       imgSizeRadioControlOptions.push({
-        value: index.toString(),
-        label: imgSize.width + 'x' + imgSize.height + (imgSize.width === imgSize.height ? ' ' + __('(Square format)', 'bsx-blocks') : '')
+        value: index,
+        label: imgSizeItem.width + 'x' + imgSizeItem.height + (imgSizeItem.width === imgSizeItem.height ? ' ' + __('(Square format)', 'bsx-blocks') : '')
       });
     });
     var ImgWidthRadioControl = Object(_wordpress_compose__WEBPACK_IMPORTED_MODULE_4__["withState"])({
@@ -757,7 +784,12 @@ registerBlockType('bsx-blocks/lazy-img', {
     });
     return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(PanelBody, {
       title: __('Image Size', 'bsx-blocks')
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(ImgWidthRadioControl, null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(RadioControl, {
+      label: __('Image size and format', 'bsx-blocks'),
+      selected: imgSize,
+      options: imgSizeRadioControlOptions,
+      onChange: onChangeImgSizeIndex
+    }), imgSizes[imgSize] != undefined && imgSizes[imgSize].url != undefined && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
       class: "components-base-control"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("a", {
       href: imgSizes[imgSize].url,
@@ -772,7 +804,9 @@ registerBlockType('bsx-blocks/lazy-img', {
       onChange: onChangeMediaHeight
     }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
       className: className
-    }, imgId ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("figure", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("picture", null, smallMobileUrl && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("source", {
+    }, imgId ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("figure", {
+      "data-img-size": imgSize
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("picture", null, smallMobileUrl && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("source", {
       media: mobileMediaQuery,
       srcset: smallMobileUrl,
       width: smallMobileWidth,

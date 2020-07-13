@@ -181,8 +181,8 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             default: '',
         },
         imgSize: {
-            type: 'string',
-            default: '3',
+            type: 'number',
+            default: 3,
         },
         imgSizes: {
             type: 'array',
@@ -345,38 +345,46 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
                 console.log( 'originalWidth: ' + originalWidth + ' – originalHeight: ' + originalHeight );
 
+                let existingImgList;
+                let x0_75LargeImg;
+                let x1_5LargeImg;
+                let x2LargeImg;
 
-                // config for making sizes (might change in newer WP versions)
-                const sizedImgsConfig = {
-                    url: img.sizes[ 'large' ].url,
-                    scaleList: [ 0.75, 1.5, 2 ],
-                    originalWidth: originalWidth,
-                    originalHeight: originalHeight,
-                };
-                const sizedImgs = makeSizedImgs( sizedImgsConfig );
+                // make sizes only if marge img exists
+                if ( img.sizes.large != undefined ) {
 
-                const x0_75LargeImg = sizedImgs[ 0 ] || {};
-                const x1_5LargeImg = sizedImgs[ 1 ] || {};
-                const x2LargeImg = sizedImgs[ 2 ] || {};
+                    // config for making sizes (might change in newer WP versions)
+                    const sizedImgsConfig = {
+                        url: img.sizes[ 'large' ].url,
+                        scaleList: [ 0.75, 1.5, 2 ],
+                        originalWidth: originalWidth,
+                        originalHeight: originalHeight,
+                    };
+                    const sizedImgs = makeSizedImgs( sizedImgsConfig );
+
+                    x0_75LargeImg = sizedImgs[ 0 ] || {};
+                    x1_5LargeImg = sizedImgs[ 1 ] || {};
+                    x2LargeImg = sizedImgs[ 2 ] || {};
 
 
-                console.log( 'imageExists calling' );
-                let existingImgList = await Promise.all( [
-                    imageExists( x0_75LargeImg.url ),
-                    imageExists( x1_5LargeImg.url ),
-                    imageExists( x2LargeImg.url ),
-                ] );
-                console.log( 'imageExists done' );
+                    console.log( 'imageExists calling' );
+                    existingImgList = await Promise.all( [
+                        imageExists( x0_75LargeImg.url ),
+                        imageExists( x1_5LargeImg.url ),
+                        imageExists( x2LargeImg.url ),
+                    ] );
+                    console.log( 'imageExists done' );
 
-                existingImgList.forEach( ( imageExists, index ) => {
-                    console.log( 'imageExists[ ' + index + ' ]: ' + imageExists );
-                } ); 
+                    existingImgList.forEach( ( imageExists, index ) => {
+                        console.log( 'imageExists[ ' + index + ' ]: ' + imageExists );
+                    } ); 
 
+                }
 
                 // start build list of all really existing img sizes
                 const buildImgSizes = [];
                 // thumbnail
-                if ( img.sizes.thumbnail.url ) {
+                if ( img.sizes.thumbnail != undefined && img.sizes.thumbnail.url ) {
                     buildImgSizes.push( {
                         url: img.sizes.thumbnail.url,
                         width: img.sizes.thumbnail.width,
@@ -384,14 +392,14 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                     } );
                 }
                 // medium
-                if ( img.sizes.medium.url ) {
+                if ( img.sizes.medium != undefined && img.sizes.medium.url ) {
                     buildImgSizes.push( {
                         url: img.sizes.medium.url,
                         width: img.sizes.medium.width,
                         height: img.sizes.medium.height, 
                     } );
                 }
-                if ( img.sizes.large.url ) {
+                if ( img.sizes.large != undefined && img.sizes.large.url ) {
                     // x0.75 large
                     if ( existingImgList[ 0 ] ) {
                         buildImgSizes.push( {
@@ -440,15 +448,17 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
                 // TEST
                 console.log( '-----> buildImgSizes:' );
-                buildImgSizes.forEach( ( imgSize, index ) => {
-                    console.log( 'mgSize[ ' + index + ' ] ( ' + imgSize.width + 'x' + imgSize.height + ' ): "' + imgSize.url + '"' );
+                buildImgSizes.forEach( ( imgSizeItem, index ) => {
+                    console.log( 'mgSize[ ' + index + ' ] ( ' + imgSizeItem.width + 'x' + imgSizeItem.height + ' ): "' + imgSizeItem.url + '"' );
                 } ); 
 
                 // check if img size index fits to new img
                 let newImgSize = imgSize;
                 if ( imgSize >= buildImgSizes.length ) {
                     newImgSize = buildImgSizes.length - 1;
+                    console.log( 'reduce initial imgSize to: ' + newImgSize );
                 }
+                console.log( 'newImgSize: ' + newImgSize );
 
                 // do not use thumbnail for srcset if has square format, start with img sizes index 1 then
                 const newLowestSrcsetImgSizeIndex = img.sizes.thumbnail.width !== img.sizes.thumbnail.height ? 0 : 1;
@@ -456,6 +466,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 // do not use thumbnail (square format) for srcset, start with img sizes index 1
                 setAttributes( {
                     imgId: img.id,
+                    imgSize: newImgSize,
                     imgSizes: buildImgSizes,
                     smallMobileUrl: newImgSize - smallMobileSizeStep >= newLowestSrcsetImgSizeIndex ? buildImgSizes[ newImgSize - smallMobileSizeStep ].url : '',
                     smallMobileWidth: newImgSize - smallMobileSizeStep >= newLowestSrcsetImgSizeIndex ? buildImgSizes[ newImgSize - smallMobileSizeStep ].width : 0,
@@ -471,6 +482,8 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                     lowestSrcsetImgSizeIndex: newLowestSrcsetImgSizeIndex,
                     alt: img.alt,
                 } );
+
+                console.log( 'imgSize (after setAttributes()): ' + imgSize );
 
                 // TEST – TODO: remove
                 /*
@@ -508,11 +521,26 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         const onChangeMediaHeight = ( value ) => {
             setAttributes( { height: value } );
         };
-        
+
+
+        const onChangeImgSizeIndex = ( value ) => {
+            setAttributes( { 
+                imgSize: value,
+                smallMobileUrl: value - smallMobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[ value - smallMobileSizeStep ].url : '',
+                smallMobileWidth: value - smallMobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[ value - smallMobileSizeStep ].width : 0,
+                smallMobileHeight: value - smallMobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[ value - smallMobileSizeStep ].height : 0,
+                mobileUrl: value - mobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[ value - mobileSizeStep ].url : '',
+                mobileWidth: value - mobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[ value - mobileSizeStep ].width : 0,
+                mobileHeight: value - mobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[ value - mobileSizeStep ].height : 0,
+                url: imgSizes[ value ].url,
+                width: imgSizes[ value ].width,
+                height: imgSizes[ value ].height,
+            } );
+        };
         const imgSizeRadioControlOptions = [];
-        imgSizes.forEach( ( imgSize, index ) => {
+        imgSizes.forEach( ( imgSizeItem, index ) => {
             imgSizeRadioControlOptions.push( 
-                { value: index.toString(), label: imgSize.width + 'x' + imgSize.height + ( imgSize.width === imgSize.height ? ' ' + __( '(Square format)', 'bsx-blocks' ) : '' ) } 
+                { value: index, label: imgSizeItem.width + 'x' + imgSizeItem.height + ( imgSizeItem.width === imgSizeItem.height ? ' ' + __( '(Square format)', 'bsx-blocks' ) : '' ) } 
             );
         } );
         const ImgWidthRadioControl = withState( {
@@ -544,10 +572,20 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         return [
             <InspectorControls>
                 <PanelBody title={ __( 'Image Size', 'bsx-blocks' ) }>
-                    <ImgWidthRadioControl />
-                    <div class="components-base-control">
-                        <a href={ imgSizes[ imgSize ].url } target="_blank">{ __( 'Preview selected image', 'bsx-blocks' ) }</a>
-                    </div>
+                    <RadioControl
+                        label={ __( 'Image size and format', 'bsx-blocks' ) }
+                        selected={ imgSize }
+                        options={ imgSizeRadioControlOptions }
+                        onChange={ onChangeImgSizeIndex }
+                    />
+                    {
+                        imgSizes[ imgSize ] != undefined && imgSizes[ imgSize ].url != undefined && (
+                            <div class="components-base-control">
+                                <a href={ imgSizes[ imgSize ].url } target="_blank">{ __( 'Preview selected image', 'bsx-blocks' ) }</a>
+                            </div>
+                        )
+                    }
+                     
                     <TextControl 
                         label={ __( 'Displayed image width', 'bsx-blocks' ) }
                         value={ width } 
@@ -564,7 +602,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 <div className={ className }>
                     {
                         imgId ? (
-                            <figure>
+                            <figure data-img-size={ imgSize }>
                                 <picture>
                                     {
                                         smallMobileUrl && (
