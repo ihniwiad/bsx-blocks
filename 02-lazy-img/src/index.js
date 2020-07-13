@@ -180,13 +180,13 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             type: 'string',
             default: '',
         },
-        imgSize: {
-            type: 'number',
-            default: 3,
-        },
         imgSizes: {
             type: 'array',
             default: [],
+        },
+        imgSizeIndex: {
+            type: 'string',
+            default: '3',
         },
         imgId: {
             type: 'number',
@@ -242,8 +242,8 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             className,
             attributes: {
                 imgId,
-                imgSize,
                 imgSizes,
+                imgSizeIndex,
                 smallMobileUrl,
                 smallMobileWidth,
                 smallMobileHeight,
@@ -382,10 +382,10 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 }
 
                 // start build list of all really existing img sizes
-                const buildImgSizes = [];
+                const newImgSizes = [];
                 // thumbnail
                 if ( img.sizes.thumbnail != undefined && img.sizes.thumbnail.url ) {
-                    buildImgSizes.push( {
+                    newImgSizes.push( {
                         url: img.sizes.thumbnail.url,
                         width: img.sizes.thumbnail.width,
                         height: img.sizes.thumbnail.height, 
@@ -393,7 +393,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 }
                 // medium
                 if ( img.sizes.medium != undefined && img.sizes.medium.url ) {
-                    buildImgSizes.push( {
+                    newImgSizes.push( {
                         url: img.sizes.medium.url,
                         width: img.sizes.medium.width,
                         height: img.sizes.medium.height, 
@@ -402,21 +402,21 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 if ( img.sizes.large != undefined && img.sizes.large.url ) {
                     // x0.75 large
                     if ( existingImgList[ 0 ] ) {
-                        buildImgSizes.push( {
+                        newImgSizes.push( {
                             url: x0_75LargeImg.url,
                             width: x0_75LargeImg.width,
                             height: x0_75LargeImg.height, 
                         } );
                     }
                     // large
-                    buildImgSizes.push( {
+                    newImgSizes.push( {
                         url: img.sizes.large.url,
                         width: img.sizes.large.width,
                         height: img.sizes.large.height, 
                     } );
                     // x1.5 large
                     if ( existingImgList[ 1 ] ) {
-                        buildImgSizes.push( {
+                        newImgSizes.push( {
                             url: x1_5LargeImg.url,
                             width: x1_5LargeImg.width,
                             height: x1_5LargeImg.height, 
@@ -424,7 +424,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                     }
                     // x2 large
                     if ( existingImgList[ 1 ] ) {
-                        buildImgSizes.push( {
+                        newImgSizes.push( {
                             url: x2LargeImg.url,
                             width: x2LargeImg.width,
                             height: x2LargeImg.height, 
@@ -432,14 +432,14 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                     }
                 }
                 // full (uploaded or down scaled size)
-                buildImgSizes.push( {
+                newImgSizes.push( {
                     url: img.sizes.full.url,
                     width: img.sizes.full.width,
                     height: img.sizes.full.height, 
                 } );
                 // original (unscaled uploaded size)
                 if ( originalImgUrl ) {
-                    buildImgSizes.push( {
+                    newImgSizes.push( {
                         url: originalImgUrl,
                         width: originalWidth,
                         height: originalHeight, 
@@ -447,18 +447,17 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 }
 
                 // TEST
-                console.log( '-----> buildImgSizes:' );
-                buildImgSizes.forEach( ( imgSizeItem, index ) => {
-                    console.log( 'mgSize[ ' + index + ' ] ( ' + imgSizeItem.width + 'x' + imgSizeItem.height + ' ): "' + imgSizeItem.url + '"' );
+                console.log( '-----> newImgSizes:' );
+                newImgSizes.forEach( ( imgSize, index ) => {
+                    console.log( 'mgSize[ ' + index + ' ] ( ' + imgSize.width + 'x' + imgSize.height + ' ): "' + imgSize.url + '"' );
                 } ); 
 
-                // check if img size index fits to new img
-                let newImgSize = imgSize;
-                if ( imgSize >= buildImgSizes.length ) {
-                    newImgSize = buildImgSizes.length - 1;
-                    console.log( 'reduce initial imgSize to: ' + newImgSize );
+                // check if current img size index fits to new img (might be too large)
+                let newImgSizeIndex = parseInt( imgSizeIndex );
+                if ( imgSizeIndex >= newImgSizes.length ) {
+                    newImgSizeIndex = newImgSizes.length - 1;
+                    console.log( 'reduce initial imgSizeIndex to: ' + newImgSizeIndex );
                 }
-                console.log( 'newImgSize: ' + newImgSize );
 
                 // do not use thumbnail for srcset if has square format, start with img sizes index 1 then
                 const newLowestSrcsetImgSizeIndex = img.sizes.thumbnail.width !== img.sizes.thumbnail.height ? 0 : 1;
@@ -466,24 +465,22 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 // do not use thumbnail (square format) for srcset, start with img sizes index 1
                 setAttributes( {
                     imgId: img.id,
-                    imgSize: newImgSize,
-                    imgSizes: buildImgSizes,
-                    smallMobileUrl: newImgSize - smallMobileSizeStep >= newLowestSrcsetImgSizeIndex ? buildImgSizes[ newImgSize - smallMobileSizeStep ].url : '',
-                    smallMobileWidth: newImgSize - smallMobileSizeStep >= newLowestSrcsetImgSizeIndex ? buildImgSizes[ newImgSize - smallMobileSizeStep ].width : 0,
-                    smallMobileHeight: newImgSize - smallMobileSizeStep >= newLowestSrcsetImgSizeIndex ? buildImgSizes[ newImgSize - smallMobileSizeStep ].height : 0,
-                    mobileUrl: newImgSize - mobileSizeStep >= newLowestSrcsetImgSizeIndex ? buildImgSizes[ newImgSize - mobileSizeStep ].url : '',
-                    mobileWidth: newImgSize - mobileSizeStep >= newLowestSrcsetImgSizeIndex ? buildImgSizes[ newImgSize - mobileSizeStep ].width : 0,
-                    mobileHeight: newImgSize - mobileSizeStep >= newLowestSrcsetImgSizeIndex ? buildImgSizes[ newImgSize - mobileSizeStep ].height : 0,
-                    url: buildImgSizes[ newImgSize ].url,
-                    width: buildImgSizes[ newImgSize ].width,
-                    height: buildImgSizes[ newImgSize ].height,
+                    imgSizes: newImgSizes,
+                    imgSizeIndex: newImgSizeIndex.toString(),
+                    smallMobileUrl: newImgSizeIndex - smallMobileSizeStep >= newLowestSrcsetImgSizeIndex ? newImgSizes[ newImgSizeIndex - smallMobileSizeStep ].url : '',
+                    smallMobileWidth: newImgSizeIndex - smallMobileSizeStep >= newLowestSrcsetImgSizeIndex ? newImgSizes[ newImgSizeIndex - smallMobileSizeStep ].width : 0,
+                    smallMobileHeight: newImgSizeIndex - smallMobileSizeStep >= newLowestSrcsetImgSizeIndex ? newImgSizes[ newImgSizeIndex - smallMobileSizeStep ].height : 0,
+                    mobileUrl: newImgSizeIndex - mobileSizeStep >= newLowestSrcsetImgSizeIndex ? newImgSizes[ newImgSizeIndex - mobileSizeStep ].url : '',
+                    mobileWidth: newImgSizeIndex - mobileSizeStep >= newLowestSrcsetImgSizeIndex ? newImgSizes[ newImgSizeIndex - mobileSizeStep ].width : 0,
+                    mobileHeight: newImgSizeIndex - mobileSizeStep >= newLowestSrcsetImgSizeIndex ? newImgSizes[ newImgSizeIndex - mobileSizeStep ].height : 0,
+                    url: newImgSizes[ newImgSizeIndex ].url,
+                    width: newImgSizes[ newImgSizeIndex ].width,
+                    height: newImgSizes[ newImgSizeIndex ].height,
                     origWidth: originalWidth,
                     origHeight: originalHeight,
                     lowestSrcsetImgSizeIndex: newLowestSrcsetImgSizeIndex,
                     alt: img.alt,
                 } );
-
-                console.log( 'imgSize (after setAttributes()): ' + imgSize );
 
                 // TEST – TODO: remove
                 /*
@@ -522,10 +519,9 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             setAttributes( { height: value } );
         };
 
-
         const onChangeImgSizeIndex = ( value ) => {
             setAttributes( { 
-                imgSize: value,
+                imgSizeIndex: value.toString(),
                 smallMobileUrl: value - smallMobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[ value - smallMobileSizeStep ].url : '',
                 smallMobileWidth: value - smallMobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[ value - smallMobileSizeStep ].width : 0,
                 smallMobileHeight: value - smallMobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[ value - smallMobileSizeStep ].height : 0,
@@ -538,13 +534,13 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             } );
         };
         const imgSizeRadioControlOptions = [];
-        imgSizes.forEach( ( imgSizeItem, index ) => {
+        imgSizes.forEach( ( imgSize, index ) => {
             imgSizeRadioControlOptions.push( 
-                { value: index, label: imgSizeItem.width + 'x' + imgSizeItem.height + ( imgSizeItem.width === imgSizeItem.height ? ' ' + __( '(Square format)', 'bsx-blocks' ) : '' ) } 
+                { value: index.toString(), label: imgSize.width + 'x' + imgSize.height + ( imgSize.width === imgSize.height ? ' ' + __( '(Square format)', 'bsx-blocks' ) : '' ) } 
             );
         } );
         const ImgWidthRadioControl = withState( {
-            value: imgSize,
+            value: imgSizeIndex,
         } )( ( { value, setState, ...attributes } ) => (
             <RadioControl
                 label={ __( 'Image size and format', 'bsx-blocks' ) }
@@ -552,9 +548,9 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 options={ imgSizeRadioControlOptions }
                 onChange={ 
                     ( value ) => {
-                        setState( { value } ); 
+                        setState( { value } );
                         setAttributes( { 
-                            imgSize: value,
+                            imgSizeIndex: value.toString(),
                             smallMobileUrl: value - smallMobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[ value - smallMobileSizeStep ].url : '',
                             smallMobileWidth: value - smallMobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[ value - smallMobileSizeStep ].width : 0,
                             smallMobileHeight: value - smallMobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[ value - smallMobileSizeStep ].height : 0,
@@ -574,14 +570,14 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 <PanelBody title={ __( 'Image Size', 'bsx-blocks' ) }>
                     <RadioControl
                         label={ __( 'Image size and format', 'bsx-blocks' ) }
-                        selected={ imgSize }
+                        selected={ imgSizeIndex.toString() }
                         options={ imgSizeRadioControlOptions }
                         onChange={ onChangeImgSizeIndex }
                     />
                     {
-                        imgSizes[ imgSize ] != undefined && imgSizes[ imgSize ].url != undefined && (
+                        imgSizes[ imgSizeIndex ] != undefined && imgSizes[ imgSizeIndex ].url != undefined && (
                             <div class="components-base-control">
-                                <a href={ imgSizes[ imgSize ].url } target="_blank">{ __( 'Preview selected image', 'bsx-blocks' ) }</a>
+                                <a href={ imgSizes[ imgSizeIndex ].url } target="_blank">{ __( 'Preview selected image', 'bsx-blocks' ) }</a>
                             </div>
                         )
                     }
@@ -602,7 +598,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 <div className={ className }>
                     {
                         imgId ? (
-                            <figure data-img-size={ imgSize }>
+                            <figure data-img-size={ imgSizeIndex }>
                                 <picture>
                                     {
                                         smallMobileUrl && (
@@ -712,7 +708,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         const {
             className,
             attributes: {
-                imgSize,
+                imgSizeIndex,
                 imgSizes,
                 smallMobileUrl,
                 smallMobileWidth,
