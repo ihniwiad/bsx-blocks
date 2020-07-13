@@ -126,7 +126,7 @@ const getOriginalImgSizes = ( originalImgUrl ) => {
 
         let img = document.createElement( 'img' );
         img.onload = () => { 
-            console.log( 'onload test img in function: ' + img.width + ' x ' + img.height );
+            //console.log( 'onload test img in function: ' + img.width + ' x ' + img.height );
 
             resolve( {
                 width: img.width,
@@ -145,7 +145,7 @@ const getOriginalImgSizes = ( originalImgUrl ) => {
 
 const imageExists = ( url ) => {
     return new Promise( ( resolve, reject ) => {
-        console.log( 'doing imageExists: ' + url );
+        //console.log( 'doing imageExists: ' + url );
         const xhr = new XMLHttpRequest();
         xhr.open( 'HEAD', url, true );
         xhr.onreadystatechange = () => {
@@ -267,7 +267,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
             if ( typeof img.url !== 'undefined' ) {
 
-                console.log( 'img.url: ' + img.url );
+                //console.log( 'img.url: ' + img.url );
 
                 // TEST img object
                 /*
@@ -297,7 +297,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 }
                 */
 
-                console.log( 'fullImgIsScaled( img.url ): ' + fullImgIsScaled( img.url ) );
+                //console.log( 'fullImgIsScaled( img.url ): ' + fullImgIsScaled( img.url ) );
                 //console.log( 'url               : ' + url );
                 //console.log( 'img.sizes.full.url: ' + img.sizes.full.url );
 
@@ -342,8 +342,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 }
 
                 // /TEST
-
-                console.log( 'originalWidth: ' + originalWidth + ' – originalHeight: ' + originalHeight );
+                //console.log( 'originalWidth: ' + originalWidth + ' – originalHeight: ' + originalHeight );
 
                 let existingImgList;
                 let x0_75LargeImg;
@@ -367,17 +366,19 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                     x2LargeImg = sizedImgs[ 2 ] || {};
 
 
-                    console.log( 'imageExists calling' );
+                    //console.log( 'imageExists calling' );
                     existingImgList = await Promise.all( [
                         imageExists( x0_75LargeImg.url ),
                         imageExists( x1_5LargeImg.url ),
                         imageExists( x2LargeImg.url ),
                     ] );
-                    console.log( 'imageExists done' );
+                    //console.log( 'imageExists done' );
 
+                    /*
                     existingImgList.forEach( ( imageExists, index ) => {
                         console.log( 'imageExists[ ' + index + ' ]: ' + imageExists );
                     } ); 
+                    */
 
                 }
 
@@ -447,7 +448,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 }
 
                 // TEST
-                console.log( '-----> newImgSizes:' );
+                //console.log( '-----> newImgSizes:' );
                 newImgSizes.forEach( ( imgSize, index ) => {
                     console.log( 'mgSize[ ' + index + ' ] ( ' + imgSize.width + 'x' + imgSize.height + ' ): "' + imgSize.url + '"' );
                 } ); 
@@ -456,7 +457,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 let newImgSizeIndex = parseInt( imgSizeIndex );
                 if ( imgSizeIndex >= newImgSizes.length ) {
                     newImgSizeIndex = newImgSizes.length - 1;
-                    console.log( 'reduce initial imgSizeIndex to: ' + newImgSizeIndex );
+                    //console.log( 'reduce initial imgSizeIndex to: ' + newImgSizeIndex );
                 }
 
                 // do not use thumbnail for srcset if has square format, start with img sizes index 1 then
@@ -539,32 +540,6 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 { value: index.toString(), label: imgSize.width + 'x' + imgSize.height + ( imgSize.width === imgSize.height ? ' ' + __( '(Square format)', 'bsx-blocks' ) : '' ) } 
             );
         } );
-        const ImgWidthRadioControl = withState( {
-            value: imgSizeIndex,
-        } )( ( { value, setState, ...attributes } ) => (
-            <RadioControl
-                label={ __( 'Image size and format', 'bsx-blocks' ) }
-                selected={ value }
-                options={ imgSizeRadioControlOptions }
-                onChange={ 
-                    ( value ) => {
-                        setState( { value } );
-                        setAttributes( { 
-                            imgSizeIndex: value.toString(),
-                            smallMobileUrl: value - smallMobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[ value - smallMobileSizeStep ].url : '',
-                            smallMobileWidth: value - smallMobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[ value - smallMobileSizeStep ].width : 0,
-                            smallMobileHeight: value - smallMobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[ value - smallMobileSizeStep ].height : 0,
-                            mobileUrl: value - mobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[ value - mobileSizeStep ].url : '',
-                            mobileWidth: value - mobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[ value - mobileSizeStep ].width : 0,
-                            mobileHeight: value - mobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[ value - mobileSizeStep ].height : 0,
-                            url: imgSizes[ value ].url,
-                            width: imgSizes[ value ].width,
-                            height: imgSizes[ value ].height,
-                        } );
-                    } 
-                }
-            />
-        ) );
         return [
             <InspectorControls>
                 <PanelBody title={ __( 'Image Size', 'bsx-blocks' ) }>
@@ -602,12 +577,12 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                                 <picture>
                                     {
                                         smallMobileUrl && (
-                                            <source media={ mobileMediaQuery } srcset={ smallMobileUrl } width={ smallMobileWidth } height={ smallMobileHeight } />
+                                            <source media={ smallMobileMediaQuery } srcset={ smallMobileUrl } width={ smallMobileWidth } height={ smallMobileHeight } />
                                         )
                                     }
                                     {
                                         mobileUrl && (
-                                            <source media={ mobileMediaQuery } srcset={ mobileUrl } width={ mobileWidth } height={ mobileHeight } />
+                                            <source media={ smallMobileUrl ? mobileMediaQuery : smallMobileMediaQuery } srcset={ mobileUrl } width={ mobileWidth } height={ mobileHeight } />
                                         )
                                     }
                                     <img className={ 'img-fluid upload-img' } src={ url } alt={ alt } />
@@ -736,12 +711,12 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                                 <picture>
                                     {
                                         smallMobileUrl && (
-                                            <source media={ mobileMediaQuery } srcset="" data-srcset={ smallMobileUrl } data-width={ smallMobileWidth } data-height={ smallMobileHeight } />
+                                            <source media={ smallMobileMediaQuery } srcset="" data-srcset={ smallMobileUrl } data-width={ smallMobileWidth } data-height={ smallMobileHeight } />
                                         )
                                     }
                                     {
                                         mobileUrl && (
-                                            <source media={ mobileMediaQuery } srcset="" data-srcset={ mobileUrl } data-width={ mobileWidth } data-height={ mobileHeight } />
+                                            <source media={ smallMobileUrl ? mobileMediaQuery : smallMobileMediaQuery } srcset="" data-srcset={ mobileUrl } data-width={ mobileWidth } data-height={ mobileHeight } />
                                         )
                                     }
                                     <img className="img-fluid" src="" alt={ alt } data-src={ url } width={ width } height={ height } data-fn="lazyload" />
