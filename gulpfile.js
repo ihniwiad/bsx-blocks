@@ -7,7 +7,21 @@ const replace       = require( 'gulp-string-replace' );
     related packages: 
         0 -> basic style package
 */
-var config = require( './config.json' );
+const config = require( './config.json' );
+
+// NOTE: within `src` all (1..n) non-negative globs must be followed by (0..n) only negative globs
+const defaultPublish = {
+    "src": [
+        "**/*",
+        "!**/node_modules",
+        "!**/node_modules/**", 
+    ],
+    "base": ".",
+    "folderName": config.projectName
+};
+const mergedPublish = Object.assign( {}, defaultPublish, config.publish );
+ // NOTE: take care at this path since you’re deleting files outside your project
+const mergedPublishDestFullPath = mergedPublish.dest + '/' + mergedPublish.folderName;
 
 
 // scss
@@ -46,15 +60,48 @@ function basicStylePackagePathReplace( cb ) {
     cb();
 }
 
+function publishFolderDelete( cb ) {
 
-// tasks
-const packagePathReplace = series(
+    if ( !! mergedPublish.dest && !! mergedPublish.folderName ) {
+        return gulp.src( mergedPublishDestFullPath, { read: false, allowEmpty: true } )
+            .pipe( clean( { force: true } ) ) // NOTE: take care at this command since you’re deleting files outside your project
+        ;
+    }
+    else {
+        // do nothing
+    }
+
+    cb();
+}
+
+function publishFolderCreate( cb ) {
+
+    if ( !! mergedPublish.dest && !! mergedPublish.folderName ) {
+        return gulp.src( mergedPublish.src, { base: mergedPublish.base } )
+            .pipe( gulp.dest( mergedPublishDestFullPath ) )
+        ;
+    }
+    else {
+        // log note, do nothing
+        console.log( 'Note: No publishing done since publish configuration empty.' );
+    }
+
+    cb();
+}
+
+exports.publish = series(
+    // copy all project but `node_modules` to configured dest
+    publishFolderDelete,
+    publishFolderCreate
+);
+
+exports.replace = series(
     basicStylePackagePathReplace,
 );
-const build = parallel( packagePathReplace );
 
-
-// exports
-exports.replace = packagePathReplace;
-exports.build = build;
+exports.build = series(
+    basicStylePackagePathReplace,
+    publishFolderDelete,
+    publishFolderCreate
+);
 

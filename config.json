@@ -1,4 +1,5 @@
 {
+	"projectName": "bsx-blocks",
 	"relatedPackages": [
 		{
 			"path": "./../../../../bsx-basic-style",
@@ -6,5 +7,8 @@
 		}
 	],
 	"basicStylePackagePathReplaceSrcFolder": "/src",
-	"basicStylePackagePathReplaceDestFolder": "/build"
+	"basicStylePackagePathReplaceDestFolder": "/build",
+	"publish": {
+		"dest": null
+	}
 }
