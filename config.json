@@ -2,13 +2,13 @@
 	"projectName": "bsx-blocks",
 	"relatedPackages": [
 		{
-			"path": "./../../../../bsx-basic-style",
-			"scssPath": "../../../../../../bsx-basic-style"
+			"path": "./../bsx-basic-style",
+			"scssPath": "../../../bsx-basic-style"
 		}
 	],
 	"basicStylePackagePathReplaceSrcFolder": "/src",
 	"basicStylePackagePathReplaceDestFolder": "/build",
 	"publish": {
-		"dest": null
+		"dest": "../../../../../Applications/MAMP/htdocs/wordpress/wp-content/plugins/"
 	}
 }

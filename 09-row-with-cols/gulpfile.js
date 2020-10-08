@@ -15,7 +15,7 @@ const CSS_DEST_PATH = './build/css';
 
 
 // functions
-function cssFolderClean( cb ) {
+const cssFolderClean = ( cb ) => {
 
     return gulp.src( CSS_DEST_PATH, { read: false, allowEmpty: true } )
         .pipe( clean() )
@@ -24,7 +24,7 @@ function cssFolderClean( cb ) {
     cb();
 }
 
-function scssToCss( cb ) {
+const scssToCss = ( cb ) => {
 
     return gulp.src( SCSS_SRC_PATH + '/**/*.scss' )
         .pipe( sourcemaps.init() )
@@ -40,7 +40,7 @@ function scssToCss( cb ) {
     cb();
 }
 
-function cssCleanAndMinify( cb ) {
+const cssCleanAndMinify = ( cb ) => {
 
     return gulp.src( CSS_DEST_PATH + '/**/*.css' )
         .pipe( cleanCSS( { debug: true }, function( details ) {
@@ -56,7 +56,7 @@ function cssCleanAndMinify( cb ) {
     cb();
 }
 
-function scssWatch() {
+const scssWatch = () => {
     watch( SCSS_SRC_PATH + '/**/*.scss', css );
 }
 
@@ -72,5 +72,10 @@ const scss_watch = parallel( scssWatch );
 
 // exports
 exports.css = css;
+
 exports.css_watch = scss_watch;
+
+exports.build = series(
+    css,
+);
 
