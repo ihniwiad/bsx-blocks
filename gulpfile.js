@@ -2,6 +2,7 @@ const gulp          = require( 'gulp' );
 const { series, parallel } = require( 'gulp' );
 const replace       = require( 'gulp-string-replace' );
 const clean         = require( 'gulp-clean' );
+const watch         = require( 'gulp-watch' );
 
 // include config file
 /* 
@@ -25,6 +26,14 @@ const mergedPublish = Object.assign( {}, defaultPublish, config.publish );
 const mergedPublishDestFullPath = mergedPublish.dest + '/' + mergedPublish.folderName;
 
 
+// basic functions
+
+const checkAdDotBefore = ( path ) => {
+    path = ( path.indexOf( '.' ) != 0 ) ? '.' + path :  path;
+    return path;
+}
+
+
 // scss
 const REPLACE_SRC_PATH = checkAdDotBefore( config.basicStylePackagePathReplaceSrcFolder );
 const REPLACE_DEST_PATH = checkAdDotBefore( config.basicStylePackagePathReplaceDestFolder );
@@ -32,13 +41,9 @@ const REPLACE_PATTERN = /###BASIC_STYLE_PACKAGE_PATH###/g;
 const BASIC_STYLE_PACKAGE_PATH = checkAdDotBefore( config.relatedPackages[ 0 ].scssPath )
 
 
-// functions
-function checkAdDotBefore( path ) {
-    path = ( path.indexOf( '.' ) != 0 ) ? '.' + path :  path;
-    return path;
-}
+// task functions
 
-function basicStylePackagePathReplace( cb ) {
+const basicStylePackagePathReplace = ( cb ) => {
 
     var REPLACE_FILE_STACK = [
         {
@@ -61,7 +66,7 @@ function basicStylePackagePathReplace( cb ) {
     cb();
 }
 
-function publishFolderDelete( cb ) {
+const publishFolderDelete = ( cb ) => {
 
     if ( !! mergedPublish.dest && !! mergedPublish.folderName ) {
         return gulp.src( mergedPublishDestFullPath, { read: false, allowEmpty: true } )
@@ -75,7 +80,7 @@ function publishFolderDelete( cb ) {
     cb();
 }
 
-function publishFolderCreate( cb ) {
+const publishFolderCreate = ( cb ) => {
 
     if ( !! mergedPublish.dest && !! mergedPublish.folderName ) {
         return gulp.src( mergedPublish.src, { base: mergedPublish.base } )
@@ -90,11 +95,34 @@ function publishFolderCreate( cb ) {
     cb();
 }
 
-exports.publish = series(
+
+// tasks
+
+const publish = series(
     // copy all project but `node_modules` to configured dest
     publishFolderDelete,
-    publishFolderCreate
+    publishFolderCreate,
 );
+
+const jsWatch = () => {
+    watch( checkAdDotBefore( config.buildJsWatchPath ), publish );
+}
+
+const cssWatch = () => {
+    watch( checkAdDotBefore( config.buildCssWatchPath ), publish );
+}
+
+const allWatch = () => {
+    watch( [
+        checkAdDotBefore( config.buildCssWatchPath ),
+        checkAdDotBefore( config.buildJsWatchPath ),
+    ], publish );
+}
+
+
+// exports
+
+exports.publish = publish;
 
 exports.replace = series(
     basicStylePackagePathReplace,
@@ -102,7 +130,12 @@ exports.replace = series(
 
 exports.build = series(
     basicStylePackagePathReplace,
-    publishFolderDelete,
-    publishFolderCreate
+    publish,
 );
+
+exports.js_watch = jsWatch;
+
+exports.css_watch = cssWatch;
+
+exports.all_watch = allWatch;
 
