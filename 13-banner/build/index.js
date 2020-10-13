@@ -212,6 +212,7 @@ var makeClassNames = function makeClassNames(bannerType, bannerSize, bgAttachmen
 };
 
 var bannerStyle;
+var template;
 
 var getUrlTruncAndExtension = function getUrlTruncAndExtension(url) {
   var urlExplode = url.split('.');
@@ -418,7 +419,9 @@ registerBlockType('bsx-blocks/banner', {
         "clip-rule": "evenodd",
         d: "M23.58 26.28c0-.600003.1499985-1.099998.45-1.5.3000015-.400002.7433304-.8399976 1.33-1.32.5600028-.4533356.9833319-.8699981 1.27-1.25s.43-.8433306.43-1.39c0-.5466694-.1733316-1.0566643-.52-1.53s-.986662-.71-1.92-.71c-1.1066722 0-1.8533314.2766639-2.24.83-.3866686.5533361-.58 1.1766632-.58 1.87 0 .1466674.0033333.2666662.01.36.0066667.0933338.01.1533332.01.18h-1.78c-.0133334-.0533336-.0266666-.146666-.04-.28-.0133334-.133334-.02-.2733326-.02-.42 0-.7733372.1766649-1.4666636.53-2.08.3533351-.6133364.8899964-1.0999982 1.61-1.46.7200036-.3600018 1.5999948-.54 2.64-.54 1.2133394 0 2.2033295.3233301 2.97.97s1.15 1.5099946 1.15 2.59c0 .7066702-.1033323 1.3033309-.31 1.79-.2066677.4866691-.4533319.8799985-.74 1.18-.2866681.3000015-.6566644.6233316-1.11.97-.4800024.3866686-.8333322.7166653-1.06.99-.2266678.2733347-.34.6233312-.34 1.05v.82h-1.74zm-.14 2.56h2V31h-2zM39 12c1.1046 0 2 .8954 2 2v20c0 1.1046-.8954 2-2 2H9c-1.10457 0-2-.8954-2-2V14c0-1.1046.89543-2 2-2h30zm0 22V14H9v20h30z"
       })),
-      template: [],
+      template: [['core/paragraph', {
+        placeholder: 'Change paragraph text or delete...'
+      }]],
       templateLock: false
     }, {
       name: 'container-with-heading',
@@ -436,11 +439,8 @@ registerBlockType('bsx-blocks/banner', {
         "clip-rule": "evenodd",
         d: "M23.58 26.28c0-.600003.1499985-1.099998.45-1.5.3000015-.400002.7433304-.8399976 1.33-1.32.5600028-.4533356.9833319-.8699981 1.27-1.25s.43-.8433306.43-1.39c0-.5466694-.1733316-1.0566643-.52-1.53s-.986662-.71-1.92-.71c-1.1066722 0-1.8533314.2766639-2.24.83-.3866686.5533361-.58 1.1766632-.58 1.87 0 .1466674.0033333.2666662.01.36.0066667.0933338.01.1533332.01.18h-1.78c-.0133334-.0533336-.0266666-.146666-.04-.28-.0133334-.133334-.02-.2733326-.02-.42 0-.7733372.1766649-1.4666636.53-2.08.3533351-.6133364.8899964-1.0999982 1.61-1.46.7200036-.3600018 1.5999948-.54 2.64-.54 1.2133394 0 2.2033295.3233301 2.97.97s1.15 1.5099946 1.15 2.59c0 .7066702-.1033323 1.3033309-.31 1.79-.2066677.4866691-.4533319.8799985-.74 1.18-.2866681.3000015-.6566644.6233316-1.11.97-.4800024.3866686-.8333322.7166653-1.06.99-.2266678.2733347-.34.6233312-.34 1.05v.82h-1.74zm-.14 2.56h2V31h-2zM39 12c1.1046 0 2 .8954 2 2v20c0 1.1046-.8954 2-2 2H9c-1.10457 0-2-.8954-2-2V14c0-1.1046.89543-2 2-2h30zm0 22V14H9v20h30z"
       })),
-      template: [['bsx-blocks/container', {
-        belowNavbar: true
-      }, [['core/heading', {
+      template: [['bsx-blocks/container', {}, [['core/heading', {
         placeholder: 'Add heading, configure heading level...',
-        level: '1',
         className: 'display-1 text-white text-shadow-darker'
       }]]]],
       templateLock: false
@@ -453,13 +453,15 @@ registerBlockType('bsx-blocks/banner', {
       return currentTemplate ? currentTemplate.template : [];
     };
 
-    var template = getTemplate(templateName);
+    template = getTemplate(templateName);
 
     var onTemplateChange = function onTemplateChange(value) {
       template = getTemplate(value);
       setAttributes({
         templateName: value
       });
+      console.log('changed templateName: ' + value);
+      console.log('changed template: ' + template);
     };
 
     function onSelectImage(_x) {
@@ -710,7 +712,7 @@ registerBlockType('bsx-blocks/banner', {
       backgroundImage: "url(".concat(url, ")")
     };
     return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(PanelBody, {
-      title: __('Banner Settings', 'bsx-blocks')
+      title: __('Banner Template', 'bsx-blocks')
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
       className: "bsxui-icon-text-button-list"
     }, templates.map(function (template, index) {
@@ -725,6 +727,31 @@ registerBlockType('bsx-blocks/banner', {
       }, template.icon), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
         class: "bsxui-icon-text-button-list-item-label"
       }, template.title));
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(PanelBody, {
+      title: __('Banner image', 'bsx-blocks')
+    }, imgId ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      class: "bsxui-config-panel-row"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("img", {
+      class: "bsxui-config-panel-img",
+      src: url,
+      alt: "Image preview"
+    })) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      class: "bsxui-config-panel-row"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      class: "bsxui-config-panel-text"
+    }, __('– No image selected yet –', 'bsx-blocks'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      class: "bsxui-config-panel-row"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(MediaUpload, {
+      onSelect: onSelectImage,
+      allowedTypes: "image",
+      value: imgId,
+      render: function render(_ref2) {
+        var open = _ref2.open;
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(Button, {
+          onClick: open,
+          isSecondary: true
+        }, __('Change / upload Image', 'bsx-blocks'));
+      }
     })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(RadioControl, {
       label: __('Image size and format', 'bsx-blocks'),
       selected: imgSizeIndex.toString(),
@@ -736,7 +763,7 @@ registerBlockType('bsx-blocks/banner', {
       href: imgSizes[imgSizeIndex].url,
       target: "_blank"
     }, __('Preview selected image', 'bsx-blocks')))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(PanelBody, {
-      title: __('Margin', 'bsx-blocks')
+      title: __('Banner dimensions', 'bsx-blocks')
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(SelectControl, {
       label: __('Banner height type', 'bsx-blocks'),
       value: bannerType,
@@ -786,7 +813,9 @@ registerBlockType('bsx-blocks/banner', {
         value: 'end',
         label: __('end', 'bsx-blocks')
       }]
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(SelectControl, {
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(PanelBody, {
+      title: __('Margin', 'bsx-blocks')
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(SelectControl, {
       label: __('Margin before', 'bsx-blocks'),
       value: marginBefore,
       onChange: onChangeMarginBefore,
@@ -883,30 +912,28 @@ registerBlockType('bsx-blocks/banner', {
         value: '100a',
         label: __('100% auto', 'bsx-blocks')
       }]
-    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
       className: bannerClassName,
       style: bannerStyle
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(InnerBlocks, {
-      template: template,
-      renderAppender: hasInnerBlocks ? undefined : function () {
-        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(InnerBlocks.ButtonBlockAppender, null);
-      }
-    })), isSelected && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
-      class: "bsxui-isselected-config-panel"
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
-      className: "bsxui-upload-btn-wrapper"
+    }, !imgId && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      className: "bsxui-in-widget-overlay-panel bsxui-top"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(MediaUpload, {
       onSelect: onSelectImage,
       allowedTypes: "image",
       value: imgId,
-      render: function render(_ref2) {
-        var open = _ref2.open;
+      render: function render(_ref3) {
+        var open = _ref3.open;
         return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(Button, {
           onClick: open,
           isSecondary: true
-        }, __('Change / upload Image', 'bsx-blocks'));
+        }, __('Select / upload Image', 'bsx-blocks'));
       }
-    }))))];
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(InnerBlocks, {
+      template: template,
+      renderAppender: hasInnerBlocks ? undefined : function () {
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(InnerBlocks.ButtonBlockAppender, null);
+      }
+    }))];
   }),
   save: function save(props) {
     var className = props.className,

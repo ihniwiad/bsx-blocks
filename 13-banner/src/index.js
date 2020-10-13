@@ -66,6 +66,8 @@ const makeClassNames = ( bannerType, bannerSize, bgAttachment, bgSize, bgPositio
 
 let bannerStyle;
 
+let template;
+
 const getUrlTruncAndExtension = ( url ) => {
 
     const urlExplode = url.split( '.' );
@@ -308,7 +310,14 @@ registerBlockType( 'bsx-blocks/banner', {
                         />
                     </svg>
                 ),
-                template: [],
+                template: [
+                    [
+                        'core/paragraph',
+                        { 
+                            placeholder: 'Change paragraph text or delete...'
+                        }
+                    ]
+                ],
                 templateLock: false,
             },
             {
@@ -335,14 +344,12 @@ registerBlockType( 'bsx-blocks/banner', {
                     [ 
                         'bsx-blocks/container', 
                         {
-                            belowNavbar: true
                         },
                         [
                             [
                                 'core/heading',
                                 { 
                                     placeholder: 'Add heading, configure heading level...',
-                                    level: '1',
                                     className: 'display-1 text-white text-shadow-darker'
                                 }
                             ]
@@ -358,11 +365,14 @@ registerBlockType( 'bsx-blocks/banner', {
             return currentTemplate ? currentTemplate.template : [];
         };
 
-        let template = getTemplate( templateName );
+        template = getTemplate( templateName );
 
         const onTemplateChange = ( value ) => {
             template = getTemplate( value );
             setAttributes( { templateName: value } );
+
+            console.log( 'changed templateName: ' + value );
+            console.log( 'changed template: ' + template );
         };
 
         async function onSelectImage( img ) {
@@ -565,7 +575,7 @@ registerBlockType( 'bsx-blocks/banner', {
 
         return [
             <InspectorControls>
-                <PanelBody title={ __( 'Banner Settings', 'bsx-blocks' ) }>
+                <PanelBody title={ __( 'Banner Template', 'bsx-blocks' ) }>
                     <div className="bsxui-icon-text-button-list">
                         { templates.map( ( template, index ) => (
                             <Button
@@ -584,6 +594,37 @@ registerBlockType( 'bsx-blocks/banner', {
                             </Button>
                         ) ) }
                     </div>
+                </PanelBody>
+
+                <PanelBody title={ __( 'Banner image', 'bsx-blocks' ) }>
+                    {
+                        imgId ? (
+                            <div class="bsxui-config-panel-row">
+                                <img class="bsxui-config-panel-img" src={ url } alt="Image preview" />
+                            </div>
+                        )
+                        : 
+                        (
+                            <div class="bsxui-config-panel-row">
+                                <div class="bsxui-config-panel-text">{ __( '– No image selected yet –', 'bsx-blocks' ) }</div>
+                            </div>
+                        )
+                    }
+                    <div class="bsxui-config-panel-row">
+                        <MediaUpload
+                            onSelect={ onSelectImage }
+                            allowedTypes="image"
+                            value={ imgId }
+                            render={ ( { open } ) => (
+                                <Button 
+                                    onClick={ open }
+                                    isSecondary
+                                >
+                                    { __( 'Change / upload Image', 'bsx-blocks' ) }
+                                </Button>
+                            ) }
+                        />
+                    </div>
                     <RadioControl
                         label={ __( 'Image size and format', 'bsx-blocks' ) }
                         selected={ imgSizeIndex.toString() }
@@ -599,7 +640,7 @@ registerBlockType( 'bsx-blocks/banner', {
                     }
                 </PanelBody>
 
-                <PanelBody title={ __( 'Margin', 'bsx-blocks' ) }>
+                <PanelBody title={ __( 'Banner dimensions', 'bsx-blocks' ) }>
                     <SelectControl 
                         label={ __( 'Banner height type', 'bsx-blocks' ) }
                         value={ bannerType }
@@ -639,6 +680,9 @@ registerBlockType( 'bsx-blocks/banner', {
                             { value: 'end', label: __( 'end', 'bsx-blocks' ) },
                         ] }
                     />
+                </PanelBody>
+
+                <PanelBody title={ __( 'Margin', 'bsx-blocks' ) }>
                     <SelectControl 
                         label={ __( 'Margin before', 'bsx-blocks' ) }
                         value={ marginBefore }
@@ -669,6 +713,7 @@ registerBlockType( 'bsx-blocks/banner', {
                     />
                 </PanelBody>
             </InspectorControls>,
+
             <InspectorAdvancedControls>
                 <SelectControl 
                     label={ __( 'Background advanced position', 'bsx-blocks' ) }
@@ -698,21 +743,12 @@ registerBlockType( 'bsx-blocks/banner', {
                     ] }
                 />
             </InspectorAdvancedControls>,
+
             (
-                <>
-                    <div className={ bannerClassName } style={ bannerStyle }>
-                        <InnerBlocks 
-                            template={ template }
-                            renderAppender={
-                                hasInnerBlocks
-                                ? undefined
-                                : () => <InnerBlocks.ButtonBlockAppender />
-                            }
-                        />
-                    </div>
-                    { isSelected && (
-                        <div class="bsxui-isselected-config-panel">
-                            <div className="bsxui-upload-btn-wrapper">
+                <div className={ bannerClassName } style={ bannerStyle }>
+                    {
+                        ! imgId && (
+                            <div className="bsxui-in-widget-overlay-panel bsxui-top">
                                 <MediaUpload
                                     onSelect={ onSelectImage }
                                     allowedTypes="image"
@@ -722,14 +758,22 @@ registerBlockType( 'bsx-blocks/banner', {
                                             onClick={ open }
                                             isSecondary
                                         >
-                                            { __( 'Change / upload Image', 'bsx-blocks' ) }
+                                            { __( 'Select / upload Image', 'bsx-blocks' ) }
                                         </Button>
                                     ) }
                                 />
                             </div>
-                        </div>
-                    ) }
-                </>
+                        )
+                    }
+                    <InnerBlocks 
+                        template={ template }
+                        renderAppender={
+                            hasInnerBlocks
+                            ? undefined
+                            : () => <InnerBlocks.ButtonBlockAppender />
+                        }
+                    />
+                </div>
             )
         ];
     } ),
