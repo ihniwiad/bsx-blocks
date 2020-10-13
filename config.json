@@ -10,7 +10,8 @@
 	"basicStylePackagePathReplaceDestFolder": "/build",
 	"buildCssWatchPath": [
 		"./*/build/css/*.css",
-		"!./*/build/css/*.min.css"
+		"!./*/build/css/*.min.css",
+		"!./*/build/css/*.css.map"
 	],
 	"buildJsWatchPath": [
 		"./*/build/*.js",
