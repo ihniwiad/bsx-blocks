@@ -114,8 +114,8 @@ const cssWatch = () => {
 
 const allWatch = () => {
     watch( [
-        checkAdDotBefore( config.buildCssWatchPath ),
-        checkAdDotBefore( config.buildJsWatchPath ),
+        ...config.buildCssWatchPath,
+        ...config.buildJsWatchPath,
     ], publish );
 }
 

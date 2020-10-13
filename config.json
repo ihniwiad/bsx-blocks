@@ -8,8 +8,14 @@
 	],
 	"basicStylePackagePathReplaceSrcFolder": "/src",
 	"basicStylePackagePathReplaceDestFolder": "/build",
-	"buildCssWatchPath": "/*/build/css/*.css",
-	"buildJsWatchPath": "/*/build/*.js",
+	"buildCssWatchPath": [
+		"./*/build/css/*.css",
+		"!./*/build/css/*.min.css"
+	],
+	"buildJsWatchPath": [
+		"./*/build/*.js",
+		"./*/build/**/*.js"
+	],
 	"publish": {
 		"dest": "../../../../../Applications/MAMP/htdocs/wordpress/wp-content/plugins/"
 	}
