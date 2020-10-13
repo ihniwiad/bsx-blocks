@@ -24,5 +24,6 @@ include '09-row-with-cols/index.php';
 include '10-container/index.php';
 include '11-section/index.php';
 include '12-buttons/index.php';
+include '13-banner/index.php';
 //include '90-config-sidebar/index.php';
 
