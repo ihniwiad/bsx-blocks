@@ -13,7 +13,6 @@ const {
     PanelBody,
     RadioControl,
 } = wp.components;
-import { withState } from '@wordpress/compose';
 
 /*
     TODO: 

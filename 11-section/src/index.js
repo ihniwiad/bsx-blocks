@@ -218,7 +218,7 @@ registerBlockType( 'bsx-blocks/section', {
                         label={ __( 'Move below navbar', 'bsx-blocks' ) }
                         checked={ !! belowNavbar }
                         onChange={ onChangeBelowNavbar }
-                        help={ __( 'If enambled section will move below navbar to avoid overlapping.', 'bsx-blocks' ) }
+                        help={ __( 'If enabled section has spacer top to avoid overlapping its contents by navbar.', 'bsx-blocks' ) }
                     />
                     <TextControl 
                         label={ __( 'ID', 'bsx-blocks' ) }
