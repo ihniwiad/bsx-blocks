@@ -759,19 +759,19 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
                 <PanelBody
                     title={ __( 'Columns Layout', 'bsx-blocks' ) }
                 >
-                    <div className="block-editor-block-styles">
+                    <div className="bsxui-icon-text-button-list">
                         { colsTemplates.map( ( template, index ) => (
                             <Button
                                 label={ template.title }
                                 onClick={ () => {
                                     onColsTemplateChange( template.name );
                                 } }
-                                className={ 'block-editor-block-styles__item d-flex flex-column ' + ( templateName === template.name ? 'is-active' : '' ) }
+                                className={ 'bsxui-icon-text-button-list-item ' + ( templateName === template.name ? 'active' : '' ) }
                             >
-                                <div class="block-editor-block-styles__item-preview border-0 p-0">
+                                <div class="bsxui-icon-text-button-list-item-icon">
                                     { template.icon }
                                 </div>
-                                <div class="block-editor-block-styles__item-label">
+                                <div class="bsxui-icon-text-button-list-item-label">
                                     { template.title }
                                 </div>
                             </Button>

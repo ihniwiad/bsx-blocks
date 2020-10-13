@@ -11,10 +11,20 @@ $bsxui-area-button-bg-color:		rgba(237, 239, 240, .8) !default; // @wordpress
 $bsxui-placeholder-bg-color:		#eeeeee !default;
 
 
+// active
+$bsxui-hover-active-color: 			var(--wp-admin-theme-color) !default; // @wordpress
+
+
 // basic composites
 
 $bsxui-light-border:				1px $bsxui-default-border-style $bsxui-light-border-color !default;
 $bsxui-interact-border:				1px $bsxui-special-border-style $bsxui-interact-border-color !default;
+
+
+
+// spacer
+
+$bsxui-margin-bottom:				24px !default; // @wordpress
 
 
 

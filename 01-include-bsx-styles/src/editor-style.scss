@@ -52,3 +52,33 @@
 	background: $bsxui-area-button-bg-color;
 	border: $bsxui-interact-border;
 }
+
+
+// icon text button list
+
+.bsxui-icon-text-button-list {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	margin-bottom: $bsxui-margin-bottom;
+
+	.bsxui-icon-text-button-list-item {
+		display: flex;
+		flex-direction: column;
+		width: 50%;
+		height: auto;
+		cursor: pointer;
+
+		&.active {
+			color: $bsxui-hover-active-color;
+		}
+
+		.bsxui-icon-text-button-list-item-icon {
+
+		}
+
+		.bsxui-icon-text-button-list-item-label {
+		
+		}
+	}
+}

@@ -712,18 +712,18 @@ registerBlockType('bsx-blocks/banner', {
     return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(PanelBody, {
       title: __('Banner Settings', 'bsx-blocks')
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
-      className: "block-editor-block-styles"
+      className: "bsxui-icon-text-button-list"
     }, templates.map(function (template, index) {
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(Button, {
         label: template.title,
         onClick: function onClick() {
           onTemplateChange(template.name);
         },
-        className: 'block-editor-block-styles__item d-flex flex-column ' + (templateName === template.name ? 'is-active' : '')
+        className: 'bsxui-icon-text-button-list-item ' + (templateName === template.name ? 'active' : '')
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
-        class: "block-editor-block-styles__item-preview border-0 p-0"
+        class: "bsxui-icon-text-button-list-item-icon"
       }, template.icon), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
-        class: "block-editor-block-styles__item-label"
+        class: "bsxui-icon-text-button-list-item-label"
       }, template.title));
     })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(RadioControl, {
       label: __('Image size and format', 'bsx-blocks'),
