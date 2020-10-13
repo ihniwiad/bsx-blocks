@@ -22,9 +22,10 @@ $bsxui-interact-border:				1px $bsxui-special-border-style $bsxui-interact-borde
 
 
 
-// spacer
+// config panel
 
 $bsxui-margin-bottom:				24px !default; // @wordpress
+$bsxui-config-panel-font-size:		13px !default; // @wordpress
 
 
 
@@ -35,5 +36,9 @@ $bsxui-isselected-panel-border: 	$bsxui-light-border !default;
 
 $bsxui-isselected-panel-mt: 		.5rem !default; 
 $bsxui-isselected-panel-px: 		.25rem !default; 
+
+
+// in widget overlay panel
+$bsxui-in-widget-overlay-panel-padding:	$bsxui-isselected-panel-mt $bsxui-isselected-panel-px !default;
 
 
