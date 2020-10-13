@@ -24,6 +24,26 @@
   background: rgba(237, 239, 240, 0.8);
   border: 1px dashed #8d96a0; }
 
+.bsxui-config-panel-row {
+  margin-bottom: 24px; }
+
+.bsxui-config-panel-img {
+  max-width: 100%;
+  height: auto; }
+
+.bsxui-config-panel-text {
+  font-size: 13px; }
+
+.bsxui-in-widget-overlay-panel {
+  position: absolute;
+  width: 100%;
+  padding: 0.5rem 0.25rem;
+  text-align: center; }
+  .bsxui-in-widget-overlay-panel.bsxui-top {
+    top: 0; }
+  .bsxui-in-widget-overlay-panel.bsxui-bottom {
+    bottom: 0; }
+
 .bsxui-icon-text-button-list {
   display: -webkit-box;
   display: -ms-flexbox;

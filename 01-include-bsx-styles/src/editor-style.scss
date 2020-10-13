@@ -54,6 +54,40 @@
 }
 
 
+// config panel
+
+.bsxui-config-panel-row {
+	margin-bottom: $bsxui-margin-bottom;
+}
+
+.bsxui-config-panel-img {
+	max-width: 100%;
+	height: auto;
+}
+
+.bsxui-config-panel-text {
+	font-size: $bsxui-config-panel-font-size;
+}
+
+
+// in widget overlay panel
+
+.bsxui-in-widget-overlay-panel {
+	position: absolute;
+	width: 100%;
+	padding: $bsxui-in-widget-overlay-panel-padding;
+	text-align: center;
+
+	&.bsxui-top {
+		top: 0;
+	}
+
+	&.bsxui-bottom {
+		bottom: 0;
+	}
+}
+
+
 // icon text button list
 
 .bsxui-icon-text-button-list {
