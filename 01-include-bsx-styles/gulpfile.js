@@ -67,7 +67,7 @@ const css = series(
     scssToCss,
     cssCleanAndMinify,
 );
-const scss_watch = parallel( scssWatch );
+const scss_watch = scssWatch;
 
 
 // exports
