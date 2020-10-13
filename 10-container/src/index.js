@@ -21,18 +21,18 @@ const makeContainerClassNames = ( isFluid, containerBreakpoint, belowNavbar, mar
 
     const prefix = 'container';
 
-    const containerClassNames = [];
+    const classNames = [];
 
     if ( isFluid ) {
     	if ( containerBreakpoint === '' ) {
-    		containerClassNames.push( prefix + '-fluid' );
+    		classNames.push( prefix + '-fluid' );
     	}
     	else {
-    		containerClassNames.push( prefix + '-' + containerBreakpoint );
+    		classNames.push( prefix + '-' + containerBreakpoint );
     	}
     }
     else {
-    	containerClassNames.push( prefix );
+    	classNames.push( prefix );
     }
 
     if ( belowNavbar ) {
@@ -40,18 +40,18 @@ const makeContainerClassNames = ( isFluid, containerBreakpoint, belowNavbar, mar
     }
 
     if ( marginBefore && marginBefore === marginAfter ) {
-    	containerClassNames.push( 'my-' + marginBefore );
+    	classNames.push( 'my-' + marginBefore );
     }
     else {
 	    if ( marginBefore ) {
-	    	containerClassNames.push( 'mt-' + marginBefore );
+	    	classNames.push( 'mt-' + marginBefore );
 	    }
 	    if ( marginAfter ) {
-	    	containerClassNames.push( 'mb-' + marginAfter );
+	    	classNames.push( 'mb-' + marginAfter );
 	    }
     }
 
-    return containerClassNames.join( ' ' );
+    return classNames.join( ' ' );
 }
 
 
