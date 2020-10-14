@@ -5,6 +5,7 @@ const {
 const {
     InnerBlocks,
     InspectorControls,
+    InspectorAdvancedControls,
 } = wp.blockEditor;
 const { 
     TextControl,
@@ -22,28 +23,52 @@ const {
     withDispatch, 
 } = wp.data;
 
-const makeRowClassNames = ( alignItems, justifyContent, noGutters, formRow ) => {
+const makeRowClassNames = ( alignItems, justifyContent, noGutters, formRow, marginBefore, marginAfter, paddingBefore, paddingAfter ) => {
 
     const prefix = 'col';
 
-    const rowClassNames = [ 'row' ];
+    const classNames = [ 'row' ];
 
     if ( alignItems ) {
-        rowClassNames.push( 'align-items-' + alignItems );
+        classNames.push( 'align-items-' + alignItems );
     }
     if ( justifyContent ) {
-        rowClassNames.push( 'justify-content-' + justifyContent );
+        classNames.push( 'justify-content-' + justifyContent );
     }
     if ( noGutters ) {
-        rowClassNames.push( 'no-gutters' );
+        classNames.push( 'no-gutters' );
     }
     if ( formRow ) {
-        rowClassNames.push( 'form-row' );
+        classNames.push( 'form-row' );
     }
 
-    //console.log( 'rowClassNames.join( \' \' ): "' + rowClassNames.join( ' ' ) + '"' );
+    if ( marginBefore && marginBefore === marginAfter ) {
+        classNames.push( 'my-' + marginBefore );
+    }
+    else {
+        if ( marginBefore ) {
+            classNames.push( 'mt-' + marginBefore );
+        }
+        if ( marginAfter ) {
+            classNames.push( 'mb-' + marginAfter );
+        }
+    }
 
-    return rowClassNames.join( ' ' );
+    if ( paddingBefore && paddingBefore === paddingAfter ) {
+        classNames.push( 'py-' + paddingBefore );
+    }
+    else {
+        if ( paddingBefore ) {
+            classNames.push( 'pt-' + paddingBefore );
+        }
+        if ( paddingAfter ) {
+            classNames.push( 'pb-' + paddingAfter );
+        }
+    }
+
+    //console.log( 'classNames.join( \' \' ): "' + classNames.join( ' ' ) + '"' );
+
+    return classNames.join( ' ' );
 }
 
 
@@ -92,9 +117,25 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
             type: 'string',
             default: '',
         },
-        marginAfter: {
+        colsMarginAfter: {
             type: 'string',
             default: '3',
+        },
+        marginBefore: {
+            type: 'string',
+            default: '',
+        },
+        marginAfter: {
+            type: 'string',
+            default: '',
+        },
+        paddingBefore: {
+            type: 'string',
+            default: '',
+        },
+        paddingAfter: {
+            type: 'string',
+            default: '',
         },
     },
 
@@ -156,7 +197,11 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
                 sizeMd,
                 sizeLg,
                 sizeXl,
+                colsMarginAfter,
+                marginBefore,
                 marginAfter,
+                paddingBefore,
+                paddingAfter,
             },
             setAttributes,
             isSelected,
@@ -538,6 +583,22 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
             }
         };
 
+        const onChangeMarginBefore = ( value ) => {
+            setAttributes( { marginBefore: value } );
+        };
+
+        const onChangeMarginAfter = ( value ) => {
+            setAttributes( { marginAfter: value } );
+        };
+
+        const onChangePaddingBefore = ( value ) => {
+            setAttributes( { paddingBefore: value } );
+        };
+
+        const onChangePaddingAfter = ( value ) => {
+            setAttributes( { paddingAfter: value } );
+        };
+
         const onChangeEnableInheritanceToCols = ( value ) => {
             setAttributes( { enableInheritanceToCols: value } );
         };
@@ -558,7 +619,7 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
                         sizeMd: value.sizeMd != undefined ? value.sizeMd : sizeMd,
                         sizeLg: value.sizeLg != undefined ? value.sizeLg : sizeLg,
                         sizeXl: value.sizeXl != undefined ? value.sizeXl : sizeXl,
-                        marginAfter: value.marginAfter != undefined ? value.marginAfter : marginAfter,
+                        marginAfter: value.colsMarginAfter != undefined ? value.colsMarginAfter : colsMarginAfter,
                     };
                     updateBlockAttributes( column.clientId, newAttributes );
 
@@ -743,16 +804,16 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
             }
         };
 
-        // margin bottom
-        const onChangeMarginAfter = ( value ) => {
+        // cols margin bottom
+        const onChangeColsMarginAfter = ( value ) => {
             if ( enableInheritanceToCols ) {
-                const attr = { marginAfter: value };
+                const attr = { colsMarginAfter: value };
                 setAttributes( attr );
                 inheritToCols( attr );
             }
         };
 
-        const rowClassNames = makeRowClassNames( alignItems, justifyContent, noGutters, formRow );
+        const rowClassNames = makeRowClassNames( alignItems, justifyContent, noGutters, formRow, marginBefore, marginAfter, paddingBefore, paddingAfter );
 
         return [
             <InspectorControls>
@@ -940,8 +1001,8 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
 
                         <SelectControl 
                             label={ __( 'Margin after', 'bsx-blocks' ) }
-                            value={ marginAfter }
-                            onChange={ onChangeMarginAfter }
+                            value={ colsMarginAfter }
+                            onChange={ onChangeColsMarginAfter }
                             options={ [
                                 { value: '', label: __( '– none –', 'bsx-blocks' ) },
                                 { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
@@ -950,12 +1011,73 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
                                 { value: '4', label: __( 'large', 'bsx-blocks' ) },
                                 { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
                             ] }
-                            help={ __( 'Spacer after Column', 'bsx-blocks' ) }
+                            help={ __( 'Spacer after Column (not Row)', 'bsx-blocks' ) }
                         />
 
                     </PanelBody>
                 ) }
+
+                <PanelBody title={ __( 'Row margin (not Columns)', 'bsx-blocks' ) }>
+                    <SelectControl 
+                        label={ __( 'Margin before', 'bsx-blocks' ) }
+                        value={ marginBefore }
+                        onChange={ onChangeMarginBefore }
+                        options={ [
+                            { value: '', label: __( '– none –', 'bsx-blocks' ) },
+                            { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
+                            { value: '2', label: __( 'small', 'bsx-blocks' ) },
+                            { value: '3', label: __( 'medium', 'bsx-blocks' ) },
+                            { value: '4', label: __( 'large', 'bsx-blocks' ) },
+                            { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
+                        ] }
+                        help={ __( 'Spacer before Row', 'bsx-blocks' ) }
+                    />
+                    <SelectControl 
+                        label={ __( 'Margin after', 'bsx-blocks' ) }
+                        value={ marginAfter }
+                        onChange={ onChangeMarginAfter }
+                        options={ [
+                            { value: '', label: __( '– none –', 'bsx-blocks' ) },
+                            { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
+                            { value: '2', label: __( 'small', 'bsx-blocks' ) },
+                            { value: '3', label: __( 'medium', 'bsx-blocks' ) },
+                            { value: '4', label: __( 'large', 'bsx-blocks' ) },
+                            { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
+                        ] }
+                        help={ __( 'Spacer after Row', 'bsx-blocks' ) }
+                    />
+                </PanelBody>
             </InspectorControls>,
+            <InspectorAdvancedControls>
+                <SelectControl 
+                    label={ __( 'Padding before', 'bsx-blocks' ) }
+                    value={ paddingBefore }
+                    onChange={ onChangePaddingBefore }
+                    options={ [
+                        { value: '', label: __( '– none –', 'bsx-blocks' ) },
+                        { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
+                        { value: '2', label: __( 'small', 'bsx-blocks' ) },
+                        { value: '3', label: __( 'medium', 'bsx-blocks' ) },
+                        { value: '4', label: __( 'large', 'bsx-blocks' ) },
+                        { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
+                    ] }
+                    help={ __( 'Inner spacer before', 'bsx-blocks' ) }
+                />
+                <SelectControl 
+                    label={ __( 'Padding after', 'bsx-blocks' ) }
+                    value={ paddingAfter }
+                    onChange={ onChangePaddingAfter }
+                    options={ [
+                        { value: '', label: __( '– none –', 'bsx-blocks' ) },
+                        { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
+                        { value: '2', label: __( 'small', 'bsx-blocks' ) },
+                        { value: '3', label: __( 'medium', 'bsx-blocks' ) },
+                        { value: '4', label: __( 'large', 'bsx-blocks' ) },
+                        { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
+                    ] }
+                    help={ __( 'Inner spacer after', 'bsx-blocks' ) }
+                />
+            </InspectorAdvancedControls>,
             (
                 <div className={ rowClassNames } data-template-name={ templateName }>
                     <InnerBlocks 
@@ -982,11 +1104,15 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
                 sizeMd,
                 sizeLg,
                 sizeXl,
+                colsMarginAfter,
+                marginBefore,
                 marginAfter,
+                paddingBefore,
+                paddingAfter,
             },
         } = props;
 
-        const rowClassNames = makeRowClassNames( alignItems, justifyContent, noGutters, formRow );
+        const rowClassNames = makeRowClassNames( alignItems, justifyContent, noGutters, formRow, marginBefore, marginAfter, paddingBefore, paddingAfter );
 
         return (
             <div className={ rowClassNames }>
