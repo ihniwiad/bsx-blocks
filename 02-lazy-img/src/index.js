@@ -448,9 +448,11 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
                 // TEST
                 //console.log( '-----> newImgSizes:' );
+                /*
                 newImgSizes.forEach( ( imgSize, index ) => {
-                    console.log( 'mgSize[ ' + index + ' ] ( ' + imgSize.width + 'x' + imgSize.height + ' ): "' + imgSize.url + '"' );
-                } ); 
+                    console.log( 'imgSize[ ' + index + ' ] ( ' + imgSize.width + 'x' + imgSize.height + ' ): "' + imgSize.url + '"' );
+                } );
+                */ 
 
                 // check if current img size index fits to new img (might be too large)
                 let newImgSizeIndex = parseInt( imgSizeIndex );
