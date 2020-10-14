@@ -209,7 +209,8 @@ registerBlockType( 'bsx-blocks/container', {
                         value={ marginBefore }
                         onChange={ onChangeMarginBefore }
                         options={ [
-                            { value: '', label: __( '– none –', 'bsx-blocks' ) },
+                            { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+                            { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
                             { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
                             { value: '2', label: __( 'small', 'bsx-blocks' ) },
                             { value: '3', label: __( 'medium', 'bsx-blocks' ) },
@@ -223,7 +224,8 @@ registerBlockType( 'bsx-blocks/container', {
                         value={ marginAfter }
                         onChange={ onChangeMarginAfter }
                         options={ [
-                            { value: '', label: __( '– none –', 'bsx-blocks' ) },
+                            { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+                            { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
                             { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
                             { value: '2', label: __( 'small', 'bsx-blocks' ) },
                             { value: '3', label: __( 'medium', 'bsx-blocks' ) },
@@ -247,7 +249,8 @@ registerBlockType( 'bsx-blocks/container', {
                     value={ paddingBefore }
                     onChange={ onChangePaddingBefore }
                     options={ [
-                        { value: '', label: __( '– none –', 'bsx-blocks' ) },
+                        { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+                        { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
                         { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
                         { value: '2', label: __( 'small', 'bsx-blocks' ) },
                         { value: '3', label: __( 'medium', 'bsx-blocks' ) },
@@ -261,7 +264,8 @@ registerBlockType( 'bsx-blocks/container', {
                     value={ paddingAfter }
                     onChange={ onChangePaddingAfter }
                     options={ [
-                        { value: '', label: __( '– none –', 'bsx-blocks' ) },
+                        { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+                        { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
                         { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
                         { value: '2', label: __( 'small', 'bsx-blocks' ) },
                         { value: '3', label: __( 'medium', 'bsx-blocks' ) },

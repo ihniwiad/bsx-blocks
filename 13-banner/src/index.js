@@ -80,10 +80,6 @@ const makeClassNames = ( bannerType, bannerSize, belowNavbar, bgAttachment, bgSi
     return classNames.join( ' ' );
 }
 
-let bannerStyle;
-
-let template;
-
 const getUrlTruncAndExtension = ( url ) => {
 
     const urlExplode = url.split( '.' );
@@ -396,7 +392,7 @@ registerBlockType( 'bsx-blocks/banner', {
             return currentTemplate ? currentTemplate.template : [];
         };
 
-        template = getTemplate( templateName );
+        let template = getTemplate( templateName );
 
         const onTemplateChange = ( value ) => {
             template = getTemplate( value );
@@ -610,7 +606,7 @@ registerBlockType( 'bsx-blocks/banner', {
 
         const bannerClassName = makeClassNames( bannerType, bannerSize, belowNavbar, bgAttachment, bgSize, bgPosition, alignItems, marginBefore, marginAfter, paddingBefore, paddingAfter );
 
-        bannerStyle = { backgroundImage: `url(${ url })` };
+        const bannerStyle = { backgroundImage: `url(${ url })` };
 
         return [
             <InspectorControls>
@@ -727,7 +723,8 @@ registerBlockType( 'bsx-blocks/banner', {
                         value={ marginBefore }
                         onChange={ onChangeMarginBefore }
                         options={ [
-                            { value: '', label: __( '– none –', 'bsx-blocks' ) },
+                            { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+                            { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
                             { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
                             { value: '2', label: __( 'small', 'bsx-blocks' ) },
                             { value: '3', label: __( 'medium', 'bsx-blocks' ) },
@@ -741,7 +738,8 @@ registerBlockType( 'bsx-blocks/banner', {
                         value={ marginAfter }
                         onChange={ onChangeMarginAfter }
                         options={ [
-                            { value: '', label: __( '– none –', 'bsx-blocks' ) },
+                            { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+                            { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
                             { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
                             { value: '2', label: __( 'small', 'bsx-blocks' ) },
                             { value: '3', label: __( 'medium', 'bsx-blocks' ) },
