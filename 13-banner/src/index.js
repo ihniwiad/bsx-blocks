@@ -24,13 +24,17 @@ const {
 } = wp.data;
 
 
-const makeClassNames = ( bannerType, bannerSize, bgAttachment, bgSize, bgPosition, alignItems, marginBefore, marginAfter ) => {
+const makeClassNames = ( bannerType, bannerSize, belowNavbar, bgAttachment, bgSize, bgPosition, alignItems, marginBefore, marginAfter, paddingBefore, paddingAfter ) => {
 
     const classNames = [];
 
     if ( true ) {
         // always set bannerType and bannerSize to keep debugging easy
         classNames.push( 'banner-' + bannerType + '-' + bannerSize );
+    }
+
+    if ( belowNavbar ) {
+        classNames.push( 'below-navbar-content' );
     }
 
     if ( bgAttachment ) {
@@ -58,6 +62,18 @@ const makeClassNames = ( bannerType, bannerSize, bgAttachment, bgSize, bgPositio
         }
         if ( marginAfter ) {
             classNames.push( 'mb-' + marginAfter );
+        }
+    }
+
+    if ( paddingBefore && paddingBefore === paddingAfter ) {
+        classNames.push( 'py-' + paddingBefore );
+    }
+    else {
+        if ( paddingBefore ) {
+            classNames.push( 'pt-' + paddingBefore );
+        }
+        if ( paddingAfter ) {
+            classNames.push( 'pb-' + paddingAfter );
         }
     }
 
@@ -200,6 +216,10 @@ registerBlockType( 'bsx-blocks/banner', {
             type: 'string',
             default: 'empty',
         },
+        belowNavbar: {
+            type: 'boolean',
+            default: false,
+        },
         imgId: {
             type: 'number',
         },
@@ -246,6 +266,14 @@ registerBlockType( 'bsx-blocks/banner', {
             type: 'string',
             default: '',
         },
+        paddingBefore: {
+            type: 'string',
+            default: '',
+        },
+        paddingAfter: {
+            type: 'string',
+            default: '',
+        },
     },
 
     edit: withSelect( ( select, { clientId } ) => {
@@ -267,6 +295,7 @@ registerBlockType( 'bsx-blocks/banner', {
             className,
             attributes: {
                 templateName,
+                belowNavbar,
                 imgId,
                 imgSizes,
                 imgSizeIndex,
@@ -279,6 +308,8 @@ registerBlockType( 'bsx-blocks/banner', {
                 alignItems,
                 marginBefore,
                 marginAfter,
+                paddingBefore,
+                paddingAfter,
             },
             setAttributes,
             isSelected,
@@ -373,6 +404,10 @@ registerBlockType( 'bsx-blocks/banner', {
 
             console.log( 'changed templateName: ' + value );
             console.log( 'changed template: ' + template );
+        };
+
+        const onChangeBelowNavbar = ( value ) => {
+            setAttributes( { belowNavbar: value } );
         };
 
         async function onSelectImage( img ) {
@@ -523,10 +558,6 @@ registerBlockType( 'bsx-blocks/banner', {
             }
         };
 
-        const onChangeBelowNavbar = ( value ) => {
-            setAttributes( { belowNavbar: value } );
-        };
-
         const onChangeBannerType = ( value ) => {
             setAttributes( { bannerType: value } );
         };
@@ -556,6 +587,14 @@ registerBlockType( 'bsx-blocks/banner', {
             setAttributes( { marginAfter: value } );
         };
 
+        const onChangePaddingBefore = ( value ) => {
+            setAttributes( { paddingBefore: value } );
+        };
+
+        const onChangePaddingAfter = ( value ) => {
+            setAttributes( { paddingAfter: value } );
+        };
+
         const onChangeImgSizeIndex = ( value ) => {
             setAttributes( { 
                 imgSizeIndex: value.toString(),
@@ -569,7 +608,7 @@ registerBlockType( 'bsx-blocks/banner', {
             );
         } );
 
-        const bannerClassName = makeClassNames( bannerType, bannerSize, bgAttachment, bgSize, bgPosition, alignItems, marginBefore, marginAfter );
+        const bannerClassName = makeClassNames( bannerType, bannerSize, belowNavbar, bgAttachment, bgSize, bgPosition, alignItems, marginBefore, marginAfter, paddingBefore, paddingAfter );
 
         bannerStyle = { backgroundImage: `url(${ url })` };
 
@@ -695,7 +734,7 @@ registerBlockType( 'bsx-blocks/banner', {
                             { value: '4', label: __( 'large', 'bsx-blocks' ) },
                             { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
                         ] }
-                        help={ __( 'Spacer before Container', 'bsx-blocks' ) }
+                        help={ __( 'Spacer before Banner', 'bsx-blocks' ) }
                     />
                     <SelectControl 
                         label={ __( 'Margin after', 'bsx-blocks' ) }
@@ -709,12 +748,18 @@ registerBlockType( 'bsx-blocks/banner', {
                             { value: '4', label: __( 'large', 'bsx-blocks' ) },
                             { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
                         ] }
-                        help={ __( 'Spacer after Container', 'bsx-blocks' ) }
+                        help={ __( 'Spacer after Banner', 'bsx-blocks' ) }
                     />
                 </PanelBody>
             </InspectorControls>,
 
             <InspectorAdvancedControls>
+                <ToggleControl
+                    label={ __( 'Below navbar', 'bsx-blocks' ) }
+                    checked={ !! belowNavbar }
+                    onChange={ onChangeBelowNavbar }
+                    help={ __( 'Enable if container starts below navbar. If enabled container has spacer top to avoid overlapping its contents by navbar.', 'bsx-blocks' ) }
+                />
                 <SelectControl 
                     label={ __( 'Background advanced position', 'bsx-blocks' ) }
                     value={ bgPosition }
@@ -741,6 +786,35 @@ registerBlockType( 'bsx-blocks/banner', {
                         { value: 'contain', label: __( 'Contain', 'bsx-blocks' ) },
                         { value: '100a', label: __( '100% auto', 'bsx-blocks' ) },
                     ] }
+                />
+
+                <SelectControl 
+                    label={ __( 'Padding before', 'bsx-blocks' ) }
+                    value={ paddingBefore }
+                    onChange={ onChangePaddingBefore }
+                    options={ [
+                        { value: '', label: __( '– none –', 'bsx-blocks' ) },
+                        { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
+                        { value: '2', label: __( 'small', 'bsx-blocks' ) },
+                        { value: '3', label: __( 'medium', 'bsx-blocks' ) },
+                        { value: '4', label: __( 'large', 'bsx-blocks' ) },
+                        { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
+                    ] }
+                    help={ __( 'Inner spacer before', 'bsx-blocks' ) }
+                />
+                <SelectControl 
+                    label={ __( 'Padding after', 'bsx-blocks' ) }
+                    value={ paddingAfter }
+                    onChange={ onChangePaddingAfter }
+                    options={ [
+                        { value: '', label: __( '– none –', 'bsx-blocks' ) },
+                        { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
+                        { value: '2', label: __( 'small', 'bsx-blocks' ) },
+                        { value: '3', label: __( 'medium', 'bsx-blocks' ) },
+                        { value: '4', label: __( 'large', 'bsx-blocks' ) },
+                        { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
+                    ] }
+                    help={ __( 'Inner spacer after', 'bsx-blocks' ) }
                 />
             </InspectorAdvancedControls>,
 
@@ -782,6 +856,7 @@ registerBlockType( 'bsx-blocks/banner', {
             className,
             attributes: {
                 templateName,
+                belowNavbar,
                 imgId,
                 imgSizes,
                 imgSizeIndex,
@@ -794,10 +869,12 @@ registerBlockType( 'bsx-blocks/banner', {
                 alignItems,
                 marginBefore,
                 marginAfter,
+                paddingBefore,
+                paddingAfter,
             },
         } = props;
 
-        const bannerClassName = makeClassNames( bannerType, bannerSize, bgAttachment, bgSize, bgPosition, alignItems, marginBefore, marginAfter );
+        const bannerClassName = makeClassNames( bannerType, bannerSize, belowNavbar, bgAttachment, bgSize, bgPosition, alignItems, marginBefore, marginAfter, paddingBefore, paddingAfter );
 
         return (
             <div className={ bannerClassName } data-fn="lazyload" data-src={ url }>

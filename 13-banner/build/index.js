@@ -171,12 +171,16 @@ var _wp$components = wp.components,
     RadioControl = _wp$components.RadioControl;
 var withSelect = wp.data.withSelect;
 
-var makeClassNames = function makeClassNames(bannerType, bannerSize, bgAttachment, bgSize, bgPosition, alignItems, marginBefore, marginAfter) {
+var makeClassNames = function makeClassNames(bannerType, bannerSize, belowNavbar, bgAttachment, bgSize, bgPosition, alignItems, marginBefore, marginAfter, paddingBefore, paddingAfter) {
   var classNames = [];
 
   if (true) {
     // always set bannerType and bannerSize to keep debugging easy
     classNames.push('banner-' + bannerType + '-' + bannerSize);
+  }
+
+  if (belowNavbar) {
+    classNames.push('below-navbar-content');
   }
 
   if (bgAttachment) {
@@ -205,6 +209,18 @@ var makeClassNames = function makeClassNames(bannerType, bannerSize, bgAttachmen
 
     if (marginAfter) {
       classNames.push('mb-' + marginAfter);
+    }
+  }
+
+  if (paddingBefore && paddingBefore === paddingAfter) {
+    classNames.push('py-' + paddingBefore);
+  } else {
+    if (paddingBefore) {
+      classNames.push('pt-' + paddingBefore);
+    }
+
+    if (paddingAfter) {
+      classNames.push('pb-' + paddingAfter);
     }
   }
 
@@ -321,6 +337,10 @@ registerBlockType('bsx-blocks/banner', {
       type: 'string',
       default: 'empty'
     },
+    belowNavbar: {
+      type: 'boolean',
+      default: false
+    },
     imgId: {
       type: 'number'
     },
@@ -366,6 +386,14 @@ registerBlockType('bsx-blocks/banner', {
     marginAfter: {
       type: 'string',
       default: ''
+    },
+    paddingBefore: {
+      type: 'string',
+      default: ''
+    },
+    paddingAfter: {
+      type: 'string',
+      default: ''
     }
   },
   edit: withSelect(function (select, _ref) {
@@ -383,6 +411,7 @@ registerBlockType('bsx-blocks/banner', {
     var className = props.className,
         _props$attributes = props.attributes,
         templateName = _props$attributes.templateName,
+        belowNavbar = _props$attributes.belowNavbar,
         imgId = _props$attributes.imgId,
         imgSizes = _props$attributes.imgSizes,
         imgSizeIndex = _props$attributes.imgSizeIndex,
@@ -395,6 +424,8 @@ registerBlockType('bsx-blocks/banner', {
         alignItems = _props$attributes.alignItems,
         marginBefore = _props$attributes.marginBefore,
         marginAfter = _props$attributes.marginAfter,
+        paddingBefore = _props$attributes.paddingBefore,
+        paddingAfter = _props$attributes.paddingAfter,
         setAttributes = props.setAttributes,
         isSelected = props.isSelected,
         children = props.children;
@@ -462,6 +493,12 @@ registerBlockType('bsx-blocks/banner', {
       });
       console.log('changed templateName: ' + value);
       console.log('changed template: ' + template);
+    };
+
+    var onChangeBelowNavbar = function onChangeBelowNavbar(value) {
+      setAttributes({
+        belowNavbar: value
+      });
     };
 
     function onSelectImage(_x) {
@@ -639,12 +676,6 @@ registerBlockType('bsx-blocks/banner', {
 
     ;
 
-    var onChangeBelowNavbar = function onChangeBelowNavbar(value) {
-      setAttributes({
-        belowNavbar: value
-      });
-    };
-
     var onChangeBannerType = function onChangeBannerType(value) {
       setAttributes({
         bannerType: value
@@ -693,6 +724,18 @@ registerBlockType('bsx-blocks/banner', {
       });
     };
 
+    var onChangePaddingBefore = function onChangePaddingBefore(value) {
+      setAttributes({
+        paddingBefore: value
+      });
+    };
+
+    var onChangePaddingAfter = function onChangePaddingAfter(value) {
+      setAttributes({
+        paddingAfter: value
+      });
+    };
+
     var onChangeImgSizeIndex = function onChangeImgSizeIndex(value) {
       setAttributes({
         imgSizeIndex: value.toString(),
@@ -707,7 +750,7 @@ registerBlockType('bsx-blocks/banner', {
         label: imgSize.width + 'x' + imgSize.height + (imgSize.width === imgSize.height ? ' ' + __('(Square format)', 'bsx-blocks') : '')
       });
     });
-    var bannerClassName = makeClassNames(bannerType, bannerSize, bgAttachment, bgSize, bgPosition, alignItems, marginBefore, marginAfter);
+    var bannerClassName = makeClassNames(bannerType, bannerSize, belowNavbar, bgAttachment, bgSize, bgPosition, alignItems, marginBefore, marginAfter, paddingBefore, paddingAfter);
     bannerStyle = {
       backgroundImage: "url(".concat(url, ")")
     };
@@ -838,7 +881,7 @@ registerBlockType('bsx-blocks/banner', {
         value: '5',
         label: __('extra large', 'bsx-blocks')
       }],
-      help: __('Spacer before Container', 'bsx-blocks')
+      help: __('Spacer before Banner', 'bsx-blocks')
     }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(SelectControl, {
       label: __('Margin after', 'bsx-blocks'),
       value: marginAfter,
@@ -862,8 +905,13 @@ registerBlockType('bsx-blocks/banner', {
         value: '5',
         label: __('extra large', 'bsx-blocks')
       }],
-      help: __('Spacer after Container', 'bsx-blocks')
-    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(InspectorAdvancedControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(SelectControl, {
+      help: __('Spacer after Banner', 'bsx-blocks')
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(InspectorAdvancedControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(ToggleControl, {
+      label: __('Below navbar', 'bsx-blocks'),
+      checked: !!belowNavbar,
+      onChange: onChangeBelowNavbar,
+      help: __('Enable if container starts below navbar. If enabled container has spacer top to avoid overlapping its contents by navbar.', 'bsx-blocks')
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(SelectControl, {
       label: __('Background advanced position', 'bsx-blocks'),
       value: bgPosition,
       onChange: onChangeBgPosition,
@@ -912,6 +960,54 @@ registerBlockType('bsx-blocks/banner', {
         value: '100a',
         label: __('100% auto', 'bsx-blocks')
       }]
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(SelectControl, {
+      label: __('Padding before', 'bsx-blocks'),
+      value: paddingBefore,
+      onChange: onChangePaddingBefore,
+      options: [{
+        value: '',
+        label: __('– none –', 'bsx-blocks')
+      }, {
+        value: '1',
+        label: __('extra small', 'bsx-blocks')
+      }, {
+        value: '2',
+        label: __('small', 'bsx-blocks')
+      }, {
+        value: '3',
+        label: __('medium', 'bsx-blocks')
+      }, {
+        value: '4',
+        label: __('large', 'bsx-blocks')
+      }, {
+        value: '5',
+        label: __('extra large', 'bsx-blocks')
+      }],
+      help: __('Inner spacer before', 'bsx-blocks')
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(SelectControl, {
+      label: __('Padding after', 'bsx-blocks'),
+      value: paddingAfter,
+      onChange: onChangePaddingAfter,
+      options: [{
+        value: '',
+        label: __('– none –', 'bsx-blocks')
+      }, {
+        value: '1',
+        label: __('extra small', 'bsx-blocks')
+      }, {
+        value: '2',
+        label: __('small', 'bsx-blocks')
+      }, {
+        value: '3',
+        label: __('medium', 'bsx-blocks')
+      }, {
+        value: '4',
+        label: __('large', 'bsx-blocks')
+      }, {
+        value: '5',
+        label: __('extra large', 'bsx-blocks')
+      }],
+      help: __('Inner spacer after', 'bsx-blocks')
     })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
       className: bannerClassName,
       style: bannerStyle
@@ -939,6 +1035,7 @@ registerBlockType('bsx-blocks/banner', {
     var className = props.className,
         _props$attributes2 = props.attributes,
         templateName = _props$attributes2.templateName,
+        belowNavbar = _props$attributes2.belowNavbar,
         imgId = _props$attributes2.imgId,
         imgSizes = _props$attributes2.imgSizes,
         imgSizeIndex = _props$attributes2.imgSizeIndex,
@@ -950,8 +1047,10 @@ registerBlockType('bsx-blocks/banner', {
         bgPosition = _props$attributes2.bgPosition,
         alignItems = _props$attributes2.alignItems,
         marginBefore = _props$attributes2.marginBefore,
-        marginAfter = _props$attributes2.marginAfter;
-    var bannerClassName = makeClassNames(bannerType, bannerSize, bgAttachment, bgSize, bgPosition, alignItems, marginBefore, marginAfter);
+        marginAfter = _props$attributes2.marginAfter,
+        paddingBefore = _props$attributes2.paddingBefore,
+        paddingAfter = _props$attributes2.paddingAfter;
+    var bannerClassName = makeClassNames(bannerType, bannerSize, belowNavbar, bgAttachment, bgSize, bgPosition, alignItems, marginBefore, marginAfter, paddingBefore, paddingAfter);
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
       className: bannerClassName,
       "data-fn": "lazyload",
