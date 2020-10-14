@@ -11,14 +11,17 @@ const { addFilter } = wp.hooks;
 const { Fragment }  = wp.element;
 const { InspectorAdvancedControls } = wp.blockEditor;
 const { createHigherOrderComponent } = wp.compose;
-const { ToggleControl, TextControl } = wp.components;
+const { 
+    ToggleControl, 
+    TextControl,
+    SelectControl,
+} = wp.components;
 
 
-//restrict to specific block names
+// restrict to specific block names
 const allowedBlocks = [ 
     'core/paragraph', 
     'core/heading',
-    'bsx-blocks/lazy-img',
     'bsx-blocks/wrapper',
 ];
 
@@ -53,6 +56,22 @@ function addAttributes( settings ) {
             } );
         }
     
+        if ( typeof settings.attributes.marginBefore === 'undefined' ) {
+            settings.attributes = Object.assign( settings.attributes, {
+                marginBefore: { 
+                    type: 'string',
+                }
+            } );
+        }
+    
+        if ( typeof settings.attributes.marginAfter === 'undefined' ) {
+            settings.attributes = Object.assign( settings.attributes, {
+                marginAfter: { 
+                    type: 'string',
+                }
+            } );
+        }
+    
     }
 
     return settings;
@@ -78,29 +97,70 @@ const addAdvancedSettings = createHigherOrderComponent( ( BlockEdit ) => {
         const {
             id,
             belowNavbar,
+            marginBefore,
+            marginAfter,
         } = attributes;
+
+        const onChangeId = ( value ) => {
+            setAttributes( { id: value } );
+        };
+
+        const onChangeBelowNavbar = ( value ) => {
+            setAttributes( { belowNavbar: value } );
+        };
         
+        const onChangeMarginBefore = ( value ) => {
+            setAttributes( { marginBefore: value } );
+        };
+
+        const onChangeMarginAfter = ( value ) => {
+            setAttributes( { marginAfter: value } );
+        };
         
         return (
             <Fragment>
                 <BlockEdit {...props} />
                 { isSelected && allowedBlocks.includes( name ) &&
                     <InspectorAdvancedControls>
-                        <TextControl
-                            label={ __( 'ID' ) }
-                            help={ __( 'Add ID if necessary (optional).' ) }
-                            value={ id || '' }
-                            onChange={ ( value ) => {
-                                props.setAttributes( {
-                                    id: value,
-                                } );
-                            } } 
+                        <TextControl 
+                            label={ __( 'ID', 'bsx-blocks' ) }
+                            value={ id } 
+                            onChange={ onChangeId }
+                            help={ __( 'Add ID if necessary (optional).', 'bsx-blocks' ) }
                         />
                         <ToggleControl
-                            label={ __( 'Below narbar' ) }
+                            label={ __( 'Below navbar', 'bsx-blocks' ) }
                             checked={ !! belowNavbar }
-                            onChange={ () => setAttributes( {  belowNavbar: ! belowNavbar } ) }
-                            help={ !! belowNavbar ? __( 'Block is overlayed by navbar.' ) : __( 'Block is not overlayed by navbar.' ) }
+                            onChange={ onChangeBelowNavbar }
+                            help={ __( 'Enable if container starts below navbar. If enabled container has spacer top to avoid overlapping its contents by navbar.', 'bsx-blocks' ) }
+                        />
+                        <SelectControl 
+                            label={ __( 'Margin before', 'bsx-blocks' ) }
+                            value={ marginBefore }
+                            onChange={ onChangeMarginBefore }
+                            options={ [
+                                { value: '', label: __( '– none –', 'bsx-blocks' ) },
+                                { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
+                                { value: '2', label: __( 'small', 'bsx-blocks' ) },
+                                { value: '3', label: __( 'medium', 'bsx-blocks' ) },
+                                { value: '4', label: __( 'large', 'bsx-blocks' ) },
+                                { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
+                            ] }
+                            help={ __( 'Spacer before element', 'bsx-blocks' ) }
+                        />
+                        <SelectControl 
+                            label={ __( 'Margin after', 'bsx-blocks' ) }
+                            value={ marginAfter }
+                            onChange={ onChangeMarginAfter }
+                            options={ [
+                                { value: '', label: __( '– none –', 'bsx-blocks' ) },
+                                { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
+                                { value: '2', label: __( 'small', 'bsx-blocks' ) },
+                                { value: '3', label: __( 'medium', 'bsx-blocks' ) },
+                                { value: '4', label: __( 'large', 'bsx-blocks' ) },
+                                { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
+                            ] }
+                            help={ __( 'Spacer after element', 'bsx-blocks' ) }
                         />
                     </InspectorAdvancedControls>
                 }
@@ -120,20 +180,46 @@ const addAdvancedSettings = createHigherOrderComponent( ( BlockEdit ) => {
  */
 function addExtraProps( extraProps, blockType, attributes ) {
 
-    const { belowNavbar } = attributes;
+    const { 
+        belowNavbar,
+        marginBefore,
+        marginAfter,
+    } = attributes;
     
     //check if attribute exists for old Gutenberg version compatibility
     //add allowedBlocks restriction
-    if ( typeof belowNavbar !== 'undefined' && belowNavbar && allowedBlocks.includes( blockType.name ) ) {
+    if ( allowedBlocks.includes( blockType.name ) ) {
 
         const classNames = typeof extraProps.className !== 'undefined' ? extraProps.className.split( ' ' ) : [];
-        
-        if ( ! classNames.includes( 'below-navbar-content' ) ) {
-            // add (if not already set)
-            classNames.push( 'below-navbar-content' );
+
+        if ( typeof belowNavbar !== 'undefined' && belowNavbar ) {
+            
+            if ( ! classNames.includes( 'below-navbar-content' ) ) {
+                // add (if not already set)
+                classNames.push( 'below-navbar-content' );
+            }
+        }
+
+        if ( typeof marginBefore !== 'undefined' && marginBefore ) {
+            
+            if ( ! ( classNames.includes( 'mt-' + marginBefore ) || classNames.includes( 'my-' + marginBefore ) ) ) {
+                // add (if not already set)
+                classNames.push( 'mt-' + marginBefore );
+            }
+
+        }
+
+        if ( typeof marginAfter !== 'undefined' && marginAfter ) {
+            
+            if ( ! ( classNames.includes( 'mb-' + marginAfter ) || classNames.includes( 'my-' + marginAfter ) ) ) {
+                // add (if not already set)
+                classNames.push( 'mb-' + marginAfter );
+            }
+
         }
 
         extraProps.className = classNames.join( ' ' );
+
     }
 
     return extraProps;
