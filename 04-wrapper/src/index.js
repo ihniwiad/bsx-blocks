@@ -68,7 +68,7 @@ const makeClassNames = ( bgColor, textColor, rounded, marginBefore, marginAfter,
 
         // left & right
         if ( !! paddingLeft && paddingLeft === paddingRight ) {
-            classNames.push( 'px-' + paddingBefore );
+            classNames.push( 'px-' + paddingLeft );
         }
         else {
             // left
