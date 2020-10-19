@@ -43,6 +43,17 @@ const makeClassNames = ( belowNavbar, marginBefore, marginAfter ) => {
     return classNames.join( ' ' );
 }
 
+const makeSaveAttributes = ( attributes ) => {
+    const nonEmptyAttributes = {};
+    for ( let [ key, value ] of Object.entries( attributes ) ) {
+        //console.log( 'key: "' + key + '", val: "' + value + '"' );
+        if ( value ) {
+            nonEmptyAttributes[ key ] = value;
+        }
+    }
+    return nonEmptyAttributes;
+}
+
 
 registerBlockType( 'bsx-blocks/section', {
     title: __( 'BSX Section', 'bsx-blocks' ),
@@ -288,8 +299,15 @@ registerBlockType( 'bsx-blocks/section', {
 
         const containerClassName = makeClassNames( belowNavbar, marginBefore, marginAfter );
 
+        const saveAttributes = makeSaveAttributes( {
+            id: id,
+        } );
+
         return (
-            <section className={ containerClassName } id={ id }>
+            <section 
+                className={ containerClassName } 
+                { ...saveAttributes }
+            >
                 <InnerBlocks.Content />
             </section>
         );
