@@ -154,7 +154,7 @@ registerBlockType( 'bsx-blocks/img-gallery', {
                 <div className="row">
                     {
                         mediaList.map( ( media, index ) => 
-                            <div class="col-xs-6 col-sm-3 mb-4">
+                            <div class="col-6 col-sm-3 mb-4">
                                 <MediaUpload
                                     key={ index }
                                     onSelect={ ( value ) => onUpdateImage( value, index ) }
@@ -199,7 +199,7 @@ registerBlockType( 'bsx-blocks/img-gallery', {
                         )
                     }
 
-                    <div className="col-xs-6 col-sm-3 mb-4 bsx-ui-img-upload">
+                    <div className="col-6 col-sm-3 mb-4 bsx-ui-img-upload">
                         <MediaUpload
                             onSelect={ onAddImage }
                             allowedTypes="image"
@@ -233,7 +233,7 @@ registerBlockType( 'bsx-blocks/img-gallery', {
 
             foreach( $galleryData as $item ) {
                 print('
-<figure class="col-xs-6 col-sm-3 mb-4" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+<figure class="col-6 col-sm-3 mb-4" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
     <a class="d-block text-center" href="'.$item[ 'srcTrunc' ].$fileExtension.'" itemprop="contentUrl" data-size="'.$item[ 'size' ].'">
         <script>document.write(\'<img class="img-fluid" src="" itemprop="thumbnail" alt="'.$item[ 'caption' ].'" width="'.$item[ 'width' ].'" height="'.$item[ 'height' ].'" data-fn="lazyload" data-src="'.$item[ 'srcTrunc' ].$thumbSuffix.$fileExtension.'">\');</script>
         <noscript><img class="img-fluid" src="'.$item[ 'srcTrunc' ].$thumbSuffix.$fileExtension.'" itemprop="thumbnail" alt="'.$item->caption.'"></noscript>
@@ -255,7 +255,7 @@ registerBlockType( 'bsx-blocks/img-gallery', {
                     <div class="row">
                         {
                             mediaList.map( ( media, index ) =>     
-                                <figure class="col-xs-6 col-sm-3 mb-4" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                                <figure class="col-6 col-sm-3 mb-4" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
                                     <a class="d-block text-center" href={ media.url } itemprop="contentUrl" data-size={ media.width + 'x' + media.height }>
                                         <script>document.write( '<img className="img-fluid" src="" alt={ media.alt } width={ media.thumbWidth } height={ media.thumbHeight } data-src={ media.thumbUrl } data-fn="lazyload" />' );</script>
                                         <noscript><img className="img-fluid" src={ media.thumbUrl } alt={ media.alt } width={ media.thumbWidth } height={ media.thumbHeight } /></noscript>
