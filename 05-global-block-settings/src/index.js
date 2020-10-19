@@ -162,6 +162,20 @@ export function addAttribute( settings ) {
                 },
             } );
         }
+
+        // add custom props in case of several wp props
+        /*
+        if ( typeof settings.attributes.align !== 'undefined' ) {
+            settings.attributes = Object.assign( settings.attributes, {
+                textAlign: {
+                    type: 'string',
+                },
+            } );
+        }
+        else {
+            // TODO: remove attr?
+        }
+        */
     
     }
 
@@ -208,6 +222,30 @@ export function addSaveProps( extraProps, blockType, attributes ) {
                 classNames.push( textSize );
             }
         }
+
+        // check wp internal attributes, add custom class names for certain ones
+        // NOTE: addedclass name will be updated but never removed (as WP currently does too)
+
+        // text align
+        const alignAllowedValues = [
+            'left',
+            'center',
+            'right',
+        ];
+        const alignPrefix = 'text-';
+        if ( !! attributes.align && alignAllowedValues.includes( attributes.align ) ) {
+            classNames.push( alignPrefix + attributes.align );
+        }
+        else {
+            for ( let i = 0; i < classNames.length; i++ ) {
+                if ( 
+                    classNames[ i ].indexOf( alignPrefix ) == 0 
+                    && alignAllowedValues.includes( classNames[ i ].substring( alignPrefix.length ) ) 
+                ) {
+                    classNames.splice( i, 1 );
+                }
+            }
+        };
 
         extraProps.className = classNames.join( ' ' );
 
