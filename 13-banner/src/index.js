@@ -203,6 +203,30 @@ const imageExists = ( url ) => {
 }
 
 
+const smallMobileSizeStep = 3;
+const smallMobileMediaQuery = '(min-width: 1000px)';
+const mobileSizeStep = 2;
+const mobileMediaQuery = '(min-width: 1400px)';
+
+// TODO: optimize responsive sizes
+const responsiveMediaSrcIndexList = [
+    {
+        media: '(min-width: 1400px)',
+        imgSizeIndex: '6',
+    },
+    {
+        media: '(min-width: 1000px)',
+        imgSizeIndex: '4',
+    },
+    {
+        media: '',
+        imgSizeIndex: '3',
+    },
+];
+
+// TODO: add additional portrait option
+
+
 registerBlockType( 'bsx-blocks/banner', {
     title: __( 'BSX Banner', 'bsx-blocks' ),
     icon: 'category',
@@ -874,8 +898,11 @@ registerBlockType( 'bsx-blocks/banner', {
 
         const bannerClassName = makeClassNames( bannerType, bannerSize, belowNavbar, bgAttachment, bgSize, bgPosition, alignItems, marginBefore, marginAfter, paddingBefore, paddingAfter );
 
+        // TODO: check each index if > 0, build json string
+        const srcsetJson = "[ { media: '" + mobileMediaQuery + "', src: '" + url + "' }, { media: '" + smallMobileMediaQuery + "', src: '" + imgSizes[ ( imgSizeIndex - mobileSizeStep > 0 ? imgSizeIndex - mobileSizeStep : 0 ) ].url + "' }, { media: '', src: '" + imgSizes[ ( imgSizeIndex - smallMobileSizeStep > 0 ? imgSizeIndex - smallMobileSizeStep : 0 ) ].url + "' } ]";
+
         return (
-            <div className={ bannerClassName } data-fn="lazyload" data-src={ url }>
+            <div className={ bannerClassName } data-fn="lazyload" data-src={ srcsetJson }>
                 <div class="banner-inner">
                     <InnerBlocks.Content />
                 </div>
