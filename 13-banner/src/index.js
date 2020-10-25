@@ -202,27 +202,47 @@ const imageExists = ( url ) => {
     } );
 }
 
-
-const smallMobileSizeStep = 3;
-const smallMobileMediaQuery = '(min-width: 1000px)';
-const mobileSizeStep = 2;
-const mobileMediaQuery = '(min-width: 1400px)';
-
-// TODO: optimize responsive sizes
+// responsive sizes
 const responsiveMediaSrcIndexList = [
     {
-        media: '(min-width: 1400px)',
-        imgSizeIndex: '6',
+        media: '(max-width: 999.98px)',
+        imgSizeIndexShift: '-3',
     },
     {
-        media: '(min-width: 1000px)',
-        imgSizeIndex: '4',
+        media: '(max-width: 1399.98px)',
+        imgSizeIndexShift: '-2',
     },
-    {
-        media: '',
-        imgSizeIndex: '3',
-    },
-];
+];     
+const makeSrcsetJson = ( _imgSizes, _imgSizeIndex ) => {
+    // srcsetJson = "[ { media: '" + mobileMediaQuery + "', src: '" + url + "' }, { media: '" + smallMobileMediaQuery + "', src: '" + _imgSizes[ ( imgSizeIndex - mobileSizeStep > 0 ? imgSizeIndex - mobileSizeStep : 0 ) ].url + "' }, { media: '', src: '" + _imgSizes[ ( imgSizeIndex - smallMobileSizeStep > 0 ? imgSizeIndex - smallMobileSizeStep : 0 ) ].url + "' } ]";
+    let srcsetJson = '[ ';
+    responsiveMediaSrcIndexList.forEach( ( item, index ) => {
+        // add item if img resulting indes > 0 (no square format)
+        const currentImgSizeIndex = ( parseInt( _imgSizeIndex ) + parseInt( item.imgSizeIndexShift ) );
+        if ( currentImgSizeIndex > 0 ) {
+            srcsetJson += '{ media: \'' + item.media + '\', src: \'' + _imgSizes[ currentImgSizeIndex ].url + '\' }';
+        }
+        // add comma
+        srcsetJson += ', ';
+    } );
+    if ( srcsetJson.lastIndexOf( ', ' ) == srcsetJson.length - 2 ) {
+        srcsetJson = srcsetJson.substring( 0, srcsetJson.length - 2 );
+    }
+    srcsetJson += ' ]';
+    return srcsetJson;
+}
+
+const makeSaveAttributes = ( attributes ) => {
+    const nonEmptyAttributes = {};
+    for ( let [ key, value ] of Object.entries( attributes ) ) {
+        //console.log( 'key: "' + key + '", val: "' + value + '"' );
+        if ( value ) {
+            nonEmptyAttributes[ key ] = value;
+        }
+    }
+    return nonEmptyAttributes;
+}
+
 
 // TODO: add additional portrait option
 
@@ -898,11 +918,14 @@ registerBlockType( 'bsx-blocks/banner', {
 
         const bannerClassName = makeClassNames( bannerType, bannerSize, belowNavbar, bgAttachment, bgSize, bgPosition, alignItems, marginBefore, marginAfter, paddingBefore, paddingAfter );
 
-        // TODO: check each index if > 0, build json string
-        const srcsetJson = "[ { media: '" + mobileMediaQuery + "', src: '" + url + "' }, { media: '" + smallMobileMediaQuery + "', src: '" + imgSizes[ ( imgSizeIndex - mobileSizeStep > 0 ? imgSizeIndex - mobileSizeStep : 0 ) ].url + "' }, { media: '', src: '" + imgSizes[ ( imgSizeIndex - smallMobileSizeStep > 0 ? imgSizeIndex - smallMobileSizeStep : 0 ) ].url + "' } ]";
+        const srcsetJson = makeSrcsetJson( imgSizes, imgSizeIndex );
+
+        const saveAttributes = makeSaveAttributes( {
+            'data-srcset': srcsetJson,
+        } );
 
         return (
-            <div className={ bannerClassName } data-fn="lazyload" data-src={ srcsetJson }>
+            <div className={ bannerClassName } data-fn="lazyload" data-src={ url } { ...saveAttributes }>
                 <div class="banner-inner">
                     <InnerBlocks.Content />
                 </div>
