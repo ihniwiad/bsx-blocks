@@ -202,6 +202,123 @@ const imageExists = ( url ) => {
     } );
 }
 
+// scaled (hidden) img settings
+const imgScaleList = [ 0.75, 1.5, 2 ];
+const imgBaseSize = 'large';
+
+const defaultImgList = [ 
+    'thumbnail', 
+    'medium', 
+    imgBaseSize, 
+    'full', 
+];
+const imgSizesOrder = [ 
+    'thumbnail', 
+    'medium', 
+    imgScaleList[ 0 ] + '',
+    imgBaseSize, 
+    imgScaleList[ 1 ] + '',
+    imgScaleList[ 2 ] + '',
+    'full',
+    'original',
+];
+
+// getting sorted list of all imgs (default and hidden scaled)
+async function getImgSizes( img ) {
+
+    let originalImgUrl = '';
+    let originalWidth = 0;
+    let originalHeight = 0;
+
+    if ( fullImgIsScaled( img.url ) ) {
+        // get original, get sizes
+        originalImgUrl = getOriginalImgUrl( img.url );
+
+        let originalImgSizes;
+        try {
+            originalImgSizes = await getOriginalImgSizes( originalImgUrl );
+        } catch( err ) {
+            console.error( err );
+        }
+
+        originalWidth = originalImgSizes.width || 0;
+        originalHeight = originalImgSizes.height || 0;
+    }
+    else {
+        // get sizes from full img
+        originalWidth = img.sizes.full.width;
+        originalHeight = img.sizes.full.height;
+    }
+
+    let scaledImgs = {};
+    const returnImgs = [];
+
+    // make sizes only if marge img exists
+    if ( img.sizes.large != undefined ) {
+
+        // config for making sizes (might change in newer WP versions)
+        const sizedImgsConfig = {
+            url: img.sizes[ imgBaseSize ].url,
+            scaleList: imgScaleList,
+            originalWidth: originalWidth,
+            originalHeight: originalHeight,
+        };
+        const sizedImgs = makeSizedImgs( sizedImgsConfig );
+
+        // check all imgs if exist (since WordPress might change hidden img sizes one day);
+        await Promise.all( sizedImgs.map( async ( sizedImg, index ) => {
+            const currentImageExists = await imageExists( sizedImg.url );
+            if ( currentImageExists ) {
+                scaledImgs[ imgScaleList[ index ] + '' ] = sizedImg;
+            }
+        } ) );
+
+        // TEST – TODO: remove
+        // for ( let [ key, value ] of Object.entries( scaledImgs ) ) {
+        //     console.log( 'scaledImgs[ ' + key + ' ]: ' + value.url );
+        // }
+
+        // make ordered list of all existing default img sizes and scaled (hidden) img sizes
+        imgSizesOrder.forEach( ( imgSize, index ) => {
+
+            if ( defaultImgList.indexOf( imgSize ) != -1 && img.sizes[ imgSize ] != undefined ) {
+                // get from default img list
+                returnImgs.push( {
+                    url: img.sizes[ imgSize ].url,
+                    width: img.sizes[ imgSize ].width,
+                    height: img.sizes[ imgSize ].height, 
+                } );
+            }
+            else if ( imgScaleList.indexOf( parseFloat( imgSize ) ) != -1 && scaledImgs[ imgSize ] != undefined ) {
+                // get from scaled imgs list
+                returnImgs.push( scaledImgs[ imgSize ] );
+            }
+            else if ( imgSize == 'original' && originalImgUrl ) {
+                // add unscaled original
+                returnImgs.push( {
+                    url: originalImgUrl,
+                    width: originalWidth,
+                    height: originalHeight, 
+                } );
+            }
+
+        } );
+
+    }
+
+    // TEST – TODO: remove
+    // returnImgs.forEach( ( returnImg, index ) => {
+    //     console.log( 
+    //         index + ':\n' 
+    //         + returnImg.url + '\n'
+    //         + returnImg.width + '\n'
+    //         + returnImg.height + '\n'
+    //     );
+    // } );
+
+    return returnImgs;
+}
+
 // responsive sizes
 const responsiveMediaSrcIndexList = [
     {
@@ -454,131 +571,7 @@ registerBlockType( 'bsx-blocks/banner', {
 
             if ( typeof img.url !== 'undefined' ) {
 
-                let originalImgUrl = '';
-                let originalWidth = 0;
-                let originalHeight = 0;
-
-                if ( fullImgIsScaled( img.url ) ) {
-
-                    // get original, get sizes
-
-                    originalImgUrl = getOriginalImgUrl( img.url );
-
-                    let originalImgSizes;
-
-                    try {
-                        originalImgSizes = await getOriginalImgSizes( originalImgUrl );
-                    } catch( err ) {
-                        console.error( err );
-                    }
-
-                    originalWidth = originalImgSizes.width || 0;
-                    originalHeight = originalImgSizes.height || 0;
-
-                }
-                else {
-
-                    // get sizes from full img
-                    // check which sizes exist
-
-                    originalWidth = img.sizes.full.width;
-                    originalHeight = img.sizes.full.height;
-
-                }
-
-                let existingImgList;
-                let x0_75LargeImg;
-                let x1_5LargeImg;
-                let x2LargeImg;
-
-                // make sizes only if marge img exists
-                if ( img.sizes.large != undefined ) {
-
-                    // config for making sizes (might change in newer WP versions)
-                    const sizedImgsConfig = {
-                        url: img.sizes[ 'large' ].url,
-                        scaleList: [ 0.75, 1.5, 2 ],
-                        originalWidth: originalWidth,
-                        originalHeight: originalHeight,
-                    };
-                    const sizedImgs = makeSizedImgs( sizedImgsConfig );
-
-                    x0_75LargeImg = sizedImgs[ 0 ] || {};
-                    x1_5LargeImg = sizedImgs[ 1 ] || {};
-                    x2LargeImg = sizedImgs[ 2 ] || {};
-
-                    existingImgList = await Promise.all( [
-                        imageExists( x0_75LargeImg.url ),
-                        imageExists( x1_5LargeImg.url ),
-                        imageExists( x2LargeImg.url ),
-                    ] );
-
-                }
-
-                // start build list of all really existing img sizes
-                const newImgSizes = [];
-                // thumbnail
-                if ( img.sizes.thumbnail != undefined && img.sizes.thumbnail.url ) {
-                    newImgSizes.push( {
-                        url: img.sizes.thumbnail.url,
-                        width: img.sizes.thumbnail.width,
-                        height: img.sizes.thumbnail.height, 
-                    } );
-                }
-                // medium
-                if ( img.sizes.medium != undefined && img.sizes.medium.url ) {
-                    newImgSizes.push( {
-                        url: img.sizes.medium.url,
-                        width: img.sizes.medium.width,
-                        height: img.sizes.medium.height, 
-                    } );
-                }
-                if ( img.sizes.large != undefined && img.sizes.large.url ) {
-                    // x0.75 large
-                    if ( existingImgList[ 0 ] ) {
-                        newImgSizes.push( {
-                            url: x0_75LargeImg.url,
-                            width: x0_75LargeImg.width,
-                            height: x0_75LargeImg.height, 
-                        } );
-                    }
-                    // large
-                    newImgSizes.push( {
-                        url: img.sizes.large.url,
-                        width: img.sizes.large.width,
-                        height: img.sizes.large.height, 
-                    } );
-                    // x1.5 large
-                    if ( existingImgList[ 1 ] ) {
-                        newImgSizes.push( {
-                            url: x1_5LargeImg.url,
-                            width: x1_5LargeImg.width,
-                            height: x1_5LargeImg.height, 
-                        } );
-                    }
-                    // x2 large
-                    if ( existingImgList[ 1 ] ) {
-                        newImgSizes.push( {
-                            url: x2LargeImg.url,
-                            width: x2LargeImg.width,
-                            height: x2LargeImg.height, 
-                        } );
-                    }
-                }
-                // full (uploaded or down scaled size)
-                newImgSizes.push( {
-                    url: img.sizes.full.url,
-                    width: img.sizes.full.width,
-                    height: img.sizes.full.height, 
-                } );
-                // original (unscaled uploaded size)
-                if ( originalImgUrl ) {
-                    newImgSizes.push( {
-                        url: originalImgUrl,
-                        width: originalWidth,
-                        height: originalHeight, 
-                    } );
-                }
+                const newImgSizes = await getImgSizes( img );
 
                 // check if current img size index fits to new img (might be too large)
                 let newImgSizeIndex = parseInt( imgSizeIndex );
@@ -594,7 +587,7 @@ registerBlockType( 'bsx-blocks/banner', {
                     url: newImgSizes[ newImgSizeIndex ].url,
                 } );
 
-                console.log( 'url: ' + newImgSizes[ newImgSizeIndex ].url );
+                //console.log( 'url: ' + newImgSizes[ newImgSizeIndex ].url );
             }
         };
 
