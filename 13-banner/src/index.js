@@ -320,7 +320,17 @@ async function getImgSizes( img ) {
 }
 
 // responsive sizes
-const responsiveMediaSrcIndexList = [
+const responsivePortraitMediaIndexList = [
+    {
+        media: '(orientation: portrait) and (max-width: 499.98px)',
+        imgSizeIndexShift: '-1',
+    },
+    {
+        media: '(orientation: portrait)',
+        imgSizeIndexShift: '0',
+    },
+];
+const responsiveMediaIndexList = [
     {
         media: '(max-width: 999.98px)',
         imgSizeIndexShift: '-3',
@@ -329,18 +339,23 @@ const responsiveMediaSrcIndexList = [
         media: '(max-width: 1399.98px)',
         imgSizeIndexShift: '-2',
     },
-];     
-const makeSrcsetJson = ( _imgSizes, _imgSizeIndex ) => {
+];
+const makeSrcsetJson = ( _imgSizes, _imgSizeIndex, _portraitImgSizes, _portraitImgSizeIndex ) => {
     // srcsetJson = "[ { media: '" + mobileMediaQuery + "', src: '" + url + "' }, { media: '" + smallMobileMediaQuery + "', src: '" + _imgSizes[ ( imgSizeIndex - mobileSizeStep > 0 ? imgSizeIndex - mobileSizeStep : 0 ) ].url + "' }, { media: '', src: '" + _imgSizes[ ( imgSizeIndex - smallMobileSizeStep > 0 ? imgSizeIndex - smallMobileSizeStep : 0 ) ].url + "' } ]";
     let srcsetJson = '[ ';
-    responsiveMediaSrcIndexList.forEach( ( item, index ) => {
+    responsivePortraitMediaIndexList.forEach( ( item, index ) => {
+        // add item if img resulting indes > 0 (no square format)
+        const currentPortraitImgSizeIndex = ( parseInt( _portraitImgSizeIndex ) + parseInt( item.imgSizeIndexShift ) );
+        if ( currentPortraitImgSizeIndex > 0 && currentPortraitImgSizeIndex < _portraitImgSizes.length ) {
+            srcsetJson += '{ media: \'' + item.media + '\', src: \'' + _portraitImgSizes[ currentPortraitImgSizeIndex ].url + '\' }, ';
+        }
+    } );
+    responsiveMediaIndexList.forEach( ( item, index ) => {
         // add item if img resulting indes > 0 (no square format)
         const currentImgSizeIndex = ( parseInt( _imgSizeIndex ) + parseInt( item.imgSizeIndexShift ) );
-        if ( currentImgSizeIndex > 0 ) {
-            srcsetJson += '{ media: \'' + item.media + '\', src: \'' + _imgSizes[ currentImgSizeIndex ].url + '\' }';
+        if ( currentImgSizeIndex > 0 && currentImgSizeIndex < _imgSizes.length ) {
+            srcsetJson += '{ media: \'' + item.media + '\', src: \'' + _imgSizes[ currentImgSizeIndex ].url + '\' }, ';
         }
-        // add comma
-        srcsetJson += ', ';
     } );
     if ( srcsetJson.lastIndexOf( ', ' ) == srcsetJson.length - 2 ) {
         srcsetJson = srcsetJson.substring( 0, srcsetJson.length - 2 );
@@ -389,6 +404,20 @@ registerBlockType( 'bsx-blocks/banner', {
             default: '6',
         },
         url: {
+            type: 'string',
+        },
+        portraitImgId: {
+            type: 'number',
+        },
+        portraitImgSizes: {
+            type: 'array',
+            default: [],
+        },
+        portraitImgSizeIndex: {
+            type: 'string',
+            default: '3',
+        },
+        portraitUrl: {
             type: 'string',
         },
         bannerType: {
@@ -457,6 +486,10 @@ registerBlockType( 'bsx-blocks/banner', {
                 imgSizes,
                 imgSizeIndex,
                 url,
+                portraitImgId,
+                portraitImgSizes,
+                portraitImgSizeIndex,
+                portraitUrl,
                 bannerType,
                 bannerSize,
                 bgAttachment,
@@ -579,7 +612,6 @@ registerBlockType( 'bsx-blocks/banner', {
                     newImgSizeIndex = newImgSizes.length - 1;
                 }
 
-                // do not use thumbnail (square format) for srcset, start with img sizes index 1
                 setAttributes( {
                     imgId: img.id,
                     imgSizes: newImgSizes,
@@ -587,7 +619,30 @@ registerBlockType( 'bsx-blocks/banner', {
                     url: newImgSizes[ newImgSizeIndex ].url,
                 } );
 
-                //console.log( 'url: ' + newImgSizes[ newImgSizeIndex ].url );
+                // console.log( 'url: ' + newImgSizes[ newImgSizeIndex ].url );
+            }
+        };
+
+        async function onSelectPortraitImage( portraitImg ) {
+
+            if ( typeof portraitImg.url !== 'undefined' ) {
+
+                const newPortraitImgSizes = await getImgSizes( portraitImg );
+
+                // check if current img size index fits to new img (might be too large)
+                let newPortraitImgSizeIndex = parseInt( portraitImgSizeIndex );
+                if ( portraitImgSizeIndex >= newPortraitImgSizeIndex.length ) {
+                    newPortraitImgSizeIndex = newPortraitImgSizeIndex.length - 1;
+                }
+
+                setAttributes( {
+                    portraitImgId: portraitImg.id,
+                    portraitImgSizes: newPortraitImgSizes,
+                    portraitImgSizeIndex: newPortraitImgSizeIndex.toString(),
+                    portraitUrl: newPortraitImgSizes[ newPortraitImgSizeIndex ].url,
+                } );
+
+                // console.log( 'portraitUrl: ' + newPortraitImgSizes[ newPortraitImgSizeIndex ].url );
             }
         };
 
@@ -641,6 +696,19 @@ registerBlockType( 'bsx-blocks/banner', {
             );
         } );
 
+        const onChangePortraitImgSizeIndex = ( value ) => {
+            setAttributes( { 
+                portraitImgSizeIndex: value.toString(),
+                portraitUrl: portraitImgSizes[ value ].url,
+            } );
+        };
+        const portraitImgSizeRadioControlOptions = [];
+        portraitImgSizes.forEach( ( portraitImgSize, index ) => {
+            portraitImgSizeRadioControlOptions.push( 
+                { value: index.toString(), label: portraitImgSize.width + 'x' + portraitImgSize.height + ( portraitImgSize.width === portraitImgSize.height ? ' ' + __( '(Square format)', 'bsx-blocks' ) : '' ) } 
+            );
+        } );
+
         const bannerClassName = makeClassNames( bannerType, bannerSize, belowNavbar, bgAttachment, bgSize, bgPosition, alignItems, marginBefore, marginAfter, paddingBefore, paddingAfter );
 
         const bannerStyle = { backgroundImage: `url(${ url })` };
@@ -671,9 +739,19 @@ registerBlockType( 'bsx-blocks/banner', {
                 <PanelBody title={ __( 'Banner image', 'bsx-blocks' ) }>
                     {
                         imgId ? (
-                            <div class="bsxui-config-panel-row">
-                                <img class="bsxui-config-panel-img" src={ url } alt="Image preview" />
-                            </div>
+                            <MediaUpload
+                                onSelect={ onSelectImage }
+                                allowedTypes="image"
+                                value={ imgId }
+                                render={ ( { open } ) => (
+                                    <Button
+                                        className="bsxui-config-panel-img-button has-margin-bottom"
+                                        onClick={ open }
+                                    >
+                                        <img class="bsxui-config-panel-img" src={ url } alt={ __( 'Change / upload image', 'bsx-blocks' ) } />
+                                    </Button>
+                                ) }
+                            />
                         )
                         : 
                         (
@@ -692,7 +770,7 @@ registerBlockType( 'bsx-blocks/banner', {
                                     onClick={ open }
                                     isSecondary
                                 >
-                                    { __( 'Change / upload Image', 'bsx-blocks' ) }
+                                    { __( 'Change / upload image', 'bsx-blocks' ) }
                                 </Button>
                             ) }
                         />
@@ -707,6 +785,60 @@ registerBlockType( 'bsx-blocks/banner', {
                         imgSizes[ imgSizeIndex ] != undefined && imgSizes[ imgSizeIndex ].url != undefined && (
                             <div class="components-base-control">
                                 <a href={ imgSizes[ imgSizeIndex ].url } target="_blank">{ __( 'Preview selected image', 'bsx-blocks' ) }</a>
+                            </div>
+                        )
+                    }
+                </PanelBody>
+
+                <PanelBody title={ __( 'Banner portrait image (optional)', 'bsx-blocks' ) }>
+                    {
+                        imgId ? (
+                            <MediaUpload
+                                onSelect={ onSelectPortraitImage }
+                                allowedTypes="image"
+                                value={ portraitImgId }
+                                render={ ( { open } ) => (
+                                    <Button
+                                        className="bsxui-config-panel-img-button has-margin-bottom"
+                                        onClick={ open }
+                                    >
+                                        <img class="bsxui-config-panel-img" src={ portraitUrl } alt={ __( 'Change / upload portrait image', 'bsx-blocks' ) } />
+                                    </Button>
+                                ) }
+                            />
+                        )
+                        : 
+                        (
+                            <div class="bsxui-config-panel-row">
+                                <div class="bsxui-config-panel-text">{ __( '– No image selected yet –', 'bsx-blocks' ) }</div>
+                            </div>
+                        )
+                    }
+                    <div class="bsxui-config-panel-row">
+                        <MediaUpload
+                            onSelect={ onSelectPortraitImage }
+                            allowedTypes="image"
+                            value={ portraitImgId }
+                            render={ ( { open } ) => (
+                                <Button 
+                                    onClick={ open }
+                                    isSecondary
+                                >
+                                    { __( 'Change / upload portrait image', 'bsx-blocks' ) }
+                                </Button>
+                            ) }
+                        />
+                    </div>
+                    <RadioControl
+                        label={ __( 'Image size and format', 'bsx-blocks' ) }
+                        selected={ portraitImgSizeIndex.toString() }
+                        options={ portraitImgSizeRadioControlOptions }
+                        onChange={ onChangePortraitImgSizeIndex }
+                    />
+                    {
+                        portraitImgSizes[ portraitImgSizeIndex ] != undefined && portraitImgSizes[ portraitImgSizeIndex ].url != undefined && (
+                            <div class="components-base-control">
+                                <a href={ portraitImgSizes[ portraitImgSizeIndex ].url } target="_blank">{ __( 'Preview selected portrait image', 'bsx-blocks' ) }</a>
                             </div>
                         )
                     }
@@ -896,6 +1028,10 @@ registerBlockType( 'bsx-blocks/banner', {
                 imgSizes,
                 imgSizeIndex,
                 url,
+                portraitImgId,
+                portraitImgSizes,
+                portraitImgSizeIndex,
+                portraitUrl,
                 bannerType,
                 bannerSize,
                 bgAttachment,
@@ -911,7 +1047,7 @@ registerBlockType( 'bsx-blocks/banner', {
 
         const bannerClassName = makeClassNames( bannerType, bannerSize, belowNavbar, bgAttachment, bgSize, bgPosition, alignItems, marginBefore, marginAfter, paddingBefore, paddingAfter );
 
-        const srcsetJson = makeSrcsetJson( imgSizes, imgSizeIndex );
+        const srcsetJson = makeSrcsetJson( imgSizes, imgSizeIndex, portraitImgSizes, portraitImgSizeIndex );
 
         const saveAttributes = makeSaveAttributes( {
             'data-srcset': srcsetJson,
