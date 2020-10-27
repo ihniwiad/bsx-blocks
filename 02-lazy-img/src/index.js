@@ -161,6 +161,7 @@ const imageExists = ( url ) => {
     } );
 } 
 
+// TODO: use array with maps instead, see banner `responsiveMediaSrcIndexList`
 const smallMobileSizeStep = 2;
 const smallMobileMediaQuery = '(max-width: 459.98px)';
 const mobileSizeStep = 1;
