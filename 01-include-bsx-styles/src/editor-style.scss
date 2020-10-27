@@ -69,6 +69,19 @@
 	font-size: $bsxui-config-panel-font-size;
 }
 
+// clickable img (should not look like a button) 
+.bsxui-config-panel-img-button {
+    display: block;
+    height: auto;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+
+    &.has-margin-bottom {
+    	margin-bottom: $bsxui-small-margin-bottom;
+    }
+}
+
 
 // in widget overlay panel
 

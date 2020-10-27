@@ -34,6 +34,15 @@
 .bsxui-config-panel-text {
   font-size: 13px; }
 
+.bsxui-config-panel-img-button {
+  display: block;
+  height: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 0; }
+  .bsxui-config-panel-img-button.has-margin-bottom {
+    margin-bottom: 12px; }
+
 .bsxui-in-widget-overlay-panel {
   position: absolute;
   width: 100%;
