@@ -17,7 +17,7 @@ const {
     withSelect, 
 } = wp.data;
 
-const makeContainerClassNames = ( isFluid, containerBreakpoint, belowNavbar, marginBefore, marginAfter, paddingBefore, paddingAfter ) => {
+const makeContainerClassNames = ( isFluid, containerBreakpoint ) => {
 
     const prefix = 'container';
 
@@ -35,32 +35,135 @@ const makeContainerClassNames = ( isFluid, containerBreakpoint, belowNavbar, mar
     	classNames.push( prefix );
     }
 
-    if ( belowNavbar ) {
+    // if ( belowNavbar ) {
+    //     classNames.push( 'below-navbar-content' );
+    // }
+
+    // if ( marginBefore && marginBefore === marginAfter ) {
+    // 	classNames.push( 'my-' + marginBefore );
+    // }
+    // else {
+    //     if ( marginBefore ) {
+    //     	classNames.push( 'mt-' + marginBefore );
+    //     }
+    //     if ( marginAfter ) {
+    //     	classNames.push( 'mb-' + marginAfter );
+    //     }
+    // }
+
+    // if ( paddingBefore && paddingBefore === paddingAfter ) {
+    //     classNames.push( 'py-' + paddingBefore );
+    // }
+    // else {
+    //     if ( paddingBefore ) {
+    //         classNames.push( 'pt-' + paddingBefore );
+    //     }
+    //     if ( paddingAfter ) {
+    //         classNames.push( 'pb-' + paddingAfter );
+    //     }
+    // }
+
+    return classNames.join( ' ' );
+}
+
+
+
+// let config = { 
+//     belowNavbar, 
+//     marginBefore, 
+//     marginAfter, 
+//     paddingBefore, 
+//     paddingAfter, 
+//     paddingLeft, 
+//     paddingRight,
+//     bgColor, 
+//     textColor, 
+//     rounded, 
+// }
+
+// TODO: add to global functions
+const addClassNames = ( config, classNamesString ) => {
+
+    const classNames = ( typeof classNamesString != 'undefined' ) ? classNamesString.split( ' ' ) : [];
+
+    // const prefix = 'container';
+
+    // if ( config.isFluid ) {
+    //     if ( config.containerBreakpoint === '' ) {
+    //         classNames.push( prefix + '-fluid' );
+    //     }
+    //     else {
+    //         classNames.push( prefix + '-' + config.containerBreakpoint );
+    //     }
+    // }
+    // else {
+    //     classNames.push( prefix );
+    // }
+
+    if ( config.belowNavbar ) {
         classNames.push( 'below-navbar-content' );
     }
 
-    if ( marginBefore && marginBefore === marginAfter ) {
-    	classNames.push( 'my-' + marginBefore );
+    if ( config.marginBefore && config.marginBefore === config.marginAfter ) {
+        classNames.push( 'my-' + config.marginBefore );
     }
     else {
-	    if ( marginBefore ) {
-	    	classNames.push( 'mt-' + marginBefore );
-	    }
-	    if ( marginAfter ) {
-	    	classNames.push( 'mb-' + marginAfter );
-	    }
+        if ( config.marginBefore ) {
+            classNames.push( 'mt-' + config.marginBefore );
+        }
+        if ( config.marginAfter ) {
+            classNames.push( 'mb-' + config.marginAfter );
+        }
     }
 
-    if ( paddingBefore && paddingBefore === paddingAfter ) {
-        classNames.push( 'py-' + paddingBefore );
+    if ( !! config.paddingBefore && config.paddingBefore === config.paddingAfter && config.paddingBefore === config.paddingLeft && config.paddingBefore === config.paddingRight ) {
+        // all
+        classNames.push( 'p-' + config.paddingBefore );
     }
     else {
-        if ( paddingBefore ) {
-            classNames.push( 'pt-' + paddingBefore );
+
+        // top & bottom
+        if ( !! config.paddingBefore && config.paddingBefore === config.paddingAfter ) {
+            classNames.push( 'py-' + config.paddingBefore );
         }
-        if ( paddingAfter ) {
-            classNames.push( 'pb-' + paddingAfter );
+        else {
+            // top
+            if ( !! config.paddingBefore ) {
+                classNames.push( 'pt-' + config.paddingBefore );
+            }
+            // bottom
+            if ( !! config.paddingAfter ) {
+                classNames.push( 'pb-' + config.paddingAfter );
+            }
         }
+
+        // left & right
+        if ( !! config.paddingLeft && config.paddingLeft === config.paddingRight ) {
+            classNames.push( 'px-' + config.paddingLeft );
+        }
+        else {
+            // left
+            if ( !! config.paddingLeft ) {
+                classNames.push( 'pt-' + config.paddingLeft );
+            }
+            // right
+            if ( !! config.paddingRight ) {
+                classNames.push( 'pb-' + config.paddingRight );
+            }
+        }
+
+    }
+
+    if ( !! config.bgColor ) {
+        classNames.push( 'bg-' + config.bgColor );
+    }
+
+    if ( !! config.textColor ) {
+        classNames.push( 'text-' + config.textColor );
+    }
+
+    if ( !! config.rounded ) {
+        classNames.push( 'rounded' );
     }
 
     return classNames.join( ' ' );
@@ -176,7 +279,15 @@ registerBlockType( 'bsx-blocks/container', {
             setAttributes( { paddingAfter: value } );
         };
 
-        const containerClassName = makeContainerClassNames( isFluid, containerBreakpoint, belowNavbar, marginBefore, marginAfter, paddingBefore, paddingAfter );
+        let containerClassName = makeContainerClassNames( isFluid, containerBreakpoint );
+        const config = {
+            belowNavbar: belowNavbar, 
+            marginBefore: marginBefore, 
+            marginAfter: marginAfter, 
+            paddingBefore: paddingBefore, 
+            paddingAfter: paddingAfter,
+        };
+        containerClassName = addClassNames( config, containerClassName );
 
         return [
             <InspectorControls>
@@ -302,7 +413,15 @@ registerBlockType( 'bsx-blocks/container', {
             },
         } = props;
 
-        const containerClassName = makeContainerClassNames( isFluid, containerBreakpoint, belowNavbar, marginBefore, marginAfter, paddingBefore, paddingAfter );
+        let containerClassName = makeContainerClassNames( isFluid, containerBreakpoint );
+        const config = {
+            belowNavbar: belowNavbar, 
+            marginBefore: marginBefore, 
+            marginAfter: marginAfter, 
+            paddingBefore: paddingBefore, 
+            paddingAfter: paddingAfter,
+        };
+        containerClassName = addClassNames( config, containerClassName );
 
         return (
             <div className={ containerClassName }>
