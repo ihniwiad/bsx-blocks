@@ -3,8 +3,8 @@
 /**
  * Plugin Name: BSX Blocks
  * Plugin URI: https://github.com/ihniwiad/bsx-blocks
- * Description: BSX (a Bootstrap based style & js package) WordPress blocks.
- * Version: 1.0.1
+ * Description: BSX WordPress blocks.
+ * Version: 1.0.0
  * Author: ihniwiad
  *
  * @package bsx-blocks
@@ -12,8 +12,21 @@
 
 defined( 'ABSPATH' ) || exit;
 
-include '01-include-bsx-styles/index.php';
-include '02-lazy-img/index.php';
+// define plugin dir path (relative to local file system)
+if ( ! defined( 'BSX_BLOCKS_PLUGIN_DIR_PATH' ) ) {
+	define( 'BSX_BLOCKS_PLUGIN_DIR_PATH', plugin_dir_path( __FILE__ ) );
+}
+// define plugins url (relative to server domain)
+if ( ! defined( 'BSX_BLOCKS_PLUGINS_URL' ) ) {
+	define( 'BSX_BLOCKS_PLUGINS_URL', plugins_url( '/', __FILE__ ) );
+}
+
+
+include 'src/_init/index.php';
+
+include 'src/lazy-img/index.php';
+// include '02-lazy-img/index.php';
+
 //include '03-button/index.php';
 include '04-wrapper/index.php';
 include '05-global-block-settings/index.php';

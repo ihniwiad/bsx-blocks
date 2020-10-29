@@ -1,8 +1,19 @@
 const gulp          = require( 'gulp' );
 const { series, parallel } = require( 'gulp' );
-const replace       = require( 'gulp-string-replace' );
+const sourcemaps    = require( 'gulp-sourcemaps' );
+const sass          = require( 'gulp-sass' );
+const autoprefixer  = require( 'gulp-autoprefixer' );
+const rename        = require( 'gulp-rename' );
+const cleanCSS      = require( 'gulp-clean-css' );
 const clean         = require( 'gulp-clean' );
 const watch         = require( 'gulp-watch' );
+const replace       = require( 'gulp-string-replace' );
+
+
+// scss
+const SCSS_SRC_PATH = './src';
+const CSS_DEST_PATH = './build/css';
+
 
 // include config file
 /* 
@@ -37,6 +48,7 @@ const checkAdDotBefore = ( path ) => {
 // scss
 const REPLACE_SRC_PATH = checkAdDotBefore( config.basicStylePackagePathReplaceSrcFolder );
 const REPLACE_DEST_PATH = checkAdDotBefore( config.basicStylePackagePathReplaceDestFolder );
+const REPLACE_FILES = config.basicStylePackagePathReplaceDestFiles;
 const REPLACE_PATTERN = /###BASIC_STYLE_PACKAGE_PATH###/g;
 const BASIC_STYLE_PACKAGE_PATH = checkAdDotBefore( config.relatedPackages[ 0 ].scssPath )
 
@@ -49,7 +61,7 @@ const basicStylePackagePathReplace = ( cb ) => {
         {
             SRC: REPLACE_SRC_PATH,
             DEST: REPLACE_DEST_PATH,
-            FILES: '/**/*.scss'
+            FILES: REPLACE_FILES
         }
     ];
 
@@ -95,6 +107,51 @@ const publishFolderCreate = ( cb ) => {
     cb();
 }
 
+const cssFolderClean = ( cb ) => {
+
+    return gulp.src( CSS_DEST_PATH, { read: false, allowEmpty: true } )
+        .pipe( clean() )
+    ;
+
+    cb();
+}
+
+const scssToCss = ( cb ) => {
+
+    return gulp.src( SCSS_SRC_PATH + '/**/*.scss' )
+        .pipe( sourcemaps.init() )
+        .pipe( sass().on( 'error', sass.logError ) )
+        .pipe( autoprefixer( {
+            browsers: [ 'last 8 versions' ],
+            cascade: false
+        } ) )
+        .pipe( sourcemaps.write( '.' ) )
+        .pipe( gulp.dest( CSS_DEST_PATH ) )
+    ;
+
+    cb();
+}
+
+const cssCleanAndMinify = ( cb ) => {
+
+    return gulp.src( CSS_DEST_PATH + '/**/*.css' )
+        .pipe( cleanCSS( { debug: true }, function( details ) {
+            console.log( details.name + ': ' + details.stats.originalSize );
+            console.log( details.name + ': ' + details.stats.minifiedSize );
+        } ) )
+        .pipe( rename( function( path ) {
+            path.basename += '.min';
+        } ) )
+        .pipe( gulp.dest( CSS_DEST_PATH ) )
+    ;
+
+    cb();
+}
+
+const scssWatch = () => {
+    watch( SCSS_SRC_PATH + '/**/*.scss', css );
+}
+
 
 // tasks
 
@@ -104,20 +161,28 @@ const publish = series(
     publishFolderCreate,
 );
 
-const jsWatch = () => {
-    watch( checkAdDotBefore( config.buildJsWatchPath ), publish );
-}
+// const jsWatch = () => {
+//     watch( checkAdDotBefore( config.buildJsWatchPath ), publish );
+// }
 
-const cssWatch = () => {
-    watch( checkAdDotBefore( config.buildCssWatchPath ), publish );
-}
+// const cssWatch = () => {
+//     watch( checkAdDotBefore( config.buildCssWatchPath ), publish );
+// }
 
-const allWatch = () => {
-    watch( [
-        ...config.buildCssWatchPath,
-        ...config.buildJsWatchPath,
-    ], publish );
-}
+// const allWatch = () => {
+//     watch( [
+//         ...config.buildCssWatchPath,
+//         ...config.buildJsWatchPath,
+//     ], publish );
+// }
+
+const css = series(
+    cssFolderClean,
+    scssToCss,
+    cssCleanAndMinify,
+);
+
+const scss_watch = scssWatch;
 
 
 // exports
@@ -130,12 +195,17 @@ exports.replace = series(
 
 exports.build = series(
     basicStylePackagePathReplace,
+    css,
     publish,
 );
 
-exports.js_watch = jsWatch;
+exports.css = css;
 
-exports.css_watch = cssWatch;
+exports.css_watch = scss_watch;
 
-exports.all_watch = allWatch;
+// exports.js_watch = jsWatch;
+
+// exports.css_watch = cssWatch;
+
+// exports.all_watch = allWatch;
 

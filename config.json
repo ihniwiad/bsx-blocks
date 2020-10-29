@@ -8,6 +8,7 @@
 	],
 	"basicStylePackagePathReplaceSrcFolder": "/src",
 	"basicStylePackagePathReplaceDestFolder": "/build",
+	"basicStylePackagePathReplaceDestFiles": "/_basic-style-vars-and-bootstrap-grid.scss",
 	"buildCssWatchPath": [
 		"./*/build/css/*.css",
 		"!./*/build/css/*.min.css",
