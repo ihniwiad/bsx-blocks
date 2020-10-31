@@ -1,4 +1,3 @@
-import './_functions/index.js';
 import './banner/block.js';
 import './buttons/index.js';
 import './container/block.js';
