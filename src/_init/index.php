@@ -52,9 +52,10 @@ function bsx_blocks_include_style_and_script() {
     wp_register_script(
         'bsx-blocks-script',
         BSX_BLOCKS_PLUGINS_URL . 'build/index.js',
-        $asset_file[ 'dependencies' ],
+        // $asset_file[ 'dependencies' ],
+        // WARNING: Do not forget to declare dependencies, otherwise might remain undefiend
+        array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'underscore' ),
         $asset_file[ 'version' ]
-        // array(),
         // filemtime( BSX_BLOCKS_PLUGIN_DIR_PATH . 'build/index.js' )
     );
 
