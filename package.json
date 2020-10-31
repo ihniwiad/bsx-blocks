@@ -18,6 +18,8 @@
   },
   "scripts": {
     "build": "wp-scripts build",
-    "start": "wp-scripts start"
+    "build:custom": "wp-scripts build src/index.js src/custom-block-settings.js src/custom-class-names.js --output-path=build",
+    "start": "wp-scripts start",
+    "start:custom": "wp-scripts start src/index.js src/custom-block-settings.js src/custom-class-names.js --output-path=build"
   }
 }

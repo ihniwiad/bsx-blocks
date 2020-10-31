@@ -3,7 +3,7 @@
 	"relatedPackages": [
 		{
 			"path": "./../bsx-basic-style",
-			"scssPath": "../../../bsx-basic-style"
+			"scssPath": "../../bsx-basic-style"
 		}
 	],
 	"basicStylePackagePathReplaceSrcFolder": "/src",

@@ -1,0 +1,195 @@
+// editor style
+
+
+// selectors
+
+$bsxui-row-with-cols-block-selector: 		'[data-type="bsx-blocks/row-with-cols"]' !default;
+$bsxui-editor-row-selector: 				#{$bsxui-row-with-cols-block-selector}#{' > .row > .block-editor-inner-blocks > .block-editor-block-list__layout'} !default;
+// selector chain from columns block down to col block (not .col{...} itself)
+$bsxui-editor-col-selector:				#{$bsxui-editor-row-selector}#{' > .block-editor-block-list__block'} !default;
+$bsxui-col-list-appender-selector:		'.block-list-appender' !default;
+
+
+// imports
+@import "../../build/_basic-style-vars-and-bootstrap-grid";
+
+
+// row mixin
+
+@mixin make-editor-row($gutter: $bsx-grid-gutter-width) {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -$gutter / 2;
+  margin-left: -$gutter / 2;
+}
+
+
+// row build
+
+#{$bsxui-editor-row-selector} {
+	@include make-editor-row();
+}
+
+// no gutters row
+
+//.no-gutters {
+[data-no-gutters="true"]#{$bsxui-editor-row-selector} {
+	margin-right: 0;
+	margin-left: 0;
+
+	//> .col,
+	//> [class*="col-"] {
+	> [data-size] {
+		padding-right: 0;
+		padding-left: 0;
+	}
+}
+
+// row items align
+
+[data-align-items="start"]#{$bsxui-editor-row-selector} {
+	align-items: start;
+}
+[data-align-items="center"]#{$bsxui-editor-row-selector} {
+	align-items: center;
+}
+[data-align-items="end"]#{$bsxui-editor-row-selector} {
+	align-items: end;
+}
+
+// row justify content
+
+$bsxui-justify-content-values: (
+	start: "start", 
+	center: "center", 
+	end: "end", 
+	between: "space-between",
+	around: "space-around"
+) !default;
+
+@mixin bsxui-make-align-items-classes($map: $bsxui-justify-content-values) {
+	@each $key, $val in $map {
+	    [data-justify-content="#{$key}"]#{$bsxui-editor-row-selector} {
+	    	justify-content: #{$val};
+	    }
+	}
+}
+
+@include bsxui-make-align-items-classes();
+
+// form row
+
+[data-form-row="true"]#{$bsxui-editor-row-selector} {
+	margin-right: -$form-grid-gutter-width / 2;
+	margin-left: -$form-grid-gutter-width / 2;
+}
+
+
+// reset editor row inner width (.row)
+
+#{$bsxui-row-with-cols-block-selector} > .row {
+	display: block;
+	margin-left: 0;
+	margin-right: 0;
+}
+
+
+// col mixin
+
+@mixin make-editor-grid-columns($columns: $grid-columns, $gutter: $bsx-grid-gutter-width, $breakpoints: $grid-breakpoints) {
+  // Common properties for all breakpoints
+  %grid-column {
+    position: relative;
+    width: 100%;
+    padding-right: $gutter / 2;
+    padding-left: $gutter / 2;
+  }
+
+  @each $breakpoint in map-keys($breakpoints) {
+    $infix: breakpoint-infix($breakpoint, $breakpoints);
+
+    @if $columns > 0 {
+      // Allow columns to stretch full width below their breakpoints
+      @for $i from 1 through $columns {
+        //.col#{$infix}-#{$i} {
+        [data-size#{$infix}="#{$i}"] {
+          @extend %grid-column;
+        }
+      }
+    }
+
+    //.col#{$infix},
+    //.col#{$infix}-auto {
+    [data-size#{$infix}="null"],
+    [data-size#{$infix}="auto"] {
+      @extend %grid-column;
+    }
+
+    @include media-breakpoint-up($breakpoint, $breakpoints) {
+      // Provide basic `.col-{bp}` classes for equal-width flexbox columns
+      //.col#{$infix} {
+      [data-size#{$infix}="null"] {
+        flex-basis: 0;
+        flex-grow: 1;
+        min-width: 0; // See https://github.com/twbs/bootstrap/issues/25410
+        max-width: 100%;
+      }
+
+      //.col#{$infix}-auto {
+      [data-size#{$infix}="auto"] {
+        @include make-col-auto();
+      }
+
+      @if $columns > 0 {
+        @for $i from 1 through $columns {
+          //.col#{$infix}-#{$i} {
+          [data-size#{$infix}="#{$i}"] {
+            @include make-col($i, $columns);
+          }
+        }
+      }
+    }
+  }
+}
+
+
+// col build
+@include make-editor-grid-columns();
+
+
+// form row col
+
+[data-form-row="true"]#{$bsxui-editor-col-selector} {
+	padding-right: $form-grid-gutter-width / 2;
+	padding-left: $form-grid-gutter-width / 2;
+}
+
+
+// fix editor col margin x
+#{$bsxui-editor-col-selector}[data-size] {
+    margin-left: unset;
+    margin-right: unset;
+}
+
+
+// reset editor col inner width (.col{...})
+
+[data-size] {
+    > [class*="col"] {
+    	width: 100%;
+	    padding-right: 0;
+	    padding-left: 0;
+	    max-width: unset;
+    }
+}
+
+
+// resize block list appender
+
+[data-size] ~ #{$bsxui-col-list-appender-selector} {
+    width: 100%;
+    padding-right: $bsx-grid-gutter-width / 2;
+    padding-left: $bsx-grid-gutter-width / 2;
+}
+
+
