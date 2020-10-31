@@ -13,10 +13,10 @@ function setBlockCustomClassName( className, blockName ) {
 
     // [ original-wp-class-name, add-class-name, replace-original-class-name (default: false) ]
     const classNamesMap = [
-        [ 'wp-block-code', 'text-success' ],
-        [ 'wp-block-columns', 'row' ],
-        [ 'wp-block-column', 'col-md', false ],
-        [ 'wp-block-button__link', 'btn btn-outline-primary', true ],
+        // [ 'wp-block-code', 'text-success' ],
+        // [ 'wp-block-columns', 'row' ],
+        // [ 'wp-block-column', 'col-md', false ],
+        // [ 'wp-block-button__link', 'btn btn-outline-primary', true ],
     ];
 
     let done = false;

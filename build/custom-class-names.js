@@ -118,7 +118,11 @@ function setBlockCustomClassName(className, blockName) {
       className;
       */
   // [ original-wp-class-name, add-class-name, replace-original-class-name (default: false) ]
-  var classNamesMap = [['wp-block-code', 'text-success'], ['wp-block-columns', 'row'], ['wp-block-column', 'col-md', false], ['wp-block-button__link', 'btn btn-outline-primary', true]];
+  var classNamesMap = [// [ 'wp-block-code', 'text-success' ],
+    // [ 'wp-block-columns', 'row' ],
+    // [ 'wp-block-column', 'col-md', false ],
+    // [ 'wp-block-button__link', 'btn btn-outline-primary', true ],
+  ];
   var done = false;
   var classNames = className.split(' ');
 
