@@ -1,5 +1,3 @@
-import { addClassNames } from './../_functions/add-class-names.js';
-
 const { __, setLocaleData } = wp.i18n;
 const {
     registerBlockType,
@@ -18,6 +16,9 @@ const {
 const { 
     withSelect, 
 } = wp.data;
+
+
+import { addClassNames } from './../_functions/add-class-names.js';
 
 const makeContainerClassNames = ( isFluid, containerBreakpoint ) => {
 
@@ -75,14 +76,6 @@ registerBlockType( 'bsx-blocks/container', {
             default: '',
         },
     },
-
-    /*
-    getEditWrapperProps() {
-        return {
-            'data-editor-title': 'show',
-        };
-    },
-    */
 
     edit: withSelect( ( select, { clientId } ) => {
         const { 
