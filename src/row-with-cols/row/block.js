@@ -23,6 +23,7 @@ const {
     withDispatch, 
 } = wp.data;
 
+
 const makeRowClassNames = ( alignItems, justifyContent, noGutters, formRow, marginBefore, marginAfter, paddingBefore, paddingAfter ) => {
 
     const prefix = 'col';
@@ -74,12 +75,14 @@ const makeRowClassNames = ( alignItems, justifyContent, noGutters, formRow, marg
 
 registerBlockType( 'bsx-blocks/row-with-cols', {
     title: __( 'BSX Columns', 'bsx-blocks' ),
-    icon: 'grid-view',
+    icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" role="img" aria-hidden="true" focusable="false"
+><path fill-rule="evenodd" clip-rule="evenodd" d="M41 14a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h30a2 2 0 0 0 2-2V14zM28.5 34h-9V14h9v20zm2 0V14H39v20h-8.5zm-13 0H9V14h8.5v20z"/></svg>
+    ),
     category: 'layout',
     attributes: {
         templateName: {
             type: 'string',
-            default: '1-1-1',
         },
         enableInheritanceToCols: {
             type: 'boolean',
@@ -210,7 +213,7 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
             updateBlockAttributes,
         } = props;
 
-        const colsTemplates = [
+        const templates = [
             {
                 name: '1-1-1',
                 title: __( '3 Columns (1:1:1)', 'bsx-blocks' ),
@@ -479,7 +482,7 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
                         <path 
                             fill-rule="evenodd" 
                             clip-rule="evenodd" 
-                            d="M23.58 26.28c0-.600003.1499985-1.099998.45-1.5.3000015-.400002.7433304-.8399976 1.33-1.32.5600028-.4533356.9833319-.8699981 1.27-1.25s.43-.8433306.43-1.39c0-.5466694-.1733316-1.0566643-.52-1.53s-.986662-.71-1.92-.71c-1.1066722 0-1.8533314.2766639-2.24.83-.3866686.5533361-.58 1.1766632-.58 1.87 0 .1466674.0033333.2666662.01.36.0066667.0933338.01.1533332.01.18h-1.78c-.0133334-.0533336-.0266666-.146666-.04-.28-.0133334-.133334-.02-.2733326-.02-.42 0-.7733372.1766649-1.4666636.53-2.08.3533351-.6133364.8899964-1.0999982 1.61-1.46.7200036-.3600018 1.5999948-.54 2.64-.54 1.2133394 0 2.2033295.3233301 2.97.97s1.15 1.5099946 1.15 2.59c0 .7066702-.1033323 1.3033309-.31 1.79-.2066677.4866691-.4533319.8799985-.74 1.18-.2866681.3000015-.6566644.6233316-1.11.97-.4800024.3866686-.8333322.7166653-1.06.99-.2266678.2733347-.34.6233312-.34 1.05v.82h-1.74zm-.14 2.56h2V31h-2zM39 12c1.1046 0 2 .8954 2 2v20c0 1.1046-.8954 2-2 2H9c-1.10457 0-2-.8954-2-2V14c0-1.1046.89543-2 2-2h30zm0 22V14H9v20h30z"
+                            d="M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9V14h30V34z M22.49,31.03h2.35v-2.21h-2.35V31.03z M22.51,19.38c0.36-0.28,0.81-0.42,1.35-0.42c0.63,0,1.1,0.17,1.43,0.5s0.49,0.81,0.49,1.44 c0,0.54-0.14,1.03-0.43,1.45s-0.68,0.89-1.18,1.38c-0.71,0.6-1.16,1.09-1.35,1.46s-0.3,1.02-0.3,1.94h2.3 c0-0.56,0.04-0.97,0.13-1.25s0.32-0.58,0.68-0.9c0.72-0.58,1.31-1.21,1.77-1.88c0.46-0.67,0.69-1.42,0.69-2.23 c0-1.22-0.37-2.16-1.09-2.83c-0.73-0.67-1.77-1-3.12-1c-1.25,0-2.26,0.31-3.02,0.94c-0.76,0.62-1.15,1.52-1.17,2.69h2.3 C21.97,20.09,22.15,19.66,22.51,19.38z"
                         />
                     </svg>
                 ),
@@ -501,12 +504,12 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
         ];
 
         const getColsTemplate = ( currentTemplateName ) => {
-            const currentTemplate = colsTemplates.find( ( item ) => item.name === currentTemplateName );
+            const currentTemplate = templates.find( ( item ) => item.name === currentTemplateName );
             return currentTemplate ? currentTemplate.template : [];
         };
 
         const getColsTemplateLock = ( currentTemplateName ) => {
-            const currentTemplate = colsTemplates.find( ( item ) => item.name === currentTemplateName );
+            const currentTemplate = templates.find( ( item ) => item.name === currentTemplateName );
             return currentTemplate ? currentTemplate.templateLock : false;
         };
 
@@ -821,7 +824,7 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
                     title={ __( 'Columns Layout', 'bsx-blocks' ) }
                 >
                     <div className="bsxui-icon-text-button-list">
-                        { colsTemplates.map( ( template, index ) => (
+                        { templates.map( ( template, index ) => (
                             <Button
                                 label={ template.title }
                                 onClick={ () => {
@@ -1080,15 +1083,47 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
                     help={ __( 'Inner spacer after', 'bsx-blocks' ) }
                 />
             </InspectorAdvancedControls>,
-            (
-                <div className={ rowClassNames } data-template-name={ templateName }>
-                    <InnerBlocks 
-                        template={ colsTemplate }
-                        templateLock={ colsTemplateLock }
-                        allowedBlocks={ allowedBlocks }
-                    />
-                </div>
-            )
+
+
+            <>
+                {
+                    ! templateName ? (
+                        <div class="bsxui-initial-inline-control">
+                            <div class="bsxui-initial-inline-control-heading">
+                                { __( 'Please select Columns template', 'bsx-blocks' ) }
+                            </div>
+                            <div className="bsxui-icon-text-button-list">
+                                { templates.map( ( template, index ) => (
+                                    <Button
+                                        label={ template.title }
+                                        onClick={ () => {
+                                            onColsTemplateChange( template.name );
+                                        } }
+                                        className={ 'bsxui-icon-text-button-list-item ' + ( templateName === template.name ? 'active' : '' ) }
+                                    >
+                                        <div class="bsxui-icon-text-button-list-item-icon">
+                                            { template.icon }
+                                        </div>
+                                        <div class="bsxui-icon-text-button-list-item-label">
+                                            { template.title }
+                                        </div>
+                                    </Button>
+                                ) ) }
+                            </div>
+                        </div>
+                    )
+                    : 
+                    (
+                        <div className={ rowClassNames } data-template-name={ templateName }>
+                            <InnerBlocks 
+                                template={ colsTemplate }
+                                templateLock={ colsTemplateLock }
+                                allowedBlocks={ allowedBlocks }
+                            />
+                        </div>
+                    )
+                }
+            </>
         ];
     } ) ),
     save: ( props ) => {

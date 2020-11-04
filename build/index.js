@@ -505,6 +505,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
 
 
 
@@ -530,7 +531,8 @@ var _wp$components = wp.components,
     RadioControl = _wp$components.RadioControl;
 var withSelect = wp.data.withSelect;
 
-var makeClassNames = function makeClassNames(bannerType, bannerSize, belowNavbar, bgAttachment, bgSize, bgPosition, alignItems, marginBefore, marginAfter, paddingBefore, paddingAfter) {
+
+var makeBannerClassNames = function makeBannerClassNames(bannerType, bannerSize, belowNavbar, bgAttachment, bgSize, bgPosition, alignItems, templateName, marginBefore, marginAfter, paddingBefore, paddingAfter) {
   var classNames = [];
 
   if (true) {
@@ -538,25 +540,32 @@ var makeClassNames = function makeClassNames(bannerType, bannerSize, belowNavbar
     classNames.push('banner-' + bannerType + '-' + bannerSize);
   }
 
-  if (belowNavbar) {
+  if (!!belowNavbar) {
     classNames.push('below-navbar-content');
   }
 
-  if (bgAttachment) {
+  if (!!bgAttachment) {
     classNames.push('bg-' + bgAttachment);
   }
 
-  if (bgSize) {
+  if (!!bgSize) {
     classNames.push('bg-' + bgSize);
   }
 
-  if (bgPosition) {
+  if (!!bgPosition) {
     classNames.push('bg-' + bgPosition);
   }
 
-  if (alignItems) {
+  if (!!alignItems) {
     classNames.push('d-flex');
-    classNames.push('align-items-' + alignItems);
+
+    if (templateName !== 'column-row-banner') {
+      classNames.push('align-items-' + alignItems);
+    }
+  }
+
+  if (!!templateName && templateName == 'column-row-banner' && classNames.indexOf('d-flex') == -1) {
+    classNames.push('d-flex');
   }
 
   if (marginBefore && marginBefore === marginAfter) {
@@ -581,6 +590,18 @@ var makeClassNames = function makeClassNames(bannerType, bannerSize, belowNavbar
     if (paddingAfter) {
       classNames.push('pb-' + paddingAfter);
     }
+  }
+
+  return classNames.join(' ');
+};
+
+var makeBannerInnerClassNames = function makeBannerInnerClassNames(config) {
+  var classNames = ['banner-inner'];
+
+  if (!!config.templateName && config.templateName == 'column-row-banner') {
+    classNames.push('w-100');
+    classNames.push('d-flex');
+    classNames.push('flex-column');
   }
 
   return classNames.join(' ');
@@ -885,17 +906,29 @@ var makeSaveAttributes = function makeSaveAttributes(attributes) {
   }
 
   return nonEmptyAttributes;
-}; // TODO: add additional portrait option
+}; // insert directly into banner element without `.banner-inner`
 
 
+var noBannerInnerTemplateNames = ['column-row-banner'];
 registerBlockType('bsx-blocks/banner', {
   title: __('BSX Banner', 'bsx-blocks'),
-  icon: 'category',
+  icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "48",
+    height: "48",
+    viewBox: "0 0 48 48",
+    role: "img",
+    "aria-hidden": "true",
+    focusable: "false"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("path", {
+    "fill-rule": "evenodd",
+    "clip-rule": "evenodd",
+    d: "M39,16H9c-1.1,0-2,0.9-2,2v12c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V18C41,16.9,40.1,16,39,16z M12,18c1.66,0,3,1.34,3,3 s-1.34,3-3,3s-3-1.34-3-3S10.34,18,12,18z M39,30H9v-2l8-3l4,2l12-6l6,4V30z"
+  })),
   category: 'layout',
   attributes: {
     templateName: {
-      type: 'string',
-      default: 'empty'
+      type: 'string'
     },
     belowNavbar: {
       type: 'boolean',
@@ -1016,17 +1049,17 @@ registerBlockType('bsx-blocks/banner', {
       name: 'empty',
       title: __('Empty', 'bsx-blocks'),
       icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
         width: "48",
         height: "48",
         viewBox: "0 0 48 48",
-        xmlns: "http://www.w3.org/2000/svg",
         role: "img",
         "aria-hidden": "true",
         focusable: "false"
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("path", {
         "fill-rule": "evenodd",
         "clip-rule": "evenodd",
-        d: "M23.58 26.28c0-.600003.1499985-1.099998.45-1.5.3000015-.400002.7433304-.8399976 1.33-1.32.5600028-.4533356.9833319-.8699981 1.27-1.25s.43-.8433306.43-1.39c0-.5466694-.1733316-1.0566643-.52-1.53s-.986662-.71-1.92-.71c-1.1066722 0-1.8533314.2766639-2.24.83-.3866686.5533361-.58 1.1766632-.58 1.87 0 .1466674.0033333.2666662.01.36.0066667.0933338.01.1533332.01.18h-1.78c-.0133334-.0533336-.0266666-.146666-.04-.28-.0133334-.133334-.02-.2733326-.02-.42 0-.7733372.1766649-1.4666636.53-2.08.3533351-.6133364.8899964-1.0999982 1.61-1.46.7200036-.3600018 1.5999948-.54 2.64-.54 1.2133394 0 2.2033295.3233301 2.97.97s1.15 1.5099946 1.15 2.59c0 .7066702-.1033323 1.3033309-.31 1.79-.2066677.4866691-.4533319.8799985-.74 1.18-.2866681.3000015-.6566644.6233316-1.11.97-.4800024.3866686-.8333322.7166653-1.06.99-.2266678.2733347-.34.6233312-.34 1.05v.82h-1.74zm-.14 2.56h2V31h-2zM39 12c1.1046 0 2 .8954 2 2v20c0 1.1046-.8954 2-2 2H9c-1.10457 0-2-.8954-2-2V14c0-1.1046.89543-2 2-2h30zm0 22V14H9v20h30z"
+        d: "M39,16H9c-1.1,0-2,0.9-2,2v12c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V18C41,16.9,40.1,16,39,16z M24.72,30.03 h-2.02v-1.89h2.02V30.03z M26.91,23.22c-0.39,0.58-0.9,1.12-1.52,1.61c-0.31,0.28-0.51,0.53-0.58,0.77s-0.11,0.6-0.11,1.07h-1.98 c0.01-0.79,0.09-1.35,0.26-1.67c0.17-0.32,0.56-0.74,1.16-1.25c0.43-0.42,0.77-0.82,1.02-1.18c0.24-0.37,0.37-0.78,0.37-1.25 c0-0.54-0.14-0.95-0.42-1.23s-0.69-0.43-1.22-0.43c-0.46,0-0.85,0.12-1.15,0.36c-0.31,0.24-0.46,0.61-0.46,1.1h-1.98 c0.01-1,0.34-1.77,1-2.31c0.66-0.54,1.52-0.8,2.59-0.8c1.16,0,2.05,0.29,2.68,0.86s0.94,1.38,0.94,2.43 C27.5,22.01,27.3,22.65,26.91,23.22z"
       })),
       template: [['core/paragraph', {
         placeholder: 'Change paragraph text or delete...'
@@ -1036,24 +1069,80 @@ registerBlockType('bsx-blocks/banner', {
       name: 'container-with-heading',
       title: __('Container with Heading', 'bsx-blocks'),
       icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
         width: "48",
         height: "48",
         viewBox: "0 0 48 48",
-        xmlns: "http://www.w3.org/2000/svg",
         role: "img",
         "aria-hidden": "true",
         focusable: "false"
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("path", {
         "fill-rule": "evenodd",
         "clip-rule": "evenodd",
-        d: "M23.58 26.28c0-.600003.1499985-1.099998.45-1.5.3000015-.400002.7433304-.8399976 1.33-1.32.5600028-.4533356.9833319-.8699981 1.27-1.25s.43-.8433306.43-1.39c0-.5466694-.1733316-1.0566643-.52-1.53s-.986662-.71-1.92-.71c-1.1066722 0-1.8533314.2766639-2.24.83-.3866686.5533361-.58 1.1766632-.58 1.87 0 .1466674.0033333.2666662.01.36.0066667.0933338.01.1533332.01.18h-1.78c-.0133334-.0533336-.0266666-.146666-.04-.28-.0133334-.133334-.02-.2733326-.02-.42 0-.7733372.1766649-1.4666636.53-2.08.3533351-.6133364.8899964-1.0999982 1.61-1.46.7200036-.3600018 1.5999948-.54 2.64-.54 1.2133394 0 2.2033295.3233301 2.97.97s1.15 1.5099946 1.15 2.59c0 .7066702-.1033323 1.3033309-.31 1.79-.2066677.4866691-.4533319.8799985-.74 1.18-.2866681.3000015-.6566644.6233316-1.11.97-.4800024.3866686-.8333322.7166653-1.06.99-.2266678.2733347-.34.6233312-.34 1.05v.82h-1.74zm-.14 2.56h2V31h-2zM39 12c1.1046 0 2 .8954 2 2v20c0 1.1046-.8954 2-2 2H9c-1.10457 0-2-.8954-2-2V14c0-1.1046.89543-2 2-2h30zm0 22V14H9v20h30z"
+        d: "M39,16H9c-1.1,0-2,0.9-2,2v12c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V18C41,16.9,40.1,16,39,16z M13,31h-1v-2h1V31z M13,27h-1 v-2h1V27z M13,23h-1v-2h1V23z M13,19h-1v-2h1V19z M27,26H14v-3h13V26z M36,31h-1v-2h1V31z M36,27h-1v-2h1V27z M36,23h-1v-2h1V23z M36,19h-1v-2h1V19z"
       })),
       template: [['bsx-blocks/container', {}, [['core/heading', {
-        placeholder: 'Add heading, configure heading level...',
-        className: 'display-1 text-white text-shadow-darker'
+        placeholder: 'Add heading text, configure heading level...',
+        textSize: 'display-1',
+        textColor: 'white',
+        textShadow: 'darker'
       }]]]],
       templateLock: false
-    }];
+    }, {
+      name: 'column-row-banner',
+      title: __('Bottom bar Banner', 'bsx-blocks'),
+      icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M39,16H9c-1.1,0-2,0.9-2,2v12c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V18C41,16.9,40.1,16,39,16z M35,17h1v2h-1V17z M35,21h1v2 h-1V21z M35,25h1v2h-1V25z M14,21h13v3H14V21z M12,17h1v2h-1V17z M12,21h1v2h-1V21z M12,25h1v2h-1V25z M39,30H9v-2h30V30z"
+      })),
+      template: [['bsx-blocks/column-rows', {
+        templateName: 'default-auto',
+        display: 'flex',
+        flexDirection: 'column',
+        className: 'banner-inner'
+      }, [['bsx-blocks/column-row', {
+        columnRowType: '',
+        display: 'flex',
+        alignItems: 'center'
+      }, [['bsx-blocks/wrapper', {
+        className: 'w-100'
+      }, [['bsx-blocks/container', {}, [['core/heading', {
+        placeholder: 'Add heading text, configure heading level...',
+        textSize: 'display-1',
+        textColor: 'white',
+        textShadow: 'darker'
+      }]]]]]]], ['bsx-blocks/column-row', {
+        columnRowType: 'auto'
+      }, [['bsx-blocks/wrapper', {
+        bgColor: 'primary-transparent',
+        paddingBefore: '3',
+        paddingAfter: '3'
+      }, [['bsx-blocks/container', {}, [['core/paragraph', {
+        placeholder: 'Add text...',
+        textSize: 'lead',
+        textColor: 'white',
+        marginAfter: '0'
+      }]]]]]]]]]],
+      templateLock: false
+    }]; // <div class="below-navbar-content d-flex bg-fixed bg-cover banner-vh-2 bg-66c bg-md-c" data-fn="lazyload" data-src="/wp-content/themes/bsx-wordpress-example/assets/example-img/example-banner-005.jpg">
+    //     <div class="banner-inner w-100 d-flex flex-column">
+    //         <div class="column-row d-flex">
+    //             <div class="w-100 d-flex">
+    //             </div>
+    //         </div>
+    //         <div class="column-row-auto">
+    //         </div>
+    //     </div>
+    // </div>
 
     var getTemplate = function getTemplate(currentTemplateName) {
       var currentTemplate = templates.find(function (item) {
@@ -1068,9 +1157,8 @@ registerBlockType('bsx-blocks/banner', {
       template = getTemplate(value);
       setAttributes({
         templateName: value
-      });
-      console.log('changed templateName: ' + value);
-      console.log('changed template: ' + template);
+      }); // console.log( 'changed templateName: ' + value );
+      // console.log( 'changed template: ' + template );
     };
 
     var onChangeBelowNavbar = function onChangeBelowNavbar(value) {
@@ -1262,12 +1350,15 @@ registerBlockType('bsx-blocks/banner', {
         label: portraitImgSize.width + 'x' + portraitImgSize.height + (portraitImgSize.width === portraitImgSize.height ? ' ' + __('(Square format)', 'bsx-blocks') : '')
       });
     });
-    var bannerClassName = makeClassNames(bannerType, bannerSize, belowNavbar, bgAttachment, bgSize, bgPosition, alignItems, marginBefore, marginAfter, paddingBefore, paddingAfter);
+    var bannerClassName = makeBannerClassNames(bannerType, bannerSize, belowNavbar, bgAttachment, bgSize, bgPosition, alignItems, templateName, marginBefore, marginAfter, paddingBefore, paddingAfter);
+    var bannerInnerClassName = makeBannerInnerClassNames({
+      templateName: templateName
+    });
     var bannerStyle = {
       backgroundImage: "url(".concat(url, ")")
     };
     return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(PanelBody, {
-      title: __('Banner Template', 'bsx-blocks')
+      title: __('Banner template', 'bsx-blocks')
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
       className: "bsxui-icon-text-button-list"
     }, templates.map(function (template, index) {
@@ -1579,7 +1670,25 @@ registerBlockType('bsx-blocks/banner', {
         label: __('extra large', 'bsx-blocks')
       }],
       help: __('Inner spacer after', 'bsx-blocks')
-    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["Fragment"], null, !templateName ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+      class: "bsxui-initial-inline-control"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+      class: "bsxui-initial-inline-control-heading"
+    }, __('Please select Banner template', 'bsx-blocks')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+      className: "bsxui-icon-text-button-list"
+    }, templates.map(function (template, index) {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(Button, {
+        label: template.title,
+        onClick: function onClick() {
+          onTemplateChange(template.name);
+        },
+        className: 'bsxui-icon-text-button-list-item ' + (templateName === template.name ? 'active' : '')
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+        class: "bsxui-icon-text-button-list-item-icon"
+      }, template.icon), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+        class: "bsxui-icon-text-button-list-item-label"
+      }, template.title));
+    }))) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
       className: bannerClassName,
       style: bannerStyle
     }, !imgId && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
@@ -1595,12 +1704,19 @@ registerBlockType('bsx-blocks/banner', {
           isSecondary: true
         }, __('Select / upload Image', 'bsx-blocks'));
       }
-    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(InnerBlocks, {
+    })), noBannerInnerTemplateNames.indexOf(templateName) == -1 ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+      className: bannerInnerClassName
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(InnerBlocks, {
       template: template,
       renderAppender: hasInnerBlocks ? undefined : function () {
         return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(InnerBlocks.ButtonBlockAppender, null);
       }
-    }))];
+    })) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(InnerBlocks, {
+      template: template,
+      renderAppender: hasInnerBlocks ? undefined : function () {
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(InnerBlocks.ButtonBlockAppender, null);
+      }
+    })))];
   }),
   save: function save(props) {
     var className = props.className,
@@ -1624,8 +1740,14 @@ registerBlockType('bsx-blocks/banner', {
         marginBefore = _props$attributes2.marginBefore,
         marginAfter = _props$attributes2.marginAfter,
         paddingBefore = _props$attributes2.paddingBefore,
-        paddingAfter = _props$attributes2.paddingAfter;
-    var bannerClassName = makeClassNames(bannerType, bannerSize, belowNavbar, bgAttachment, bgSize, bgPosition, alignItems, marginBefore, marginAfter, paddingBefore, paddingAfter);
+        paddingAfter = _props$attributes2.paddingAfter; // TODO: use addClassNames
+    // TODO: add templateName
+    // TODO: make bannerInnerCLassName
+
+    var bannerClassName = makeBannerClassNames(bannerType, bannerSize, belowNavbar, bgAttachment, bgSize, bgPosition, alignItems, templateName, marginBefore, marginAfter, paddingBefore, paddingAfter);
+    var bannerInnerClassName = makeBannerInnerClassNames({
+      templateName: templateName
+    });
     var srcsetJson = makeSrcsetJson(imgSizes, imgSizeIndex, portraitImgSizes, portraitImgSizeIndex);
     var saveAttributes = makeSaveAttributes({
       'data-srcset': srcsetJson
@@ -1634,9 +1756,9 @@ registerBlockType('bsx-blocks/banner', {
       className: bannerClassName,
       "data-fn": "lazyload",
       "data-src": url
-    }, saveAttributes), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
-      class: "banner-inner"
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(InnerBlocks.Content, null)));
+    }, saveAttributes), noBannerInnerTemplateNames.indexOf(templateName) == -1 ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+      className: bannerInnerClassName
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(InnerBlocks.Content, null)) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(InnerBlocks.Content, null));
   }
 });
 
@@ -2255,6 +2377,532 @@ registerBlockType('bsx-blocks/buttons', {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _button_block_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./button/block.js */ "./src/buttons/button/block.js");
 /* harmony import */ var _buttons_wrapper_block_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./buttons-wrapper/block.js */ "./src/buttons/buttons-wrapper/block.js");
+
+
+
+/***/ }),
+
+/***/ "./src/column-rows/column-row/block.js":
+/*!*********************************************!*\
+  !*** ./src/column-rows/column-row/block.js ***!
+  \*********************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+
+var _wp$i18n = wp.i18n,
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData;
+var registerBlockType = wp.blocks.registerBlockType;
+var _wp$blockEditor = wp.blockEditor,
+    InnerBlocks = _wp$blockEditor.InnerBlocks,
+    InspectorControls = _wp$blockEditor.InspectorControls;
+var _wp$components = wp.components,
+    TextControl = _wp$components.TextControl,
+    PanelBody = _wp$components.PanelBody,
+    RangeControl = _wp$components.RangeControl,
+    ToggleControl = _wp$components.ToggleControl,
+    Button = _wp$components.Button,
+    SelectControl = _wp$components.SelectControl;
+var withSelect = wp.data.withSelect;
+
+var makeColumnRowClassNames = function makeColumnRowClassNames(config) {
+  var classNames = [];
+
+  if (!!config.columnRowType) {
+    classNames.push('column-row-' + config.columnRowType);
+  } else {
+    // default class name
+    classNames.push('column-row');
+  }
+
+  if (!!config.alignItems) {
+    classNames.push('align-items-' + config.alignItems);
+  }
+
+  if (!!config.display) {
+    classNames.push('d-' + config.display);
+  } //console.log( 'classNames.join( \' \' ): "' + classNames.join( ' ' ) + '"' );
+
+
+  return classNames.join(' ');
+};
+
+registerBlockType('bsx-blocks/column-row', {
+  title: __('BSX Column Row', 'bsx-blocks'),
+  icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "48",
+    height: "48",
+    viewBox: "0 0 48 48",
+    role: "img",
+    "aria-hidden": "true",
+    focusable: "false"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+    "fill-rule": "evenodd",
+    "clip-rule": "evenodd",
+    d: "M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9v-5h30V34z M39,27H9 V14h30V27z"
+  })),
+  category: 'layout',
+  parent: ['bsx-blocks/column-rows'],
+  attributes: {
+    columnRowType: {
+      type: 'string',
+      default: ''
+    },
+    alignItems: {
+      type: 'string'
+    },
+    display: {
+      type: 'string'
+    }
+  },
+  getEditWrapperProps: function getEditWrapperProps(attributes) {
+    var columnRowType = attributes.columnRowType,
+        alignItems = attributes.alignItems,
+        display = attributes.display;
+    return {
+      'data-column-row-type': columnRowType,
+      'data-align-items': alignItems,
+      'data-display': display
+    };
+  },
+  edit: function edit(props) {
+    var className = props.className,
+        _props$attributes = props.attributes,
+        columnRowType = _props$attributes.columnRowType,
+        alignItems = _props$attributes.alignItems,
+        display = _props$attributes.display,
+        setAttributes = props.setAttributes;
+
+    var hasInnerBlocks = function hasInnerBlocks(children) {
+      return children.length > 0;
+    };
+
+    var onChangeColumnRowType = function onChangeColumnRowType(value) {
+      setAttributes({
+        columnRowType: value
+      });
+    };
+
+    var onChangeAlignItems = function onChangeAlignItems(value) {
+      setAttributes({
+        alignItems: value
+      });
+    };
+
+    var onChangeDisplay = function onChangeDisplay(value) {
+      setAttributes({
+        display: value
+      });
+    };
+
+    var config = {
+      columnRowType: columnRowType,
+      alignItems: alignItems,
+      display: display
+    };
+    var columnRowClassNames = makeColumnRowClassNames(config);
+    /*
+    if ( !! props.attributes ) {
+        console.log( 'build col: ' );
+        for ( let [ key, value ] of Object.entries( props.attributes ) ) {
+            console.log( 'key: "' + key + '", value: "' + value + '"' );
+        }
+    }
+    */
+
+    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
+      title: __('Column Row', 'bsx-blocks')
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+      label: __('Columns Row height', 'bsx-blocks'),
+      value: columnRowType,
+      onChange: onChangeColumnRowType,
+      options: [{
+        value: '',
+        label: __('– Default – (flexible height)', 'bsx-blocks')
+      }, {
+        value: 'auto',
+        label: __('Auto (static height)', 'bsx-blocks')
+      }],
+      help: __('Column Rows will share their patent’s height dividing it into flexible and/or static height segments.', 'bsx-blocks')
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+      label: __('Vertical Align', 'bsx-blocks'),
+      value: alignItems,
+      onChange: onChangeAlignItems,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: 'start',
+        label: __('Start', 'bsx-blocks')
+      }, {
+        value: 'center',
+        label: __('Center', 'bsx-blocks')
+      }, {
+        value: 'end',
+        label: __('End', 'bsx-blocks')
+      }]
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+      label: __('Display', 'bsx-blocks'),
+      value: display,
+      onChange: onChangeDisplay,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: 'flex',
+        label: __('Flex', 'bsx-blocks')
+      }]
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: columnRowClassNames,
+      "data-block": "column-row",
+      "data-column-row-type": columnRowType
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks, {
+      renderAppender: hasInnerBlocks ? undefined : function () {
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks.ButtonBlockAppender, null);
+      }
+    }))];
+  },
+  save: function save(props) {
+    var className = props.className,
+        _props$attributes2 = props.attributes,
+        columnRowType = _props$attributes2.columnRowType,
+        alignItems = _props$attributes2.alignItems,
+        display = _props$attributes2.display;
+    var config = {
+      columnRowType: columnRowType,
+      alignItems: alignItems,
+      display: display
+    };
+    var columnRowClassNames = makeColumnRowClassNames(config);
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: columnRowClassNames
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks.Content, null));
+  }
+});
+
+/***/ }),
+
+/***/ "./src/column-rows/column-rows/block.js":
+/*!**********************************************!*\
+  !*** ./src/column-rows/column-rows/block.js ***!
+  \**********************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+
+var _wp$i18n = wp.i18n,
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData;
+var registerBlockType = wp.blocks.registerBlockType;
+var _wp$blockEditor = wp.blockEditor,
+    InnerBlocks = _wp$blockEditor.InnerBlocks,
+    InspectorControls = _wp$blockEditor.InspectorControls,
+    InspectorAdvancedControls = _wp$blockEditor.InspectorAdvancedControls;
+var _wp$components = wp.components,
+    TextControl = _wp$components.TextControl,
+    PanelBody = _wp$components.PanelBody,
+    RangeControl = _wp$components.RangeControl,
+    ToggleControl = _wp$components.ToggleControl,
+    SelectControl = _wp$components.SelectControl,
+    Button = _wp$components.Button,
+    SVG = _wp$components.SVG,
+    Path = _wp$components.Path;
+var _wp$data = wp.data,
+    withSelect = _wp$data.withSelect,
+    withDispatch = _wp$data.withDispatch;
+
+var makeColumnRowsClassNames = function makeColumnRowsClassNames(config) {
+  var classNames = [];
+
+  if (!!config.display) {
+    classNames.push('d-' + config.display);
+  }
+
+  if (!!config.flexDirection) {
+    classNames.push('flex-' + config.flexDirection);
+  }
+
+  if (!!config.width) {
+    classNames.push('w-' + config.width);
+  } // console.log( 'classNames.join( \' \' ): "' + classNames.join( ' ' ) + '"' );
+
+
+  return classNames.join(' ');
+};
+
+registerBlockType('bsx-blocks/column-rows', {
+  title: __('BSX Column Rows', 'bsx-blocks'),
+  icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "48",
+    height: "48",
+    viewBox: "0 0 48 48",
+    role: "img",
+    "aria-hidden": "true",
+    focusable: "false"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+    "fill-rule": "evenodd",
+    "clip-rule": "evenodd",
+    d: "M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9v-5h30V34z M39,27H9 v-6h30V27z M39,19H9v-5h30V19z"
+  })),
+  category: 'layout',
+  attributes: {
+    templateName: {
+      type: 'string'
+    },
+    display: {
+      type: 'string',
+      default: 'flex'
+    },
+    flexDirection: {
+      type: 'string',
+      default: 'column'
+    },
+    width: {
+      type: 'string',
+      default: '100'
+    }
+  },
+  getEditWrapperProps: function getEditWrapperProps(attributes) {
+    var display = attributes.display,
+        flexDirection = attributes.flexDirection,
+        width = attributes.width;
+    return {
+      'data-display': display,
+      'data-flexDirection': flexDirection,
+      'data-width': width
+    };
+  },
+  edit: function edit(props) {
+    var className = props.className,
+        _props$attributes = props.attributes,
+        templateName = _props$attributes.templateName,
+        display = _props$attributes.display,
+        flexDirection = _props$attributes.flexDirection,
+        width = _props$attributes.width,
+        setAttributes = props.setAttributes,
+        isSelected = props.isSelected;
+    var templates = [{
+      name: 'default-auto',
+      title: __('Flex, static', 'bsx-blocks'),
+      icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9v-5h30V34z M39,27H9 V14h30V27z"
+      })),
+      template: [['bsx-blocks/column-row', {}, [['core/paragraph', {
+        placeholder: 'Edit or insert other content and delete paragraph...'
+      }]]], ['bsx-blocks/column-row', {
+        columnRowType: 'auto'
+      }, [['core/paragraph', {
+        placeholder: 'Edit or insert other content and delete paragraph...'
+      }]]]],
+      templateLock: false
+    }, {
+      name: 'auto-default',
+      title: __('Static, flex', 'bsx-blocks'),
+      icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M39,36H9c-1.1,0-2-0.9-2-2V14c0-1.1,0.9-2,2-2h30c1.1,0,2,0.9,2,2v20C41,35.1,40.1,36,39,36z M39,14H9v5h30V14z M39,21H9v13 h30V21z"
+      })),
+      template: [['bsx-blocks/column-row', {
+        columnRowType: 'auto'
+      }, [['core/paragraph', {
+        placeholder: 'Edit or insert other content and delete paragraph...'
+      }]]], ['bsx-blocks/column-row', {}, [['core/paragraph', {
+        placeholder: 'Edit or insert other content and delete paragraph...'
+      }]]]],
+      templateLock: false
+    }];
+
+    var getTemplate = function getTemplate(currentTemplateName) {
+      var currentTemplate = templates.find(function (item) {
+        return item.name === currentTemplateName;
+      });
+      return currentTemplate ? currentTemplate.template : [];
+    };
+
+    var getTemplateLock = function getTemplateLock(currentTemplateName) {
+      var currentTemplate = templates.find(function (item) {
+        return item.name === currentTemplateName;
+      });
+      return currentTemplate ? currentTemplate.templateLock : false;
+    };
+
+    var template = getTemplate(templateName);
+    var templateLock = getTemplateLock(templateName);
+    var allowedBlocks = ['bsx-blocks/column-row'];
+
+    var onTemplateChange = function onTemplateChange(value) {
+      template = getTemplate(value);
+      setAttributes({
+        templateName: value
+      }); // console.log( 'changed templateName: ' + value );
+      // console.log( 'changed template: ' + template );
+    };
+
+    var onChangeDisplay = function onChangeDisplay(value) {
+      setAttributes({
+        display: value
+      });
+    };
+
+    var onChangeFlexDirection = function onChangeFlexDirection(value) {
+      setAttributes({
+        flexDirection: value
+      });
+    };
+
+    var onChangeWidth = function onChangeWidth(value) {
+      setAttributes({
+        width: value
+      });
+    };
+
+    var config = {
+      display: display,
+      flexDirection: flexDirection,
+      width: width
+    };
+    var columnsRowsClassNames = makeColumnRowsClassNames(config);
+    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
+      title: __('Column Rows layout', 'bsx-blocks')
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "bsxui-icon-text-button-list"
+    }, templates.map(function (template, index) {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Button, {
+        label: template.title,
+        onClick: function onClick() {
+          onTemplateChange(template.name);
+        },
+        className: 'bsxui-icon-text-button-list-item ' + (templateName === template.name ? 'active' : '')
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+        class: "bsxui-icon-text-button-list-item-icon"
+      }, template.icon), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+        class: "bsxui-icon-text-button-list-item-label"
+      }, template.title));
+    })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorAdvancedControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
+      title: __('Column Rows settings', 'bsx-blocks')
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+      label: __('Display', 'bsx-blocks'),
+      value: display,
+      onChange: onChangeDisplay,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: 'flex',
+        label: __('Flex', 'bsx-blocks')
+      }]
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+      label: __('Flex direction', 'bsx-blocks'),
+      value: flexDirection,
+      onChange: onChangeFlexDirection,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: 'column',
+        label: __('Column', 'bsx-blocks')
+      }]
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+      label: __('Width', 'bsx-blocks'),
+      value: width,
+      onChange: onChangeWidth,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: '100',
+        label: __('100 %', 'bsx-blocks')
+      }]
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, !templateName ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      class: "bsxui-initial-inline-control"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      class: "bsxui-initial-inline-control-heading"
+    }, __('Please select Column Rows template', 'bsx-blocks')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "bsxui-icon-text-button-list"
+    }, templates.map(function (template, index) {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Button, {
+        label: template.title,
+        onClick: function onClick() {
+          onTemplateChange(template.name);
+        },
+        className: 'bsxui-icon-text-button-list-item ' + (templateName === template.name ? 'active' : '')
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+        class: "bsxui-icon-text-button-list-item-icon"
+      }, template.icon), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+        class: "bsxui-icon-text-button-list-item-label"
+      }, template.title));
+    }))) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: columnsRowsClassNames,
+      "data-block": "column-rows",
+      "data-template-name": templateName
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks, {
+      template: template,
+      templateLock: templateLock,
+      allowedBlocks: allowedBlocks
+    })))];
+  },
+  save: function save(props) {
+    var className = props.className,
+        _props$attributes2 = props.attributes,
+        templateName = _props$attributes2.templateName,
+        display = _props$attributes2.display,
+        flexDirection = _props$attributes2.flexDirection,
+        width = _props$attributes2.width;
+    var config = {
+      display: display,
+      flexDirection: flexDirection,
+      width: width
+    };
+    var columnsRowsClassNames = makeColumnRowsClassNames(config);
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: columnsRowsClassNames
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks.Content, null));
+  }
+});
+
+/***/ }),
+
+/***/ "./src/column-rows/index.js":
+/*!**********************************!*\
+  !*** ./src/column-rows/index.js ***!
+  \**********************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _column_rows_block_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./column-rows/block.js */ "./src/column-rows/column-rows/block.js");
+/* harmony import */ var _column_row_block_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./column-row/block.js */ "./src/column-rows/column-row/block.js");
 
 
 
@@ -2911,12 +3559,14 @@ registerBlockType('bsx-blocks/img-gallery', {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _banner_block_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./banner/block.js */ "./src/banner/block.js");
 /* harmony import */ var _buttons_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./buttons/index.js */ "./src/buttons/index.js");
-/* harmony import */ var _container_block_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./container/block.js */ "./src/container/block.js");
-/* harmony import */ var _img_gallery_block_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./img-gallery/block.js */ "./src/img-gallery/block.js");
-/* harmony import */ var _lazy_img_block_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./lazy-img/block.js */ "./src/lazy-img/block.js");
-/* harmony import */ var _row_with_cols_index_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./row-with-cols/index.js */ "./src/row-with-cols/index.js");
-/* harmony import */ var _section_block_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./section/block.js */ "./src/section/block.js");
-/* harmony import */ var _wrapper_block_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./wrapper/block.js */ "./src/wrapper/block.js");
+/* harmony import */ var _column_rows_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./column-rows/index.js */ "./src/column-rows/index.js");
+/* harmony import */ var _container_block_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./container/block.js */ "./src/container/block.js");
+/* harmony import */ var _img_gallery_block_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./img-gallery/block.js */ "./src/img-gallery/block.js");
+/* harmony import */ var _lazy_img_block_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./lazy-img/block.js */ "./src/lazy-img/block.js");
+/* harmony import */ var _row_with_cols_index_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./row-with-cols/index.js */ "./src/row-with-cols/index.js");
+/* harmony import */ var _section_block_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./section/block.js */ "./src/section/block.js");
+/* harmony import */ var _wrapper_block_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./wrapper/block.js */ "./src/wrapper/block.js");
+
 
 
 
@@ -4249,12 +4899,23 @@ var makeRowClassNames = function makeRowClassNames(alignItems, justifyContent, n
 
 registerBlockType('bsx-blocks/row-with-cols', {
   title: __('BSX Columns', 'bsx-blocks'),
-  icon: 'grid-view',
+  icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "48",
+    height: "48",
+    viewBox: "0 0 48 48",
+    role: "img",
+    "aria-hidden": "true",
+    focusable: "false"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("path", {
+    "fill-rule": "evenodd",
+    "clip-rule": "evenodd",
+    d: "M41 14a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h30a2 2 0 0 0 2-2V14zM28.5 34h-9V14h9v20zm2 0V14H39v20h-8.5zm-13 0H9V14h8.5v20z"
+  })),
   category: 'layout',
   attributes: {
     templateName: {
-      type: 'string',
-      default: '1-1-1'
+      type: 'string'
     },
     enableInheritanceToCols: {
       type: 'boolean',
@@ -4372,7 +5033,7 @@ registerBlockType('bsx-blocks/row-with-cols', {
         children = props.children,
         childrenAttributes = props.childrenAttributes,
         updateBlockAttributes = props.updateBlockAttributes;
-    var colsTemplates = [{
+    var templates = [{
       name: '1-1-1',
       title: __('3 Columns (1:1:1)', 'bsx-blocks'),
       icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("svg", {
@@ -4560,7 +5221,7 @@ registerBlockType('bsx-blocks/row-with-cols', {
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("path", {
         "fill-rule": "evenodd",
         "clip-rule": "evenodd",
-        d: "M23.58 26.28c0-.600003.1499985-1.099998.45-1.5.3000015-.400002.7433304-.8399976 1.33-1.32.5600028-.4533356.9833319-.8699981 1.27-1.25s.43-.8433306.43-1.39c0-.5466694-.1733316-1.0566643-.52-1.53s-.986662-.71-1.92-.71c-1.1066722 0-1.8533314.2766639-2.24.83-.3866686.5533361-.58 1.1766632-.58 1.87 0 .1466674.0033333.2666662.01.36.0066667.0933338.01.1533332.01.18h-1.78c-.0133334-.0533336-.0266666-.146666-.04-.28-.0133334-.133334-.02-.2733326-.02-.42 0-.7733372.1766649-1.4666636.53-2.08.3533351-.6133364.8899964-1.0999982 1.61-1.46.7200036-.3600018 1.5999948-.54 2.64-.54 1.2133394 0 2.2033295.3233301 2.97.97s1.15 1.5099946 1.15 2.59c0 .7066702-.1033323 1.3033309-.31 1.79-.2066677.4866691-.4533319.8799985-.74 1.18-.2866681.3000015-.6566644.6233316-1.11.97-.4800024.3866686-.8333322.7166653-1.06.99-.2266678.2733347-.34.6233312-.34 1.05v.82h-1.74zm-.14 2.56h2V31h-2zM39 12c1.1046 0 2 .8954 2 2v20c0 1.1046-.8954 2-2 2H9c-1.10457 0-2-.8954-2-2V14c0-1.1046.89543-2 2-2h30zm0 22V14H9v20h30z"
+        d: "M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9V14h30V34z M22.49,31.03h2.35v-2.21h-2.35V31.03z M22.51,19.38c0.36-0.28,0.81-0.42,1.35-0.42c0.63,0,1.1,0.17,1.43,0.5s0.49,0.81,0.49,1.44 c0,0.54-0.14,1.03-0.43,1.45s-0.68,0.89-1.18,1.38c-0.71,0.6-1.16,1.09-1.35,1.46s-0.3,1.02-0.3,1.94h2.3 c0-0.56,0.04-0.97,0.13-1.25s0.32-0.58,0.68-0.9c0.72-0.58,1.31-1.21,1.77-1.88c0.46-0.67,0.69-1.42,0.69-2.23 c0-1.22-0.37-2.16-1.09-2.83c-0.73-0.67-1.77-1-3.12-1c-1.25,0-2.26,0.31-3.02,0.94c-0.76,0.62-1.15,1.52-1.17,2.69h2.3 C21.97,20.09,22.15,19.66,22.51,19.38z"
       })),
       template: [['bsx-blocks/col', {
         colType: 'custom',
@@ -4574,14 +5235,14 @@ registerBlockType('bsx-blocks/row-with-cols', {
     }];
 
     var getColsTemplate = function getColsTemplate(currentTemplateName) {
-      var currentTemplate = colsTemplates.find(function (item) {
+      var currentTemplate = templates.find(function (item) {
         return item.name === currentTemplateName;
       });
       return currentTemplate ? currentTemplate.template : [];
     };
 
     var getColsTemplateLock = function getColsTemplateLock(currentTemplateName) {
-      var currentTemplate = colsTemplates.find(function (item) {
+      var currentTemplate = templates.find(function (item) {
         return item.name === currentTemplateName;
       });
       return currentTemplate ? currentTemplate.templateLock : false;
@@ -4961,7 +5622,7 @@ registerBlockType('bsx-blocks/row-with-cols', {
       title: __('Columns Layout', 'bsx-blocks')
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
       className: "bsxui-icon-text-button-list"
-    }, colsTemplates.map(function (template, index) {
+    }, templates.map(function (template, index) {
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
         label: template.title,
         onClick: function onClick() {
@@ -5248,14 +5909,32 @@ registerBlockType('bsx-blocks/row-with-cols', {
         label: __('extra large', 'bsx-blocks')
       }],
       help: __('Inner spacer after', 'bsx-blocks')
-    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, !templateName ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      class: "bsxui-initial-inline-control"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      class: "bsxui-initial-inline-control-heading"
+    }, __('Please select Columns template', 'bsx-blocks')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      className: "bsxui-icon-text-button-list"
+    }, templates.map(function (template, index) {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
+        label: template.title,
+        onClick: function onClick() {
+          onColsTemplateChange(template.name);
+        },
+        className: 'bsxui-icon-text-button-list-item ' + (templateName === template.name ? 'active' : '')
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+        class: "bsxui-icon-text-button-list-item-icon"
+      }, template.icon), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+        class: "bsxui-icon-text-button-list-item-label"
+      }, template.title));
+    }))) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
       className: rowClassNames,
       "data-template-name": templateName
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerBlocks, {
       template: colsTemplate,
       templateLock: colsTemplateLock,
       allowedBlocks: allowedBlocks
-    }))];
+    })))];
   })),
   save: function save(props) {
     var className = props.className,
@@ -5945,7 +6624,7 @@ registerBlockType('bsx-blocks/wrapper', {
       }],
       help: __('Spacer before Container', 'bsx-blocks')
     }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
-      label: __('Text color', 'bsx-blocks'),
+      label: __('Text color (optional)', 'bsx-blocks'),
       value: textColor,
       onChange: onChangeTextColor,
       options: [{
@@ -5984,8 +6663,7 @@ registerBlockType('bsx-blocks/wrapper', {
       }, {
         value: 'black-50',
         label: __('Black transparent', 'bsx-blocks')
-      }],
-      help: __('Spacer after Container', 'bsx-blocks')
+      }]
     }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
       label: __('Rounded', 'bsx-blocks'),
       checked: !!rounded,

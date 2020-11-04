@@ -24,7 +24,10 @@ const {
 } = wp.data;
 
 
-const makeClassNames = ( bannerType, bannerSize, belowNavbar, bgAttachment, bgSize, bgPosition, alignItems, marginBefore, marginAfter, paddingBefore, paddingAfter ) => {
+import { addClassNames } from './../_functions/add-class-names.js';
+
+
+const makeBannerClassNames = ( bannerType, bannerSize, belowNavbar, bgAttachment, bgSize, bgPosition, alignItems, templateName, marginBefore, marginAfter, paddingBefore, paddingAfter ) => {
 
     const classNames = [];
 
@@ -33,24 +36,30 @@ const makeClassNames = ( bannerType, bannerSize, belowNavbar, bgAttachment, bgSi
         classNames.push( 'banner-' + bannerType + '-' + bannerSize );
     }
 
-    if ( belowNavbar ) {
+    if ( !! belowNavbar ) {
         classNames.push( 'below-navbar-content' );
     }
 
-    if ( bgAttachment ) {
+    if ( !! bgAttachment ) {
         classNames.push( 'bg-' + bgAttachment );
     }
-    if ( bgSize ) {
+    if ( !! bgSize ) {
         classNames.push( 'bg-' + bgSize );
     }
 
-    if ( bgPosition ) {
+    if ( !! bgPosition ) {
         classNames.push( 'bg-' + bgPosition );
     }
     
-    if ( alignItems ) {
+    if ( !! alignItems ) {
         classNames.push( 'd-flex' );
-        classNames.push( 'align-items-' + alignItems );
+        if ( templateName !== 'column-row-banner' ) {
+            classNames.push( 'align-items-' + alignItems );
+        }
+    }
+    
+    if ( !! templateName && templateName == 'column-row-banner' && classNames.indexOf( 'd-flex' ) == -1 ) {
+        classNames.push( 'd-flex' );
     }
 
     if ( marginBefore && marginBefore === marginAfter ) {
@@ -75,6 +84,20 @@ const makeClassNames = ( bannerType, bannerSize, belowNavbar, bgAttachment, bgSi
         if ( paddingAfter ) {
             classNames.push( 'pb-' + paddingAfter );
         }
+    }
+
+    return classNames.join( ' ' );
+}
+
+
+const makeBannerInnerClassNames = ( config ) => {
+
+    const classNames = [ 'banner-inner' ];
+    
+    if ( !! config.templateName && config.templateName == 'column-row-banner' ) {
+        classNames.push( 'w-100' );
+        classNames.push( 'd-flex' );
+        classNames.push( 'flex-column' );
     }
 
     return classNames.join( ' ' );
@@ -376,17 +399,23 @@ const makeSaveAttributes = ( attributes ) => {
 }
 
 
-// TODO: add additional portrait option
+// insert directly into banner element without `.banner-inner`
+const noBannerInnerTemplateNames = [
+    'column-row-banner',
+];
 
 
 registerBlockType( 'bsx-blocks/banner', {
     title: __( 'BSX Banner', 'bsx-blocks' ),
-    icon: 'category',
+    icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" role="img" aria-hidden="true" focusable="false">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M39,16H9c-1.1,0-2,0.9-2,2v12c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V18C41,16.9,40.1,16,39,16z M12,18c1.66,0,3,1.34,3,3 s-1.34,3-3,3s-3-1.34-3-3S10.34,18,12,18z M39,30H9v-2l8-3l4,2l12-6l6,4V30z"/>
+        </svg>
+    ),
     category: 'layout',
     attributes: {
         templateName: {
             type: 'string',
-            default: 'empty',
         },
         belowNavbar: {
             type: 'boolean',
@@ -515,20 +544,8 @@ registerBlockType( 'bsx-blocks/banner', {
                 name: 'empty',
                 title: __( 'Empty', 'bsx-blocks' ),
                 icon: (
-                    <svg 
-                        width="48" 
-                        height="48" 
-                        viewBox="0 0 48 48" 
-                        xmlns="http://www.w3.org/2000/svg" 
-                        role="img" 
-                        aria-hidden="true" 
-                        focusable="false"
-                    >
-                        <path 
-                            fill-rule="evenodd" 
-                            clip-rule="evenodd" 
-                            d="M23.58 26.28c0-.600003.1499985-1.099998.45-1.5.3000015-.400002.7433304-.8399976 1.33-1.32.5600028-.4533356.9833319-.8699981 1.27-1.25s.43-.8433306.43-1.39c0-.5466694-.1733316-1.0566643-.52-1.53s-.986662-.71-1.92-.71c-1.1066722 0-1.8533314.2766639-2.24.83-.3866686.5533361-.58 1.1766632-.58 1.87 0 .1466674.0033333.2666662.01.36.0066667.0933338.01.1533332.01.18h-1.78c-.0133334-.0533336-.0266666-.146666-.04-.28-.0133334-.133334-.02-.2733326-.02-.42 0-.7733372.1766649-1.4666636.53-2.08.3533351-.6133364.8899964-1.0999982 1.61-1.46.7200036-.3600018 1.5999948-.54 2.64-.54 1.2133394 0 2.2033295.3233301 2.97.97s1.15 1.5099946 1.15 2.59c0 .7066702-.1033323 1.3033309-.31 1.79-.2066677.4866691-.4533319.8799985-.74 1.18-.2866681.3000015-.6566644.6233316-1.11.97-.4800024.3866686-.8333322.7166653-1.06.99-.2266678.2733347-.34.6233312-.34 1.05v.82h-1.74zm-.14 2.56h2V31h-2zM39 12c1.1046 0 2 .8954 2 2v20c0 1.1046-.8954 2-2 2H9c-1.10457 0-2-.8954-2-2V14c0-1.1046.89543-2 2-2h30zm0 22V14H9v20h30z"
-                        />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" role="img" aria-hidden="true" focusable="false">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M39,16H9c-1.1,0-2,0.9-2,2v12c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V18C41,16.9,40.1,16,39,16z M24.72,30.03 h-2.02v-1.89h2.02V30.03z M26.91,23.22c-0.39,0.58-0.9,1.12-1.52,1.61c-0.31,0.28-0.51,0.53-0.58,0.77s-0.11,0.6-0.11,1.07h-1.98 c0.01-0.79,0.09-1.35,0.26-1.67c0.17-0.32,0.56-0.74,1.16-1.25c0.43-0.42,0.77-0.82,1.02-1.18c0.24-0.37,0.37-0.78,0.37-1.25 c0-0.54-0.14-0.95-0.42-1.23s-0.69-0.43-1.22-0.43c-0.46,0-0.85,0.12-1.15,0.36c-0.31,0.24-0.46,0.61-0.46,1.1h-1.98 c0.01-1,0.34-1.77,1-2.31c0.66-0.54,1.52-0.8,2.59-0.8c1.16,0,2.05,0.29,2.68,0.86s0.94,1.38,0.94,2.43 C27.5,22.01,27.3,22.65,26.91,23.22z"/>
                     </svg>
                 ),
                 template: [
@@ -545,20 +562,8 @@ registerBlockType( 'bsx-blocks/banner', {
                 name: 'container-with-heading',
                 title: __( 'Container with Heading', 'bsx-blocks' ),
                 icon: (
-                    <svg 
-                        width="48" 
-                        height="48" 
-                        viewBox="0 0 48 48" 
-                        xmlns="http://www.w3.org/2000/svg" 
-                        role="img" 
-                        aria-hidden="true" 
-                        focusable="false"
-                    >
-                        <path 
-                            fill-rule="evenodd" 
-                            clip-rule="evenodd" 
-                            d="M23.58 26.28c0-.600003.1499985-1.099998.45-1.5.3000015-.400002.7433304-.8399976 1.33-1.32.5600028-.4533356.9833319-.8699981 1.27-1.25s.43-.8433306.43-1.39c0-.5466694-.1733316-1.0566643-.52-1.53s-.986662-.71-1.92-.71c-1.1066722 0-1.8533314.2766639-2.24.83-.3866686.5533361-.58 1.1766632-.58 1.87 0 .1466674.0033333.2666662.01.36.0066667.0933338.01.1533332.01.18h-1.78c-.0133334-.0533336-.0266666-.146666-.04-.28-.0133334-.133334-.02-.2733326-.02-.42 0-.7733372.1766649-1.4666636.53-2.08.3533351-.6133364.8899964-1.0999982 1.61-1.46.7200036-.3600018 1.5999948-.54 2.64-.54 1.2133394 0 2.2033295.3233301 2.97.97s1.15 1.5099946 1.15 2.59c0 .7066702-.1033323 1.3033309-.31 1.79-.2066677.4866691-.4533319.8799985-.74 1.18-.2866681.3000015-.6566644.6233316-1.11.97-.4800024.3866686-.8333322.7166653-1.06.99-.2266678.2733347-.34.6233312-.34 1.05v.82h-1.74zm-.14 2.56h2V31h-2zM39 12c1.1046 0 2 .8954 2 2v20c0 1.1046-.8954 2-2 2H9c-1.10457 0-2-.8954-2-2V14c0-1.1046.89543-2 2-2h30zm0 22V14H9v20h30z"
-                        />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" role="img" aria-hidden="true" focusable="false">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M39,16H9c-1.1,0-2,0.9-2,2v12c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V18C41,16.9,40.1,16,39,16z M13,31h-1v-2h1V31z M13,27h-1 v-2h1V27z M13,23h-1v-2h1V23z M13,19h-1v-2h1V19z M27,26H14v-3h13V26z M36,31h-1v-2h1V31z M36,27h-1v-2h1V27z M36,23h-1v-2h1V23z M36,19h-1v-2h1V19z"/>
                     </svg>
                 ),
                 template: [ 
@@ -570,8 +575,10 @@ registerBlockType( 'bsx-blocks/banner', {
                             [
                                 'core/heading',
                                 { 
-                                    placeholder: 'Add heading, configure heading level...',
-                                    className: 'display-1 text-white text-shadow-darker'
+                                    placeholder: 'Add heading text, configure heading level...',
+                                    textSize: 'display-1',
+                                    textColor: 'white',
+                                    textShadow: 'darker',
                                 }
                             ]
                         ],
@@ -579,7 +586,109 @@ registerBlockType( 'bsx-blocks/banner', {
                 ],
                 templateLock: false,
             },
+            {
+                name: 'column-row-banner',
+                title: __( 'Bottom bar Banner', 'bsx-blocks' ),
+                icon: (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" role="img" aria-hidden="true" focusable="false">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M39,16H9c-1.1,0-2,0.9-2,2v12c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V18C41,16.9,40.1,16,39,16z M35,17h1v2h-1V17z M35,21h1v2 h-1V21z M35,25h1v2h-1V25z M14,21h13v3H14V21z M12,17h1v2h-1V17z M12,21h1v2h-1V21z M12,25h1v2h-1V25z M39,30H9v-2h30V30z"/>
+                    </svg>
+                ),
+                template: [  
+                    [ 
+                        'bsx-blocks/column-rows', 
+                        {
+                            templateName: 'default-auto',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            className: 'banner-inner',
+                        },
+                        [
+                            [ 
+                                'bsx-blocks/column-row', 
+                                {
+                                    columnRowType: '',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                },
+                                [ 
+                                    [ 
+                                        'bsx-blocks/wrapper', 
+                                        {
+                                            className: 'w-100',
+                                        },
+                                        [
+                                            [ 
+                                                'bsx-blocks/container', 
+                                                {},
+                                                [
+                                                    [
+                                                        'core/heading',
+                                                        { 
+                                                            placeholder: 'Add heading text, configure heading level...',
+                                                            textSize: 'display-1',
+                                                            textColor: 'white',
+                                                            textShadow: 'darker', 
+                                                        }
+                                                    ]
+                                                ],
+                                            ], 
+                                        ],
+                                    ], 
+                                ],
+                            ], 
+                            [ 
+                                'bsx-blocks/column-row', 
+                                {
+                                    columnRowType: 'auto',
+                                },
+                                [
+                                    [ 
+                                        'bsx-blocks/wrapper', 
+                                        {
+                                            bgColor: 'primary-transparent',
+                                            paddingBefore: '3',
+                                            paddingAfter: '3'
+                                        },
+                                        [
+                                            [ 
+                                                'bsx-blocks/container', 
+                                                {},
+                                                [
+                                                    [
+                                                        'core/paragraph',
+                                                        { 
+                                                            placeholder: 'Add text...',
+                                                            textSize: 'lead',
+                                                            textColor: 'white',
+                                                            marginAfter: '0',
+                                                        }
+                                                    ]
+                                                ],
+                                            ], 
+                                        ],
+                                    ], 
+                                ],
+                            ], 
+                        ],
+                    ],
+                ],
+                templateLock: false,
+            },
         ];
+
+// <div class="below-navbar-content d-flex bg-fixed bg-cover banner-vh-2 bg-66c bg-md-c" data-fn="lazyload" data-src="/wp-content/themes/bsx-wordpress-example/assets/example-img/example-banner-005.jpg">
+//     <div class="banner-inner w-100 d-flex flex-column">
+//         <div class="column-row d-flex">
+//             <div class="w-100 d-flex">
+
+//             </div>
+//         </div>
+//         <div class="column-row-auto">
+
+//         </div>
+//     </div>
+// </div>
 
         const getTemplate = ( currentTemplateName ) => {
             const currentTemplate = templates.find( ( item ) => item.name === currentTemplateName );
@@ -592,8 +701,8 @@ registerBlockType( 'bsx-blocks/banner', {
             template = getTemplate( value );
             setAttributes( { templateName: value } );
 
-            console.log( 'changed templateName: ' + value );
-            console.log( 'changed template: ' + template );
+            // console.log( 'changed templateName: ' + value );
+            // console.log( 'changed template: ' + template );
         };
 
         const onChangeBelowNavbar = ( value ) => {
@@ -709,13 +818,17 @@ registerBlockType( 'bsx-blocks/banner', {
             );
         } );
 
-        const bannerClassName = makeClassNames( bannerType, bannerSize, belowNavbar, bgAttachment, bgSize, bgPosition, alignItems, marginBefore, marginAfter, paddingBefore, paddingAfter );
+        const bannerClassName = makeBannerClassNames( bannerType, bannerSize, belowNavbar, bgAttachment, bgSize, bgPosition, alignItems, templateName, marginBefore, marginAfter, paddingBefore, paddingAfter );
+
+        const bannerInnerClassName = makeBannerInnerClassNames( {
+            templateName: templateName,
+        } );
 
         const bannerStyle = { backgroundImage: `url(${ url })` };
 
         return [
             <InspectorControls>
-                <PanelBody title={ __( 'Banner Template', 'bsx-blocks' ) }>
+                <PanelBody title={ __( 'Banner template', 'bsx-blocks' ) }>
                     <div className="bsxui-icon-text-button-list">
                         { templates.map( ( template, index ) => (
                             <Button
@@ -985,37 +1098,82 @@ registerBlockType( 'bsx-blocks/banner', {
                 />
             </InspectorAdvancedControls>,
 
-            (
-                <div className={ bannerClassName } style={ bannerStyle }>
-                    {
-                        ! imgId && (
-                            <div className="bsxui-in-widget-overlay-panel bsxui-top">
-                                <MediaUpload
-                                    onSelect={ onSelectImage }
-                                    allowedTypes="image"
-                                    value={ imgId }
-                                    render={ ( { open } ) => (
-                                        <Button 
-                                            onClick={ open }
-                                            isSecondary
-                                        >
-                                            { __( 'Select / upload Image', 'bsx-blocks' ) }
-                                        </Button>
-                                    ) }
-                                />
+            <>
+                {
+                    ! templateName ? (
+                        <div class="bsxui-initial-inline-control">
+                            <div class="bsxui-initial-inline-control-heading">
+                                { __( 'Please select Banner template', 'bsx-blocks' ) }
                             </div>
-                        )
-                    }
-                    <InnerBlocks 
-                        template={ template }
-                        renderAppender={
-                            hasInnerBlocks
-                            ? undefined
-                            : () => <InnerBlocks.ButtonBlockAppender />
-                        }
-                    />
-                </div>
-            )
+                            <div className="bsxui-icon-text-button-list">
+                                { templates.map( ( template, index ) => (
+                                    <Button
+                                        label={ template.title }
+                                        onClick={ () => {
+                                            onTemplateChange( template.name );
+                                        } }
+                                        className={ 'bsxui-icon-text-button-list-item ' + ( templateName === template.name ? 'active' : '' ) }
+                                    >
+                                        <div class="bsxui-icon-text-button-list-item-icon">
+                                            { template.icon }
+                                        </div>
+                                        <div class="bsxui-icon-text-button-list-item-label">
+                                            { template.title }
+                                        </div>
+                                    </Button>
+                                ) ) }
+                            </div>
+                        </div>
+                    )
+                    : 
+                    (
+                        <div className={ bannerClassName } style={ bannerStyle }>
+                            {
+                                ! imgId && (
+                                    <div className="bsxui-in-widget-overlay-panel bsxui-top">
+                                        <MediaUpload
+                                            onSelect={ onSelectImage }
+                                            allowedTypes="image"
+                                            value={ imgId }
+                                            render={ ( { open } ) => (
+                                                <Button 
+                                                    onClick={ open }
+                                                    isSecondary
+                                                >
+                                                    { __( 'Select / upload Image', 'bsx-blocks' ) }
+                                                </Button>
+                                            ) }
+                                        />
+                                    </div>
+                                )
+                            }
+                            {
+                                noBannerInnerTemplateNames.indexOf( templateName ) == -1 ? (
+                                    <div className={ bannerInnerClassName }>
+                                        <InnerBlocks 
+                                            template={ template }
+                                            renderAppender={
+                                                hasInnerBlocks ? undefined
+                                                : () => <InnerBlocks.ButtonBlockAppender />
+                                            }
+                                        />
+                                    </div>
+                                )
+                                :
+                                (
+                                    <InnerBlocks 
+                                        template={ template }
+                                        renderAppender={
+                                            hasInnerBlocks ? undefined
+                                            : () => <InnerBlocks.ButtonBlockAppender />
+                                        }
+                                    />
+                                )
+                            }
+                        </div>
+                    )
+                }
+            </>
         ];
     } ),
     save: ( props ) => {
@@ -1045,7 +1203,14 @@ registerBlockType( 'bsx-blocks/banner', {
             },
         } = props;
 
-        const bannerClassName = makeClassNames( bannerType, bannerSize, belowNavbar, bgAttachment, bgSize, bgPosition, alignItems, marginBefore, marginAfter, paddingBefore, paddingAfter );
+        // TODO: use addClassNames
+        // TODO: add templateName
+        // TODO: make bannerInnerCLassName
+        const bannerClassName = makeBannerClassNames( bannerType, bannerSize, belowNavbar, bgAttachment, bgSize, bgPosition, alignItems, templateName, marginBefore, marginAfter, paddingBefore, paddingAfter );
+
+        const bannerInnerClassName = makeBannerInnerClassNames( {
+            templateName: templateName,
+        } );
 
         const srcsetJson = makeSrcsetJson( imgSizes, imgSizeIndex, portraitImgSizes, portraitImgSizeIndex );
 
@@ -1055,9 +1220,17 @@ registerBlockType( 'bsx-blocks/banner', {
 
         return (
             <div className={ bannerClassName } data-fn="lazyload" data-src={ url } { ...saveAttributes }>
-                <div class="banner-inner">
-                    <InnerBlocks.Content />
-                </div>
+                {
+                    noBannerInnerTemplateNames.indexOf( templateName ) == -1 ? (
+                        <div className={ bannerInnerClassName }>
+                            <InnerBlocks.Content />
+                        </div>
+                    )
+                    :
+                    (
+                        <InnerBlocks.Content />
+                    )
+                }
             </div>
         );
     },

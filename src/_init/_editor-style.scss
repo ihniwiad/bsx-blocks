@@ -98,18 +98,28 @@
 }
 
 
+// initial inline control panel
+
+.bsxui-initial-inline-control {
+	background-color: $bsxui-placeholder-bg-color;
+}
+.bsxui-initial-inline-control-heading {
+	text-align: $bsxui-initial-inline-control-heading-text-align;
+	padding: $bsxui-initial-inline-control-heading-padding;
+}
+
 // icon text button list
 
 .bsxui-icon-text-button-list {
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-between;
+	justify-content: $bsxui-icon-text-button-list-justify-content;
 	margin-bottom: $bsxui-margin-bottom;
 
 	.bsxui-icon-text-button-list-item {
 		display: flex;
 		flex-direction: column;
-		width: 50%;
+		width: $bsxui-icon-text-button-list-item-width;
 		height: auto;
 		cursor: pointer;
 
@@ -123,6 +133,14 @@
 
 		.bsxui-icon-text-button-list-item-label {
 		
+		}
+	}
+}
+
+.bsxui-initial-inline-control {
+	.bsxui-icon-text-button-list {
+		.bsxui-icon-text-button-list-item {
+			width: $bsxui-icon-text-button-list-item-inline-width;
 		}
 	}
 }

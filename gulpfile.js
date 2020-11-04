@@ -161,9 +161,9 @@ const publish = series(
     publishFolderCreate,
 );
 
-// const jsWatch = () => {
-//     watch( checkAdDotBefore( config.buildJsWatchPath ), publish );
-// }
+const jsWatch = () => {
+    watch( checkAdDotBefore( config.buildJsWatchPath ), publish );
+}
 
 // const cssWatch = () => {
 //     watch( checkAdDotBefore( config.buildCssWatchPath ), publish );
@@ -199,11 +199,14 @@ exports.build = series(
     publish,
 );
 
-exports.css = css;
+exports.css = series(
+    css,
+    publish,
+);
 
 exports.css_watch = scss_watch;
 
-// exports.js_watch = jsWatch;
+exports.js_watch = jsWatch;
 
 // exports.css_watch = cssWatch;
 

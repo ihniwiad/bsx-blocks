@@ -1,5 +1,6 @@
 import './banner/block.js';
 import './buttons/index.js';
+import './column-rows/index.js';
 import './container/block.js';
 import './img-gallery/block.js';
 import './lazy-img/block.js';

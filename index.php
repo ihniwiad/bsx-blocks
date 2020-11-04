@@ -29,6 +29,7 @@ include 'src/_init/index.php';
 // blocks
 include 'src/banner/index.php';
 include 'src/buttons/index.php';
+include 'src/column-rows/index.php';
 include 'src/container/index.php';
 include 'src/img-gallery/index.php';
 include 'src/lazy-img/index.php';

@@ -43,6 +43,8 @@ export const addGlobalBlockSettings = createHigherOrderComponent( ( BlockEdit ) 
         const {
             id,
             textSize,
+            textColor,
+            textShadow,
             belowNavbar,
             marginBefore,
             marginAfter,
@@ -55,6 +57,12 @@ export const addGlobalBlockSettings = createHigherOrderComponent( ( BlockEdit ) 
 
         const onChangeTextSize = ( value ) => {
             setAttributes( { textSize: value } );
+        };
+        const onChangeTextColor = ( value ) => {
+            setAttributes( { textColor: value } );
+        };
+        const onChangeTextShadow = ( value ) => {
+            setAttributes( { textShadow: value } );
         };
 
         const onChangeDataTest = ( value ) => {
@@ -79,7 +87,7 @@ export const addGlobalBlockSettings = createHigherOrderComponent( ( BlockEdit ) 
                 <Fragment>
                     <BlockEdit { ...props } />
                     <InspectorControls>
-                        <PanelBody title={ __( 'BSX Global Settings', 'bsx-blocks' ) }>
+                        <PanelBody title={ __( 'BSX global settings', 'bsx-blocks' ) }>
                             <TextControl 
                                 label={ __( 'ID', 'bsx-blocks' ) }
                                 value={ id } 
@@ -104,6 +112,36 @@ export const addGlobalBlockSettings = createHigherOrderComponent( ( BlockEdit ) 
                                     { value: 'display-3', label: __( 'Large 3', 'bsx-blocks' ) },
                                     { value: 'display-2', label: __( 'Large 2', 'bsx-blocks' ) },
                                     { value: 'display-1', label: __( 'Large 1 (biggest)', 'bsx-blocks' ) },
+                                ] }
+                            />
+                            <SelectControl 
+                                label={ __( 'Text color (optional)', 'bsx-blocks' ) }
+                                value={ textColor }
+                                onChange={ onChangeTextColor }
+                                options={ [
+                                    { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+                                    { value: 'white', label: __( 'White', 'bsx-blocks' ) },
+                                    { value: 'primary', label: __( 'Primary', 'bsx-blocks' ) },
+                                    { value: 'secondary', label: __( 'Secondary', 'bsx-blocks' ) },
+                                    { value: 'success', label: __( 'Success', 'bsx-blocks' ) },
+                                    { value: 'danger', label: __( 'Danger', 'bsx-blocks' ) },
+                                    { value: 'warning', label: __( 'Warning', 'bsx-blocks' ) },
+                                    { value: 'info', label: __( 'Info', 'bsx-blocks' ) },
+                                    { value: 'light', label: __( 'Light', 'bsx-blocks' ) },
+                                    { value: 'dark', label: __( 'Dark', 'bsx-blocks' ) },
+                                    { value: 'white-50', label: __( 'White transparent', 'bsx-blocks' ) },
+                                    { value: 'black-50', label: __( 'Black transparent', 'bsx-blocks' ) },
+                                ] }
+                            />
+                            <SelectControl 
+                                label={ __( 'Text shadow (optional)', 'bsx-blocks' ) }
+                                value={ textShadow }
+                                onChange={ onChangeTextShadow }
+                                options={ [
+                                    { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+                                    { value: 'dark', label: __( 'Dark', 'bsx-blocks' ) },
+                                    { value: 'darker', label: __( 'Darker', 'bsx-blocks' ) },
+                                    { value: 'darkest', label: __( 'Darkest', 'bsx-blocks' ) },
                                 ] }
                             />
                             <TextControl
@@ -218,6 +256,22 @@ export function addAttribute( settings ) {
             } );
         }
     
+        if ( typeof settings.attributes.textColor === 'undefined' ) {
+            settings.attributes = Object.assign( settings.attributes, {
+                textColor: {
+                    type: 'string',
+                },
+            } );
+        }
+    
+        if ( typeof settings.attributes.textShadow === 'undefined' ) {
+            settings.attributes = Object.assign( settings.attributes, {
+                textShadow: {
+                    type: 'string',
+                },
+            } );
+        }
+    
         if ( typeof settings.attributes.marginBefore === 'undefined' ) {
             settings.attributes = Object.assign( settings.attributes, {
                 marginBefore: { 
@@ -287,6 +341,8 @@ export function addSaveProps( extraProps, blockType, attributes ) {
     const { 
         id,
         textSize,
+        textColor,
+        textShadow,
         belowNavbar,
         marginBefore,
         marginAfter,
@@ -305,7 +361,7 @@ export function addSaveProps( extraProps, blockType, attributes ) {
 
         const classNames = typeof extraProps.className !== 'undefined' ? extraProps.className.split( ' ' ) : [];
 
-        if ( typeof textSize !== 'undefined' && textSize ) {
+        if ( typeof textSize !== 'undefined' && !! textSize ) {
             
             if ( ! classNames.includes( textSize ) ) {
                 // add (if not already set)
@@ -313,8 +369,24 @@ export function addSaveProps( extraProps, blockType, attributes ) {
             }
         }
 
+        if ( typeof textColor !== 'undefined' && !! textColor ) {
+            
+            if ( ! classNames.includes( 'text-' + textColor ) ) {
+                // add (if not already set)
+                classNames.push( 'text-' + textColor );
+            }
+        }
+
+        if ( typeof textShadow !== 'undefined' && !! textShadow ) {
+            
+            if ( ! classNames.includes( 'text-shadow-' + textShadow ) ) {
+                // add (if not already set)
+                classNames.push( 'text-shadow-' + textShadow );
+            }
+        }
+
         // check wp internal attributes, add custom class names for certain ones
-        // NOTE: addedclass name will be updated but never removed (as WP currently does too)
+        // NOTE: added class name will be updated but never removed (as WP currently does too)
 
         // text align
         const alignAllowedValues = [

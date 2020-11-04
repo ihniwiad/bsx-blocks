@@ -21,6 +21,11 @@ $bsxui-light-border:				1px $bsxui-default-border-style $bsxui-light-border-colo
 $bsxui-interact-border:				1px $bsxui-special-border-style $bsxui-interact-border-color !default;
 
 
+// initial inline control panel
+
+$bsxui-initial-inline-control-heading-padding: 		16px !default; // @wordpress
+$bsxui-initial-inline-control-heading-text-align: 	left !default;
+
 
 // config panel
 
@@ -29,8 +34,15 @@ $bsxui-small-margin-bottom:			$bsxui-margin-bottom / 2 !default;
 $bsxui-config-panel-font-size:		13px !default; // @wordpress
 
 
+// icon text button list
 
-// isselected config panel
+$bsxui-icon-text-button-list-justify-content:		start !default;
+$bsxui-icon-text-button-list-item-width: 			50% !default;
+$bsxui-icon-text-button-list-item-inline-width: 	7.5rem !default;
+
+
+
+// isselected config panel (deprecated! – do not delete before replacing varibles beeing used afterwards)
 
 $bsxui-isselected-panel-bg-color: 	#ffffff !default; 
 $bsxui-isselected-panel-border: 	$bsxui-light-border !default;

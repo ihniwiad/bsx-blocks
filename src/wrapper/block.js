@@ -257,7 +257,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
                         help={ __( 'Spacer before Container', 'bsx-blocks' ) }
                     />
                     <SelectControl 
-                        label={ __( 'Text color', 'bsx-blocks' ) }
+                        label={ __( 'Text color (optional)', 'bsx-blocks' ) }
                         value={ textColor }
                         onChange={ onChangeTextColor }
                         options={ [
@@ -274,7 +274,6 @@ registerBlockType( 'bsx-blocks/wrapper', {
                             { value: 'white-50', label: __( 'White transparent', 'bsx-blocks' ) },
                             { value: 'black-50', label: __( 'Black transparent', 'bsx-blocks' ) },
                         ] }
-                        help={ __( 'Spacer after Container', 'bsx-blocks' ) }
                     />
                     <ToggleControl
                         label={ __( 'Rounded', 'bsx-blocks' ) }

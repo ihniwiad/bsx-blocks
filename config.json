@@ -10,13 +10,13 @@
 	"basicStylePackagePathReplaceDestFolder": "/build",
 	"basicStylePackagePathReplaceDestFiles": "/_basic-style-vars-and-bootstrap-grid.scss",
 	"buildCssWatchPath": [
-		"./*/build/css/*.css",
-		"!./*/build/css/*.min.css",
-		"!./*/build/css/*.css.map"
+		"./build/css/*.css",
+		"!./build/css/*.min.css",
+		"!./build/css/*.css.map"
 	],
 	"buildJsWatchPath": [
-		"./*/build/*.js",
-		"./*/build/**/*.js"
+		"./build/*.js",
+		"./build/**/*.js"
 	],
 	"publish": {
 		"dest": "../../../../../Applications/MAMP/htdocs/wordpress/wp-content/plugins/"
