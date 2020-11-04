@@ -35,10 +35,24 @@
 	margin-bottom: 0;
 
 	&[data-column-row-type=""] {
+		display: flex;
 		flex-grow: 1;
 	}
 
 	&[data-column-row-type="auto"] {
 
+	}
+
+	&[data-column-row-type] {
+
+		// next nested block
+		.block-editor-inner-blocks > .block-editor-block-list__layout > .block-editor-block-list__block {
+			margin-top: 0;
+			margin-bottom: 0;
+		}
+	}
+
+	&[data-column-row-type] ~ .block-list-appender {
+		display: none;
 	}
 }
