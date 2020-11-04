@@ -5,11 +5,15 @@ const {
 const {
     RichText,
     MediaUpload,
+    InspectorControls,
+    InspectorAdvancedControls,
 } = wp.blockEditor;
 const { 
     Button,
     TextControl,
     IconButton,
+    SelectControl,
+    PanelBody,
 } = wp.components;
 
 
@@ -31,6 +35,88 @@ const {
 */
 
 
+import { addClassNames } from './../_functions/add-class-names.js';
+
+
+const makeClassName = ( config ) => {
+
+    const classNames = [ 'bsx-gallery' ];
+
+    if ( !! config.galleryType ) {
+        if ( config.galleryType == 'floating' ) {
+            classNames.push( 'bsx-floating-gallery' );
+        }
+    }
+
+    return classNames.join( ' ' );
+}
+
+const makeInnerClassName = ( config ) => {
+
+    const classNames = [];
+
+    if ( !! config.galleryType ) {
+        if ( config.galleryType == 'floating' ) {
+            classNames.push( 'bsx-floating-gallery-inner' );
+        }
+        else if ( config.galleryType == 'columns' ) {
+            classNames.push( 'row' );
+        }
+    }
+    
+    return classNames.join( ' ' );
+}
+
+const makeItemClassName = ( config ) => {
+
+    const classNames = [];
+
+    if ( !! config.galleryType ) {
+        if ( config.galleryType == 'floating' ) {
+            classNames.push( 'bsx-floating-gallery-figure d-inline-block' );
+        }
+        else if ( config.galleryType == 'columns' ) {
+            // TODO: make configurable later
+            classNames.push( 'col-6 col-sm-3 mb-4' );
+        }
+    }
+    
+    return classNames.join( ' ' );
+}
+
+const makeLinkClassName = ( config ) => {
+
+    const classNames = [];
+
+    if ( !! config.galleryType ) {
+        if ( config.galleryType == 'floating' ) {
+            classNames.push( 'd-inline-block' );
+        }
+        else if ( config.galleryType == 'columns' ) {
+            classNames.push( 'd-block text-center' );
+        }
+    }
+    
+    return classNames.join( ' ' );
+}
+
+const makeImgClassName = ( config ) => {
+
+    const classNames = [];
+
+    if ( !! config.galleryType ) {
+        if ( config.galleryType == 'floating' ) {
+            classNames.push( 'bsx-floating-gallery-img-md' );
+        }
+        else if ( config.galleryType == 'columns' ) {
+            classNames.push( 'img-fluid' );
+        }
+    }
+    
+    return classNames.join( ' ' );
+}
+
+
 registerBlockType( 'bsx-blocks/img-gallery', {
     title: __( 'BSX Image Gallery', 'bsx-blocks' ),
     icon: 'format-gallery',
@@ -39,13 +125,28 @@ registerBlockType( 'bsx-blocks/img-gallery', {
         mediaList: {
             type: 'array',
             default: [],
-        }
+        },
+        galleryType: {
+            type: 'string',
+            default: 'columns',
+        },
+        marginBefore: {
+            type: 'string',
+            default: '',
+        },
+        marginAfter: {
+            type: 'string',
+            default: '',
+        },
     },
     edit: ( props ) => {
         const {
             className,
             attributes: {
                 mediaList,
+                galleryType,
+                marginBefore,
+                marginAfter,
             },
             setAttributes,
             isSelected,
@@ -147,118 +248,212 @@ registerBlockType( 'bsx-blocks/img-gallery', {
             ];
             setAttributes( { mediaList: newMediaList2 } );
         }
+
+        // TODO:
+        // - configure class name
+        // - configure inner class name
+        // - configure item class name
+        // - configure link class name
+        // - configure img class name
+
+        const onChangeGalleryType = ( value ) => {
+            setAttributes( { galleryType: value } );
+        }
+        const onChangeMarginBefore = ( value ) => {
+            setAttributes( { marginBefore: value } );
+        };
+        const onChangeMarginAfter = ( value ) => {
+            setAttributes( { marginAfter: value } );
+        };
+
+        // class names
+
+        let galleryClassName = makeClassName( { 
+            galleryType: galleryType 
+        } );
+        galleryClassName = addClassNames( {
+            marginBefore: marginBefore, 
+            marginAfter: marginAfter, 
+        }, galleryClassName );
+
+        const innerClassName = makeInnerClassName( { 
+            galleryType: galleryType 
+        } );
+
+        const itemClassName = makeItemClassName( { 
+            galleryType: galleryType 
+        } );
+
+        const linkClassName = makeLinkClassName( { 
+            galleryType: galleryType 
+        } );
+
+        const imgClassName = makeImgClassName( { 
+            galleryType: galleryType 
+        } );
         
-        return (
-            <div className={ className }>
+        return [
+            <InspectorControls>
+                <PanelBody title={ __( 'Gallery settings', 'bsx-blocks' ) }>
+                    <SelectControl 
+                        label={ __( 'Gallery type', 'bsx-blocks' ) }
+                        value={ galleryType }
+                        onChange={ onChangeGalleryType }
+                        options={ [
+                            { value: 'columns', label: __( 'Columns', 'bsx-blocks' ) },
+                            { value: 'floating', label: __( 'Floating (equal image height)', 'bsx-blocks' ) },
+                        ] }
+                    />
+                </PanelBody>
 
-                <div className="row">
-                    {
-                        mediaList.map( ( media, index ) => 
-                            <div class="col-6 col-sm-3 mb-4">
-                                <MediaUpload
-                                    key={ index }
-                                    onSelect={ ( value ) => onUpdateImage( value, index ) }
-                                    allowedTypes="image"
-                                    value={ media.id }
-                                    render={ ( { open } ) => (
-                                        <Button className="bsx-ui-img-btn h-auto w-100 px-0" onClick={ open }>
-                                            <img className={ 'img-fluid' } src={ media.url } alt={ __( 'Upload Image', 'bsx-blocks' ) } />
-                                        </Button>
-                                    ) }
-                                />
-                                <div>
-                                    <RichText
-                                        tagName="div"
-                                        multiline={ false }
-                                        placeholder={ __( 'Caption (optional)', 'bsx-blocks' ) }
-                                        value={ media.caption }
-                                        onChange={ ( value ) => { onChangeCaption( value, index ) } }
-                                    />
-                                </div>
-                                <div className="d-flex">
-                                    <IconButton 
-                                        className="button" 
-                                        icon="arrow-left-alt2"
-                                        onClick={ () => { onClickMoveUp( index ) } }
-                                        label={ __( 'Move backward', 'bsx-blocks' ) }
-                                    />
-                                    <IconButton 
-                                        className="button ml-1" 
-                                        icon="arrow-right-alt2"
-                                        onClick={ () => { onClickMoveDown( index ) } }
-                                        label={ __( 'Move forward', 'bsx-blocks' ) }
-                                    />
-                                    <IconButton 
-                                        className="button text-danger border-danger ml-auto" 
-                                        icon="trash"
-                                        onClick={ () => { onClickDelete( index ) } }
-                                        label={ __( 'Remove Image', 'bsx-blocks' ) }
-                                    />
-                                </div>
-                            </div>
-                        )
-                    }
+                <PanelBody title={ __( 'Margin', 'bsx-blocks' ) }>
+                    <SelectControl 
+                        label={ __( 'Margin before', 'bsx-blocks' ) }
+                        value={ marginBefore }
+                        onChange={ onChangeMarginBefore }
+                        options={ [
+                            { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+                            { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
+                            { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
+                            { value: '2', label: __( 'small', 'bsx-blocks' ) },
+                            { value: '3', label: __( 'medium', 'bsx-blocks' ) },
+                            { value: '4', label: __( 'large', 'bsx-blocks' ) },
+                            { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
+                        ] }
+                        help={ __( 'Spacer before element', 'bsx-blocks' ) }
+                    />
+                    <SelectControl 
+                        label={ __( 'Margin after', 'bsx-blocks' ) }
+                        value={ marginAfter }
+                        onChange={ onChangeMarginAfter }
+                        options={ [
+                            { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+                            { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
+                            { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
+                            { value: '2', label: __( 'small', 'bsx-blocks' ) },
+                            { value: '3', label: __( 'medium', 'bsx-blocks' ) },
+                            { value: '4', label: __( 'large', 'bsx-blocks' ) },
+                            { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
+                        ] }
+                        help={ __( 'Spacer after element', 'bsx-blocks' ) }
+                    />
+                </PanelBody>
+            </InspectorControls>,
+            (
+                <div className={ galleryClassName }>
 
-                    <div className="col-6 col-sm-3 mb-4 bsx-ui-img-upload">
-                        <MediaUpload
-                            onSelect={ onAddImage }
-                            allowedTypes="image"
-                            multiple
-                            render={ ( { open } ) => (
-                                <Button className="button button-large w-100" onClick={ open }>
-                                    { __( 'Add Images', 'bsx-blocks' ) }
-                                </Button>
-                            ) }
-                        />
+                    <div className={ innerClassName }>
+                        {
+                            mediaList.map( ( media, index ) => 
+                                <div class={ itemClassName }>
+                                    <MediaUpload
+                                        key={ index }
+                                        onSelect={ ( value ) => onUpdateImage( value, index ) }
+                                        allowedTypes="image"
+                                        value={ media.id }
+                                        render={ ( { open } ) => (
+                                            <Button className="TODO bs-xui-img-btn h-auto w-100 px-0" onClick={ open }>
+                                                <img className={ imgClassName } src={ media.url } alt={ __( 'Upload Image', 'bsx-blocks' ) } />
+                                            </Button>
+                                        ) }
+                                    />
+                                    <div>
+                                        <RichText
+                                            tagName="div"
+                                            multiline={ false }
+                                            placeholder={ __( 'Caption (optional)', 'bsx-blocks' ) }
+                                            value={ media.caption }
+                                            onChange={ ( value ) => { onChangeCaption( value, index ) } }
+                                        />
+                                    </div>
+                                    <div className="d-flex">
+                                        <IconButton 
+                                            className="button" 
+                                            icon="arrow-left-alt2"
+                                            onClick={ () => { onClickMoveUp( index ) } }
+                                            label={ __( 'Move backward', 'bsx-blocks' ) }
+                                        />
+                                        <IconButton 
+                                            className="button ml-1" 
+                                            icon="arrow-right-alt2"
+                                            onClick={ () => { onClickMoveDown( index ) } }
+                                            label={ __( 'Move forward', 'bsx-blocks' ) }
+                                        />
+                                        <IconButton 
+                                            className="button text-danger border-danger ml-auto" 
+                                            icon="trash"
+                                            onClick={ () => { onClickDelete( index ) } }
+                                            label={ __( 'Remove Image', 'bsx-blocks' ) }
+                                        />
+                                    </div>
+                                </div>
+                            )
+                        }
+
+                        <div className={ itemClassName }>
+                            <MediaUpload
+                                onSelect={ onAddImage }
+                                allowedTypes="image"
+                                multiple
+                                render={ ( { open } ) => (
+                                    <Button className="button button-large w-100" onClick={ open }>
+                                        { __( 'Add Images', 'bsx-blocks' ) }
+                                    </Button>
+                                ) }
+                            />
+                        </div>
                     </div>
                 </div>
-            </div>
-        );
-        
+            )
+        ];
     },
     save: ( props ) => {
         const {
             className,
             attributes: {
                 mediaList,
+                galleryType,
+                marginBefore,
+                marginAfter,
             },
         } = props;
 
-/*
+        // class names
 
-            print('
-<div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery" data-fn="photoswipe">
-    <div class="row">
-            ');
+        let galleryClassName = makeClassName( { 
+            galleryType: galleryType 
+        } );
+        galleryClassName = addClassNames( {
+            marginBefore: marginBefore, 
+            marginAfter: marginAfter, 
+        }, galleryClassName );
 
-            foreach( $galleryData as $item ) {
-                print('
-<figure class="col-6 col-sm-3 mb-4" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-    <a class="d-block text-center" href="'.$item[ 'srcTrunc' ].$fileExtension.'" itemprop="contentUrl" data-size="'.$item[ 'size' ].'">
-        <script>document.write(\'<img class="img-fluid" src="" itemprop="thumbnail" alt="'.$item[ 'caption' ].'" width="'.$item[ 'width' ].'" height="'.$item[ 'height' ].'" data-fn="lazyload" data-src="'.$item[ 'srcTrunc' ].$thumbSuffix.$fileExtension.'">\');</script>
-        <noscript><img class="img-fluid" src="'.$item[ 'srcTrunc' ].$thumbSuffix.$fileExtension.'" itemprop="thumbnail" alt="'.$item->caption.'"></noscript>
-    </a>
-    <figcaption class="sr-only" itemprop="caption description">'.$item[ 'caption' ].'</figcaption>
-</figure>
-                ');
-            }
-            
-            print('
-    </div>
-</div>
-            ');
-*/
+        const innerClassName = makeInnerClassName( { 
+            galleryType: galleryType 
+        } );
+
+        const itemClassName = makeItemClassName( { 
+            galleryType: galleryType 
+        } );
+
+        const linkClassName = makeLinkClassName( { 
+            galleryType: galleryType 
+        } );
+
+        const imgClassName = makeImgClassName( { 
+            galleryType: galleryType 
+        } );
 
         return (
-            <div className={ className }>
-                <div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery" data-fn="photoswipe">
-                    <div class="row">
+            <div className={ galleryClassName }>
+                <div class="bsx-gallery" itemscope itemtype="http://schema.org/ImageGallery" data-fn="photoswipe">
+                    <div class={ innerClassName }>
                         {
                             mediaList.map( ( media, index ) =>     
-                                <figure class="col-6 col-sm-3 mb-4" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-                                    <a class="d-block text-center" href={ media.url } itemprop="contentUrl" data-size={ media.width + 'x' + media.height }>
-                                        <script>document.write( '<img className="img-fluid" src="" alt={ media.alt } width={ media.thumbWidth } height={ media.thumbHeight } data-src={ media.thumbUrl } data-fn="lazyload" />' );</script>
-                                        <noscript><img className="img-fluid" src={ media.thumbUrl } alt={ media.alt } width={ media.thumbWidth } height={ media.thumbHeight } /></noscript>
+                                <figure class={ itemClassName } itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                                    <a class={ linkClassName } href={ media.url } itemprop="contentUrl" data-size={ media.width + 'x' + media.height }>
+                                        <script>document.write( '<img className={ imgClassName } src="" alt={ media.alt } width={ media.thumbWidth } height={ media.thumbHeight } data-src={ media.thumbUrl } data-fn="lazyload" />' );</script>
+                                        <noscript><img className={ imgClassName } src={ media.thumbUrl } alt={ media.alt } width={ media.thumbWidth } height={ media.thumbHeight } /></noscript>
                                     </a>
 
                                     {

@@ -3130,7 +3130,7 @@ registerBlockType('bsx-blocks/container', {
         value: '5',
         label: __('extra large', 'bsx-blocks')
       }],
-      help: __('Spacer before Container', 'bsx-blocks')
+      help: __('Spacer before element', 'bsx-blocks')
     }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
       label: __('Margin after', 'bsx-blocks'),
       value: marginAfter,
@@ -3157,7 +3157,7 @@ registerBlockType('bsx-blocks/container', {
         value: '5',
         label: __('extra large', 'bsx-blocks')
       }],
-      help: __('Spacer after Container', 'bsx-blocks')
+      help: __('Spacer after element', 'bsx-blocks')
     }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorAdvancedControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
       label: __('Below navbar', 'bsx-blocks'),
       checked: !!belowNavbar,
@@ -3265,6 +3265,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
 
 
 var _wp$i18n = wp.i18n,
@@ -3273,11 +3274,15 @@ var _wp$i18n = wp.i18n,
 var registerBlockType = wp.blocks.registerBlockType;
 var _wp$blockEditor = wp.blockEditor,
     RichText = _wp$blockEditor.RichText,
-    MediaUpload = _wp$blockEditor.MediaUpload;
+    MediaUpload = _wp$blockEditor.MediaUpload,
+    InspectorControls = _wp$blockEditor.InspectorControls,
+    InspectorAdvancedControls = _wp$blockEditor.InspectorAdvancedControls;
 var _wp$components = wp.components,
     Button = _wp$components.Button,
     TextControl = _wp$components.TextControl,
-    IconButton = _wp$components.IconButton;
+    IconButton = _wp$components.IconButton,
+    SelectControl = _wp$components.SelectControl,
+    PanelBody = _wp$components.PanelBody;
 /*
     TODO: add icons to button (non icon button)
 
@@ -3295,6 +3300,77 @@ var _wp$components = wp.components,
 
 */
 
+
+
+var makeClassName = function makeClassName(config) {
+  var classNames = ['bsx-gallery'];
+
+  if (!!config.galleryType) {
+    if (config.galleryType == 'floating') {
+      classNames.push('bsx-floating-gallery');
+    }
+  }
+
+  return classNames.join(' ');
+};
+
+var makeInnerClassName = function makeInnerClassName(config) {
+  var classNames = [];
+
+  if (!!config.galleryType) {
+    if (config.galleryType == 'floating') {
+      classNames.push('bsx-floating-gallery-inner');
+    } else if (config.galleryType == 'columns') {
+      classNames.push('row');
+    }
+  }
+
+  return classNames.join(' ');
+};
+
+var makeItemClassName = function makeItemClassName(config) {
+  var classNames = [];
+
+  if (!!config.galleryType) {
+    if (config.galleryType == 'floating') {
+      classNames.push('bsx-floating-gallery-figure d-inline-block');
+    } else if (config.galleryType == 'columns') {
+      // TODO: make configurable later
+      classNames.push('col-6 col-sm-3 mb-4');
+    }
+  }
+
+  return classNames.join(' ');
+};
+
+var makeLinkClassName = function makeLinkClassName(config) {
+  var classNames = [];
+
+  if (!!config.galleryType) {
+    if (config.galleryType == 'floating') {
+      classNames.push('d-inline-block');
+    } else if (config.galleryType == 'columns') {
+      classNames.push('d-block text-center');
+    }
+  }
+
+  return classNames.join(' ');
+};
+
+var makeImgClassName = function makeImgClassName(config) {
+  var classNames = [];
+
+  if (!!config.galleryType) {
+    if (config.galleryType == 'floating') {
+      classNames.push('bsx-floating-gallery-img-md');
+    } else if (config.galleryType == 'columns') {
+      classNames.push('img-fluid');
+    }
+  }
+
+  return classNames.join(' ');
+};
+
 registerBlockType('bsx-blocks/img-gallery', {
   title: __('BSX Image Gallery', 'bsx-blocks'),
   icon: 'format-gallery',
@@ -3303,11 +3379,27 @@ registerBlockType('bsx-blocks/img-gallery', {
     mediaList: {
       type: 'array',
       default: []
+    },
+    galleryType: {
+      type: 'string',
+      default: 'columns'
+    },
+    marginBefore: {
+      type: 'string',
+      default: ''
+    },
+    marginAfter: {
+      type: 'string',
+      default: ''
     }
   },
   edit: function edit(props) {
     var className = props.className,
-        mediaList = props.attributes.mediaList,
+        _props$attributes = props.attributes,
+        mediaList = _props$attributes.mediaList,
+        galleryType = _props$attributes.galleryType,
+        marginBefore = _props$attributes.marginBefore,
+        marginAfter = _props$attributes.marginAfter,
         setAttributes = props.setAttributes,
         isSelected = props.isSelected;
 
@@ -3400,15 +3492,128 @@ registerBlockType('bsx-blocks/img-gallery', {
       setAttributes({
         mediaList: newMediaList2
       });
+    }; // TODO:
+    // - configure class name
+    // - configure inner class name
+    // - configure item class name
+    // - configure link class name
+    // - configure img class name
+
+
+    var onChangeGalleryType = function onChangeGalleryType(value) {
+      setAttributes({
+        galleryType: value
+      });
     };
 
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
-      className: className
+    var onChangeMarginBefore = function onChangeMarginBefore(value) {
+      setAttributes({
+        marginBefore: value
+      });
+    };
+
+    var onChangeMarginAfter = function onChangeMarginAfter(value) {
+      setAttributes({
+        marginAfter: value
+      });
+    }; // class names
+
+
+    var galleryClassName = makeClassName({
+      galleryType: galleryType
+    });
+    galleryClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__["addClassNames"])({
+      marginBefore: marginBefore,
+      marginAfter: marginAfter
+    }, galleryClassName);
+    var innerClassName = makeInnerClassName({
+      galleryType: galleryType
+    });
+    var itemClassName = makeItemClassName({
+      galleryType: galleryType
+    });
+    var linkClassName = makeLinkClassName({
+      galleryType: galleryType
+    });
+    var imgClassName = makeImgClassName({
+      galleryType: galleryType
+    });
+    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
+      title: __('Gallery settings', 'bsx-blocks')
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(SelectControl, {
+      label: __('Gallery type', 'bsx-blocks'),
+      value: galleryType,
+      onChange: onChangeGalleryType,
+      options: [{
+        value: 'columns',
+        label: __('Columns', 'bsx-blocks')
+      }, {
+        value: 'floating',
+        label: __('Floating (equal image height)', 'bsx-blocks')
+      }]
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
+      title: __('Margin', 'bsx-blocks')
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(SelectControl, {
+      label: __('Margin before', 'bsx-blocks'),
+      value: marginBefore,
+      onChange: onChangeMarginBefore,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: '0',
+        label: __('none (0)', 'bsx-blocks')
+      }, {
+        value: '1',
+        label: __('extra small', 'bsx-blocks')
+      }, {
+        value: '2',
+        label: __('small', 'bsx-blocks')
+      }, {
+        value: '3',
+        label: __('medium', 'bsx-blocks')
+      }, {
+        value: '4',
+        label: __('large', 'bsx-blocks')
+      }, {
+        value: '5',
+        label: __('extra large', 'bsx-blocks')
+      }],
+      help: __('Spacer before element', 'bsx-blocks')
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(SelectControl, {
+      label: __('Margin after', 'bsx-blocks'),
+      value: marginAfter,
+      onChange: onChangeMarginAfter,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: '0',
+        label: __('none (0)', 'bsx-blocks')
+      }, {
+        value: '1',
+        label: __('extra small', 'bsx-blocks')
+      }, {
+        value: '2',
+        label: __('small', 'bsx-blocks')
+      }, {
+        value: '3',
+        label: __('medium', 'bsx-blocks')
+      }, {
+        value: '4',
+        label: __('large', 'bsx-blocks')
+      }, {
+        value: '5',
+        label: __('extra large', 'bsx-blocks')
+      }],
+      help: __('Spacer after element', 'bsx-blocks')
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      className: galleryClassName
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
-      className: "row"
+      className: innerClassName
     }, mediaList.map(function (media, index) {
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
-        class: "col-6 col-sm-3 mb-4"
+        class: itemClassName
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(MediaUpload, {
         key: index,
         onSelect: function onSelect(value) {
@@ -3419,10 +3624,10 @@ registerBlockType('bsx-blocks/img-gallery', {
         render: function render(_ref) {
           var open = _ref.open;
           return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
-            className: "bsx-ui-img-btn h-auto w-100 px-0",
+            className: "TODO bs-xui-img-btn h-auto w-100 px-0",
             onClick: open
           }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("img", {
-            className: 'img-fluid',
+            className: imgClassName,
             src: media.url,
             alt: __('Upload Image', 'bsx-blocks')
           }));
@@ -3460,7 +3665,7 @@ registerBlockType('bsx-blocks/img-gallery', {
         label: __('Remove Image', 'bsx-blocks')
       })));
     }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
-      className: "col-6 col-sm-3 mb-4 bsx-ui-img-upload"
+      className: itemClassName
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(MediaUpload, {
       onSelect: onAddImage,
       allowedTypes: "image",
@@ -3472,58 +3677,57 @@ registerBlockType('bsx-blocks/img-gallery', {
           onClick: open
         }, __('Add Images', 'bsx-blocks'));
       }
-    }))));
+    }))))];
   },
   save: function save(props) {
     var className = props.className,
-        mediaList = props.attributes.mediaList;
-    /*
-    
-                print('
-    <div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery" data-fn="photoswipe">
-        <div class="row">
-                ');
-    
-                foreach( $galleryData as $item ) {
-                    print('
-    <figure class="col-6 col-sm-3 mb-4" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-        <a class="d-block text-center" href="'.$item[ 'srcTrunc' ].$fileExtension.'" itemprop="contentUrl" data-size="'.$item[ 'size' ].'">
-            <script>document.write(\'<img class="img-fluid" src="" itemprop="thumbnail" alt="'.$item[ 'caption' ].'" width="'.$item[ 'width' ].'" height="'.$item[ 'height' ].'" data-fn="lazyload" data-src="'.$item[ 'srcTrunc' ].$thumbSuffix.$fileExtension.'">\');</script>
-            <noscript><img class="img-fluid" src="'.$item[ 'srcTrunc' ].$thumbSuffix.$fileExtension.'" itemprop="thumbnail" alt="'.$item->caption.'"></noscript>
-        </a>
-        <figcaption class="sr-only" itemprop="caption description">'.$item[ 'caption' ].'</figcaption>
-    </figure>
-                    ');
-                }
-                
-                print('
-        </div>
-    </div>
-                ');
-    */
+        _props$attributes2 = props.attributes,
+        mediaList = _props$attributes2.mediaList,
+        galleryType = _props$attributes2.galleryType,
+        marginBefore = _props$attributes2.marginBefore,
+        marginAfter = _props$attributes2.marginAfter; // class names
 
+    var galleryClassName = makeClassName({
+      galleryType: galleryType
+    });
+    galleryClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__["addClassNames"])({
+      marginBefore: marginBefore,
+      marginAfter: marginAfter
+    }, galleryClassName);
+    var innerClassName = makeInnerClassName({
+      galleryType: galleryType
+    });
+    var itemClassName = makeItemClassName({
+      galleryType: galleryType
+    });
+    var linkClassName = makeLinkClassName({
+      galleryType: galleryType
+    });
+    var imgClassName = makeImgClassName({
+      galleryType: galleryType
+    });
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
-      className: className
+      className: galleryClassName
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
-      class: "my-gallery",
+      class: "bsx-gallery",
       itemscope: true,
       itemtype: "http://schema.org/ImageGallery",
       "data-fn": "photoswipe"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
-      class: "row"
+      class: innerClassName
     }, mediaList.map(function (media, index) {
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("figure", {
-        class: "col-6 col-sm-3 mb-4",
+        class: itemClassName,
         itemprop: "associatedMedia",
         itemscope: true,
         itemtype: "http://schema.org/ImageObject"
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("a", {
-        class: "d-block text-center",
+        class: linkClassName,
         href: media.url,
         itemprop: "contentUrl",
         "data-size": media.width + 'x' + media.height
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("script", null, "document.write( '", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("img", {
-        className: "img-fluid",
+        className: imgClassName,
         src: "",
         alt: media.alt,
         width: media.thumbWidth,
@@ -3531,7 +3735,7 @@ registerBlockType('bsx-blocks/img-gallery', {
         "data-src": media.thumbUrl,
         "data-fn": "lazyload"
       }), "' );"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("noscript", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("img", {
-        className: "img-fluid",
+        className: imgClassName,
         src: media.thumbUrl,
         alt: media.alt,
         width: media.thumbWidth,
