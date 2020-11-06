@@ -1,3 +1,40 @@
+.bsxui-mt-3 {
+  margin-top: 12px !important; }
+
+.bsxui-mt-4 {
+  margin-top: 24px !important; }
+
+.bsxui-mb-3 {
+  margin-bottom: 12px !important; }
+
+.bsxui-mb-4 {
+  margin-bottom: 24px !important; }
+
+.bsxui-ml-auto {
+  margin-left: auto !important; }
+
+.bsxui-px-0 {
+  padding-left: 0 !important;
+  padding-right: 0 !important; }
+
+.bsxui-w-100 {
+  width: 100% !important; }
+
+.bsxui-w-50 {
+  width: 50% !important; }
+
+.bsxui-h-auto {
+  height: auto !important; }
+
+.bsxui-text-danger {
+  color: #ca4a1f !important; }
+
+.bsxui-border-danger {
+  border-color: #ca4a1f !important; }
+
+.bsxui-bg-danger {
+  background-color: #ca4a1f !important; }
+
 .wp-block {
   max-width: unset !important; }
 

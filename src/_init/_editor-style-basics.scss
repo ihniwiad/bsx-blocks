@@ -1,0 +1,60 @@
+// editor style basics
+
+
+// margin
+
+.bsxui-mt-3 {
+	margin-top: $bsxui-small-margin-bottom !important;
+}
+.bsxui-mt-4 {
+	margin-top: $bsxui-margin-bottom !important;
+}
+
+.bsxui-mb-3 {
+	margin-bottom: $bsxui-small-margin-bottom !important;
+}
+.bsxui-mb-4 {
+	margin-bottom: $bsxui-margin-bottom !important;
+}
+
+.bsxui-ml-auto {
+	margin-left: auto !important;
+}
+
+
+// padding
+
+.bsxui-px-0 {
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+}
+
+
+// width
+
+.bsxui-w-100 {
+	width: 100% !important;
+}
+.bsxui-w-50 {
+	width: 50% !important;
+}
+
+
+// height
+
+.bsxui-h-auto {
+	height: auto !important;
+}
+
+
+// color (state danger)
+
+.bsxui-text-danger {
+	color: $bsxui-danger-color !important;
+}
+.bsxui-border-danger {
+	border-color: $bsxui-danger-color !important;
+}
+.bsxui-bg-danger {
+	background-color: $bsxui-danger-color !important;
+}

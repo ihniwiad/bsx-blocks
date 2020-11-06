@@ -3280,20 +3280,21 @@ var _wp$blockEditor = wp.blockEditor,
 var _wp$components = wp.components,
     Button = _wp$components.Button,
     TextControl = _wp$components.TextControl,
-    IconButton = _wp$components.IconButton,
     SelectControl = _wp$components.SelectControl,
-    PanelBody = _wp$components.PanelBody;
+    PanelBody = _wp$components.PanelBody,
+    SVG = _wp$components.SVG,
+    Path = _wp$components.Path;
 /*
     TODO: add icons to button (non icon button)
 
     - arrow left:
-        <svg aria-hidden="true" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" class="dashicon dashicons-arrow-left-alt2"><path d="M14 5l-5 5 5 5-1 2-7-7 7-7z"></path></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" role="img" focusable="false"><path d="M14 5l-5 5 5 5-1 2-7-7 7-7z"></path></svg>
 
     - arrow right: 
-        <svg aria-hidden="true" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" class="dashicon dashicons-arrow-right-alt2"><path d="M6 15l5-5-5-5 1-2 7 7-7 7z"></path></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" role="img" focusable="false"><path d="M6 15l5-5-5-5 1-2 7 7-7 7z"></path></svg>
 
     - trash bin:
-        <svg aria-hidden="true" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" class="dashicon dashicons-trash"><path d="M12 4h3c.6 0 1 .4 1 1v1H3V5c0-.6.5-1 1-1h3c.2-1.1 1.3-2 2.5-2s2.3.9 2.5 2zM8 4h3c-.2-.6-.9-1-1.5-1S8.2 3.4 8 4zM4 7h11l-.9 10.1c0 .5-.5.9-1 .9H5.9c-.5 0-.9-.4-1-.9L4 7z"></path></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" role="img" focusable="false"><path d="M12 4h3c.6 0 1 .4 1 1v1H3V5c0-.6.5-1 1-1h3c.2-1.1 1.3-2 2.5-2s2.3.9 2.5 2zM8 4h3c-.2-.6-.9-1-1.5-1S8.2 3.4 8 4zM4 7h11l-.9 10.1c0 .5-.5.9-1 .9H5.9c-.5 0-.9-.4-1-.9L4 7z"></path></svg>
 
     - circle plus:
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 24 24" width="24" height="24" role="img" aria-hidden="true" focusable="false"><path d="M10 1c-5 0-9 4-9 9s4 9 9 9 9-4 9-9-4-9-9-9zm0 16c-3.9 0-7-3.1-7-7s3.1-7 7-7 7 3.1 7 7-3.1 7-7 7zm1-11H9v3H6v2h3v3h2v-3h3V9h-3V6zM10 1c-5 0-9 4-9 9s4 9 9 9 9-4 9-9-4-9-9-9zm0 16c-3.9 0-7-3.1-7-7s3.1-7 7-7 7 3.1 7 7-3.1 7-7 7zm1-11H9v3H6v2h3v3h2v-3h3V9h-3V6z"></path></svg>
@@ -3365,6 +3366,18 @@ var makeImgClassName = function makeImgClassName(config) {
       classNames.push('bsx-floating-gallery-img-md');
     } else if (config.galleryType == 'columns') {
       classNames.push('img-fluid');
+    }
+  }
+
+  return classNames.join(' ');
+};
+
+var makeUploadElementClassName = function makeUploadElementClassName(config) {
+  var classNames = [];
+
+  if (!!config.galleryType) {
+    if (config.galleryType == 'floating') {
+      classNames.push('bsxui-mt-3');
     }
   }
 
@@ -3492,13 +3505,7 @@ registerBlockType('bsx-blocks/img-gallery', {
       setAttributes({
         mediaList: newMediaList2
       });
-    }; // TODO:
-    // - configure class name
-    // - configure inner class name
-    // - configure item class name
-    // - configure link class name
-    // - configure img class name
-
+    };
 
     var onChangeGalleryType = function onChangeGalleryType(value) {
       setAttributes({
@@ -3536,6 +3543,9 @@ registerBlockType('bsx-blocks/img-gallery', {
       galleryType: galleryType
     });
     var imgClassName = makeImgClassName({
+      galleryType: galleryType
+    });
+    var uploadElementClassName = makeUploadElementClassName({
       galleryType: galleryType
     });
     return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
@@ -3624,7 +3634,7 @@ registerBlockType('bsx-blocks/img-gallery', {
         render: function render(_ref) {
           var open = _ref.open;
           return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
-            className: "TODO bs-xui-img-btn h-auto w-100 px-0",
+            className: "bsxui-h-auto bsxui-w-100 bsxui-px-0",
             onClick: open
           }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("img", {
             className: imgClassName,
@@ -3642,30 +3652,57 @@ registerBlockType('bsx-blocks/img-gallery', {
         }
       })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
         className: "d-flex"
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(IconButton, {
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
         className: "button",
-        icon: "arrow-left-alt2",
         onClick: function onClick() {
           onClickMoveUp(index);
         },
         label: __('Move backward', 'bsx-blocks')
-      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(IconButton, {
-        className: "button ml-1",
-        icon: "arrow-right-alt2",
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "20",
+        height: "20",
+        viewBox: "0 0 20 20",
+        "aria-hidden": "true",
+        role: "img",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("path", {
+        d: "M14 5l-5 5 5 5-1 2-7-7 7-7z"
+      }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
+        className: "button",
         onClick: function onClick() {
           onClickMoveDown(index);
         },
         label: __('Move forward', 'bsx-blocks')
-      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(IconButton, {
-        className: "button text-danger border-danger ml-auto",
-        icon: "trash",
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "20",
+        height: "20",
+        viewBox: "0 0 20 20",
+        "aria-hidden": "true",
+        role: "img",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("path", {
+        d: "M6 15l5-5-5-5 1-2 7 7-7 7z"
+      }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
+        className: "button bsxui-text-danger bsxui-border-danger bsxui-ml-auto",
         onClick: function onClick() {
           onClickDelete(index);
         },
         label: __('Remove Image', 'bsx-blocks')
-      })));
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
-      className: itemClassName
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "20",
+        height: "20",
+        viewBox: "0 0 20 20",
+        "aria-hidden": "true",
+        role: "img",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("path", {
+        d: "M12 4h3c.6 0 1 .4 1 1v1H3V5c0-.6.5-1 1-1h3c.2-1.1 1.3-2 2.5-2s2.3.9 2.5 2zM8 4h3c-.2-.6-.9-1-1.5-1S8.2 3.4 8 4zM4 7h11l-.9 10.1c0 .5-.5.9-1 .9H5.9c-.5 0-.9-.4-1-.9L4 7z"
+      })))));
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      className: uploadElementClassName
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(MediaUpload, {
       onSelect: onAddImage,
       allowedTypes: "image",
@@ -3673,11 +3710,11 @@ registerBlockType('bsx-blocks/img-gallery', {
       render: function render(_ref2) {
         var open = _ref2.open;
         return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
-          className: "button button-large w-100",
+          className: "button button-large bsxui-w-100",
           onClick: open
-        }, __('Add Images', 'bsx-blocks'));
+        }, __('Add image(s)', 'bsx-blocks'));
       }
-    }))))];
+    })))];
   },
   save: function save(props) {
     var className = props.className,
@@ -6509,7 +6546,8 @@ var _wp$blockEditor = wp.blockEditor,
 var _wp$components = wp.components,
     PanelBody = _wp$components.PanelBody,
     SelectControl = _wp$components.SelectControl,
-    ToggleControl = _wp$components.ToggleControl; // TODO: add rounded, border-color, border
+    ToggleControl = _wp$components.ToggleControl; // TODO: refactor function `makeClassNames( ... )` to `makeWrapperClassNames( config )`
+// TODO: add text align, border, border-color
 
 var makeClassNames = function makeClassNames(bgColor, textColor, rounded, marginBefore, marginAfter, paddingBefore, paddingAfter, paddingLeft, paddingRight) {
   var classNames = [];
