@@ -21,28 +21,9 @@ const {
     withSelect,
 } = wp.data;
 
-const makeWrapperClassNames = ( textAlign, marginBefore, marginAfter ) => {
 
-    const classNames = [];
+import { addClassNames } from './../../_functions/add-class-names.js';
 
-    if ( textAlign ) {
-        classNames.push( 'text-' + textAlign );
-    }
-
-    if ( marginBefore && marginBefore === marginAfter ) {
-        classNames.push( 'my-' + marginBefore );
-    }
-    else {
-        if ( marginBefore ) {
-            classNames.push( 'mt-' + marginBefore );
-        }
-        if ( marginAfter ) {
-            classNames.push( 'mb-' + marginAfter );
-        }
-    }
-
-    return classNames.join( ' ' );
-}
 
 registerBlockType( 'bsx-blocks/buttons', {
     title: __( 'BSX Buttons', 'bsx-blocks' ),
@@ -127,7 +108,11 @@ registerBlockType( 'bsx-blocks/buttons', {
             setAttributes( { marginAfter: value } );
         };
 
-        const wrapperClassNames = makeWrapperClassNames( textAlign, marginBefore, marginAfter );
+        const wrapperClassNames = addClassNames( { 
+            textAlign: textAlign, 
+            marginBefore: marginBefore, 
+            marginAfter: marginAfter,
+        } );
 
         const alignmentControls = [
             {
@@ -173,7 +158,7 @@ registerBlockType( 'bsx-blocks/buttons', {
                                 { value: '4', label: __( 'large', 'bsx-blocks' ) },
                                 { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
                             ] }
-                            help={ __( 'Spacer before Container', 'bsx-blocks' ) }
+                            help={ __( 'Spacer before element', 'bsx-blocks' ) }
                         />
                         <SelectControl 
                             label={ __( 'Margin after', 'bsx-blocks' ) }
@@ -188,7 +173,7 @@ registerBlockType( 'bsx-blocks/buttons', {
                                 { value: '4', label: __( 'large', 'bsx-blocks' ) },
                                 { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
                             ] }
-                            help={ __( 'Spacer after Container', 'bsx-blocks' ) }
+                            help={ __( 'Spacer after element', 'bsx-blocks' ) }
                         />
                     </PanelBody>
                 </InspectorControls>
@@ -218,7 +203,11 @@ registerBlockType( 'bsx-blocks/buttons', {
             },
         } = props;
 
-        const wrapperClassNames = makeWrapperClassNames( textAlign, marginBefore, marginAfter );
+        const wrapperClassNames = addClassNames( { 
+            textAlign: textAlign, 
+            marginBefore: marginBefore, 
+            marginAfter: marginAfter,
+        } );
 
         return (
             <div className={ wrapperClassNames }>

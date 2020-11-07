@@ -370,6 +370,33 @@ module.exports = _toConsumableArray;
 
 /***/ }),
 
+/***/ "./node_modules/@babel/runtime/helpers/typeof.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/typeof.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    module.exports = _typeof = function _typeof(obj) {
+      return typeof obj;
+    };
+  } else {
+    module.exports = _typeof = function _typeof(obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+  }
+
+  return _typeof(obj);
+}
+
+module.exports = _typeof;
+
+/***/ }),
+
 /***/ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js":
 /*!***************************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js ***!
@@ -407,6 +434,8 @@ __webpack_require__.r(__webpack_exports__);
 //     belowNavbar, 
 //     marginBefore, 
 //     marginAfter, 
+//     marginLeft,
+//     marginRight,
 //     paddingBefore, 
 //     paddingAfter, 
 //     paddingLeft, 
@@ -414,23 +443,43 @@ __webpack_require__.r(__webpack_exports__);
 //     bgColor, 
 //     textColor, 
 //     rounded, 
+//     textAlign,
 // }
 function addClassNames(config, classNamesString) {
   var classNames = typeof classNamesString != 'undefined' ? classNamesString.split(' ') : [];
 
-  if (config.belowNavbar) {
+  if (!!config.belowNavbar) {
     classNames.push('below-navbar-content');
   }
 
-  if (config.marginBefore && config.marginBefore === config.marginAfter) {
-    classNames.push('my-' + config.marginBefore);
+  if (!!config.marginBefore && config.marginBefore === config.marginAfter && config.marginBefore === config.marginLeft && config.marginBefore === config.marginRight) {
+    // all
+    classNames.push('m-' + config.marginBefore);
   } else {
-    if (config.marginBefore) {
-      classNames.push('mt-' + config.marginBefore);
-    }
+    // top & bottom
+    if (!!config.marginBefore && config.marginBefore === config.marginAfter) {
+      classNames.push('my-' + config.marginBefore);
+    } else {
+      if (!!config.marginBefore) {
+        classNames.push('mt-' + config.marginBefore);
+      }
 
-    if (config.marginAfter) {
-      classNames.push('mb-' + config.marginAfter);
+      if (!!config.marginAfter) {
+        classNames.push('mb-' + config.marginAfter);
+      }
+    } // left & right
+
+
+    if (!!config.marginLeft && config.marginLeft === config.marginRight) {
+      classNames.push('mx-' + config.marginLeft);
+    } else {
+      if (!!config.marginLeft) {
+        classNames.push('ml-' + config.marginLeft);
+      }
+
+      if (!!config.marginRight) {
+        classNames.push('mr-' + config.marginRight);
+      }
     }
   }
 
@@ -479,6 +528,10 @@ function addClassNames(config, classNamesString) {
 
   if (!!config.rounded) {
     classNames.push('rounded');
+  }
+
+  if (!!config.textAlign) {
+    classNames.push('text-' + config.textAlign);
   }
 
   return classNames.join(' ');
@@ -1775,13 +1828,18 @@ registerBlockType('bsx-blocks/banner', {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js");
 /* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/slicedToArray.js");
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/slicedToArray.js");
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
 
 
 
+
+// TDOD: add state classes for link button
 var _wp$i18n = wp.i18n,
     __ = _wp$i18n.__,
     setLocaleData = _wp$i18n.setLocaleData;
@@ -1799,34 +1857,26 @@ var _wp$components = wp.components,
     SelectControl = _wp$components.SelectControl;
 var withSelect = wp.data.withSelect;
 
-var makeButtonClassNames = function makeButtonClassNames(state, stateType, size, marginLeft, marginRight) {
-  var classNames = ['btn'];
-  var prefix = 'btn-';
-  var buildClassName = prefix;
 
-  if (state) {
-    if (stateType) {
-      buildClassName += stateType + '-';
+var makeButtonClassNames = function makeButtonClassNames(config) {
+  var classNames = ['btn'];
+  var buildClassName = 'btn-';
+
+  if (!!config.state) {
+    if (!!config.stateType) {
+      buildClassName += config.stateType + '-';
     }
 
-    buildClassName += state;
+    buildClassName += config.state;
     classNames.push(buildClassName);
   }
 
-  if (size) {
-    classNames.push(prefix + size);
+  if (!!config.size) {
+    classNames.push('btn-' + config.size);
   }
 
-  if (marginLeft && marginLeft === marginRight) {
-    classNames.push('mx-' + marginLeft);
-  } else {
-    if (marginLeft) {
-      classNames.push('ml-' + marginLeft);
-    }
-
-    if (marginRight) {
-      classNames.push('mr-' + marginRight);
-    }
+  if (!!config.hrefIsContentIsEmail) {
+    classNames.push('create-mt');
   }
 
   return classNames.join(' ');
@@ -1836,7 +1886,7 @@ var makeSaveAttributes = function makeSaveAttributes(attributes) {
   var nonEmptyAttributes = {};
 
   for (var _i = 0, _Object$entries = Object.entries(attributes); _i < _Object$entries.length; _i++) {
-    var _Object$entries$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1___default()(_Object$entries[_i], 2),
+    var _Object$entries$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2___default()(_Object$entries[_i], 2),
         key = _Object$entries$_i[0],
         value = _Object$entries$_i[1];
 
@@ -1848,6 +1898,39 @@ var makeSaveAttributes = function makeSaveAttributes(attributes) {
 
   return nonEmptyAttributes;
 };
+
+var isEmailFormat = function isEmailFormat(href) {
+  if (href.indexOf('mailto:') == 0 && /\S+@\S+\.\S+/.test(href.substring(7))) {
+    var explode = href.substring(7).split('@');
+    var name = explode[0];
+    explode = explode[1].split('.');
+    var suffix = explode[explode.length - 1]; // doest’t need to contain the whole suffix in cases of e.g. `.co.uk`
+
+    explode.pop();
+    var domain = explode.join('.'); // might contain part of suffix in cases of e.g. `.co.uk`
+    // console.log( 'href: ' + href );
+    // console.log( 'valid: ' + true );
+    // console.log( 'name: ' + name );
+    // console.log( 'domain: ' + domain );
+    // console.log( 'suffix: ' + suffix );
+
+    return {
+      valid: true,
+      name: name,
+      domain: domain,
+      suffix: suffix
+    };
+  } else {
+    // console.log( 'href: ' + href );
+    // console.log( 'valid: ' + false );
+    return {
+      valid: false
+    };
+  }
+}; // const checkHrefIsContentIsEmail = ( emailIsValid, href, content ) => {
+//     return emailIsValid && href == 'mailto:' + content;
+// }
+
 
 registerBlockType('bsx-blocks/button', {
   title: __('BSX Button', 'bsx-blocks'),
@@ -1899,6 +1982,14 @@ registerBlockType('bsx-blocks/button', {
     marginRight: {
       type: 'string',
       default: ''
+    },
+    marginBefore: {
+      type: 'string',
+      default: ''
+    },
+    marginAfter: {
+      type: 'string',
+      default: ''
     }
   },
   edit: function edit(props) {
@@ -1915,6 +2006,8 @@ registerBlockType('bsx-blocks/button', {
         dataFn = _props$attributes.dataFn,
         marginLeft = _props$attributes.marginLeft,
         marginRight = _props$attributes.marginRight,
+        marginBefore = _props$attributes.marginBefore,
+        marginAfter = _props$attributes.marginAfter,
         setAttributes = props.setAttributes,
         isSelected = props.isSelected;
 
@@ -1984,10 +2077,62 @@ registerBlockType('bsx-blocks/button', {
       });
     };
 
-    var buttonClassNames = makeButtonClassNames(state, stateType, size, marginLeft, marginRight);
-    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(PanelBody, {
-      title: __('Button Settings', 'bsx-blocks')
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(SelectControl, {
+    var onChangeMarginBefore = function onChangeMarginBefore(value) {
+      setAttributes({
+        marginBefore: value
+      });
+    };
+
+    var onChangeMarginAfter = function onChangeMarginAfter(value) {
+      setAttributes({
+        marginAfter: value
+      });
+    };
+
+    var checkEmail = isEmailFormat(href); // const hrefIsContentIsEmail = checkEmail.valid && href == 'mailto:' + content;
+
+    var hrefIsContentIsEmail = checkEmail.valid && (href == 'mailto:' + content || _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(content) == 'object' && content.length == 0); // exclude hrefIsContentIsEmail here to keep correct button title shown
+
+    var buttonClassNames = makeButtonClassNames({
+      state: state,
+      stateType: stateType,
+      size: size
+    });
+    buttonClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_4__["addClassNames"])({
+      marginLeft: marginLeft,
+      marginRight: marginRight,
+      marginBefore: marginBefore,
+      marginAfter: marginAfter
+    }, buttonClassNames); // adapt content since mailto link saves empty content, see `value={ ! content && hrefIsContentIsEmail ? href.substring( 7 ) : content }`
+    // edit spam-protected mailto link format (no class name `create-mt`, no data-attributes):
+    // `<a>MY_NAME@MY_DOMAIN.MY_DOMAIN_SUFFIX</a>` or `<a>SOME_CONTENT</a>`
+    // console.log( '! content && hrefIsContentIsEmail ? [ href.substring( 7 ) ] : content: ' + ! content && hrefIsContentIsEmail ? [ href.substring( 7 ) ] : content );
+
+    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(PanelBody, {
+      title: __('Button link settings', 'bsx-blocks')
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(URLInput, {
+      label: __('Link URL', 'bsx-blocks'),
+      value: href,
+      onChange: onChangeHref
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(ToggleControl, {
+      label: __('Open in new tab', 'bsx-blocks'),
+      checked: target == '_blank',
+      onChange: onChangeTarget
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(TextControl, {
+      label: __('Hash (optional)', 'bsx-blocks'),
+      value: hash,
+      onChange: onChangeHash
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(TextControl, {
+      label: __('Rel (optional)', 'bsx-blocks'),
+      value: rel,
+      onChange: onChangeRel
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(TextControl, {
+      label: __('data-fn (optional)', 'bsx-blocks'),
+      value: dataFn,
+      onChange: onChangeDataFn
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(PanelBody, {
+      title: __('Button appearance', 'bsx-blocks')
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(SelectControl, {
       label: __('State', 'bsx-blocks'),
       value: state,
       onChange: onChangeState,
@@ -2019,7 +2164,7 @@ registerBlockType('bsx-blocks/button', {
         value: 'link',
         label: __('Link', 'bsx-blocks')
       }]
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(SelectControl, {
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(SelectControl, {
       label: __('State Type', 'bsx-blocks'),
       value: stateType,
       onChange: onChangeStateType,
@@ -2030,7 +2175,7 @@ registerBlockType('bsx-blocks/button', {
         value: '',
         label: __('Filled', 'bsx-blocks')
       }]
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(SelectControl, {
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(SelectControl, {
       label: __('Size', 'bsx-blocks'),
       value: size,
       onChange: onChangeSize,
@@ -2044,17 +2189,9 @@ registerBlockType('bsx-blocks/button', {
         value: 'lg',
         label: __('Large', 'bsx-blocks')
       }]
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(TextControl, {
-      label: __('Rel (optional)', 'bsx-blocks'),
-      value: rel,
-      onChange: onChangeRel
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(TextControl, {
-      label: __('data-fn (optional)', 'bsx-blocks'),
-      value: dataFn,
-      onChange: onChangeDataFn
-    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(PanelBody, {
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(PanelBody, {
       title: __('Margin', 'bsx-blocks')
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(SelectControl, {
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(SelectControl, {
       label: __('Margin left', 'bsx-blocks'),
       value: marginLeft,
       onChange: onChangeMarginLeft,
@@ -2071,7 +2208,7 @@ registerBlockType('bsx-blocks/button', {
         value: '3',
         label: __('medium', 'bsx-blocks')
       }]
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(SelectControl, {
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(SelectControl, {
       label: __('Margin right', 'bsx-blocks'),
       value: marginRight,
       onChange: onChangeMarginRight,
@@ -2088,30 +2225,71 @@ registerBlockType('bsx-blocks/button', {
         value: '3',
         label: __('medium', 'bsx-blocks')
       }]
-    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("span", {
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(SelectControl, {
+      label: __('Margin before', 'bsx-blocks'),
+      value: marginBefore,
+      onChange: onChangeMarginBefore,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: '0',
+        label: __('none (0)', 'bsx-blocks')
+      }, {
+        value: '1',
+        label: __('extra small', 'bsx-blocks')
+      }, {
+        value: '2',
+        label: __('small', 'bsx-blocks')
+      }, {
+        value: '3',
+        label: __('medium', 'bsx-blocks')
+      }, {
+        value: '4',
+        label: __('large', 'bsx-blocks')
+      }, {
+        value: '5',
+        label: __('extra large', 'bsx-blocks')
+      }],
+      help: __('Spacer before element', 'bsx-blocks')
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(SelectControl, {
+      label: __('Margin after', 'bsx-blocks'),
+      value: marginAfter,
+      onChange: onChangeMarginAfter,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: '0',
+        label: __('none (0)', 'bsx-blocks')
+      }, {
+        value: '1',
+        label: __('extra small', 'bsx-blocks')
+      }, {
+        value: '2',
+        label: __('small', 'bsx-blocks')
+      }, {
+        value: '3',
+        label: __('medium', 'bsx-blocks')
+      }, {
+        value: '4',
+        label: __('large', 'bsx-blocks')
+      }, {
+        value: '5',
+        label: __('extra large', 'bsx-blocks')
+      }],
+      help: __('Spacer after element', 'bsx-blocks')
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("span", {
       className: buttonClassNames
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(RichText, {
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(RichText, {
       tagName: "a",
       multiline: false,
       placeholder: __('Add Title...', 'bsx-blocks'),
-      value: content,
+      value: _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(content) == 'object' && content.length == 0 && hrefIsContentIsEmail ? [href.substring(7)] : content,
       onChange: onChangeContent,
       allowedFormats: [],
       keepPlaceholderOnFocus: true
-    })), isSelected && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
-      class: "bsxui-isselected-config-panel"
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(URLInput, {
-      value: href,
-      onChange: onChangeHref
-    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(ToggleControl, {
-      label: __('Open in new tab'),
-      checked: target == '_blank',
-      onChange: onChangeTarget
-    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(TextControl, {
-      label: __('Hash (optional)', 'bsx-blocks'),
-      value: hash,
-      onChange: onChangeHash
-    }))))];
+    })))];
   },
   save: function save(props) {
     var className = props.className,
@@ -2126,17 +2304,49 @@ registerBlockType('bsx-blocks/button', {
         size = _props$attributes2.size,
         dataFn = _props$attributes2.dataFn,
         marginLeft = _props$attributes2.marginLeft,
-        marginRight = _props$attributes2.marginRight;
-    var buttonClassNames = makeButtonClassNames(state, stateType, size, marginLeft, marginRight);
-    var saveAttributes = makeSaveAttributes({
-      href: hash ? href + '#' + hash : href,
-      target: target,
-      rel: href ? rel ? rel + ' noopener noreferrer' : 'noopener noreferrer' : '',
-      'data-fn': dataFn
+        marginRight = _props$attributes2.marginRight,
+        marginBefore = _props$attributes2.marginBefore,
+        marginAfter = _props$attributes2.marginAfter;
+    var checkEmail = isEmailFormat(href); // adapt empty content of email link
+    // if ( ! content && checkEmail.valid ) {
+    //     content.push[ href.substring( 7 ) ];
+    //     console.log( '----- save: content adapted' );
+    // }
+    // after reload content is empty in case of valid mailto href
+
+    var hrefIsContentIsEmail = checkEmail.valid && (href == 'mailto:' + content || _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(content) == 'object' && content.length == 0); // console.log( '---------- checkEmail.valid: ' + checkEmail.valid );
+    // console.log( '----- href: ' + href );
+    // console.log( '----- content: ' + content );
+    // console.log( '----- typeof content: ' + typeof content );
+    // console.log( '----- content.length: ' + content.length );
+    // console.log( '----- hrefIsContentIsEmail: ' + hrefIsContentIsEmail );
+
+    var buttonClassNames = makeButtonClassNames({
+      state: state,
+      stateType: stateType,
+      size: size,
+      hrefIsContentIsEmail: hrefIsContentIsEmail
     });
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["Fragment"], null, content && !RichText.isEmpty(content) && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(RichText.Content, _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+    buttonClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_4__["addClassNames"])({
+      marginLeft: marginLeft,
+      marginRight: marginRight,
+      marginBefore: marginBefore,
+      marginAfter: marginAfter
+    }, buttonClassNames); // save spam-protected mailto link format (no href-attribute, no content – both will be set via css / js):
+    // `<a class="create-mt" data-fn="create-mt" data-mt-n="MY_NAME" data-mt-d="MY_DOMAIN" data-mt-s="MY_DOMAIN_SUFFIX"></a>`
+
+    var saveAttributes = makeSaveAttributes({
+      href: !hrefIsContentIsEmail ? hash ? href + '#' + hash : href : '',
+      'data-fn': checkEmail.valid ? 'create-mt' : dataFn,
+      'data-mt-n': checkEmail.valid ? checkEmail.name : '',
+      'data-mt-d': checkEmail.valid ? checkEmail.domain : '',
+      'data-mt-s': checkEmail.valid ? checkEmail.suffix : '',
+      target: target,
+      rel: href && !hrefIsContentIsEmail ? rel ? rel + ' noopener noreferrer' : 'noopener noreferrer' : ''
+    });
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["Fragment"], null, (content && !RichText.isEmpty(content) || hrefIsContentIsEmail) && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(RichText.Content, _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
       tagName: href ? 'a' : 'button',
-      value: content,
+      value: hrefIsContentIsEmail ? '' : content,
       className: buttonClassNames
     }, saveAttributes)));
   }
@@ -2155,6 +2365,7 @@ registerBlockType('bsx-blocks/button', {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
 
 var _wp$i18n = wp.i18n,
     __ = _wp$i18n.__,
@@ -2171,28 +2382,6 @@ var _wp$components = wp.components,
     SelectControl = _wp$components.SelectControl;
 var Fragment = wp.element.Fragment;
 var withSelect = wp.data.withSelect;
-
-var makeWrapperClassNames = function makeWrapperClassNames(textAlign, marginBefore, marginAfter) {
-  var classNames = [];
-
-  if (textAlign) {
-    classNames.push('text-' + textAlign);
-  }
-
-  if (marginBefore && marginBefore === marginAfter) {
-    classNames.push('my-' + marginBefore);
-  } else {
-    if (marginBefore) {
-      classNames.push('mt-' + marginBefore);
-    }
-
-    if (marginAfter) {
-      classNames.push('mb-' + marginAfter);
-    }
-  }
-
-  return classNames.join(' ');
-};
 
 registerBlockType('bsx-blocks/buttons', {
   title: __('BSX Buttons', 'bsx-blocks'),
@@ -2266,7 +2455,11 @@ registerBlockType('bsx-blocks/buttons', {
       });
     };
 
-    var wrapperClassNames = makeWrapperClassNames(textAlign, marginBefore, marginAfter);
+    var wrapperClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_1__["addClassNames"])({
+      textAlign: textAlign,
+      marginBefore: marginBefore,
+      marginAfter: marginAfter
+    });
     var alignmentControls = [{
       icon: 'editor-alignleft',
       title: __('Align left', 'bsx-blocks'),
@@ -2313,7 +2506,7 @@ registerBlockType('bsx-blocks/buttons', {
         value: '5',
         label: __('extra large', 'bsx-blocks')
       }],
-      help: __('Spacer before Container', 'bsx-blocks')
+      help: __('Spacer before element', 'bsx-blocks')
     }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
       label: __('Margin after', 'bsx-blocks'),
       value: marginAfter,
@@ -2340,7 +2533,7 @@ registerBlockType('bsx-blocks/buttons', {
         value: '5',
         label: __('extra large', 'bsx-blocks')
       }],
-      help: __('Spacer after Container', 'bsx-blocks')
+      help: __('Spacer after element', 'bsx-blocks')
     })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: wrapperClassNames
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks, {
@@ -2357,7 +2550,11 @@ registerBlockType('bsx-blocks/buttons', {
         textAlign = _props$attributes2.textAlign,
         marginBefore = _props$attributes2.marginBefore,
         marginAfter = _props$attributes2.marginAfter;
-    var wrapperClassNames = makeWrapperClassNames(textAlign, marginBefore, marginAfter);
+    var wrapperClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_1__["addClassNames"])({
+      textAlign: textAlign,
+      marginBefore: marginBefore,
+      marginAfter: marginAfter
+    });
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: wrapperClassNames
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks.Content, null));
