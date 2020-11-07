@@ -4,6 +4,8 @@
 //     belowNavbar, 
 //     marginBefore, 
 //     marginAfter, 
+//     marginLeft,
+//     marginRight,
 //     paddingBefore, 
 //     paddingAfter, 
 //     paddingLeft, 
@@ -11,26 +13,49 @@
 //     bgColor, 
 //     textColor, 
 //     rounded, 
+//     textAlign,
 // }
 
 export function addClassNames( config, classNamesString ) {
 
     const classNames = ( typeof classNamesString != 'undefined' ) ? classNamesString.split( ' ' ) : [];
 
-    if ( config.belowNavbar ) {
+    if ( !! config.belowNavbar ) {
         classNames.push( 'below-navbar-content' );
     }
 
-    if ( config.marginBefore && config.marginBefore === config.marginAfter ) {
-        classNames.push( 'my-' + config.marginBefore );
+    if ( !! config.marginBefore && config.marginBefore === config.marginAfter && config.marginBefore === config.marginLeft && config.marginBefore === config.marginRight ) {
+        // all
+        classNames.push( 'm-' + config.marginBefore );
     }
     else {
-        if ( config.marginBefore ) {
-            classNames.push( 'mt-' + config.marginBefore );
+
+        // top & bottom
+        if ( !! config.marginBefore && config.marginBefore === config.marginAfter ) {
+            classNames.push( 'my-' + config.marginBefore );
         }
-        if ( config.marginAfter ) {
-            classNames.push( 'mb-' + config.marginAfter );
+        else {
+            if ( !! config.marginBefore ) {
+                classNames.push( 'mt-' + config.marginBefore );
+            }
+            if ( !! config.marginAfter ) {
+                classNames.push( 'mb-' + config.marginAfter );
+            }
         }
+
+        // left & right
+        if ( !! config.marginLeft && config.marginLeft === config.marginRight ) {
+            classNames.push( 'mx-' + config.marginLeft );
+        }
+        else {
+            if ( !! config.marginLeft ) {
+                classNames.push( 'ml-' + config.marginLeft );
+            }
+            if ( !! config.marginRight ) {
+                classNames.push( 'mr-' + config.marginRight );
+            }
+        }
+
     }
 
     if ( !! config.paddingBefore && config.paddingBefore === config.paddingAfter && config.paddingBefore === config.paddingLeft && config.paddingBefore === config.paddingRight ) {
@@ -81,6 +106,10 @@ export function addClassNames( config, classNamesString ) {
 
     if ( !! config.rounded ) {
         classNames.push( 'rounded' );
+    }
+
+    if ( !! config.textAlign ) {
+        classNames.push( 'text-' + config.textAlign );
     }
 
     return classNames.join( ' ' );
