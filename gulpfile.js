@@ -8,6 +8,7 @@ const cleanCSS      = require( 'gulp-clean-css' );
 const clean         = require( 'gulp-clean' );
 const watch         = require( 'gulp-watch' );
 const replace       = require( 'gulp-string-replace' );
+const fs            = require( 'fs' );
 
 
 // scss
@@ -78,9 +79,10 @@ const basicStylePackagePathReplace = ( cb ) => {
     cb();
 }
 
-const publishFolderDelete = ( cb ) => {
+function publishFolderDelete( cb ) {
 
     if ( !! mergedPublish.dest && !! mergedPublish.folderName ) {
+        // console.log( 'delete: ' + mergedPublishDestFullPath );
         return gulp.src( mergedPublishDestFullPath, { read: false, allowEmpty: true } )
             .pipe( clean( { force: true } ) ) // NOTE: take care at this command since you’re deleting files outside your project
         ;
@@ -92,9 +94,10 @@ const publishFolderDelete = ( cb ) => {
     cb();
 }
 
-const publishFolderCreate = ( cb ) => {
+function publishFolderCreate( cb ) {
 
     if ( !! mergedPublish.dest && !! mergedPublish.folderName ) {
+        // console.log( 'create: ' + mergedPublishDestFullPath + ' (src: ' + mergedPublish.src + ', base: ' + mergedPublish.base + ')' );
         return gulp.src( mergedPublish.src, { base: mergedPublish.base } )
             .pipe( gulp.dest( mergedPublishDestFullPath ) )
         ;
