@@ -8,6 +8,41 @@
 }
 
 
+// hover border for all bsx blocks
+// TODO: test & make variables
+
+// [data-type^="bsx-blocks/"]
+[data-type]:hover {
+	// border: 1px $bsxui-special-border-style $bsxui-hover-active-color;
+
+	&:after {
+		content: "";
+		z-index: 100;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		display: block;
+		box-shadow: 0 0 1px 0 inset $bsxui-hover-active-color;
+		pointer-events: none;
+	}
+
+	&:before {
+		content: attr(data-title);
+		position: absolute;
+		bottom: 100%;
+		left: 0;
+		display: block;
+		color: #ffffff;
+		background-color: $bsxui-hover-active-color;
+		font-size: 9px;
+		padding: 1px 4px;
+		pointer-events: none;
+	}
+}
+
+
 // columns (make core style ready for bootstrap style)
 
 // NOTE: please check this style for conflicts or better do not use WP Core Columns, use BSX Columns instead
