@@ -26,320 +26,51 @@ const {
 
 import { addClassNames } from './../_functions/add-class-names.js';
 
+import { 
+    makeBannerInnerClassNames,
+    getUrlTruncAndExtension,
+    fullImgIsScaled,
+    getOriginalImgUrl,
+    getSizesAndWithoutSizesTruncFromUrlTrunc,
+    makeSizedImgs,
+    getOriginalImgSizes,
+    imageExists,
+    getImgSizes,
+} from './../_functions/img.js';
 
-const makeBannerClassNames = ( bannerType, bannerSize, belowNavbar, bgAttachment, bgSize, bgPosition, alignItems, templateName, marginBefore, marginAfter, paddingBefore, paddingAfter ) => {
+
+const makeBannerClassNames = ( config ) => {
 
     const classNames = [];
 
     if ( true ) {
         // always set bannerType and bannerSize to keep debugging easy
-        classNames.push( 'banner-' + bannerType + '-' + bannerSize );
+        classNames.push( 'banner-' + config.bannerType + '-' + config.bannerSize );
     }
 
-    if ( !! belowNavbar ) {
-        classNames.push( 'below-navbar-content' );
+    if ( !! config.bgAttachment ) {
+        classNames.push( 'bg-' + config.bgAttachment );
+    }
+    if ( !! config.bgSize ) {
+        classNames.push( 'bg-' + config.bgSize );
     }
 
-    if ( !! bgAttachment ) {
-        classNames.push( 'bg-' + bgAttachment );
-    }
-    if ( !! bgSize ) {
-        classNames.push( 'bg-' + bgSize );
-    }
-
-    if ( !! bgPosition ) {
-        classNames.push( 'bg-' + bgPosition );
+    if ( !! config.bgPosition ) {
+        classNames.push( 'bg-' + config.bgPosition );
     }
     
-    if ( !! alignItems ) {
+    if ( !! config.alignItems ) {
         classNames.push( 'd-flex' );
-        if ( templateName !== 'column-row-banner' ) {
-            classNames.push( 'align-items-' + alignItems );
+        if ( config.templateName !== 'column-row-banner' ) {
+            classNames.push( 'align-items-' + config.alignItems );
         }
     }
     
-    if ( !! templateName && templateName == 'column-row-banner' && classNames.indexOf( 'd-flex' ) == -1 ) {
+    if ( !! config.templateName && config.templateName == 'column-row-banner' && classNames.indexOf( 'd-flex' ) == -1 ) {
         classNames.push( 'd-flex' );
-    }
-
-    if ( marginBefore && marginBefore === marginAfter ) {
-        classNames.push( 'my-' + marginBefore );
-    }
-    else {
-        if ( marginBefore ) {
-            classNames.push( 'mt-' + marginBefore );
-        }
-        if ( marginAfter ) {
-            classNames.push( 'mb-' + marginAfter );
-        }
-    }
-
-    if ( paddingBefore && paddingBefore === paddingAfter ) {
-        classNames.push( 'py-' + paddingBefore );
-    }
-    else {
-        if ( paddingBefore ) {
-            classNames.push( 'pt-' + paddingBefore );
-        }
-        if ( paddingAfter ) {
-            classNames.push( 'pb-' + paddingAfter );
-        }
     }
 
     return classNames.join( ' ' );
-}
-
-
-const makeBannerInnerClassNames = ( config ) => {
-
-    const classNames = [ 'banner-inner' ];
-    
-    if ( !! config.templateName && config.templateName == 'column-row-banner' ) {
-        classNames.push( 'w-100' );
-        classNames.push( 'd-flex' );
-        classNames.push( 'flex-column' );
-    }
-
-    return classNames.join( ' ' );
-}
-
-const getUrlTruncAndExtension = ( url ) => {
-
-    const urlExplode = url.split( '.' );
-
-    const fileExtension = urlExplode[ urlExplode.length - 1 ];
-    urlExplode.pop();
-    const urlWithoutFileExtension = urlExplode.join( '.' );
-
-    return {
-        trunc: urlWithoutFileExtension,
-        extension: fileExtension,
-    };
-}
-
-const fullImgIsScaled = ( fullUrl ) => {
-
-    const urlWithoutFileExtension = getUrlTruncAndExtension( fullUrl ).trunc;
-
-    return urlWithoutFileExtension.lastIndexOf( '-scaled' ) === urlWithoutFileExtension.length - 7;
-}
-
-const getOriginalImgUrl = ( fullUrl ) => {
-
-    const truncAndExtension = getUrlTruncAndExtension( fullUrl );
-
-    return truncAndExtension.trunc.substring(0, truncAndExtension.trunc.length - 7) + '.' + truncAndExtension.extension;
-}
-
-const getSizesAndWithoutSizesTruncFromUrlTrunc = ( urlTrunc ) => {
-
-    const urlWithoutFileExtensionExplode = urlTrunc.split( '-' );
-    const sizes = urlWithoutFileExtensionExplode[ urlWithoutFileExtensionExplode.length - 1 ].split( 'x' );
-
-    urlWithoutFileExtensionExplode.pop();
-
-    return {
-        width: sizes[ 0 ],
-        height: sizes[ 1 ],
-        withoutSizesTrunc: urlWithoutFileExtensionExplode.join( '-' ),
-    };
-}
-
-const makeSizedImgs = ( config ) => {
-
-    const ratio = config.originalWidth / config.originalHeight;
-
-    const urlTruncAndExtension = getUrlTruncAndExtension( config.url );
-
-    const fileExtension = urlTruncAndExtension.extension;
-    const urlWithoutFileExtension = urlTruncAndExtension.trunc;
-
-    const sizesAndWithoutSizesTrunc = getSizesAndWithoutSizesTruncFromUrlTrunc( urlWithoutFileExtension );
-
-    const width = sizesAndWithoutSizesTrunc.width;
-    const urlWithoutSizesAndFileExtension = sizesAndWithoutSizesTrunc.withoutSizesTrunc;
-
-    const returnList = [];
-
-    config.scaleList.forEach( ( scale, index ) => {
-
-        // calculate new size
-        const scaledWidth = Math.round( width * scale );
-
-        // check if default size exists for current img (only if original img is larger)
-        if ( scaledWidth <= config.originalWidth ) {
-
-            const scaledHeight = Math.round( scaledWidth / ratio );
-            const scaledUrl = urlWithoutSizesAndFileExtension + '-' + scaledWidth + 'x' + scaledHeight + '.' + fileExtension;
-
-            returnList.push( {
-                url: scaledUrl,
-                width: scaledWidth,
-                height: scaledHeight,
-            } );
-        }
-
-    } ); 
-
-    return returnList;
-
-}
-
-const getOriginalImgSizes = ( originalImgUrl ) => {
-
-    return new Promise( ( resolve, reject ) => {
-
-        let img = document.createElement( 'img' );
-        img.onload = () => { 
-
-            resolve( {
-                width: img.width,
-                height: img.height,
-            } );
-
-            img.remove;
-        };
-        img.onerror = ( err ) => {
-            reject( 'Error on loading image "' + originalImgUrl + '"', err );
-        }
-        img.src = originalImgUrl;
-        document.body.appendChild( img );
-    } );
-}
-
-const imageExists = ( url ) => {
-    return new Promise( ( resolve, reject ) => {
-        const xhr = new XMLHttpRequest();
-        xhr.open( 'HEAD', url, true );
-        xhr.onreadystatechange = () => {
-            if ( xhr.readyState == 4 ) {
-                if ( xhr.status == 200 ) {
-                    resolve( true );
-                } 
-                else {
-                    resolve( false );
-                }
-            }
-        };
-        xhr.send( null );
-    } );
-}
-
-// scaled (hidden) img settings
-const imgScaleList = [ 0.75, 1.5, 2 ];
-const imgBaseSize = 'large';
-
-const defaultImgList = [ 
-    'thumbnail', 
-    'medium', 
-    imgBaseSize, 
-    'full', 
-];
-const imgSizesOrder = [ 
-    'thumbnail', 
-    'medium', 
-    imgScaleList[ 0 ] + '',
-    imgBaseSize, 
-    imgScaleList[ 1 ] + '',
-    imgScaleList[ 2 ] + '',
-    'full',
-    'original',
-];
-
-// getting sorted list of all imgs (default and hidden scaled)
-async function getImgSizes( img ) {
-
-    let originalImgUrl = '';
-    let originalWidth = 0;
-    let originalHeight = 0;
-
-    if ( fullImgIsScaled( img.url ) ) {
-        // get original, get sizes
-        originalImgUrl = getOriginalImgUrl( img.url );
-
-        let originalImgSizes;
-        try {
-            originalImgSizes = await getOriginalImgSizes( originalImgUrl );
-        } catch( err ) {
-            console.error( err );
-        }
-
-        originalWidth = originalImgSizes.width || 0;
-        originalHeight = originalImgSizes.height || 0;
-    }
-    else {
-        // get sizes from full img
-        originalWidth = img.sizes.full.width;
-        originalHeight = img.sizes.full.height;
-    }
-
-    let scaledImgs = {};
-    const returnImgs = [];
-
-    // make sizes only if marge img exists
-    if ( img.sizes.large != undefined ) {
-
-        // config for making sizes (might change in newer WP versions)
-        const sizedImgsConfig = {
-            url: img.sizes[ imgBaseSize ].url,
-            scaleList: imgScaleList,
-            originalWidth: originalWidth,
-            originalHeight: originalHeight,
-        };
-        const sizedImgs = makeSizedImgs( sizedImgsConfig );
-
-        // check all imgs if exist (since WordPress might change hidden img sizes one day);
-        await Promise.all( sizedImgs.map( async ( sizedImg, index ) => {
-            const currentImageExists = await imageExists( sizedImg.url );
-            if ( currentImageExists ) {
-                scaledImgs[ imgScaleList[ index ] + '' ] = sizedImg;
-            }
-        } ) );
-
-        // TEST – TODO: remove
-        // for ( let [ key, value ] of Object.entries( scaledImgs ) ) {
-        //     console.log( 'scaledImgs[ ' + key + ' ]: ' + value.url );
-        // }
-
-        // make ordered list of all existing default img sizes and scaled (hidden) img sizes
-        imgSizesOrder.forEach( ( imgSize, index ) => {
-
-            if ( defaultImgList.indexOf( imgSize ) != -1 && img.sizes[ imgSize ] != undefined ) {
-                // get from default img list
-                returnImgs.push( {
-                    url: img.sizes[ imgSize ].url,
-                    width: img.sizes[ imgSize ].width,
-                    height: img.sizes[ imgSize ].height, 
-                } );
-            }
-            else if ( imgScaleList.indexOf( parseFloat( imgSize ) ) != -1 && scaledImgs[ imgSize ] != undefined ) {
-                // get from scaled imgs list
-                returnImgs.push( scaledImgs[ imgSize ] );
-            }
-            else if ( imgSize == 'original' && originalImgUrl ) {
-                // add unscaled original
-                returnImgs.push( {
-                    url: originalImgUrl,
-                    width: originalWidth,
-                    height: originalHeight, 
-                } );
-            }
-
-        } );
-
-    }
-
-    // TEST – TODO: remove
-    // returnImgs.forEach( ( returnImg, index ) => {
-    //     console.log( 
-    //         index + ':\n' 
-    //         + returnImg.url + '\n'
-    //         + returnImg.width + '\n'
-    //         + returnImg.height + '\n'
-    //     );
-    // } );
-
-    return returnImgs;
 }
 
 // responsive sizes
@@ -552,7 +283,7 @@ registerBlockType( 'bsx-blocks/banner', {
                     [
                         'core/paragraph',
                         { 
-                            placeholder: 'Change paragraph text or delete...'
+                            placeholder: 'Change paragraph text or delete...',
                         }
                     ]
                 ],
@@ -818,7 +549,22 @@ registerBlockType( 'bsx-blocks/banner', {
             );
         } );
 
-        const bannerClassName = makeBannerClassNames( bannerType, bannerSize, belowNavbar, bgAttachment, bgSize, bgPosition, alignItems, templateName, marginBefore, marginAfter, paddingBefore, paddingAfter );
+        let bannerClassName = makeBannerClassNames( { 
+            bannerType: bannerType, 
+            bannerSize: bannerSize, 
+            bgAttachment: bgAttachment, 
+            bgSize: bgSize, 
+            bgPosition: bgPosition, 
+            alignItems: alignItems, 
+            templateName: templateName,
+        } );
+        bannerClassName = addClassNames( {
+            belowNavbar: belowNavbar,
+            marginBefore: marginBefore, 
+            marginAfter: marginAfter, 
+            paddingBefore: paddingBefore, 
+            paddingAfter: paddingAfter,
+        }, bannerClassName );
 
         const bannerInnerClassName = makeBannerInnerClassNames( {
             templateName: templateName,
@@ -1203,10 +949,24 @@ registerBlockType( 'bsx-blocks/banner', {
             },
         } = props;
 
-        // TODO: use addClassNames
-        // TODO: add templateName
-        // TODO: make bannerInnerCLassName
-        const bannerClassName = makeBannerClassNames( bannerType, bannerSize, belowNavbar, bgAttachment, bgSize, bgPosition, alignItems, templateName, marginBefore, marginAfter, paddingBefore, paddingAfter );
+        // class names
+
+        let bannerClassName = makeBannerClassNames( { 
+            bannerType: bannerType, 
+            bannerSize: bannerSize, 
+            bgAttachment: bgAttachment, 
+            bgSize: bgSize, 
+            bgPosition: bgPosition, 
+            alignItems: alignItems, 
+            templateName: templateName,
+        } );
+        bannerClassName = addClassNames( {
+            belowNavbar: belowNavbar,
+            marginBefore: marginBefore, 
+            marginAfter: marginAfter, 
+            paddingBefore: paddingBefore, 
+            paddingAfter: paddingAfter,
+        }, bannerClassName );
 
         const bannerInnerClassName = makeBannerInnerClassNames( {
             templateName: templateName,

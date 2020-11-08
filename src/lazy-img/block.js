@@ -544,7 +544,50 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         } );
         return [
             <InspectorControls>
-                <PanelBody title={ __( 'Image Size', 'bsx-blocks' ) }>
+                <PanelBody title={ __( 'Image', 'bsx-blocks' ) }>
+                    <TextControl 
+                        label={ __( 'Alt', 'bsx-blocks' ) }
+                        value={ alt } 
+                        onChange={ onChangeMediaAlt }
+                    />
+                    {
+                        imgId ? (
+                            <MediaUpload
+                                onSelect={ onSelectImage }
+                                allowedTypes="image"
+                                value={ imgId }
+                                render={ ( { open } ) => (
+                                    <Button
+                                        className="bsxui-config-panel-img-button has-margin-bottom"
+                                        onClick={ open }
+                                    >
+                                        <img class="bsxui-config-panel-img" src={ url } alt={ __( 'Change / upload image', 'bsx-blocks' ) } />
+                                    </Button>
+                                ) }
+                            />
+                        )
+                        : 
+                        (
+                            <div class="bsxui-config-panel-row">
+                                <div class="bsxui-config-panel-text">{ __( '– No image selected yet –', 'bsx-blocks' ) }</div>
+                            </div>
+                        )
+                    }
+                    <div class="bsxui-config-panel-row">
+                        <MediaUpload
+                            onSelect={ onSelectImage }
+                            allowedTypes="image"
+                            value={ imgId }
+                            render={ ( { open } ) => (
+                                <Button 
+                                    onClick={ open }
+                                    isSecondary
+                                >
+                                    { __( 'Change / upload image', 'bsx-blocks' ) }
+                                </Button>
+                            ) }
+                        />
+                    </div>
                     <RadioControl
                         label={ __( 'Image size and format', 'bsx-blocks' ) }
                         selected={ imgSizeIndex.toString() }
@@ -572,24 +615,22 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 </PanelBody>
             </InspectorControls>,
             (
-                <div className={ className }>
+                <figure className={ className }>
                     {
                         imgId ? (
-                            <figure data-img-size={ imgSizeIndex }>
-                                <picture>
-                                    {
-                                        smallMobileUrl && (
-                                            <source media={ smallMobileMediaQuery } srcset={ smallMobileUrl } width={ smallMobileWidth } height={ smallMobileHeight } />
-                                        )
-                                    }
-                                    {
-                                        mobileUrl && (
-                                            <source media={ smallMobileUrl ? mobileMediaQuery : smallMobileMediaQuery } srcset={ mobileUrl } width={ mobileWidth } height={ mobileHeight } />
-                                        )
-                                    }
-                                    <img className={ 'img-fluid upload-img' } src={ url } alt={ alt } />
-                                </picture>
-                            </figure>
+                            <picture>
+                                {
+                                    smallMobileUrl && (
+                                        <source media={ smallMobileMediaQuery } srcset={ smallMobileUrl } width={ smallMobileWidth } height={ smallMobileHeight } />
+                                    )
+                                }
+                                {
+                                    mobileUrl && (
+                                        <source media={ smallMobileUrl ? mobileMediaQuery : smallMobileMediaQuery } srcset={ mobileUrl } width={ mobileWidth } height={ mobileHeight } />
+                                    )
+                                }
+                                <img className={ 'img-fluid upload-img' } src={ url } alt={ alt } />
+                            </picture>
                         )
                         : 
                         (
@@ -610,59 +651,15 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                             </div>
                         )
                     }
-                    {
-                        figcaption && ! RichText.isEmpty( figcaption ) && (
-                            <RichText
-                                tagName="figcaption"
-                                multiline={ false }
-                                placeholder={ __( 'Caption (optional)', 'bsx-blocks' ) }
-                                value={ figcaption }
-                                onChange={ onChangeFigcaption }
-                                keepPlaceholderOnFocus
-                            />
-                        )
-                    }
-                    { isSelected && (
-                        <div class="bsxui-isselected-config-panel">
-                            {
-                                ! figcaption && RichText.isEmpty( figcaption ) && (
-                                    <RichText
-                                        tagName="figcaption"
-                                        multiline={ false }
-                                        placeholder={ __( 'Caption (optional)', 'bsx-blocks' ) }
-                                        value={ figcaption }
-                                        onChange={ onChangeFigcaption }
-                                        keepPlaceholderOnFocus
-                                    />
-                                )
-                            }
-                            {
-                                imgId && (
-                                    <div className="bsxui-upload-btn-wrapper">
-                                        <MediaUpload
-                                            onSelect={ onSelectImage }
-                                            allowedTypes="image"
-                                            value={ imgId }
-                                            render={ ( { open } ) => (
-                                                <Button 
-                                                    onClick={ open }
-                                                    isSecondary
-                                                >
-                                                    { __( 'Change / upload Image', 'bsx-blocks' ) }
-                                                </Button>
-                                            ) }
-                                        />
-                                    </div>
-                                )
-                            }
-                            <TextControl 
-                                label={ __( 'Alt', 'bsx-blocks' ) }
-                                value={ alt } 
-                                onChange={ onChangeMediaAlt }
-                            />
-                        </div>
-                    ) }
-                </div>
+                    <RichText
+                        tagName="figcaption"
+                        multiline={ false }
+                        placeholder={ __( 'Caption (optional)', 'bsx-blocks' ) }
+                        value={ figcaption }
+                        onChange={ onChangeFigcaption }
+                        keepPlaceholderOnFocus
+                    />
+                </figure>
             )
         ];
     },

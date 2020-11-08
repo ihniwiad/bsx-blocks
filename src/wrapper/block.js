@@ -14,7 +14,8 @@ const {
 } = wp.components;
 
 
-// TODO: add rounded, border-color, border
+// TODO: refactor function `makeClassNames( ... )` to `makeWrapperClassNames( config )`
+// TODO: add text align, border, border-color
 
 
 const makeClassNames = ( bgColor, textColor, rounded, marginBefore, marginAfter, paddingBefore, paddingAfter, paddingLeft, paddingRight ) => {

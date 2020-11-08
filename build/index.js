@@ -539,116 +539,32 @@ function addClassNames(config, classNamesString) {
 
 /***/ }),
 
-/***/ "./src/banner/block.js":
-/*!*****************************!*\
-  !*** ./src/banner/block.js ***!
-  \*****************************/
-/*! no exports provided */
+/***/ "./src/_functions/img.js":
+/*!*******************************!*\
+  !*** ./src/_functions/img.js ***!
+  \*******************************/
+/*! exports provided: makeBannerInnerClassNames, getUrlTruncAndExtension, fullImgIsScaled, getOriginalImgUrl, getSizesAndWithoutSizesTruncFromUrlTrunc, makeSizedImgs, getOriginalImgSizes, imageExists, getImgSizes */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js");
-/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/regenerator */ "@babel/runtime/regenerator");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/slicedToArray.js");
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "./node_modules/@babel/runtime/helpers/asyncToGenerator.js");
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "makeBannerInnerClassNames", function() { return makeBannerInnerClassNames; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUrlTruncAndExtension", function() { return getUrlTruncAndExtension; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fullImgIsScaled", function() { return fullImgIsScaled; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getOriginalImgUrl", function() { return getOriginalImgUrl; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getSizesAndWithoutSizesTruncFromUrlTrunc", function() { return getSizesAndWithoutSizesTruncFromUrlTrunc; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "makeSizedImgs", function() { return makeSizedImgs; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getOriginalImgSizes", function() { return getOriginalImgSizes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "imageExists", function() { return imageExists; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getImgSizes", function() { return getImgSizes; });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "@babel/runtime/regenerator");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "./node_modules/@babel/runtime/helpers/asyncToGenerator.js");
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__);
 
 
-
-
-
-var _wp$i18n = wp.i18n,
-    __ = _wp$i18n.__,
-    setLocaleData = _wp$i18n.setLocaleData;
-var registerBlockType = wp.blocks.registerBlockType;
-var _wp$blockEditor = wp.blockEditor,
-    InnerBlocks = _wp$blockEditor.InnerBlocks,
-    InspectorControls = _wp$blockEditor.InspectorControls,
-    InspectorAdvancedControls = _wp$blockEditor.InspectorAdvancedControls,
-    MediaUpload = _wp$blockEditor.MediaUpload;
-var _wp$components = wp.components,
-    PanelBody = _wp$components.PanelBody,
-    TextControl = _wp$components.TextControl,
-    ToggleControl = _wp$components.ToggleControl,
-    SelectControl = _wp$components.SelectControl,
-    Button = _wp$components.Button,
-    SVG = _wp$components.SVG,
-    Path = _wp$components.Path,
-    RadioControl = _wp$components.RadioControl;
-var withSelect = wp.data.withSelect;
-
-
-var makeBannerClassNames = function makeBannerClassNames(bannerType, bannerSize, belowNavbar, bgAttachment, bgSize, bgPosition, alignItems, templateName, marginBefore, marginAfter, paddingBefore, paddingAfter) {
-  var classNames = [];
-
-  if (true) {
-    // always set bannerType and bannerSize to keep debugging easy
-    classNames.push('banner-' + bannerType + '-' + bannerSize);
-  }
-
-  if (!!belowNavbar) {
-    classNames.push('below-navbar-content');
-  }
-
-  if (!!bgAttachment) {
-    classNames.push('bg-' + bgAttachment);
-  }
-
-  if (!!bgSize) {
-    classNames.push('bg-' + bgSize);
-  }
-
-  if (!!bgPosition) {
-    classNames.push('bg-' + bgPosition);
-  }
-
-  if (!!alignItems) {
-    classNames.push('d-flex');
-
-    if (templateName !== 'column-row-banner') {
-      classNames.push('align-items-' + alignItems);
-    }
-  }
-
-  if (!!templateName && templateName == 'column-row-banner' && classNames.indexOf('d-flex') == -1) {
-    classNames.push('d-flex');
-  }
-
-  if (marginBefore && marginBefore === marginAfter) {
-    classNames.push('my-' + marginBefore);
-  } else {
-    if (marginBefore) {
-      classNames.push('mt-' + marginBefore);
-    }
-
-    if (marginAfter) {
-      classNames.push('mb-' + marginAfter);
-    }
-  }
-
-  if (paddingBefore && paddingBefore === paddingAfter) {
-    classNames.push('py-' + paddingBefore);
-  } else {
-    if (paddingBefore) {
-      classNames.push('pt-' + paddingBefore);
-    }
-
-    if (paddingAfter) {
-      classNames.push('pb-' + paddingAfter);
-    }
-  }
-
-  return classNames.join(' ');
-};
-
-var makeBannerInnerClassNames = function makeBannerInnerClassNames(config) {
+// img functions
+function makeBannerInnerClassNames(config) {
   var classNames = ['banner-inner'];
 
   if (!!config.templateName && config.templateName == 'column-row-banner') {
@@ -658,9 +574,8 @@ var makeBannerInnerClassNames = function makeBannerInnerClassNames(config) {
   }
 
   return classNames.join(' ');
-};
-
-var getUrlTruncAndExtension = function getUrlTruncAndExtension(url) {
+}
+function getUrlTruncAndExtension(url) {
   var urlExplode = url.split('.');
   var fileExtension = urlExplode[urlExplode.length - 1];
   urlExplode.pop();
@@ -669,19 +584,16 @@ var getUrlTruncAndExtension = function getUrlTruncAndExtension(url) {
     trunc: urlWithoutFileExtension,
     extension: fileExtension
   };
-};
-
-var fullImgIsScaled = function fullImgIsScaled(fullUrl) {
+}
+function fullImgIsScaled(fullUrl) {
   var urlWithoutFileExtension = getUrlTruncAndExtension(fullUrl).trunc;
   return urlWithoutFileExtension.lastIndexOf('-scaled') === urlWithoutFileExtension.length - 7;
-};
-
-var getOriginalImgUrl = function getOriginalImgUrl(fullUrl) {
+}
+function getOriginalImgUrl(fullUrl) {
   var truncAndExtension = getUrlTruncAndExtension(fullUrl);
   return truncAndExtension.trunc.substring(0, truncAndExtension.trunc.length - 7) + '.' + truncAndExtension.extension;
-};
-
-var getSizesAndWithoutSizesTruncFromUrlTrunc = function getSizesAndWithoutSizesTruncFromUrlTrunc(urlTrunc) {
+}
+function getSizesAndWithoutSizesTruncFromUrlTrunc(urlTrunc) {
   var urlWithoutFileExtensionExplode = urlTrunc.split('-');
   var sizes = urlWithoutFileExtensionExplode[urlWithoutFileExtensionExplode.length - 1].split('x');
   urlWithoutFileExtensionExplode.pop();
@@ -690,9 +602,8 @@ var getSizesAndWithoutSizesTruncFromUrlTrunc = function getSizesAndWithoutSizesT
     height: sizes[1],
     withoutSizesTrunc: urlWithoutFileExtensionExplode.join('-')
   };
-};
-
-var makeSizedImgs = function makeSizedImgs(config) {
+}
+function makeSizedImgs(config) {
   var ratio = config.originalWidth / config.originalHeight;
   var urlTruncAndExtension = getUrlTruncAndExtension(config.url);
   var fileExtension = urlTruncAndExtension.extension;
@@ -716,9 +627,8 @@ var makeSizedImgs = function makeSizedImgs(config) {
     }
   });
   return returnList;
-};
-
-var getOriginalImgSizes = function getOriginalImgSizes(originalImgUrl) {
+}
+function getOriginalImgSizes(originalImgUrl) {
   return new Promise(function (resolve, reject) {
     var img = document.createElement('img');
 
@@ -737,9 +647,8 @@ var getOriginalImgSizes = function getOriginalImgSizes(originalImgUrl) {
     img.src = originalImgUrl;
     document.body.appendChild(img);
   });
-};
-
-var imageExists = function imageExists(url) {
+}
+function imageExists(url) {
   return new Promise(function (resolve, reject) {
     var xhr = new XMLHttpRequest();
     xhr.open('HEAD', url, true);
@@ -756,68 +665,66 @@ var imageExists = function imageExists(url) {
 
     xhr.send(null);
   });
-}; // scaled (hidden) img settings
-
-
-var imgScaleList = [0.75, 1.5, 2];
-var imgBaseSize = 'large';
-var defaultImgList = ['thumbnail', 'medium', imgBaseSize, 'full'];
-var imgSizesOrder = ['thumbnail', 'medium', imgScaleList[0] + '', imgBaseSize, imgScaleList[1] + '', imgScaleList[2] + '', 'full', 'original']; // getting sorted list of all imgs (default and hidden scaled)
+} // getting sorted list of all imgs (default and hidden scaled)
 
 function getImgSizes(_x) {
   return _getImgSizes.apply(this, arguments);
-} // responsive sizes
-
+}
 
 function _getImgSizes() {
-  _getImgSizes = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee4(img) {
-    var originalImgUrl, originalWidth, originalHeight, originalImgSizes, scaledImgs, returnImgs, sizedImgsConfig, sizedImgs;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.wrap(function _callee4$(_context4) {
+  _getImgSizes = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(img) {
+    var imgScaleList, imgBaseSize, defaultImgList, imgSizesOrder, originalImgUrl, originalWidth, originalHeight, originalImgSizes, scaledImgs, returnImgs, sizedImgsConfig, sizedImgs;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
       while (1) {
-        switch (_context4.prev = _context4.next) {
+        switch (_context2.prev = _context2.next) {
           case 0:
+            // scaled (hidden) img settings
+            imgScaleList = [0.75, 1.5, 2];
+            imgBaseSize = 'large';
+            defaultImgList = ['thumbnail', 'medium', imgBaseSize, 'full'];
+            imgSizesOrder = ['thumbnail', 'medium', imgScaleList[0] + '', imgBaseSize, imgScaleList[1] + '', imgScaleList[2] + '', 'full', 'original'];
             originalImgUrl = '';
             originalWidth = 0;
             originalHeight = 0;
 
             if (!fullImgIsScaled(img.url)) {
-              _context4.next = 18;
+              _context2.next = 22;
               break;
             }
 
             // get original, get sizes
             originalImgUrl = getOriginalImgUrl(img.url);
-            _context4.prev = 5;
-            _context4.next = 8;
+            _context2.prev = 9;
+            _context2.next = 12;
             return getOriginalImgSizes(originalImgUrl);
 
-          case 8:
-            originalImgSizes = _context4.sent;
-            _context4.next = 14;
+          case 12:
+            originalImgSizes = _context2.sent;
+            _context2.next = 18;
             break;
 
-          case 11:
-            _context4.prev = 11;
-            _context4.t0 = _context4["catch"](5);
-            console.error(_context4.t0);
-
-          case 14:
-            originalWidth = originalImgSizes.width || 0;
-            originalHeight = originalImgSizes.height || 0;
-            _context4.next = 20;
-            break;
+          case 15:
+            _context2.prev = 15;
+            _context2.t0 = _context2["catch"](9);
+            console.error(_context2.t0);
 
           case 18:
+            originalWidth = originalImgSizes.width || 0;
+            originalHeight = originalImgSizes.height || 0;
+            _context2.next = 24;
+            break;
+
+          case 22:
             // get sizes from full img
             originalWidth = img.sizes.full.width;
             originalHeight = img.sizes.full.height;
 
-          case 20:
+          case 24:
             scaledImgs = {};
             returnImgs = []; // make sizes only if marge img exists
 
             if (!(img.sizes.large != undefined)) {
-              _context4.next = 28;
+              _context2.next = 32;
               break;
             }
 
@@ -830,19 +737,19 @@ function _getImgSizes() {
             };
             sizedImgs = makeSizedImgs(sizedImgsConfig); // check all imgs if exist (since WordPress might change hidden img sizes one day);
 
-            _context4.next = 27;
+            _context2.next = 31;
             return Promise.all(sizedImgs.map( /*#__PURE__*/function () {
-              var _ref7 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee3(sizedImg, index) {
+              var _ref = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(sizedImg, index) {
                 var currentImageExists;
-                return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.wrap(function _callee3$(_context3) {
+                return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
                   while (1) {
-                    switch (_context3.prev = _context3.next) {
+                    switch (_context.prev = _context.next) {
                       case 0:
-                        _context3.next = 2;
+                        _context.next = 2;
                         return imageExists(sizedImg.url);
 
                       case 2:
-                        currentImageExists = _context3.sent;
+                        currentImageExists = _context.sent;
 
                         if (currentImageExists) {
                           scaledImgs[imgScaleList[index] + ''] = sizedImg;
@@ -850,18 +757,18 @@ function _getImgSizes() {
 
                       case 4:
                       case "end":
-                        return _context3.stop();
+                        return _context.stop();
                     }
                   }
-                }, _callee3);
+                }, _callee);
               }));
 
-              return function (_x4, _x5) {
-                return _ref7.apply(this, arguments);
+              return function (_x2, _x3) {
+                return _ref.apply(this, arguments);
               };
             }()));
 
-          case 27:
+          case 31:
             // TEST – TODO: remove
             // for ( let [ key, value ] of Object.entries( scaledImgs ) ) {
             //     console.log( 'scaledImgs[ ' + key + ' ]: ' + value.url );
@@ -888,18 +795,104 @@ function _getImgSizes() {
               }
             });
 
-          case 28:
-            return _context4.abrupt("return", returnImgs);
+          case 32:
+            return _context2.abrupt("return", returnImgs);
 
-          case 29:
+          case 33:
           case "end":
-            return _context4.stop();
+            return _context2.stop();
         }
       }
-    }, _callee4, null, [[5, 11]]);
+    }, _callee2, null, [[9, 15]]);
   }));
   return _getImgSizes.apply(this, arguments);
 }
+
+/***/ }),
+
+/***/ "./src/banner/block.js":
+/*!*****************************!*\
+  !*** ./src/banner/block.js ***!
+  \*****************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js");
+/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/regenerator */ "@babel/runtime/regenerator");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "./node_modules/@babel/runtime/helpers/asyncToGenerator.js");
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/slicedToArray.js");
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
+/* harmony import */ var _functions_img_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../_functions/img.js */ "./src/_functions/img.js");
+
+
+
+
+
+var _wp$i18n = wp.i18n,
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData;
+var registerBlockType = wp.blocks.registerBlockType;
+var _wp$blockEditor = wp.blockEditor,
+    InnerBlocks = _wp$blockEditor.InnerBlocks,
+    InspectorControls = _wp$blockEditor.InspectorControls,
+    InspectorAdvancedControls = _wp$blockEditor.InspectorAdvancedControls,
+    MediaUpload = _wp$blockEditor.MediaUpload;
+var _wp$components = wp.components,
+    PanelBody = _wp$components.PanelBody,
+    TextControl = _wp$components.TextControl,
+    ToggleControl = _wp$components.ToggleControl,
+    SelectControl = _wp$components.SelectControl,
+    Button = _wp$components.Button,
+    SVG = _wp$components.SVG,
+    Path = _wp$components.Path,
+    RadioControl = _wp$components.RadioControl;
+var withSelect = wp.data.withSelect;
+
+
+
+var makeBannerClassNames = function makeBannerClassNames(config) {
+  var classNames = [];
+
+  if (true) {
+    // always set bannerType and bannerSize to keep debugging easy
+    classNames.push('banner-' + config.bannerType + '-' + config.bannerSize);
+  }
+
+  if (!!config.bgAttachment) {
+    classNames.push('bg-' + config.bgAttachment);
+  }
+
+  if (!!config.bgSize) {
+    classNames.push('bg-' + config.bgSize);
+  }
+
+  if (!!config.bgPosition) {
+    classNames.push('bg-' + config.bgPosition);
+  }
+
+  if (!!config.alignItems) {
+    classNames.push('d-flex');
+
+    if (config.templateName !== 'column-row-banner') {
+      classNames.push('align-items-' + config.alignItems);
+    }
+  }
+
+  if (!!config.templateName && config.templateName == 'column-row-banner' && classNames.indexOf('d-flex') == -1) {
+    classNames.push('d-flex');
+  }
+
+  return classNames.join(' ');
+}; // responsive sizes
+
 
 var responsivePortraitMediaIndexList = [{
   media: '(orientation: portrait) and (max-width: 499.98px)',
@@ -948,7 +941,7 @@ var makeSaveAttributes = function makeSaveAttributes(attributes) {
   var nonEmptyAttributes = {};
 
   for (var _i = 0, _Object$entries = Object.entries(attributes); _i < _Object$entries.length; _i++) {
-    var _Object$entries$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2___default()(_Object$entries[_i], 2),
+    var _Object$entries$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_3___default()(_Object$entries[_i], 2),
         key = _Object$entries$_i[0],
         value = _Object$entries$_i[1];
 
@@ -1220,12 +1213,12 @@ registerBlockType('bsx-blocks/banner', {
       });
     };
 
-    function onSelectImage(_x2) {
+    function onSelectImage(_x) {
       return _onSelectImage.apply(this, arguments);
     }
 
     function _onSelectImage() {
-      _onSelectImage = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee(img) {
+      _onSelectImage = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee(img) {
         var newImgSizes, newImgSizeIndex;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.wrap(function _callee$(_context) {
           while (1) {
@@ -1237,7 +1230,7 @@ registerBlockType('bsx-blocks/banner', {
                 }
 
                 _context.next = 3;
-                return getImgSizes(img);
+                return Object(_functions_img_js__WEBPACK_IMPORTED_MODULE_6__["getImgSizes"])(img);
 
               case 3:
                 newImgSizes = _context.sent;
@@ -1267,12 +1260,12 @@ registerBlockType('bsx-blocks/banner', {
 
     ;
 
-    function onSelectPortraitImage(_x3) {
+    function onSelectPortraitImage(_x2) {
       return _onSelectPortraitImage.apply(this, arguments);
     }
 
     function _onSelectPortraitImage() {
-      _onSelectPortraitImage = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee2(portraitImg) {
+      _onSelectPortraitImage = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee2(portraitImg) {
         var newPortraitImgSizes, newPortraitImgSizeIndex;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.wrap(function _callee2$(_context2) {
           while (1) {
@@ -1284,7 +1277,7 @@ registerBlockType('bsx-blocks/banner', {
                 }
 
                 _context2.next = 3;
-                return getImgSizes(portraitImg);
+                return Object(_functions_img_js__WEBPACK_IMPORTED_MODULE_6__["getImgSizes"])(portraitImg);
 
               case 3:
                 newPortraitImgSizes = _context2.sent;
@@ -1403,8 +1396,23 @@ registerBlockType('bsx-blocks/banner', {
         label: portraitImgSize.width + 'x' + portraitImgSize.height + (portraitImgSize.width === portraitImgSize.height ? ' ' + __('(Square format)', 'bsx-blocks') : '')
       });
     });
-    var bannerClassName = makeBannerClassNames(bannerType, bannerSize, belowNavbar, bgAttachment, bgSize, bgPosition, alignItems, templateName, marginBefore, marginAfter, paddingBefore, paddingAfter);
-    var bannerInnerClassName = makeBannerInnerClassNames({
+    var bannerClassName = makeBannerClassNames({
+      bannerType: bannerType,
+      bannerSize: bannerSize,
+      bgAttachment: bgAttachment,
+      bgSize: bgSize,
+      bgPosition: bgPosition,
+      alignItems: alignItems,
+      templateName: templateName
+    });
+    bannerClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_5__["addClassNames"])({
+      belowNavbar: belowNavbar,
+      marginBefore: marginBefore,
+      marginAfter: marginAfter,
+      paddingBefore: paddingBefore,
+      paddingAfter: paddingAfter
+    }, bannerClassName);
+    var bannerInnerClassName = Object(_functions_img_js__WEBPACK_IMPORTED_MODULE_6__["makeBannerInnerClassNames"])({
       templateName: templateName
     });
     var bannerStyle = {
@@ -1793,12 +1801,25 @@ registerBlockType('bsx-blocks/banner', {
         marginBefore = _props$attributes2.marginBefore,
         marginAfter = _props$attributes2.marginAfter,
         paddingBefore = _props$attributes2.paddingBefore,
-        paddingAfter = _props$attributes2.paddingAfter; // TODO: use addClassNames
-    // TODO: add templateName
-    // TODO: make bannerInnerCLassName
+        paddingAfter = _props$attributes2.paddingAfter; // class names
 
-    var bannerClassName = makeBannerClassNames(bannerType, bannerSize, belowNavbar, bgAttachment, bgSize, bgPosition, alignItems, templateName, marginBefore, marginAfter, paddingBefore, paddingAfter);
-    var bannerInnerClassName = makeBannerInnerClassNames({
+    var bannerClassName = makeBannerClassNames({
+      bannerType: bannerType,
+      bannerSize: bannerSize,
+      bgAttachment: bgAttachment,
+      bgSize: bgSize,
+      bgPosition: bgPosition,
+      alignItems: alignItems,
+      templateName: templateName
+    });
+    bannerClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_5__["addClassNames"])({
+      belowNavbar: belowNavbar,
+      marginBefore: marginBefore,
+      marginAfter: marginAfter,
+      paddingBefore: paddingBefore,
+      paddingAfter: paddingAfter
+    }, bannerClassName);
+    var bannerInnerClassName = Object(_functions_img_js__WEBPACK_IMPORTED_MODULE_6__["makeBannerInnerClassNames"])({
       templateName: templateName
     });
     var srcsetJson = makeSrcsetJson(imgSizes, imgSizeIndex, portraitImgSizes, portraitImgSizeIndex);
@@ -4566,8 +4587,44 @@ registerBlockType('bsx-blocks/lazy-img', {
       });
     });
     return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(PanelBody, {
-      title: __('Image Size', 'bsx-blocks')
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(RadioControl, {
+      title: __('Image', 'bsx-blocks')
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(TextControl, {
+      label: __('Alt', 'bsx-blocks'),
+      value: alt,
+      onChange: onChangeMediaAlt
+    }), imgId ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(MediaUpload, {
+      onSelect: onSelectImage,
+      allowedTypes: "image",
+      value: imgId,
+      render: function render(_ref) {
+        var open = _ref.open;
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(Button, {
+          className: "bsxui-config-panel-img-button has-margin-bottom",
+          onClick: open
+        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("img", {
+          class: "bsxui-config-panel-img",
+          src: url,
+          alt: __('Change / upload image', 'bsx-blocks')
+        }));
+      }
+    }) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      class: "bsxui-config-panel-row"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      class: "bsxui-config-panel-text"
+    }, __('– No image selected yet –', 'bsx-blocks'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      class: "bsxui-config-panel-row"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(MediaUpload, {
+      onSelect: onSelectImage,
+      allowedTypes: "image",
+      value: imgId,
+      render: function render(_ref2) {
+        var open = _ref2.open;
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(Button, {
+          onClick: open,
+          isSecondary: true
+        }, __('Change / upload image', 'bsx-blocks'));
+      }
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(RadioControl, {
       label: __('Image size and format', 'bsx-blocks'),
       selected: imgSizeIndex.toString(),
       options: imgSizeRadioControlOptions,
@@ -4585,11 +4642,9 @@ registerBlockType('bsx-blocks/lazy-img', {
       label: __('Displayed image height', 'bsx-blocks'),
       value: height,
       onChange: onChangeMediaHeight
-    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("figure", {
       className: className
-    }, imgId ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("figure", {
-      "data-img-size": imgSizeIndex
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("picture", null, smallMobileUrl && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("source", {
+    }, imgId ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("picture", null, smallMobileUrl && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("source", {
       media: smallMobileMediaQuery,
       srcset: smallMobileUrl,
       width: smallMobileWidth,
@@ -4603,53 +4658,27 @@ registerBlockType('bsx-blocks/lazy-img', {
       className: 'img-fluid upload-img',
       src: url,
       alt: alt
-    }))) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+    })) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
       className: 'bsxui-img-upload-placeholder'
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(MediaUpload, {
       onSelect: onSelectImage,
       allowedTypes: "image",
       value: imgId,
-      render: function render(_ref) {
-        var open = _ref.open;
+      render: function render(_ref3) {
+        var open = _ref3.open;
         return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(Button, {
           onClick: open,
           isSecondary: true
         }, __('Select / upload Image', 'bsx-blocks'));
       }
-    })), figcaption && !RichText.isEmpty(figcaption) && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(RichText, {
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(RichText, {
       tagName: "figcaption",
       multiline: false,
       placeholder: __('Caption (optional)', 'bsx-blocks'),
       value: figcaption,
       onChange: onChangeFigcaption,
       keepPlaceholderOnFocus: true
-    }), isSelected && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
-      class: "bsxui-isselected-config-panel"
-    }, !figcaption && RichText.isEmpty(figcaption) && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(RichText, {
-      tagName: "figcaption",
-      multiline: false,
-      placeholder: __('Caption (optional)', 'bsx-blocks'),
-      value: figcaption,
-      onChange: onChangeFigcaption,
-      keepPlaceholderOnFocus: true
-    }), imgId && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
-      className: "bsxui-upload-btn-wrapper"
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(MediaUpload, {
-      onSelect: onSelectImage,
-      allowedTypes: "image",
-      value: imgId,
-      render: function render(_ref2) {
-        var open = _ref2.open;
-        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(Button, {
-          onClick: open,
-          isSecondary: true
-        }, __('Change / upload Image', 'bsx-blocks'));
-      }
-    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(TextControl, {
-      label: __('Alt', 'bsx-blocks'),
-      value: alt,
-      onChange: onChangeMediaAlt
-    })))];
+    }))];
   },
 
   /*
