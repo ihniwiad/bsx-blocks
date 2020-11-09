@@ -52,7 +52,19 @@
 //}
 
 
-// ‘is selected’ config panel
+// link
+a.bsxui-link {
+	color: $bsxui-interact-color;
+
+	&:hover,
+	&:focus {
+		color: $bsxui-interact-color;
+		text-decoration: underline;
+	}
+}
+
+
+// is selected config panel (deprecated)
 
 .bsxui-isselected-config-panel {
 	background: $bsxui-isselected-panel-bg-color; 

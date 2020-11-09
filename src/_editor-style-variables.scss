@@ -3,8 +3,10 @@
 
 // basic
 
+$bsxui-interact-color: 				var(--wp-admin-theme-color) !default; // @wordpress
+
 $bsxui-light-border-color:			#dee2e6 !default;
-$bsxui-interact-border-color:		#8d96a0 !default; // @wordpress
+$bsxui-interact-border-color:		$bsxui-interact-color !default;
 $bsxui-default-border-style:		solid !default;
 $bsxui-special-border-style:		dashed !default;
 $bsxui-area-button-bg-color:		rgba(237, 239, 240, .8) !default; // @wordpress
