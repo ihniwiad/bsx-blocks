@@ -543,20 +543,19 @@ function addClassNames(config, classNamesString) {
 /*!*******************************!*\
   !*** ./src/_functions/img.js ***!
   \*******************************/
-/*! exports provided: makeBannerInnerClassNames, getUrlTruncAndExtension, fullImgIsScaled, getOriginalImgUrl, getSizesAndWithoutSizesTruncFromUrlTrunc, makeSizedImgs, getOriginalImgSizes, imageExists, getImgSizes */
+/*! exports provided: getUrlTruncAndExtension, fullImgIsScaled, getOriginalImgUrl, getSizesAndWithoutSizesTruncFromUrlTrunc, makeSizedImgs, getImgWidthHeight, imgExists, getImgSizesData */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "makeBannerInnerClassNames", function() { return makeBannerInnerClassNames; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUrlTruncAndExtension", function() { return getUrlTruncAndExtension; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fullImgIsScaled", function() { return fullImgIsScaled; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getOriginalImgUrl", function() { return getOriginalImgUrl; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getSizesAndWithoutSizesTruncFromUrlTrunc", function() { return getSizesAndWithoutSizesTruncFromUrlTrunc; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "makeSizedImgs", function() { return makeSizedImgs; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getOriginalImgSizes", function() { return getOriginalImgSizes; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "imageExists", function() { return imageExists; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getImgSizes", function() { return getImgSizes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getImgWidthHeight", function() { return getImgWidthHeight; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "imgExists", function() { return imgExists; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getImgSizesData", function() { return getImgSizesData; });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "@babel/runtime/regenerator");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "./node_modules/@babel/runtime/helpers/asyncToGenerator.js");
@@ -564,17 +563,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // img functions
-function makeBannerInnerClassNames(config) {
-  var classNames = ['banner-inner'];
-
-  if (!!config.templateName && config.templateName == 'column-row-banner') {
-    classNames.push('w-100');
-    classNames.push('d-flex');
-    classNames.push('flex-column');
-  }
-
-  return classNames.join(' ');
-}
 function getUrlTruncAndExtension(url) {
   var urlExplode = url.split('.');
   var fileExtension = urlExplode[urlExplode.length - 1];
@@ -628,7 +616,7 @@ function makeSizedImgs(config) {
   });
   return returnList;
 }
-function getOriginalImgSizes(originalImgUrl) {
+function getImgWidthHeight(imgUrl) {
   return new Promise(function (resolve, reject) {
     var img = document.createElement('img');
 
@@ -641,14 +629,14 @@ function getOriginalImgSizes(originalImgUrl) {
     };
 
     img.onerror = function (err) {
-      reject('Error on loading image "' + originalImgUrl + '"', err);
+      reject('Error on loading image "' + imgUrl + '"', err);
     };
 
-    img.src = originalImgUrl;
+    img.src = imgUrl;
     document.body.appendChild(img);
   });
 }
-function imageExists(url) {
+function imgExists(url) {
   return new Promise(function (resolve, reject) {
     var xhr = new XMLHttpRequest();
     xhr.open('HEAD', url, true);
@@ -667,12 +655,33 @@ function imageExists(url) {
   });
 } // getting sorted list of all imgs (default and hidden scaled)
 
-function getImgSizes(_x) {
-  return _getImgSizes.apply(this, arguments);
-}
+function getImgSizesData(_x) {
+  return _getImgSizesData.apply(this, arguments);
+} // export async function getOriginalImgSizes( img ) {
+//     if ( fullImgIsScaled( img.url ) ) {
+//         // find original img
+//         let originalImgSizes;
+//         try {
+//             originalImgSizes = await getImgWidthHeight( getOriginalImgUrl( img.url ) );
+//         } catch( err ) {
+//             console.error( err );
+//         }
+//         return {
+//             width: originalImgSizes.width,
+//             height: originalImgSizes.height,
+//         };
+//     }
+//     else {
+//         // get sizes from full img
+//         return {
+//             width: img.sizes.full.width,
+//             height: img.sizes.full.height,
+//         };
+//     }
+// }
 
-function _getImgSizes() {
-  _getImgSizes = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(img) {
+function _getImgSizesData() {
+  _getImgSizesData = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(img) {
     var imgScaleList, imgBaseSize, defaultImgList, imgSizesOrder, originalImgUrl, originalWidth, originalHeight, originalImgSizes, scaledImgs, returnImgs, sizedImgsConfig, sizedImgs;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
       while (1) {
@@ -696,7 +705,7 @@ function _getImgSizes() {
             originalImgUrl = getOriginalImgUrl(img.url);
             _context2.prev = 9;
             _context2.next = 12;
-            return getOriginalImgSizes(originalImgUrl);
+            return getImgWidthHeight(originalImgUrl);
 
           case 12:
             originalImgSizes = _context2.sent;
@@ -709,8 +718,8 @@ function _getImgSizes() {
             console.error(_context2.t0);
 
           case 18:
-            originalWidth = originalImgSizes.width || 0;
-            originalHeight = originalImgSizes.height || 0;
+            originalWidth = originalImgSizes.width;
+            originalHeight = originalImgSizes.height;
             _context2.next = 24;
             break;
 
@@ -720,8 +729,8 @@ function _getImgSizes() {
             originalHeight = img.sizes.full.height;
 
           case 24:
-            scaledImgs = {};
-            returnImgs = []; // make sizes only if marge img exists
+            scaledImgs = new Map();
+            returnImgs = []; // make sizes only if large img exists
 
             if (!(img.sizes.large != undefined)) {
               _context2.next = 32;
@@ -746,13 +755,13 @@ function _getImgSizes() {
                     switch (_context.prev = _context.next) {
                       case 0:
                         _context.next = 2;
-                        return imageExists(sizedImg.url);
+                        return imgExists(sizedImg.url);
 
                       case 2:
                         currentImageExists = _context.sent;
 
                         if (currentImageExists) {
-                          scaledImgs[imgScaleList[index] + ''] = sizedImg;
+                          scaledImgs.set(imgScaleList[index] + '', sizedImg);
                         }
 
                       case 4:
@@ -782,9 +791,9 @@ function _getImgSizes() {
                   width: img.sizes[imgSize].width,
                   height: img.sizes[imgSize].height
                 });
-              } else if (imgScaleList.indexOf(parseFloat(imgSize)) != -1 && scaledImgs[imgSize] != undefined) {
+              } else if (imgScaleList.indexOf(parseFloat(imgSize)) != -1 && scaledImgs.get(imgSize) != undefined) {
                 // get from scaled imgs list
-                returnImgs.push(scaledImgs[imgSize]);
+                returnImgs.push(scaledImgs.get(imgSize));
               } else if (imgSize == 'original' && originalImgUrl) {
                 // add unscaled original
                 returnImgs.push({
@@ -796,7 +805,11 @@ function _getImgSizes() {
             });
 
           case 32:
-            return _context2.abrupt("return", returnImgs);
+            return _context2.abrupt("return", {
+              imgs: returnImgs,
+              originalWidth: originalWidth,
+              originalHeight: originalHeight
+            });
 
           case 33:
           case "end":
@@ -805,7 +818,7 @@ function _getImgSizes() {
       }
     }, _callee2, null, [[9, 15]]);
   }));
-  return _getImgSizes.apply(this, arguments);
+  return _getImgSizesData.apply(this, arguments);
 }
 
 /***/ }),
@@ -888,6 +901,18 @@ var makeBannerClassNames = function makeBannerClassNames(config) {
 
   if (!!config.templateName && config.templateName == 'column-row-banner' && classNames.indexOf('d-flex') == -1) {
     classNames.push('d-flex');
+  }
+
+  return classNames.join(' ');
+};
+
+var makeBannerInnerClassNames = function makeBannerInnerClassNames(config) {
+  var classNames = ['banner-inner'];
+
+  if (!!config.templateName && config.templateName == 'column-row-banner') {
+    classNames.push('w-100');
+    classNames.push('d-flex');
+    classNames.push('flex-column');
   }
 
   return classNames.join(' ');
@@ -1179,16 +1204,7 @@ registerBlockType('bsx-blocks/banner', {
         marginAfter: '0'
       }]]]]]]]]]],
       templateLock: false
-    }]; // <div class="below-navbar-content d-flex bg-fixed bg-cover banner-vh-2 bg-66c bg-md-c" data-fn="lazyload" data-src="/wp-content/themes/bsx-wordpress-example/assets/example-img/example-banner-005.jpg">
-    //     <div class="banner-inner w-100 d-flex flex-column">
-    //         <div class="column-row d-flex">
-    //             <div class="w-100 d-flex">
-    //             </div>
-    //         </div>
-    //         <div class="column-row-auto">
-    //         </div>
-    //     </div>
-    // </div>
+    }];
 
     var getTemplate = function getTemplate(currentTemplateName) {
       var currentTemplate = templates.find(function (item) {
@@ -1219,22 +1235,23 @@ registerBlockType('bsx-blocks/banner', {
 
     function _onSelectImage() {
       _onSelectImage = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee(img) {
-        var newImgSizes, newImgSizeIndex;
+        var newImgSizesData, newImgSizes, newImgSizeIndex;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 if (!(typeof img.url !== 'undefined')) {
-                  _context.next = 7;
+                  _context.next = 8;
                   break;
                 }
 
                 _context.next = 3;
-                return Object(_functions_img_js__WEBPACK_IMPORTED_MODULE_6__["getImgSizes"])(img);
+                return Object(_functions_img_js__WEBPACK_IMPORTED_MODULE_6__["getImgSizesData"])(img);
 
               case 3:
-                newImgSizes = _context.sent;
-                // check if current img size index fits to new img (might be too large)
+                newImgSizesData = _context.sent;
+                newImgSizes = newImgSizesData.imgs; // check if current img size index fits to new img (might be too large)
+
                 newImgSizeIndex = parseInt(imgSizeIndex);
 
                 if (imgSizeIndex >= newImgSizes.length) {
@@ -1248,7 +1265,7 @@ registerBlockType('bsx-blocks/banner', {
                   url: newImgSizes[newImgSizeIndex].url
                 }); // console.log( 'url: ' + newImgSizes[ newImgSizeIndex ].url );
 
-              case 7:
+              case 8:
               case "end":
                 return _context.stop();
             }
@@ -1266,22 +1283,23 @@ registerBlockType('bsx-blocks/banner', {
 
     function _onSelectPortraitImage() {
       _onSelectPortraitImage = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee2(portraitImg) {
-        var newPortraitImgSizes, newPortraitImgSizeIndex;
+        var newPortraitImgSizesData, newPortraitImgSizes, newPortraitImgSizeIndex;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 if (!(typeof portraitImg.url !== 'undefined')) {
-                  _context2.next = 7;
+                  _context2.next = 8;
                   break;
                 }
 
                 _context2.next = 3;
-                return Object(_functions_img_js__WEBPACK_IMPORTED_MODULE_6__["getImgSizes"])(portraitImg);
+                return Object(_functions_img_js__WEBPACK_IMPORTED_MODULE_6__["getImgSizesData"])(portraitImg);
 
               case 3:
-                newPortraitImgSizes = _context2.sent;
-                // check if current img size index fits to new img (might be too large)
+                newPortraitImgSizesData = _context2.sent;
+                newPortraitImgSizes = newPortraitImgSizesData.imgs; // check if current img size index fits to new img (might be too large)
+
                 newPortraitImgSizeIndex = parseInt(portraitImgSizeIndex);
 
                 if (portraitImgSizeIndex >= newPortraitImgSizeIndex.length) {
@@ -1295,7 +1313,7 @@ registerBlockType('bsx-blocks/banner', {
                   portraitUrl: newPortraitImgSizes[newPortraitImgSizeIndex].url
                 }); // console.log( 'portraitUrl: ' + newPortraitImgSizes[ newPortraitImgSizeIndex ].url );
 
-              case 7:
+              case 8:
               case "end":
                 return _context2.stop();
             }
@@ -1412,7 +1430,7 @@ registerBlockType('bsx-blocks/banner', {
       paddingBefore: paddingBefore,
       paddingAfter: paddingAfter
     }, bannerClassName);
-    var bannerInnerClassName = Object(_functions_img_js__WEBPACK_IMPORTED_MODULE_6__["makeBannerInnerClassNames"])({
+    var bannerInnerClassName = makeBannerInnerClassNames({
       templateName: templateName
     });
     var bannerStyle = {
@@ -1476,6 +1494,7 @@ registerBlockType('bsx-blocks/banner', {
     }), imgSizes[imgSizeIndex] != undefined && imgSizes[imgSizeIndex].url != undefined && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
       class: "components-base-control"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("a", {
+      class: "bsxui-link",
       href: imgSizes[imgSizeIndex].url,
       target: "_blank"
     }, __('Preview selected image', 'bsx-blocks')))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(PanelBody, {
@@ -1819,7 +1838,7 @@ registerBlockType('bsx-blocks/banner', {
       paddingBefore: paddingBefore,
       paddingAfter: paddingAfter
     }, bannerClassName);
-    var bannerInnerClassName = Object(_functions_img_js__WEBPACK_IMPORTED_MODULE_6__["makeBannerInnerClassNames"])({
+    var bannerInnerClassName = makeBannerInnerClassNames({
       templateName: templateName
     });
     var srcsetJson = makeSrcsetJson(imgSizes, imgSizeIndex, portraitImgSizes, portraitImgSizeIndex);
@@ -2357,7 +2376,7 @@ registerBlockType('bsx-blocks/button', {
     // `<a class="create-mt" data-fn="create-mt" data-mt-n="MY_NAME" data-mt-d="MY_DOMAIN" data-mt-s="MY_DOMAIN_SUFFIX"></a>`
 
     var saveAttributes = makeSaveAttributes({
-      href: !hrefIsContentIsEmail ? hash ? href + '#' + hash : href : '',
+      href: !hrefIsContentIsEmail ? hash ? href + '#' + hash : href : 'javascript:void( 0 );',
       'data-fn': checkEmail.valid ? 'create-mt' : dataFn,
       'data-mt-n': checkEmail.valid ? checkEmail.name : '',
       'data-mt-d': checkEmail.valid ? checkEmail.domain : '',
@@ -4052,6 +4071,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _functions_img_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../_functions/img.js */ "./src/_functions/img.js");
 
 
 
@@ -4068,127 +4088,7 @@ var _wp$components = wp.components,
     TextControl = _wp$components.TextControl,
     PanelBody = _wp$components.PanelBody,
     RadioControl = _wp$components.RadioControl;
-/*
-    TODO: 
-        - !!! check which img sizes exist (small img 200w will NOT have size large 1024w)
-        - figure (and caption) optional
-        - text align for figure (toolbar)
-        - sizes { Max, Large, Medium, Small } -> get all image sizes from img.sizes
-        - make own srcset sizes (?)
-*/
-
-var getUrlTruncAndExtension = function getUrlTruncAndExtension(url) {
-  var urlExplode = url.split('.');
-  var fileExtension = urlExplode[urlExplode.length - 1];
-  urlExplode.pop();
-  var urlWithoutFileExtension = urlExplode.join('.');
-  return {
-    trunc: urlWithoutFileExtension,
-    extension: fileExtension
-  };
-};
-
-var fullImgIsScaled = function fullImgIsScaled(fullUrl) {
-  var urlWithoutFileExtension = getUrlTruncAndExtension(fullUrl).trunc;
-  return urlWithoutFileExtension.lastIndexOf('-scaled') === urlWithoutFileExtension.length - 7;
-};
-
-var getOriginalImgUrl = function getOriginalImgUrl(fullUrl) {
-  var truncAndExtension = getUrlTruncAndExtension(fullUrl);
-  return truncAndExtension.trunc.substring(0, truncAndExtension.trunc.length - 7) + '.' + truncAndExtension.extension;
-};
-
-var getSizesAndWithoutSizesTruncFromUrlTrunc = function getSizesAndWithoutSizesTruncFromUrlTrunc(urlTrunc) {
-  var urlWithoutFileExtensionExplode = urlTrunc.split('-');
-  var sizes = urlWithoutFileExtensionExplode[urlWithoutFileExtensionExplode.length - 1].split('x');
-  urlWithoutFileExtensionExplode.pop();
-  return {
-    width: sizes[0],
-    height: sizes[1],
-    withoutSizesTrunc: urlWithoutFileExtensionExplode.join('-')
-  };
-};
-
-var makeSizedImgs = function makeSizedImgs(config) {
-  var ratio = config.originalWidth / config.originalHeight;
-  var urlTruncAndExtension = getUrlTruncAndExtension(config.url);
-  var fileExtension = urlTruncAndExtension.extension;
-  var urlWithoutFileExtension = urlTruncAndExtension.trunc;
-  var sizesAndWithoutSizesTrunc = getSizesAndWithoutSizesTruncFromUrlTrunc(urlWithoutFileExtension);
-  var width = sizesAndWithoutSizesTrunc.width;
-  var urlWithoutSizesAndFileExtension = sizesAndWithoutSizesTrunc.withoutSizesTrunc;
-  /*
-  console.log( 'urlWithoutFileExtension: ' + urlWithoutFileExtension );
-  console.log( 'fileExtension: ' + fileExtension );
-  console.log( 'urlWithoutSizesAndFileExtension: ' + urlWithoutSizesAndFileExtension );
-  */
-
-  var returnList = [];
-  config.scaleList.forEach(function (scale, index) {
-    //console.log( '-----> scale: ' + scale );
-    // calculate new size
-    var scaledWidth = Math.round(width * scale); // check if default size exists for current img (only if original img is larger)
-
-    if (scaledWidth <= config.originalWidth) {
-      var scaledHeight = Math.round(scaledWidth / ratio);
-      var scaledUrl = urlWithoutSizesAndFileExtension + '-' + scaledWidth + 'x' + scaledHeight + '.' + fileExtension;
-      returnList.push({
-        url: scaledUrl,
-        width: scaledWidth,
-        height: scaledHeight
-      });
-      /*
-      console.log( 'scaledUrl: ' + scaledUrl );
-      console.log( 'scaledWidth: ' + scaledWidth );
-      console.log( 'scaledHeight: ' + scaledHeight + ' = Math.round( ' + scaledWidth + ' / ' + ratio + ' )' );
-      */
-    }
-  });
-  return returnList;
-};
-
-var getOriginalImgSizes = function getOriginalImgSizes(originalImgUrl) {
-  return new Promise(function (resolve, reject) {
-    var img = document.createElement('img');
-
-    img.onload = function () {
-      //console.log( 'onload test img in function: ' + img.width + ' x ' + img.height );
-      resolve({
-        width: img.width,
-        height: img.height
-      });
-      img.remove;
-    };
-
-    img.onerror = function (err) {
-      reject('Error on loading image "' + originalImgUrl + '"', err);
-    };
-
-    img.src = originalImgUrl;
-    document.body.appendChild(img);
-  });
-};
-
-var imageExists = function imageExists(url) {
-  return new Promise(function (resolve, reject) {
-    //console.log( 'doing imageExists: ' + url );
-    var xhr = new XMLHttpRequest();
-    xhr.open('HEAD', url, true);
-
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState == 4) {
-        if (xhr.status == 200) {
-          resolve(true);
-        } else {
-          resolve(false);
-        }
-      }
-    };
-
-    xhr.send(null);
-  });
-}; // TODO: use array with maps instead, see banner `responsiveMediaSrcIndexList`
-
+ // TODO: use array with maps instead, see banner `responsiveMediaSrcIndexList`
 
 var smallMobileSizeStep = 2;
 var smallMobileMediaQuery = '(max-width: 459.98px)';
@@ -4294,189 +4194,29 @@ registerBlockType('bsx-blocks/lazy-img', {
 
     function _onSelectImage() {
       _onSelectImage = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(img) {
-        var originalImgUrl, originalWidth, originalHeight, originalImgSizes, existingImgList, x0_75LargeImg, x1_5LargeImg, x2LargeImg, sizedImgsConfig, sizedImgs, newImgSizes, newImgSizeIndex, newLowestSrcsetImgSizeIndex;
+        var newImgSizesData, newImgSizes, originalWidth, originalHeight, newImgSizeIndex, newLowestSrcsetImgSizeIndex;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 if (!(typeof img.url !== 'undefined')) {
-                  _context.next = 40;
+                  _context.next = 11;
                   break;
                 }
 
-                //console.log( 'img.url: ' + img.url );
-                // TEST img object
+                _context.next = 3;
+                return Object(_functions_img_js__WEBPACK_IMPORTED_MODULE_3__["getImgSizesData"])(img);
 
-                /*
-                for ( let [ key, value ] of Object.entries( img ) ) {
-                    console.log( 'key: "' + key + '", val: "' + value + '"' );
-                }
-                 console.log( 'img.nonces' );
-                if ( img.nonces ) {
-                    for ( let [ key, value ] of Object.entries( img.nonces ) ) {
-                        console.log( 'key: "' + key + '", val: "' + value + '"' );
-                    }
-                }
-                 console.log( 'img.sizes' );
-                if ( img.sizes ) {
-                    for ( let [ key, value ] of Object.entries( img.sizes ) ) {
-                        console.log( 'key: "' + key + '", val: "' + value + '"' );
-                    }
-                }
-                 console.log( 'img.compat' );
-                if ( img.compat ) {
-                    for ( let [ key, value ] of Object.entries( img.compat ) ) {
-                        console.log( 'key: "' + key + '", val: "' + value + '"' );
-                    }
-                }
-                */
-                //console.log( 'fullImgIsScaled( img.url ): ' + fullImgIsScaled( img.url ) );
-                //console.log( 'url               : ' + url );
-                //console.log( 'img.sizes.full.url: ' + img.sizes.full.url );
-                originalImgUrl = '';
-                originalWidth = 0;
-                originalHeight = 0;
-
-                if (!fullImgIsScaled(img.url)) {
-                  _context.next = 19;
-                  break;
-                }
-
-                // get original, get sizes
-                //console.log( 'getOriginalImgUrl( img.url ): ' + getOriginalImgUrl( img.url ) );
-                originalImgUrl = getOriginalImgUrl(img.url); // TODO: load img, get original sizes
-
-                _context.prev = 6;
-                _context.next = 9;
-                return getOriginalImgSizes(originalImgUrl);
-
-              case 9:
-                originalImgSizes = _context.sent;
-                _context.next = 15;
-                break;
-
-              case 12:
-                _context.prev = 12;
-                _context.t0 = _context["catch"](6);
-                console.error(_context.t0);
-
-              case 15:
-                //console.log( 'originalImgSizes done' );
-                originalWidth = originalImgSizes.width || 0;
-                originalHeight = originalImgSizes.height || 0; //console.log( 'after await: originalWidth: ' + originalWidth + ' – originalHeight: ' + originalHeight );
-
-                _context.next = 21;
-                break;
-
-              case 19:
-                // get sizes from full img
-                // check which sizes exist
-                originalWidth = img.sizes.full.width;
-                originalHeight = img.sizes.full.height;
-
-              case 21:
-                if (!(img.sizes.large != undefined)) {
-                  _context.next = 30;
-                  break;
-                }
-
-                // config for making sizes (might change in newer WP versions)
-                sizedImgsConfig = {
-                  url: img.sizes['large'].url,
-                  scaleList: [0.75, 1.5, 2],
-                  originalWidth: originalWidth,
-                  originalHeight: originalHeight
-                };
-                sizedImgs = makeSizedImgs(sizedImgsConfig);
-                x0_75LargeImg = sizedImgs[0] || {};
-                x1_5LargeImg = sizedImgs[1] || {};
-                x2LargeImg = sizedImgs[2] || {}; //console.log( 'imageExists calling' );
-
-                _context.next = 29;
-                return Promise.all([imageExists(x0_75LargeImg.url), imageExists(x1_5LargeImg.url), imageExists(x2LargeImg.url)]);
-
-              case 29:
-                existingImgList = _context.sent;
-
-              case 30:
-                // start build list of all really existing img sizes
-                newImgSizes = []; // thumbnail
-
-                if (img.sizes.thumbnail != undefined && img.sizes.thumbnail.url) {
-                  newImgSizes.push({
-                    url: img.sizes.thumbnail.url,
-                    width: img.sizes.thumbnail.width,
-                    height: img.sizes.thumbnail.height
-                  });
-                } // medium
-
-
-                if (img.sizes.medium != undefined && img.sizes.medium.url) {
-                  newImgSizes.push({
-                    url: img.sizes.medium.url,
-                    width: img.sizes.medium.width,
-                    height: img.sizes.medium.height
-                  });
-                }
-
-                if (img.sizes.large != undefined && img.sizes.large.url) {
-                  // x0.75 large
-                  if (existingImgList[0]) {
-                    newImgSizes.push({
-                      url: x0_75LargeImg.url,
-                      width: x0_75LargeImg.width,
-                      height: x0_75LargeImg.height
-                    });
-                  } // large
-
-
-                  newImgSizes.push({
-                    url: img.sizes.large.url,
-                    width: img.sizes.large.width,
-                    height: img.sizes.large.height
-                  }); // x1.5 large
-
-                  if (existingImgList[1]) {
-                    newImgSizes.push({
-                      url: x1_5LargeImg.url,
-                      width: x1_5LargeImg.width,
-                      height: x1_5LargeImg.height
-                    });
-                  } // x2 large
-
-
-                  if (existingImgList[1]) {
-                    newImgSizes.push({
-                      url: x2LargeImg.url,
-                      width: x2LargeImg.width,
-                      height: x2LargeImg.height
-                    });
-                  }
-                } // full (uploaded or down scaled size)
-
-
-                newImgSizes.push({
-                  url: img.sizes.full.url,
-                  width: img.sizes.full.width,
-                  height: img.sizes.full.height
-                }); // original (unscaled uploaded size)
-
-                if (originalImgUrl) {
-                  newImgSizes.push({
-                    url: originalImgUrl,
-                    width: originalWidth,
-                    height: originalHeight
-                  });
-                } // TEST
-                //console.log( '-----> newImgSizes:' );
-
-                /*
-                newImgSizes.forEach( ( imgSize, index ) => {
-                    console.log( 'imgSize[ ' + index + ' ] ( ' + imgSize.width + 'x' + imgSize.height + ' ): "' + imgSize.url + '"' );
-                } );
-                */
+              case 3:
+                newImgSizesData = _context.sent;
+                newImgSizes = newImgSizesData.imgs;
+                originalWidth = newImgSizesData.originalWidth;
+                originalHeight = newImgSizesData.originalHeight; // TEST
+                // console.log( '-----> newImgSizes:' );
+                // newImgSizes.forEach( ( imgSize, index ) => {
+                //     console.log( 'imgSize[ ' + index + ' ] ( ' + imgSize.width + 'x' + imgSize.height + ' ): "' + imgSize.url + '"' );
+                // } );
                 // check if current img size index fits to new img (might be too large)
-
 
                 newImgSizeIndex = parseInt(imgSizeIndex);
 
@@ -4505,35 +4245,26 @@ registerBlockType('bsx-blocks/lazy-img', {
                   lowestSrcsetImgSizeIndex: newLowestSrcsetImgSizeIndex,
                   alt: img.alt
                 }); // TEST – TODO: remove
+                // for ( let [ key, value ] of Object.entries( img.sizes ) ) {
+                //     console.log( 'key: "' + key + '", val: "' + value + '"' );
+                // }
+                // console.log( 'mediumUrl: ' + img.sizes.medium.url );
+                // console.log( 'mediumWidth: ' + img.sizes.medium.width );
+                // console.log( 'mediumHeight: ' + img.sizes.medium.height );
+                // console.log( 'largeUrl: ' + img.sizes.large.url );
+                // console.log( 'largeWidth: ' + img.sizes.large.width );
+                // console.log( 'largeHeight: ' + img.sizes.large.height );
+                // console.log( 'ratio thumbnail ( ' + img.sizes.thumbnail.width + ' / ' + img.sizes.thumbnail.height + ' ): ' + img.sizes.thumbnail.width / img.sizes.thumbnail.height );
+                // console.log( 'ratio medium ( ' + img.sizes.medium.width + ' / ' + img.sizes.medium.height + ' ): ' + img.sizes.medium.width / img.sizes.medium.height );
+                // console.log( 'ratio large ( ' + img.sizes.large.width + ' / ' + img.sizes.large.height + ' ): ' + img.sizes.large.width / img.sizes.large.height );
+                // console.log( 'ratio full ( ' + img.sizes.full.width + ' / ' + img.sizes.full.height + ' ): ' + img.sizes.full.width / img.sizes.full.height );
 
-                /*
-                for ( let [ key, value ] of Object.entries( img.sizes ) ) {
-                    console.log( 'key: "' + key + '", val: "' + value + '"' );
-                }
-                */
-
-                /*
-                console.log( 'mediumUrl: ' + img.sizes.medium.url );
-                console.log( 'mediumWidth: ' + img.sizes.medium.width );
-                console.log( 'mediumHeight: ' + img.sizes.medium.height );
-                console.log( 'largeUrl: ' + img.sizes.large.url );
-                console.log( 'largeWidth: ' + img.sizes.large.width );
-                console.log( 'largeHeight: ' + img.sizes.large.height );
-                */
-                //console.log( 'ratio thumbnail ( ' + img.sizes.thumbnail.width + ' / ' + img.sizes.thumbnail.height + ' ): ' + img.sizes.thumbnail.width / img.sizes.thumbnail.height );
-
-                /*
-                console.log( 'ratio medium ( ' + img.sizes.medium.width + ' / ' + img.sizes.medium.height + ' ): ' + img.sizes.medium.width / img.sizes.medium.height );
-                console.log( 'ratio large ( ' + img.sizes.large.width + ' / ' + img.sizes.large.height + ' ): ' + img.sizes.large.width / img.sizes.large.height );
-                console.log( 'ratio full ( ' + img.sizes.full.width + ' / ' + img.sizes.full.height + ' ): ' + img.sizes.full.width / img.sizes.full.height );
-                */
-
-              case 40:
+              case 11:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[6, 12]]);
+        }, _callee);
       }));
       return _onSelectImage.apply(this, arguments);
     }
@@ -4632,6 +4363,7 @@ registerBlockType('bsx-blocks/lazy-img', {
     }), imgSizes[imgSizeIndex] != undefined && imgSizes[imgSizeIndex].url != undefined && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
       class: "components-base-control"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("a", {
+      class: "bsxui-link",
       href: imgSizes[imgSizeIndex].url,
       target: "_blank"
     }, __('Preview selected image', 'bsx-blocks'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(TextControl, {

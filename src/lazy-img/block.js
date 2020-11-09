@@ -14,152 +14,18 @@ const {
     RadioControl,
 } = wp.components;
 
-/*
-    TODO: 
-        - !!! check which img sizes exist (small img 200w will NOT have size large 1024w)
-        - figure (and caption) optional
-        - text align for figure (toolbar)
-        - sizes { Max, Large, Medium, Small } -> get all image sizes from img.sizes
-        - make own srcset sizes (?)
-*/
 
-const getUrlTruncAndExtension = ( url ) => {
+import { 
+    getUrlTruncAndExtension,
+    fullImgIsScaled,
+    getOriginalImgUrl,
+    getSizesAndWithoutSizesTruncFromUrlTrunc,
+    makeSizedImgs,
+    getImgWithHeight,
+    imgExists,
+    getImgSizesData,
+} from './../_functions/img.js';
 
-    const urlExplode = url.split( '.' );
-
-    const fileExtension = urlExplode[ urlExplode.length - 1 ];
-    urlExplode.pop();
-    const urlWithoutFileExtension = urlExplode.join( '.' );
-
-    return {
-        trunc: urlWithoutFileExtension,
-        extension: fileExtension,
-    };
-}
-
-const fullImgIsScaled = ( fullUrl ) => {
-
-    const urlWithoutFileExtension = getUrlTruncAndExtension( fullUrl ).trunc;
-
-    return urlWithoutFileExtension.lastIndexOf( '-scaled' ) === urlWithoutFileExtension.length - 7;
-}
-
-const getOriginalImgUrl = ( fullUrl ) => {
-
-    const truncAndExtension = getUrlTruncAndExtension( fullUrl );
-
-    return truncAndExtension.trunc.substring(0, truncAndExtension.trunc.length - 7) + '.' + truncAndExtension.extension;
-}
-
-const getSizesAndWithoutSizesTruncFromUrlTrunc = ( urlTrunc ) => {
-
-    const urlWithoutFileExtensionExplode = urlTrunc.split( '-' );
-    const sizes = urlWithoutFileExtensionExplode[ urlWithoutFileExtensionExplode.length - 1 ].split( 'x' );
-
-    urlWithoutFileExtensionExplode.pop();
-
-    return {
-        width: sizes[ 0 ],
-        height: sizes[ 1 ],
-        withoutSizesTrunc: urlWithoutFileExtensionExplode.join( '-' ),
-    };
-}
-
-const makeSizedImgs = ( config ) => {
-
-    const ratio = config.originalWidth / config.originalHeight;
-
-    const urlTruncAndExtension = getUrlTruncAndExtension( config.url );
-
-    const fileExtension = urlTruncAndExtension.extension;
-    const urlWithoutFileExtension = urlTruncAndExtension.trunc;
-
-    const sizesAndWithoutSizesTrunc = getSizesAndWithoutSizesTruncFromUrlTrunc( urlWithoutFileExtension );
-
-    const width = sizesAndWithoutSizesTrunc.width;
-    const urlWithoutSizesAndFileExtension = sizesAndWithoutSizesTrunc.withoutSizesTrunc;
-
-    /*
-    console.log( 'urlWithoutFileExtension: ' + urlWithoutFileExtension );
-    console.log( 'fileExtension: ' + fileExtension );
-    console.log( 'urlWithoutSizesAndFileExtension: ' + urlWithoutSizesAndFileExtension );
-    */
-
-    const returnList = [];
-
-    config.scaleList.forEach( ( scale, index ) => {
-
-        //console.log( '-----> scale: ' + scale );
-
-        // calculate new size
-        const scaledWidth = Math.round( width * scale );
-
-        // check if default size exists for current img (only if original img is larger)
-        if ( scaledWidth <= config.originalWidth ) {
-
-            const scaledHeight = Math.round( scaledWidth / ratio );
-            const scaledUrl = urlWithoutSizesAndFileExtension + '-' + scaledWidth + 'x' + scaledHeight + '.' + fileExtension;
-
-            returnList.push( {
-                url: scaledUrl,
-                width: scaledWidth,
-                height: scaledHeight,
-            } );
-            
-            /*
-            console.log( 'scaledUrl: ' + scaledUrl );
-            console.log( 'scaledWidth: ' + scaledWidth );
-            console.log( 'scaledHeight: ' + scaledHeight + ' = Math.round( ' + scaledWidth + ' / ' + ratio + ' )' );
-            */
-        }
-
-    } ); 
-
-    return returnList;
-
-}
-
-const getOriginalImgSizes = ( originalImgUrl ) => {
-
-    return new Promise( ( resolve, reject ) => {
-
-        let img = document.createElement( 'img' );
-        img.onload = () => { 
-            //console.log( 'onload test img in function: ' + img.width + ' x ' + img.height );
-
-            resolve( {
-                width: img.width,
-                height: img.height,
-            } );
-
-            img.remove;
-        };
-        img.onerror = ( err ) => {
-            reject( 'Error on loading image "' + originalImgUrl + '"', err );
-        }
-        img.src = originalImgUrl;
-        document.body.appendChild( img );
-    } );
-}
-
-const imageExists = ( url ) => {
-    return new Promise( ( resolve, reject ) => {
-        //console.log( 'doing imageExists: ' + url );
-        const xhr = new XMLHttpRequest();
-        xhr.open( 'HEAD', url, true );
-        xhr.onreadystatechange = () => {
-            if ( xhr.readyState == 4 ) {
-                if ( xhr.status == 200 ) {
-                    resolve( true );
-                } 
-                else {
-                    resolve( false );
-                }
-            }
-        };
-        xhr.send( null );
-    } );
-} 
 
 // TODO: use array with maps instead, see banner `responsiveMediaSrcIndexList`
 const smallMobileSizeStep = 2;
@@ -267,193 +133,16 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
             if ( typeof img.url !== 'undefined' ) {
 
-                //console.log( 'img.url: ' + img.url );
-
-                // TEST img object
-                /*
-                for ( let [ key, value ] of Object.entries( img ) ) {
-                    console.log( 'key: "' + key + '", val: "' + value + '"' );
-                }
-
-                console.log( 'img.nonces' );
-                if ( img.nonces ) {
-                    for ( let [ key, value ] of Object.entries( img.nonces ) ) {
-                        console.log( 'key: "' + key + '", val: "' + value + '"' );
-                    }
-                }
-
-                console.log( 'img.sizes' );
-                if ( img.sizes ) {
-                    for ( let [ key, value ] of Object.entries( img.sizes ) ) {
-                        console.log( 'key: "' + key + '", val: "' + value + '"' );
-                    }
-                }
-
-                console.log( 'img.compat' );
-                if ( img.compat ) {
-                    for ( let [ key, value ] of Object.entries( img.compat ) ) {
-                        console.log( 'key: "' + key + '", val: "' + value + '"' );
-                    }
-                }
-                */
-
-                //console.log( 'fullImgIsScaled( img.url ): ' + fullImgIsScaled( img.url ) );
-                //console.log( 'url               : ' + url );
-                //console.log( 'img.sizes.full.url: ' + img.sizes.full.url );
-
-                let originalImgUrl = '';
-                let originalWidth = 0;
-                let originalHeight = 0;
-
-                if ( fullImgIsScaled( img.url ) ) {
-
-                    // get original, get sizes
-
-                    //console.log( 'getOriginalImgUrl( img.url ): ' + getOriginalImgUrl( img.url ) );
-
-                    originalImgUrl = getOriginalImgUrl( img.url );
-
-                    // TODO: load img, get original sizes
-
-                    let originalImgSizes;
-
-                    //console.log( 'originalImgSizes calling' );
-                    try {
-                        originalImgSizes = await getOriginalImgSizes( originalImgUrl );
-                    } catch( err ) {
-                        console.error( err );
-                    }
-                    //console.log( 'originalImgSizes done' );
-
-                    originalWidth = originalImgSizes.width || 0;
-                    originalHeight = originalImgSizes.height || 0;
-
-                    //console.log( 'after await: originalWidth: ' + originalWidth + ' – originalHeight: ' + originalHeight );
-
-                }
-                else {
-
-                    // get sizes from full img
-                    // check which sizes exist
-
-                    originalWidth = img.sizes.full.width;
-                    originalHeight = img.sizes.full.height;
-
-                }
-
-                // /TEST
-                //console.log( 'originalWidth: ' + originalWidth + ' – originalHeight: ' + originalHeight );
-
-                let existingImgList;
-                let x0_75LargeImg;
-                let x1_5LargeImg;
-                let x2LargeImg;
-
-                // make sizes only if marge img exists
-                if ( img.sizes.large != undefined ) {
-
-                    // config for making sizes (might change in newer WP versions)
-                    const sizedImgsConfig = {
-                        url: img.sizes[ 'large' ].url,
-                        scaleList: [ 0.75, 1.5, 2 ],
-                        originalWidth: originalWidth,
-                        originalHeight: originalHeight,
-                    };
-                    const sizedImgs = makeSizedImgs( sizedImgsConfig );
-
-                    x0_75LargeImg = sizedImgs[ 0 ] || {};
-                    x1_5LargeImg = sizedImgs[ 1 ] || {};
-                    x2LargeImg = sizedImgs[ 2 ] || {};
-
-
-                    //console.log( 'imageExists calling' );
-                    existingImgList = await Promise.all( [
-                        imageExists( x0_75LargeImg.url ),
-                        imageExists( x1_5LargeImg.url ),
-                        imageExists( x2LargeImg.url ),
-                    ] );
-                    //console.log( 'imageExists done' );
-
-                    /*
-                    existingImgList.forEach( ( imageExists, index ) => {
-                        console.log( 'imageExists[ ' + index + ' ]: ' + imageExists );
-                    } ); 
-                    */
-
-                }
-
-                // start build list of all really existing img sizes
-                const newImgSizes = [];
-                // thumbnail
-                if ( img.sizes.thumbnail != undefined && img.sizes.thumbnail.url ) {
-                    newImgSizes.push( {
-                        url: img.sizes.thumbnail.url,
-                        width: img.sizes.thumbnail.width,
-                        height: img.sizes.thumbnail.height, 
-                    } );
-                }
-                // medium
-                if ( img.sizes.medium != undefined && img.sizes.medium.url ) {
-                    newImgSizes.push( {
-                        url: img.sizes.medium.url,
-                        width: img.sizes.medium.width,
-                        height: img.sizes.medium.height, 
-                    } );
-                }
-                if ( img.sizes.large != undefined && img.sizes.large.url ) {
-                    // x0.75 large
-                    if ( existingImgList[ 0 ] ) {
-                        newImgSizes.push( {
-                            url: x0_75LargeImg.url,
-                            width: x0_75LargeImg.width,
-                            height: x0_75LargeImg.height, 
-                        } );
-                    }
-                    // large
-                    newImgSizes.push( {
-                        url: img.sizes.large.url,
-                        width: img.sizes.large.width,
-                        height: img.sizes.large.height, 
-                    } );
-                    // x1.5 large
-                    if ( existingImgList[ 1 ] ) {
-                        newImgSizes.push( {
-                            url: x1_5LargeImg.url,
-                            width: x1_5LargeImg.width,
-                            height: x1_5LargeImg.height, 
-                        } );
-                    }
-                    // x2 large
-                    if ( existingImgList[ 1 ] ) {
-                        newImgSizes.push( {
-                            url: x2LargeImg.url,
-                            width: x2LargeImg.width,
-                            height: x2LargeImg.height, 
-                        } );
-                    }
-                }
-                // full (uploaded or down scaled size)
-                newImgSizes.push( {
-                    url: img.sizes.full.url,
-                    width: img.sizes.full.width,
-                    height: img.sizes.full.height, 
-                } );
-                // original (unscaled uploaded size)
-                if ( originalImgUrl ) {
-                    newImgSizes.push( {
-                        url: originalImgUrl,
-                        width: originalWidth,
-                        height: originalHeight, 
-                    } );
-                }
+                const newImgSizesData = await getImgSizesData( img );
+                const newImgSizes = newImgSizesData.imgs;
+                const originalWidth = newImgSizesData.originalWidth;
+                const originalHeight = newImgSizesData.originalHeight;
 
                 // TEST
-                //console.log( '-----> newImgSizes:' );
-                /*
-                newImgSizes.forEach( ( imgSize, index ) => {
-                    console.log( 'imgSize[ ' + index + ' ] ( ' + imgSize.width + 'x' + imgSize.height + ' ): "' + imgSize.url + '"' );
-                } );
-                */ 
+                // console.log( '-----> newImgSizes:' );
+                // newImgSizes.forEach( ( imgSize, index ) => {
+                //     console.log( 'imgSize[ ' + index + ' ] ( ' + imgSize.width + 'x' + imgSize.height + ' ): "' + imgSize.url + '"' );
+                // } );
 
                 // check if current img size index fits to new img (might be too large)
                 let newImgSizeIndex = parseInt( imgSizeIndex );
@@ -486,26 +175,23 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 } );
 
                 // TEST – TODO: remove
-                /*
-                for ( let [ key, value ] of Object.entries( img.sizes ) ) {
-                    console.log( 'key: "' + key + '", val: "' + value + '"' );
-                }
-                */
-                /*
-                console.log( 'mediumUrl: ' + img.sizes.medium.url );
-                console.log( 'mediumWidth: ' + img.sizes.medium.width );
-                console.log( 'mediumHeight: ' + img.sizes.medium.height );
-                console.log( 'largeUrl: ' + img.sizes.large.url );
-                console.log( 'largeWidth: ' + img.sizes.large.width );
-                console.log( 'largeHeight: ' + img.sizes.large.height );
-                */
+                // for ( let [ key, value ] of Object.entries( img.sizes ) ) {
+                //     console.log( 'key: "' + key + '", val: "' + value + '"' );
+                // }
 
-                //console.log( 'ratio thumbnail ( ' + img.sizes.thumbnail.width + ' / ' + img.sizes.thumbnail.height + ' ): ' + img.sizes.thumbnail.width / img.sizes.thumbnail.height );
-                /*
-                console.log( 'ratio medium ( ' + img.sizes.medium.width + ' / ' + img.sizes.medium.height + ' ): ' + img.sizes.medium.width / img.sizes.medium.height );
-                console.log( 'ratio large ( ' + img.sizes.large.width + ' / ' + img.sizes.large.height + ' ): ' + img.sizes.large.width / img.sizes.large.height );
-                console.log( 'ratio full ( ' + img.sizes.full.width + ' / ' + img.sizes.full.height + ' ): ' + img.sizes.full.width / img.sizes.full.height );
-                */
+                // console.log( 'mediumUrl: ' + img.sizes.medium.url );
+                // console.log( 'mediumWidth: ' + img.sizes.medium.width );
+                // console.log( 'mediumHeight: ' + img.sizes.medium.height );
+                // console.log( 'largeUrl: ' + img.sizes.large.url );
+                // console.log( 'largeWidth: ' + img.sizes.large.width );
+                // console.log( 'largeHeight: ' + img.sizes.large.height );
+
+                // console.log( 'ratio thumbnail ( ' + img.sizes.thumbnail.width + ' / ' + img.sizes.thumbnail.height + ' ): ' + img.sizes.thumbnail.width / img.sizes.thumbnail.height );
+
+                // console.log( 'ratio medium ( ' + img.sizes.medium.width + ' / ' + img.sizes.medium.height + ' ): ' + img.sizes.medium.width / img.sizes.medium.height );
+                // console.log( 'ratio large ( ' + img.sizes.large.width + ' / ' + img.sizes.large.height + ' ): ' + img.sizes.large.width / img.sizes.large.height );
+                // console.log( 'ratio full ( ' + img.sizes.full.width + ' / ' + img.sizes.full.height + ' ): ' + img.sizes.full.width / img.sizes.full.height );
+
             }
         };
         const onChangeMediaAlt = ( value ) => {
@@ -597,7 +283,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                     {
                         imgSizes[ imgSizeIndex ] != undefined && imgSizes[ imgSizeIndex ].url != undefined && (
                             <div class="components-base-control">
-                                <a href={ imgSizes[ imgSizeIndex ].url } target="_blank">{ __( 'Preview selected image', 'bsx-blocks' ) }</a>
+                                <a class="bsxui-link" href={ imgSizes[ imgSizeIndex ].url } target="_blank">{ __( 'Preview selected image', 'bsx-blocks' ) }</a>
                             </div>
                         )
                     }

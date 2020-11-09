@@ -1,19 +1,5 @@
 // img functions
 
-
-export function makeBannerInnerClassNames( config ) {
-
-    const classNames = [ 'banner-inner' ];
-    
-    if ( !! config.templateName && config.templateName == 'column-row-banner' ) {
-        classNames.push( 'w-100' );
-        classNames.push( 'd-flex' );
-        classNames.push( 'flex-column' );
-    }
-
-    return classNames.join( ' ' );
-}
-
 export function getUrlTruncAndExtension( url ) {
 
     const urlExplode = url.split( '.' );
@@ -96,7 +82,7 @@ export function makeSizedImgs( config ) {
 
 }
 
-export function getOriginalImgSizes ( originalImgUrl ) {
+export function getImgWidthHeight( imgUrl ) {
 
     return new Promise( ( resolve, reject ) => {
 
@@ -111,14 +97,14 @@ export function getOriginalImgSizes ( originalImgUrl ) {
             img.remove;
         };
         img.onerror = ( err ) => {
-            reject( 'Error on loading image "' + originalImgUrl + '"', err );
+            reject( 'Error on loading image "' + imgUrl + '"', err );
         }
-        img.src = originalImgUrl;
+        img.src = imgUrl;
         document.body.appendChild( img );
     } );
 }
 
-export function imageExists( url ) {
+export function imgExists( url ) {
     return new Promise( ( resolve, reject ) => {
         const xhr = new XMLHttpRequest();
         xhr.open( 'HEAD', url, true );
@@ -137,7 +123,7 @@ export function imageExists( url ) {
 }
 
 // getting sorted list of all imgs (default and hidden scaled)
-export async function getImgSizes( img ) {
+export async function getImgSizesData( img ) {
 
     // scaled (hidden) img settings
     const imgScaleList = [ 0.75, 1.5, 2 ];
@@ -170,13 +156,13 @@ export async function getImgSizes( img ) {
 
         let originalImgSizes;
         try {
-            originalImgSizes = await getOriginalImgSizes( originalImgUrl );
+            originalImgSizes = await getImgWidthHeight( originalImgUrl );
         } catch( err ) {
             console.error( err );
         }
 
-        originalWidth = originalImgSizes.width || 0;
-        originalHeight = originalImgSizes.height || 0;
+        originalWidth = originalImgSizes.width;
+        originalHeight = originalImgSizes.height;
     }
     else {
         // get sizes from full img
@@ -184,10 +170,10 @@ export async function getImgSizes( img ) {
         originalHeight = img.sizes.full.height;
     }
 
-    let scaledImgs = {};
+    let scaledImgs = new Map();
     const returnImgs = [];
 
-    // make sizes only if marge img exists
+    // make sizes only if large img exists
     if ( img.sizes.large != undefined ) {
 
         // config for making sizes (might change in newer WP versions)
@@ -201,9 +187,9 @@ export async function getImgSizes( img ) {
 
         // check all imgs if exist (since WordPress might change hidden img sizes one day);
         await Promise.all( sizedImgs.map( async ( sizedImg, index ) => {
-            const currentImageExists = await imageExists( sizedImg.url );
+            const currentImageExists = await imgExists( sizedImg.url );
             if ( currentImageExists ) {
-                scaledImgs[ imgScaleList[ index ] + '' ] = sizedImg;
+                scaledImgs.set( imgScaleList[ index ] + '', sizedImg );
             }
         } ) );
 
@@ -223,9 +209,9 @@ export async function getImgSizes( img ) {
                     height: img.sizes[ imgSize ].height, 
                 } );
             }
-            else if ( imgScaleList.indexOf( parseFloat( imgSize ) ) != -1 && scaledImgs[ imgSize ] != undefined ) {
+            else if ( imgScaleList.indexOf( parseFloat( imgSize ) ) != -1 && scaledImgs.get( imgSize ) != undefined ) {
                 // get from scaled imgs list
-                returnImgs.push( scaledImgs[ imgSize ] );
+                returnImgs.push( scaledImgs.get( imgSize ) );
             }
             else if ( imgSize == 'original' && originalImgUrl ) {
                 // add unscaled original
@@ -250,5 +236,40 @@ export async function getImgSizes( img ) {
     //     );
     // } );
 
-    return returnImgs;
+    return {
+    	imgs: returnImgs,
+    	originalWidth: originalWidth,
+    	originalHeight: originalHeight,
+    };
 }
+
+// export async function getOriginalImgSizes( img ) {
+
+//     if ( fullImgIsScaled( img.url ) ) {
+//         // find original img
+
+//         let originalImgSizes;
+
+//         try {
+//             originalImgSizes = await getImgWidthHeight( getOriginalImgUrl( img.url ) );
+//         } catch( err ) {
+//             console.error( err );
+//         }
+
+//         return {
+//             width: originalImgSizes.width,
+//             height: originalImgSizes.height,
+//         };
+
+//     }
+//     else {
+//         // get sizes from full img
+//         return {
+//             width: img.sizes.full.width,
+//             height: img.sizes.full.height,
+//         };
+//     }
+// }
+
+
+

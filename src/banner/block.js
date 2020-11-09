@@ -27,15 +27,14 @@ const {
 import { addClassNames } from './../_functions/add-class-names.js';
 
 import { 
-    makeBannerInnerClassNames,
     getUrlTruncAndExtension,
     fullImgIsScaled,
     getOriginalImgUrl,
     getSizesAndWithoutSizesTruncFromUrlTrunc,
     makeSizedImgs,
-    getOriginalImgSizes,
-    imageExists,
-    getImgSizes,
+    getImgWithHeight,
+    imgExists,
+    getImgSizesData,
 } from './../_functions/img.js';
 
 
@@ -68,6 +67,19 @@ const makeBannerClassNames = ( config ) => {
     
     if ( !! config.templateName && config.templateName == 'column-row-banner' && classNames.indexOf( 'd-flex' ) == -1 ) {
         classNames.push( 'd-flex' );
+    }
+
+    return classNames.join( ' ' );
+}
+
+const makeBannerInnerClassNames = ( config ) => {
+
+    const classNames = [ 'banner-inner' ];
+    
+    if ( !! config.templateName && config.templateName == 'column-row-banner' ) {
+        classNames.push( 'w-100' );
+        classNames.push( 'd-flex' );
+        classNames.push( 'flex-column' );
     }
 
     return classNames.join( ' ' );
@@ -408,19 +420,6 @@ registerBlockType( 'bsx-blocks/banner', {
             },
         ];
 
-// <div class="below-navbar-content d-flex bg-fixed bg-cover banner-vh-2 bg-66c bg-md-c" data-fn="lazyload" data-src="/wp-content/themes/bsx-wordpress-example/assets/example-img/example-banner-005.jpg">
-//     <div class="banner-inner w-100 d-flex flex-column">
-//         <div class="column-row d-flex">
-//             <div class="w-100 d-flex">
-
-//             </div>
-//         </div>
-//         <div class="column-row-auto">
-
-//         </div>
-//     </div>
-// </div>
-
         const getTemplate = ( currentTemplateName ) => {
             const currentTemplate = templates.find( ( item ) => item.name === currentTemplateName );
             return currentTemplate ? currentTemplate.template : [];
@@ -444,7 +443,8 @@ registerBlockType( 'bsx-blocks/banner', {
 
             if ( typeof img.url !== 'undefined' ) {
 
-                const newImgSizes = await getImgSizes( img );
+                const newImgSizesData = await getImgSizesData( img );
+                const newImgSizes = newImgSizesData.imgs;
 
                 // check if current img size index fits to new img (might be too large)
                 let newImgSizeIndex = parseInt( imgSizeIndex );
@@ -467,7 +467,8 @@ registerBlockType( 'bsx-blocks/banner', {
 
             if ( typeof portraitImg.url !== 'undefined' ) {
 
-                const newPortraitImgSizes = await getImgSizes( portraitImg );
+                const newPortraitImgSizesData = await getImgSizesData( portraitImg );
+                const newPortraitImgSizes = newPortraitImgSizesData.imgs;
 
                 // check if current img size index fits to new img (might be too large)
                 let newPortraitImgSizeIndex = parseInt( portraitImgSizeIndex );
@@ -643,7 +644,7 @@ registerBlockType( 'bsx-blocks/banner', {
                     {
                         imgSizes[ imgSizeIndex ] != undefined && imgSizes[ imgSizeIndex ].url != undefined && (
                             <div class="components-base-control">
-                                <a href={ imgSizes[ imgSizeIndex ].url } target="_blank">{ __( 'Preview selected image', 'bsx-blocks' ) }</a>
+                                <a class="bsxui-link" href={ imgSizes[ imgSizeIndex ].url } target="_blank">{ __( 'Preview selected image', 'bsx-blocks' ) }</a>
                             </div>
                         )
                     }

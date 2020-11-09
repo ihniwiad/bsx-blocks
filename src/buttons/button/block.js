@@ -243,7 +243,6 @@ registerBlockType( 'bsx-blocks/button', {
 
         // adapt content since mailto link saves empty content, see `value={ ! content && hrefIsContentIsEmail ? href.substring( 7 ) : content }`
 
-
         // edit spam-protected mailto link format (no class name `create-mt`, no data-attributes):
         // `<a>MY_NAME@MY_DOMAIN.MY_DOMAIN_SUFFIX</a>` or `<a>SOME_CONTENT</a>`
         // console.log( '! content && hrefIsContentIsEmail ? [ href.substring( 7 ) ] : content: ' + ! content && hrefIsContentIsEmail ? [ href.substring( 7 ) ] : content );
@@ -441,7 +440,7 @@ registerBlockType( 'bsx-blocks/button', {
         // `<a class="create-mt" data-fn="create-mt" data-mt-n="MY_NAME" data-mt-d="MY_DOMAIN" data-mt-s="MY_DOMAIN_SUFFIX"></a>`
 
         const saveAttributes = makeSaveAttributes( {
-            href: ! hrefIsContentIsEmail ? ( hash ? href + '#' + hash : href ) : '', 
+            href: ! hrefIsContentIsEmail ? ( hash ? href + '#' + hash : href ) : 'javascript:void( 0 );', 
             'data-fn': checkEmail.valid ? 'create-mt' : dataFn,
             'data-mt-n': checkEmail.valid ? checkEmail.name : '',
             'data-mt-d': checkEmail.valid ? checkEmail.domain : '',
