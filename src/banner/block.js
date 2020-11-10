@@ -106,21 +106,22 @@ const responsiveMediaIndexList = [
         imgSizeIndexShift: '-2',
     },
 ];
-const makeSrcsetJson = ( _imgSizes, _imgSizeIndex, _portraitImgSizes, _portraitImgSizeIndex ) => {
-    // srcsetJson = "[ { media: '" + mobileMediaQuery + "', src: '" + url + "' }, { media: '" + smallMobileMediaQuery + "', src: '" + _imgSizes[ ( imgSizeIndex - mobileSizeStep > 0 ? imgSizeIndex - mobileSizeStep : 0 ) ].url + "' }, { media: '', src: '" + _imgSizes[ ( imgSizeIndex - smallMobileSizeStep > 0 ? imgSizeIndex - smallMobileSizeStep : 0 ) ].url + "' } ]";
+const skipIndex = 0;
+const makeSrcsetJson = ( config ) => {
+    // srcsetJson = "[ { media: '" + mobileMediaQuery + "', src: '" + url + "' }, { media: '" + smallMobileMediaQuery + "', src: '" + config.imgSizes[ ( imgSizeIndex - mobileSizeStep > 0 ? imgSizeIndex - mobileSizeStep : 0 ) ].url + "' }, { media: '', src: '" + config.imgSizes[ ( imgSizeIndex - smallMobileSizeStep > 0 ? imgSizeIndex - smallMobileSizeStep : 0 ) ].url + "' } ]";
     let srcsetJson = '[ ';
     responsivePortraitMediaIndexList.forEach( ( item, index ) => {
-        // add item if img resulting indes > 0 (no square format)
-        const currentPortraitImgSizeIndex = ( parseInt( _portraitImgSizeIndex ) + parseInt( item.imgSizeIndexShift ) );
-        if ( currentPortraitImgSizeIndex > 0 && currentPortraitImgSizeIndex < _portraitImgSizes.length ) {
-            srcsetJson += '{ media: \'' + item.media + '\', src: \'' + _portraitImgSizes[ currentPortraitImgSizeIndex ].url + '\' }, ';
+        // add item if img resulting indes > skipIndex (no square format)
+        const currentPortraitImgSizeIndex = ( parseInt( config.portraitImgSizeIndex ) + parseInt( item.imgSizeIndexShift ) );
+        if ( currentPortraitImgSizeIndex > skipIndex && currentPortraitImgSizeIndex < config.portraitImgSizes.length ) {
+            srcsetJson += '{ media: \'' + item.media + '\', src: \'' + config.portraitImgSizes[ currentPortraitImgSizeIndex ].url + '\' }, ';
         }
     } );
     responsiveMediaIndexList.forEach( ( item, index ) => {
-        // add item if img resulting indes > 0 (no square format)
-        const currentImgSizeIndex = ( parseInt( _imgSizeIndex ) + parseInt( item.imgSizeIndexShift ) );
-        if ( currentImgSizeIndex > 0 && currentImgSizeIndex < _imgSizes.length ) {
-            srcsetJson += '{ media: \'' + item.media + '\', src: \'' + _imgSizes[ currentImgSizeIndex ].url + '\' }, ';
+        // add item if img resulting indes > skipIndex (no square format)
+        const currentImgSizeIndex = ( parseInt( config.imgSizeIndex ) + parseInt( item.imgSizeIndexShift ) );
+        if ( currentImgSizeIndex > skipIndex && currentImgSizeIndex < config.imgSizes.length ) {
+            srcsetJson += '{ media: \'' + item.media + '\', src: \'' + config.imgSizes[ currentImgSizeIndex ].url + '\' }, ';
         }
     } );
     if ( srcsetJson.lastIndexOf( ', ' ) == srcsetJson.length - 2 ) {
@@ -973,7 +974,12 @@ registerBlockType( 'bsx-blocks/banner', {
             templateName: templateName,
         } );
 
-        const srcsetJson = makeSrcsetJson( imgSizes, imgSizeIndex, portraitImgSizes, portraitImgSizeIndex );
+        const srcsetJson = makeSrcsetJson( { 
+            imgSizes: imgSizes, 
+            imgSizeIndex: imgSizeIndex, 
+            portraitImgSizes: portraitImgSizes, 
+            portraitImgSizeIndex: portraitImgSizeIndex, 
+        } );
 
         const saveAttributes = makeSaveAttributes( {
             'data-srcset': srcsetJson,
