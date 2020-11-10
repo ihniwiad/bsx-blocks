@@ -33,6 +33,51 @@ const smallMobileMediaQuery = '(max-width: 459.98px)';
 const mobileSizeStep = 1;
 const mobileMediaQuery = '(max-width: 767.98px)';
 
+// TODO: make srcset list from this map, remove attributes after ( smallMobile..., mobile..., lowestSrcsetImgSizeIndex )
+const responsiveMediaIndexList = [
+    {
+        media: '(max-width: 459.98px)',
+        imgSizeIndexShift: '-2',
+        minImgSizeIndex: '1',
+    },
+    {
+        media: '(max-width: 767.98px)',
+        imgSizeIndexShift: '-1',
+        minImgSizeIndex: '2',
+    },
+];
+const skipIndex = 0;
+
+const makeSourcesAttributesList = ( config ) => {
+
+    const sourcesAttributesList = [];
+
+    config.responsiveMediaIndexList.forEach( ( item, index ) => {
+
+        const currentImgIndex = parseInt( config.imgSizeIndex ) + parseInt( item.imgSizeIndexShift );
+
+        const adaptedCurrentImgIndex = currentImgIndex < parseInt( item.minImgSizeIndex ) ? parseInt( item.minImgSizeIndex ) : currentImgIndex;
+
+        if ( 
+            adaptedCurrentImgIndex < parseInt( config.imgSizeIndex ) 
+            && adaptedCurrentImgIndex > config.skipIndex
+            && typeof config.imgSizes[ adaptedCurrentImgIndex ] != 'undefined' 
+            && typeof config.imgSizes[ adaptedCurrentImgIndex ].url != 'undefined' 
+        ) {
+            sourcesAttributesList.push( {
+                media: item.media,
+                srcset: '',
+                'data-srcset': config.imgSizes[ adaptedCurrentImgIndex ].url,
+                'data-width': config.imgSizes[ adaptedCurrentImgIndex ].width,
+                'data-height': config.imgSizes[ adaptedCurrentImgIndex ].height,
+            } );
+        }
+    } );
+
+    return sourcesAttributesList;
+
+}
+
 registerBlockType( 'bsx-blocks/lazy-img', {
     title: __( 'BSX Lazy Image', 'bsx-blocks' ),
     icon: 'format-image',
@@ -228,6 +273,16 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 { value: index.toString(), label: imgSize.width + 'x' + imgSize.height + ( imgSize.width === imgSize.height ? ' ' + __( '(Square format)', 'bsx-blocks' ) : '' ) } 
             );
         } );
+
+        // prepare img sources attributes
+
+        const sourcesAttributesList = makeSourcesAttributesList( {
+            imgSizes: imgSizes,
+            imgSizeIndex: imgSizeIndex,
+            responsiveMediaIndexList: responsiveMediaIndexList,
+            skipIndex: skipIndex,
+        } );
+
         return [
             <InspectorControls>
                 <PanelBody title={ __( 'Image', 'bsx-blocks' ) }>
@@ -306,14 +361,9 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                         imgId ? (
                             <picture>
                                 {
-                                    smallMobileUrl && (
-                                        <source media={ smallMobileMediaQuery } srcset={ smallMobileUrl } width={ smallMobileWidth } height={ smallMobileHeight } />
-                                    )
-                                }
-                                {
-                                    mobileUrl && (
-                                        <source media={ smallMobileUrl ? mobileMediaQuery : smallMobileMediaQuery } srcset={ mobileUrl } width={ mobileWidth } height={ mobileHeight } />
-                                    )
+                                    sourcesAttributesList.map( ( sourceAttributes, index ) => (
+                                        <source { ...sourceAttributes } />
+                                    ) )
                                 }
                                 <img className={ 'img-fluid upload-img' } src={ url } alt={ alt } />
                             </picture>
@@ -350,19 +400,17 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         ];
     },
 
-/*
-<script>
-    document.write(
-        '<picture>'
-        + '<source media="(orientation: portrait) and (max-width: 799.98px)" srcset="" data-srcset="/example-img-006-720x720-thumb.jpg" data-width="720" data-height="720">\n'
-        + '<source media="(min-width: 1440px)" srcset="" data-srcset="/example-img-006-1440x720.jpg" data-width="1440" data-height="480">\n'
-        + '<source media="(min-width: 1140px)" srcset="" data-srcset="/example-img-006-1140x380.jpg" data-width="1140" data-height="380">\n'
-        + '<img class="img-fluid" alt="Example image" src="" data-fn="lazyload" data-src="/example-img-006-720x480.jpg" data-width="1140" data-height="380">'
-        + '</picture>'
-    );
-</script>
-<noscript><img class="img-fluid" src="/example-img-006-720x480.jpg" alt="Example image"></noscript>
-*/
+// <script>
+//     document.write(
+//         '<picture>'
+//         + '<source media="(orientation: portrait) and (max-width: 799.98px)" srcset="" data-srcset="/example-img-006-720x720-thumb.jpg" data-width="720" data-height="720">\n'
+//         + '<source media="(min-width: 1440px)" srcset="" data-srcset="/example-img-006-1440x720.jpg" data-width="1440" data-height="480">\n'
+//         + '<source media="(min-width: 1140px)" srcset="" data-srcset="/example-img-006-1140x380.jpg" data-width="1140" data-height="380">\n'
+//         + '<img class="img-fluid" alt="Example image" src="" data-fn="lazyload" data-src="/example-img-006-720x480.jpg" data-width="1140" data-height="380">'
+//         + '</picture>'
+//     );
+// </script>
+// <noscript><img class="img-fluid" src="/example-img-006-720x480.jpg" alt="Example image"></noscript>
 
     save: ( props ) => {
         const {
@@ -386,6 +434,45 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             },
         } = props;
 
+        // prepare img sources attributes
+
+        const sourcesAttributesList = makeSourcesAttributesList( {
+            imgSizes: imgSizes,
+            imgSizeIndex: imgSizeIndex,
+            responsiveMediaIndexList: responsiveMediaIndexList,
+            skipIndex: skipIndex,
+        } );
+
+        // let sourcesHtml = '';
+        // const sourcesAttributesList = [];
+        // // console.log( 'imgSizeIndex: ' + imgSizeIndex );
+        // responsiveMediaIndexList.forEach( ( item, index ) => {
+        //     const currentImgIndex = parseInt( imgSizeIndex ) + parseInt( item.imgSizeIndexShift );
+        //     // console.log( 'currentImgIndex: ' + currentImgIndex );
+        //     let adaptedCurrentImgIndex = currentImgIndex;
+        //     if ( currentImgIndex < parseInt( item.minImgSizeIndex ) ) {
+        //         // use larger img if downsized img index is smaller than minimum img index, keep media
+        //         adaptedCurrentImgIndex = parseInt( item.minImgSizeIndex );
+        //     }
+
+        //     // if ( currentImgIndex > skipIndex && typeof imgSizes[ currentImgIndex ].url != 'undefined' ) {
+        //     if ( 
+        //         adaptedCurrentImgIndex < parseInt( imgSizeIndex ) 
+        //         && adaptedCurrentImgIndex > skipIndex
+        //         && typeof imgSizes[ adaptedCurrentImgIndex ].url != 'undefined' 
+        //     ) {
+        //         // sourcesHtml += '<source media="' + item.media + '" srcset="" data-srcset="' + imgSizes[ currentImgIndex ].url + '" data-width="' + imgSizes[ currentImgIndex ].width + '" data-height="' + imgSizes[ currentImgIndex ].height + '" />';
+        //         // sourcesHtml += `<source media="#{item.media}" srcset="" data-srcset="#{imgSizes[ currentImgIndex ].url}" data-width="#{imgSizes[ currentImgIndex ].width}" data-height="#{imgSizes[ currentImgIndex ].height}" />`;
+        //         sourcesAttributesList.push( {
+        //             media: item.media,
+        //             srcset: '',
+        //             'data-srcset': imgSizes[ adaptedCurrentImgIndex ].url,
+        //             'data-width': imgSizes[ adaptedCurrentImgIndex ].width,
+        //             'data-height': imgSizes[ adaptedCurrentImgIndex ].height,
+        //         } );
+        //     }
+        // } );
+
         return (
             <div className={ className }>
 
@@ -395,14 +482,9 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                             <script>document.write( '
                                 <picture>
                                     {
-                                        smallMobileUrl && (
-                                            <source media={ smallMobileMediaQuery } srcset="" data-srcset={ smallMobileUrl } data-width={ smallMobileWidth } data-height={ smallMobileHeight } />
-                                        )
-                                    }
-                                    {
-                                        mobileUrl && (
-                                            <source media={ smallMobileUrl ? mobileMediaQuery : smallMobileMediaQuery } srcset="" data-srcset={ mobileUrl } data-width={ mobileWidth } data-height={ mobileHeight } />
-                                        )
+                                        sourcesAttributesList.map( ( sourceAttributes, index ) => (
+                                            <source { ...sourceAttributes } />
+                                        ) )
                                     }
                                     <img className="img-fluid" src="" alt={ alt } data-src={ url } width={ width } height={ height } data-fn="lazyload" />
                                 </picture>
