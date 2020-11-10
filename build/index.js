@@ -4094,12 +4094,6 @@ var _wp$components = wp.components,
     TextControl = _wp$components.TextControl,
     PanelBody = _wp$components.PanelBody,
     RadioControl = _wp$components.RadioControl;
- // TODO: use array with maps instead, see banner `responsiveMediaSrcIndexList`
-
-var smallMobileSizeStep = 2;
-var smallMobileMediaQuery = '(max-width: 459.98px)';
-var mobileSizeStep = 1;
-var mobileMediaQuery = '(max-width: 767.98px)'; // TODO: make srcset list from this map, remove attributes after ( smallMobile..., mobile..., lowestSrcsetImgSizeIndex )
 
 var responsiveMediaIndexList = [{
   media: '(max-width: 459.98px)',
@@ -4155,24 +4149,6 @@ registerBlockType('bsx-blocks/lazy-img', {
     imgId: {
       type: 'number'
     },
-    smallMobileUrl: {
-      type: 'string'
-    },
-    smallMobileWidth: {
-      type: 'number'
-    },
-    smallMobileHeight: {
-      type: 'number'
-    },
-    mobileUrl: {
-      type: 'string'
-    },
-    mobileWidth: {
-      type: 'number'
-    },
-    mobileHeight: {
-      type: 'number'
-    },
     url: {
       type: 'string'
     },
@@ -4187,10 +4163,6 @@ registerBlockType('bsx-blocks/lazy-img', {
     },
     origHeight: {
       type: 'number'
-    },
-    lowestSrcsetImgSizeIndex: {
-      type: 'number',
-      default: 1
     },
     alt: {
       type: 'string'
@@ -4207,18 +4179,11 @@ registerBlockType('bsx-blocks/lazy-img', {
         imgId = _props$attributes.imgId,
         imgSizes = _props$attributes.imgSizes,
         imgSizeIndex = _props$attributes.imgSizeIndex,
-        smallMobileUrl = _props$attributes.smallMobileUrl,
-        smallMobileWidth = _props$attributes.smallMobileWidth,
-        smallMobileHeight = _props$attributes.smallMobileHeight,
-        mobileUrl = _props$attributes.mobileUrl,
-        mobileWidth = _props$attributes.mobileWidth,
-        mobileHeight = _props$attributes.mobileHeight,
         url = _props$attributes.url,
         width = _props$attributes.width,
         height = _props$attributes.height,
         origWidth = _props$attributes.origWidth,
         origHeight = _props$attributes.origHeight,
-        lowestSrcsetImgSizeIndex = _props$attributes.lowestSrcsetImgSizeIndex,
         alt = _props$attributes.alt,
         figcaption = _props$attributes.figcaption,
         setAttributes = props.setAttributes,
@@ -4262,24 +4227,16 @@ registerBlockType('bsx-blocks/lazy-img', {
                 } // do not use thumbnail for srcset if has square format, start with img sizes index 1 then
 
 
-                newLowestSrcsetImgSizeIndex = img.sizes.thumbnail.width !== img.sizes.thumbnail.height ? 0 : 1; // do not use thumbnail (square format) for srcset, start with img sizes index 1
-
+                newLowestSrcsetImgSizeIndex = img.sizes.thumbnail.width !== img.sizes.thumbnail.height ? 0 : 1;
                 setAttributes({
                   imgId: img.id,
                   imgSizes: newImgSizes,
                   imgSizeIndex: newImgSizeIndex.toString(),
-                  smallMobileUrl: newImgSizeIndex - smallMobileSizeStep >= newLowestSrcsetImgSizeIndex ? newImgSizes[newImgSizeIndex - smallMobileSizeStep].url : '',
-                  smallMobileWidth: newImgSizeIndex - smallMobileSizeStep >= newLowestSrcsetImgSizeIndex ? newImgSizes[newImgSizeIndex - smallMobileSizeStep].width : 0,
-                  smallMobileHeight: newImgSizeIndex - smallMobileSizeStep >= newLowestSrcsetImgSizeIndex ? newImgSizes[newImgSizeIndex - smallMobileSizeStep].height : 0,
-                  mobileUrl: newImgSizeIndex - mobileSizeStep >= newLowestSrcsetImgSizeIndex ? newImgSizes[newImgSizeIndex - mobileSizeStep].url : '',
-                  mobileWidth: newImgSizeIndex - mobileSizeStep >= newLowestSrcsetImgSizeIndex ? newImgSizes[newImgSizeIndex - mobileSizeStep].width : 0,
-                  mobileHeight: newImgSizeIndex - mobileSizeStep >= newLowestSrcsetImgSizeIndex ? newImgSizes[newImgSizeIndex - mobileSizeStep].height : 0,
                   url: newImgSizes[newImgSizeIndex].url,
                   width: newImgSizes[newImgSizeIndex].width,
                   height: newImgSizes[newImgSizeIndex].height,
                   origWidth: originalWidth,
                   origHeight: originalHeight,
-                  lowestSrcsetImgSizeIndex: newLowestSrcsetImgSizeIndex,
                   alt: img.alt
                 }); // TEST – TODO: remove
                 // for ( let [ key, value ] of Object.entries( img.sizes ) ) {
@@ -4335,12 +4292,6 @@ registerBlockType('bsx-blocks/lazy-img', {
     var onChangeImgSizeIndex = function onChangeImgSizeIndex(value) {
       setAttributes({
         imgSizeIndex: value.toString(),
-        smallMobileUrl: value - smallMobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[value - smallMobileSizeStep].url : '',
-        smallMobileWidth: value - smallMobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[value - smallMobileSizeStep].width : 0,
-        smallMobileHeight: value - smallMobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[value - smallMobileSizeStep].height : 0,
-        mobileUrl: value - mobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[value - mobileSizeStep].url : '',
-        mobileWidth: value - mobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[value - mobileSizeStep].width : 0,
-        mobileHeight: value - mobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[value - mobileSizeStep].height : 0,
         url: imgSizes[value].url,
         width: imgSizes[value].width,
         height: imgSizes[value].height
@@ -4464,12 +4415,6 @@ registerBlockType('bsx-blocks/lazy-img', {
         _props$attributes2 = props.attributes,
         imgSizeIndex = _props$attributes2.imgSizeIndex,
         imgSizes = _props$attributes2.imgSizes,
-        smallMobileUrl = _props$attributes2.smallMobileUrl,
-        smallMobileWidth = _props$attributes2.smallMobileWidth,
-        smallMobileHeight = _props$attributes2.smallMobileHeight,
-        mobileUrl = _props$attributes2.mobileUrl,
-        mobileWidth = _props$attributes2.mobileWidth,
-        mobileHeight = _props$attributes2.mobileHeight,
         url = _props$attributes2.url,
         width = _props$attributes2.width,
         height = _props$attributes2.height,
@@ -4483,35 +4428,7 @@ registerBlockType('bsx-blocks/lazy-img', {
       imgSizeIndex: imgSizeIndex,
       responsiveMediaIndexList: responsiveMediaIndexList,
       skipIndex: skipIndex
-    }); // let sourcesHtml = '';
-    // const sourcesAttributesList = [];
-    // // console.log( 'imgSizeIndex: ' + imgSizeIndex );
-    // responsiveMediaIndexList.forEach( ( item, index ) => {
-    //     const currentImgIndex = parseInt( imgSizeIndex ) + parseInt( item.imgSizeIndexShift );
-    //     // console.log( 'currentImgIndex: ' + currentImgIndex );
-    //     let adaptedCurrentImgIndex = currentImgIndex;
-    //     if ( currentImgIndex < parseInt( item.minImgSizeIndex ) ) {
-    //         // use larger img if downsized img index is smaller than minimum img index, keep media
-    //         adaptedCurrentImgIndex = parseInt( item.minImgSizeIndex );
-    //     }
-    //     // if ( currentImgIndex > skipIndex && typeof imgSizes[ currentImgIndex ].url != 'undefined' ) {
-    //     if ( 
-    //         adaptedCurrentImgIndex < parseInt( imgSizeIndex ) 
-    //         && adaptedCurrentImgIndex > skipIndex
-    //         && typeof imgSizes[ adaptedCurrentImgIndex ].url != 'undefined' 
-    //     ) {
-    //         // sourcesHtml += '<source media="' + item.media + '" srcset="" data-srcset="' + imgSizes[ currentImgIndex ].url + '" data-width="' + imgSizes[ currentImgIndex ].width + '" data-height="' + imgSizes[ currentImgIndex ].height + '" />';
-    //         // sourcesHtml += `<source media="#{item.media}" srcset="" data-srcset="#{imgSizes[ currentImgIndex ].url}" data-width="#{imgSizes[ currentImgIndex ].width}" data-height="#{imgSizes[ currentImgIndex ].height}" />`;
-    //         sourcesAttributesList.push( {
-    //             media: item.media,
-    //             srcset: '',
-    //             'data-srcset': imgSizes[ adaptedCurrentImgIndex ].url,
-    //             'data-width': imgSizes[ adaptedCurrentImgIndex ].width,
-    //             'data-height': imgSizes[ adaptedCurrentImgIndex ].height,
-    //         } );
-    //     }
-    // } );
-
+    });
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
       className: className
     }, url && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("figure", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("script", null, "document.write( '", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("picture", null, sourcesAttributesList.map(function (sourceAttributes, index) {

@@ -27,13 +27,6 @@ import {
 } from './../_functions/img.js';
 
 
-// TODO: use array with maps instead, see banner `responsiveMediaSrcIndexList`
-const smallMobileSizeStep = 2;
-const smallMobileMediaQuery = '(max-width: 459.98px)';
-const mobileSizeStep = 1;
-const mobileMediaQuery = '(max-width: 767.98px)';
-
-// TODO: make srcset list from this map, remove attributes after ( smallMobile..., mobile..., lowestSrcsetImgSizeIndex )
 const responsiveMediaIndexList = [
     {
         media: '(max-width: 459.98px)',
@@ -102,24 +95,6 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         imgId: {
             type: 'number',
         },
-        smallMobileUrl: {
-            type: 'string',
-        },
-        smallMobileWidth: {
-            type: 'number',
-        },
-        smallMobileHeight: {
-            type: 'number',
-        },
-        mobileUrl: {
-            type: 'string',
-        },
-        mobileWidth: {
-            type: 'number',
-        },
-        mobileHeight: {
-            type: 'number',
-        },
         url: {
             type: 'string',
         },
@@ -134,10 +109,6 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         },
         origHeight: {
             type: 'number',
-        },
-        lowestSrcsetImgSizeIndex: {
-            type: 'number',
-            default: 1,
         },
         alt: {
             type: 'string',
@@ -155,18 +126,11 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 imgId,
                 imgSizes,
                 imgSizeIndex,
-                smallMobileUrl,
-                smallMobileWidth,
-                smallMobileHeight,
-                mobileUrl,
-                mobileWidth,
-                mobileHeight,
                 url,
                 width,
                 height,
                 origWidth,
                 origHeight,
-                lowestSrcsetImgSizeIndex,
                 alt,
                 figcaption,
             },
@@ -199,23 +163,15 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 // do not use thumbnail for srcset if has square format, start with img sizes index 1 then
                 const newLowestSrcsetImgSizeIndex = img.sizes.thumbnail.width !== img.sizes.thumbnail.height ? 0 : 1;
 
-                // do not use thumbnail (square format) for srcset, start with img sizes index 1
                 setAttributes( {
                     imgId: img.id,
                     imgSizes: newImgSizes,
                     imgSizeIndex: newImgSizeIndex.toString(),
-                    smallMobileUrl: newImgSizeIndex - smallMobileSizeStep >= newLowestSrcsetImgSizeIndex ? newImgSizes[ newImgSizeIndex - smallMobileSizeStep ].url : '',
-                    smallMobileWidth: newImgSizeIndex - smallMobileSizeStep >= newLowestSrcsetImgSizeIndex ? newImgSizes[ newImgSizeIndex - smallMobileSizeStep ].width : 0,
-                    smallMobileHeight: newImgSizeIndex - smallMobileSizeStep >= newLowestSrcsetImgSizeIndex ? newImgSizes[ newImgSizeIndex - smallMobileSizeStep ].height : 0,
-                    mobileUrl: newImgSizeIndex - mobileSizeStep >= newLowestSrcsetImgSizeIndex ? newImgSizes[ newImgSizeIndex - mobileSizeStep ].url : '',
-                    mobileWidth: newImgSizeIndex - mobileSizeStep >= newLowestSrcsetImgSizeIndex ? newImgSizes[ newImgSizeIndex - mobileSizeStep ].width : 0,
-                    mobileHeight: newImgSizeIndex - mobileSizeStep >= newLowestSrcsetImgSizeIndex ? newImgSizes[ newImgSizeIndex - mobileSizeStep ].height : 0,
                     url: newImgSizes[ newImgSizeIndex ].url,
                     width: newImgSizes[ newImgSizeIndex ].width,
                     height: newImgSizes[ newImgSizeIndex ].height,
                     origWidth: originalWidth,
                     origHeight: originalHeight,
-                    lowestSrcsetImgSizeIndex: newLowestSrcsetImgSizeIndex,
                     alt: img.alt,
                 } );
 
@@ -256,12 +212,6 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         const onChangeImgSizeIndex = ( value ) => {
             setAttributes( { 
                 imgSizeIndex: value.toString(),
-                smallMobileUrl: value - smallMobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[ value - smallMobileSizeStep ].url : '',
-                smallMobileWidth: value - smallMobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[ value - smallMobileSizeStep ].width : 0,
-                smallMobileHeight: value - smallMobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[ value - smallMobileSizeStep ].height : 0,
-                mobileUrl: value - mobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[ value - mobileSizeStep ].url : '',
-                mobileWidth: value - mobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[ value - mobileSizeStep ].width : 0,
-                mobileHeight: value - mobileSizeStep >= lowestSrcsetImgSizeIndex ? imgSizes[ value - mobileSizeStep ].height : 0,
                 url: imgSizes[ value ].url,
                 width: imgSizes[ value ].width,
                 height: imgSizes[ value ].height,
@@ -418,12 +368,6 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             attributes: {
                 imgSizeIndex,
                 imgSizes,
-                smallMobileUrl,
-                smallMobileWidth,
-                smallMobileHeight,
-                mobileUrl,
-                mobileWidth,
-                mobileHeight,
                 url,
                 width,
                 height,
@@ -442,36 +386,6 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             responsiveMediaIndexList: responsiveMediaIndexList,
             skipIndex: skipIndex,
         } );
-
-        // let sourcesHtml = '';
-        // const sourcesAttributesList = [];
-        // // console.log( 'imgSizeIndex: ' + imgSizeIndex );
-        // responsiveMediaIndexList.forEach( ( item, index ) => {
-        //     const currentImgIndex = parseInt( imgSizeIndex ) + parseInt( item.imgSizeIndexShift );
-        //     // console.log( 'currentImgIndex: ' + currentImgIndex );
-        //     let adaptedCurrentImgIndex = currentImgIndex;
-        //     if ( currentImgIndex < parseInt( item.minImgSizeIndex ) ) {
-        //         // use larger img if downsized img index is smaller than minimum img index, keep media
-        //         adaptedCurrentImgIndex = parseInt( item.minImgSizeIndex );
-        //     }
-
-        //     // if ( currentImgIndex > skipIndex && typeof imgSizes[ currentImgIndex ].url != 'undefined' ) {
-        //     if ( 
-        //         adaptedCurrentImgIndex < parseInt( imgSizeIndex ) 
-        //         && adaptedCurrentImgIndex > skipIndex
-        //         && typeof imgSizes[ adaptedCurrentImgIndex ].url != 'undefined' 
-        //     ) {
-        //         // sourcesHtml += '<source media="' + item.media + '" srcset="" data-srcset="' + imgSizes[ currentImgIndex ].url + '" data-width="' + imgSizes[ currentImgIndex ].width + '" data-height="' + imgSizes[ currentImgIndex ].height + '" />';
-        //         // sourcesHtml += `<source media="#{item.media}" srcset="" data-srcset="#{imgSizes[ currentImgIndex ].url}" data-width="#{imgSizes[ currentImgIndex ].width}" data-height="#{imgSizes[ currentImgIndex ].height}" />`;
-        //         sourcesAttributesList.push( {
-        //             media: item.media,
-        //             srcset: '',
-        //             'data-srcset': imgSizes[ adaptedCurrentImgIndex ].url,
-        //             'data-width': imgSizes[ adaptedCurrentImgIndex ].width,
-        //             'data-height': imgSizes[ adaptedCurrentImgIndex ].height,
-        //         } );
-        //     }
-        // } );
 
         return (
             <div className={ className }>
