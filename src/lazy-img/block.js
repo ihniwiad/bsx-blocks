@@ -27,6 +27,18 @@ import {
 } from './../_functions/img.js';
 
 
+const responsivePortraitMediaIndexList = [
+    {
+        media: '(orientation: portrait) and (max-width: 499.98px)',
+        imgSizeIndexShift: '-1',
+        minImgSizeIndex: '1',
+    },
+    {
+        media: '(orientation: portrait)',
+        imgSizeIndexShift: '0',
+        minImgSizeIndex: '2',
+    },
+];
 const responsiveMediaIndexList = [
     {
         media: '(max-width: 459.98px)',
@@ -45,6 +57,30 @@ const makeSourcesAttributesList = ( config ) => {
 
     const sourcesAttributesList = [];
 
+    // portrait img
+    config.responsivePortraitMediaIndexList.forEach( ( item, index ) => {
+
+        const currentPortraitImgIndex = parseInt( config.portraitImgSizeIndex ) + parseInt( item.imgSizeIndexShift );
+
+        const adaptedCurrentPortraitImgIndex = currentPortraitImgIndex < parseInt( item.minImgSizeIndex ) ? parseInt( item.minImgSizeIndex ) : currentPortraitImgIndex;
+
+        if ( 
+            adaptedCurrentPortraitImgIndex < parseInt( config.portraitImgSizeIndex ) 
+            && adaptedCurrentPortraitImgIndex > config.skipIndex
+            && typeof config.portraitImgSizes[ adaptedCurrentPortraitImgIndex ] != 'undefined' 
+            && typeof config.portraitImgSizes[ adaptedCurrentPortraitImgIndex ].url != 'undefined' 
+        ) {
+            sourcesAttributesList.push( {
+                media: item.media,
+                srcset: '',
+                'data-srcset': config.portraitImgSizes[ adaptedCurrentPortraitImgIndex ].url,
+                'data-width': config.portraitImgSizes[ adaptedCurrentPortraitImgIndex ].width,
+                'data-height': config.portraitImgSizes[ adaptedCurrentPortraitImgIndex ].height,
+            } );
+        }
+    } );
+
+    // default img
     config.responsiveMediaIndexList.forEach( ( item, index ) => {
 
         const currentImgIndex = parseInt( config.imgSizeIndex ) + parseInt( item.imgSizeIndexShift );
@@ -110,6 +146,17 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         origHeight: {
             type: 'number',
         },
+        portraitImgId: {
+            type: 'number',
+        },
+        portraitImgSizes: {
+            type: 'array',
+            default: [],
+        },
+        portraitImgSizeIndex: {
+            type: 'string',
+            default: '3',
+        },
         alt: {
             type: 'string',
         },
@@ -131,6 +178,9 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 height,
                 origWidth,
                 origHeight,
+                portraitImgId,
+                portraitImgSizes,
+                portraitImgSizeIndex,
                 alt,
                 figcaption,
             },
@@ -195,6 +245,28 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
             }
         };
+
+        async function onSelectPortraitImage( portraitImg ) {
+
+            if ( typeof portraitImg.url !== 'undefined' ) {
+
+                const newPortraitImgSizesData = await getImgSizesData( portraitImg );
+                const newPortraitImgSizes = newPortraitImgSizesData.imgs;
+
+                // check if current img size index fits to new img (might be too large)
+                let newPortraitImgSizeIndex = parseInt( portraitImgSizeIndex );
+                if ( portraitImgSizeIndex >= newPortraitImgSizeIndex.length ) {
+                    newPortraitImgSizeIndex = newPortraitImgSizeIndex.length - 1;
+                }
+
+                setAttributes( {
+                    portraitImgId: portraitImg.id,
+                    portraitImgSizes: newPortraitImgSizes,
+                    portraitImgSizeIndex: newPortraitImgSizeIndex.toString(),
+                } );
+            }
+        };
+
         const onChangeMediaAlt = ( value ) => {
             setAttributes( { alt: value } );
         };
@@ -224,12 +296,27 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             );
         } );
 
+        const onChangePortraitImgSizeIndex = ( value ) => {
+            setAttributes( { 
+                portraitImgSizeIndex: value.toString(),
+            } );
+        };
+        const portraitImgSizeRadioControlOptions = [];
+        portraitImgSizes.forEach( ( portraitImgSize, index ) => {
+            portraitImgSizeRadioControlOptions.push( 
+                { value: index.toString(), label: portraitImgSize.width + 'x' + portraitImgSize.height + ( portraitImgSize.width === portraitImgSize.height ? ' ' + __( '(Square format)', 'bsx-blocks' ) : '' ) } 
+            );
+        } );
+
         // prepare img sources attributes
 
         const sourcesAttributesList = makeSourcesAttributesList( {
             imgSizes: imgSizes,
             imgSizeIndex: imgSizeIndex,
             responsiveMediaIndexList: responsiveMediaIndexList,
+            portraitImgSizes: portraitImgSizes,
+            portraitImgSizeIndex: portraitImgSizeIndex,
+            responsivePortraitMediaIndexList: responsivePortraitMediaIndexList,
             skipIndex: skipIndex,
         } );
 
@@ -304,6 +391,60 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                         onChange={ onChangeMediaHeight }
                     />
                 </PanelBody>
+
+                <PanelBody title={ __( 'Portrait image (optional)', 'bsx-blocks' ) }>
+                    {
+                        portraitImgId ? (
+                            <MediaUpload
+                                onSelect={ onSelectPortraitImage }
+                                allowedTypes="image"
+                                value={ portraitImgId }
+                                render={ ( { open } ) => (
+                                    <Button
+                                        className="bsxui-config-panel-img-button has-margin-bottom"
+                                        onClick={ open }
+                                    >
+                                        <img class="bsxui-config-panel-img" src={ portraitImgSizes[ portraitImgSizeIndex ].url } alt={ __( 'Change / upload portrait image', 'bsx-blocks' ) } />
+                                    </Button>
+                                ) }
+                            />
+                        )
+                        : 
+                        (
+                            <div class="bsxui-config-panel-row">
+                                <div class="bsxui-config-panel-text">{ __( '– No portrait image selected yet –', 'bsx-blocks' ) }</div>
+                            </div>
+                        )
+                    }
+                    <div class="bsxui-config-panel-row">
+                        <MediaUpload
+                            onSelect={ onSelectPortraitImage }
+                            allowedTypes="image"
+                            value={ portraitImgId }
+                            render={ ( { open } ) => (
+                                <Button 
+                                    onClick={ open }
+                                    isSecondary
+                                >
+                                    { __( 'Change / upload portrait image', 'bsx-blocks' ) }
+                                </Button>
+                            ) }
+                        />
+                    </div>
+                    <RadioControl
+                        label={ __( 'Image size and format', 'bsx-blocks' ) }
+                        selected={ portraitImgSizeIndex.toString() }
+                        options={ portraitImgSizeRadioControlOptions }
+                        onChange={ onChangePortraitImgSizeIndex }
+                    />
+                    {
+                        portraitImgSizes[ portraitImgSizeIndex ] != undefined && portraitImgSizes[ portraitImgSizeIndex ].url != undefined && (
+                            <div class="components-base-control">
+                                <a class="bsxui-link" href={ portraitImgSizes[ portraitImgSizeIndex ].url } target="_blank">{ __( 'Preview selected portrait image', 'bsx-blocks' ) }</a>
+                            </div>
+                        )
+                    }
+                </PanelBody>
             </InspectorControls>,
             (
                 <figure className={ className }>
@@ -373,6 +514,9 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 height,
                 origWidth,
                 origHeight,
+                portraitImgId,
+                portraitImgSizes,
+                portraitImgSizeIndex,
                 alt,
                 figcaption,
             },
@@ -384,6 +528,9 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             imgSizes: imgSizes,
             imgSizeIndex: imgSizeIndex,
             responsiveMediaIndexList: responsiveMediaIndexList,
+            portraitImgSizes: portraitImgSizes,
+            portraitImgSizeIndex: portraitImgSizeIndex,
+            responsivePortraitMediaIndexList: responsivePortraitMediaIndexList,
             skipIndex: skipIndex,
         } );
 

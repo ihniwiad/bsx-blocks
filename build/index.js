@@ -539,6 +539,40 @@ function addClassNames(config, classNamesString) {
 
 /***/ }),
 
+/***/ "./src/_functions/attributes.js":
+/*!**************************************!*\
+  !*** ./src/_functions/attributes.js ***!
+  \**************************************/
+/*! exports provided: makeSaveAttributes */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "makeSaveAttributes", function() { return makeSaveAttributes; });
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/slicedToArray.js");
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__);
+
+// attribute functions 
+// returns list of non empty attributes to add to html element
+function makeSaveAttributes(attributes) {
+  var nonEmptyAttributes = {};
+
+  for (var _i = 0, _Object$entries = Object.entries(attributes); _i < _Object$entries.length; _i++) {
+    var _Object$entries$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries[_i], 2),
+        key = _Object$entries$_i[0],
+        value = _Object$entries$_i[1];
+
+    //console.log( 'key: "' + key + '", val: "' + value + '"' );
+    if (value) {
+      nonEmptyAttributes[key] = value;
+    }
+  }
+
+  return nonEmptyAttributes;
+}
+
+/***/ }),
+
 /***/ "./src/_functions/img.js":
 /*!*******************************!*\
   !*** ./src/_functions/img.js ***!
@@ -838,13 +872,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "./node_modules/@babel/runtime/helpers/asyncToGenerator.js");
 /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/slicedToArray.js");
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
-/* harmony import */ var _functions_img_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../_functions/img.js */ "./src/_functions/img.js");
-
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
+/* harmony import */ var _functions_img_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../_functions/img.js */ "./src/_functions/img.js");
+/* harmony import */ var _functions_attributes_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../_functions/attributes.js */ "./src/_functions/attributes.js");
 
 
 
@@ -870,6 +902,7 @@ var _wp$components = wp.components,
 var withSelect = wp.data.withSelect;
 
 
+ // functions
 
 var makeBannerClassNames = function makeBannerClassNames(config) {
   var classNames = [];
@@ -961,30 +994,23 @@ var makeSrcsetJson = function makeSrcsetJson(config) {
 
   srcsetJson += ' ]';
   return srcsetJson;
-};
-
-var makeSaveAttributes = function makeSaveAttributes(attributes) {
-  var nonEmptyAttributes = {};
-
-  for (var _i = 0, _Object$entries = Object.entries(attributes); _i < _Object$entries.length; _i++) {
-    var _Object$entries$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_3___default()(_Object$entries[_i], 2),
-        key = _Object$entries$_i[0],
-        value = _Object$entries$_i[1];
-
-    //console.log( 'key: "' + key + '", val: "' + value + '"' );
-    if (value) {
-      nonEmptyAttributes[key] = value;
-    }
-  }
-
-  return nonEmptyAttributes;
-}; // insert directly into banner element without `.banner-inner`
+}; // const makeSaveAttributes = ( attributes ) => {
+//     const nonEmptyAttributes = {};
+//     for ( let [ key, value ] of Object.entries( attributes ) ) {
+//         //console.log( 'key: "' + key + '", val: "' + value + '"' );
+//         if ( value ) {
+//             nonEmptyAttributes[ key ] = value;
+//         }
+//     }
+//     return nonEmptyAttributes;
+// }
+// insert directly into banner element without `.banner-inner`
 
 
 var noBannerInnerTemplateNames = ['column-row-banner'];
 registerBlockType('bsx-blocks/banner', {
   title: __('BSX Banner', 'bsx-blocks'),
-  icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("svg", {
+  icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("svg", {
     xmlns: "http://www.w3.org/2000/svg",
     width: "48",
     height: "48",
@@ -992,7 +1018,7 @@ registerBlockType('bsx-blocks/banner', {
     role: "img",
     "aria-hidden": "true",
     focusable: "false"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("path", {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("path", {
     "fill-rule": "evenodd",
     "clip-rule": "evenodd",
     d: "M39,16H9c-1.1,0-2,0.9-2,2v12c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V18C41,16.9,40.1,16,39,16z M12,18c1.66,0,3,1.34,3,3 s-1.34,3-3,3s-3-1.34-3-3S10.34,18,12,18z M39,30H9v-2l8-3l4,2l12-6l6,4V30z"
@@ -1120,7 +1146,7 @@ registerBlockType('bsx-blocks/banner', {
     var templates = [{
       name: 'empty',
       title: __('Empty', 'bsx-blocks'),
-      icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("svg", {
+      icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("svg", {
         xmlns: "http://www.w3.org/2000/svg",
         width: "48",
         height: "48",
@@ -1128,7 +1154,7 @@ registerBlockType('bsx-blocks/banner', {
         role: "img",
         "aria-hidden": "true",
         focusable: "false"
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("path", {
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("path", {
         "fill-rule": "evenodd",
         "clip-rule": "evenodd",
         d: "M39,16H9c-1.1,0-2,0.9-2,2v12c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V18C41,16.9,40.1,16,39,16z M24.72,30.03 h-2.02v-1.89h2.02V30.03z M26.91,23.22c-0.39,0.58-0.9,1.12-1.52,1.61c-0.31,0.28-0.51,0.53-0.58,0.77s-0.11,0.6-0.11,1.07h-1.98 c0.01-0.79,0.09-1.35,0.26-1.67c0.17-0.32,0.56-0.74,1.16-1.25c0.43-0.42,0.77-0.82,1.02-1.18c0.24-0.37,0.37-0.78,0.37-1.25 c0-0.54-0.14-0.95-0.42-1.23s-0.69-0.43-1.22-0.43c-0.46,0-0.85,0.12-1.15,0.36c-0.31,0.24-0.46,0.61-0.46,1.1h-1.98 c0.01-1,0.34-1.77,1-2.31c0.66-0.54,1.52-0.8,2.59-0.8c1.16,0,2.05,0.29,2.68,0.86s0.94,1.38,0.94,2.43 C27.5,22.01,27.3,22.65,26.91,23.22z"
@@ -1140,7 +1166,7 @@ registerBlockType('bsx-blocks/banner', {
     }, {
       name: 'container-with-heading',
       title: __('Container with Heading', 'bsx-blocks'),
-      icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("svg", {
+      icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("svg", {
         xmlns: "http://www.w3.org/2000/svg",
         width: "48",
         height: "48",
@@ -1148,7 +1174,7 @@ registerBlockType('bsx-blocks/banner', {
         role: "img",
         "aria-hidden": "true",
         focusable: "false"
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("path", {
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("path", {
         "fill-rule": "evenodd",
         "clip-rule": "evenodd",
         d: "M39,16H9c-1.1,0-2,0.9-2,2v12c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V18C41,16.9,40.1,16,39,16z M13,31h-1v-2h1V31z M13,27h-1 v-2h1V27z M13,23h-1v-2h1V23z M13,19h-1v-2h1V19z M27,26H14v-3h13V26z M36,31h-1v-2h1V31z M36,27h-1v-2h1V27z M36,23h-1v-2h1V23z M36,19h-1v-2h1V19z"
@@ -1163,7 +1189,7 @@ registerBlockType('bsx-blocks/banner', {
     }, {
       name: 'column-row-banner',
       title: __('Bottom bar Banner', 'bsx-blocks'),
-      icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("svg", {
+      icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("svg", {
         xmlns: "http://www.w3.org/2000/svg",
         width: "48",
         height: "48",
@@ -1171,7 +1197,7 @@ registerBlockType('bsx-blocks/banner', {
         role: "img",
         "aria-hidden": "true",
         focusable: "false"
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("path", {
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("path", {
         "fill-rule": "evenodd",
         "clip-rule": "evenodd",
         d: "M39,16H9c-1.1,0-2,0.9-2,2v12c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V18C41,16.9,40.1,16,39,16z M35,17h1v2h-1V17z M35,21h1v2 h-1V21z M35,25h1v2h-1V25z M14,21h13v3H14V21z M12,17h1v2h-1V17z M12,21h1v2h-1V21z M12,25h1v2h-1V25z M39,30H9v-2h30V30z"
@@ -1247,7 +1273,7 @@ registerBlockType('bsx-blocks/banner', {
                 }
 
                 _context.next = 3;
-                return Object(_functions_img_js__WEBPACK_IMPORTED_MODULE_6__["getImgSizesData"])(img);
+                return Object(_functions_img_js__WEBPACK_IMPORTED_MODULE_5__["getImgSizesData"])(img);
 
               case 3:
                 newImgSizesData = _context.sent;
@@ -1295,7 +1321,7 @@ registerBlockType('bsx-blocks/banner', {
                 }
 
                 _context2.next = 3;
-                return Object(_functions_img_js__WEBPACK_IMPORTED_MODULE_6__["getImgSizesData"])(portraitImg);
+                return Object(_functions_img_js__WEBPACK_IMPORTED_MODULE_5__["getImgSizesData"])(portraitImg);
 
               case 3:
                 newPortraitImgSizesData = _context2.sent;
@@ -1424,7 +1450,7 @@ registerBlockType('bsx-blocks/banner', {
       alignItems: alignItems,
       templateName: templateName
     });
-    bannerClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_5__["addClassNames"])({
+    bannerClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_4__["addClassNames"])({
       belowNavbar: belowNavbar,
       marginBefore: marginBefore,
       marginAfter: marginAfter,
@@ -1437,114 +1463,115 @@ registerBlockType('bsx-blocks/banner', {
     var bannerStyle = {
       backgroundImage: "url(".concat(url, ")")
     };
-    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(PanelBody, {
+    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(PanelBody, {
       title: __('Banner template', 'bsx-blocks')
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
       className: "bsxui-icon-text-button-list"
     }, templates.map(function (template, index) {
-      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(Button, {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(Button, {
         label: template.title,
         onClick: function onClick() {
           onTemplateChange(template.name);
         },
         className: 'bsxui-icon-text-button-list-item ' + (templateName === template.name ? 'active' : '')
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
         class: "bsxui-icon-text-button-list-item-icon"
-      }, template.icon), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+      }, template.icon), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
         class: "bsxui-icon-text-button-list-item-label"
       }, template.title));
-    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(PanelBody, {
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(PanelBody, {
       title: __('Banner image', 'bsx-blocks')
-    }, imgId ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(MediaUpload, {
+    }, imgId ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(MediaUpload, {
       onSelect: onSelectImage,
       allowedTypes: "image",
       value: imgId,
       render: function render(_ref2) {
         var open = _ref2.open;
-        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(Button, {
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(Button, {
           className: "bsxui-config-panel-img-button has-margin-bottom",
           onClick: open
-        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("img", {
+        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("img", {
           class: "bsxui-config-panel-img",
           src: url,
           alt: __('Change / upload image', 'bsx-blocks')
         }));
       }
-    }) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+    }) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
       class: "bsxui-config-panel-row"
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
       class: "bsxui-config-panel-text"
-    }, __('– No image selected yet –', 'bsx-blocks'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+    }, __('– No image selected yet –', 'bsx-blocks'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
       class: "bsxui-config-panel-row"
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(MediaUpload, {
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(MediaUpload, {
       onSelect: onSelectImage,
       allowedTypes: "image",
       value: imgId,
       render: function render(_ref3) {
         var open = _ref3.open;
-        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(Button, {
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(Button, {
           onClick: open,
           isSecondary: true
         }, __('Change / upload image', 'bsx-blocks'));
       }
-    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(RadioControl, {
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(RadioControl, {
       label: __('Image size and format', 'bsx-blocks'),
       selected: imgSizeIndex.toString(),
       options: imgSizeRadioControlOptions,
       onChange: onChangeImgSizeIndex
-    }), imgSizes[imgSizeIndex] != undefined && imgSizes[imgSizeIndex].url != undefined && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+    }), imgSizes[imgSizeIndex] != undefined && imgSizes[imgSizeIndex].url != undefined && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
       class: "components-base-control"
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("a", {
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("a", {
       class: "bsxui-link",
       href: imgSizes[imgSizeIndex].url,
       target: "_blank"
-    }, __('Preview selected image', 'bsx-blocks')))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(PanelBody, {
+    }, __('Preview selected image', 'bsx-blocks')))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(PanelBody, {
       title: __('Banner portrait image (optional)', 'bsx-blocks')
-    }, imgId ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(MediaUpload, {
+    }, portraitImgId ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(MediaUpload, {
       onSelect: onSelectPortraitImage,
       allowedTypes: "image",
       value: portraitImgId,
       render: function render(_ref4) {
         var open = _ref4.open;
-        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(Button, {
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(Button, {
           className: "bsxui-config-panel-img-button has-margin-bottom",
           onClick: open
-        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("img", {
+        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("img", {
           class: "bsxui-config-panel-img",
           src: portraitUrl,
           alt: __('Change / upload portrait image', 'bsx-blocks')
         }));
       }
-    }) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+    }) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
       class: "bsxui-config-panel-row"
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
       class: "bsxui-config-panel-text"
-    }, __('– No image selected yet –', 'bsx-blocks'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+    }, __('– No portrait image selected yet –', 'bsx-blocks'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
       class: "bsxui-config-panel-row"
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(MediaUpload, {
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(MediaUpload, {
       onSelect: onSelectPortraitImage,
       allowedTypes: "image",
       value: portraitImgId,
       render: function render(_ref5) {
         var open = _ref5.open;
-        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(Button, {
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(Button, {
           onClick: open,
           isSecondary: true
         }, __('Change / upload portrait image', 'bsx-blocks'));
       }
-    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(RadioControl, {
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(RadioControl, {
       label: __('Image size and format', 'bsx-blocks'),
       selected: portraitImgSizeIndex.toString(),
       options: portraitImgSizeRadioControlOptions,
       onChange: onChangePortraitImgSizeIndex
-    }), portraitImgSizes[portraitImgSizeIndex] != undefined && portraitImgSizes[portraitImgSizeIndex].url != undefined && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+    }), portraitImgSizes[portraitImgSizeIndex] != undefined && portraitImgSizes[portraitImgSizeIndex].url != undefined && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
       class: "components-base-control"
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("a", {
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("a", {
+      class: "bsxui-link",
       href: portraitImgSizes[portraitImgSizeIndex].url,
       target: "_blank"
-    }, __('Preview selected portrait image', 'bsx-blocks')))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(PanelBody, {
+    }, __('Preview selected portrait image', 'bsx-blocks')))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(PanelBody, {
       title: __('Banner dimensions', 'bsx-blocks')
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(SelectControl, {
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(SelectControl, {
       label: __('Banner height type', 'bsx-blocks'),
       value: bannerType,
       onChange: onChangeBannerType,
@@ -1556,7 +1583,7 @@ registerBlockType('bsx-blocks/banner', {
         label: __('Static height', 'bsx-blocks')
       }],
       help: __('Viewport dependent height will be e.g. all viewport height or viewport height - X pixels. Static height instead depends only on the banners contents.', 'bsx-blocks')
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(SelectControl, {
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(SelectControl, {
       label: __('Banner height size', 'bsx-blocks'),
       value: bannerSize,
       onChange: onChangeBannerSize,
@@ -1571,7 +1598,7 @@ registerBlockType('bsx-blocks/banner', {
         label: __('3 (smallest)', 'bsx-blocks')
       }],
       help: __('Choose from 1 (maximum) to 3 (minimum)', 'bsx-blocks')
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(SelectControl, {
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(SelectControl, {
       label: __('Background attachement', 'bsx-blocks'),
       value: bgAttachment,
       onChange: onChangeBgAttachment,
@@ -1582,7 +1609,7 @@ registerBlockType('bsx-blocks/banner', {
         value: 'fixed',
         label: __('fixed', 'bsx-blocks')
       }]
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(SelectControl, {
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(SelectControl, {
       label: __('Align items', 'bsx-blocks'),
       value: alignItems,
       onChange: onChangeAlignItems,
@@ -1593,9 +1620,9 @@ registerBlockType('bsx-blocks/banner', {
         value: 'end',
         label: __('end', 'bsx-blocks')
       }]
-    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(PanelBody, {
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(PanelBody, {
       title: __('Margin', 'bsx-blocks')
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(SelectControl, {
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(SelectControl, {
       label: __('Margin before', 'bsx-blocks'),
       value: marginBefore,
       onChange: onChangeMarginBefore,
@@ -1622,7 +1649,7 @@ registerBlockType('bsx-blocks/banner', {
         label: __('extra large', 'bsx-blocks')
       }],
       help: __('Spacer before Banner', 'bsx-blocks')
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(SelectControl, {
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(SelectControl, {
       label: __('Margin after', 'bsx-blocks'),
       value: marginAfter,
       onChange: onChangeMarginAfter,
@@ -1649,12 +1676,12 @@ registerBlockType('bsx-blocks/banner', {
         label: __('extra large', 'bsx-blocks')
       }],
       help: __('Spacer after Banner', 'bsx-blocks')
-    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(InspectorAdvancedControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(ToggleControl, {
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(InspectorAdvancedControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(ToggleControl, {
       label: __('Below navbar', 'bsx-blocks'),
       checked: !!belowNavbar,
       onChange: onChangeBelowNavbar,
       help: __('Enable if container starts below navbar. If enabled container has spacer top to avoid overlapping its contents by navbar.', 'bsx-blocks')
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(SelectControl, {
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(SelectControl, {
       label: __('Background advanced position', 'bsx-blocks'),
       value: bgPosition,
       onChange: onChangeBgPosition,
@@ -1689,7 +1716,7 @@ registerBlockType('bsx-blocks/banner', {
         value: '66c',
         label: __('66% center', 'bsx-blocks')
       }]
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(SelectControl, {
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(SelectControl, {
       label: __('Background advanced size', 'bsx-blocks'),
       value: bgSize,
       onChange: onChangeBgSize,
@@ -1703,7 +1730,7 @@ registerBlockType('bsx-blocks/banner', {
         value: '100a',
         label: __('100% auto', 'bsx-blocks')
       }]
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(SelectControl, {
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(SelectControl, {
       label: __('Padding before', 'bsx-blocks'),
       value: paddingBefore,
       onChange: onChangePaddingBefore,
@@ -1727,7 +1754,7 @@ registerBlockType('bsx-blocks/banner', {
         label: __('extra large', 'bsx-blocks')
       }],
       help: __('Inner spacer before', 'bsx-blocks')
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(SelectControl, {
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(SelectControl, {
       label: __('Padding after', 'bsx-blocks'),
       value: paddingAfter,
       onChange: onChangePaddingAfter,
@@ -1751,51 +1778,51 @@ registerBlockType('bsx-blocks/banner', {
         label: __('extra large', 'bsx-blocks')
       }],
       help: __('Inner spacer after', 'bsx-blocks')
-    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["Fragment"], null, !templateName ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["Fragment"], null, !templateName ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
       class: "bsxui-initial-inline-control"
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
       class: "bsxui-initial-inline-control-heading"
-    }, __('Please select Banner template', 'bsx-blocks')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+    }, __('Please select Banner template', 'bsx-blocks')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
       className: "bsxui-icon-text-button-list"
     }, templates.map(function (template, index) {
-      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(Button, {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(Button, {
         label: template.title,
         onClick: function onClick() {
           onTemplateChange(template.name);
         },
         className: 'bsxui-icon-text-button-list-item ' + (templateName === template.name ? 'active' : '')
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
         class: "bsxui-icon-text-button-list-item-icon"
-      }, template.icon), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+      }, template.icon), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
         class: "bsxui-icon-text-button-list-item-label"
       }, template.title));
-    }))) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+    }))) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
       className: bannerClassName,
       style: bannerStyle
-    }, !imgId && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+    }, !imgId && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
       className: "bsxui-in-widget-overlay-panel bsxui-top"
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(MediaUpload, {
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(MediaUpload, {
       onSelect: onSelectImage,
       allowedTypes: "image",
       value: imgId,
       render: function render(_ref6) {
         var open = _ref6.open;
-        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(Button, {
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(Button, {
           onClick: open,
           isSecondary: true
         }, __('Select / upload Image', 'bsx-blocks'));
       }
-    })), noBannerInnerTemplateNames.indexOf(templateName) == -1 ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+    })), noBannerInnerTemplateNames.indexOf(templateName) == -1 ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
       className: bannerInnerClassName
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(InnerBlocks, {
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(InnerBlocks, {
       template: template,
       renderAppender: hasInnerBlocks ? undefined : function () {
-        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(InnerBlocks.ButtonBlockAppender, null);
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(InnerBlocks.ButtonBlockAppender, null);
       }
-    })) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(InnerBlocks, {
+    })) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(InnerBlocks, {
       template: template,
       renderAppender: hasInnerBlocks ? undefined : function () {
-        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(InnerBlocks.ButtonBlockAppender, null);
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(InnerBlocks.ButtonBlockAppender, null);
       }
     })))];
   }),
@@ -1832,7 +1859,7 @@ registerBlockType('bsx-blocks/banner', {
       alignItems: alignItems,
       templateName: templateName
     });
-    bannerClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_5__["addClassNames"])({
+    bannerClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_4__["addClassNames"])({
       belowNavbar: belowNavbar,
       marginBefore: marginBefore,
       marginAfter: marginAfter,
@@ -1848,16 +1875,16 @@ registerBlockType('bsx-blocks/banner', {
       portraitImgSizes: portraitImgSizes,
       portraitImgSizeIndex: portraitImgSizeIndex
     });
-    var saveAttributes = makeSaveAttributes({
+    var saveAttributes = Object(_functions_attributes_js__WEBPACK_IMPORTED_MODULE_6__["makeSaveAttributes"])({
       'data-srcset': srcsetJson
     });
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
       className: bannerClassName,
       "data-fn": "lazyload",
       "data-src": url
-    }, saveAttributes), noBannerInnerTemplateNames.indexOf(templateName) == -1 ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+    }, saveAttributes), noBannerInnerTemplateNames.indexOf(templateName) == -1 ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
       className: bannerInnerClassName
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(InnerBlocks.Content, null)) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(InnerBlocks.Content, null));
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(InnerBlocks.Content, null)) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(InnerBlocks.Content, null));
   }
 });
 
@@ -1876,16 +1903,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/slicedToArray.js");
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
+/* harmony import */ var _functions_attributes_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../_functions/attributes.js */ "./src/_functions/attributes.js");
 
 
 
-
-// TDOD: add state classes for link button
+// TODO: add state classes for link button
+// TODO: add toggle control for spam protected mailto or tel links (requires basic package js adaption)
 var _wp$i18n = wp.i18n,
     __ = _wp$i18n.__,
     setLocaleData = _wp$i18n.setLocaleData;
@@ -1901,8 +1927,10 @@ var _wp$components = wp.components,
     RangeControl = _wp$components.RangeControl,
     ToggleControl = _wp$components.ToggleControl,
     SelectControl = _wp$components.SelectControl;
-var withSelect = wp.data.withSelect;
+var withSelect = wp.data.withSelect; // functions imports
 
+
+ // functions
 
 var makeButtonClassNames = function makeButtonClassNames(config) {
   var classNames = ['btn'];
@@ -1926,24 +1954,17 @@ var makeButtonClassNames = function makeButtonClassNames(config) {
   }
 
   return classNames.join(' ');
-};
+}; // const makeSaveAttributes = ( attributes ) => {
+//     const nonEmptyAttributes = {};
+//     for ( let [ key, value ] of Object.entries( attributes ) ) {
+//         //console.log( 'key: "' + key + '", val: "' + value + '"' );
+//         if ( value ) {
+//             nonEmptyAttributes[ key ] = value;
+//         }
+//     }
+//     return nonEmptyAttributes;
+// }
 
-var makeSaveAttributes = function makeSaveAttributes(attributes) {
-  var nonEmptyAttributes = {};
-
-  for (var _i = 0, _Object$entries = Object.entries(attributes); _i < _Object$entries.length; _i++) {
-    var _Object$entries$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2___default()(_Object$entries[_i], 2),
-        key = _Object$entries$_i[0],
-        value = _Object$entries$_i[1];
-
-    //console.log( 'key: "' + key + '", val: "' + value + '"' );
-    if (value) {
-      nonEmptyAttributes[key] = value;
-    }
-  }
-
-  return nonEmptyAttributes;
-};
 
 var isEmailFormat = function isEmailFormat(href) {
   if (href.indexOf('mailto:') == 0 && /\S+@\S+\.\S+/.test(href.substring(7))) {
@@ -2144,7 +2165,7 @@ registerBlockType('bsx-blocks/button', {
       stateType: stateType,
       size: size
     });
-    buttonClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_4__["addClassNames"])({
+    buttonClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_3__["addClassNames"])({
       marginLeft: marginLeft,
       marginRight: marginRight,
       marginBefore: marginBefore,
@@ -2154,31 +2175,31 @@ registerBlockType('bsx-blocks/button', {
     // `<a>MY_NAME@MY_DOMAIN.MY_DOMAIN_SUFFIX</a>` or `<a>SOME_CONTENT</a>`
     // console.log( '! content && hrefIsContentIsEmail ? [ href.substring( 7 ) ] : content: ' + ! content && hrefIsContentIsEmail ? [ href.substring( 7 ) ] : content );
 
-    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(PanelBody, {
+    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(PanelBody, {
       title: __('Button link settings', 'bsx-blocks')
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(URLInput, {
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(URLInput, {
       label: __('Link URL', 'bsx-blocks'),
       value: href,
       onChange: onChangeHref
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(ToggleControl, {
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(ToggleControl, {
       label: __('Open in new tab', 'bsx-blocks'),
       checked: target == '_blank',
       onChange: onChangeTarget
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(TextControl, {
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(TextControl, {
       label: __('Hash (optional)', 'bsx-blocks'),
       value: hash,
       onChange: onChangeHash
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(TextControl, {
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(TextControl, {
       label: __('Rel (optional)', 'bsx-blocks'),
       value: rel,
       onChange: onChangeRel
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(TextControl, {
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(TextControl, {
       label: __('data-fn (optional)', 'bsx-blocks'),
       value: dataFn,
       onChange: onChangeDataFn
-    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(PanelBody, {
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(PanelBody, {
       title: __('Button appearance', 'bsx-blocks')
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(SelectControl, {
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(SelectControl, {
       label: __('State', 'bsx-blocks'),
       value: state,
       onChange: onChangeState,
@@ -2210,7 +2231,7 @@ registerBlockType('bsx-blocks/button', {
         value: 'link',
         label: __('Link', 'bsx-blocks')
       }]
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(SelectControl, {
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(SelectControl, {
       label: __('State Type', 'bsx-blocks'),
       value: stateType,
       onChange: onChangeStateType,
@@ -2221,7 +2242,7 @@ registerBlockType('bsx-blocks/button', {
         value: '',
         label: __('Filled', 'bsx-blocks')
       }]
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(SelectControl, {
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(SelectControl, {
       label: __('Size', 'bsx-blocks'),
       value: size,
       onChange: onChangeSize,
@@ -2235,9 +2256,9 @@ registerBlockType('bsx-blocks/button', {
         value: 'lg',
         label: __('Large', 'bsx-blocks')
       }]
-    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(PanelBody, {
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(PanelBody, {
       title: __('Margin', 'bsx-blocks')
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(SelectControl, {
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(SelectControl, {
       label: __('Margin left', 'bsx-blocks'),
       value: marginLeft,
       onChange: onChangeMarginLeft,
@@ -2254,7 +2275,7 @@ registerBlockType('bsx-blocks/button', {
         value: '3',
         label: __('medium', 'bsx-blocks')
       }]
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(SelectControl, {
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(SelectControl, {
       label: __('Margin right', 'bsx-blocks'),
       value: marginRight,
       onChange: onChangeMarginRight,
@@ -2271,7 +2292,7 @@ registerBlockType('bsx-blocks/button', {
         value: '3',
         label: __('medium', 'bsx-blocks')
       }]
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(SelectControl, {
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(SelectControl, {
       label: __('Margin before', 'bsx-blocks'),
       value: marginBefore,
       onChange: onChangeMarginBefore,
@@ -2298,7 +2319,7 @@ registerBlockType('bsx-blocks/button', {
         label: __('extra large', 'bsx-blocks')
       }],
       help: __('Spacer before element', 'bsx-blocks')
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(SelectControl, {
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(SelectControl, {
       label: __('Margin after', 'bsx-blocks'),
       value: marginAfter,
       onChange: onChangeMarginAfter,
@@ -2325,9 +2346,9 @@ registerBlockType('bsx-blocks/button', {
         label: __('extra large', 'bsx-blocks')
       }],
       help: __('Spacer after element', 'bsx-blocks')
-    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("span", {
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("span", {
       className: buttonClassNames
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(RichText, {
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(RichText, {
       tagName: "a",
       multiline: false,
       placeholder: __('Add Title...', 'bsx-blocks'),
@@ -2373,7 +2394,7 @@ registerBlockType('bsx-blocks/button', {
       size: size,
       hrefIsContentIsEmail: hrefIsContentIsEmail
     });
-    buttonClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_4__["addClassNames"])({
+    buttonClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_3__["addClassNames"])({
       marginLeft: marginLeft,
       marginRight: marginRight,
       marginBefore: marginBefore,
@@ -2381,7 +2402,7 @@ registerBlockType('bsx-blocks/button', {
     }, buttonClassNames); // save spam-protected mailto link format (no href-attribute, no content – both will be set via css / js):
     // `<a class="create-mt" data-fn="create-mt" data-mt-n="MY_NAME" data-mt-d="MY_DOMAIN" data-mt-s="MY_DOMAIN_SUFFIX"></a>`
 
-    var saveAttributes = makeSaveAttributes({
+    var saveAttributes = Object(_functions_attributes_js__WEBPACK_IMPORTED_MODULE_4__["makeSaveAttributes"])({
       href: !hrefIsContentIsEmail ? hash ? href + '#' + hash : href : 'javascript:void( 0 );',
       'data-fn': checkEmail.valid ? 'create-mt' : dataFn,
       'data-mt-n': checkEmail.valid ? checkEmail.name : '',
@@ -2390,7 +2411,7 @@ registerBlockType('bsx-blocks/button', {
       target: target,
       rel: href && !hrefIsContentIsEmail ? rel ? rel + ' noopener noreferrer' : 'noopener noreferrer' : ''
     });
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["Fragment"], null, (content && !RichText.isEmpty(content) || hrefIsContentIsEmail) && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(RichText.Content, _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["Fragment"], null, (content && !RichText.isEmpty(content) || hrefIsContentIsEmail) && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(RichText.Content, _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
       tagName: href ? 'a' : 'button',
       value: hrefIsContentIsEmail ? '' : content,
       className: buttonClassNames
@@ -4095,6 +4116,15 @@ var _wp$components = wp.components,
     PanelBody = _wp$components.PanelBody,
     RadioControl = _wp$components.RadioControl;
 
+var responsivePortraitMediaIndexList = [{
+  media: '(orientation: portrait) and (max-width: 499.98px)',
+  imgSizeIndexShift: '-1',
+  minImgSizeIndex: '1'
+}, {
+  media: '(orientation: portrait)',
+  imgSizeIndexShift: '0',
+  minImgSizeIndex: '2'
+}];
 var responsiveMediaIndexList = [{
   media: '(max-width: 459.98px)',
   imgSizeIndexShift: '-2',
@@ -4107,7 +4137,23 @@ var responsiveMediaIndexList = [{
 var skipIndex = 0;
 
 var makeSourcesAttributesList = function makeSourcesAttributesList(config) {
-  var sourcesAttributesList = [];
+  var sourcesAttributesList = []; // portrait img
+
+  config.responsivePortraitMediaIndexList.forEach(function (item, index) {
+    var currentPortraitImgIndex = parseInt(config.portraitImgSizeIndex) + parseInt(item.imgSizeIndexShift);
+    var adaptedCurrentPortraitImgIndex = currentPortraitImgIndex < parseInt(item.minImgSizeIndex) ? parseInt(item.minImgSizeIndex) : currentPortraitImgIndex;
+
+    if (adaptedCurrentPortraitImgIndex < parseInt(config.portraitImgSizeIndex) && adaptedCurrentPortraitImgIndex > config.skipIndex && typeof config.portraitImgSizes[adaptedCurrentPortraitImgIndex] != 'undefined' && typeof config.portraitImgSizes[adaptedCurrentPortraitImgIndex].url != 'undefined') {
+      sourcesAttributesList.push({
+        media: item.media,
+        srcset: '',
+        'data-srcset': config.portraitImgSizes[adaptedCurrentPortraitImgIndex].url,
+        'data-width': config.portraitImgSizes[adaptedCurrentPortraitImgIndex].width,
+        'data-height': config.portraitImgSizes[adaptedCurrentPortraitImgIndex].height
+      });
+    }
+  }); // default img
+
   config.responsiveMediaIndexList.forEach(function (item, index) {
     var currentImgIndex = parseInt(config.imgSizeIndex) + parseInt(item.imgSizeIndexShift);
     var adaptedCurrentImgIndex = currentImgIndex < parseInt(item.minImgSizeIndex) ? parseInt(item.minImgSizeIndex) : currentImgIndex;
@@ -4164,6 +4210,17 @@ registerBlockType('bsx-blocks/lazy-img', {
     origHeight: {
       type: 'number'
     },
+    portraitImgId: {
+      type: 'number'
+    },
+    portraitImgSizes: {
+      type: 'array',
+      default: []
+    },
+    portraitImgSizeIndex: {
+      type: 'string',
+      default: '3'
+    },
     alt: {
       type: 'string'
     },
@@ -4184,6 +4241,9 @@ registerBlockType('bsx-blocks/lazy-img', {
         height = _props$attributes.height,
         origWidth = _props$attributes.origWidth,
         origHeight = _props$attributes.origHeight,
+        portraitImgId = _props$attributes.portraitImgId,
+        portraitImgSizes = _props$attributes.portraitImgSizes,
+        portraitImgSizeIndex = _props$attributes.portraitImgSizeIndex,
         alt = _props$attributes.alt,
         figcaption = _props$attributes.figcaption,
         setAttributes = props.setAttributes,
@@ -4265,6 +4325,53 @@ registerBlockType('bsx-blocks/lazy-img', {
 
     ;
 
+    function onSelectPortraitImage(_x2) {
+      return _onSelectPortraitImage.apply(this, arguments);
+    }
+
+    function _onSelectPortraitImage() {
+      _onSelectPortraitImage = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(portraitImg) {
+        var newPortraitImgSizesData, newPortraitImgSizes, newPortraitImgSizeIndex;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                if (!(typeof portraitImg.url !== 'undefined')) {
+                  _context2.next = 8;
+                  break;
+                }
+
+                _context2.next = 3;
+                return Object(_functions_img_js__WEBPACK_IMPORTED_MODULE_3__["getImgSizesData"])(portraitImg);
+
+              case 3:
+                newPortraitImgSizesData = _context2.sent;
+                newPortraitImgSizes = newPortraitImgSizesData.imgs; // check if current img size index fits to new img (might be too large)
+
+                newPortraitImgSizeIndex = parseInt(portraitImgSizeIndex);
+
+                if (portraitImgSizeIndex >= newPortraitImgSizeIndex.length) {
+                  newPortraitImgSizeIndex = newPortraitImgSizeIndex.length - 1;
+                }
+
+                setAttributes({
+                  portraitImgId: portraitImg.id,
+                  portraitImgSizes: newPortraitImgSizes,
+                  portraitImgSizeIndex: newPortraitImgSizeIndex.toString()
+                });
+
+              case 8:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+      return _onSelectPortraitImage.apply(this, arguments);
+    }
+
+    ;
+
     var onChangeMediaAlt = function onChangeMediaAlt(value) {
       setAttributes({
         alt: value
@@ -4304,12 +4411,29 @@ registerBlockType('bsx-blocks/lazy-img', {
         value: index.toString(),
         label: imgSize.width + 'x' + imgSize.height + (imgSize.width === imgSize.height ? ' ' + __('(Square format)', 'bsx-blocks') : '')
       });
+    });
+
+    var onChangePortraitImgSizeIndex = function onChangePortraitImgSizeIndex(value) {
+      setAttributes({
+        portraitImgSizeIndex: value.toString()
+      });
+    };
+
+    var portraitImgSizeRadioControlOptions = [];
+    portraitImgSizes.forEach(function (portraitImgSize, index) {
+      portraitImgSizeRadioControlOptions.push({
+        value: index.toString(),
+        label: portraitImgSize.width + 'x' + portraitImgSize.height + (portraitImgSize.width === portraitImgSize.height ? ' ' + __('(Square format)', 'bsx-blocks') : '')
+      });
     }); // prepare img sources attributes
 
     var sourcesAttributesList = makeSourcesAttributesList({
       imgSizes: imgSizes,
       imgSizeIndex: imgSizeIndex,
       responsiveMediaIndexList: responsiveMediaIndexList,
+      portraitImgSizes: portraitImgSizes,
+      portraitImgSizeIndex: portraitImgSizeIndex,
+      responsivePortraitMediaIndexList: responsivePortraitMediaIndexList,
       skipIndex: skipIndex
     });
     return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(PanelBody, {
@@ -4369,7 +4493,52 @@ registerBlockType('bsx-blocks/lazy-img', {
       label: __('Displayed image height', 'bsx-blocks'),
       value: height,
       onChange: onChangeMediaHeight
-    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("figure", {
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(PanelBody, {
+      title: __('Portrait image (optional)', 'bsx-blocks')
+    }, portraitImgId ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(MediaUpload, {
+      onSelect: onSelectPortraitImage,
+      allowedTypes: "image",
+      value: portraitImgId,
+      render: function render(_ref3) {
+        var open = _ref3.open;
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(Button, {
+          className: "bsxui-config-panel-img-button has-margin-bottom",
+          onClick: open
+        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("img", {
+          class: "bsxui-config-panel-img",
+          src: portraitImgSizes[portraitImgSizeIndex].url,
+          alt: __('Change / upload portrait image', 'bsx-blocks')
+        }));
+      }
+    }) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      class: "bsxui-config-panel-row"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      class: "bsxui-config-panel-text"
+    }, __('– No portrait image selected yet –', 'bsx-blocks'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      class: "bsxui-config-panel-row"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(MediaUpload, {
+      onSelect: onSelectPortraitImage,
+      allowedTypes: "image",
+      value: portraitImgId,
+      render: function render(_ref4) {
+        var open = _ref4.open;
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(Button, {
+          onClick: open,
+          isSecondary: true
+        }, __('Change / upload portrait image', 'bsx-blocks'));
+      }
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(RadioControl, {
+      label: __('Image size and format', 'bsx-blocks'),
+      selected: portraitImgSizeIndex.toString(),
+      options: portraitImgSizeRadioControlOptions,
+      onChange: onChangePortraitImgSizeIndex
+    }), portraitImgSizes[portraitImgSizeIndex] != undefined && portraitImgSizes[portraitImgSizeIndex].url != undefined && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      class: "components-base-control"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("a", {
+      class: "bsxui-link",
+      href: portraitImgSizes[portraitImgSizeIndex].url,
+      target: "_blank"
+    }, __('Preview selected portrait image', 'bsx-blocks'))))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("figure", {
       className: className
     }, imgId ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("picture", null, sourcesAttributesList.map(function (sourceAttributes, index) {
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("source", sourceAttributes);
@@ -4383,8 +4552,8 @@ registerBlockType('bsx-blocks/lazy-img', {
       onSelect: onSelectImage,
       allowedTypes: "image",
       value: imgId,
-      render: function render(_ref3) {
-        var open = _ref3.open;
+      render: function render(_ref5) {
+        var open = _ref5.open;
         return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(Button, {
           onClick: open,
           isSecondary: true
@@ -4420,6 +4589,9 @@ registerBlockType('bsx-blocks/lazy-img', {
         height = _props$attributes2.height,
         origWidth = _props$attributes2.origWidth,
         origHeight = _props$attributes2.origHeight,
+        portraitImgId = _props$attributes2.portraitImgId,
+        portraitImgSizes = _props$attributes2.portraitImgSizes,
+        portraitImgSizeIndex = _props$attributes2.portraitImgSizeIndex,
         alt = _props$attributes2.alt,
         figcaption = _props$attributes2.figcaption; // prepare img sources attributes
 
@@ -4427,6 +4599,9 @@ registerBlockType('bsx-blocks/lazy-img', {
       imgSizes: imgSizes,
       imgSizeIndex: imgSizeIndex,
       responsiveMediaIndexList: responsiveMediaIndexList,
+      portraitImgSizes: portraitImgSizes,
+      portraitImgSizeIndex: portraitImgSizeIndex,
+      responsivePortraitMediaIndexList: responsivePortraitMediaIndexList,
       skipIndex: skipIndex
     });
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
