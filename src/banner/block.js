@@ -37,6 +37,10 @@ import {
     getImgSizesData,
 } from './../_functions/img.js';
 
+import { makeSaveAttributes } from './../_functions/attributes.js';
+
+
+// functions
 
 const makeBannerClassNames = ( config ) => {
 
@@ -131,16 +135,16 @@ const makeSrcsetJson = ( config ) => {
     return srcsetJson;
 }
 
-const makeSaveAttributes = ( attributes ) => {
-    const nonEmptyAttributes = {};
-    for ( let [ key, value ] of Object.entries( attributes ) ) {
-        //console.log( 'key: "' + key + '", val: "' + value + '"' );
-        if ( value ) {
-            nonEmptyAttributes[ key ] = value;
-        }
-    }
-    return nonEmptyAttributes;
-}
+// const makeSaveAttributes = ( attributes ) => {
+//     const nonEmptyAttributes = {};
+//     for ( let [ key, value ] of Object.entries( attributes ) ) {
+//         //console.log( 'key: "' + key + '", val: "' + value + '"' );
+//         if ( value ) {
+//             nonEmptyAttributes[ key ] = value;
+//         }
+//     }
+//     return nonEmptyAttributes;
+// }
 
 
 // insert directly into banner element without `.banner-inner`
@@ -653,7 +657,7 @@ registerBlockType( 'bsx-blocks/banner', {
 
                 <PanelBody title={ __( 'Banner portrait image (optional)', 'bsx-blocks' ) }>
                     {
-                        imgId ? (
+                        portraitImgId ? (
                             <MediaUpload
                                 onSelect={ onSelectPortraitImage }
                                 allowedTypes="image"
@@ -671,7 +675,7 @@ registerBlockType( 'bsx-blocks/banner', {
                         : 
                         (
                             <div class="bsxui-config-panel-row">
-                                <div class="bsxui-config-panel-text">{ __( '– No image selected yet –', 'bsx-blocks' ) }</div>
+                                <div class="bsxui-config-panel-text">{ __( '– No portrait image selected yet –', 'bsx-blocks' ) }</div>
                             </div>
                         )
                     }
@@ -699,7 +703,7 @@ registerBlockType( 'bsx-blocks/banner', {
                     {
                         portraitImgSizes[ portraitImgSizeIndex ] != undefined && portraitImgSizes[ portraitImgSizeIndex ].url != undefined && (
                             <div class="components-base-control">
-                                <a href={ portraitImgSizes[ portraitImgSizeIndex ].url } target="_blank">{ __( 'Preview selected portrait image', 'bsx-blocks' ) }</a>
+                                <a class="bsxui-link" href={ portraitImgSizes[ portraitImgSizeIndex ].url } target="_blank">{ __( 'Preview selected portrait image', 'bsx-blocks' ) }</a>
                             </div>
                         )
                     }
