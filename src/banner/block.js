@@ -156,8 +156,8 @@ const noBannerInnerTemplateNames = [
 registerBlockType( 'bsx-blocks/banner', {
     title: __( 'BSX Banner', 'bsx-blocks' ),
     icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" role="img" aria-hidden="true" focusable="false">
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M39,16H9c-1.1,0-2,0.9-2,2v12c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V18C41,16.9,40.1,16,39,16z M12,18c1.66,0,3,1.34,3,3 s-1.34,3-3,3s-3-1.34-3-3S10.34,18,12,18z M39,30H9v-2l8-3l4,2l12-6l6,4V30z"/>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" role="img" focusable="false">
+            <path d="M17,5H3C1.9,5,1,5.9,1,7v6c0,1.11,0.9,2,2,2h14c1.1,0,2-0.89,2-2V7C19,5.9,18.1,5,17,5z M4.5,7C5.33,7,6,7.67,6,8.5 C6,9.33,5.33,10,4.5,10C3.67,10,3,9.33,3,8.5C3,7.67,3.67,7,4.5,7z M17,13H3l-0.02-1L7,10l2,1l5-3l3,2V13z"/>
         </svg>
     ),
     category: 'layout',

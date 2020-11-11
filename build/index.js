@@ -1012,16 +1012,14 @@ registerBlockType('bsx-blocks/banner', {
   title: __('BSX Banner', 'bsx-blocks'),
   icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("svg", {
     xmlns: "http://www.w3.org/2000/svg",
-    width: "48",
-    height: "48",
-    viewBox: "0 0 48 48",
-    role: "img",
+    width: "20",
+    height: "20",
+    viewBox: "0 0 20 20",
     "aria-hidden": "true",
+    role: "img",
     focusable: "false"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("path", {
-    "fill-rule": "evenodd",
-    "clip-rule": "evenodd",
-    d: "M39,16H9c-1.1,0-2,0.9-2,2v12c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V18C41,16.9,40.1,16,39,16z M12,18c1.66,0,3,1.34,3,3 s-1.34,3-3,3s-3-1.34-3-3S10.34,18,12,18z M39,30H9v-2l8-3l4,2l12-6l6,4V30z"
+    d: "M17,5H3C1.9,5,1,5.9,1,7v6c0,1.11,0.9,2,2,2h14c1.1,0,2-0.89,2-2V7C19,5.9,18.1,5,17,5z M4.5,7C5.33,7,6,7.67,6,8.5 C6,9.33,5.33,10,4.5,10C3.67,10,3,9.33,3,8.5C3,7.67,3.67,7,4.5,7z M17,13H3l-0.02-1L7,10l2,1l5-3l3,2V13z"
   })),
   category: 'layout',
   attributes: {
@@ -4114,7 +4112,9 @@ var _wp$components = wp.components,
     Button = _wp$components.Button,
     TextControl = _wp$components.TextControl,
     PanelBody = _wp$components.PanelBody,
-    RadioControl = _wp$components.RadioControl;
+    RadioControl = _wp$components.RadioControl,
+    SVG = _wp$components.SVG,
+    Path = _wp$components.Path;
 
 var responsivePortraitMediaIndexList = [{
   media: '(orientation: portrait) and (max-width: 499.98px)',
@@ -4173,7 +4173,17 @@ var makeSourcesAttributesList = function makeSourcesAttributesList(config) {
 
 registerBlockType('bsx-blocks/lazy-img', {
   title: __('BSX Lazy Image', 'bsx-blocks'),
-  icon: 'format-image',
+  icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "20",
+    height: "20",
+    viewBox: "0 0 20 20",
+    "aria-hidden": "true",
+    role: "img",
+    focusable: "false"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("path", {
+    d: "M18.71,1.29C18.52,1.11,18.26,1,18,1H2C1.74,1,1.48,1.11,1.29,1.29C1.11,1.48,1,1.74,1,2v16c0,0.26,0.11,0.52,0.29,0.71 C1.48,18.89,1.74,19,2,19h16c0.26,0,0.52-0.11,0.71-0.29C18.89,18.52,19,18.26,19,18V2C19,1.74,18.89,1.48,18.71,1.29z M3,17V3h14 l0,14H3z M9,12l-2-1l-3,2v2.98h12V11l-3-2L9,12z M7.5,9C8.88,9,10,7.88,10,6.5S8.88,4,7.5,4S5,5.12,5,6.5S6.12,9,7.5,9z"
+  })),
   category: 'layout',
   attributes: {
     hasFigure: {
@@ -4694,7 +4704,17 @@ var makeColClassNames = function makeColClassNames(sizesArray, marginAfter) {
 
 registerBlockType('bsx-blocks/col', {
   title: __('BSX Column', 'bsx-blocks'),
-  icon: 'grid-view',
+  icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "20",
+    height: "20",
+    viewBox: "0 0 20 20",
+    "aria-hidden": "true",
+    role: "img",
+    focusable: "false"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+    d: "M18.71,1.29C18.52,1.11,18.26,1,18,1H2C1.74,1,1.48,1.11,1.29,1.29C1.11,1.48,1,1.74,1,2v16c0,0.26,0.11,0.52,0.29,0.71 C1.48,18.89,1.74,19,2,19h16c0.26,0,0.52-0.11,0.71-0.29C18.89,18.52,19,18.26,19,18V2C19,1.74,18.89,1.48,18.71,1.29z M12,3v14H8V3 H12z M3,3h3v14H3V3z M14,17V3h3l0,14H14z"
+  })),
   category: 'layout',
   parent: ['bsx-blocks/row-with-cols'],
   attributes: {
@@ -5250,16 +5270,14 @@ registerBlockType('bsx-blocks/row-with-cols', {
   title: __('BSX Columns', 'bsx-blocks'),
   icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("svg", {
     xmlns: "http://www.w3.org/2000/svg",
-    width: "48",
-    height: "48",
-    viewBox: "0 0 48 48",
-    role: "img",
+    width: "20",
+    height: "20",
+    viewBox: "0 0 20 20",
     "aria-hidden": "true",
+    role: "img",
     focusable: "false"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("path", {
-    "fill-rule": "evenodd",
-    "clip-rule": "evenodd",
-    d: "M41 14a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h30a2 2 0 0 0 2-2V14zM28.5 34h-9V14h9v20zm2 0V14H39v20h-8.5zm-13 0H9V14h8.5v20z"
+    d: "M18.71,1.29C18.52,1.11,18.26,1,18,1H2C1.74,1,1.48,1.11,1.29,1.29C1.11,1.48,1,1.74,1,2v16c0,0.26,0.11,0.52,0.29,0.71 C1.48,18.89,1.74,19,2,19h16c0.26,0,0.52-0.11,0.71-0.29C18.89,18.52,19,18.26,19,18V2C19,1.74,18.89,1.48,18.71,1.29z M12,3v14H8V3 H12z M3,3h3v14H3V3z M14,17V3h3l0,14H14z"
   })),
   category: 'layout',
   attributes: {

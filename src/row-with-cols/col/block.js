@@ -64,7 +64,11 @@ const makeColClassNames = ( sizesArray, marginAfter ) => {
 
 registerBlockType( 'bsx-blocks/col', {
     title: __( 'BSX Column', 'bsx-blocks' ),
-    icon: 'grid-view',
+    icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" role="img" focusable="false">
+            <path d="M18.71,1.29C18.52,1.11,18.26,1,18,1H2C1.74,1,1.48,1.11,1.29,1.29C1.11,1.48,1,1.74,1,2v16c0,0.26,0.11,0.52,0.29,0.71 C1.48,18.89,1.74,19,2,19h16c0.26,0,0.52-0.11,0.71-0.29C18.89,18.52,19,18.26,19,18V2C19,1.74,18.89,1.48,18.71,1.29z M12,3v14H8V3 H12z M3,3h3v14H3V3z M14,17V3h3l0,14H14z"/>
+        </svg>
+    ),
     category: 'layout',
     parent: [ 'bsx-blocks/row-with-cols' ],
     attributes: {
