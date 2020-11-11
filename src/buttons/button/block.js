@@ -1,4 +1,5 @@
-// TDOD: add state classes for link button
+// TODO: add state classes for link button
+// TODO: add toggle control for spam protected mailto or tel links (requires basic package js adaption)
 
 
 const { __, setLocaleData } = wp.i18n;
@@ -24,8 +25,14 @@ const {
 } = wp.data;
 
 
+// functions imports
+
 import { addClassNames } from './../../_functions/add-class-names.js';
 
+import { makeSaveAttributes } from './../../_functions/attributes.js';
+
+
+// functions
 
 const makeButtonClassNames = ( config ) => {
 
@@ -52,16 +59,16 @@ const makeButtonClassNames = ( config ) => {
     return classNames.join( ' ' );
 }
 
-const makeSaveAttributes = ( attributes ) => {
-    const nonEmptyAttributes = {};
-    for ( let [ key, value ] of Object.entries( attributes ) ) {
-        //console.log( 'key: "' + key + '", val: "' + value + '"' );
-        if ( value ) {
-            nonEmptyAttributes[ key ] = value;
-        }
-    }
-    return nonEmptyAttributes;
-}
+// const makeSaveAttributes = ( attributes ) => {
+//     const nonEmptyAttributes = {};
+//     for ( let [ key, value ] of Object.entries( attributes ) ) {
+//         //console.log( 'key: "' + key + '", val: "' + value + '"' );
+//         if ( value ) {
+//             nonEmptyAttributes[ key ] = value;
+//         }
+//     }
+//     return nonEmptyAttributes;
+// }
 
 const isEmailFormat = ( href ) => {
     if ( href.indexOf( 'mailto:' ) == 0 && /\S+@\S+\.\S+/.test( href.substring( 7 ) ) ) {
