@@ -1,3 +1,5 @@
+// TODO: add default marginAfter: '5'?
+
 const { __, setLocaleData } = wp.i18n;
 const {
     registerBlockType,

@@ -59,7 +59,6 @@ registerBlockType( 'bsx-blocks/section', {
     edit: withSelect( ( select, { clientId } ) => {
         const { 
             getBlocksByClientId,
-            getBlockAttributes, 
         } = select( 'core/block-editor' );
 
         const children = getBlocksByClientId( clientId )[ 0 ]
