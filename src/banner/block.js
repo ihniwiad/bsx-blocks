@@ -318,7 +318,7 @@ registerBlockType( 'bsx-blocks/banner', {
                                     textSize: 'display-1',
                                     textColor: 'white',
                                     textShadow: 'darker',
-                                    margin-after: '0',
+                                    marginAfter: '0',
                                 }
                             ]
                         ],
@@ -352,7 +352,7 @@ registerBlockType( 'bsx-blocks/banner', {
                                     textSize: 'display-1',
                                     textColor: 'white',
                                     textShadow: 'darker',
-                                    margin-after: '0',
+                                    marginAfter: '0',
                                 }
                             ]
                         ],
@@ -406,7 +406,7 @@ registerBlockType( 'bsx-blocks/banner', {
                                                             textSize: 'display-1',
                                                             textColor: 'white',
                                                             textShadow: 'darker', 
-                                                            margin-after: '0',
+                                                            marginAfter: '0',
                                                         }
                                                     ]
                                                 ],
