@@ -135,17 +135,6 @@ const makeSrcsetJson = ( config ) => {
     return srcsetJson;
 }
 
-// const makeSaveAttributes = ( attributes ) => {
-//     const nonEmptyAttributes = {};
-//     for ( let [ key, value ] of Object.entries( attributes ) ) {
-//         //console.log( 'key: "' + key + '", val: "' + value + '"' );
-//         if ( value ) {
-//             nonEmptyAttributes[ key ] = value;
-//         }
-//     }
-//     return nonEmptyAttributes;
-// }
-
 
 // insert directly into banner element without `.banner-inner`
 const noBannerInnerTemplateNames = [
@@ -193,9 +182,6 @@ registerBlockType( 'bsx-blocks/banner', {
         portraitImgSizeIndex: {
             type: 'string',
             default: '3',
-        },
-        portraitUrl: {
-            type: 'string',
         },
         bannerType: {
             type: 'string',
@@ -266,7 +252,6 @@ registerBlockType( 'bsx-blocks/banner', {
                 portraitImgId,
                 portraitImgSizes,
                 portraitImgSizeIndex,
-                portraitUrl,
                 bannerType,
                 bannerSize,
                 bgAttachment,
@@ -296,6 +281,7 @@ registerBlockType( 'bsx-blocks/banner', {
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M39,16H9c-1.1,0-2,0.9-2,2v12c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V18C41,16.9,40.1,16,39,16z M24.72,30.03 h-2.02v-1.89h2.02V30.03z M26.91,23.22c-0.39,0.58-0.9,1.12-1.52,1.61c-0.31,0.28-0.51,0.53-0.58,0.77s-0.11,0.6-0.11,1.07h-1.98 c0.01-0.79,0.09-1.35,0.26-1.67c0.17-0.32,0.56-0.74,1.16-1.25c0.43-0.42,0.77-0.82,1.02-1.18c0.24-0.37,0.37-0.78,0.37-1.25 c0-0.54-0.14-0.95-0.42-1.23s-0.69-0.43-1.22-0.43c-0.46,0-0.85,0.12-1.15,0.36c-0.31,0.24-0.46,0.61-0.46,1.1h-1.98 c0.01-1,0.34-1.77,1-2.31c0.66-0.54,1.52-0.8,2.59-0.8c1.16,0,2.05,0.29,2.68,0.86s0.94,1.38,0.94,2.43 C27.5,22.01,27.3,22.65,26.91,23.22z"/>
                     </svg>
                 ),
+                attributes: {},
                 template: [
                     [
                         'core/paragraph',
@@ -314,6 +300,39 @@ registerBlockType( 'bsx-blocks/banner', {
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M39,16H9c-1.1,0-2,0.9-2,2v12c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V18C41,16.9,40.1,16,39,16z M13,31h-1v-2h1V31z M13,27h-1 v-2h1V27z M13,23h-1v-2h1V23z M13,19h-1v-2h1V19z M27,26H14v-3h13V26z M36,31h-1v-2h1V31z M36,27h-1v-2h1V27z M36,23h-1v-2h1V23z M36,19h-1v-2h1V19z"/>
                     </svg>
                 ),
+                attributes: {},
+                template: [ 
+                    [ 
+                        'bsx-blocks/container', 
+                        {
+                        },
+                        [
+                            [
+                                'core/heading',
+                                { 
+                                    placeholder: 'Add heading text, configure heading level...',
+                                    textSize: 'display-1',
+                                    textColor: 'white',
+                                    textShadow: 'darker',
+                                }
+                            ]
+                        ],
+                    ], 
+                ],
+                templateLock: false,
+            },
+            {
+                name: 'static-container-with-heading',
+                title: __( 'Static with Container & Heading', 'bsx-blocks' ),
+                icon: (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" role="img" aria-hidden="true" focusable="false">
+                        <path d="M39,18H9c-1.1,0-2,0.9-2,2v8c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2v-8C41,18.9,40.1,18,39,18z M13,29h-1v-2h1V29z M13,25h-1 v-2h1V25z M13,21h-1v-2h1V21z M27,26H14v-3h13V26z M36,29h-1v-2h1V29z M36,25h-1v-2h1V25z M36,21h-1v-2h1V21z"/>
+                    </svg>
+                ),
+                attributes: {
+                    bannerType: 'st',
+                    bannerSize: '3',
+                },
                 template: [ 
                     [ 
                         'bsx-blocks/container', 
@@ -342,6 +361,7 @@ registerBlockType( 'bsx-blocks/banner', {
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M39,16H9c-1.1,0-2,0.9-2,2v12c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V18C41,16.9,40.1,16,39,16z M35,17h1v2h-1V17z M35,21h1v2 h-1V21z M35,25h1v2h-1V25z M14,21h13v3H14V21z M12,17h1v2h-1V17z M12,21h1v2h-1V21z M12,25h1v2h-1V25z M39,30H9v-2h30V30z"/>
                     </svg>
                 ),
+                attributes: {},
                 template: [  
                     [ 
                         'bsx-blocks/column-rows', 
@@ -425,16 +445,25 @@ registerBlockType( 'bsx-blocks/banner', {
             },
         ];
 
-        const getTemplate = ( currentTemplateName ) => {
+        const getTemplateMap = ( currentTemplateName ) => {
             const currentTemplate = templates.find( ( item ) => item.name === currentTemplateName );
-            return currentTemplate ? currentTemplate.template : [];
+            return currentTemplate ? currentTemplate : {};
         };
 
-        let template = getTemplate( templateName );
+        let template = getTemplateMap( templateName ).template;
 
-        const onTemplateChange = ( value ) => {
-            template = getTemplate( value );
-            setAttributes( { templateName: value } );
+        const onChangeTemplate = ( value ) => {
+            const currentTemplateMap = getTemplateMap( value );
+            if ( currentTemplateMap.template != undefined && currentTemplateMap.attributes != undefined ) {
+                template = currentTemplateMap.template;
+                setAttributes( { 
+                    templateName: value,
+                    ...currentTemplateMap.attributes,
+                } );
+            }
+            else {
+                console.log( 'Error: Template change failed.' );
+            }
 
             // console.log( 'changed templateName: ' + value );
             // console.log( 'changed template: ' + template );
@@ -485,10 +514,9 @@ registerBlockType( 'bsx-blocks/banner', {
                     portraitImgId: portraitImg.id,
                     portraitImgSizes: newPortraitImgSizes,
                     portraitImgSizeIndex: newPortraitImgSizeIndex.toString(),
-                    portraitUrl: newPortraitImgSizes[ newPortraitImgSizeIndex ].url,
                 } );
 
-                // console.log( 'portraitUrl: ' + newPortraitImgSizes[ newPortraitImgSizeIndex ].url );
+                // console.log( 'portraitImgSizes[ portraitImgSizeIndex ].url: ' + newPortraitImgSizes[ newPortraitImgSizeIndex ].url );
             }
         };
 
@@ -545,7 +573,6 @@ registerBlockType( 'bsx-blocks/banner', {
         const onChangePortraitImgSizeIndex = ( value ) => {
             setAttributes( { 
                 portraitImgSizeIndex: value.toString(),
-                portraitUrl: portraitImgSizes[ value ].url,
             } );
         };
         const portraitImgSizeRadioControlOptions = [];
@@ -586,7 +613,7 @@ registerBlockType( 'bsx-blocks/banner', {
                             <Button
                                 label={ template.title }
                                 onClick={ () => {
-                                    onTemplateChange( template.name );
+                                    onChangeTemplate( template.name );
                                 } }
                                 className={ 'bsxui-icon-text-button-list-item ' + ( templateName === template.name ? 'active' : '' ) }
                             >
@@ -667,7 +694,7 @@ registerBlockType( 'bsx-blocks/banner', {
                                         className="bsxui-config-panel-img-button has-margin-bottom"
                                         onClick={ open }
                                     >
-                                        <img class="bsxui-config-panel-img" src={ portraitUrl } alt={ __( 'Change / upload portrait image', 'bsx-blocks' ) } />
+                                        <img class="bsxui-config-panel-img" src={ portraitImgSizes[ portraitImgSizeIndex ].url } alt={ __( 'Change / upload portrait image', 'bsx-blocks' ) } />
                                     </Button>
                                 ) }
                             />
@@ -862,7 +889,7 @@ registerBlockType( 'bsx-blocks/banner', {
                                     <Button
                                         label={ template.title }
                                         onClick={ () => {
-                                            onTemplateChange( template.name );
+                                            onChangeTemplate( template.name );
                                         } }
                                         className={ 'bsxui-icon-text-button-list-item ' + ( templateName === template.name ? 'active' : '' ) }
                                     >
@@ -941,7 +968,6 @@ registerBlockType( 'bsx-blocks/banner', {
                 portraitImgId,
                 portraitImgSizes,
                 portraitImgSizeIndex,
-                portraitUrl,
                 bannerType,
                 bannerSize,
                 bgAttachment,
