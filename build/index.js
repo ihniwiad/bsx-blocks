@@ -3551,6 +3551,178 @@ registerBlockType('bsx-blocks/container', {
 
 /***/ }),
 
+/***/ "./src/groups/block.js":
+/*!*****************************!*\
+  !*** ./src/groups/block.js ***!
+  \*****************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+var _wp$i18n = wp.i18n,
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData;
+var registerBlockType = wp.blocks.registerBlockType;
+var _wp$blockEditor = wp.blockEditor,
+    InnerBlocks = _wp$blockEditor.InnerBlocks,
+    InspectorControls = _wp$blockEditor.InspectorControls;
+var _wp$components = wp.components,
+    PanelBody = _wp$components.PanelBody,
+    TextControl = _wp$components.TextControl,
+    ToggleControl = _wp$components.ToggleControl,
+    SelectControl = _wp$components.SelectControl,
+    Button = _wp$components.Button,
+    SVG = _wp$components.SVG,
+    Path = _wp$components.Path;
+var withSelect = wp.data.withSelect;
+registerBlockType('bsx-blocks/groups', {
+  title: __('BSX Groups', 'bsx-blocks'),
+  icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "20",
+    height: "20",
+    viewBox: "0 0 20 20",
+    "aria-hidden": "true",
+    role: "img",
+    focusable: "false"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("path", {
+    d: "M7,7h6c0.55,0,1-0.45,1-1V4c0-0.55-0.45-1-1-1H7C6.45,3,6,3.45,6,4v2C6,6.55,6.45,7,7,7z M13,13H7c-0.55,0-1,0.45-1,1v2 c0,0.55,0.45,1,1,1h6c0.55,0,1-0.45,1-1v-2C14,13.45,13.55,13,13,13z M9.5,11V9c0-0.55-0.45-1-1-1H3C2.45,8,2,8.45,2,9v2 c0,0.55,0.45,1,1,1h5.5C9.05,12,9.5,11.55,9.5,11z M17,8h-5.5c-0.55,0-1,0.45-1,1v2c0,0.55,0.45,1,1,1H17c0.55,0,1-0.45,1-1V9 C18,8.45,17.55,8,17,8z"
+  })),
+  category: 'layout',
+  attributes: {
+    templateName: {
+      type: 'string'
+    }
+  },
+  edit: withSelect(function (select, _ref) {
+    var clientId = _ref.clientId;
+
+    var _select = select('core/block-editor'),
+        getBlocksByClientId = _select.getBlocksByClientId;
+
+    var children = getBlocksByClientId(clientId)[0] ? getBlocksByClientId(clientId)[0].innerBlocks : [];
+    return {
+      children: children
+    };
+  })(function (props) {
+    var className = props.className,
+        templateName = props.attributes.templateName,
+        setAttributes = props.setAttributes,
+        children = props.children;
+
+    var hasInnerBlocks = function hasInnerBlocks(children) {
+      return children.length > 0;
+    };
+
+    var templates = [{
+      name: 'lazy-img-paragraph-button',
+      title: __('Lazy image, paragraph, button', 'bsx-blocks'),
+      icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9V14h30V34z M22.49,31.03h2.35v-2.21h-2.35V31.03z M22.51,19.38c0.36-0.28,0.81-0.42,1.35-0.42c0.63,0,1.1,0.17,1.43,0.5s0.49,0.81,0.49,1.44 c0,0.54-0.14,1.03-0.43,1.45s-0.68,0.89-1.18,1.38c-0.71,0.6-1.16,1.09-1.35,1.46s-0.3,1.02-0.3,1.94h2.3 c0-0.56,0.04-0.97,0.13-1.25s0.32-0.58,0.68-0.9c0.72-0.58,1.31-1.21,1.77-1.88c0.46-0.67,0.69-1.42,0.69-2.23 c0-1.22-0.37-2.16-1.09-2.83c-0.73-0.67-1.77-1-3.12-1c-1.25,0-2.26,0.31-3.02,0.94c-0.76,0.62-1.15,1.52-1.17,2.69h2.3 C21.97,20.09,22.15,19.66,22.51,19.38z"
+      })),
+      attributes: {},
+      template: [['bsx-blocks/lazy-img', {}], ['core/paragraph', {
+        placeholder: 'Add text...'
+      }], ['bsx-blocks/buttons', {}]],
+      templateLock: false
+    }];
+
+    var getTemplateMap = function getTemplateMap(currentTemplateName) {
+      var currentTemplate = templates.find(function (item) {
+        return item.name === currentTemplateName;
+      });
+      return currentTemplate ? currentTemplate : {};
+    };
+
+    var template = getTemplateMap(templateName).template;
+
+    var onChangeTemplate = function onChangeTemplate(value) {
+      var currentTemplateMap = getTemplateMap(value);
+
+      if (currentTemplateMap.template != undefined && currentTemplateMap.attributes != undefined) {
+        template = currentTemplateMap.template;
+        setAttributes(_objectSpread({
+          templateName: value
+        }, currentTemplateMap.attributes));
+      } else {
+        console.log('Error: Template change failed.');
+      }
+
+      console.log('changed templateName: ' + value); // console.log( 'changed template: ' + template );
+    };
+
+    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
+      title: __('Group Settings', 'bsx-blocks')
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      className: "bsxui-icon-text-button-list"
+    }, templates.map(function (template, index) {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
+        label: template.title,
+        onClick: function onClick() {
+          onChangeTemplate(template.name);
+        },
+        className: 'bsxui-icon-text-button-list-item ' + (templateName === template.name ? 'active' : '')
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+        class: "bsxui-icon-text-button-list-item-icon"
+      }, template.icon), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+        class: "bsxui-icon-text-button-list-item-label"
+      }, template.title));
+    })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, !templateName ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      class: "bsxui-initial-inline-control"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      class: "bsxui-initial-inline-control-heading"
+    }, __('Please select Group template', 'bsx-blocks')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      className: "bsxui-icon-text-button-list"
+    }, templates.map(function (template, index) {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
+        label: template.title,
+        onClick: function onClick() {
+          onChangeTemplate(template.name);
+        },
+        className: 'bsxui-icon-text-button-list-item ' + (templateName === template.name ? 'active' : '')
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+        class: "bsxui-icon-text-button-list-item-icon"
+      }, template.icon), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+        class: "bsxui-icon-text-button-list-item-label"
+      }, template.title));
+    }))) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerBlocks, {
+      template: template,
+      renderAppender: hasInnerBlocks ? undefined : function () {
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerBlocks.ButtonBlockAppender, null);
+      }
+    }))];
+  }),
+  save: function save(props) {
+    var className = props.className,
+        templateName = props.attributes.templateName;
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerBlocks.Content, null);
+  }
+});
+
+/***/ }),
+
 /***/ "./src/img-gallery/block.js":
 /*!**********************************!*\
   !*** ./src/img-gallery/block.js ***!
@@ -4084,11 +4256,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _buttons_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./buttons/index.js */ "./src/buttons/index.js");
 /* harmony import */ var _column_rows_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./column-rows/index.js */ "./src/column-rows/index.js");
 /* harmony import */ var _container_block_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./container/block.js */ "./src/container/block.js");
-/* harmony import */ var _img_gallery_block_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./img-gallery/block.js */ "./src/img-gallery/block.js");
-/* harmony import */ var _lazy_img_block_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./lazy-img/block.js */ "./src/lazy-img/block.js");
-/* harmony import */ var _row_with_cols_index_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./row-with-cols/index.js */ "./src/row-with-cols/index.js");
-/* harmony import */ var _section_block_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./section/block.js */ "./src/section/block.js");
-/* harmony import */ var _wrapper_block_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./wrapper/block.js */ "./src/wrapper/block.js");
+/* harmony import */ var _groups_block_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./groups/block.js */ "./src/groups/block.js");
+/* harmony import */ var _img_gallery_block_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./img-gallery/block.js */ "./src/img-gallery/block.js");
+/* harmony import */ var _lazy_img_block_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./lazy-img/block.js */ "./src/lazy-img/block.js");
+/* harmony import */ var _row_with_cols_index_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./row-with-cols/index.js */ "./src/row-with-cols/index.js");
+/* harmony import */ var _section_block_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./section/block.js */ "./src/section/block.js");
+/* harmony import */ var _wrapper_block_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./wrapper/block.js */ "./src/wrapper/block.js");
+
 
 
 
@@ -6433,8 +6607,7 @@ registerBlockType('bsx-blocks/section', {
     var clientId = _ref.clientId;
 
     var _select = select('core/block-editor'),
-        getBlocksByClientId = _select.getBlocksByClientId,
-        getBlockAttributes = _select.getBlockAttributes;
+        getBlocksByClientId = _select.getBlocksByClientId;
 
     var children = getBlocksByClientId(clientId)[0] ? getBlocksByClientId(clientId)[0].innerBlocks : [];
     return {
