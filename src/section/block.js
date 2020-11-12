@@ -20,49 +20,23 @@ const {
     withSelect, 
 } = wp.data;
 
-const makeClassNames = ( belowNavbar, marginBefore, marginAfter ) => {
 
-    const classNames = [];
+import { addClassNames } from './../_functions/add-class-names.js';
 
-    if ( belowNavbar ) {
-    	classNames.push( 'below-navbar-content' );
-    }
-
-    if ( marginBefore && marginBefore === marginAfter ) {
-    	classNames.push( 'my-' + marginBefore );
-    }
-    else {
-	    if ( marginBefore ) {
-	    	classNames.push( 'mt-' + marginBefore );
-	    }
-	    if ( marginAfter ) {
-	    	classNames.push( 'mb-' + marginAfter );
-	    }
-    }
-
-    return classNames.join( ' ' );
-}
-
-const makeSaveAttributes = ( attributes ) => {
-    const nonEmptyAttributes = {};
-    for ( let [ key, value ] of Object.entries( attributes ) ) {
-        //console.log( 'key: "' + key + '", val: "' + value + '"' );
-        if ( value ) {
-            nonEmptyAttributes[ key ] = value;
-        }
-    }
-    return nonEmptyAttributes;
-}
+import { makeSaveAttributes } from './../_functions/attributes.js';
 
 
 registerBlockType( 'bsx-blocks/section', {
     title: __( 'BSX Section', 'bsx-blocks' ),
-    icon: 'category',
+    icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" role="img" focusable="false">
+            <path d="M14,4h-3v2h3V4z M8.29,5.71C8.48,5.9,8.73,6,9,6h0V3.59L7.71,2.29C7.52,2.1,7.26,2,7,2H6v2h0.58L8.29,5.71z M19,7V5 c0-0.27-0.1-0.52-0.29-0.71C18.52,4.1,18.27,4,18,4h-2v2h1v9L3,15v-2H1v3c0,0.26,0.11,0.52,0.29,0.71C1.48,16.89,1.74,17,2,17h2v-2 h2v2h3v-2h2v2h3v-2h2v2h2c0.27,0,0.52-0.1,0.71-0.29C18.89,16.52,19,16.27,19,16v-2h-2v-2h2V9h-2V7H19z M3,4h1V2H2 C1.74,2,1.48,2.11,1.29,2.29C1.11,2.48,1,2.74,1,3v3h2V4z M3,8H1v3h2V8z"/>
+        </svg>
+    ),
     category: 'layout',
     attributes: {
         templateName: {
             type: 'string',
-            default: 'empty',
         },
         belowNavbar: {
             type: 'boolean',
@@ -135,6 +109,7 @@ registerBlockType( 'bsx-blocks/section', {
                         />
                     </svg>
                 ),
+                attributes: {},
                 template: [],
                 templateLock: false,
             },
@@ -158,6 +133,7 @@ registerBlockType( 'bsx-blocks/section', {
                         />
                     </svg>
                 ),
+                attributes: {},
                 template: [ 
                     [ 
                         'bsx-blocks/container', 
@@ -174,16 +150,28 @@ registerBlockType( 'bsx-blocks/section', {
             },
         ];
 
-        const getTemplate = ( currentTemplateName ) => {
+        const getTemplateMap = ( currentTemplateName ) => {
             const currentTemplate = templates.find( ( item ) => item.name === currentTemplateName );
-            return currentTemplate ? currentTemplate.template : [];
+            return currentTemplate ? currentTemplate : {};
         };
 
-        let template = getTemplate( templateName );
+        let template = getTemplateMap( templateName ).template;
 
-        const onTemplateChange = ( value ) => {
-            template = getTemplate( value );
-            setAttributes( { templateName: value } );
+        const onChangeTemplate = ( value ) => {
+            const currentTemplateMap = getTemplateMap( value );
+            if ( currentTemplateMap.template != undefined && currentTemplateMap.attributes != undefined ) {
+                template = currentTemplateMap.template;
+                setAttributes( { 
+                    templateName: value,
+                    ...currentTemplateMap.attributes,
+                } );
+            }
+            else {
+                console.log( 'Error: Template change failed.' );
+            }
+
+            // console.log( 'changed templateName: ' + value );
+            // console.log( 'changed template: ' + template );
         };
 
         const onChangeBelowNavbar = ( value ) => {
@@ -202,7 +190,13 @@ registerBlockType( 'bsx-blocks/section', {
             setAttributes( { marginAfter: value } );
         };
 
-        const containerClassName = makeClassNames( belowNavbar, marginBefore, marginAfter );
+        // class name
+
+        const containerClassName = addClassNames( { 
+            belowNavbar: belowNavbar, 
+            marginBefore: marginBefore, 
+            marginAfter: marginAfter, 
+        } );
 
         return [
             <InspectorControls>
@@ -212,7 +206,7 @@ registerBlockType( 'bsx-blocks/section', {
                             <Button
                                 label={ template.title }
                                 onClick={ () => {
-                                    onTemplateChange( template.name );
+                                    onChangeTemplate( template.name );
                                 } }
                                 className={ 'bsxui-icon-text-button-list-item ' + ( templateName === template.name ? 'active' : '' ) }
                             >
@@ -271,18 +265,48 @@ registerBlockType( 'bsx-blocks/section', {
                     />
                 </PanelBody>
             </InspectorControls>,
-            (
-            	<section className={ containerClassName } id={ id }>
-                    <InnerBlocks 
-                        template={ template }
-                        renderAppender={
-                            hasInnerBlocks
-                            ? undefined
-                            : () => <InnerBlocks.ButtonBlockAppender />
-                        }
-                    />
-                </section>
-            )
+            <>
+                {
+                    ! templateName ? (
+                        <div class="bsxui-initial-inline-control">
+                            <div class="bsxui-initial-inline-control-heading">
+                                { __( 'Please select Banner template', 'bsx-blocks' ) }
+                            </div>
+                            <div className="bsxui-icon-text-button-list">
+                                { templates.map( ( template, index ) => (
+                                    <Button
+                                        label={ template.title }
+                                        onClick={ () => {
+                                            onChangeTemplate( template.name );
+                                        } }
+                                        className={ 'bsxui-icon-text-button-list-item ' + ( templateName === template.name ? 'active' : '' ) }
+                                    >
+                                        <div class="bsxui-icon-text-button-list-item-icon">
+                                            { template.icon }
+                                        </div>
+                                        <div class="bsxui-icon-text-button-list-item-label">
+                                            { template.title }
+                                        </div>
+                                    </Button>
+                                ) ) }
+                            </div>
+                        </div>
+                    )
+                    : 
+                    (
+                        <section className={ containerClassName } id={ id }>
+                            <InnerBlocks 
+                                template={ template }
+                                renderAppender={
+                                    hasInnerBlocks
+                                    ? undefined
+                                    : () => <InnerBlocks.ButtonBlockAppender />
+                                }
+                            />
+                        </section>
+                    )
+                }
+            </>
         ];
     } ),
     save: ( props ) => {
@@ -297,17 +321,18 @@ registerBlockType( 'bsx-blocks/section', {
             },
         } = props;
 
-        const containerClassName = makeClassNames( belowNavbar, marginBefore, marginAfter );
+        const containerClassName = addClassNames( { 
+            belowNavbar: belowNavbar, 
+            marginBefore: marginBefore, 
+            marginAfter: marginAfter, 
+        } );
 
         const saveAttributes = makeSaveAttributes( {
             id: id,
         } );
 
         return (
-            <section 
-                className={ containerClassName } 
-                { ...saveAttributes }
-            >
+            <section className={ containerClassName } { ...saveAttributes }>
                 <InnerBlocks.Content />
             </section>
         );
