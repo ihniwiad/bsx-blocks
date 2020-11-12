@@ -281,7 +281,9 @@ registerBlockType( 'bsx-blocks/banner', {
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M39,16H9c-1.1,0-2,0.9-2,2v12c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V18C41,16.9,40.1,16,39,16z M24.72,30.03 h-2.02v-1.89h2.02V30.03z M26.91,23.22c-0.39,0.58-0.9,1.12-1.52,1.61c-0.31,0.28-0.51,0.53-0.58,0.77s-0.11,0.6-0.11,1.07h-1.98 c0.01-0.79,0.09-1.35,0.26-1.67c0.17-0.32,0.56-0.74,1.16-1.25c0.43-0.42,0.77-0.82,1.02-1.18c0.24-0.37,0.37-0.78,0.37-1.25 c0-0.54-0.14-0.95-0.42-1.23s-0.69-0.43-1.22-0.43c-0.46,0-0.85,0.12-1.15,0.36c-0.31,0.24-0.46,0.61-0.46,1.1h-1.98 c0.01-1,0.34-1.77,1-2.31c0.66-0.54,1.52-0.8,2.59-0.8c1.16,0,2.05,0.29,2.68,0.86s0.94,1.38,0.94,2.43 C27.5,22.01,27.3,22.65,26.91,23.22z"/>
                     </svg>
                 ),
-                attributes: {},
+                attributes: {
+                    marginAfter: '5',
+                },
                 template: [
                     [
                         'core/paragraph',
@@ -300,7 +302,9 @@ registerBlockType( 'bsx-blocks/banner', {
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M39,16H9c-1.1,0-2,0.9-2,2v12c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V18C41,16.9,40.1,16,39,16z M13,31h-1v-2h1V31z M13,27h-1 v-2h1V27z M13,23h-1v-2h1V23z M13,19h-1v-2h1V19z M27,26H14v-3h13V26z M36,31h-1v-2h1V31z M36,27h-1v-2h1V27z M36,23h-1v-2h1V23z M36,19h-1v-2h1V19z"/>
                     </svg>
                 ),
-                attributes: {},
+                attributes: {
+                    marginAfter: '5',
+                },
                 template: [ 
                     [ 
                         'bsx-blocks/container', 
@@ -314,6 +318,7 @@ registerBlockType( 'bsx-blocks/banner', {
                                     textSize: 'display-1',
                                     textColor: 'white',
                                     textShadow: 'darker',
+                                    margin-after: '0',
                                 }
                             ]
                         ],
@@ -332,6 +337,7 @@ registerBlockType( 'bsx-blocks/banner', {
                 attributes: {
                     bannerType: 'st',
                     bannerSize: '3',
+                    marginAfter: '5',
                 },
                 template: [ 
                     [ 
@@ -346,6 +352,7 @@ registerBlockType( 'bsx-blocks/banner', {
                                     textSize: 'display-1',
                                     textColor: 'white',
                                     textShadow: 'darker',
+                                    margin-after: '0',
                                 }
                             ]
                         ],
@@ -361,7 +368,9 @@ registerBlockType( 'bsx-blocks/banner', {
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M39,16H9c-1.1,0-2,0.9-2,2v12c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V18C41,16.9,40.1,16,39,16z M35,17h1v2h-1V17z M35,21h1v2 h-1V21z M35,25h1v2h-1V25z M14,21h13v3H14V21z M12,17h1v2h-1V17z M12,21h1v2h-1V21z M12,25h1v2h-1V25z M39,30H9v-2h30V30z"/>
                     </svg>
                 ),
-                attributes: {},
+                attributes: {
+                    marginAfter: '5',
+                },
                 template: [  
                     [ 
                         'bsx-blocks/column-rows', 
@@ -397,6 +406,7 @@ registerBlockType( 'bsx-blocks/banner', {
                                                             textSize: 'display-1',
                                                             textColor: 'white',
                                                             textShadow: 'darker', 
+                                                            margin-after: '0',
                                                         }
                                                     ]
                                                 ],
