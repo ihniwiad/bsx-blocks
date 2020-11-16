@@ -15,6 +15,9 @@ const {
     SVG, 
     Path,
 } = wp.components;
+const { 
+    Fragment 
+} = wp.element;
 
 const { 
     withSelect, 
@@ -139,7 +142,7 @@ registerBlockType( 'bsx-blocks/groups', {
                     </div>
                 </PanelBody>
             </InspectorControls>,
-            <>
+            <Fragment>
                 {
                     ! templateName ? (
                         <div class="bsxui-initial-inline-control">
@@ -178,7 +181,7 @@ registerBlockType( 'bsx-blocks/groups', {
                         />
                     )
                 }
-            </>
+            </Fragment>
         ];
     } ),
     save: ( props ) => {
