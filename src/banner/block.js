@@ -18,6 +18,9 @@ const {
     Path,
     RadioControl,
 } = wp.components;
+const { 
+    Fragment 
+} = wp.element;
 
 const { 
     withSelect, 
@@ -887,58 +890,70 @@ registerBlockType( 'bsx-blocks/banner', {
                 />
             </InspectorAdvancedControls>,
 
-            <>
-                {
-                    ! templateName ? (
-                        <div class="bsxui-initial-inline-control">
-                            <div class="bsxui-initial-inline-control-heading">
-                                { __( 'Please select Banner template', 'bsx-blocks' ) }
+            (
+                <Fragment>
+                    {
+                        ! templateName ? (
+                            <div class="bsxui-initial-inline-control">
+                                <div class="bsxui-initial-inline-control-heading">
+                                    { __( 'Please select Banner template', 'bsx-blocks' ) }
+                                </div>
+                                <div className="bsxui-icon-text-button-list">
+                                    { templates.map( ( template, index ) => (
+                                        <Button
+                                            label={ template.title }
+                                            onClick={ () => {
+                                                onChangeTemplate( template.name );
+                                            } }
+                                            className={ 'bsxui-icon-text-button-list-item ' + ( templateName === template.name ? 'active' : '' ) }
+                                        >
+                                            <div class="bsxui-icon-text-button-list-item-icon">
+                                                { template.icon }
+                                            </div>
+                                            <div class="bsxui-icon-text-button-list-item-label">
+                                                { template.title }
+                                            </div>
+                                        </Button>
+                                    ) ) }
+                                </div>
                             </div>
-                            <div className="bsxui-icon-text-button-list">
-                                { templates.map( ( template, index ) => (
-                                    <Button
-                                        label={ template.title }
-                                        onClick={ () => {
-                                            onChangeTemplate( template.name );
-                                        } }
-                                        className={ 'bsxui-icon-text-button-list-item ' + ( templateName === template.name ? 'active' : '' ) }
-                                    >
-                                        <div class="bsxui-icon-text-button-list-item-icon">
-                                            { template.icon }
+                        )
+                        : 
+                        (
+                            <div className={ bannerClassName } style={ bannerStyle }>
+                                {
+                                    ! imgId && (
+                                        <div className="bsxui-in-widget-overlay-panel bsxui-top">
+                                            <MediaUpload
+                                                onSelect={ onSelectImage }
+                                                allowedTypes="image"
+                                                value={ imgId }
+                                                render={ ( { open } ) => (
+                                                    <Button 
+                                                        onClick={ open }
+                                                        isSecondary
+                                                    >
+                                                        { __( 'Select / upload Image', 'bsx-blocks' ) }
+                                                    </Button>
+                                                ) }
+                                            />
                                         </div>
-                                        <div class="bsxui-icon-text-button-list-item-label">
-                                            { template.title }
+                                    )
+                                }
+                                {
+                                    noBannerInnerTemplateNames.indexOf( templateName ) == -1 ? (
+                                        <div className={ bannerInnerClassName }>
+                                            <InnerBlocks 
+                                                template={ template }
+                                                renderAppender={
+                                                    hasInnerBlocks ? undefined
+                                                    : () => <InnerBlocks.ButtonBlockAppender />
+                                                }
+                                            />
                                         </div>
-                                    </Button>
-                                ) ) }
-                            </div>
-                        </div>
-                    )
-                    : 
-                    (
-                        <div className={ bannerClassName } style={ bannerStyle }>
-                            {
-                                ! imgId && (
-                                    <div className="bsxui-in-widget-overlay-panel bsxui-top">
-                                        <MediaUpload
-                                            onSelect={ onSelectImage }
-                                            allowedTypes="image"
-                                            value={ imgId }
-                                            render={ ( { open } ) => (
-                                                <Button 
-                                                    onClick={ open }
-                                                    isSecondary
-                                                >
-                                                    { __( 'Select / upload Image', 'bsx-blocks' ) }
-                                                </Button>
-                                            ) }
-                                        />
-                                    </div>
-                                )
-                            }
-                            {
-                                noBannerInnerTemplateNames.indexOf( templateName ) == -1 ? (
-                                    <div className={ bannerInnerClassName }>
+                                    )
+                                    :
+                                    (
                                         <InnerBlocks 
                                             template={ template }
                                             renderAppender={
@@ -946,23 +961,13 @@ registerBlockType( 'bsx-blocks/banner', {
                                                 : () => <InnerBlocks.ButtonBlockAppender />
                                             }
                                         />
-                                    </div>
-                                )
-                                :
-                                (
-                                    <InnerBlocks 
-                                        template={ template }
-                                        renderAppender={
-                                            hasInnerBlocks ? undefined
-                                            : () => <InnerBlocks.ButtonBlockAppender />
-                                        }
-                                    />
-                                )
-                            }
-                        </div>
-                    )
-                }
-            </>
+                                    )
+                                }
+                            </div>
+                        )
+                    }
+                </Fragment>
+            )
         ];
     } ),
     save: ( props ) => {
