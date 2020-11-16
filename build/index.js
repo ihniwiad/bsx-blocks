@@ -431,19 +431,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addClassNames", function() { return addClassNames; });
 // add class names
 // let config = { 
-//     belowNavbar, 
-//     marginBefore, 
-//     marginAfter, 
-//     marginLeft,
-//     marginRight,
-//     paddingBefore, 
-//     paddingAfter, 
-//     paddingLeft, 
-//     paddingRight,
-//     bgColor, 
-//     textColor, 
-//     rounded, 
-//     textAlign,
+//     belowNavbar: belowNavbar, 
+//     marginBefore: marginBefore, 
+//     marginAfter: marginAfter, 
+//     marginLeft: marginLeft,
+//     marginRight: marginRight,
+//     paddingBefore: paddingBefore, 
+//     paddingAfter: paddingAfter, 
+//     paddingLeft: paddingLeft, 
+//     paddingRight: paddingRight,
+//     bgColor: bgColor, 
+//     textColor: textColor, 
+//     rounded: rounded, 
+//     textAlign: textAlign,
 // }
 function addClassNames(config, classNamesString) {
   var classNames = typeof classNamesString != 'undefined' ? classNamesString.split(' ') : [];
@@ -907,6 +907,7 @@ var _wp$components = wp.components,
     SVG = _wp$components.SVG,
     Path = _wp$components.Path,
     RadioControl = _wp$components.RadioControl;
+var Fragment = wp.element.Fragment;
 var withSelect = wp.data.withSelect;
 
 
@@ -1813,7 +1814,7 @@ registerBlockType('bsx-blocks/banner', {
         label: __('extra large', 'bsx-blocks')
       }],
       help: __('Inner spacer after', 'bsx-blocks')
-    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["Fragment"], null, !templateName ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(Fragment, null, !templateName ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
       class: "bsxui-initial-inline-control"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
       class: "bsxui-initial-inline-control-heading"
@@ -2468,6 +2469,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
 
+// TODO: enable inheritance of default attribute values to allow procomposed blocks of equal buttons
 var _wp$i18n = wp.i18n,
     __ = _wp$i18n.__,
     setLocaleData = _wp$i18n.setLocaleData;
@@ -2556,11 +2558,6 @@ registerBlockType('bsx-blocks/buttons', {
       });
     };
 
-    var wrapperClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_1__["addClassNames"])({
-      textAlign: textAlign,
-      marginBefore: marginBefore,
-      marginAfter: marginAfter
-    });
     var alignmentControls = [{
       icon: 'editor-alignleft',
       title: __('Align left', 'bsx-blocks'),
@@ -2574,6 +2571,11 @@ registerBlockType('bsx-blocks/buttons', {
       title: __('Align right', 'bsx-blocks'),
       align: 'right'
     }];
+    var wrapperClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_1__["addClassNames"])({
+      textAlign: textAlign,
+      marginBefore: marginBefore,
+      marginAfter: marginAfter
+    });
     return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Fragment, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(BlockControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(AlignmentToolbar, {
       label: __('Alignment', 'bsx-blocks'),
       value: textAlign,
@@ -3586,6 +3588,7 @@ var _wp$components = wp.components,
     Button = _wp$components.Button,
     SVG = _wp$components.SVG,
     Path = _wp$components.Path;
+var Fragment = wp.element.Fragment;
 var withSelect = wp.data.withSelect;
 registerBlockType('bsx-blocks/groups', {
   title: __('BSX Groups', 'bsx-blocks'),
@@ -3689,7 +3692,7 @@ registerBlockType('bsx-blocks/groups', {
       }, template.icon), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
         class: "bsxui-icon-text-button-list-item-label"
       }, template.title));
-    })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, !templateName ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+    })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Fragment, null, !templateName ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
       class: "bsxui-initial-inline-control"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
       class: "bsxui-initial-inline-control-heading"
@@ -6565,6 +6568,7 @@ var _wp$components = wp.components,
     Button = _wp$components.Button,
     SVG = _wp$components.SVG,
     Path = _wp$components.Path;
+var Fragment = wp.element.Fragment;
 var withSelect = wp.data.withSelect;
 
 
@@ -6632,17 +6636,17 @@ registerBlockType('bsx-blocks/section', {
       name: 'empty',
       title: __('Empty', 'bsx-blocks'),
       icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
         width: "48",
         height: "48",
         viewBox: "0 0 48 48",
-        xmlns: "http://www.w3.org/2000/svg",
         role: "img",
         "aria-hidden": "true",
         focusable: "false"
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("path", {
         "fill-rule": "evenodd",
         "clip-rule": "evenodd",
-        d: "M23.58 26.28c0-.600003.1499985-1.099998.45-1.5.3000015-.400002.7433304-.8399976 1.33-1.32.5600028-.4533356.9833319-.8699981 1.27-1.25s.43-.8433306.43-1.39c0-.5466694-.1733316-1.0566643-.52-1.53s-.986662-.71-1.92-.71c-1.1066722 0-1.8533314.2766639-2.24.83-.3866686.5533361-.58 1.1766632-.58 1.87 0 .1466674.0033333.2666662.01.36.0066667.0933338.01.1533332.01.18h-1.78c-.0133334-.0533336-.0266666-.146666-.04-.28-.0133334-.133334-.02-.2733326-.02-.42 0-.7733372.1766649-1.4666636.53-2.08.3533351-.6133364.8899964-1.0999982 1.61-1.46.7200036-.3600018 1.5999948-.54 2.64-.54 1.2133394 0 2.2033295.3233301 2.97.97s1.15 1.5099946 1.15 2.59c0 .7066702-.1033323 1.3033309-.31 1.79-.2066677.4866691-.4533319.8799985-.74 1.18-.2866681.3000015-.6566644.6233316-1.11.97-.4800024.3866686-.8333322.7166653-1.06.99-.2266678.2733347-.34.6233312-.34 1.05v.82h-1.74zm-.14 2.56h2V31h-2zM39 12c1.1046 0 2 .8954 2 2v20c0 1.1046-.8954 2-2 2H9c-1.10457 0-2-.8954-2-2V14c0-1.1046.89543-2 2-2h30zm0 22V14H9v20h30z"
+        d: "M30,18l5,0v-2l-5,0V18z M22,36h5v-2h-5V36z M22,18l5,0v-2l-5,0V18z M40.66,16.3c-0.19-0.19-0.44-0.29-0.71-0.29l-1.95,0v2 l0.95,0V21h2v-3.99C40.95,16.75,40.84,16.49,40.66,16.3z M30,36h5v-2h-5V36z M14,36h5v-2h-5V36z M16.46,12H15v2h1.08l2.42,2.13 l1.42-1.42l-2.8-2.47C16.94,12.09,16.7,12,16.46,12z M38.95,28h2v-4h-2V28z M9,32H7v3c0,0.26,0.11,0.52,0.29,0.71 C7.48,35.89,7.74,36,8,36h3v-2H9V32z M38.95,34H38v2h1.95c0.26,0,0.52-0.11,0.71-0.29c0.19-0.19,0.29-0.44,0.29-0.71v-4h-2V34z M9,18H7v4h2V18z M7.29,12.29C7.11,12.48,7,12.74,7,13v2h2v-1h3v-2H8C7.74,12,7.48,12.11,7.29,12.29z M9,25H7v4h2V25z"
       })),
       attributes: {
         marginAfter: '5'
@@ -6653,17 +6657,17 @@ registerBlockType('bsx-blocks/section', {
       name: 'container-with-heading',
       title: __('Container with Heading', 'bsx-blocks'),
       icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
         width: "48",
         height: "48",
         viewBox: "0 0 48 48",
-        xmlns: "http://www.w3.org/2000/svg",
         role: "img",
         "aria-hidden": "true",
         focusable: "false"
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("path", {
         "fill-rule": "evenodd",
         "clip-rule": "evenodd",
-        d: "M23.58 26.28c0-.600003.1499985-1.099998.45-1.5.3000015-.400002.7433304-.8399976 1.33-1.32.5600028-.4533356.9833319-.8699981 1.27-1.25s.43-.8433306.43-1.39c0-.5466694-.1733316-1.0566643-.52-1.53s-.986662-.71-1.92-.71c-1.1066722 0-1.8533314.2766639-2.24.83-.3866686.5533361-.58 1.1766632-.58 1.87 0 .1466674.0033333.2666662.01.36.0066667.0933338.01.1533332.01.18h-1.78c-.0133334-.0533336-.0266666-.146666-.04-.28-.0133334-.133334-.02-.2733326-.02-.42 0-.7733372.1766649-1.4666636.53-2.08.3533351-.6133364.8899964-1.0999982 1.61-1.46.7200036-.3600018 1.5999948-.54 2.64-.54 1.2133394 0 2.2033295.3233301 2.97.97s1.15 1.5099946 1.15 2.59c0 .7066702-.1033323 1.3033309-.31 1.79-.2066677.4866691-.4533319.8799985-.74 1.18-.2866681.3000015-.6566644.6233316-1.11.97-.4800024.3866686-.8333322.7166653-1.06.99-.2266678.2733347-.34.6233312-.34 1.05v.82h-1.74zm-.14 2.56h2V31h-2zM39 12c1.1046 0 2 .8954 2 2v20c0 1.1046-.8954 2-2 2H9c-1.10457 0-2-.8954-2-2V14c0-1.1046.89543-2 2-2h30zm0 22V14H9v20h30z"
+        d: "M9,25H7v4h2V25z M14,36h5v-2h-5V36z M22,18l5,0v-2l-5,0V18z M22,36h5v-2h-5V36z M9,14h3v-2H8c-0.26,0-0.52,0.11-0.71,0.29 C7.11,12.48,7,12.74,7,13v2h2V14z M18.5,16.13l1.42-1.42l-2.8-2.47C16.94,12.09,16.7,12,16.46,12H15v2h1.08L18.5,16.13z M9,18H7v4h2 V18z M35,16.01l-5,0v2l5,0V16.01z M9,32H7v3c0,0.26,0.11,0.52,0.29,0.71C7.48,35.89,7.74,36,8,36h3v-2H9V32z M40.66,16.3 c-0.19-0.19-0.44-0.29-0.71-0.29l-1.95,0v2l0.95,0V21h2v-3.99C40.95,16.75,40.84,16.49,40.66,16.3z M38.95,34H38v2h1.95 c0.26,0,0.52-0.11,0.71-0.29c0.19-0.19,0.29-0.44,0.29-0.71v-4h-2V34z M38.95,28h2v-4h-2V28z M30,36h5v-2h-5V36z M12,25h1v-2h-1V25z M12,21h1v-2h-1V21z M12,17h1v-2h-1V17z M12,29h1v-2h-1V29z M12,33h1v-2h-1V33z M35,25h1v-2h-1V25z M35,21h1v-2h-1V21z M35,29h1v-2 h-1V29z M35,33h1v-2h-1V33z M14,24h13v-3H14V24z"
       })),
       attributes: {
         marginAfter: '5'
@@ -6676,17 +6680,17 @@ registerBlockType('bsx-blocks/section', {
       name: 'container-heading-text-gallery',
       title: __('Container, Heading, Text & Gallery', 'bsx-blocks'),
       icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
         width: "48",
         height: "48",
         viewBox: "0 0 48 48",
-        xmlns: "http://www.w3.org/2000/svg",
         role: "img",
         "aria-hidden": "true",
         focusable: "false"
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("path", {
         "fill-rule": "evenodd",
         "clip-rule": "evenodd",
-        d: "M23.58 26.28c0-.600003.1499985-1.099998.45-1.5.3000015-.400002.7433304-.8399976 1.33-1.32.5600028-.4533356.9833319-.8699981 1.27-1.25s.43-.8433306.43-1.39c0-.5466694-.1733316-1.0566643-.52-1.53s-.986662-.71-1.92-.71c-1.1066722 0-1.8533314.2766639-2.24.83-.3866686.5533361-.58 1.1766632-.58 1.87 0 .1466674.0033333.2666662.01.36.0066667.0933338.01.1533332.01.18h-1.78c-.0133334-.0533336-.0266666-.146666-.04-.28-.0133334-.133334-.02-.2733326-.02-.42 0-.7733372.1766649-1.4666636.53-2.08.3533351-.6133364.8899964-1.0999982 1.61-1.46.7200036-.3600018 1.5999948-.54 2.64-.54 1.2133394 0 2.2033295.3233301 2.97.97s1.15 1.5099946 1.15 2.59c0 .7066702-.1033323 1.3033309-.31 1.79-.2066677.4866691-.4533319.8799985-.74 1.18-.2866681.3000015-.6566644.6233316-1.11.97-.4800024.3866686-.8333322.7166653-1.06.99-.2266678.2733347-.34.6233312-.34 1.05v.82h-1.74zm-.14 2.56h2V31h-2zM39 12c1.1046 0 2 .8954 2 2v20c0 1.1046-.8954 2-2 2H9c-1.10457 0-2-.8954-2-2V14c0-1.1046.89543-2 2-2h30zm0 22V14H9v20h30z"
+        d: "M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9V14h30V34z M22.49,31.03h2.35v-2.21h-2.35V31.03z M22.51,19.38c0.36-0.28,0.81-0.42,1.35-0.42c0.63,0,1.1,0.17,1.43,0.5s0.49,0.81,0.49,1.44 c0,0.54-0.14,1.03-0.43,1.45s-0.68,0.89-1.18,1.38c-0.71,0.6-1.16,1.09-1.35,1.46s-0.3,1.02-0.3,1.94h2.3 c0-0.56,0.04-0.97,0.13-1.25s0.32-0.58,0.68-0.9c0.72-0.58,1.31-1.21,1.77-1.88c0.46-0.67,0.69-1.42,0.69-2.23 c0-1.22-0.37-2.16-1.09-2.83c-0.73-0.67-1.77-1-3.12-1c-1.25,0-2.26,0.31-3.02,0.94c-0.76,0.62-1.15,1.52-1.17,2.69h2.3 C21.97,20.09,22.15,19.66,22.51,19.38z"
       })),
       attributes: {
         marginAfter: '5'
@@ -6698,6 +6702,48 @@ registerBlockType('bsx-blocks/section', {
       }], ['bsx-blocks/img-gallery', {
         galleryType: 'floating'
       }]]]],
+      templateLock: false
+    }, {
+      name: 'rounded-color-banner',
+      title: __('Rounded colored Banner (primary dark)', 'bsx-blocks'),
+      icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9V14h30V34z M22.49,31.03h2.35v-2.21h-2.35V31.03z M22.51,19.38c0.36-0.28,0.81-0.42,1.35-0.42c0.63,0,1.1,0.17,1.43,0.5s0.49,0.81,0.49,1.44 c0,0.54-0.14,1.03-0.43,1.45s-0.68,0.89-1.18,1.38c-0.71,0.6-1.16,1.09-1.35,1.46s-0.3,1.02-0.3,1.94h2.3 c0-0.56,0.04-0.97,0.13-1.25s0.32-0.58,0.68-0.9c0.72-0.58,1.31-1.21,1.77-1.88c0.46-0.67,0.69-1.42,0.69-2.23 c0-1.22-0.37-2.16-1.09-2.83c-0.73-0.67-1.77-1-3.12-1c-1.25,0-2.26,0.31-3.02,0.94c-0.76,0.62-1.15,1.52-1.17,2.69h2.3 C21.97,20.09,22.15,19.66,22.51,19.38z"
+      })),
+      attributes: {
+        marginAfter: '5'
+      },
+      template: [['bsx-blocks/container', {}, [['bsx-blocks/wrapper', {
+        bgColor: 'primary',
+        textColor: 'dark',
+        textAlign: 'center',
+        rounded: true,
+        paddingBefore: '4',
+        paddingAfter: '4',
+        paddingLeft: '3',
+        paddingRight: '3'
+      }, [['core/heading', {
+        placeholder: 'Add heading, configure heading level...',
+        marginAfter: '3'
+      }], ['core/paragraph', {
+        placeholder: 'Add text...',
+        textSize: 'lead'
+      }], ['bsx-blocks/buttons', {}, [['bsx-blocks/button', {
+        state: 'dark',
+        marginBefore: '1',
+        marginAfter: '1',
+        marginLeft: '1',
+        marginRight: '1'
+      }]]]]]]]],
       templateLock: false
     }];
 
@@ -6755,7 +6801,7 @@ registerBlockType('bsx-blocks/section', {
       marginBefore: marginBefore,
       marginAfter: marginAfter
     });
-    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(PanelBody, {
+    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(Fragment, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(PanelBody, {
       title: __('Section Settings', 'bsx-blocks')
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
       className: "bsxui-icon-text-button-list"
@@ -6772,10 +6818,10 @@ registerBlockType('bsx-blocks/section', {
         class: "bsxui-icon-text-button-list-item-label"
       }, template.title));
     })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(ToggleControl, {
-      label: __('Move below navbar', 'bsx-blocks'),
+      label: __('Below navbar', 'bsx-blocks'),
       checked: !!belowNavbar,
       onChange: onChangeBelowNavbar,
-      help: __('If enabled section has spacer top to avoid overlapping its contents by navbar.', 'bsx-blocks')
+      help: __('Enable if element starts below navbar. If enabled element has spacer top to avoid overlapping its contents by navbar.', 'bsx-blocks')
     }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(TextControl, {
       label: __('ID', 'bsx-blocks'),
       value: id,
@@ -6836,7 +6882,7 @@ registerBlockType('bsx-blocks/section', {
         label: __('extra large', 'bsx-blocks')
       }],
       help: __('Spacer after Container', 'bsx-blocks')
-    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["Fragment"], null, !templateName ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+    })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(Fragment, null, !templateName ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
       class: "bsxui-initial-inline-control"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
       class: "bsxui-initial-inline-control-heading"
@@ -6899,6 +6945,7 @@ registerBlockType('bsx-blocks/section', {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
 
 var _wp$i18n = wp.i18n,
     __ = _wp$i18n.__,
@@ -6907,108 +6954,24 @@ var registerBlockType = wp.blocks.registerBlockType;
 var _wp$blockEditor = wp.blockEditor,
     InnerBlocks = _wp$blockEditor.InnerBlocks,
     InspectorControls = _wp$blockEditor.InspectorControls,
-    InspectorAdvancedControls = _wp$blockEditor.InspectorAdvancedControls;
+    InspectorAdvancedControls = _wp$blockEditor.InspectorAdvancedControls,
+    BlockControls = _wp$blockEditor.BlockControls,
+    AlignmentToolbar = _wp$blockEditor.AlignmentToolbar;
 var _wp$components = wp.components,
     PanelBody = _wp$components.PanelBody,
     SelectControl = _wp$components.SelectControl,
-    ToggleControl = _wp$components.ToggleControl; // TODO: refactor function `makeClassNames( ... )` to `makeWrapperClassNames( config )`
-// TODO: add text align, border, border-color
-
-var makeClassNames = function makeClassNames(bgColor, textColor, rounded, marginBefore, marginAfter, paddingBefore, paddingAfter, paddingLeft, paddingRight) {
-  var classNames = [];
-
-  if (!!bgColor) {
-    classNames.push('bg-' + bgColor);
-  }
-
-  if (!!textColor) {
-    classNames.push('text-' + textColor);
-  }
-
-  if (!!rounded) {
-    classNames.push('rounded');
-  }
-
-  if (!!marginBefore && marginBefore === marginAfter) {
-    classNames.push('my-' + marginBefore);
-  } else {
-    if (!!marginBefore) {
-      classNames.push('mt-' + marginBefore);
-    }
-
-    if (!!marginAfter) {
-      classNames.push('mb-' + marginAfter);
-    }
-  }
-
-  if (!!paddingBefore && paddingBefore === paddingAfter && paddingBefore === paddingLeft && paddingBefore === paddingRight) {
-    // all
-    classNames.push('p-' + paddingBefore);
-  } else {
-    // top & bottom
-    if (!!paddingBefore && paddingBefore === paddingAfter) {
-      classNames.push('py-' + paddingBefore);
-    } else {
-      // top
-      if (!!paddingBefore) {
-        classNames.push('pt-' + paddingBefore);
-      } // bottom
-
-
-      if (!!paddingAfter) {
-        classNames.push('pb-' + paddingAfter);
-      }
-    } // left & right
-
-
-    if (!!paddingLeft && paddingLeft === paddingRight) {
-      classNames.push('px-' + paddingLeft);
-    } else {
-      // left
-      if (!!paddingLeft) {
-        classNames.push('pt-' + paddingLeft);
-      } // right
-
-
-      if (!!paddingRight) {
-        classNames.push('pb-' + paddingRight);
-      }
-    }
-  }
-
-  return classNames.join(' ');
-};
-/*
-
-                <div class="border rounded bg-light my-3 px-1">
-                    <div class="row form-row">
-                        <div class="col-6">
-                            <TextControl 
-                                label={ __( 'Classes (optional)', 'bsx-blocks' ) }
-                                value={ additionalClasses } 
-                                onChange={ onChangeAdditionalClasses }
-                            />
-                        </div>
-                        <div class="col-6">
-                            <TextControl 
-                                label={ __( 'Attributes (optional)', 'bsx-blocks' ) }
-                                value={ additionalAttributes } 
-                                onChange={ onChangeAdditionalAttributes }
-                            />
-                        </div>
-                    </div>
-                </div>
-*/
-// icon: editor-table
-
+    ToggleControl = _wp$components.ToggleControl;
+var Fragment = wp.element.Fragment;
+ // TODO: add text align, border, border-color (add to `add-class-names.js`, too)
 
 registerBlockType('bsx-blocks/wrapper', {
   title: __('BSX Wrapper', 'bsx-blocks'),
   icon: 'marker',
   category: 'layout',
   attributes: {
-    additionalClasses: {
-      type: 'string'
+    nodeName: {
+      type: 'string',
+      default: 'div'
     },
     id: {
       type: 'string'
@@ -7023,10 +6986,15 @@ registerBlockType('bsx-blocks/wrapper', {
       type: 'string'
     },
     rounded: {
-      type: 'string'
+      type: 'boolean',
+      default: false
     },
     textColor: {
       type: 'string'
+    },
+    textAlign: {
+      type: 'string',
+      default: ''
     },
     marginBefore: {
       type: 'string',
@@ -7053,15 +7021,26 @@ registerBlockType('bsx-blocks/wrapper', {
       default: ''
     }
   },
+  getEditWrapperProps: function getEditWrapperProps(attributes) {
+    var textAlign = attributes.textAlign,
+        marginBefore = attributes.marginBefore,
+        marginAfter = attributes.marginAfter;
+    return {
+      'data-text-align': textAlign,
+      'data-margin-before': marginBefore,
+      'data-margin-after': marginAfter
+    };
+  },
   edit: function edit(props) {
     var className = props.className,
         _props$attributes = props.attributes,
-        additionalClasses = _props$attributes.additionalClasses,
+        nodeName = _props$attributes.nodeName,
         id = _props$attributes.id,
         dataFn = _props$attributes.dataFn,
         dataTg = _props$attributes.dataTg,
         bgColor = _props$attributes.bgColor,
         textColor = _props$attributes.textColor,
+        textAlign = _props$attributes.textAlign,
         rounded = _props$attributes.rounded,
         marginBefore = _props$attributes.marginBefore,
         marginAfter = _props$attributes.marginAfter,
@@ -7070,6 +7049,12 @@ registerBlockType('bsx-blocks/wrapper', {
         paddingLeft = _props$attributes.paddingLeft,
         paddingRight = _props$attributes.paddingRight,
         setAttributes = props.setAttributes;
+
+    var onChangeNodeName = function onChangeNodeName(value) {
+      setAttributes({
+        nodeName: value
+      });
+    };
 
     var onChangeBgColor = function onChangeBgColor(value) {
       setAttributes({
@@ -7080,6 +7065,12 @@ registerBlockType('bsx-blocks/wrapper', {
     var onChangeTextColor = function onChangeTextColor(value) {
       setAttributes({
         textColor: value
+      });
+    };
+
+    var onChangeTextAlign = function onChangeTextAlign(value) {
+      setAttributes({
+        textAlign: value
       });
     };
 
@@ -7125,8 +7116,37 @@ registerBlockType('bsx-blocks/wrapper', {
       });
     };
 
-    var wrapperClassName = makeClassNames(bgColor, textColor, rounded, marginBefore, marginAfter, paddingBefore, paddingAfter, paddingLeft, paddingRight);
-    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
+    var alignmentControls = [{
+      icon: 'editor-alignleft',
+      title: __('Align left', 'bsx-blocks'),
+      align: 'left'
+    }, {
+      icon: 'editor-aligncenter',
+      title: __('Align center', 'bsx-blocks'),
+      align: 'center'
+    }, {
+      icon: 'editor-alignright',
+      title: __('Align right', 'bsx-blocks'),
+      align: 'right'
+    }];
+    var wrapperClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_1__["addClassNames"])({
+      bgColor: bgColor,
+      textColor: textColor,
+      rounded: rounded,
+      textAlign: textAlign,
+      marginBefore: marginBefore,
+      marginAfter: marginAfter,
+      paddingBefore: paddingBefore,
+      paddingAfter: paddingAfter,
+      paddingLeft: paddingLeft,
+      paddingRight: paddingRight
+    });
+    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Fragment, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(BlockControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(AlignmentToolbar, {
+      label: __('Alignment', 'bsx-blocks'),
+      value: textAlign,
+      onChange: onChangeTextAlign,
+      alignmentControls: alignmentControls
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
       title: __('Color & appearance', 'bsx-blocks')
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
       label: __('Background color', 'bsx-blocks'),
@@ -7435,19 +7455,33 @@ registerBlockType('bsx-blocks/wrapper', {
         label: __('extra large', 'bsx-blocks')
       }],
       help: __('Inner spacer right', 'bsx-blocks')
-    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorAdvancedControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+      label: __('Node name', 'bsx-blocks'),
+      value: nodeName,
+      onChange: onChangeNodeName,
+      options: [{
+        value: 'div',
+        label: __('div', 'bsx-blocks')
+      }, {
+        value: 'section',
+        label: __('section', 'bsx-blocks')
+      }]
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Fragment, null, nodeName == 'section' ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("section", {
       className: wrapperClassName
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks, null))];
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks, null)) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: wrapperClassName
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks, null)))];
   },
   save: function save(props) {
     var className = props.className,
         _props$attributes2 = props.attributes,
-        additionalClasses = _props$attributes2.additionalClasses,
+        nodeName = _props$attributes2.nodeName,
         id = _props$attributes2.id,
         dataFn = _props$attributes2.dataFn,
         dataTg = _props$attributes2.dataTg,
         bgColor = _props$attributes2.bgColor,
         textColor = _props$attributes2.textColor,
+        textAlign = _props$attributes2.textAlign,
         rounded = _props$attributes2.rounded,
         marginBefore = _props$attributes2.marginBefore,
         marginAfter = _props$attributes2.marginAfter,
@@ -7456,10 +7490,23 @@ registerBlockType('bsx-blocks/wrapper', {
         paddingLeft = _props$attributes2.paddingLeft,
         paddingRight = _props$attributes2.paddingRight,
         setAttributes = props.setAttributes;
-    var wrapperClassName = makeClassNames(bgColor, textColor, rounded, marginBefore, marginAfter, paddingBefore, paddingAfter, paddingLeft, paddingRight);
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    var wrapperClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_1__["addClassNames"])({
+      bgColor: bgColor,
+      textColor: textColor,
+      rounded: rounded,
+      textAlign: textAlign,
+      marginBefore: marginBefore,
+      marginAfter: marginAfter,
+      paddingBefore: paddingBefore,
+      paddingAfter: paddingAfter,
+      paddingLeft: paddingLeft,
+      paddingRight: paddingRight
+    });
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Fragment, null, nodeName == 'section' ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("section", {
       className: wrapperClassName
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks.Content, null));
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks.Content, null)) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: wrapperClassName
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks.Content, null)));
   }
 });
 
