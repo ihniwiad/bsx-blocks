@@ -1,3 +1,5 @@
+// TODO: enable inheritance of default attribute values to allow procomposed blocks of equal buttons
+
 const { __, setLocaleData } = wp.i18n;
 const {
     registerBlockType,
@@ -108,12 +110,6 @@ registerBlockType( 'bsx-blocks/buttons', {
             setAttributes( { marginAfter: value } );
         };
 
-        const wrapperClassNames = addClassNames( { 
-            textAlign: textAlign, 
-            marginBefore: marginBefore, 
-            marginAfter: marginAfter,
-        } );
-
         const alignmentControls = [
             {
                 icon: 'editor-alignleft',
@@ -131,6 +127,12 @@ registerBlockType( 'bsx-blocks/buttons', {
                 align: 'right',
             },
         ];
+
+        const wrapperClassNames = addClassNames( { 
+            textAlign: textAlign, 
+            marginBefore: marginBefore, 
+            marginAfter: marginAfter,
+        } );
 
         return [
             <Fragment>
