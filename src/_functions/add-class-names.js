@@ -1,19 +1,19 @@
 // add class names
 
 // let config = { 
-//     belowNavbar, 
-//     marginBefore, 
-//     marginAfter, 
-//     marginLeft,
-//     marginRight,
-//     paddingBefore, 
-//     paddingAfter, 
-//     paddingLeft, 
-//     paddingRight,
-//     bgColor, 
-//     textColor, 
-//     rounded, 
-//     textAlign,
+//     belowNavbar: belowNavbar, 
+//     marginBefore: marginBefore, 
+//     marginAfter: marginAfter, 
+//     marginLeft: marginLeft,
+//     marginRight: marginRight,
+//     paddingBefore: paddingBefore, 
+//     paddingAfter: paddingAfter, 
+//     paddingLeft: paddingLeft, 
+//     paddingRight: paddingRight,
+//     bgColor: bgColor, 
+//     textColor: textColor, 
+//     rounded: rounded, 
+//     textAlign: textAlign,
 // }
 
 export function addClassNames( config, classNamesString ) {
