@@ -16,100 +16,121 @@
 //     textAlign: textAlign,
 // }
 
-export function addClassNames( config, classNamesString ) {
+export function addClassNames( attributes, classNamesString ) {
+
+    const {
+        belowNavbar, 
+        marginBefore, 
+        marginAfter, 
+        marginLeft,
+        marginRight,
+        paddingBefore, 
+        paddingAfter, 
+        paddingLeft, 
+        paddingRight,
+        bgColor, 
+        textColor, 
+        rounded, 
+        textAlign,
+    } = attributes;
 
     const classNames = ( typeof classNamesString != 'undefined' ) ? classNamesString.split( ' ' ) : [];
 
-    if ( !! config.belowNavbar ) {
+    if ( !! belowNavbar ) {
         classNames.push( 'below-navbar-content' );
     }
 
-    if ( !! config.marginBefore && config.marginBefore === config.marginAfter && config.marginBefore === config.marginLeft && config.marginBefore === config.marginRight ) {
+    if ( !! marginBefore && marginBefore === marginAfter && marginBefore === marginLeft && marginBefore === marginRight ) {
         // all
-        classNames.push( 'm-' + config.marginBefore );
+        classNames.push( 'm-' + marginBefore );
     }
     else {
 
         // top & bottom
-        if ( !! config.marginBefore && config.marginBefore === config.marginAfter ) {
-            classNames.push( 'my-' + config.marginBefore );
+        if ( !! marginBefore && marginBefore === marginAfter ) {
+            classNames.push( 'my-' + marginBefore );
         }
         else {
-            if ( !! config.marginBefore ) {
-                classNames.push( 'mt-' + config.marginBefore );
+            if ( !! marginBefore ) {
+                classNames.push( 'mt-' + marginBefore );
             }
-            if ( !! config.marginAfter ) {
-                classNames.push( 'mb-' + config.marginAfter );
+            if ( !! marginAfter ) {
+                classNames.push( 'mb-' + marginAfter );
             }
         }
 
         // left & right
-        if ( !! config.marginLeft && config.marginLeft === config.marginRight ) {
-            classNames.push( 'mx-' + config.marginLeft );
+        if ( !! marginLeft && marginLeft === marginRight ) {
+            classNames.push( 'mx-' + marginLeft );
         }
         else {
-            if ( !! config.marginLeft ) {
-                classNames.push( 'ml-' + config.marginLeft );
+            if ( !! marginLeft ) {
+                classNames.push( 'ml-' + marginLeft );
             }
-            if ( !! config.marginRight ) {
-                classNames.push( 'mr-' + config.marginRight );
+            if ( !! marginRight ) {
+                classNames.push( 'mr-' + marginRight );
             }
         }
 
     }
 
-    if ( !! config.paddingBefore && config.paddingBefore === config.paddingAfter && config.paddingBefore === config.paddingLeft && config.paddingBefore === config.paddingRight ) {
+    if ( !! paddingBefore && paddingBefore === paddingAfter && paddingBefore === paddingLeft && paddingBefore === paddingRight ) {
         // all
-        classNames.push( 'p-' + config.paddingBefore );
+        classNames.push( 'p-' + paddingBefore );
     }
     else {
 
         // top & bottom
-        if ( !! config.paddingBefore && config.paddingBefore === config.paddingAfter ) {
-            classNames.push( 'py-' + config.paddingBefore );
+        if ( !! paddingBefore && paddingBefore === paddingAfter ) {
+            classNames.push( 'py-' + paddingBefore );
         }
         else {
             // top
-            if ( !! config.paddingBefore ) {
-                classNames.push( 'pt-' + config.paddingBefore );
+            if ( !! paddingBefore ) {
+                classNames.push( 'pt-' + paddingBefore );
             }
             // bottom
-            if ( !! config.paddingAfter ) {
-                classNames.push( 'pb-' + config.paddingAfter );
+            if ( !! paddingAfter ) {
+                classNames.push( 'pb-' + paddingAfter );
             }
         }
 
         // left & right
-        if ( !! config.paddingLeft && config.paddingLeft === config.paddingRight ) {
-            classNames.push( 'px-' + config.paddingLeft );
+        if ( !! paddingLeft && paddingLeft === paddingRight ) {
+            classNames.push( 'px-' + paddingLeft );
         }
         else {
             // left
-            if ( !! config.paddingLeft ) {
-                classNames.push( 'pt-' + config.paddingLeft );
+            if ( !! paddingLeft ) {
+                classNames.push( 'pt-' + paddingLeft );
             }
             // right
-            if ( !! config.paddingRight ) {
-                classNames.push( 'pb-' + config.paddingRight );
+            if ( !! paddingRight ) {
+                classNames.push( 'pb-' + paddingRight );
             }
         }
 
     }
 
-    if ( !! config.bgColor ) {
-        classNames.push( 'bg-' + config.bgColor );
+    if ( !! bgColor ) {
+        classNames.push( 'bg-' + bgColor );
     }
 
-    if ( !! config.textColor ) {
-        classNames.push( 'text-' + config.textColor );
+    if ( !! textColor ) {
+        classNames.push( 'text-' + textColor );
+    }
+    
+    if ( !! rounded ) {
+        if ( rounded == true || rounded == 'rounded' ) {
+            classNames.push( 'rounded' );
+        }
+        else {
+            classNames.push( 'rounded-' + rounded );
+        }
     }
 
-    if ( !! config.rounded ) {
-        classNames.push( 'rounded' );
-    }
-
-    if ( !! config.textAlign ) {
-        classNames.push( 'text-' + config.textAlign );
+    if ( !! textAlign ) {
+        classNames.push( 'text-' + textAlign );
     }
 
     return classNames.join( ' ' );
