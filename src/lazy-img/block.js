@@ -12,6 +12,7 @@ const {
     TextControl,
     PanelBody,
     RadioControl,
+    SelectControl,
     SVG, 
     Path,
 } = wp.components;
@@ -27,6 +28,12 @@ import {
     imgExists,
     getImgSizesData,
 } from './../_functions/img.js';
+
+
+import { svgIcon } from './../_functions/wp-icons.js';
+
+
+import { addClassNames } from './../_functions/add-class-names.js';
 
 
 const responsivePortraitMediaIndexList = [
@@ -109,13 +116,10 @@ const makeSourcesAttributesList = ( config ) => {
 
 }
 
+
 registerBlockType( 'bsx-blocks/lazy-img', {
     title: __( 'BSX Lazy Image', 'bsx-blocks' ),
-    icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" role="img" focusable="false">
-            <path d="M18.71,1.29C18.52,1.11,18.26,1,18,1H2C1.74,1,1.48,1.11,1.29,1.29C1.11,1.48,1,1.74,1,2v16c0,0.26,0.11,0.52,0.29,0.71 C1.48,18.89,1.74,19,2,19h16c0.26,0,0.52-0.11,0.71-0.29C18.89,18.52,19,18.26,19,18V2C19,1.74,18.89,1.48,18.71,1.29z M3,17V3h14 l0,14H3z M9,12l-2-1l-3,2v2.98h12V11l-3-2L9,12z M7.5,9C8.88,9,10,7.88,10,6.5S8.88,4,7.5,4S5,5.12,5,6.5S6.12,9,7.5,9z"/>
-        </svg>
-    ),
+    icon: svgIcon( 'lazy-img' ),
     category: 'layout',
     attributes: {
         hasFigure: {
@@ -171,6 +175,9 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             source: 'children',
             selector: 'figcaption',
         },
+        rounded: {
+            type: 'string',
+        },
     },
     edit: ( props ) => {
         const {
@@ -189,6 +196,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 portraitImgSizeIndex,
                 alt,
                 figcaption,
+                rounded,
             },
             setAttributes,
             isSelected,
@@ -204,6 +212,13 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 const originalHeight = newImgSizesData.originalHeight;
 
                 // TEST
+
+                // console.log( 'originalWidth: ' + originalWidth );
+                // console.log( 'originalHeight: ' + originalHeight );
+                // console.log( 'newImgSizes.length: ' + newImgSizes.length );
+
+                // console.log( 'imgSizeIndex: ' + imgSizeIndex );
+
                 // console.log( '-----> newImgSizes:' );
                 // newImgSizes.forEach( ( imgSize, index ) => {
                 //     console.log( 'imgSize[ ' + index + ' ] ( ' + imgSize.width + 'x' + imgSize.height + ' ): "' + imgSize.url + '"' );
@@ -213,7 +228,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 let newImgSizeIndex = parseInt( imgSizeIndex );
                 if ( imgSizeIndex >= newImgSizes.length ) {
                     newImgSizeIndex = newImgSizes.length - 1;
-                    //console.log( 'reduce initial imgSizeIndex to: ' + newImgSizeIndex );
+                    // console.log( 'reduce initial imgSizeIndex to: ' + newImgSizeIndex );
                 }
 
                 // do not use thumbnail for srcset if has square format, start with img sizes index 1 then
@@ -224,8 +239,8 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                     imgSizes: newImgSizes,
                     imgSizeIndex: newImgSizeIndex.toString(),
                     url: newImgSizes[ newImgSizeIndex ].url,
-                    width: newImgSizes[ newImgSizeIndex ].width,
-                    height: newImgSizes[ newImgSizeIndex ].height,
+                    width: parseInt( newImgSizes[ newImgSizeIndex ].width ),
+                    height: parseInt( newImgSizes[ newImgSizeIndex ].height ),
                     origWidth: originalWidth,
                     origHeight: originalHeight,
                     alt: img.alt,
@@ -280,19 +295,22 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             setAttributes( { figcaption: value } );
         };
         
-        const onChangeMediaWidth = ( value ) => {
-            setAttributes( { width: value } );
+        const onChangeImgWidth = ( value ) => {
+            setAttributes( { width: parseInt( value ) } );
         };
-        const onChangeMediaHeight = ( value ) => {
-            setAttributes( { height: value } );
+        const onChangeImgHeight = ( value ) => {
+            setAttributes( { height: parseInt( value ) } );
+        };
+        const onChangeRounded = ( value ) => {
+            setAttributes( { rounded: value } );
         };
 
         const onChangeImgSizeIndex = ( value ) => {
             setAttributes( { 
                 imgSizeIndex: value.toString(),
                 url: imgSizes[ value ].url,
-                width: imgSizes[ value ].width,
-                height: imgSizes[ value ].height,
+                width: parseInt( imgSizes[ value ].width ),
+                height: parseInt( imgSizes[ value ].height ),
             } );
         };
         const imgSizeRadioControlOptions = [];
@@ -325,6 +343,12 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             responsivePortraitMediaIndexList: responsivePortraitMediaIndexList,
             skipIndex: skipIndex,
         } );
+
+        // class names
+
+        const imgClassName = addClassNames( {
+            rounded: rounded,
+        }, 'img-fluid' );
 
         return [
             <InspectorControls>
@@ -389,12 +413,22 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                     <TextControl 
                         label={ __( 'Displayed image width', 'bsx-blocks' ) }
                         value={ width } 
-                        onChange={ onChangeMediaWidth }
+                        onChange={ onChangeImgWidth }
                     />
                     <TextControl 
                         label={ __( 'Displayed image height', 'bsx-blocks' ) }
                         value={ height } 
-                        onChange={ onChangeMediaHeight }
+                        onChange={ onChangeImgHeight }
+                    />
+                    <SelectControl 
+                        label={ __( 'Rounded', 'bsx-blocks' ) }
+                        value={ rounded }
+                        onChange={ onChangeRounded }
+                        options={ [
+                            { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+                            { value: 'rounded', label: __( 'Rounded corners', 'bsx-blocks' ) },
+                            { value: 'circle', label: __( 'Circle', 'bsx-blocks' ) },
+                        ] }
                     />
                 </PanelBody>
 
@@ -462,7 +496,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                                         <source { ...sourceAttributes } />
                                     ) )
                                 }
-                                <img className={ 'img-fluid upload-img' } src={ url } alt={ alt } />
+                                <img className={ imgClassName } src={ url } alt={ alt } />
                             </picture>
                         )
                         : 
@@ -525,6 +559,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 portraitImgSizeIndex,
                 alt,
                 figcaption,
+                rounded,
             },
         } = props;
 
@@ -540,6 +575,12 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             skipIndex: skipIndex,
         } );
 
+        // class names
+
+        const imgClassName = addClassNames( {
+            rounded: rounded,
+        }, 'img-fluid' );
+
         return (
             <div className={ className }>
 
@@ -553,10 +594,10 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                                             <source { ...sourceAttributes } />
                                         ) )
                                     }
-                                    <img className="img-fluid" src="" alt={ alt } data-src={ url } width={ width } height={ height } data-fn="lazyload" />
+                                    <img className={ imgClassName } src="" alt={ alt } data-src={ url } width={ width } height={ height } data-fn="lazyload" />
                                 </picture>
                             ' );</script>
-                            <noscript><img className="img-fluid" src={ url } alt={ alt } width={ width } height={ height } /></noscript>
+                            <noscript><img className={ imgClassName } src={ url } alt={ alt } width={ width } height={ height } /></noscript>
 
                             {
                                 figcaption && ! RichText.isEmpty( figcaption ) && (
