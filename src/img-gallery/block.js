@@ -363,21 +363,21 @@ registerBlockType( 'bsx-blocks/img-gallery', {
                                     </div>
                                     <div className="d-flex">
                                         <Button 
-                                            className="button" 
+                                            className="button bsxui-icon-button" 
                                             onClick={ () => { onClickMoveUp( index ) } }
                                             label={ __( 'Move backward', 'bsx-blocks' ) }
                                         >
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" role="img" focusable="false"><path d="M14 5l-5 5 5 5-1 2-7-7 7-7z"></path></svg>
                                         </Button>
                                         <Button 
-                                            className="button" 
+                                            className="button bsxui-icon-button" 
                                             onClick={ () => { onClickMoveDown( index ) } }
                                             label={ __( 'Move forward', 'bsx-blocks' ) }
                                         >
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" role="img" focusable="false"><path d="M6 15l5-5-5-5 1-2 7 7-7 7z"></path></svg>
                                         </Button>
                                         <Button 
-                                            className="button bsxui-text-danger bsxui-border-danger bsxui-ml-auto"
+                                            className="button bsxui-icon-button bsxui-text-danger bsxui-border-danger bsxui-ml-auto"
                                             onClick={ () => { onClickDelete( index ) } }
                                             label={ __( 'Remove Image', 'bsx-blocks' ) }
                                         >
