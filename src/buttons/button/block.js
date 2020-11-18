@@ -18,6 +18,8 @@ const {
     RangeControl,
     ToggleControl,
     SelectControl,
+    SVG, 
+    Path,
 } = wp.components;
 
 const { 
@@ -105,7 +107,11 @@ const isEmailFormat = ( href ) => {
 
 registerBlockType( 'bsx-blocks/button', {
     title: __( 'BSX Button', 'bsx-blocks' ),
-    icon: 'admin-links',
+    icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" role="img" focusable="false">
+            <path d="M16,7H4C2.9,7,2,7.9,2,9v2c0,1.11,0.9,2,2,2h12c1.1,0,2-0.89,2-2V9C18,7.9,17.1,7,16,7z M15,11H5V9h10V11z"/>
+        </svg>
+    ),
     category: 'layout',
     parent: [ 'bsx-blocks/buttons' ],
     attributes: {

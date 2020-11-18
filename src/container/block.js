@@ -13,6 +13,8 @@ const {
     PanelBody,
     ToggleControl,
     SelectControl,
+    SVG, 
+    Path,
 } = wp.components;
 
 const { 
@@ -20,7 +22,10 @@ const {
 } = wp.data;
 
 
+import { svgIcon } from './../_functions/wp-icons.js';
+
 import { addClassNames } from './../_functions/add-class-names.js';
+
 
 const makeContainerClassNames = ( isFluid, containerBreakpoint ) => {
 
@@ -46,7 +51,7 @@ const makeContainerClassNames = ( isFluid, containerBreakpoint ) => {
 
 registerBlockType( 'bsx-blocks/container', {
     title: __( 'BSX Container', 'bsx-blocks' ),
-    icon: 'welcome-widgets-menus',
+    icon: svgIcon( 'container' ),
     category: 'layout',
     attributes: {
         isFluid: {
