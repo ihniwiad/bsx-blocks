@@ -193,38 +193,38 @@ export async function getImgSizesData( img ) {
             }
         } ) );
 
-        // TEST – TODO: remove
-        // for ( let [ key, value ] of Object.entries( scaledImgs ) ) {
-        //     console.log( 'scaledImgs[ ' + key + ' ]: ' + value.url );
-        // }
-
-        // make ordered list of all existing default img sizes and scaled (hidden) img sizes
-        imgSizesOrder.forEach( ( imgSize, index ) => {
-
-            if ( defaultImgList.indexOf( imgSize ) != -1 && img.sizes[ imgSize ] != undefined ) {
-                // get from default img list
-                returnImgs.push( {
-                    url: img.sizes[ imgSize ].url,
-                    width: img.sizes[ imgSize ].width,
-                    height: img.sizes[ imgSize ].height, 
-                } );
-            }
-            else if ( imgScaleList.indexOf( parseFloat( imgSize ) ) != -1 && scaledImgs.get( imgSize ) != undefined ) {
-                // get from scaled imgs list
-                returnImgs.push( scaledImgs.get( imgSize ) );
-            }
-            else if ( imgSize == 'original' && originalImgUrl ) {
-                // add unscaled original
-                returnImgs.push( {
-                    url: originalImgUrl,
-                    width: originalWidth,
-                    height: originalHeight, 
-                } );
-            }
-
-        } );
-
     }
+
+    // TEST – TODO: remove
+    // for ( let [ key, value ] of Object.entries( scaledImgs ) ) {
+    //     console.log( 'scaledImgs[ ' + key + ' ]: ' + value.url );
+    // }
+
+    // make ordered list of all existing default img sizes and scaled (hidden) img sizes
+    imgSizesOrder.forEach( ( imgSize, index ) => {
+
+        if ( defaultImgList.indexOf( imgSize ) != -1 && img.sizes[ imgSize ] != undefined ) {
+            // get from default img list
+            returnImgs.push( {
+                url: img.sizes[ imgSize ].url,
+                width: img.sizes[ imgSize ].width,
+                height: img.sizes[ imgSize ].height, 
+            } );
+        }
+        else if ( imgScaleList.indexOf( parseFloat( imgSize ) ) != -1 && scaledImgs.get( imgSize ) != undefined ) {
+            // get from scaled imgs list
+            returnImgs.push( scaledImgs.get( imgSize ) );
+        }
+        else if ( imgSize == 'original' && originalImgUrl ) {
+            // add unscaled original
+            returnImgs.push( {
+                url: originalImgUrl,
+                width: originalWidth,
+                height: originalHeight, 
+            } );
+        }
+
+    } );
 
     // TEST – TODO: remove
     // returnImgs.forEach( ( returnImg, index ) => {
