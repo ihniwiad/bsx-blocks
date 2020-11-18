@@ -24,7 +24,20 @@ const {
 } = wp.data;
 
 
-const makeRowClassNames = ( alignItems, justifyContent, noGutters, formRow, marginBefore, marginAfter, paddingBefore, paddingAfter ) => {
+import { svgIcon } from './../../_functions/wp-icons.js';
+
+import { addClassNames } from './../../_functions/add-class-names.js';
+
+
+const makeRowClassNames = ( attributes ) => {
+
+    const {
+        alignItems, 
+        justifyContent, 
+        noGutters, 
+        formRow,
+        rowReverse,
+    } = attributes;
 
     const prefix = 'col';
 
@@ -42,28 +55,12 @@ const makeRowClassNames = ( alignItems, justifyContent, noGutters, formRow, marg
     if ( formRow ) {
         classNames.push( 'form-row' );
     }
-
-    if ( marginBefore && marginBefore === marginAfter ) {
-        classNames.push( 'my-' + marginBefore );
-    }
-    else {
-        if ( marginBefore ) {
-            classNames.push( 'mt-' + marginBefore );
+    if ( rowReverse ) {
+        if ( rowReverse == 'xs' ) {
+            classNames.push( 'flex-row-reverse' );
         }
-        if ( marginAfter ) {
-            classNames.push( 'mb-' + marginAfter );
-        }
-    }
-
-    if ( paddingBefore && paddingBefore === paddingAfter ) {
-        classNames.push( 'py-' + paddingBefore );
-    }
-    else {
-        if ( paddingBefore ) {
-            classNames.push( 'pt-' + paddingBefore );
-        }
-        if ( paddingAfter ) {
-            classNames.push( 'pb-' + paddingAfter );
+        else {
+            classNames.push( 'flex-' + rowReverse + '-row-reverse' );
         }
     }
 
@@ -100,6 +97,9 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
         },
         formRow: {
             type: 'boolean',
+        },
+        rowReverse: {
+            type: 'string',
         },
         sizeXs: {
             type: 'string',
@@ -149,6 +149,7 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
             justifyContent,
             noGutters,
             formRow,
+            rowReverse,
         } = attributes;
 
         return {
@@ -156,6 +157,7 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
             'data-justify-content': justifyContent,
             'data-no-gutters': noGutters,
             'data-form-row': formRow,
+            'data-flex-row-reverse': rowReverse,
         };
     },
 
@@ -196,6 +198,7 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
                 justifyContent,
                 noGutters,
                 formRow,
+                rowReverse,
                 sizeXs,
                 sizeSm,
                 sizeMd,
@@ -587,6 +590,10 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
             }
         };
 
+        const onChangeRowReverse = ( value ) => {
+            setAttributes( { rowReverse: value } );
+        };
+
         const onChangeMarginBefore = ( value ) => {
             setAttributes( { marginBefore: value } );
         };
@@ -817,7 +824,19 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
             }
         };
 
-        const rowClassNames = makeRowClassNames( alignItems, justifyContent, noGutters, formRow, marginBefore, marginAfter, paddingBefore, paddingAfter );
+        let rowClassNames = makeRowClassNames( {
+            alignItems: alignItems, 
+            justifyContent: justifyContent, 
+            noGutters: noGutters, 
+            formRow: formRow,
+            rowReverse: rowReverse,
+        } );
+        rowClassNames = addClassNames( {
+            marginBefore: marginBefore, 
+            marginAfter: marginAfter, 
+            paddingBefore: paddingBefore, 
+            paddingAfter: paddingAfter,
+        }, rowClassNames );
 
         return [
             <InspectorControls>
@@ -1060,7 +1079,8 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
                     value={ paddingBefore }
                     onChange={ onChangePaddingBefore }
                     options={ [
-                        { value: '', label: __( '– none –', 'bsx-blocks' ) },
+                        { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+                        { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
                         { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
                         { value: '2', label: __( 'small', 'bsx-blocks' ) },
                         { value: '3', label: __( 'medium', 'bsx-blocks' ) },
@@ -1074,7 +1094,8 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
                     value={ paddingAfter }
                     onChange={ onChangePaddingAfter }
                     options={ [
-                        { value: '', label: __( '– none –', 'bsx-blocks' ) },
+                        { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+                        { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
                         { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
                         { value: '2', label: __( 'small', 'bsx-blocks' ) },
                         { value: '3', label: __( 'medium', 'bsx-blocks' ) },
@@ -1082,6 +1103,20 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
                         { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
                     ] }
                     help={ __( 'Inner spacer after', 'bsx-blocks' ) }
+                />
+                <SelectControl 
+                    label={ __( 'Columns order reverse', 'bsx-blocks' ) }
+                    value={ rowReverse }
+                    onChange={ onChangeRowReverse }
+                    options={ [
+                        { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+                        { value: 'xs', label: __( 'XS up', 'bsx-blocks' ) },
+                        { value: 'sm', label: __( 'SM up', 'bsx-blocks' ) },
+                        { value: 'md', label: __( 'MD up', 'bsx-blocks' ) },
+                        { value: 'lg', label: __( 'LG up', 'bsx-blocks' ) },
+                        { value: 'xl', label: __( 'XL', 'bsx-blocks' ) },
+                    ] }
+                    help={ __( 'Reverse Column order from selected size', 'bsx-blocks' ) }
                 />
             </InspectorAdvancedControls>,
 
@@ -1137,6 +1172,7 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
                 justifyContent,
                 noGutters,
                 formRow,
+                rowReverse,
                 sizeXs,
                 sizeSm,
                 sizeMd,
@@ -1150,7 +1186,21 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
             },
         } = props;
 
-        const rowClassNames = makeRowClassNames( alignItems, justifyContent, noGutters, formRow, marginBefore, marginAfter, paddingBefore, paddingAfter );
+        
+
+        let rowClassNames = makeRowClassNames( {
+            alignItems: alignItems, 
+            justifyContent: justifyContent, 
+            noGutters: noGutters, 
+            formRow: formRow,
+            rowReverse: rowReverse,
+        } );
+        rowClassNames = addClassNames( {
+            marginBefore: marginBefore, 
+            marginAfter: marginAfter, 
+            paddingBefore: paddingBefore, 
+            paddingAfter: paddingAfter,
+        }, rowClassNames );
 
         return (
             <div className={ rowClassNames }>
