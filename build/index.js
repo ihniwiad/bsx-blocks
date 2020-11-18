@@ -445,93 +445,110 @@ __webpack_require__.r(__webpack_exports__);
 //     rounded: rounded, 
 //     textAlign: textAlign,
 // }
-function addClassNames(config, classNamesString) {
+function addClassNames(attributes, classNamesString) {
+  var belowNavbar = attributes.belowNavbar,
+      marginBefore = attributes.marginBefore,
+      marginAfter = attributes.marginAfter,
+      marginLeft = attributes.marginLeft,
+      marginRight = attributes.marginRight,
+      paddingBefore = attributes.paddingBefore,
+      paddingAfter = attributes.paddingAfter,
+      paddingLeft = attributes.paddingLeft,
+      paddingRight = attributes.paddingRight,
+      bgColor = attributes.bgColor,
+      textColor = attributes.textColor,
+      rounded = attributes.rounded,
+      textAlign = attributes.textAlign;
   var classNames = typeof classNamesString != 'undefined' ? classNamesString.split(' ') : [];
 
-  if (!!config.belowNavbar) {
+  if (!!belowNavbar) {
     classNames.push('below-navbar-content');
   }
 
-  if (!!config.marginBefore && config.marginBefore === config.marginAfter && config.marginBefore === config.marginLeft && config.marginBefore === config.marginRight) {
+  if (!!marginBefore && marginBefore === marginAfter && marginBefore === marginLeft && marginBefore === marginRight) {
     // all
-    classNames.push('m-' + config.marginBefore);
+    classNames.push('m-' + marginBefore);
   } else {
     // top & bottom
-    if (!!config.marginBefore && config.marginBefore === config.marginAfter) {
-      classNames.push('my-' + config.marginBefore);
+    if (!!marginBefore && marginBefore === marginAfter) {
+      classNames.push('my-' + marginBefore);
     } else {
-      if (!!config.marginBefore) {
-        classNames.push('mt-' + config.marginBefore);
+      if (!!marginBefore) {
+        classNames.push('mt-' + marginBefore);
       }
 
-      if (!!config.marginAfter) {
-        classNames.push('mb-' + config.marginAfter);
+      if (!!marginAfter) {
+        classNames.push('mb-' + marginAfter);
       }
     } // left & right
 
 
-    if (!!config.marginLeft && config.marginLeft === config.marginRight) {
-      classNames.push('mx-' + config.marginLeft);
+    if (!!marginLeft && marginLeft === marginRight) {
+      classNames.push('mx-' + marginLeft);
     } else {
-      if (!!config.marginLeft) {
-        classNames.push('ml-' + config.marginLeft);
+      if (!!marginLeft) {
+        classNames.push('ml-' + marginLeft);
       }
 
-      if (!!config.marginRight) {
-        classNames.push('mr-' + config.marginRight);
+      if (!!marginRight) {
+        classNames.push('mr-' + marginRight);
       }
     }
   }
 
-  if (!!config.paddingBefore && config.paddingBefore === config.paddingAfter && config.paddingBefore === config.paddingLeft && config.paddingBefore === config.paddingRight) {
+  if (!!paddingBefore && paddingBefore === paddingAfter && paddingBefore === paddingLeft && paddingBefore === paddingRight) {
     // all
-    classNames.push('p-' + config.paddingBefore);
+    classNames.push('p-' + paddingBefore);
   } else {
     // top & bottom
-    if (!!config.paddingBefore && config.paddingBefore === config.paddingAfter) {
-      classNames.push('py-' + config.paddingBefore);
+    if (!!paddingBefore && paddingBefore === paddingAfter) {
+      classNames.push('py-' + paddingBefore);
     } else {
       // top
-      if (!!config.paddingBefore) {
-        classNames.push('pt-' + config.paddingBefore);
+      if (!!paddingBefore) {
+        classNames.push('pt-' + paddingBefore);
       } // bottom
 
 
-      if (!!config.paddingAfter) {
-        classNames.push('pb-' + config.paddingAfter);
+      if (!!paddingAfter) {
+        classNames.push('pb-' + paddingAfter);
       }
     } // left & right
 
 
-    if (!!config.paddingLeft && config.paddingLeft === config.paddingRight) {
-      classNames.push('px-' + config.paddingLeft);
+    if (!!paddingLeft && paddingLeft === paddingRight) {
+      classNames.push('px-' + paddingLeft);
     } else {
       // left
-      if (!!config.paddingLeft) {
-        classNames.push('pt-' + config.paddingLeft);
+      if (!!paddingLeft) {
+        classNames.push('pt-' + paddingLeft);
       } // right
 
 
-      if (!!config.paddingRight) {
-        classNames.push('pb-' + config.paddingRight);
+      if (!!paddingRight) {
+        classNames.push('pb-' + paddingRight);
       }
     }
   }
 
-  if (!!config.bgColor) {
-    classNames.push('bg-' + config.bgColor);
+  if (!!bgColor) {
+    classNames.push('bg-' + bgColor);
   }
 
-  if (!!config.textColor) {
-    classNames.push('text-' + config.textColor);
+  if (!!textColor) {
+    classNames.push('text-' + textColor);
   }
 
-  if (!!config.rounded) {
-    classNames.push('rounded');
+  if (!!rounded) {
+    if (rounded == true || rounded == 'rounded') {
+      classNames.push('rounded');
+    } else {
+      classNames.push('rounded-' + rounded);
+    }
   }
 
-  if (!!config.textAlign) {
-    classNames.push('text-' + config.textAlign);
+  if (!!textAlign) {
+    classNames.push('text-' + textAlign);
   }
 
   return classNames.join(' ');
@@ -767,7 +784,7 @@ function _getImgSizesData() {
             returnImgs = []; // make sizes only if large img exists
 
             if (!(img.sizes.large != undefined)) {
-              _context2.next = 32;
+              _context2.next = 31;
               break;
             }
 
@@ -836,9 +853,16 @@ function _getImgSizesData() {
                   height: originalHeight
                 });
               }
-            });
+            }); // TEST – TODO: remove
+            // returnImgs.forEach( ( returnImg, index ) => {
+            //     console.log( 
+            //         index + ':\n' 
+            //         + returnImg.url + '\n'
+            //         + returnImg.width + '\n'
+            //         + returnImg.height + '\n'
+            //     );
+            // } );
 
-          case 32:
             return _context2.abrupt("return", {
               imgs: returnImgs,
               originalWidth: originalWidth,
@@ -853,6 +877,237 @@ function _getImgSizesData() {
     }, _callee2, null, [[9, 15]]);
   }));
   return _getImgSizesData.apply(this, arguments);
+}
+
+/***/ }),
+
+/***/ "./src/_functions/wp-icons.js":
+/*!************************************!*\
+  !*** ./src/_functions/wp-icons.js ***!
+  \************************************/
+/*! exports provided: svgIcon */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "svgIcon", function() { return svgIcon; });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+
+// svg icons
+function svgIcon(iconKey) {
+  var icon = '';
+
+  switch (iconKey) {
+    case 'default':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9V14h30V34z M22.49,31.03h2.35v-2.21h-2.35V31.03z M22.51,19.38c0.36-0.28,0.81-0.42,1.35-0.42c0.63,0,1.1,0.17,1.43,0.5s0.49,0.81,0.49,1.44 c0,0.54-0.14,1.03-0.43,1.45s-0.68,0.89-1.18,1.38c-0.71,0.6-1.16,1.09-1.35,1.46s-0.3,1.02-0.3,1.94h2.3 c0-0.56,0.04-0.97,0.13-1.25s0.32-0.58,0.68-0.9c0.72-0.58,1.31-1.21,1.77-1.88c0.46-0.67,0.69-1.42,0.69-2.23 c0-1.22-0.37-2.16-1.09-2.83c-0.73-0.67-1.77-1-3.12-1c-1.25,0-2.26,0.31-3.02,0.94c-0.76,0.62-1.15,1.52-1.17,2.69h2.3 C21.97,20.09,22.15,19.66,22.51,19.38z"
+      }));
+      break;
+    // container
+
+    case 'container':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "20",
+        height: "20",
+        viewBox: "0 0 20 20",
+        "aria-hidden": "true",
+        role: "img",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        d: "M18.71,3.29C18.52,3.1,18.27,3,18,3H2C1.74,3,1.48,3.11,1.29,3.29C1.11,3.48,1,3.74,1,4v12c0,0.26,0.11,0.52,0.29,0.71 C1.48,16.89,1.74,17,2,17h16c0.27,0,0.52-0.1,0.71-0.29C18.89,16.52,19,16.27,19,16V4C19,3.73,18.89,3.48,18.71,3.29z M17,15H3V5h14 V15z M6,12H5v2h1V12z M6,6H5v2h1V6z M6,9H5v2h1V9z M15,9h-1v2h1V9z M15,6h-1v2h1V6z M15,12h-1v2h1V12z"
+      }));
+      break;
+    // banner
+
+    case 'banner-empty':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9V14h30V34z M22.49,31.03h2.35v-2.21h-2.35V31.03z M22.51,19.38c0.36-0.28,0.81-0.42,1.35-0.42c0.63,0,1.1,0.17,1.43,0.5s0.49,0.81,0.49,1.44 c0,0.54-0.14,1.03-0.43,1.45s-0.68,0.89-1.18,1.38c-0.71,0.6-1.16,1.09-1.35,1.46s-0.3,1.02-0.3,1.94h2.3 c0-0.56,0.04-0.97,0.13-1.25s0.32-0.58,0.68-0.9c0.72-0.58,1.31-1.21,1.77-1.88c0.46-0.67,0.69-1.42,0.69-2.23 c0-1.22-0.37-2.16-1.09-2.83c-0.73-0.67-1.77-1-3.12-1c-1.25,0-2.26,0.31-3.02,0.94c-0.76,0.62-1.15,1.52-1.17,2.69h2.3 C21.97,20.09,22.15,19.66,22.51,19.38z"
+      }));
+      break;
+
+    case 'banner-container-with-heading':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9V14h30V34z M22.49,31.03h2.35v-2.21h-2.35V31.03z M22.51,19.38c0.36-0.28,0.81-0.42,1.35-0.42c0.63,0,1.1,0.17,1.43,0.5s0.49,0.81,0.49,1.44 c0,0.54-0.14,1.03-0.43,1.45s-0.68,0.89-1.18,1.38c-0.71,0.6-1.16,1.09-1.35,1.46s-0.3,1.02-0.3,1.94h2.3 c0-0.56,0.04-0.97,0.13-1.25s0.32-0.58,0.68-0.9c0.72-0.58,1.31-1.21,1.77-1.88c0.46-0.67,0.69-1.42,0.69-2.23 c0-1.22-0.37-2.16-1.09-2.83c-0.73-0.67-1.77-1-3.12-1c-1.25,0-2.26,0.31-3.02,0.94c-0.76,0.62-1.15,1.52-1.17,2.69h2.3 C21.97,20.09,22.15,19.66,22.51,19.38z"
+      }));
+      break;
+
+    case 'banner-static-container-with-heading':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9V14h30V34z M22.49,31.03h2.35v-2.21h-2.35V31.03z M22.51,19.38c0.36-0.28,0.81-0.42,1.35-0.42c0.63,0,1.1,0.17,1.43,0.5s0.49,0.81,0.49,1.44 c0,0.54-0.14,1.03-0.43,1.45s-0.68,0.89-1.18,1.38c-0.71,0.6-1.16,1.09-1.35,1.46s-0.3,1.02-0.3,1.94h2.3 c0-0.56,0.04-0.97,0.13-1.25s0.32-0.58,0.68-0.9c0.72-0.58,1.31-1.21,1.77-1.88c0.46-0.67,0.69-1.42,0.69-2.23 c0-1.22-0.37-2.16-1.09-2.83c-0.73-0.67-1.77-1-3.12-1c-1.25,0-2.26,0.31-3.02,0.94c-0.76,0.62-1.15,1.52-1.17,2.69h2.3 C21.97,20.09,22.15,19.66,22.51,19.38z"
+      }));
+      break;
+
+    case 'column-row-banner':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9V14h30V34z M22.49,31.03h2.35v-2.21h-2.35V31.03z M22.51,19.38c0.36-0.28,0.81-0.42,1.35-0.42c0.63,0,1.1,0.17,1.43,0.5s0.49,0.81,0.49,1.44 c0,0.54-0.14,1.03-0.43,1.45s-0.68,0.89-1.18,1.38c-0.71,0.6-1.16,1.09-1.35,1.46s-0.3,1.02-0.3,1.94h2.3 c0-0.56,0.04-0.97,0.13-1.25s0.32-0.58,0.68-0.9c0.72-0.58,1.31-1.21,1.77-1.88c0.46-0.67,0.69-1.42,0.69-2.23 c0-1.22-0.37-2.16-1.09-2.83c-0.73-0.67-1.77-1-3.12-1c-1.25,0-2.26,0.31-3.02,0.94c-0.76,0.62-1.15,1.52-1.17,2.69h2.3 C21.97,20.09,22.15,19.66,22.51,19.38z"
+      }));
+      break;
+    // columns
+    // lazy img
+
+    case 'lazy-img':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "20",
+        height: "20",
+        viewBox: "0 0 20 20",
+        "aria-hidden": "true",
+        role: "img",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        d: "M18.71,1.29C18.52,1.11,18.26,1,18,1H2C1.74,1,1.48,1.11,1.29,1.29C1.11,1.48,1,1.74,1,2v16c0,0.26,0.11,0.52,0.29,0.71 C1.48,18.89,1.74,19,2,19h16c0.26,0,0.52-0.11,0.71-0.29C18.89,18.52,19,18.26,19,18V2C19,1.74,18.89,1.48,18.71,1.29z M3,17V3h14 l0,14H3z M9,12l-2-1l-3,2v2.98h12V11l-3-2L9,12z M7.5,9C8.88,9,10,7.88,10,6.5S8.88,4,7.5,4S5,5.12,5,6.5S6.12,9,7.5,9z"
+      }));
+      break;
+    // section
+
+    case 'section':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "20",
+        height: "20",
+        viewBox: "0 0 20 20",
+        "aria-hidden": "true",
+        role: "img",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        d: "M14,4h-3v2h3V4z M8.29,5.71C8.48,5.9,8.73,6,9,6h0V3.59L7.71,2.29C7.52,2.1,7.26,2,7,2H6v2h0.58L8.29,5.71z M19,7V5 c0-0.27-0.1-0.52-0.29-0.71C18.52,4.1,18.27,4,18,4h-2v2h1v9L3,15v-2H1v3c0,0.26,0.11,0.52,0.29,0.71C1.48,16.89,1.74,17,2,17h2v-2 h2v2h3v-2h2v2h3v-2h2v2h2c0.27,0,0.52-0.1,0.71-0.29C18.89,16.52,19,16.27,19,16v-2h-2v-2h2V9h-2V7H19z M3,4h1V2H2 C1.74,2,1.48,2.11,1.29,2.29C1.11,2.48,1,2.74,1,3v3h2V4z M3,8H1v3h2V8z"
+      }));
+      break;
+
+    case 'section-empty':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M38.96,30h2l0.01-3h-2L38.96,30z M23,18h3v-2h-3V18z M28,36h3v-2h-3V36z M33,36h3v-2h-3V36z M23,36h3v-2h-3V36z M40.71,16.29C40.52,16.1,40.27,16,40,16h-2v2h1l0,2h2L41,17C41,16.73,40.9,16.48,40.71,16.29z M13,36h3v-2h-3V36z M33,18h3v-2h-3 V18z M18,36h3v-2h-3V36z M28,18h3v-2h-3V18z M9,33H7v2c0,0.26,0.1,0.52,0.29,0.71C7.48,35.89,7.74,36,8,36h3v-2H9V33z M9,23H7v3h2 V23z M9,18H7v3h2V18z M38.95,34H38v2h1.95c0.55,0,1-0.45,1-1l0.01-3h-2L38.95,34z M15.58,14L17,12.59l-0.29-0.29 C16.52,12.11,16.26,12,16,12h-4v2L15.58,14L15.58,14z M9,28H7v3h2V28z M38.98,25h2l0.01-3h-2L38.98,25z M18.41,14L17,15.41 l2.29,2.29C19.48,17.9,19.73,18,20,18h1v-2h-0.59L18.41,14z M9,14h1v-2H8c-0.26,0-0.52,0.1-0.71,0.29C7.11,12.48,7,12.74,7,13v3h2 V14z"
+      }));
+      break;
+
+    case 'section-container-heading':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M13,24h22v-3H13V24z M9,23H7v3h2V23z M9,28H7v3h2V28z M9,33H7v2c0,0.26,0.1,0.52,0.29,0.71C7.48,35.89,7.74,36,8,36h3v-2H9 V33z M9,18H7v3h2V18z M9,14h1v-2H8c-0.26,0-0.52,0.1-0.71,0.29C7.11,12.48,7,12.74,7,13v3h2V14z M31,16h-3v2h3V16z M26,16h-3v2h3V16 z M19.29,17.71C19.48,17.9,19.73,18,20,18h1v-2h-0.59l-2-2L17,15.41L19.29,17.71z M15.58,14L17,12.59l-0.29-0.29 C16.52,12.11,16.26,12,16,12h-4v2L15.58,14L15.58,14z M23,36h3v-2h-3V36z M38.96,30h2l0.01-3h-2L38.96,30z M38.95,34H38v2h1.95 c0.55,0,1-0.45,1-1l0.01-3h-2L38.95,34z M38.98,25h2l0.01-3h-2L38.98,25z M33,18h3v-2h-3V18z M33,36h3v-2h-3V36z M13,36h3v-2h-3V36z M40.71,16.29C40.52,16.1,40.27,16,40,16h-2v2h1l0,2h2L41,17C41,16.73,40.9,16.48,40.71,16.29z M18,36h3v-2h-3V36z M28,36h3v-2h-3 V36z"
+      }));
+      break;
+
+    case 'section-container-heading-text-gallery':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M35,20H13v3h22V20z M9,23H7v3h2V23z M9,28H7v3h2V28z M9,18H7v3h2V18z M26,16h-3v2h3V16z M9,14h1v-2H8 c-0.26,0-0.52,0.1-0.71,0.29C7.11,12.48,7,12.74,7,13v3h2V14z M31,16h-3v2h3V16z M19.29,17.71C19.48,17.9,19.73,18,20,18h1v-2h-0.59 l-2-2L17,15.41L19.29,17.71z M9,33H7v2c0,0.26,0.1,0.52,0.29,0.71C7.48,35.89,7.74,36,8,36h3v-2H9V33z M38.95,34H38v2h1.95 c0.55,0,1-0.45,1-1l0.01-3h-2L38.95,34z M38.96,30h2l0.01-3h-2L38.96,30z M15.58,14L17,12.59l-0.29-0.29C16.52,12.11,16.26,12,16,12 h-4v2L15.58,14L15.58,14z M38.98,25h2l0.01-3h-2L38.98,25z M33,18h3v-2h-3V18z M40.71,16.29C40.52,16.1,40.27,16,40,16h-2v2h1l0,2h2 L41,17C41,16.73,40.9,16.48,40.71,16.29z M18,36h3v-2h-3V36z M13,36h3v-2h-3V36z M33,36h3v-2h-3V36z M23,36h3v-2h-3V36z M28,36h3v-2 h-3V36z M35,31v-3h-6v3H35z M21,31h6v-3h-6V31z M13,31h6v-3h-6V31z M35,24H13v1h22V24z M35,26H13v1h22V26z"
+      }));
+      break;
+
+    case 'section-container-rounded-colored-banner':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M9,23H7v3h2V23z M9,28H7v3h2V28z M9,18H7v3h2V18z M31,16h-3v2h3V16z M9,14h1v-2H8c-0.26,0-0.52,0.1-0.71,0.29 C7.11,12.48,7,12.74,7,13v3h2V14z M26,16h-3v2h3V16z M9,33H7v2c0,0.26,0.1,0.52,0.29,0.71C7.48,35.89,7.74,36,8,36h3v-2H9V33z M19.29,17.71C19.48,17.9,19.73,18,20,18h1v-2h-0.59l-2-2L17,15.41L19.29,17.71z M15.58,14L17,12.59l-0.29-0.29 C16.52,12.11,16.26,12,16,12h-4v2L15.58,14L15.58,14z M38.96,30h2l0.01-3h-2L38.96,30z M38.95,34H38v2h1.95c0.55,0,1-0.45,1-1 l0.01-3h-2L38.95,34z M40.71,16.29C40.52,16.1,40.27,16,40,16h-2v2h1l0,2h2L41,17C41,16.73,40.9,16.48,40.71,16.29z M38.98,25h2 l0.01-3h-2L38.98,25z M33,18h3v-2h-3V18z M18,36h3v-2h-3V36z M13,36h3v-2h-3V36z M23,36h3v-2h-3V36z M28,36h3v-2h-3V36z M33,36h3v-2 h-3V36z M13,22v5c0,0.55,0.45,1,1,1h20c0.55,0,1-0.45,1-1v-5c0-0.55-0.45-1-1-1H14C13.45,21,13,21.45,13,22z M26,27h-4v-1h4V27z M20,22h8v1h-8V22z M15,24h18v1H15V24z"
+      }));
+      break;
+    // default
+
+    default:
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9V14h30V34z M22.49,31.03h2.35v-2.21h-2.35V31.03z M22.51,19.38c0.36-0.28,0.81-0.42,1.35-0.42c0.63,0,1.1,0.17,1.43,0.5s0.49,0.81,0.49,1.44 c0,0.54-0.14,1.03-0.43,1.45s-0.68,0.89-1.18,1.38c-0.71,0.6-1.16,1.09-1.35,1.46s-0.3,1.02-0.3,1.94h2.3 c0-0.56,0.04-0.97,0.13-1.25s0.32-0.58,0.68-0.9c0.72-0.58,1.31-1.21,1.77-1.88c0.46-0.67,0.69-1.42,0.69-2.23 c0-1.22-0.37-2.16-1.09-2.83c-0.73-0.67-1.77-1-3.12-1c-1.25,0-2.26,0.31-3.02,0.94c-0.76,0.62-1.15,1.52-1.17,2.69h2.3 C21.97,20.09,22.15,19.66,22.51,19.38z"
+      }));
+  }
+
+  return icon;
 }
 
 /***/ }),
@@ -1961,7 +2216,9 @@ var _wp$components = wp.components,
     PanelBody = _wp$components.PanelBody,
     RangeControl = _wp$components.RangeControl,
     ToggleControl = _wp$components.ToggleControl,
-    SelectControl = _wp$components.SelectControl;
+    SelectControl = _wp$components.SelectControl,
+    SVG = _wp$components.SVG,
+    Path = _wp$components.Path;
 var withSelect = wp.data.withSelect; // functions imports
 
 
@@ -2036,7 +2293,17 @@ var isEmailFormat = function isEmailFormat(href) {
 
 registerBlockType('bsx-blocks/button', {
   title: __('BSX Button', 'bsx-blocks'),
-  icon: 'admin-links',
+  icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "20",
+    height: "20",
+    viewBox: "0 0 20 20",
+    "aria-hidden": "true",
+    role: "img",
+    focusable: "false"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("path", {
+    d: "M16,7H4C2.9,7,2,7.9,2,9v2c0,1.11,0.9,2,2,2h12c1.1,0,2-0.89,2-2V9C18,7.9,17.1,7,16,7z M15,11H5V9h10V11z"
+  })),
   category: 'layout',
   parent: ['bsx-blocks/buttons'],
   attributes: {
@@ -2482,13 +2749,25 @@ var _wp$blockEditor = wp.blockEditor,
 var _wp$components = wp.components,
     TextControl = _wp$components.TextControl,
     PanelBody = _wp$components.PanelBody,
-    SelectControl = _wp$components.SelectControl;
+    SelectControl = _wp$components.SelectControl,
+    SVG = _wp$components.SVG,
+    Path = _wp$components.Path;
 var Fragment = wp.element.Fragment;
 var withSelect = wp.data.withSelect;
 
 registerBlockType('bsx-blocks/buttons', {
   title: __('BSX Buttons', 'bsx-blocks'),
-  icon: 'admin-links',
+  icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "20",
+    height: "20",
+    viewBox: "0 0 20 20",
+    "aria-hidden": "true",
+    role: "img",
+    focusable: "false"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+    d: "M16,7H4C2.9,7,2,7.9,2,9v2c0,1.11,0.9,2,2,2h12c1.1,0,2-0.89,2-2V9C18,7.9,17.1,7,16,7z M15,11H5V9h10V11z"
+  })),
   category: 'layout',
   attributes: {
     textAlign: {
@@ -3219,7 +3498,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
+/* harmony import */ var _functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../_functions/wp-icons.js */ "./src/_functions/wp-icons.js");
+/* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
 
 // TODO: add default marginAfter: '5'?
 var _wp$i18n = wp.i18n,
@@ -3233,8 +3513,11 @@ var _wp$blockEditor = wp.blockEditor,
 var _wp$components = wp.components,
     PanelBody = _wp$components.PanelBody,
     ToggleControl = _wp$components.ToggleControl,
-    SelectControl = _wp$components.SelectControl;
+    SelectControl = _wp$components.SelectControl,
+    SVG = _wp$components.SVG,
+    Path = _wp$components.Path;
 var withSelect = wp.data.withSelect;
+
 
 
 var makeContainerClassNames = function makeContainerClassNames(isFluid, containerBreakpoint) {
@@ -3256,7 +3539,7 @@ var makeContainerClassNames = function makeContainerClassNames(isFluid, containe
 
 registerBlockType('bsx-blocks/container', {
   title: __('BSX Container', 'bsx-blocks'),
-  icon: 'welcome-widgets-menus',
+  icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_1__["svgIcon"])('container'),
   category: 'layout',
   attributes: {
     isFluid: {
@@ -3373,7 +3656,7 @@ registerBlockType('bsx-blocks/container', {
       paddingBefore: paddingBefore,
       paddingAfter: paddingAfter
     };
-    containerClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_1__["addClassNames"])(config, containerClassName);
+    containerClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__["addClassNames"])(config, containerClassName);
     return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
       title: __('Container Settings', 'bsx-blocks')
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
@@ -3544,7 +3827,7 @@ registerBlockType('bsx-blocks/container', {
       paddingBefore: paddingBefore,
       paddingAfter: paddingAfter
     };
-    containerClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_1__["addClassNames"])(config, containerClassName);
+    containerClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__["addClassNames"])(config, containerClassName);
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: containerClassName
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks.Content, null));
@@ -4110,7 +4393,7 @@ registerBlockType('bsx-blocks/img-gallery', {
       })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
         className: "d-flex"
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
-        className: "button",
+        className: "button bsxui-icon-button",
         onClick: function onClick() {
           onClickMoveUp(index);
         },
@@ -4126,7 +4409,7 @@ registerBlockType('bsx-blocks/img-gallery', {
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("path", {
         d: "M14 5l-5 5 5 5-1 2-7-7 7-7z"
       }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
-        className: "button",
+        className: "button bsxui-icon-button",
         onClick: function onClick() {
           onClickMoveDown(index);
         },
@@ -4142,7 +4425,7 @@ registerBlockType('bsx-blocks/img-gallery', {
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("path", {
         d: "M6 15l5-5-5-5 1-2 7 7-7 7z"
       }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
-        className: "button bsxui-text-danger bsxui-border-danger bsxui-ml-auto",
+        className: "button bsxui-icon-button bsxui-text-danger bsxui-border-danger bsxui-ml-auto",
         onClick: function onClick() {
           onClickDelete(index);
         },
@@ -4294,6 +4577,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _functions_img_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../_functions/img.js */ "./src/_functions/img.js");
+/* harmony import */ var _functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../_functions/wp-icons.js */ "./src/_functions/wp-icons.js");
+/* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
 
 
 
@@ -4310,8 +4595,11 @@ var _wp$components = wp.components,
     TextControl = _wp$components.TextControl,
     PanelBody = _wp$components.PanelBody,
     RadioControl = _wp$components.RadioControl,
+    SelectControl = _wp$components.SelectControl,
     SVG = _wp$components.SVG,
     Path = _wp$components.Path;
+
+
 
 var responsivePortraitMediaIndexList = [{
   media: '(orientation: portrait) and (max-width: 499.98px)',
@@ -4370,17 +4658,7 @@ var makeSourcesAttributesList = function makeSourcesAttributesList(config) {
 
 registerBlockType('bsx-blocks/lazy-img', {
   title: __('BSX Lazy Image', 'bsx-blocks'),
-  icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("svg", {
-    xmlns: "http://www.w3.org/2000/svg",
-    width: "20",
-    height: "20",
-    viewBox: "0 0 20 20",
-    "aria-hidden": "true",
-    role: "img",
-    focusable: "false"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("path", {
-    d: "M18.71,1.29C18.52,1.11,18.26,1,18,1H2C1.74,1,1.48,1.11,1.29,1.29C1.11,1.48,1,1.74,1,2v16c0,0.26,0.11,0.52,0.29,0.71 C1.48,18.89,1.74,19,2,19h16c0.26,0,0.52-0.11,0.71-0.29C18.89,18.52,19,18.26,19,18V2C19,1.74,18.89,1.48,18.71,1.29z M3,17V3h14 l0,14H3z M9,12l-2-1l-3,2v2.98h12V11l-3-2L9,12z M7.5,9C8.88,9,10,7.88,10,6.5S8.88,4,7.5,4S5,5.12,5,6.5S6.12,9,7.5,9z"
-  })),
+  icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_4__["svgIcon"])('lazy-img'),
   category: 'layout',
   attributes: {
     hasFigure: {
@@ -4435,6 +4713,9 @@ registerBlockType('bsx-blocks/lazy-img', {
       type: 'array',
       source: 'children',
       selector: 'figcaption'
+    },
+    rounded: {
+      type: 'string'
     }
   },
   edit: function edit(props) {
@@ -4453,6 +4734,7 @@ registerBlockType('bsx-blocks/lazy-img', {
         portraitImgSizeIndex = _props$attributes.portraitImgSizeIndex,
         alt = _props$attributes.alt,
         figcaption = _props$attributes.figcaption,
+        rounded = _props$attributes.rounded,
         setAttributes = props.setAttributes,
         isSelected = props.isSelected,
         setState = props.setState;
@@ -4481,6 +4763,10 @@ registerBlockType('bsx-blocks/lazy-img', {
                 newImgSizes = newImgSizesData.imgs;
                 originalWidth = newImgSizesData.originalWidth;
                 originalHeight = newImgSizesData.originalHeight; // TEST
+                // console.log( 'originalWidth: ' + originalWidth );
+                // console.log( 'originalHeight: ' + originalHeight );
+                // console.log( 'newImgSizes.length: ' + newImgSizes.length );
+                // console.log( 'imgSizeIndex: ' + imgSizeIndex );
                 // console.log( '-----> newImgSizes:' );
                 // newImgSizes.forEach( ( imgSize, index ) => {
                 //     console.log( 'imgSize[ ' + index + ' ] ( ' + imgSize.width + 'x' + imgSize.height + ' ): "' + imgSize.url + '"' );
@@ -4490,7 +4776,7 @@ registerBlockType('bsx-blocks/lazy-img', {
                 newImgSizeIndex = parseInt(imgSizeIndex);
 
                 if (imgSizeIndex >= newImgSizes.length) {
-                  newImgSizeIndex = newImgSizes.length - 1; //console.log( 'reduce initial imgSizeIndex to: ' + newImgSizeIndex );
+                  newImgSizeIndex = newImgSizes.length - 1; // console.log( 'reduce initial imgSizeIndex to: ' + newImgSizeIndex );
                 } // do not use thumbnail for srcset if has square format, start with img sizes index 1 then
 
 
@@ -4500,8 +4786,8 @@ registerBlockType('bsx-blocks/lazy-img', {
                   imgSizes: newImgSizes,
                   imgSizeIndex: newImgSizeIndex.toString(),
                   url: newImgSizes[newImgSizeIndex].url,
-                  width: newImgSizes[newImgSizeIndex].width,
-                  height: newImgSizes[newImgSizeIndex].height,
+                  width: parseInt(newImgSizes[newImgSizeIndex].width),
+                  height: parseInt(newImgSizes[newImgSizeIndex].height),
                   origWidth: originalWidth,
                   origHeight: originalHeight,
                   alt: img.alt
@@ -4591,15 +4877,21 @@ registerBlockType('bsx-blocks/lazy-img', {
       });
     };
 
-    var onChangeMediaWidth = function onChangeMediaWidth(value) {
+    var onChangeImgWidth = function onChangeImgWidth(value) {
       setAttributes({
-        width: value
+        width: parseInt(value)
       });
     };
 
-    var onChangeMediaHeight = function onChangeMediaHeight(value) {
+    var onChangeImgHeight = function onChangeImgHeight(value) {
       setAttributes({
-        height: value
+        height: parseInt(value)
+      });
+    };
+
+    var onChangeRounded = function onChangeRounded(value) {
+      setAttributes({
+        rounded: value
       });
     };
 
@@ -4607,8 +4899,8 @@ registerBlockType('bsx-blocks/lazy-img', {
       setAttributes({
         imgSizeIndex: value.toString(),
         url: imgSizes[value].url,
-        width: imgSizes[value].width,
-        height: imgSizes[value].height
+        width: parseInt(imgSizes[value].width),
+        height: parseInt(imgSizes[value].height)
       });
     };
 
@@ -4642,7 +4934,11 @@ registerBlockType('bsx-blocks/lazy-img', {
       portraitImgSizeIndex: portraitImgSizeIndex,
       responsivePortraitMediaIndexList: responsivePortraitMediaIndexList,
       skipIndex: skipIndex
-    });
+    }); // class names
+
+    var imgClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_5__["addClassNames"])({
+      rounded: rounded
+    }, 'img-fluid');
     return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(PanelBody, {
       title: __('Image', 'bsx-blocks')
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(TextControl, {
@@ -4695,11 +4991,25 @@ registerBlockType('bsx-blocks/lazy-img', {
     }, __('Preview selected image', 'bsx-blocks'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(TextControl, {
       label: __('Displayed image width', 'bsx-blocks'),
       value: width,
-      onChange: onChangeMediaWidth
+      onChange: onChangeImgWidth
     }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(TextControl, {
       label: __('Displayed image height', 'bsx-blocks'),
       value: height,
-      onChange: onChangeMediaHeight
+      onChange: onChangeImgHeight
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(SelectControl, {
+      label: __('Rounded', 'bsx-blocks'),
+      value: rounded,
+      onChange: onChangeRounded,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: 'rounded',
+        label: __('Rounded corners', 'bsx-blocks')
+      }, {
+        value: 'circle',
+        label: __('Circle', 'bsx-blocks')
+      }]
     })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(PanelBody, {
       title: __('Portrait image (optional)', 'bsx-blocks')
     }, portraitImgId ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(MediaUpload, {
@@ -4750,7 +5060,7 @@ registerBlockType('bsx-blocks/lazy-img', {
     }, imgId ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("picture", null, sourcesAttributesList.map(function (sourceAttributes, index) {
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("source", sourceAttributes);
     }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("img", {
-      className: 'img-fluid upload-img',
+      className: imgClassName,
       src: url,
       alt: alt
     })) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
@@ -4800,7 +5110,8 @@ registerBlockType('bsx-blocks/lazy-img', {
         portraitImgSizes = _props$attributes2.portraitImgSizes,
         portraitImgSizeIndex = _props$attributes2.portraitImgSizeIndex,
         alt = _props$attributes2.alt,
-        figcaption = _props$attributes2.figcaption; // prepare img sources attributes
+        figcaption = _props$attributes2.figcaption,
+        rounded = _props$attributes2.rounded; // prepare img sources attributes
 
     var sourcesAttributesList = makeSourcesAttributesList({
       imgSizes: imgSizes,
@@ -4810,13 +5121,17 @@ registerBlockType('bsx-blocks/lazy-img', {
       portraitImgSizeIndex: portraitImgSizeIndex,
       responsivePortraitMediaIndexList: responsivePortraitMediaIndexList,
       skipIndex: skipIndex
-    });
+    }); // class names
+
+    var imgClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_5__["addClassNames"])({
+      rounded: rounded
+    }, 'img-fluid');
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
       className: className
     }, url && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("figure", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("script", null, "document.write( '", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("picture", null, sourcesAttributesList.map(function (sourceAttributes, index) {
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("source", sourceAttributes);
     }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("img", {
-      className: "img-fluid",
+      className: imgClassName,
       src: "",
       alt: alt,
       "data-src": url,
@@ -4824,7 +5139,7 @@ registerBlockType('bsx-blocks/lazy-img', {
       height: height,
       "data-fn": "lazyload"
     })), "' );"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("noscript", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("img", {
-      className: "img-fluid",
+      className: imgClassName,
       src: url,
       alt: alt,
       width: width,
@@ -5387,6 +5702,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../_functions/wp-icons.js */ "./src/_functions/wp-icons.js");
+/* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
 
 
 
@@ -5415,7 +5732,14 @@ var _wp$data = wp.data,
     withSelect = _wp$data.withSelect,
     withDispatch = _wp$data.withDispatch;
 
-var makeRowClassNames = function makeRowClassNames(alignItems, justifyContent, noGutters, formRow, marginBefore, marginAfter, paddingBefore, paddingAfter) {
+
+
+var makeRowClassNames = function makeRowClassNames(attributes) {
+  var alignItems = attributes.alignItems,
+      justifyContent = attributes.justifyContent,
+      noGutters = attributes.noGutters,
+      formRow = attributes.formRow,
+      rowReverse = attributes.rowReverse;
   var prefix = 'col';
   var classNames = ['row'];
 
@@ -5435,27 +5759,11 @@ var makeRowClassNames = function makeRowClassNames(alignItems, justifyContent, n
     classNames.push('form-row');
   }
 
-  if (marginBefore && marginBefore === marginAfter) {
-    classNames.push('my-' + marginBefore);
-  } else {
-    if (marginBefore) {
-      classNames.push('mt-' + marginBefore);
-    }
-
-    if (marginAfter) {
-      classNames.push('mb-' + marginAfter);
-    }
-  }
-
-  if (paddingBefore && paddingBefore === paddingAfter) {
-    classNames.push('py-' + paddingBefore);
-  } else {
-    if (paddingBefore) {
-      classNames.push('pt-' + paddingBefore);
-    }
-
-    if (paddingAfter) {
-      classNames.push('pb-' + paddingAfter);
+  if (rowReverse) {
+    if (rowReverse == 'xs') {
+      classNames.push('flex-row-reverse');
+    } else {
+      classNames.push('flex-' + rowReverse + '-row-reverse');
     }
   } //console.log( 'classNames.join( \' \' ): "' + classNames.join( ' ' ) + '"' );
 
@@ -5496,6 +5804,9 @@ registerBlockType('bsx-blocks/row-with-cols', {
     },
     formRow: {
       type: 'boolean'
+    },
+    rowReverse: {
+      type: 'string'
     },
     sizeXs: {
       type: 'string',
@@ -5542,12 +5853,14 @@ registerBlockType('bsx-blocks/row-with-cols', {
     var alignItems = attributes.alignItems,
         justifyContent = attributes.justifyContent,
         noGutters = attributes.noGutters,
-        formRow = attributes.formRow;
+        formRow = attributes.formRow,
+        rowReverse = attributes.rowReverse;
     return {
       'data-align-items': alignItems,
       'data-justify-content': justifyContent,
       'data-no-gutters': noGutters,
-      'data-form-row': formRow
+      'data-form-row': formRow,
+      'data-flex-row-reverse': rowReverse
     };
   },
   edit: withSelect(function (select, _ref) {
@@ -5582,6 +5895,7 @@ registerBlockType('bsx-blocks/row-with-cols', {
         justifyContent = _props$attributes.justifyContent,
         noGutters = _props$attributes.noGutters,
         formRow = _props$attributes.formRow,
+        rowReverse = _props$attributes.rowReverse,
         sizeXs = _props$attributes.sizeXs,
         sizeSm = _props$attributes.sizeSm,
         sizeMd = _props$attributes.sizeMd,
@@ -5896,6 +6210,12 @@ registerBlockType('bsx-blocks/row-with-cols', {
       }
     };
 
+    var onChangeRowReverse = function onChangeRowReverse(value) {
+      setAttributes({
+        rowReverse: value
+      });
+    };
+
     var onChangeMarginBefore = function onChangeMarginBefore(value) {
       setAttributes({
         marginBefore: value
@@ -6181,7 +6501,19 @@ registerBlockType('bsx-blocks/row-with-cols', {
       }
     };
 
-    var rowClassNames = makeRowClassNames(alignItems, justifyContent, noGutters, formRow, marginBefore, marginAfter, paddingBefore, paddingAfter);
+    var rowClassNames = makeRowClassNames({
+      alignItems: alignItems,
+      justifyContent: justifyContent,
+      noGutters: noGutters,
+      formRow: formRow,
+      rowReverse: rowReverse
+    });
+    rowClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_3__["addClassNames"])({
+      marginBefore: marginBefore,
+      marginAfter: marginAfter,
+      paddingBefore: paddingBefore,
+      paddingAfter: paddingAfter
+    }, rowClassNames);
     return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
       title: __('Columns Layout', 'bsx-blocks')
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
@@ -6431,7 +6763,10 @@ registerBlockType('bsx-blocks/row-with-cols', {
       onChange: onChangePaddingBefore,
       options: [{
         value: '',
-        label: __('– none –', 'bsx-blocks')
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: '0',
+        label: __('none (0)', 'bsx-blocks')
       }, {
         value: '1',
         label: __('extra small', 'bsx-blocks')
@@ -6455,7 +6790,10 @@ registerBlockType('bsx-blocks/row-with-cols', {
       onChange: onChangePaddingAfter,
       options: [{
         value: '',
-        label: __('– none –', 'bsx-blocks')
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: '0',
+        label: __('none (0)', 'bsx-blocks')
       }, {
         value: '1',
         label: __('extra small', 'bsx-blocks')
@@ -6473,6 +6811,30 @@ registerBlockType('bsx-blocks/row-with-cols', {
         label: __('extra large', 'bsx-blocks')
       }],
       help: __('Inner spacer after', 'bsx-blocks')
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(SelectControl, {
+      label: __('Columns order reverse', 'bsx-blocks'),
+      value: rowReverse,
+      onChange: onChangeRowReverse,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: 'xs',
+        label: __('XS up', 'bsx-blocks')
+      }, {
+        value: 'sm',
+        label: __('SM up', 'bsx-blocks')
+      }, {
+        value: 'md',
+        label: __('MD up', 'bsx-blocks')
+      }, {
+        value: 'lg',
+        label: __('LG up', 'bsx-blocks')
+      }, {
+        value: 'xl',
+        label: __('XL', 'bsx-blocks')
+      }],
+      help: __('Reverse Column order from selected size', 'bsx-blocks')
     })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, !templateName ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
       class: "bsxui-initial-inline-control"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
@@ -6509,6 +6871,7 @@ registerBlockType('bsx-blocks/row-with-cols', {
         justifyContent = _props$attributes2.justifyContent,
         noGutters = _props$attributes2.noGutters,
         formRow = _props$attributes2.formRow,
+        rowReverse = _props$attributes2.rowReverse,
         sizeXs = _props$attributes2.sizeXs,
         sizeSm = _props$attributes2.sizeSm,
         sizeMd = _props$attributes2.sizeMd,
@@ -6519,7 +6882,19 @@ registerBlockType('bsx-blocks/row-with-cols', {
         marginAfter = _props$attributes2.marginAfter,
         paddingBefore = _props$attributes2.paddingBefore,
         paddingAfter = _props$attributes2.paddingAfter;
-    var rowClassNames = makeRowClassNames(alignItems, justifyContent, noGutters, formRow, marginBefore, marginAfter, paddingBefore, paddingAfter);
+    var rowClassNames = makeRowClassNames({
+      alignItems: alignItems,
+      justifyContent: justifyContent,
+      noGutters: noGutters,
+      formRow: formRow,
+      rowReverse: rowReverse
+    });
+    rowClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_3__["addClassNames"])({
+      marginBefore: marginBefore,
+      marginAfter: marginAfter,
+      paddingBefore: paddingBefore,
+      paddingAfter: paddingAfter
+    }, rowClassNames);
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
       className: rowClassNames
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerBlocks.Content, null));
@@ -6543,8 +6918,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
-/* harmony import */ var _functions_attributes_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../_functions/attributes.js */ "./src/_functions/attributes.js");
+/* harmony import */ var _functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../_functions/wp-icons.js */ "./src/_functions/wp-icons.js");
+/* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
+/* harmony import */ var _functions_attributes_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../_functions/attributes.js */ "./src/_functions/attributes.js");
 
 
 
@@ -6572,19 +6948,10 @@ var Fragment = wp.element.Fragment;
 var withSelect = wp.data.withSelect;
 
 
+
 registerBlockType('bsx-blocks/section', {
   title: __('BSX Section', 'bsx-blocks'),
-  icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("svg", {
-    xmlns: "http://www.w3.org/2000/svg",
-    width: "20",
-    height: "20",
-    viewBox: "0 0 20 20",
-    "aria-hidden": "true",
-    role: "img",
-    focusable: "false"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("path", {
-    d: "M14,4h-3v2h3V4z M8.29,5.71C8.48,5.9,8.73,6,9,6h0V3.59L7.71,2.29C7.52,2.1,7.26,2,7,2H6v2h0.58L8.29,5.71z M19,7V5 c0-0.27-0.1-0.52-0.29-0.71C18.52,4.1,18.27,4,18,4h-2v2h1v9L3,15v-2H1v3c0,0.26,0.11,0.52,0.29,0.71C1.48,16.89,1.74,17,2,17h2v-2 h2v2h3v-2h2v2h3v-2h2v2h2c0.27,0,0.52-0.1,0.71-0.29C18.89,16.52,19,16.27,19,16v-2h-2v-2h2V9h-2V7H19z M3,4h1V2H2 C1.74,2,1.48,2.11,1.29,2.29C1.11,2.48,1,2.74,1,3v3h2V4z M3,8H1v3h2V8z"
-  })),
+  icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_3__["svgIcon"])('section'),
   category: 'layout',
   attributes: {
     templateName: {
@@ -6635,19 +7002,7 @@ registerBlockType('bsx-blocks/section', {
     var templates = [{
       name: 'empty',
       title: __('Empty', 'bsx-blocks'),
-      icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("svg", {
-        xmlns: "http://www.w3.org/2000/svg",
-        width: "48",
-        height: "48",
-        viewBox: "0 0 48 48",
-        role: "img",
-        "aria-hidden": "true",
-        focusable: "false"
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("path", {
-        "fill-rule": "evenodd",
-        "clip-rule": "evenodd",
-        d: "M30,18l5,0v-2l-5,0V18z M22,36h5v-2h-5V36z M22,18l5,0v-2l-5,0V18z M40.66,16.3c-0.19-0.19-0.44-0.29-0.71-0.29l-1.95,0v2 l0.95,0V21h2v-3.99C40.95,16.75,40.84,16.49,40.66,16.3z M30,36h5v-2h-5V36z M14,36h5v-2h-5V36z M16.46,12H15v2h1.08l2.42,2.13 l1.42-1.42l-2.8-2.47C16.94,12.09,16.7,12,16.46,12z M38.95,28h2v-4h-2V28z M9,32H7v3c0,0.26,0.11,0.52,0.29,0.71 C7.48,35.89,7.74,36,8,36h3v-2H9V32z M38.95,34H38v2h1.95c0.26,0,0.52-0.11,0.71-0.29c0.19-0.19,0.29-0.44,0.29-0.71v-4h-2V34z M9,18H7v4h2V18z M7.29,12.29C7.11,12.48,7,12.74,7,13v2h2v-1h3v-2H8C7.74,12,7.48,12.11,7.29,12.29z M9,25H7v4h2V25z"
-      })),
+      icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_3__["svgIcon"])('section-empty'),
       attributes: {
         marginAfter: '5'
       },
@@ -6656,19 +7011,7 @@ registerBlockType('bsx-blocks/section', {
     }, {
       name: 'container-with-heading',
       title: __('Container with Heading', 'bsx-blocks'),
-      icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("svg", {
-        xmlns: "http://www.w3.org/2000/svg",
-        width: "48",
-        height: "48",
-        viewBox: "0 0 48 48",
-        role: "img",
-        "aria-hidden": "true",
-        focusable: "false"
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("path", {
-        "fill-rule": "evenodd",
-        "clip-rule": "evenodd",
-        d: "M9,25H7v4h2V25z M14,36h5v-2h-5V36z M22,18l5,0v-2l-5,0V18z M22,36h5v-2h-5V36z M9,14h3v-2H8c-0.26,0-0.52,0.11-0.71,0.29 C7.11,12.48,7,12.74,7,13v2h2V14z M18.5,16.13l1.42-1.42l-2.8-2.47C16.94,12.09,16.7,12,16.46,12H15v2h1.08L18.5,16.13z M9,18H7v4h2 V18z M35,16.01l-5,0v2l5,0V16.01z M9,32H7v3c0,0.26,0.11,0.52,0.29,0.71C7.48,35.89,7.74,36,8,36h3v-2H9V32z M40.66,16.3 c-0.19-0.19-0.44-0.29-0.71-0.29l-1.95,0v2l0.95,0V21h2v-3.99C40.95,16.75,40.84,16.49,40.66,16.3z M38.95,34H38v2h1.95 c0.26,0,0.52-0.11,0.71-0.29c0.19-0.19,0.29-0.44,0.29-0.71v-4h-2V34z M38.95,28h2v-4h-2V28z M30,36h5v-2h-5V36z M12,25h1v-2h-1V25z M12,21h1v-2h-1V21z M12,17h1v-2h-1V17z M12,29h1v-2h-1V29z M12,33h1v-2h-1V33z M35,25h1v-2h-1V25z M35,21h1v-2h-1V21z M35,29h1v-2 h-1V29z M35,33h1v-2h-1V33z M14,24h13v-3H14V24z"
-      })),
+      icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_3__["svgIcon"])('section-container-heading'),
       attributes: {
         marginAfter: '5'
       },
@@ -6679,19 +7022,7 @@ registerBlockType('bsx-blocks/section', {
     }, {
       name: 'container-heading-text-gallery',
       title: __('Container, Heading, Text & Gallery', 'bsx-blocks'),
-      icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("svg", {
-        xmlns: "http://www.w3.org/2000/svg",
-        width: "48",
-        height: "48",
-        viewBox: "0 0 48 48",
-        role: "img",
-        "aria-hidden": "true",
-        focusable: "false"
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("path", {
-        "fill-rule": "evenodd",
-        "clip-rule": "evenodd",
-        d: "M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9V14h30V34z M22.49,31.03h2.35v-2.21h-2.35V31.03z M22.51,19.38c0.36-0.28,0.81-0.42,1.35-0.42c0.63,0,1.1,0.17,1.43,0.5s0.49,0.81,0.49,1.44 c0,0.54-0.14,1.03-0.43,1.45s-0.68,0.89-1.18,1.38c-0.71,0.6-1.16,1.09-1.35,1.46s-0.3,1.02-0.3,1.94h2.3 c0-0.56,0.04-0.97,0.13-1.25s0.32-0.58,0.68-0.9c0.72-0.58,1.31-1.21,1.77-1.88c0.46-0.67,0.69-1.42,0.69-2.23 c0-1.22-0.37-2.16-1.09-2.83c-0.73-0.67-1.77-1-3.12-1c-1.25,0-2.26,0.31-3.02,0.94c-0.76,0.62-1.15,1.52-1.17,2.69h2.3 C21.97,20.09,22.15,19.66,22.51,19.38z"
-      })),
+      icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_3__["svgIcon"])('section-container-heading-text-gallery'),
       attributes: {
         marginAfter: '5'
       },
@@ -6706,19 +7037,7 @@ registerBlockType('bsx-blocks/section', {
     }, {
       name: 'rounded-color-banner',
       title: __('Rounded colored Banner (primary dark)', 'bsx-blocks'),
-      icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("svg", {
-        xmlns: "http://www.w3.org/2000/svg",
-        width: "48",
-        height: "48",
-        viewBox: "0 0 48 48",
-        role: "img",
-        "aria-hidden": "true",
-        focusable: "false"
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("path", {
-        "fill-rule": "evenodd",
-        "clip-rule": "evenodd",
-        d: "M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9V14h30V34z M22.49,31.03h2.35v-2.21h-2.35V31.03z M22.51,19.38c0.36-0.28,0.81-0.42,1.35-0.42c0.63,0,1.1,0.17,1.43,0.5s0.49,0.81,0.49,1.44 c0,0.54-0.14,1.03-0.43,1.45s-0.68,0.89-1.18,1.38c-0.71,0.6-1.16,1.09-1.35,1.46s-0.3,1.02-0.3,1.94h2.3 c0-0.56,0.04-0.97,0.13-1.25s0.32-0.58,0.68-0.9c0.72-0.58,1.31-1.21,1.77-1.88c0.46-0.67,0.69-1.42,0.69-2.23 c0-1.22-0.37-2.16-1.09-2.83c-0.73-0.67-1.77-1-3.12-1c-1.25,0-2.26,0.31-3.02,0.94c-0.76,0.62-1.15,1.52-1.17,2.69h2.3 C21.97,20.09,22.15,19.66,22.51,19.38z"
-      })),
+      icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_3__["svgIcon"])('section-container-rounded-colored-banner'),
       attributes: {
         marginAfter: '5'
       },
@@ -6733,6 +7052,7 @@ registerBlockType('bsx-blocks/section', {
         paddingRight: '3'
       }, [['core/heading', {
         placeholder: 'Add heading, configure heading level...',
+        textColor: 'dark',
         marginAfter: '3'
       }], ['core/paragraph', {
         placeholder: 'Add text...',
@@ -6796,7 +7116,7 @@ registerBlockType('bsx-blocks/section', {
     }; // class name
 
 
-    var containerClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_3__["addClassNames"])({
+    var containerClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_4__["addClassNames"])({
       belowNavbar: belowNavbar,
       marginBefore: marginBefore,
       marginAfter: marginAfter
@@ -6918,12 +7238,12 @@ registerBlockType('bsx-blocks/section', {
         id = _props$attributes2.id,
         marginBefore = _props$attributes2.marginBefore,
         marginAfter = _props$attributes2.marginAfter;
-    var containerClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_3__["addClassNames"])({
+    var containerClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_4__["addClassNames"])({
       belowNavbar: belowNavbar,
       marginBefore: marginBefore,
       marginAfter: marginAfter
     });
-    var saveAttributes = Object(_functions_attributes_js__WEBPACK_IMPORTED_MODULE_4__["makeSaveAttributes"])({
+    var saveAttributes = Object(_functions_attributes_js__WEBPACK_IMPORTED_MODULE_5__["makeSaveAttributes"])({
       id: id
     });
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("section", _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
