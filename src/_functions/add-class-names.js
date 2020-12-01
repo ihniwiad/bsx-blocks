@@ -1,21 +1,5 @@
 // add class names
 
-// let config = { 
-//     belowNavbar: belowNavbar, 
-//     marginBefore: marginBefore, 
-//     marginAfter: marginAfter, 
-//     marginLeft: marginLeft,
-//     marginRight: marginRight,
-//     paddingBefore: paddingBefore, 
-//     paddingAfter: paddingAfter, 
-//     paddingLeft: paddingLeft, 
-//     paddingRight: paddingRight,
-//     bgColor: bgColor, 
-//     textColor: textColor, 
-//     rounded: rounded, 
-//     textAlign: textAlign,
-// }
-
 export function addClassNames( attributes, classNamesString ) {
 
     const {
@@ -29,9 +13,11 @@ export function addClassNames( attributes, classNamesString ) {
         paddingLeft, 
         paddingRight,
         bgColor, 
-        textColor, 
+        textColor,
+        textSize, 
         rounded, 
         textAlign,
+        width,
     } = attributes;
 
     const classNames = ( typeof classNamesString != 'undefined' ) ? classNamesString.split( ' ' ) : [];
@@ -119,6 +105,10 @@ export function addClassNames( attributes, classNamesString ) {
     if ( !! textColor ) {
         classNames.push( 'text-' + textColor );
     }
+
+    if ( !! textSize ) {
+        classNames.push( textSize );
+    }
     
     if ( !! rounded ) {
         if ( rounded == true || rounded == 'rounded' ) {
@@ -131,6 +121,10 @@ export function addClassNames( attributes, classNamesString ) {
 
     if ( !! textAlign ) {
         classNames.push( 'text-' + textAlign );
+    }
+
+    if ( !! width ) {
+        classNames.push( 'w-' + width );
     }
 
     return classNames.join( ' ' );
