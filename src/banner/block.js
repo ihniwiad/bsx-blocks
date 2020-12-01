@@ -1,3 +1,6 @@
+// TODO: make node name configurable
+
+
 const { __, setLocaleData } = wp.i18n;
 const {
     registerBlockType,
@@ -26,6 +29,8 @@ const {
     withSelect, 
 } = wp.data;
 
+
+import { svgIcon } from './../_functions/wp-icons.js';
 
 import { addClassNames } from './../_functions/add-class-names.js';
 
@@ -147,11 +152,7 @@ const noBannerInnerTemplateNames = [
 
 registerBlockType( 'bsx-blocks/banner', {
     title: __( 'BSX Banner', 'bsx-blocks' ),
-    icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" role="img" focusable="false">
-            <path d="M17,5H3C1.9,5,1,5.9,1,7v6c0,1.11,0.9,2,2,2h14c1.1,0,2-0.89,2-2V7C19,5.9,18.1,5,17,5z M4.5,7C5.33,7,6,7.67,6,8.5 C6,9.33,5.33,10,4.5,10C3.67,10,3,9.33,3,8.5C3,7.67,3.67,7,4.5,7z M17,13H3l-0.02-1L7,10l2,1l5-3l3,2V13z"/>
-        </svg>
-    ),
+    icon: svgIcon( 'banner' ),
     category: 'layout',
     attributes: {
         templateName: {
@@ -279,11 +280,7 @@ registerBlockType( 'bsx-blocks/banner', {
             {
                 name: 'empty',
                 title: __( 'Empty', 'bsx-blocks' ),
-                icon: (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" role="img" aria-hidden="true" focusable="false">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M39,16H9c-1.1,0-2,0.9-2,2v12c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V18C41,16.9,40.1,16,39,16z M24.72,30.03 h-2.02v-1.89h2.02V30.03z M26.91,23.22c-0.39,0.58-0.9,1.12-1.52,1.61c-0.31,0.28-0.51,0.53-0.58,0.77s-0.11,0.6-0.11,1.07h-1.98 c0.01-0.79,0.09-1.35,0.26-1.67c0.17-0.32,0.56-0.74,1.16-1.25c0.43-0.42,0.77-0.82,1.02-1.18c0.24-0.37,0.37-0.78,0.37-1.25 c0-0.54-0.14-0.95-0.42-1.23s-0.69-0.43-1.22-0.43c-0.46,0-0.85,0.12-1.15,0.36c-0.31,0.24-0.46,0.61-0.46,1.1h-1.98 c0.01-1,0.34-1.77,1-2.31c0.66-0.54,1.52-0.8,2.59-0.8c1.16,0,2.05,0.29,2.68,0.86s0.94,1.38,0.94,2.43 C27.5,22.01,27.3,22.65,26.91,23.22z"/>
-                    </svg>
-                ),
+                icon: svgIcon( 'banner-empty' ),
                 attributes: {
                     marginAfter: '5',
                 },
@@ -300,11 +297,7 @@ registerBlockType( 'bsx-blocks/banner', {
             {
                 name: 'container-with-heading',
                 title: __( 'Container with Heading', 'bsx-blocks' ),
-                icon: (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" role="img" aria-hidden="true" focusable="false">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M39,16H9c-1.1,0-2,0.9-2,2v12c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V18C41,16.9,40.1,16,39,16z M13,31h-1v-2h1V31z M13,27h-1 v-2h1V27z M13,23h-1v-2h1V23z M13,19h-1v-2h1V19z M27,26H14v-3h13V26z M36,31h-1v-2h1V31z M36,27h-1v-2h1V27z M36,23h-1v-2h1V23z M36,19h-1v-2h1V19z"/>
-                    </svg>
-                ),
+                icon: svgIcon( 'banner-container-with-heading' ),
                 attributes: {
                     marginAfter: '5',
                 },
@@ -332,11 +325,7 @@ registerBlockType( 'bsx-blocks/banner', {
             {
                 name: 'static-container-with-heading',
                 title: __( 'Static with Container & Heading', 'bsx-blocks' ),
-                icon: (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" role="img" aria-hidden="true" focusable="false">
-                        <path d="M39,18H9c-1.1,0-2,0.9-2,2v8c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2v-8C41,18.9,40.1,18,39,18z M13,29h-1v-2h1V29z M13,25h-1 v-2h1V25z M13,21h-1v-2h1V21z M27,26H14v-3h13V26z M36,29h-1v-2h1V29z M36,25h-1v-2h1V25z M36,21h-1v-2h1V21z"/>
-                    </svg>
-                ),
+                icon: svgIcon( 'banner-static-container-with-heading' ),
                 attributes: {
                     bannerType: 'st',
                     bannerSize: '3',
@@ -366,11 +355,7 @@ registerBlockType( 'bsx-blocks/banner', {
             {
                 name: 'column-row-banner',
                 title: __( 'Bottom bar Banner', 'bsx-blocks' ),
-                icon: (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" role="img" aria-hidden="true" focusable="false">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M39,16H9c-1.1,0-2,0.9-2,2v12c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V18C41,16.9,40.1,16,39,16z M35,17h1v2h-1V17z M35,21h1v2 h-1V21z M35,25h1v2h-1V25z M14,21h13v3H14V21z M12,17h1v2h-1V17z M12,21h1v2h-1V21z M12,25h1v2h-1V25z M39,30H9v-2h30V30z"/>
-                    </svg>
-                ),
+                icon: svgIcon( 'banner-column-row' ),
                 attributes: {
                     marginAfter: '5',
                 },
@@ -395,7 +380,7 @@ registerBlockType( 'bsx-blocks/banner', {
                                     [ 
                                         'bsx-blocks/wrapper', 
                                         {
-                                            className: 'w-100',
+                                            width: '100',
                                         },
                                         [
                                             [ 
