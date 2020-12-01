@@ -345,7 +345,7 @@ registerBlockType( 'bsx-blocks/section', {
                         ! templateName ? (
                             <div class="bsxui-initial-inline-control">
                                 <div class="bsxui-initial-inline-control-heading">
-                                    { __( 'Please select Banner template', 'bsx-blocks' ) }
+                                    { __( 'Please select template', 'bsx-blocks' ) }
                                 </div>
                                 <div className="bsxui-icon-text-button-list">
                                     { templates.map( ( template, index ) => (
