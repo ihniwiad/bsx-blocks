@@ -72,11 +72,7 @@ const makeRowClassNames = ( attributes ) => {
 
 registerBlockType( 'bsx-blocks/row-with-cols', {
     title: __( 'BSX Columns', 'bsx-blocks' ),
-    icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" role="img" focusable="false">
-            <path d="M18.71,1.29C18.52,1.11,18.26,1,18,1H2C1.74,1,1.48,1.11,1.29,1.29C1.11,1.48,1,1.74,1,2v16c0,0.26,0.11,0.52,0.29,0.71 C1.48,18.89,1.74,19,2,19h16c0.26,0,0.52-0.11,0.71-0.29C18.89,18.52,19,18.26,19,18V2C19,1.74,18.89,1.48,18.71,1.29z M12,3v14H8V3 H12z M3,3h3v14H3V3z M14,17V3h3l0,14H14z"/>
-        </svg>
-    ),
+    icon: svgIcon( 'row-with-cols' ),
     category: 'layout',
     attributes: {
         templateName: {
@@ -120,6 +116,10 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
         sizeXl: {
             type: 'string',
             default: '',
+        },
+        colsNodeName: {
+            type: 'string',
+            default: 'div',
         },
         colsMarginAfter: {
             type: 'string',
@@ -204,6 +204,7 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
                 sizeMd,
                 sizeLg,
                 sizeXl,
+                colsNodeName,
                 colsMarginAfter,
                 marginBefore,
                 marginAfter,
@@ -630,6 +631,7 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
                         sizeMd: value.sizeMd != undefined ? value.sizeMd : sizeMd,
                         sizeLg: value.sizeLg != undefined ? value.sizeLg : sizeLg,
                         sizeXl: value.sizeXl != undefined ? value.sizeXl : sizeXl,
+                        nodeName: value.colsNodeName != undefined ? value.colsNodeName : colsNodeName,
                         marginAfter: value.colsMarginAfter != undefined ? value.colsMarginAfter : colsMarginAfter,
                     };
                     updateBlockAttributes( column.clientId, newAttributes );
@@ -812,6 +814,15 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
                     setAttributes( attr );
                     inheritToCols( attr );
                 }
+            }
+        };
+
+        // cols node name bottom
+        const onChangeColsNodeName = ( value ) => {
+            if ( enableInheritanceToCols ) {
+                const attr = { colsNodeName: value };
+                setAttributes( attr );
+                inheritToCols( attr );
             }
         };
 
@@ -1037,6 +1048,19 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
                             help={ __( 'Spacer after Column (not Row)', 'bsx-blocks' ) }
                         />
 
+                        <hr/>
+
+                        <SelectControl 
+                            label={ __( 'Node name', 'bsx-blocks' ) }
+                            value={ colsNodeName }
+                            onChange={ onChangeColsNodeName }
+                            options={ [
+                                { value: 'div', label: __( 'div', 'bsx-blocks' ) },
+                                { value: 'section', label: __( 'section', 'bsx-blocks' ) },
+                            ] }
+                            help={ __( 'Column node name (please edit only if you know what you’re doing)', 'bsx-blocks' ) }
+                        />
+
                     </PanelBody>
                 ) }
 
@@ -1178,6 +1202,7 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
                 sizeMd,
                 sizeLg,
                 sizeXl,
+                colsNodeName,
                 colsMarginAfter,
                 marginBefore,
                 marginAfter,

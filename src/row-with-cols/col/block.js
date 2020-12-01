@@ -19,6 +19,12 @@ const {
     withSelect, 
 } = wp.data;
 
+
+// import { svgIcon } from './../../_functions/wp-icons.js';
+
+// import { addClassNames } from './../../_functions/add-class-names.js';
+
+
 const makeColClassNames = ( sizesArray, marginAfter ) => {
 
     const prefix = 'col';
@@ -100,6 +106,10 @@ registerBlockType( 'bsx-blocks/col', {
             type: 'string',
             default: '',
         },
+        nodeName: {
+            type: 'string',
+            default: 'div',
+        },
         marginAfter: {
             type: 'string',
             default: '3',
@@ -135,33 +145,27 @@ registerBlockType( 'bsx-blocks/col', {
             ? getBlocksByClientId( clientId )[ 0 ].innerBlocks
             : [];
 
-        //console.log( 'parentClientId: "' + parentClientId + '"' );
+        // console.log( 'parentClientId: "' + parentClientId + '"' );
 
         const ancestorClientIds = getBlockParentsByBlockName( clientId, 'bsx-blocks/row-with-cols' );
 
-        //console.log( 'ancestorClientIds: "' + ancestorClientIds + '"' );
-
-        /*
-        ancestorClientIds.forEach( ( ancestorClientId, index ) => {
-            console.log( 'ancestorClientId[ ' + index + ' ]: "' + ancestorClientId + '"' );
-        } ); 
-        */
+        // console.log( 'ancestorClientIds: "' + ancestorClientIds + '"' );
+        // ancestorClientIds.forEach( ( ancestorClientId, index ) => {
+        //     console.log( 'ancestorClientId[ ' + index + ' ]: "' + ancestorClientId + '"' );
+        // } ); 
 
         // get last item which is parent
         const parentClientId = ancestorClientIds[ ancestorClientIds.length - 1 ];
 
         const parentAttributes = getBlockAttributes( parentClientId );
 
-        //console.log( 'parentAttributes: "' + parentAttributes + '"' );
-        /*
-        if ( !! parentAttributes ) {
-            for ( let [ key, value ] of Object.entries( parentAttributes ) ) {
-                console.log( 'key: "' + key + '", value: "' + value + '"' );
-            }
-        }
-        */
-
-        //console.log( 'parentAttributes.fromRowConfig: "' + parentAttributes.fromRowConfig + '"' );
+        // console.log( 'parentAttributes: "' + parentAttributes + '"' );
+        // if ( !! parentAttributes ) {
+        //     for ( let [ key, value ] of Object.entries( parentAttributes ) ) {
+        //         console.log( 'key: "' + key + '", value: "' + value + '"' );
+        //     }
+        // }
+        // console.log( 'parentAttributes.fromRowConfig: "' + parentAttributes.fromRowConfig + '"' );
 
         return {
             parentAttributes,
@@ -179,6 +183,7 @@ registerBlockType( 'bsx-blocks/col', {
                 sizeMd,
                 sizeLg,
                 sizeXl,
+                nodeName,
                 marginAfter,
             },
             setAttributes,
@@ -308,7 +313,13 @@ registerBlockType( 'bsx-blocks/col', {
                 sizeMd: parentAttributes.sizeMd, 
                 sizeLg: parentAttributes.sizeLg,
                 sizeXl: parentAttributes.sizeXl,
+                nodeName: parentAttributes.colsNodeName,
+                marginAfter: parentAttributes.colsMarginAfter,
             } );
+        };
+
+        const onChangeNodeName = ( value ) => {
+            setAttributes( { nodeName: value } );
         };
 
         const onChangeMarginAfter = ( value ) => {
@@ -318,6 +329,8 @@ registerBlockType( 'bsx-blocks/col', {
         const colClassName = makeColClassNames( [ sizeXs, sizeSm, sizeMd, sizeLg, sizeXl ], marginAfter );
 
         setAttributes( { fromRowConfig: parentAttributes.fromRowConfig } );
+
+        const TagName = nodeName;
 
         /*
         if ( !! props.attributes ) {
@@ -477,10 +490,23 @@ registerBlockType( 'bsx-blocks/col', {
                         help={ __( 'Spacer after Column', 'bsx-blocks' ) }
                     />
 
+                    <hr/>
+
+                    <SelectControl 
+                        label={ __( 'Node name', 'bsx-blocks' ) }
+                        value={ nodeName }
+                        onChange={ onChangeNodeName }
+                        options={ [
+                            { value: 'div', label: __( 'div', 'bsx-blocks' ) },
+                            { value: 'section', label: __( 'section', 'bsx-blocks' ) },
+                        ] }
+                        help={ __( 'Node name (please edit only if you know what you’re doing)', 'bsx-blocks' ) }
+                    />
+
                 </PanelBody>
             </InspectorControls>,
             (
-                <div className={ colClassName } data-col-type={ colType }>
+                <TagName className={ colClassName } data-col-type={ colType }>
                     <InnerBlocks 
                         renderAppender={
                             hasInnerBlocks
@@ -488,7 +514,7 @@ registerBlockType( 'bsx-blocks/col', {
                             : () => <InnerBlocks.ButtonBlockAppender />
                         }
                     />
-                </div>
+                </TagName>
             )
         ];
     } ),
@@ -503,16 +529,19 @@ registerBlockType( 'bsx-blocks/col', {
                 sizeMd,
                 sizeLg,
                 sizeXl,
+                nodeName,
                 marginAfter,
             },
         } = props;
 
         const colClassName = makeColClassNames( [ sizeXs, sizeSm, sizeMd, sizeLg, sizeXl ], marginAfter );
 
+        const TagName = nodeName;
+
         return (
-            <div className={ colClassName }>
+            <TagName className={ colClassName }>
                 <InnerBlocks.Content />
-            </div>
+            </TagName>
         );
     },
 } );
