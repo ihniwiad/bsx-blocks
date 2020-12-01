@@ -243,35 +243,33 @@ registerBlockType( 'bsx-blocks/column-rows', {
             </InspectorControls>,
 
             <InspectorAdvancedControls>
-                <PanelBody title={ __( 'Column Rows settings', 'bsx-blocks' ) }>
-                    <SelectControl 
-                        label={ __( 'Display', 'bsx-blocks' ) }
-                        value={ display }
-                        onChange={ onChangeDisplay }
-                        options={ [
-                            { value: '', label: __( '– unset –', 'bsx-blocks' ) },
-                            { value: 'flex', label: __( 'Flex', 'bsx-blocks' ) },
-                        ] }
-                    />
-                    <SelectControl 
-                        label={ __( 'Flex direction', 'bsx-blocks' ) }
-                        value={ flexDirection }
-                        onChange={ onChangeFlexDirection }
-                        options={ [
-                            { value: '', label: __( '– unset –', 'bsx-blocks' ) },
-                            { value: 'column', label: __( 'Column', 'bsx-blocks' ) },
-                        ] }
-                    />
-                    <SelectControl 
-                        label={ __( 'Width', 'bsx-blocks' ) }
-                        value={ width }
-                        onChange={ onChangeWidth }
-                        options={ [
-                            { value: '', label: __( '– unset –', 'bsx-blocks' ) },
-                            { value: '100', label: __( '100 %', 'bsx-blocks' ) },
-                        ] }
-                    />
-                </PanelBody>
+                <SelectControl 
+                    label={ __( 'Display', 'bsx-blocks' ) }
+                    value={ display }
+                    onChange={ onChangeDisplay }
+                    options={ [
+                        { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+                        { value: 'flex', label: __( 'Flex', 'bsx-blocks' ) },
+                    ] }
+                />
+                <SelectControl 
+                    label={ __( 'Flex direction', 'bsx-blocks' ) }
+                    value={ flexDirection }
+                    onChange={ onChangeFlexDirection }
+                    options={ [
+                        { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+                        { value: 'column', label: __( 'Column', 'bsx-blocks' ) },
+                    ] }
+                />
+                <SelectControl 
+                    label={ __( 'Width', 'bsx-blocks' ) }
+                    value={ width }
+                    onChange={ onChangeWidth }
+                    options={ [
+                        { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+                        { value: '100', label: __( '100 %', 'bsx-blocks' ) },
+                    ] }
+                />
             </InspectorAdvancedControls>,
 
             <>
