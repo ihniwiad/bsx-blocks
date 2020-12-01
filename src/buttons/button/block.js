@@ -36,25 +36,36 @@ import { makeSaveAttributes } from './../../_functions/attributes.js';
 
 // functions
 
-const makeButtonClassNames = ( config ) => {
+const makeButtonClassNames = ( attributes ) => {
+
+    const {
+        state,
+        stateType,
+        size,
+        hrefIsContentIsEmail,
+    } = attributes;
 
     const classNames = [ 'btn' ];
 
     let buildClassName = 'btn-';
 
-    if ( !! config.state ) {
-        if ( !! config.stateType ) {
-            buildClassName += config.stateType + '-';
+    if ( !! state ) {
+        if ( !! stateType && state != 'link' && state != 'text-link' ) {
+            buildClassName += stateType + '-';
         }
-        buildClassName += config.state;
+        buildClassName += state != 'text-link' ? state : 'link';
         classNames.push( buildClassName );
+
+        if ( state == 'text-link' ) {
+            classNames.push( 'p-0' );
+        }
     }
 
-    if ( !! config.size ) {
-        classNames.push( 'btn-' + config.size );
+    if ( !! size ) {
+        classNames.push( 'btn-' + size );
     }
 
-    if ( !! config.hrefIsContentIsEmail ) {
+    if ( !! hrefIsContentIsEmail ) {
         classNames.push( 'create-mt' );
     }
 
@@ -304,7 +315,8 @@ registerBlockType( 'bsx-blocks/button', {
                             { value: 'info', label: __( 'Info', 'bsx-blocks' ) },
                             { value: 'light', label: __( 'Light', 'bsx-blocks' ) },
                             { value: 'dark', label: __( 'Dark', 'bsx-blocks' ) },
-                            { value: 'link', label: __( 'Link', 'bsx-blocks' ) },
+                            { value: 'link', label: __( 'Link Button', 'bsx-blocks' ) },
+                            { value: 'text-link', label: __( 'Text link', 'bsx-blocks' ) },
                         ] }
                     />
                     <SelectControl label={ __( 'State Type', 'bsx-blocks' ) }
