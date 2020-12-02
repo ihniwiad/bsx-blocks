@@ -18,6 +18,8 @@ export function addClassNames( attributes, classNamesString ) {
         rounded, 
         textAlign,
         width,
+        imgThumbnail,
+        borderState,
     } = attributes;
 
     const classNames = ( typeof classNamesString != 'undefined' ) ? classNamesString.split( ' ' ) : [];
@@ -125,6 +127,14 @@ export function addClassNames( attributes, classNamesString ) {
 
     if ( !! width ) {
         classNames.push( 'w-' + width );
+    }
+
+    if ( !! imgThumbnail ) {
+        classNames.push( 'img-thumbnail' );
+    }
+
+    if ( !! borderState ) {
+        classNames.push( 'border-' + borderState );
     }
 
     return classNames.join( ' ' );
