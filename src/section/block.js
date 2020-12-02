@@ -150,6 +150,9 @@ registerBlockType( 'bsx-blocks/section', {
                                 'bsx-blocks/img-gallery',
                                 { 
                                     galleryType: 'floating', 
+                                    rounded: true,
+                                    imgThumbnail: true,
+                                    border-state: 'dark',
                                 },
                             ],
                         ],
@@ -265,9 +268,9 @@ registerBlockType( 'bsx-blocks/section', {
         // class name
 
         const containerClassName = addClassNames( { 
-            belowNavbar: belowNavbar, 
-            marginBefore: marginBefore, 
-            marginAfter: marginAfter, 
+            belowNavbar, 
+            marginBefore, 
+            marginAfter, 
         } );
 
         return [
@@ -398,9 +401,9 @@ registerBlockType( 'bsx-blocks/section', {
         } = props;
 
         const containerClassName = addClassNames( { 
-            belowNavbar: belowNavbar, 
-            marginBefore: marginBefore, 
-            marginAfter: marginAfter, 
+            belowNavbar, 
+            marginBefore, 
+            marginAfter, 
         } );
 
         const saveAttributes = makeSaveAttributes( {
