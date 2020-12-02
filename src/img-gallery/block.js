@@ -13,6 +13,7 @@ const {
     TextControl,
     SelectControl,
     PanelBody,
+    ToggleControl,
     SVG, 
     Path,
 } = wp.components;
@@ -21,12 +22,16 @@ const {
 import { addClassNames } from './../_functions/add-class-names.js';
 
 
-const makeClassName = ( config ) => {
+const makeClassName = ( attributes ) => {
+
+    const {
+        galleryType,
+    } = attributes;
 
     const classNames = [ 'bsx-gallery' ];
 
-    if ( !! config.galleryType ) {
-        if ( config.galleryType == 'floating' ) {
+    if ( !! galleryType ) {
+        if ( galleryType == 'floating' ) {
             classNames.push( 'bsx-floating-gallery' );
         }
     }
@@ -34,15 +39,19 @@ const makeClassName = ( config ) => {
     return classNames.join( ' ' );
 }
 
-const makeInnerClassName = ( config ) => {
+const makeInnerClassName = ( attributes ) => {
+
+    const {
+        galleryType,
+    } = attributes;
 
     const classNames = [];
 
-    if ( !! config.galleryType ) {
-        if ( config.galleryType == 'floating' ) {
+    if ( !! galleryType ) {
+        if ( galleryType == 'floating' ) {
             classNames.push( 'bsx-floating-gallery-inner' );
         }
-        else if ( config.galleryType == 'columns' ) {
+        else if ( galleryType == 'columns' ) {
             classNames.push( 'row' );
         }
     }
@@ -50,15 +59,19 @@ const makeInnerClassName = ( config ) => {
     return classNames.join( ' ' );
 }
 
-const makeItemClassName = ( config ) => {
+const makeItemClassName = ( attributes ) => {
+
+    const {
+        galleryType,
+    } = attributes;
 
     const classNames = [];
 
-    if ( !! config.galleryType ) {
-        if ( config.galleryType == 'floating' ) {
+    if ( !! galleryType ) {
+        if ( galleryType == 'floating' ) {
             classNames.push( 'bsx-floating-gallery-figure d-inline-block' );
         }
-        else if ( config.galleryType == 'columns' ) {
+        else if ( galleryType == 'columns' ) {
             // TODO: make configurable later
             classNames.push( 'col-6 col-sm-3 mb-4' );
         }
@@ -67,15 +80,19 @@ const makeItemClassName = ( config ) => {
     return classNames.join( ' ' );
 }
 
-const makeLinkClassName = ( config ) => {
+const makeLinkClassName = ( attributes ) => {
+
+    const {
+        galleryType,
+    } = attributes;
 
     const classNames = [];
 
-    if ( !! config.galleryType ) {
-        if ( config.galleryType == 'floating' ) {
+    if ( !! galleryType ) {
+        if ( galleryType == 'floating' ) {
             classNames.push( 'd-inline-block' );
         }
-        else if ( config.galleryType == 'columns' ) {
+        else if ( galleryType == 'columns' ) {
             classNames.push( 'd-block text-center' );
         }
     }
@@ -83,15 +100,19 @@ const makeLinkClassName = ( config ) => {
     return classNames.join( ' ' );
 }
 
-const makeImgClassName = ( config ) => {
+const makeImgClassName = ( attributes ) => {
+
+    const {
+        galleryType,
+    } = attributes;
 
     const classNames = [];
 
-    if ( !! config.galleryType ) {
-        if ( config.galleryType == 'floating' ) {
+    if ( !! galleryType ) {
+        if ( galleryType == 'floating' ) {
             classNames.push( 'bsx-floating-gallery-img-md' );
         }
-        else if ( config.galleryType == 'columns' ) {
+        else if ( galleryType == 'columns' ) {
             classNames.push( 'img-fluid' );
         }
     }
@@ -99,12 +120,16 @@ const makeImgClassName = ( config ) => {
     return classNames.join( ' ' );
 }
 
-const makeUploadElementClassName = ( config ) => {
+const makeUploadElementClassName = ( attributes ) => {
+
+    const {
+        galleryType,
+    } = attributes;
 
     const classNames = [];
 
-    if ( !! config.galleryType ) {
-        if ( config.galleryType == 'floating' ) {
+    if ( !! galleryType ) {
+        if ( galleryType == 'floating' ) {
             classNames.push( 'bsxui-mt-3' );
         }
     }
@@ -126,6 +151,20 @@ registerBlockType( 'bsx-blocks/img-gallery', {
             type: 'string',
             default: 'columns',
         },
+        figcaption: {
+            type: 'array',
+            source: 'children',
+            selector: '.bsx-gallery-figcaption',
+        },
+        rounded: {
+            type: 'boolean',
+        },
+        imgThumbnail: {
+            type: 'boolean',
+        },
+        borderState: {
+            type: 'string',
+        },
         marginBefore: {
             type: 'string',
             default: '',
@@ -141,6 +180,10 @@ registerBlockType( 'bsx-blocks/img-gallery', {
             attributes: {
                 mediaList,
                 galleryType,
+                figcaption,
+                rounded,
+                imgThumbnail,
+                borderState,
                 marginBefore,
                 marginAfter,
             },
@@ -248,6 +291,20 @@ registerBlockType( 'bsx-blocks/img-gallery', {
         const onChangeGalleryType = ( value ) => {
             setAttributes( { galleryType: value } );
         }
+        const onChangeFigcaption = ( value ) => {
+            setAttributes( { figcaption: value } );
+        };
+
+        const onChangeRounded = ( value ) => {
+            setAttributes( { rounded: value } );
+        };
+        const onChangeImgThumbnail = ( value ) => {
+            setAttributes( { imgThumbnail: value } );
+        };
+        const onChangeBorderState = ( value ) => {
+            setAttributes( { borderState: value } );
+        };
+
         const onChangeMarginBefore = ( value ) => {
             setAttributes( { marginBefore: value } );
         };
@@ -258,33 +315,39 @@ registerBlockType( 'bsx-blocks/img-gallery', {
         // class names
 
         let galleryClassName = makeClassName( { 
-            galleryType: galleryType 
+            galleryType 
         } );
         galleryClassName = addClassNames( {
-            marginBefore: marginBefore, 
-            marginAfter: marginAfter, 
+            marginBefore, 
+            marginAfter, 
         }, galleryClassName );
 
         const innerClassName = makeInnerClassName( { 
-            galleryType: galleryType 
+            galleryType 
         } );
 
         const itemClassName = makeItemClassName( { 
-            galleryType: galleryType 
+            galleryType 
         } );
 
         const linkClassName = makeLinkClassName( { 
-            galleryType: galleryType 
+            galleryType 
         } );
 
-        const imgClassName = makeImgClassName( { 
-            galleryType: galleryType 
+        let imgClassName = makeImgClassName( { 
+            galleryType 
         } );
+        imgClassName = addClassNames( {
+            rounded,
+            imgThumbnail,
+            borderState,
+        }, imgClassName );
 
         const uploadElementClassName = makeUploadElementClassName( { 
-            galleryType: galleryType 
+            galleryType 
         } );
 
+        const TagName = 'figure';
 
         
         return [
@@ -297,6 +360,36 @@ registerBlockType( 'bsx-blocks/img-gallery', {
                         options={ [
                             { value: 'columns', label: __( 'Columns', 'bsx-blocks' ) },
                             { value: 'floating', label: __( 'Floating (equal image height)', 'bsx-blocks' ) },
+                        ] }
+                    />
+                </PanelBody>
+
+                <PanelBody title={ __( 'Thumbnail appearance', 'bsx-blocks' ) }>
+                    <ToggleControl
+                        label={ __( 'Rounded corners', 'bsx-blocks' ) }
+                        checked={ !! rounded }
+                        onChange={ onChangeRounded }
+                    />
+                    <ToggleControl
+                        label={ __( 'Border', 'bsx-blocks' ) }
+                        checked={ !! imgThumbnail }
+                        onChange={ onChangeImgThumbnail }
+                    />
+                    <SelectControl 
+                        label={ __( 'Border color', 'bsx-blocks' ) }
+                        value={ borderState }
+                        onChange={ onChangeBorderState }
+                        options={ [
+                            { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+                            { value: 'white', label: __( 'White', 'bsx-blocks' ) },
+                            { value: 'primary', label: __( 'Primary', 'bsx-blocks' ) },
+                            { value: 'secondary', label: __( 'Secondary', 'bsx-blocks' ) },
+                            { value: 'success', label: __( 'Success', 'bsx-blocks' ) },
+                            { value: 'danger', label: __( 'Danger', 'bsx-blocks' ) },
+                            { value: 'warning', label: __( 'Warning', 'bsx-blocks' ) },
+                            { value: 'info', label: __( 'Info', 'bsx-blocks' ) },
+                            { value: 'light', label: __( 'Light', 'bsx-blocks' ) },
+                            { value: 'dark', label: __( 'Dark', 'bsx-blocks' ) },
                         ] }
                     />
                 </PanelBody>
@@ -335,7 +428,7 @@ registerBlockType( 'bsx-blocks/img-gallery', {
                 </PanelBody>
             </InspectorControls>,
             (
-                <div className={ galleryClassName }>
+                <TagName className={ galleryClassName }>
 
                     <div className={ innerClassName }>
                         {
@@ -401,7 +494,16 @@ registerBlockType( 'bsx-blocks/img-gallery', {
                             ) }
                         />
                     </div>
-                </div>
+
+                    <RichText
+                        tagName="figcaption"
+                        multiline={ false }
+                        placeholder={ __( 'Caption (optional)', 'bsx-blocks' ) }
+                        value={ figcaption }
+                        onChange={ onChangeFigcaption }
+                        keepPlaceholderOnFocus
+                    />
+                </TagName>
             )
         ];
     },
@@ -411,6 +513,10 @@ registerBlockType( 'bsx-blocks/img-gallery', {
             attributes: {
                 mediaList,
                 galleryType,
+                figcaption,
+                rounded,
+                imgThumbnail,
+                borderState,
                 marginBefore,
                 marginAfter,
             },
@@ -419,31 +525,38 @@ registerBlockType( 'bsx-blocks/img-gallery', {
         // class names
 
         let galleryClassName = makeClassName( { 
-            galleryType: galleryType 
+            galleryType 
         } );
         galleryClassName = addClassNames( {
-            marginBefore: marginBefore, 
-            marginAfter: marginAfter, 
+            marginBefore, 
+            marginAfter, 
         }, galleryClassName );
 
         const innerClassName = makeInnerClassName( { 
-            galleryType: galleryType 
+            galleryType 
         } );
 
         const itemClassName = makeItemClassName( { 
-            galleryType: galleryType 
+            galleryType 
         } );
 
         const linkClassName = makeLinkClassName( { 
-            galleryType: galleryType 
+            galleryType 
         } );
 
-        const imgClassName = makeImgClassName( { 
-            galleryType: galleryType 
+        let imgClassName = makeImgClassName( { 
+            galleryType 
         } );
+        imgClassName = addClassNames( {
+            rounded,
+            imgThumbnail,
+            borderState,
+        }, imgClassName );
+
+        const TagName = 'figure';
 
         return (
-            <div className={ galleryClassName }>
+            <TagName className={ galleryClassName }>
                 <div class="bsx-gallery" itemscope itemtype="http://schema.org/ImageGallery" data-fn="photoswipe">
                     <div class={ innerClassName }>
                         {
@@ -465,7 +578,12 @@ registerBlockType( 'bsx-blocks/img-gallery', {
                         }
                     </div>
                 </div>
-            </div>
+                {
+                    figcaption && ! RichText.isEmpty( figcaption ) && (
+                        <RichText.Content tagName="figcaption" className="bsx-gallery-figcaption font-italic" value={ figcaption } />
+                    )
+                }
+            </TagName>
         );
     },
 } );
