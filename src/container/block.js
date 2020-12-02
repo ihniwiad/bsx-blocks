@@ -151,14 +151,14 @@ registerBlockType( 'bsx-blocks/container', {
         };
 
         let containerClassName = makeContainerClassNames( isFluid, containerBreakpoint );
-        const config = {
-            belowNavbar: belowNavbar, 
-            marginBefore: marginBefore, 
-            marginAfter: marginAfter, 
-            paddingBefore: paddingBefore, 
-            paddingAfter: paddingAfter,
-        };
-        containerClassName = addClassNames( config, containerClassName );
+        
+        containerClassName = addClassNames( {
+            belowNavbar, 
+            marginBefore, 
+            marginAfter, 
+            paddingBefore, 
+            paddingAfter,
+        }, containerClassName );
 
         return [
             <InspectorControls>
@@ -285,14 +285,14 @@ registerBlockType( 'bsx-blocks/container', {
         } = props;
 
         let containerClassName = makeContainerClassNames( isFluid, containerBreakpoint );
-        const config = {
-            belowNavbar: belowNavbar, 
-            marginBefore: marginBefore, 
-            marginAfter: marginAfter, 
-            paddingBefore: paddingBefore, 
-            paddingAfter: paddingAfter,
-        };
-        containerClassName = addClassNames( config, containerClassName );
+        
+        containerClassName = addClassNames( {
+            belowNavbar, 
+            marginBefore, 
+            marginAfter, 
+            paddingBefore, 
+            paddingAfter,
+        }, containerClassName );
 
         return (
             <div className={ containerClassName }>

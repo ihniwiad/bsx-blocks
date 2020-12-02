@@ -24,18 +24,24 @@ const {
 } = wp.data;
 
 
-const makeColumnRowsClassNames = ( config ) => {
+const makeColumnRowsClassNames = ( attributes ) => {
+
+    const {
+        display,
+        flexDirection,
+        width,
+    } = attributes;
 
     const classNames = [];
 
-    if ( !! config.display ) {
-        classNames.push( 'd-' + config.display );
+    if ( !! display ) {
+        classNames.push( 'd-' + display );
     }
-    if ( !! config.flexDirection ) {
-        classNames.push( 'flex-' + config.flexDirection );
+    if ( !! flexDirection ) {
+        classNames.push( 'flex-' + flexDirection );
     }
-    if ( !! config.width ) {
-        classNames.push( 'w-' + config.width );
+    if ( !! width ) {
+        classNames.push( 'w-' + width );
     }
 
     // console.log( 'classNames.join( \' \' ): "' + classNames.join( ' ' ) + '"' );
@@ -209,12 +215,11 @@ registerBlockType( 'bsx-blocks/column-rows', {
             setAttributes( { width: value } );
         };
 
-        const config = {
-            display: display,
-            flexDirection: flexDirection,
-            width: width,
-        };
-        const columnsRowsClassNames = makeColumnRowsClassNames( config );
+        const columnsRowsClassNames = makeColumnRowsClassNames( {
+            display,
+            flexDirection,
+            width,
+        } );
 
         return [
             <InspectorControls>
@@ -324,12 +329,11 @@ registerBlockType( 'bsx-blocks/column-rows', {
             },
         } = props;
 
-        const config = {
-            display: display,
-            flexDirection: flexDirection,
-            width: width,
-        };
-        const columnsRowsClassNames = makeColumnRowsClassNames( config );
+        const columnsRowsClassNames = makeColumnRowsClassNames( {
+            display,
+            flexDirection,
+            width,
+        } );
 
         return (
             <div className={ columnsRowsClassNames }>

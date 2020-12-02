@@ -47,45 +47,59 @@ import { makeSaveAttributes } from './../_functions/attributes.js';
 
 // functions
 
-const makeBannerClassNames = ( config ) => {
+const makeBannerClassNames = ( attributes ) => {
+
+    const { 
+        bannerType, 
+        bannerSize, 
+        bgAttachment, 
+        bgSize, 
+        bgPosition, 
+        alignItems, 
+        templateName,
+    } = attributes;
 
     const classNames = [];
 
     if ( true ) {
         // always set bannerType and bannerSize to keep debugging easy
-        classNames.push( 'banner-' + config.bannerType + '-' + config.bannerSize );
+        classNames.push( 'banner-' + bannerType + '-' + bannerSize );
     }
 
-    if ( !! config.bgAttachment ) {
-        classNames.push( 'bg-' + config.bgAttachment );
+    if ( !! bgAttachment ) {
+        classNames.push( 'bg-' + bgAttachment );
     }
-    if ( !! config.bgSize ) {
-        classNames.push( 'bg-' + config.bgSize );
+    if ( !! bgSize ) {
+        classNames.push( 'bg-' + bgSize );
     }
 
-    if ( !! config.bgPosition ) {
-        classNames.push( 'bg-' + config.bgPosition );
+    if ( !! bgPosition ) {
+        classNames.push( 'bg-' + bgPosition );
     }
     
-    if ( !! config.alignItems ) {
+    if ( !! alignItems ) {
         classNames.push( 'd-flex' );
-        if ( config.templateName !== 'column-row-banner' ) {
-            classNames.push( 'align-items-' + config.alignItems );
+        if ( templateName !== 'column-row-banner' ) {
+            classNames.push( 'align-items-' + alignItems );
         }
     }
     
-    if ( !! config.templateName && config.templateName == 'column-row-banner' && classNames.indexOf( 'd-flex' ) == -1 ) {
+    if ( !! templateName == 'column-row-banner' && classNames.indexOf( 'd-flex' ) == -1 ) {
         classNames.push( 'd-flex' );
     }
 
     return classNames.join( ' ' );
 }
 
-const makeBannerInnerClassNames = ( config ) => {
+const makeBannerInnerClassNames = ( attributes ) => {
+
+    const {
+        templateName,
+    } = attributes;
 
     const classNames = [ 'banner-inner' ];
     
-    if ( !! config.templateName && config.templateName == 'column-row-banner' ) {
+    if ( !! templateName && templateName == 'column-row-banner' ) {
         classNames.push( 'w-100' );
         classNames.push( 'd-flex' );
         classNames.push( 'flex-column' );
@@ -116,21 +130,29 @@ const responsiveMediaIndexList = [
     },
 ];
 const skipIndex = 0;
-const makeSrcsetJson = ( config ) => {
-    // srcsetJson = "[ { media: '" + mobileMediaQuery + "', src: '" + url + "' }, { media: '" + smallMobileMediaQuery + "', src: '" + config.imgSizes[ ( imgSizeIndex - mobileSizeStep > 0 ? imgSizeIndex - mobileSizeStep : 0 ) ].url + "' }, { media: '', src: '" + config.imgSizes[ ( imgSizeIndex - smallMobileSizeStep > 0 ? imgSizeIndex - smallMobileSizeStep : 0 ) ].url + "' } ]";
+const makeSrcsetJson = ( attributes ) => {
+
+    const { 
+        imgSizes, 
+        imgSizeIndex, 
+        portraitImgSizes, 
+        portraitImgSizeIndex, 
+    } = attributes;
+
+    // srcsetJson = "[ { media: '" + mobileMediaQuery + "', src: '" + url + "' }, { media: '" + smallMobileMediaQuery + "', src: '" + imgSizes[ ( imgSizeIndex - mobileSizeStep > 0 ? imgSizeIndex - mobileSizeStep : 0 ) ].url + "' }, { media: '', src: '" + imgSizes[ ( imgSizeIndex - smallMobileSizeStep > 0 ? imgSizeIndex - smallMobileSizeStep : 0 ) ].url + "' } ]";
     let srcsetJson = '[ ';
     responsivePortraitMediaIndexList.forEach( ( item, index ) => {
         // add item if img resulting indes > skipIndex (no square format)
-        const currentPortraitImgSizeIndex = ( parseInt( config.portraitImgSizeIndex ) + parseInt( item.imgSizeIndexShift ) );
-        if ( currentPortraitImgSizeIndex > skipIndex && currentPortraitImgSizeIndex < config.portraitImgSizes.length ) {
-            srcsetJson += '{ media: \'' + item.media + '\', src: \'' + config.portraitImgSizes[ currentPortraitImgSizeIndex ].url + '\' }, ';
+        const currentPortraitImgSizeIndex = ( parseInt( portraitImgSizeIndex ) + parseInt( item.imgSizeIndexShift ) );
+        if ( currentPortraitImgSizeIndex > skipIndex && currentPortraitImgSizeIndex < portraitImgSizes.length ) {
+            srcsetJson += '{ media: \'' + item.media + '\', src: \'' + portraitImgSizes[ currentPortraitImgSizeIndex ].url + '\' }, ';
         }
     } );
     responsiveMediaIndexList.forEach( ( item, index ) => {
         // add item if img resulting indes > skipIndex (no square format)
-        const currentImgSizeIndex = ( parseInt( config.imgSizeIndex ) + parseInt( item.imgSizeIndexShift ) );
-        if ( currentImgSizeIndex > skipIndex && currentImgSizeIndex < config.imgSizes.length ) {
-            srcsetJson += '{ media: \'' + item.media + '\', src: \'' + config.imgSizes[ currentImgSizeIndex ].url + '\' }, ';
+        const currentImgSizeIndex = ( parseInt( imgSizeIndex ) + parseInt( item.imgSizeIndexShift ) );
+        if ( currentImgSizeIndex > skipIndex && currentImgSizeIndex < imgSizes.length ) {
+            srcsetJson += '{ media: \'' + item.media + '\', src: \'' + imgSizes[ currentImgSizeIndex ].url + '\' }, ';
         }
     } );
     if ( srcsetJson.lastIndexOf( ', ' ) == srcsetJson.length - 2 ) {
@@ -604,7 +626,7 @@ registerBlockType( 'bsx-blocks/banner', {
         }, bannerClassName );
 
         const bannerInnerClassName = makeBannerInnerClassNames( {
-            templateName: templateName,
+            templateName,
         } );
 
         const TagName = nodeName;
@@ -1020,14 +1042,14 @@ registerBlockType( 'bsx-blocks/banner', {
         }, bannerClassName );
 
         const bannerInnerClassName = makeBannerInnerClassNames( {
-            templateName: templateName,
+            templateName,
         } );
 
         const srcsetJson = makeSrcsetJson( { 
-            imgSizes: imgSizes, 
-            imgSizeIndex: imgSizeIndex, 
-            portraitImgSizes: portraitImgSizes, 
-            portraitImgSizeIndex: portraitImgSizeIndex, 
+            imgSizes, 
+            imgSizeIndex, 
+            portraitImgSizes, 
+            portraitImgSizeIndex, 
         } );
 
         const saveAttributes = makeSaveAttributes( {

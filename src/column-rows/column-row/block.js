@@ -19,24 +19,30 @@ const {
     withSelect, 
 } = wp.data;
 
-const makeColumnRowClassNames = ( config ) => {
+const makeColumnRowClassNames = ( attributes ) => {
+
+    const {
+        columnRowType,
+        alignItems,
+        display,
+    } = attributes;
 
     const classNames = [];
 
-    if ( !! config.columnRowType ) {
-        classNames.push( 'column-row-' + config.columnRowType );
+    if ( !! columnRowType ) {
+        classNames.push( 'column-row-' + columnRowType );
     }
     else {
         // default class name
         classNames.push( 'column-row' );
     }
 
-    if ( !! config.alignItems ) {
-        classNames.push( 'align-items-' + config.alignItems );
+    if ( !! alignItems ) {
+        classNames.push( 'align-items-' + alignItems );
     }
 
-    if ( !! config.display ) {
-        classNames.push( 'd-' + config.display );
+    if ( !! display ) {
+        classNames.push( 'd-' + display );
     }
 
     //console.log( 'classNames.join( \' \' ): "' + classNames.join( ' ' ) + '"' );
@@ -107,12 +113,11 @@ registerBlockType( 'bsx-blocks/column-row', {
             setAttributes( { display: value } );
         };
 
-        const config = {
-            columnRowType: columnRowType,
-            alignItems: alignItems,
-            display: display,
-        };
-        const columnRowClassNames = makeColumnRowClassNames( config );
+        const columnRowClassNames = makeColumnRowClassNames( {
+            columnRowType,
+            alignItems,
+            display,
+        } );
 
         /*
         if ( !! props.attributes ) {
@@ -181,13 +186,11 @@ registerBlockType( 'bsx-blocks/column-row', {
             },
         } = props;
 
-        const config = {
-            columnRowType: columnRowType,
-            alignItems: alignItems,
-            display: display,
-        };
-
-        const columnRowClassNames = makeColumnRowClassNames( config );
+        const columnRowClassNames = makeColumnRowClassNames( {
+            columnRowType,
+            alignItems,
+            display,
+        } );
 
         return (
             <div className={ columnRowClassNames }>

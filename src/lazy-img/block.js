@@ -62,52 +62,62 @@ const responsiveMediaIndexList = [
 ];
 const skipIndex = 0;
 
-const makeSourcesAttributesList = ( config ) => {
+const makeSourcesAttributesList = ( attributes ) => {
+
+    const {
+        imgSizes,
+        imgSizeIndex,
+        responsiveMediaIndexList,
+        portraitImgSizes,
+        portraitImgSizeIndex,
+        responsivePortraitMediaIndexList,
+        skipIndex,
+    } = attributes;
 
     const sourcesAttributesList = [];
 
     // portrait img
-    config.responsivePortraitMediaIndexList.forEach( ( item, index ) => {
+    responsivePortraitMediaIndexList.forEach( ( item, index ) => {
 
-        const currentPortraitImgIndex = parseInt( config.portraitImgSizeIndex ) + parseInt( item.imgSizeIndexShift );
+        const currentPortraitImgIndex = parseInt( portraitImgSizeIndex ) + parseInt( item.imgSizeIndexShift );
 
         const adaptedCurrentPortraitImgIndex = currentPortraitImgIndex < parseInt( item.minImgSizeIndex ) ? parseInt( item.minImgSizeIndex ) : currentPortraitImgIndex;
 
         if ( 
-            adaptedCurrentPortraitImgIndex < parseInt( config.portraitImgSizeIndex ) 
-            && adaptedCurrentPortraitImgIndex > config.skipIndex
-            && typeof config.portraitImgSizes[ adaptedCurrentPortraitImgIndex ] != 'undefined' 
-            && typeof config.portraitImgSizes[ adaptedCurrentPortraitImgIndex ].url != 'undefined' 
+            adaptedCurrentPortraitImgIndex < parseInt( portraitImgSizeIndex ) 
+            && adaptedCurrentPortraitImgIndex > skipIndex
+            && typeof portraitImgSizes[ adaptedCurrentPortraitImgIndex ] != 'undefined' 
+            && typeof portraitImgSizes[ adaptedCurrentPortraitImgIndex ].url != 'undefined' 
         ) {
             sourcesAttributesList.push( {
                 media: item.media,
                 srcset: '',
-                'data-srcset': config.portraitImgSizes[ adaptedCurrentPortraitImgIndex ].url,
-                'data-width': config.portraitImgSizes[ adaptedCurrentPortraitImgIndex ].width,
-                'data-height': config.portraitImgSizes[ adaptedCurrentPortraitImgIndex ].height,
+                'data-srcset': portraitImgSizes[ adaptedCurrentPortraitImgIndex ].url,
+                'data-width': portraitImgSizes[ adaptedCurrentPortraitImgIndex ].width,
+                'data-height': portraitImgSizes[ adaptedCurrentPortraitImgIndex ].height,
             } );
         }
     } );
 
     // default img
-    config.responsiveMediaIndexList.forEach( ( item, index ) => {
+    responsiveMediaIndexList.forEach( ( item, index ) => {
 
-        const currentImgIndex = parseInt( config.imgSizeIndex ) + parseInt( item.imgSizeIndexShift );
+        const currentImgIndex = parseInt( imgSizeIndex ) + parseInt( item.imgSizeIndexShift );
 
         const adaptedCurrentImgIndex = currentImgIndex < parseInt( item.minImgSizeIndex ) ? parseInt( item.minImgSizeIndex ) : currentImgIndex;
 
         if ( 
-            adaptedCurrentImgIndex < parseInt( config.imgSizeIndex ) 
-            && adaptedCurrentImgIndex > config.skipIndex
-            && typeof config.imgSizes[ adaptedCurrentImgIndex ] != 'undefined' 
-            && typeof config.imgSizes[ adaptedCurrentImgIndex ].url != 'undefined' 
+            adaptedCurrentImgIndex < parseInt( imgSizeIndex ) 
+            && adaptedCurrentImgIndex > skipIndex
+            && typeof imgSizes[ adaptedCurrentImgIndex ] != 'undefined' 
+            && typeof imgSizes[ adaptedCurrentImgIndex ].url != 'undefined' 
         ) {
             sourcesAttributesList.push( {
                 media: item.media,
                 srcset: '',
-                'data-srcset': config.imgSizes[ adaptedCurrentImgIndex ].url,
-                'data-width': config.imgSizes[ adaptedCurrentImgIndex ].width,
-                'data-height': config.imgSizes[ adaptedCurrentImgIndex ].height,
+                'data-srcset': imgSizes[ adaptedCurrentImgIndex ].url,
+                'data-width': imgSizes[ adaptedCurrentImgIndex ].width,
+                'data-height': imgSizes[ adaptedCurrentImgIndex ].height,
             } );
         }
     } );
@@ -202,6 +212,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             isSelected,
             setState,
         } = props;
+
         async function onSelectImage( img ) {
 
             if ( typeof img.url !== 'undefined' ) {
@@ -250,20 +261,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 // for ( let [ key, value ] of Object.entries( img.sizes ) ) {
                 //     console.log( 'key: "' + key + '", val: "' + value + '"' );
                 // }
-
-                // console.log( 'mediumUrl: ' + img.sizes.medium.url );
-                // console.log( 'mediumWidth: ' + img.sizes.medium.width );
-                // console.log( 'mediumHeight: ' + img.sizes.medium.height );
-                // console.log( 'largeUrl: ' + img.sizes.large.url );
-                // console.log( 'largeWidth: ' + img.sizes.large.width );
-                // console.log( 'largeHeight: ' + img.sizes.large.height );
-
-                // console.log( 'ratio thumbnail ( ' + img.sizes.thumbnail.width + ' / ' + img.sizes.thumbnail.height + ' ): ' + img.sizes.thumbnail.width / img.sizes.thumbnail.height );
-
-                // console.log( 'ratio medium ( ' + img.sizes.medium.width + ' / ' + img.sizes.medium.height + ' ): ' + img.sizes.medium.width / img.sizes.medium.height );
-                // console.log( 'ratio large ( ' + img.sizes.large.width + ' / ' + img.sizes.large.height + ' ): ' + img.sizes.large.width / img.sizes.large.height );
-                // console.log( 'ratio full ( ' + img.sizes.full.width + ' / ' + img.sizes.full.height + ' ): ' + img.sizes.full.width / img.sizes.full.height );
-
+                
             }
         };
 
@@ -335,13 +333,13 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         // prepare img sources attributes
 
         const sourcesAttributesList = makeSourcesAttributesList( {
-            imgSizes: imgSizes,
-            imgSizeIndex: imgSizeIndex,
-            responsiveMediaIndexList: responsiveMediaIndexList,
-            portraitImgSizes: portraitImgSizes,
-            portraitImgSizeIndex: portraitImgSizeIndex,
-            responsivePortraitMediaIndexList: responsivePortraitMediaIndexList,
-            skipIndex: skipIndex,
+            imgSizes,
+            imgSizeIndex,
+            responsiveMediaIndexList,
+            portraitImgSizes,
+            portraitImgSizeIndex,
+            responsivePortraitMediaIndexList,
+            skipIndex,
         } );
 
         // class names
@@ -566,13 +564,13 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         // prepare img sources attributes
 
         const sourcesAttributesList = makeSourcesAttributesList( {
-            imgSizes: imgSizes,
-            imgSizeIndex: imgSizeIndex,
-            responsiveMediaIndexList: responsiveMediaIndexList,
-            portraitImgSizes: portraitImgSizes,
-            portraitImgSizeIndex: portraitImgSizeIndex,
-            responsivePortraitMediaIndexList: responsivePortraitMediaIndexList,
-            skipIndex: skipIndex,
+            imgSizes,
+            imgSizeIndex,
+            responsiveMediaIndexList,
+            portraitImgSizes,
+            portraitImgSizeIndex,
+            responsivePortraitMediaIndexList,
+            skipIndex,
         } );
 
         // class names

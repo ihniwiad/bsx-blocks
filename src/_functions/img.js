@@ -44,9 +44,16 @@ export function getSizesAndWithoutSizesTruncFromUrlTrunc ( urlTrunc ) {
 
 export function makeSizedImgs( config ) {
 
-    const ratio = config.originalWidth / config.originalHeight;
+    const {
+        originalWidth,
+        originalHeight,
+        url,
+        scaleList,
+    } = config;
 
-    const urlTruncAndExtension = getUrlTruncAndExtension( config.url );
+    const ratio = originalWidth / originalHeight;
+
+    const urlTruncAndExtension = getUrlTruncAndExtension( url );
 
     const fileExtension = urlTruncAndExtension.extension;
     const urlWithoutFileExtension = urlTruncAndExtension.trunc;
@@ -58,13 +65,13 @@ export function makeSizedImgs( config ) {
 
     const returnList = [];
 
-    config.scaleList.forEach( ( scale, index ) => {
+    scaleList.forEach( ( scale, index ) => {
 
         // calculate new size
         const scaledWidth = Math.round( width * scale );
 
         // check if default size exists for current img (only if original img is larger)
-        if ( scaledWidth <= config.originalWidth ) {
+        if ( scaledWidth <= originalWidth ) {
 
             const scaledHeight = Math.round( scaledWidth / ratio );
             const scaledUrl = urlWithoutSizesAndFileExtension + '-' + scaledWidth + 'x' + scaledHeight + '.' + fileExtension;

@@ -836,17 +836,17 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
         };
 
         let rowClassNames = makeRowClassNames( {
-            alignItems: alignItems, 
-            justifyContent: justifyContent, 
-            noGutters: noGutters, 
-            formRow: formRow,
-            rowReverse: rowReverse,
+            alignItems, 
+            justifyContent, 
+            noGutters, 
+            formRow,
+            rowReverse,
         } );
         rowClassNames = addClassNames( {
-            marginBefore: marginBefore, 
-            marginAfter: marginAfter, 
-            paddingBefore: paddingBefore, 
-            paddingAfter: paddingAfter,
+            marginBefore, 
+            marginAfter, 
+            paddingBefore, 
+            paddingAfter,
         }, rowClassNames );
 
         return [
@@ -1211,20 +1211,18 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
             },
         } = props;
 
-        
-
         let rowClassNames = makeRowClassNames( {
-            alignItems: alignItems, 
-            justifyContent: justifyContent, 
-            noGutters: noGutters, 
-            formRow: formRow,
-            rowReverse: rowReverse,
+            alignItems, 
+            justifyContent, 
+            noGutters, 
+            formRow,
+            rowReverse,
         } );
         rowClassNames = addClassNames( {
-            marginBefore: marginBefore, 
-            marginAfter: marginAfter, 
-            paddingBefore: paddingBefore, 
-            paddingAfter: paddingAfter,
+            marginBefore, 
+            marginAfter, 
+            paddingBefore, 
+            paddingAfter,
         }, rowClassNames );
 
         return (

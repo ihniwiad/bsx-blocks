@@ -190,18 +190,18 @@ registerBlockType( 'bsx-blocks/wrapper', {
         ];
 
         const wrapperClassName = addClassNames( { 
-            bgColor: bgColor, 
-            textColor: textColor, 
-            textSize: textSize,
-            rounded: rounded, 
-            textAlign: textAlign,
-            width: width,
-            marginBefore: marginBefore, 
-            marginAfter: marginAfter, 
-            paddingBefore: paddingBefore, 
-            paddingAfter: paddingAfter, 
-            paddingLeft: paddingLeft, 
-            paddingRight: paddingRight,
+            bgColor, 
+            textColor, 
+            textSize,
+            rounded, 
+            textAlign,
+            width,
+            marginBefore, 
+            marginAfter, 
+            paddingBefore, 
+            paddingAfter, 
+            paddingLeft, 
+            paddingRight,
         } );
 
         const TagName = nodeName;
@@ -451,18 +451,18 @@ registerBlockType( 'bsx-blocks/wrapper', {
         } = props;
 
         const wrapperClassName = addClassNames( { 
-            bgColor: bgColor, 
-            textColor: textColor, 
-            textSize: textSize,
-            rounded: rounded, 
-            textAlign: textAlign,
-            width: width,
-            marginBefore: marginBefore, 
-            marginAfter: marginAfter, 
-            paddingBefore: paddingBefore, 
-            paddingAfter: paddingAfter, 
-            paddingLeft: paddingLeft, 
-            paddingRight: paddingRight,
+            bgColor, 
+            textColor, 
+            textSize,
+            rounded, 
+            textAlign,
+            width,
+            marginBefore, 
+            marginAfter, 
+            paddingBefore, 
+            paddingAfter, 
+            paddingLeft, 
+            paddingRight,
         } );
 
         const TagName = nodeName;

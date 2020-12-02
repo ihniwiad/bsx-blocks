@@ -135,9 +135,9 @@ registerBlockType( 'bsx-blocks/buttons', {
         ];
 
         const wrapperClassNames = addClassNames( { 
-            textAlign: textAlign, 
-            marginBefore: marginBefore, 
-            marginAfter: marginAfter,
+            textAlign, 
+            marginBefore, 
+            marginAfter,
         } );
 
         return [
@@ -212,9 +212,9 @@ registerBlockType( 'bsx-blocks/buttons', {
         } = props;
 
         const wrapperClassNames = addClassNames( { 
-            textAlign: textAlign, 
-            marginBefore: marginBefore, 
-            marginAfter: marginAfter,
+            textAlign, 
+            marginBefore, 
+            marginAfter,
         } );
 
         return (

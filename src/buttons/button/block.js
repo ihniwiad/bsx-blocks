@@ -254,15 +254,15 @@ registerBlockType( 'bsx-blocks/button', {
 
         // exclude hrefIsContentIsEmail here to keep correct button title shown
         let buttonClassNames = makeButtonClassNames( { 
-            state: state, 
-            stateType: stateType, 
-            size: size,
+            state, 
+            stateType, 
+            size,
         } );
         buttonClassNames = addClassNames( {
-            marginLeft: marginLeft, 
-            marginRight: marginRight, 
-            marginBefore: marginBefore,
-            marginAfter: marginAfter,
+            marginLeft, 
+            marginRight, 
+            marginBefore,
+            marginAfter,
         }, buttonClassNames );
 
         // adapt content since mailto link saves empty content, see `value={ ! content && hrefIsContentIsEmail ? href.substring( 7 ) : content }`
@@ -447,18 +447,18 @@ registerBlockType( 'bsx-blocks/button', {
         // console.log( '----- typeof content: ' + typeof content );
         // console.log( '----- content.length: ' + content.length );
         // console.log( '----- hrefIsContentIsEmail: ' + hrefIsContentIsEmail );
-
+        
         let buttonClassNames = makeButtonClassNames( { 
-            state: state, 
-            stateType: stateType, 
-            size: size,
-            hrefIsContentIsEmail: hrefIsContentIsEmail,
+            state, 
+            stateType, 
+            size,
+            hrefIsContentIsEmail,
         } );
         buttonClassNames = addClassNames( {
-            marginLeft: marginLeft, 
-            marginRight: marginRight, 
-            marginBefore: marginBefore,
-            marginAfter: marginAfter,
+            marginLeft, 
+            marginRight, 
+            marginBefore,
+            marginAfter,
         }, buttonClassNames );
 
         // save spam-protected mailto link format (no href-attribute, no content – both will be set via css / js):
