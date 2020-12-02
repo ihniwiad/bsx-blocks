@@ -1,6 +1,3 @@
-// TODO: make node name configurable
-
-
 const { __, setLocaleData } = wp.i18n;
 const {
     registerBlockType,
@@ -155,6 +152,10 @@ registerBlockType( 'bsx-blocks/banner', {
     icon: svgIcon( 'banner' ),
     category: 'layout',
     attributes: {
+        nodeName: {
+            type: 'string',
+            default: 'div',
+        },
         templateName: {
             type: 'string',
         },
@@ -247,6 +248,7 @@ registerBlockType( 'bsx-blocks/banner', {
         const {
             className,
             attributes: {
+                nodeName,
                 templateName,
                 belowNavbar,
                 imgId,
@@ -467,6 +469,10 @@ registerBlockType( 'bsx-blocks/banner', {
             // console.log( 'changed template: ' + template );
         };
 
+        const onChangeNodeName = ( value ) => {
+            setAttributes( { nodeName: value } );
+        };
+
         const onChangeBelowNavbar = ( value ) => {
             setAttributes( { belowNavbar: value } );
         };
@@ -581,25 +587,27 @@ registerBlockType( 'bsx-blocks/banner', {
         } );
 
         let bannerClassName = makeBannerClassNames( { 
-            bannerType: bannerType, 
-            bannerSize: bannerSize, 
-            bgAttachment: bgAttachment, 
-            bgSize: bgSize, 
-            bgPosition: bgPosition, 
-            alignItems: alignItems, 
-            templateName: templateName,
+            bannerType, 
+            bannerSize, 
+            bgAttachment, 
+            bgSize, 
+            bgPosition, 
+            alignItems, 
+            templateName,
         } );
         bannerClassName = addClassNames( {
-            belowNavbar: belowNavbar,
-            marginBefore: marginBefore, 
-            marginAfter: marginAfter, 
-            paddingBefore: paddingBefore, 
-            paddingAfter: paddingAfter,
+            belowNavbar,
+            marginBefore, 
+            marginAfter, 
+            paddingBefore, 
+            paddingAfter,
         }, bannerClassName );
 
         const bannerInnerClassName = makeBannerInnerClassNames( {
             templateName: templateName,
         } );
+
+        const TagName = nodeName;
 
         const bannerStyle = { backgroundImage: `url(${ url })` };
 
@@ -818,6 +826,16 @@ registerBlockType( 'bsx-blocks/banner', {
                     help={ __( 'Enable if container starts below navbar. If enabled container has spacer top to avoid overlapping its contents by navbar.', 'bsx-blocks' ) }
                 />
                 <SelectControl 
+                    label={ __( 'Node name', 'bsx-blocks' ) }
+                    value={ nodeName }
+                    onChange={ onChangeNodeName }
+                    options={ [
+                        { value: 'div', label: __( 'div', 'bsx-blocks' ) },
+                        { value: 'section', label: __( 'section', 'bsx-blocks' ) },
+                    ] }
+                    help={ __( 'Node name (please edit only if you know what you’re doing)', 'bsx-blocks' ) }
+                />
+                <SelectControl 
                     label={ __( 'Background advanced position', 'bsx-blocks' ) }
                     value={ bgPosition }
                     onChange={ onChangeBgPosition }
@@ -876,7 +894,7 @@ registerBlockType( 'bsx-blocks/banner', {
             </InspectorAdvancedControls>,
 
             (
-                <Fragment>
+                <>
                     {
                         ! templateName ? (
                             <div class="bsxui-initial-inline-control">
@@ -905,7 +923,7 @@ registerBlockType( 'bsx-blocks/banner', {
                         )
                         : 
                         (
-                            <div className={ bannerClassName } style={ bannerStyle }>
+                            <TagName className={ bannerClassName } style={ bannerStyle }>
                                 {
                                     ! imgId && (
                                         <div className="bsxui-in-widget-overlay-panel bsxui-top">
@@ -948,10 +966,10 @@ registerBlockType( 'bsx-blocks/banner', {
                                         />
                                     )
                                 }
-                            </div>
+                            </TagName>
                         )
                     }
-                </Fragment>
+                </>
             )
         ];
     } ),
@@ -959,6 +977,7 @@ registerBlockType( 'bsx-blocks/banner', {
         const {
             className,
             attributes: {
+                nodeName,
                 templateName,
                 belowNavbar,
                 imgId,
@@ -984,20 +1003,20 @@ registerBlockType( 'bsx-blocks/banner', {
         // class names
 
         let bannerClassName = makeBannerClassNames( { 
-            bannerType: bannerType, 
-            bannerSize: bannerSize, 
-            bgAttachment: bgAttachment, 
-            bgSize: bgSize, 
-            bgPosition: bgPosition, 
-            alignItems: alignItems, 
-            templateName: templateName,
+            bannerType, 
+            bannerSize, 
+            bgAttachment, 
+            bgSize, 
+            bgPosition, 
+            alignItems, 
+            templateName,
         } );
         bannerClassName = addClassNames( {
-            belowNavbar: belowNavbar,
-            marginBefore: marginBefore, 
-            marginAfter: marginAfter, 
-            paddingBefore: paddingBefore, 
-            paddingAfter: paddingAfter,
+            belowNavbar,
+            marginBefore, 
+            marginAfter, 
+            paddingBefore, 
+            paddingAfter,
         }, bannerClassName );
 
         const bannerInnerClassName = makeBannerInnerClassNames( {
@@ -1015,8 +1034,10 @@ registerBlockType( 'bsx-blocks/banner', {
             'data-srcset': srcsetJson,
         } );
 
+        const TagName = nodeName;
+
         return (
-            <div className={ bannerClassName } data-fn="lazyload" data-src={ url } { ...saveAttributes }>
+            <TagName className={ bannerClassName } data-fn="lazyload" data-src={ url } { ...saveAttributes }>
                 {
                     noBannerInnerTemplateNames.indexOf( templateName ) == -1 ? (
                         <div className={ bannerInnerClassName }>
@@ -1028,7 +1049,7 @@ registerBlockType( 'bsx-blocks/banner', {
                         <InnerBlocks.Content />
                     )
                 }
-            </div>
+            </TagName>
         );
     },
 } );
