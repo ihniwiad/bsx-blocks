@@ -445,7 +445,9 @@ function addClassNames(attributes, classNamesString) {
       textSize = attributes.textSize,
       rounded = attributes.rounded,
       textAlign = attributes.textAlign,
-      width = attributes.width;
+      width = attributes.width,
+      imgThumbnail = attributes.imgThumbnail,
+      borderState = attributes.borderState;
   var classNames = typeof classNamesString != 'undefined' ? classNamesString.split(' ') : [];
 
   if (!!belowNavbar) {
@@ -546,6 +548,14 @@ function addClassNames(attributes, classNamesString) {
     classNames.push('w-' + width);
   }
 
+  if (!!imgThumbnail) {
+    classNames.push('img-thumbnail');
+  }
+
+  if (!!borderState) {
+    classNames.push('border-' + borderState);
+  }
+
   return classNames.join(' ');
 }
 
@@ -638,19 +648,23 @@ function getSizesAndWithoutSizesTruncFromUrlTrunc(urlTrunc) {
   };
 }
 function makeSizedImgs(config) {
-  var ratio = config.originalWidth / config.originalHeight;
-  var urlTruncAndExtension = getUrlTruncAndExtension(config.url);
+  var originalWidth = config.originalWidth,
+      originalHeight = config.originalHeight,
+      url = config.url,
+      scaleList = config.scaleList;
+  var ratio = originalWidth / originalHeight;
+  var urlTruncAndExtension = getUrlTruncAndExtension(url);
   var fileExtension = urlTruncAndExtension.extension;
   var urlWithoutFileExtension = urlTruncAndExtension.trunc;
   var sizesAndWithoutSizesTrunc = getSizesAndWithoutSizesTruncFromUrlTrunc(urlWithoutFileExtension);
   var width = sizesAndWithoutSizesTrunc.width;
   var urlWithoutSizesAndFileExtension = sizesAndWithoutSizesTrunc.withoutSizesTrunc;
   var returnList = [];
-  config.scaleList.forEach(function (scale, index) {
+  scaleList.forEach(function (scale, index) {
     // calculate new size
     var scaledWidth = Math.round(width * scale); // check if default size exists for current img (only if original img is larger)
 
-    if (scaledWidth <= config.originalWidth) {
+    if (scaledWidth <= originalWidth) {
       var scaledHeight = Math.round(scaledWidth / ratio);
       var scaledUrl = urlWithoutSizesAndFileExtension + '-' + scaledWidth + 'x' + scaledHeight + '.' + fileExtension;
       returnList.push({
@@ -1294,7 +1308,6 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_3___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-// TODO: make node name configurable
 var _wp$i18n = wp.i18n,
     __ = _wp$i18n.__,
     setLocaleData = _wp$i18n.setLocaleData;
@@ -1320,45 +1333,53 @@ var withSelect = wp.data.withSelect;
 
  // functions
 
-var makeBannerClassNames = function makeBannerClassNames(config) {
+var makeBannerClassNames = function makeBannerClassNames(attributes) {
+  var bannerType = attributes.bannerType,
+      bannerSize = attributes.bannerSize,
+      bgAttachment = attributes.bgAttachment,
+      bgSize = attributes.bgSize,
+      bgPosition = attributes.bgPosition,
+      alignItems = attributes.alignItems,
+      templateName = attributes.templateName;
   var classNames = [];
 
   if (true) {
     // always set bannerType and bannerSize to keep debugging easy
-    classNames.push('banner-' + config.bannerType + '-' + config.bannerSize);
+    classNames.push('banner-' + bannerType + '-' + bannerSize);
   }
 
-  if (!!config.bgAttachment) {
-    classNames.push('bg-' + config.bgAttachment);
+  if (!!bgAttachment) {
+    classNames.push('bg-' + bgAttachment);
   }
 
-  if (!!config.bgSize) {
-    classNames.push('bg-' + config.bgSize);
+  if (!!bgSize) {
+    classNames.push('bg-' + bgSize);
   }
 
-  if (!!config.bgPosition) {
-    classNames.push('bg-' + config.bgPosition);
+  if (!!bgPosition) {
+    classNames.push('bg-' + bgPosition);
   }
 
-  if (!!config.alignItems) {
+  if (!!alignItems) {
     classNames.push('d-flex');
 
-    if (config.templateName !== 'column-row-banner') {
-      classNames.push('align-items-' + config.alignItems);
+    if (templateName !== 'column-row-banner') {
+      classNames.push('align-items-' + alignItems);
     }
   }
 
-  if (!!config.templateName && config.templateName == 'column-row-banner' && classNames.indexOf('d-flex') == -1) {
+  if (!!templateName == 'column-row-banner' && classNames.indexOf('d-flex') == -1) {
     classNames.push('d-flex');
   }
 
   return classNames.join(' ');
 };
 
-var makeBannerInnerClassNames = function makeBannerInnerClassNames(config) {
+var makeBannerInnerClassNames = function makeBannerInnerClassNames(attributes) {
+  var templateName = attributes.templateName;
   var classNames = ['banner-inner'];
 
-  if (!!config.templateName && config.templateName == 'column-row-banner') {
+  if (!!templateName && templateName == 'column-row-banner') {
     classNames.push('w-100');
     classNames.push('d-flex');
     classNames.push('flex-column');
@@ -1384,23 +1405,27 @@ var responsiveMediaIndexList = [{
 }];
 var skipIndex = 0;
 
-var makeSrcsetJson = function makeSrcsetJson(config) {
-  // srcsetJson = "[ { media: '" + mobileMediaQuery + "', src: '" + url + "' }, { media: '" + smallMobileMediaQuery + "', src: '" + config.imgSizes[ ( imgSizeIndex - mobileSizeStep > 0 ? imgSizeIndex - mobileSizeStep : 0 ) ].url + "' }, { media: '', src: '" + config.imgSizes[ ( imgSizeIndex - smallMobileSizeStep > 0 ? imgSizeIndex - smallMobileSizeStep : 0 ) ].url + "' } ]";
+var makeSrcsetJson = function makeSrcsetJson(attributes) {
+  var imgSizes = attributes.imgSizes,
+      imgSizeIndex = attributes.imgSizeIndex,
+      portraitImgSizes = attributes.portraitImgSizes,
+      portraitImgSizeIndex = attributes.portraitImgSizeIndex; // srcsetJson = "[ { media: '" + mobileMediaQuery + "', src: '" + url + "' }, { media: '" + smallMobileMediaQuery + "', src: '" + imgSizes[ ( imgSizeIndex - mobileSizeStep > 0 ? imgSizeIndex - mobileSizeStep : 0 ) ].url + "' }, { media: '', src: '" + imgSizes[ ( imgSizeIndex - smallMobileSizeStep > 0 ? imgSizeIndex - smallMobileSizeStep : 0 ) ].url + "' } ]";
+
   var srcsetJson = '[ ';
   responsivePortraitMediaIndexList.forEach(function (item, index) {
     // add item if img resulting indes > skipIndex (no square format)
-    var currentPortraitImgSizeIndex = parseInt(config.portraitImgSizeIndex) + parseInt(item.imgSizeIndexShift);
+    var currentPortraitImgSizeIndex = parseInt(portraitImgSizeIndex) + parseInt(item.imgSizeIndexShift);
 
-    if (currentPortraitImgSizeIndex > skipIndex && currentPortraitImgSizeIndex < config.portraitImgSizes.length) {
-      srcsetJson += '{ media: \'' + item.media + '\', src: \'' + config.portraitImgSizes[currentPortraitImgSizeIndex].url + '\' }, ';
+    if (currentPortraitImgSizeIndex > skipIndex && currentPortraitImgSizeIndex < portraitImgSizes.length) {
+      srcsetJson += '{ media: \'' + item.media + '\', src: \'' + portraitImgSizes[currentPortraitImgSizeIndex].url + '\' }, ';
     }
   });
   responsiveMediaIndexList.forEach(function (item, index) {
     // add item if img resulting indes > skipIndex (no square format)
-    var currentImgSizeIndex = parseInt(config.imgSizeIndex) + parseInt(item.imgSizeIndexShift);
+    var currentImgSizeIndex = parseInt(imgSizeIndex) + parseInt(item.imgSizeIndexShift);
 
-    if (currentImgSizeIndex > skipIndex && currentImgSizeIndex < config.imgSizes.length) {
-      srcsetJson += '{ media: \'' + item.media + '\', src: \'' + config.imgSizes[currentImgSizeIndex].url + '\' }, ';
+    if (currentImgSizeIndex > skipIndex && currentImgSizeIndex < imgSizes.length) {
+      srcsetJson += '{ media: \'' + item.media + '\', src: \'' + imgSizes[currentImgSizeIndex].url + '\' }, ';
     }
   });
 
@@ -1419,6 +1444,10 @@ registerBlockType('bsx-blocks/banner', {
   icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_5__["svgIcon"])('banner'),
   category: 'layout',
   attributes: {
+    nodeName: {
+      type: 'string',
+      default: 'div'
+    },
     templateName: {
       type: 'string'
     },
@@ -1506,6 +1535,7 @@ registerBlockType('bsx-blocks/banner', {
   })(function (props) {
     var className = props.className,
         _props$attributes = props.attributes,
+        nodeName = _props$attributes.nodeName,
         templateName = _props$attributes.templateName,
         belowNavbar = _props$attributes.belowNavbar,
         imgId = _props$attributes.imgId,
@@ -1637,6 +1667,12 @@ registerBlockType('bsx-blocks/banner', {
       } // console.log( 'changed templateName: ' + value );
       // console.log( 'changed template: ' + template );
 
+    };
+
+    var onChangeNodeName = function onChangeNodeName(value) {
+      setAttributes({
+        nodeName: value
+      });
     };
 
     var onChangeBelowNavbar = function onChangeBelowNavbar(value) {
@@ -1847,6 +1883,7 @@ registerBlockType('bsx-blocks/banner', {
     var bannerInnerClassName = makeBannerInnerClassNames({
       templateName: templateName
     });
+    var TagName = nodeName;
     var bannerStyle = {
       backgroundImage: "url(".concat(url, ")")
     };
@@ -2069,6 +2106,18 @@ registerBlockType('bsx-blocks/banner', {
       onChange: onChangeBelowNavbar,
       help: __('Enable if container starts below navbar. If enabled container has spacer top to avoid overlapping its contents by navbar.', 'bsx-blocks')
     }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(SelectControl, {
+      label: __('Node name', 'bsx-blocks'),
+      value: nodeName,
+      onChange: onChangeNodeName,
+      options: [{
+        value: 'div',
+        label: __('div', 'bsx-blocks')
+      }, {
+        value: 'section',
+        label: __('section', 'bsx-blocks')
+      }],
+      help: __('Node name (please edit only if you know what you’re doing)', 'bsx-blocks')
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(SelectControl, {
       label: __('Background advanced position', 'bsx-blocks'),
       value: bgPosition,
       onChange: onChangeBgPosition,
@@ -2183,7 +2232,7 @@ registerBlockType('bsx-blocks/banner', {
       }, template.icon), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
         class: "bsxui-icon-text-button-list-item-label"
       }, template.title));
-    }))) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+    }))) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(TagName, {
       className: bannerClassName,
       style: bannerStyle
     }, !imgId && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
@@ -2216,6 +2265,7 @@ registerBlockType('bsx-blocks/banner', {
   save: function save(props) {
     var className = props.className,
         _props$attributes2 = props.attributes,
+        nodeName = _props$attributes2.nodeName,
         templateName = _props$attributes2.templateName,
         belowNavbar = _props$attributes2.belowNavbar,
         imgId = _props$attributes2.imgId,
@@ -2264,7 +2314,8 @@ registerBlockType('bsx-blocks/banner', {
     var saveAttributes = Object(_functions_attributes_js__WEBPACK_IMPORTED_MODULE_8__["makeSaveAttributes"])({
       'data-srcset': srcsetJson
     });
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+    var TagName = nodeName;
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(TagName, _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
       className: bannerClassName,
       "data-fn": "lazyload",
       "data-src": url
@@ -3096,22 +3147,25 @@ var _wp$components = wp.components,
     SelectControl = _wp$components.SelectControl;
 var withSelect = wp.data.withSelect;
 
-var makeColumnRowClassNames = function makeColumnRowClassNames(config) {
+var makeColumnRowClassNames = function makeColumnRowClassNames(attributes) {
+  var columnRowType = attributes.columnRowType,
+      alignItems = attributes.alignItems,
+      display = attributes.display;
   var classNames = [];
 
-  if (!!config.columnRowType) {
-    classNames.push('column-row-' + config.columnRowType);
+  if (!!columnRowType) {
+    classNames.push('column-row-' + columnRowType);
   } else {
     // default class name
     classNames.push('column-row');
   }
 
-  if (!!config.alignItems) {
-    classNames.push('align-items-' + config.alignItems);
+  if (!!alignItems) {
+    classNames.push('align-items-' + alignItems);
   }
 
-  if (!!config.display) {
-    classNames.push('d-' + config.display);
+  if (!!display) {
+    classNames.push('d-' + display);
   } //console.log( 'classNames.join( \' \' ): "' + classNames.join( ' ' ) + '"' );
 
 
@@ -3187,12 +3241,11 @@ registerBlockType('bsx-blocks/column-row', {
       });
     };
 
-    var config = {
+    var columnRowClassNames = makeColumnRowClassNames({
       columnRowType: columnRowType,
       alignItems: alignItems,
       display: display
-    };
-    var columnRowClassNames = makeColumnRowClassNames(config);
+    });
     /*
     if ( !! props.attributes ) {
         console.log( 'build col: ' );
@@ -3260,12 +3313,11 @@ registerBlockType('bsx-blocks/column-row', {
         columnRowType = _props$attributes2.columnRowType,
         alignItems = _props$attributes2.alignItems,
         display = _props$attributes2.display;
-    var config = {
+    var columnRowClassNames = makeColumnRowClassNames({
       columnRowType: columnRowType,
       alignItems: alignItems,
       display: display
-    };
-    var columnRowClassNames = makeColumnRowClassNames(config);
+    });
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: columnRowClassNames
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks.Content, null));
@@ -3307,19 +3359,22 @@ var _wp$data = wp.data,
     withSelect = _wp$data.withSelect,
     withDispatch = _wp$data.withDispatch;
 
-var makeColumnRowsClassNames = function makeColumnRowsClassNames(config) {
+var makeColumnRowsClassNames = function makeColumnRowsClassNames(attributes) {
+  var display = attributes.display,
+      flexDirection = attributes.flexDirection,
+      width = attributes.width;
   var classNames = [];
 
-  if (!!config.display) {
-    classNames.push('d-' + config.display);
+  if (!!display) {
+    classNames.push('d-' + display);
   }
 
-  if (!!config.flexDirection) {
-    classNames.push('flex-' + config.flexDirection);
+  if (!!flexDirection) {
+    classNames.push('flex-' + flexDirection);
   }
 
-  if (!!config.width) {
-    classNames.push('w-' + config.width);
+  if (!!width) {
+    classNames.push('w-' + width);
   } // console.log( 'classNames.join( \' \' ): "' + classNames.join( ' ' ) + '"' );
 
 
@@ -3472,12 +3527,11 @@ registerBlockType('bsx-blocks/column-rows', {
       });
     };
 
-    var config = {
+    var columnsRowsClassNames = makeColumnRowsClassNames({
       display: display,
       flexDirection: flexDirection,
       width: width
-    };
-    var columnsRowsClassNames = makeColumnRowsClassNames(config);
+    });
     return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
       title: __('Column Rows layout', 'bsx-blocks')
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
@@ -3562,12 +3616,11 @@ registerBlockType('bsx-blocks/column-rows', {
         display = _props$attributes2.display,
         flexDirection = _props$attributes2.flexDirection,
         width = _props$attributes2.width;
-    var config = {
+    var columnsRowsClassNames = makeColumnRowsClassNames({
       display: display,
       flexDirection: flexDirection,
       width: width
-    };
-    var columnsRowsClassNames = makeColumnRowsClassNames(config);
+    });
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: columnsRowsClassNames
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks.Content, null));
@@ -3754,14 +3807,13 @@ registerBlockType('bsx-blocks/container', {
     };
 
     var containerClassName = makeContainerClassNames(isFluid, containerBreakpoint);
-    var config = {
+    containerClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__["addClassNames"])({
       belowNavbar: belowNavbar,
       marginBefore: marginBefore,
       marginAfter: marginAfter,
       paddingBefore: paddingBefore,
       paddingAfter: paddingAfter
-    };
-    containerClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__["addClassNames"])(config, containerClassName);
+    }, containerClassName);
     return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
       title: __('Container Settings', 'bsx-blocks')
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
@@ -3925,14 +3977,13 @@ registerBlockType('bsx-blocks/container', {
         paddingBefore = _props$attributes2.paddingBefore,
         paddingAfter = _props$attributes2.paddingAfter;
     var containerClassName = makeContainerClassNames(isFluid, containerBreakpoint);
-    var config = {
+    containerClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__["addClassNames"])({
       belowNavbar: belowNavbar,
       marginBefore: marginBefore,
       marginAfter: marginAfter,
       paddingBefore: paddingBefore,
       paddingAfter: paddingAfter
-    };
-    containerClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__["addClassNames"])(config, containerClassName);
+    }, containerClassName);
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: containerClassName
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks.Content, null));
@@ -4135,15 +4186,17 @@ var _wp$components = wp.components,
     TextControl = _wp$components.TextControl,
     SelectControl = _wp$components.SelectControl,
     PanelBody = _wp$components.PanelBody,
+    ToggleControl = _wp$components.ToggleControl,
     SVG = _wp$components.SVG,
     Path = _wp$components.Path;
 
 
-var makeClassName = function makeClassName(config) {
+var makeClassName = function makeClassName(attributes) {
+  var galleryType = attributes.galleryType;
   var classNames = ['bsx-gallery'];
 
-  if (!!config.galleryType) {
-    if (config.galleryType == 'floating') {
+  if (!!galleryType) {
+    if (galleryType == 'floating') {
       classNames.push('bsx-floating-gallery');
     }
   }
@@ -4151,13 +4204,14 @@ var makeClassName = function makeClassName(config) {
   return classNames.join(' ');
 };
 
-var makeInnerClassName = function makeInnerClassName(config) {
+var makeInnerClassName = function makeInnerClassName(attributes) {
+  var galleryType = attributes.galleryType;
   var classNames = [];
 
-  if (!!config.galleryType) {
-    if (config.galleryType == 'floating') {
+  if (!!galleryType) {
+    if (galleryType == 'floating') {
       classNames.push('bsx-floating-gallery-inner');
-    } else if (config.galleryType == 'columns') {
+    } else if (galleryType == 'columns') {
       classNames.push('row');
     }
   }
@@ -4165,13 +4219,14 @@ var makeInnerClassName = function makeInnerClassName(config) {
   return classNames.join(' ');
 };
 
-var makeItemClassName = function makeItemClassName(config) {
+var makeItemClassName = function makeItemClassName(attributes) {
+  var galleryType = attributes.galleryType;
   var classNames = [];
 
-  if (!!config.galleryType) {
-    if (config.galleryType == 'floating') {
+  if (!!galleryType) {
+    if (galleryType == 'floating') {
       classNames.push('bsx-floating-gallery-figure d-inline-block');
-    } else if (config.galleryType == 'columns') {
+    } else if (galleryType == 'columns') {
       // TODO: make configurable later
       classNames.push('col-6 col-sm-3 mb-4');
     }
@@ -4180,13 +4235,14 @@ var makeItemClassName = function makeItemClassName(config) {
   return classNames.join(' ');
 };
 
-var makeLinkClassName = function makeLinkClassName(config) {
+var makeLinkClassName = function makeLinkClassName(attributes) {
+  var galleryType = attributes.galleryType;
   var classNames = [];
 
-  if (!!config.galleryType) {
-    if (config.galleryType == 'floating') {
+  if (!!galleryType) {
+    if (galleryType == 'floating') {
       classNames.push('d-inline-block');
-    } else if (config.galleryType == 'columns') {
+    } else if (galleryType == 'columns') {
       classNames.push('d-block text-center');
     }
   }
@@ -4194,13 +4250,14 @@ var makeLinkClassName = function makeLinkClassName(config) {
   return classNames.join(' ');
 };
 
-var makeImgClassName = function makeImgClassName(config) {
+var makeImgClassName = function makeImgClassName(attributes) {
+  var galleryType = attributes.galleryType;
   var classNames = [];
 
-  if (!!config.galleryType) {
-    if (config.galleryType == 'floating') {
+  if (!!galleryType) {
+    if (galleryType == 'floating') {
       classNames.push('bsx-floating-gallery-img-md');
-    } else if (config.galleryType == 'columns') {
+    } else if (galleryType == 'columns') {
       classNames.push('img-fluid');
     }
   }
@@ -4208,11 +4265,12 @@ var makeImgClassName = function makeImgClassName(config) {
   return classNames.join(' ');
 };
 
-var makeUploadElementClassName = function makeUploadElementClassName(config) {
+var makeUploadElementClassName = function makeUploadElementClassName(attributes) {
+  var galleryType = attributes.galleryType;
   var classNames = [];
 
-  if (!!config.galleryType) {
-    if (config.galleryType == 'floating') {
+  if (!!galleryType) {
+    if (galleryType == 'floating') {
       classNames.push('bsxui-mt-3');
     }
   }
@@ -4233,6 +4291,20 @@ registerBlockType('bsx-blocks/img-gallery', {
       type: 'string',
       default: 'columns'
     },
+    figcaption: {
+      type: 'array',
+      source: 'children',
+      selector: '.bsx-gallery-figcaption'
+    },
+    rounded: {
+      type: 'boolean'
+    },
+    imgThumbnail: {
+      type: 'boolean'
+    },
+    borderState: {
+      type: 'string'
+    },
     marginBefore: {
       type: 'string',
       default: ''
@@ -4247,6 +4319,10 @@ registerBlockType('bsx-blocks/img-gallery', {
         _props$attributes = props.attributes,
         mediaList = _props$attributes.mediaList,
         galleryType = _props$attributes.galleryType,
+        figcaption = _props$attributes.figcaption,
+        rounded = _props$attributes.rounded,
+        imgThumbnail = _props$attributes.imgThumbnail,
+        borderState = _props$attributes.borderState,
         marginBefore = _props$attributes.marginBefore,
         marginAfter = _props$attributes.marginAfter,
         setAttributes = props.setAttributes,
@@ -4349,6 +4425,30 @@ registerBlockType('bsx-blocks/img-gallery', {
       });
     };
 
+    var onChangeFigcaption = function onChangeFigcaption(value) {
+      setAttributes({
+        figcaption: value
+      });
+    };
+
+    var onChangeRounded = function onChangeRounded(value) {
+      setAttributes({
+        rounded: value
+      });
+    };
+
+    var onChangeImgThumbnail = function onChangeImgThumbnail(value) {
+      setAttributes({
+        imgThumbnail: value
+      });
+    };
+
+    var onChangeBorderState = function onChangeBorderState(value) {
+      setAttributes({
+        borderState: value
+      });
+    };
+
     var onChangeMarginBefore = function onChangeMarginBefore(value) {
       setAttributes({
         marginBefore: value
@@ -4381,9 +4481,15 @@ registerBlockType('bsx-blocks/img-gallery', {
     var imgClassName = makeImgClassName({
       galleryType: galleryType
     });
+    imgClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__["addClassNames"])({
+      rounded: rounded,
+      imgThumbnail: imgThumbnail,
+      borderState: borderState
+    }, imgClassName);
     var uploadElementClassName = makeUploadElementClassName({
       galleryType: galleryType
     });
+    var TagName = 'figure';
     return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
       title: __('Gallery settings', 'bsx-blocks')
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(SelectControl, {
@@ -4396,6 +4502,51 @@ registerBlockType('bsx-blocks/img-gallery', {
       }, {
         value: 'floating',
         label: __('Floating (equal image height)', 'bsx-blocks')
+      }]
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
+      title: __('Thumbnail appearance', 'bsx-blocks')
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ToggleControl, {
+      label: __('Rounded corners', 'bsx-blocks'),
+      checked: !!rounded,
+      onChange: onChangeRounded
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ToggleControl, {
+      label: __('Border', 'bsx-blocks'),
+      checked: !!imgThumbnail,
+      onChange: onChangeImgThumbnail
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(SelectControl, {
+      label: __('Border color', 'bsx-blocks'),
+      value: borderState,
+      onChange: onChangeBorderState,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: 'white',
+        label: __('White', 'bsx-blocks')
+      }, {
+        value: 'primary',
+        label: __('Primary', 'bsx-blocks')
+      }, {
+        value: 'secondary',
+        label: __('Secondary', 'bsx-blocks')
+      }, {
+        value: 'success',
+        label: __('Success', 'bsx-blocks')
+      }, {
+        value: 'danger',
+        label: __('Danger', 'bsx-blocks')
+      }, {
+        value: 'warning',
+        label: __('Warning', 'bsx-blocks')
+      }, {
+        value: 'info',
+        label: __('Info', 'bsx-blocks')
+      }, {
+        value: 'light',
+        label: __('Light', 'bsx-blocks')
+      }, {
+        value: 'dark',
+        label: __('Dark', 'bsx-blocks')
       }]
     })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
       title: __('Margin', 'bsx-blocks')
@@ -4453,7 +4604,7 @@ registerBlockType('bsx-blocks/img-gallery', {
         label: __('extra large', 'bsx-blocks')
       }],
       help: __('Spacer after element', 'bsx-blocks')
-    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(TagName, {
       className: galleryClassName
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
       className: innerClassName
@@ -4550,13 +4701,24 @@ registerBlockType('bsx-blocks/img-gallery', {
           onClick: open
         }, __('Add image(s)', 'bsx-blocks'));
       }
-    })))];
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RichText, {
+      tagName: "figcaption",
+      multiline: false,
+      placeholder: __('Caption (optional)', 'bsx-blocks'),
+      value: figcaption,
+      onChange: onChangeFigcaption,
+      keepPlaceholderOnFocus: true
+    }))];
   },
   save: function save(props) {
     var className = props.className,
         _props$attributes2 = props.attributes,
         mediaList = _props$attributes2.mediaList,
         galleryType = _props$attributes2.galleryType,
+        figcaption = _props$attributes2.figcaption,
+        rounded = _props$attributes2.rounded,
+        imgThumbnail = _props$attributes2.imgThumbnail,
+        borderState = _props$attributes2.borderState,
         marginBefore = _props$attributes2.marginBefore,
         marginAfter = _props$attributes2.marginAfter; // class names
 
@@ -4579,7 +4741,13 @@ registerBlockType('bsx-blocks/img-gallery', {
     var imgClassName = makeImgClassName({
       galleryType: galleryType
     });
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+    imgClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__["addClassNames"])({
+      rounded: rounded,
+      imgThumbnail: imgThumbnail,
+      borderState: borderState
+    }, imgClassName);
+    var TagName = 'figure';
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(TagName, {
       className: galleryClassName
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
       class: "bsx-gallery",
@@ -4619,7 +4787,11 @@ registerBlockType('bsx-blocks/img-gallery', {
         value: media.caption,
         itemprop: "caption description"
       }));
-    }))));
+    }))), figcaption && !RichText.isEmpty(figcaption) && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RichText.Content, {
+      tagName: "figcaption",
+      className: "bsx-gallery-figcaption font-italic",
+      value: figcaption
+    }));
   }
 });
 
@@ -4717,35 +4889,42 @@ var responsiveMediaIndexList = [{
 }];
 var skipIndex = 0;
 
-var makeSourcesAttributesList = function makeSourcesAttributesList(config) {
+var makeSourcesAttributesList = function makeSourcesAttributesList(attributes) {
+  var imgSizes = attributes.imgSizes,
+      imgSizeIndex = attributes.imgSizeIndex,
+      responsiveMediaIndexList = attributes.responsiveMediaIndexList,
+      portraitImgSizes = attributes.portraitImgSizes,
+      portraitImgSizeIndex = attributes.portraitImgSizeIndex,
+      responsivePortraitMediaIndexList = attributes.responsivePortraitMediaIndexList,
+      skipIndex = attributes.skipIndex;
   var sourcesAttributesList = []; // portrait img
 
-  config.responsivePortraitMediaIndexList.forEach(function (item, index) {
-    var currentPortraitImgIndex = parseInt(config.portraitImgSizeIndex) + parseInt(item.imgSizeIndexShift);
+  responsivePortraitMediaIndexList.forEach(function (item, index) {
+    var currentPortraitImgIndex = parseInt(portraitImgSizeIndex) + parseInt(item.imgSizeIndexShift);
     var adaptedCurrentPortraitImgIndex = currentPortraitImgIndex < parseInt(item.minImgSizeIndex) ? parseInt(item.minImgSizeIndex) : currentPortraitImgIndex;
 
-    if (adaptedCurrentPortraitImgIndex < parseInt(config.portraitImgSizeIndex) && adaptedCurrentPortraitImgIndex > config.skipIndex && typeof config.portraitImgSizes[adaptedCurrentPortraitImgIndex] != 'undefined' && typeof config.portraitImgSizes[adaptedCurrentPortraitImgIndex].url != 'undefined') {
+    if (adaptedCurrentPortraitImgIndex < parseInt(portraitImgSizeIndex) && adaptedCurrentPortraitImgIndex > skipIndex && typeof portraitImgSizes[adaptedCurrentPortraitImgIndex] != 'undefined' && typeof portraitImgSizes[adaptedCurrentPortraitImgIndex].url != 'undefined') {
       sourcesAttributesList.push({
         media: item.media,
         srcset: '',
-        'data-srcset': config.portraitImgSizes[adaptedCurrentPortraitImgIndex].url,
-        'data-width': config.portraitImgSizes[adaptedCurrentPortraitImgIndex].width,
-        'data-height': config.portraitImgSizes[adaptedCurrentPortraitImgIndex].height
+        'data-srcset': portraitImgSizes[adaptedCurrentPortraitImgIndex].url,
+        'data-width': portraitImgSizes[adaptedCurrentPortraitImgIndex].width,
+        'data-height': portraitImgSizes[adaptedCurrentPortraitImgIndex].height
       });
     }
   }); // default img
 
-  config.responsiveMediaIndexList.forEach(function (item, index) {
-    var currentImgIndex = parseInt(config.imgSizeIndex) + parseInt(item.imgSizeIndexShift);
+  responsiveMediaIndexList.forEach(function (item, index) {
+    var currentImgIndex = parseInt(imgSizeIndex) + parseInt(item.imgSizeIndexShift);
     var adaptedCurrentImgIndex = currentImgIndex < parseInt(item.minImgSizeIndex) ? parseInt(item.minImgSizeIndex) : currentImgIndex;
 
-    if (adaptedCurrentImgIndex < parseInt(config.imgSizeIndex) && adaptedCurrentImgIndex > config.skipIndex && typeof config.imgSizes[adaptedCurrentImgIndex] != 'undefined' && typeof config.imgSizes[adaptedCurrentImgIndex].url != 'undefined') {
+    if (adaptedCurrentImgIndex < parseInt(imgSizeIndex) && adaptedCurrentImgIndex > skipIndex && typeof imgSizes[adaptedCurrentImgIndex] != 'undefined' && typeof imgSizes[adaptedCurrentImgIndex].url != 'undefined') {
       sourcesAttributesList.push({
         media: item.media,
         srcset: '',
-        'data-srcset': config.imgSizes[adaptedCurrentImgIndex].url,
-        'data-width': config.imgSizes[adaptedCurrentImgIndex].width,
-        'data-height': config.imgSizes[adaptedCurrentImgIndex].height
+        'data-srcset': imgSizes[adaptedCurrentImgIndex].url,
+        'data-width': imgSizes[adaptedCurrentImgIndex].width,
+        'data-height': imgSizes[adaptedCurrentImgIndex].height
       });
     }
   });
@@ -4891,16 +5070,6 @@ registerBlockType('bsx-blocks/lazy-img', {
                 // for ( let [ key, value ] of Object.entries( img.sizes ) ) {
                 //     console.log( 'key: "' + key + '", val: "' + value + '"' );
                 // }
-                // console.log( 'mediumUrl: ' + img.sizes.medium.url );
-                // console.log( 'mediumWidth: ' + img.sizes.medium.width );
-                // console.log( 'mediumHeight: ' + img.sizes.medium.height );
-                // console.log( 'largeUrl: ' + img.sizes.large.url );
-                // console.log( 'largeWidth: ' + img.sizes.large.width );
-                // console.log( 'largeHeight: ' + img.sizes.large.height );
-                // console.log( 'ratio thumbnail ( ' + img.sizes.thumbnail.width + ' / ' + img.sizes.thumbnail.height + ' ): ' + img.sizes.thumbnail.width / img.sizes.thumbnail.height );
-                // console.log( 'ratio medium ( ' + img.sizes.medium.width + ' / ' + img.sizes.medium.height + ' ): ' + img.sizes.medium.width / img.sizes.medium.height );
-                // console.log( 'ratio large ( ' + img.sizes.large.width + ' / ' + img.sizes.large.height + ' ): ' + img.sizes.large.width / img.sizes.large.height );
-                // console.log( 'ratio full ( ' + img.sizes.full.width + ' / ' + img.sizes.full.height + ' ): ' + img.sizes.full.width / img.sizes.full.height );
 
               case 11:
               case "end":
@@ -7047,349 +7216,9 @@ registerBlockType('bsx-blocks/row-with-cols', {
   !*** ./src/section/block.js ***!
   \******************************/
 /*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js");
-/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../_functions/wp-icons.js */ "./src/_functions/wp-icons.js");
-/* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
-/* harmony import */ var _functions_attributes_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../_functions/attributes.js */ "./src/_functions/attributes.js");
-
-
-
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-var _wp$i18n = wp.i18n,
-    __ = _wp$i18n.__,
-    setLocaleData = _wp$i18n.setLocaleData;
-var registerBlockType = wp.blocks.registerBlockType;
-var _wp$blockEditor = wp.blockEditor,
-    InnerBlocks = _wp$blockEditor.InnerBlocks,
-    InspectorControls = _wp$blockEditor.InspectorControls;
-var _wp$components = wp.components,
-    PanelBody = _wp$components.PanelBody,
-    TextControl = _wp$components.TextControl,
-    ToggleControl = _wp$components.ToggleControl,
-    SelectControl = _wp$components.SelectControl,
-    Button = _wp$components.Button,
-    SVG = _wp$components.SVG,
-    Path = _wp$components.Path;
-var Fragment = wp.element.Fragment;
-var withSelect = wp.data.withSelect;
-
-
-
-registerBlockType('bsx-blocks/section', {
-  title: __('BSX Section', 'bsx-blocks'),
-  icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_3__["svgIcon"])('section'),
-  category: 'layout',
-  attributes: {
-    templateName: {
-      type: 'string'
-    },
-    belowNavbar: {
-      type: 'boolean',
-      default: false
-    },
-    id: {
-      type: 'string',
-      default: ''
-    },
-    marginBefore: {
-      type: 'string',
-      default: ''
-    },
-    marginAfter: {
-      type: 'string',
-      default: ''
-    }
-  },
-  edit: withSelect(function (select, _ref) {
-    var clientId = _ref.clientId;
-
-    var _select = select('core/block-editor'),
-        getBlocksByClientId = _select.getBlocksByClientId;
-
-    var children = getBlocksByClientId(clientId)[0] ? getBlocksByClientId(clientId)[0].innerBlocks : [];
-    return {
-      children: children
-    };
-  })(function (props) {
-    var className = props.className,
-        _props$attributes = props.attributes,
-        templateName = _props$attributes.templateName,
-        belowNavbar = _props$attributes.belowNavbar,
-        id = _props$attributes.id,
-        marginBefore = _props$attributes.marginBefore,
-        marginAfter = _props$attributes.marginAfter,
-        setAttributes = props.setAttributes,
-        children = props.children;
-
-    var hasInnerBlocks = function hasInnerBlocks(children) {
-      return children.length > 0;
-    };
-
-    var templates = [{
-      name: 'empty',
-      title: __('Empty', 'bsx-blocks'),
-      icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_3__["svgIcon"])('section-empty'),
-      attributes: {
-        marginAfter: '5'
-      },
-      template: [],
-      templateLock: false
-    }, {
-      name: 'container-with-heading',
-      title: __('Container with Heading', 'bsx-blocks'),
-      icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_3__["svgIcon"])('section-container-heading'),
-      attributes: {
-        marginAfter: '5'
-      },
-      template: [['bsx-blocks/container', {}, [['core/heading', {
-        placeholder: 'Add heading, configure heading level...'
-      }]]]],
-      templateLock: false
-    }, {
-      name: 'container-heading-text-gallery',
-      title: __('Container, Heading, Text & Gallery', 'bsx-blocks'),
-      icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_3__["svgIcon"])('section-container-heading-text-gallery'),
-      attributes: {
-        marginAfter: '5'
-      },
-      template: [['bsx-blocks/container', {}, [['core/heading', {
-        placeholder: 'Add heading, configure heading level...'
-      }], ['core/paragraph', {
-        placeholder: 'Add text...'
-      }], ['bsx-blocks/img-gallery', {
-        galleryType: 'floating'
-      }]]]],
-      templateLock: false
-    }, {
-      name: 'rounded-color-banner',
-      title: __('Rounded colored Banner (primary dark)', 'bsx-blocks'),
-      icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_3__["svgIcon"])('section-container-rounded-colored-banner'),
-      attributes: {
-        marginAfter: '5'
-      },
-      template: [['bsx-blocks/container', {}, [['bsx-blocks/wrapper', {
-        bgColor: 'primary',
-        textColor: 'dark',
-        textAlign: 'center',
-        rounded: true,
-        paddingBefore: '4',
-        paddingAfter: '4',
-        paddingLeft: '3',
-        paddingRight: '3'
-      }, [['core/heading', {
-        placeholder: 'Add heading, configure heading level...',
-        textColor: 'dark',
-        marginAfter: '3'
-      }], ['core/paragraph', {
-        placeholder: 'Add text...',
-        textSize: 'lead'
-      }], ['bsx-blocks/buttons', {}, [['bsx-blocks/button', {
-        state: 'dark',
-        marginBefore: '1',
-        marginAfter: '1',
-        marginLeft: '1',
-        marginRight: '1'
-      }]]]]]]]],
-      templateLock: false
-    }];
-
-    var getTemplateMap = function getTemplateMap(currentTemplateName) {
-      var currentTemplate = templates.find(function (item) {
-        return item.name === currentTemplateName;
-      });
-      return currentTemplate ? currentTemplate : {};
-    };
-
-    var template = getTemplateMap(templateName).template;
-
-    var onChangeTemplate = function onChangeTemplate(value) {
-      var currentTemplateMap = getTemplateMap(value);
-
-      if (currentTemplateMap.template != undefined && currentTemplateMap.attributes != undefined) {
-        template = currentTemplateMap.template;
-        setAttributes(_objectSpread({
-          templateName: value
-        }, currentTemplateMap.attributes));
-      } else {
-        console.log('Error: Template change failed.');
-      } // console.log( 'changed templateName: ' + value );
-      // console.log( 'changed template: ' + template );
-
-    };
-
-    var onChangeBelowNavbar = function onChangeBelowNavbar(value) {
-      setAttributes({
-        belowNavbar: value
-      });
-    };
-
-    var onChangeId = function onChangeId(value) {
-      setAttributes({
-        id: value
-      });
-    };
-
-    var onChangeMarginBefore = function onChangeMarginBefore(value) {
-      setAttributes({
-        marginBefore: value
-      });
-    };
-
-    var onChangeMarginAfter = function onChangeMarginAfter(value) {
-      setAttributes({
-        marginAfter: value
-      });
-    }; // class name
-
-
-    var containerClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_4__["addClassNames"])({
-      belowNavbar: belowNavbar,
-      marginBefore: marginBefore,
-      marginAfter: marginAfter
-    });
-    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(Fragment, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(PanelBody, {
-      title: __('Section Settings', 'bsx-blocks')
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
-      className: "bsxui-icon-text-button-list"
-    }, templates.map(function (template, index) {
-      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(Button, {
-        label: template.title,
-        onClick: function onClick() {
-          onChangeTemplate(template.name);
-        },
-        className: 'bsxui-icon-text-button-list-item ' + (templateName === template.name ? 'active' : '')
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
-        class: "bsxui-icon-text-button-list-item-icon"
-      }, template.icon), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
-        class: "bsxui-icon-text-button-list-item-label"
-      }, template.title));
-    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(ToggleControl, {
-      label: __('Below navbar', 'bsx-blocks'),
-      checked: !!belowNavbar,
-      onChange: onChangeBelowNavbar,
-      help: __('Enable if element starts below navbar. If enabled element has spacer top to avoid overlapping its contents by navbar.', 'bsx-blocks')
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(TextControl, {
-      label: __('ID', 'bsx-blocks'),
-      value: id,
-      onChange: onChangeId
-    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(PanelBody, {
-      title: __('Margin', 'bsx-blocks')
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(SelectControl, {
-      label: __('Margin before', 'bsx-blocks'),
-      value: marginBefore,
-      onChange: onChangeMarginBefore,
-      options: [{
-        value: '',
-        label: __('– unset –', 'bsx-blocks')
-      }, {
-        value: '0',
-        label: __('none (0)', 'bsx-blocks')
-      }, {
-        value: '1',
-        label: __('extra small', 'bsx-blocks')
-      }, {
-        value: '2',
-        label: __('small', 'bsx-blocks')
-      }, {
-        value: '3',
-        label: __('medium', 'bsx-blocks')
-      }, {
-        value: '4',
-        label: __('large', 'bsx-blocks')
-      }, {
-        value: '5',
-        label: __('extra large', 'bsx-blocks')
-      }],
-      help: __('Spacer before Container', 'bsx-blocks')
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(SelectControl, {
-      label: __('Margin after', 'bsx-blocks'),
-      value: marginAfter,
-      onChange: onChangeMarginAfter,
-      options: [{
-        value: '',
-        label: __('– unset –', 'bsx-blocks')
-      }, {
-        value: '0',
-        label: __('none (0)', 'bsx-blocks')
-      }, {
-        value: '1',
-        label: __('extra small', 'bsx-blocks')
-      }, {
-        value: '2',
-        label: __('small', 'bsx-blocks')
-      }, {
-        value: '3',
-        label: __('medium', 'bsx-blocks')
-      }, {
-        value: '4',
-        label: __('large', 'bsx-blocks')
-      }, {
-        value: '5',
-        label: __('extra large', 'bsx-blocks')
-      }],
-      help: __('Spacer after Container', 'bsx-blocks')
-    })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(Fragment, null, !templateName ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
-      class: "bsxui-initial-inline-control"
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
-      class: "bsxui-initial-inline-control-heading"
-    }, __('Please select template', 'bsx-blocks')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
-      className: "bsxui-icon-text-button-list"
-    }, templates.map(function (template, index) {
-      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(Button, {
-        label: template.title,
-        onClick: function onClick() {
-          onChangeTemplate(template.name);
-        },
-        className: 'bsxui-icon-text-button-list-item ' + (templateName === template.name ? 'active' : '')
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
-        class: "bsxui-icon-text-button-list-item-icon"
-      }, template.icon), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
-        class: "bsxui-icon-text-button-list-item-label"
-      }, template.title));
-    }))) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("section", {
-      className: containerClassName,
-      id: id
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(InnerBlocks, {
-      template: template,
-      renderAppender: hasInnerBlocks ? undefined : function () {
-        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(InnerBlocks.ButtonBlockAppender, null);
-      }
-    })))];
-  }),
-  save: function save(props) {
-    var className = props.className,
-        _props$attributes2 = props.attributes,
-        templateName = _props$attributes2.templateName,
-        belowNavbar = _props$attributes2.belowNavbar,
-        id = _props$attributes2.id,
-        marginBefore = _props$attributes2.marginBefore,
-        marginAfter = _props$attributes2.marginAfter;
-    var containerClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_4__["addClassNames"])({
-      belowNavbar: belowNavbar,
-      marginBefore: marginBefore,
-      marginAfter: marginAfter
-    });
-    var saveAttributes = Object(_functions_attributes_js__WEBPACK_IMPORTED_MODULE_5__["makeSaveAttributes"])({
-      id: id
-    });
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("section", _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
-      className: containerClassName
-    }, saveAttributes), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(InnerBlocks.Content, null));
-  }
-});
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Users/admin/workspace/bsx/bsx-blocks/src/section/block.js: Unexpected token, expected \",\" (155:42)\n\n\u001b[0m \u001b[90m 153 | \u001b[39m                                    rounded\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 154 | \u001b[39m                                    imgThumbnail\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 155 | \u001b[39m                                    border\u001b[33m-\u001b[39mstate\u001b[33m:\u001b[39m \u001b[32m'dark'\u001b[39m\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m     | \u001b[39m                                          \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 156 | \u001b[39m                                }\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 157 | \u001b[39m                            ]\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 158 | \u001b[39m                        ]\u001b[33m,\u001b[39m\u001b[0m\n    at Object._raise (/Users/admin/workspace/bsx/bsx-blocks/node_modules/@babel/parser/lib/index.js:799:17)\n    at Object.raiseWithData (/Users/admin/workspace/bsx/bsx-blocks/node_modules/@babel/parser/lib/index.js:792:17)\n    at Object.raise (/Users/admin/workspace/bsx/bsx-blocks/node_modules/@babel/parser/lib/index.js:786:17)\n    at Object.unexpected (/Users/admin/workspace/bsx/bsx-blocks/node_modules/@babel/parser/lib/index.js:9089:16)\n    at Object.expect (/Users/admin/workspace/bsx/bsx-blocks/node_modules/@babel/parser/lib/index.js:9075:28)\n    at Object.parseObjectLike (/Users/admin/workspace/bsx/bsx-blocks/node_modules/@babel/parser/lib/index.js:10793:14)\n    at Object.parseExprAtom (/Users/admin/workspace/bsx/bsx-blocks/node_modules/@babel/parser/lib/index.js:10332:23)\n    at Object.parseExprAtom (/Users/admin/workspace/bsx/bsx-blocks/node_modules/@babel/parser/lib/index.js:4748:20)\n    at Object.parseExprSubscripts (/Users/admin/workspace/bsx/bsx-blocks/node_modules/@babel/parser/lib/index.js:9976:23)\n    at Object.parseUpdate (/Users/admin/workspace/bsx/bsx-blocks/node_modules/@babel/parser/lib/index.js:9956:21)\n    at Object.parseMaybeUnary (/Users/admin/workspace/bsx/bsx-blocks/node_modules/@babel/parser/lib/index.js:9945:17)\n    at Object.parseExprOps (/Users/admin/workspace/bsx/bsx-blocks/node_modules/@babel/parser/lib/index.js:9815:23)\n    at Object.parseMaybeConditional (/Users/admin/workspace/bsx/bsx-blocks/node_modules/@babel/parser/lib/index.js:9789:23)\n    at Object.parseMaybeAssign (/Users/admin/workspace/bsx/bsx-blocks/node_modules/@babel/parser/lib/index.js:9752:21)\n    at /Users/admin/workspace/bsx/bsx-blocks/node_modules/@babel/parser/lib/index.js:9718:39\n    at Object.allowInAnd (/Users/admin/workspace/bsx/bsx-blocks/node_modules/@babel/parser/lib/index.js:11448:12)\n    at Object.parseMaybeAssignAllowIn (/Users/admin/workspace/bsx/bsx-blocks/node_modules/@babel/parser/lib/index.js:9718:17)\n    at Object.parseExprListItem (/Users/admin/workspace/bsx/bsx-blocks/node_modules/@babel/parser/lib/index.js:11196:18)\n    at Object.parseExprList (/Users/admin/workspace/bsx/bsx-blocks/node_modules/@babel/parser/lib/index.js:11166:22)\n    at Object.parseArrayLike (/Users/admin/workspace/bsx/bsx-blocks/node_modules/@babel/parser/lib/index.js:11045:26)\n    at Object.parseExprAtom (/Users/admin/workspace/bsx/bsx-blocks/node_modules/@babel/parser/lib/index.js:10321:23)\n    at Object.parseExprAtom (/Users/admin/workspace/bsx/bsx-blocks/node_modules/@babel/parser/lib/index.js:4748:20)\n    at Object.parseExprSubscripts (/Users/admin/workspace/bsx/bsx-blocks/node_modules/@babel/parser/lib/index.js:9976:23)\n    at Object.parseUpdate (/Users/admin/workspace/bsx/bsx-blocks/node_modules/@babel/parser/lib/index.js:9956:21)\n    at Object.parseMaybeUnary (/Users/admin/workspace/bsx/bsx-blocks/node_modules/@babel/parser/lib/index.js:9945:17)\n    at Object.parseExprOps (/Users/admin/workspace/bsx/bsx-blocks/node_modules/@babel/parser/lib/index.js:9815:23)\n    at Object.parseMaybeConditional (/Users/admin/workspace/bsx/bsx-blocks/node_modules/@babel/parser/lib/index.js:9789:23)\n    at Object.parseMaybeAssign (/Users/admin/workspace/bsx/bsx-blocks/node_modules/@babel/parser/lib/index.js:9752:21)\n    at /Users/admin/workspace/bsx/bsx-blocks/node_modules/@babel/parser/lib/index.js:9718:39\n    at Object.allowInAnd (/Users/admin/workspace/bsx/bsx-blocks/node_modules/@babel/parser/lib/index.js:11448:12)");
 
 /***/ }),
 
