@@ -1,3 +1,6 @@
+// TODO: get caption or more data from html? (thumb data will not be available from noscript)
+
+
 const { __, setLocaleData } = wp.i18n;
 const {
     registerBlockType,
@@ -147,6 +150,31 @@ registerBlockType( 'bsx-blocks/img-gallery', {
             type: 'array',
             default: [],
         },
+        // itemData: {
+        //     type: 'array',
+        //     source: 'query',
+        //     selector: 'figure',
+        //     query: {
+        //         figcaption: {
+        //             type: 'array',
+        //             source: 'children',
+        //             selector: 'figcaption',
+        //         },
+        //         url: {
+        //             type: 'string',
+        //             source: 'attribute',
+        //             selector: 'a',
+        //             attribute: 'href',
+        //         },
+        //         size: {
+        //             type: 'string',
+        //             source: 'attribute',
+        //             selector: 'a',
+        //             attribute: 'data-size',
+        //         },
+        //     },
+        //     default: [],
+        // },
         galleryType: {
             type: 'string',
             default: 'columns',
@@ -165,6 +193,12 @@ registerBlockType( 'bsx-blocks/img-gallery', {
         borderState: {
             type: 'string',
         },
+        hoverShadow: {
+            type: 'boolean',
+        },
+        hoverMove: {
+            type: 'boolean',
+        },
         marginBefore: {
             type: 'string',
             default: '',
@@ -179,17 +213,41 @@ registerBlockType( 'bsx-blocks/img-gallery', {
             className,
             attributes: {
                 mediaList,
+                // itemData,
                 galleryType,
                 figcaption,
                 rounded,
                 imgThumbnail,
                 borderState,
+                hoverShadow,
+                hoverMove,
                 marginBefore,
                 marginAfter,
             },
             setAttributes,
             isSelected,
         } = props;
+
+        // TEST – TODO: remove
+        // console.log( 'typeof itemData: ' + typeof itemData );
+        // itemData.forEach( ( item, index ) => {
+        //     console.log( index + ' : ' + item );
+        //     for ( let [ key, value ] of Object.entries( item ) ) {
+        //         // const printValue = ( value ) => {
+        //         //     let returnString = '';
+        //         //     if ( Array.isArray( value ) ) {
+        //         //         value.forEach( ( item, index ) => {
+        //         //             returnString += index + ': ' + item + ', ';
+        //         //         } );
+        //         //     }
+        //         //     else {
+        //         //         returnString = value;
+        //         //     }
+        //         //     return returnString;
+        //         // }
+        //         console.log( '----- key: "' + key + '", val: "' + value + '"' );
+        //     }
+        // } );
 
         const onAddImage = ( mediaStack ) => {
             const addMedia = [];
@@ -305,6 +363,13 @@ registerBlockType( 'bsx-blocks/img-gallery', {
             setAttributes( { borderState: value } );
         };
 
+        const onChangeHoverShadow = ( value ) => {
+            setAttributes( { hoverShadow: value } );
+        };
+        const onChangeHoverMove = ( value ) => {
+            setAttributes( { hoverMove: value } );
+        };
+
         const onChangeMarginBefore = ( value ) => {
             setAttributes( { marginBefore: value } );
         };
@@ -330,18 +395,20 @@ registerBlockType( 'bsx-blocks/img-gallery', {
             galleryType 
         } );
 
-        const linkClassName = makeLinkClassName( { 
+        let linkClassName = makeLinkClassName( { 
             galleryType 
         } );
-
-        let imgClassName = makeImgClassName( { 
-            galleryType 
-        } );
-        imgClassName = addClassNames( {
+        linkClassName = addClassNames( {
             rounded,
             imgThumbnail,
             borderState,
-        }, imgClassName );
+            hoverShadow,
+            hoverMove,
+        }, linkClassName );
+
+        const imgClassName = makeImgClassName( { 
+            galleryType 
+        } );
 
         const uploadElementClassName = makeUploadElementClassName( { 
             galleryType 
@@ -391,6 +458,16 @@ registerBlockType( 'bsx-blocks/img-gallery', {
                             { value: 'light', label: __( 'Light', 'bsx-blocks' ) },
                             { value: 'dark', label: __( 'Dark', 'bsx-blocks' ) },
                         ] }
+                    />
+                    <ToggleControl
+                        label={ __( 'Mouseover shadow', 'bsx-blocks' ) }
+                        checked={ !! hoverShadow }
+                        onChange={ onChangeHoverShadow }
+                    />
+                    <ToggleControl
+                        label={ __( 'Mouseover move', 'bsx-blocks' ) }
+                        checked={ !! hoverMove }
+                        onChange={ onChangeHoverMove }
                     />
                 </PanelBody>
 
@@ -512,11 +589,14 @@ registerBlockType( 'bsx-blocks/img-gallery', {
             className,
             attributes: {
                 mediaList,
+                // itemData,
                 galleryType,
                 figcaption,
                 rounded,
                 imgThumbnail,
                 borderState,
+                hoverShadow,
+                hoverMove,
                 marginBefore,
                 marginAfter,
             },
@@ -540,18 +620,20 @@ registerBlockType( 'bsx-blocks/img-gallery', {
             galleryType 
         } );
 
-        const linkClassName = makeLinkClassName( { 
+        let linkClassName = makeLinkClassName( { 
             galleryType 
         } );
-
-        let imgClassName = makeImgClassName( { 
-            galleryType 
-        } );
-        imgClassName = addClassNames( {
+        linkClassName = addClassNames( {
             rounded,
             imgThumbnail,
             borderState,
-        }, imgClassName );
+            hoverShadow,
+            hoverMove,
+        }, linkClassName );
+
+        const imgClassName = makeImgClassName( { 
+            galleryType 
+        } );
 
         const TagName = 'figure';
 

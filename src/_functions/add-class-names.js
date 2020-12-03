@@ -20,6 +20,8 @@ export function addClassNames( attributes, classNamesString ) {
         width,
         imgThumbnail,
         borderState,
+        hoverShadow,
+        hoverMove,
     } = attributes;
 
     const classNames = ( typeof classNamesString != 'undefined' ) ? classNamesString.split( ' ' ) : [];
@@ -135,6 +137,14 @@ export function addClassNames( attributes, classNamesString ) {
 
     if ( !! borderState ) {
         classNames.push( 'border-' + borderState );
+    }
+
+    if ( !! hoverShadow ) {
+        classNames.push( 'hover-shadow' );
+    }
+
+    if ( !! hoverMove ) {
+        classNames.push( 'hover-move' );
     }
 
     return classNames.join( ' ' );
