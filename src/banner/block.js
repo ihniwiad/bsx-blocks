@@ -53,6 +53,7 @@ const makeBannerClassNames = ( attributes ) => {
         bannerType, 
         bannerSize, 
         bgAttachment, 
+        bgAttachmentFixedLimited,
         bgSize, 
         bgPosition, 
         alignItems, 
@@ -69,6 +70,10 @@ const makeBannerClassNames = ( attributes ) => {
     if ( !! bgAttachment ) {
         classNames.push( 'bg-' + bgAttachment );
     }
+    if ( !! bgAttachmentFixedLimited ) {
+        classNames.push( 'bg-w2000-static' );
+    }
+
     if ( !! bgSize ) {
         classNames.push( 'bg-' + bgSize );
     }
@@ -222,6 +227,9 @@ registerBlockType( 'bsx-blocks/banner', {
             type: 'string',
             default: 'fixed',
         },
+        bgAttachmentFixedLimited: {
+            type: 'boolean',
+        },
         bgSize: {
             type: 'string',
             default: 'cover',
@@ -283,6 +291,7 @@ registerBlockType( 'bsx-blocks/banner', {
                 bannerType,
                 bannerSize,
                 bgAttachment,
+                bgAttachmentFixedLimited,
                 bgSize,
                 bgPosition,
                 alignItems,
@@ -556,6 +565,9 @@ registerBlockType( 'bsx-blocks/banner', {
         const onChangeBgAttachment = ( value ) => {
             setAttributes( { bgAttachment: value } );
         };
+        const onChangeBgAttachmentFixedLimited = ( value ) => {
+            setAttributes( { bgAttachmentFixedLimited: value } );
+        };
         const onChangeBgSize = ( value ) => {
             setAttributes( { bgSize: value } );
         };
@@ -612,6 +624,7 @@ registerBlockType( 'bsx-blocks/banner', {
             bannerType, 
             bannerSize, 
             bgAttachment, 
+            bgAttachmentFixedLimited,
             bgSize, 
             bgPosition, 
             alignItems, 
@@ -795,6 +808,14 @@ registerBlockType( 'bsx-blocks/banner', {
                             { value: 'fixed', label: __( 'fixed', 'bsx-blocks' ) },
                         ] }
                     />
+                    { bgAttachment === 'fixed' && (
+                        <ToggleControl
+                            label={ __( 'Limit fixed background', 'bsx-blocks' ) }
+                            checked={ !! bgAttachmentFixedLimited }
+                            onChange={ onChangeBgAttachmentFixedLimited }
+                            help={ __( 'If enabled large displays (>=2.000px) will have static background attachement.', 'bsx-blocks' ) }
+                        />
+                    ) }
                     <SelectControl 
                         label={ __( 'Align items', 'bsx-blocks' ) }
                         value={ alignItems }
@@ -1012,6 +1033,7 @@ registerBlockType( 'bsx-blocks/banner', {
                 bannerType,
                 bannerSize,
                 bgAttachment,
+                bgAttachmentFixedLimited,
                 bgSize,
                 bgPosition,
                 alignItems,
@@ -1028,6 +1050,7 @@ registerBlockType( 'bsx-blocks/banner', {
             bannerType, 
             bannerSize, 
             bgAttachment, 
+            bgAttachmentFixedLimited,
             bgSize, 
             bgPosition, 
             alignItems, 

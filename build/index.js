@@ -1347,6 +1347,7 @@ var makeBannerClassNames = function makeBannerClassNames(attributes) {
   var bannerType = attributes.bannerType,
       bannerSize = attributes.bannerSize,
       bgAttachment = attributes.bgAttachment,
+      bgAttachmentFixedLimited = attributes.bgAttachmentFixedLimited,
       bgSize = attributes.bgSize,
       bgPosition = attributes.bgPosition,
       alignItems = attributes.alignItems,
@@ -1360,6 +1361,10 @@ var makeBannerClassNames = function makeBannerClassNames(attributes) {
 
   if (!!bgAttachment) {
     classNames.push('bg-' + bgAttachment);
+  }
+
+  if (!!bgAttachmentFixedLimited) {
+    classNames.push('bg-w2000-static');
   }
 
   if (!!bgSize) {
@@ -1502,6 +1507,9 @@ registerBlockType('bsx-blocks/banner', {
       type: 'string',
       default: 'fixed'
     },
+    bgAttachmentFixedLimited: {
+      type: 'boolean'
+    },
     bgSize: {
       type: 'string',
       default: 'cover'
@@ -1558,6 +1566,7 @@ registerBlockType('bsx-blocks/banner', {
         bannerType = _props$attributes.bannerType,
         bannerSize = _props$attributes.bannerSize,
         bgAttachment = _props$attributes.bgAttachment,
+        bgAttachmentFixedLimited = _props$attributes.bgAttachmentFixedLimited,
         bgSize = _props$attributes.bgSize,
         bgPosition = _props$attributes.bgPosition,
         alignItems = _props$attributes.alignItems,
@@ -1804,6 +1813,12 @@ registerBlockType('bsx-blocks/banner', {
       });
     };
 
+    var onChangeBgAttachmentFixedLimited = function onChangeBgAttachmentFixedLimited(value) {
+      setAttributes({
+        bgAttachmentFixedLimited: value
+      });
+    };
+
     var onChangeBgSize = function onChangeBgSize(value) {
       setAttributes({
         bgSize: value
@@ -1878,6 +1893,7 @@ registerBlockType('bsx-blocks/banner', {
       bannerType: bannerType,
       bannerSize: bannerSize,
       bgAttachment: bgAttachment,
+      bgAttachmentFixedLimited: bgAttachmentFixedLimited,
       bgSize: bgSize,
       bgPosition: bgPosition,
       alignItems: alignItems,
@@ -2043,6 +2059,11 @@ registerBlockType('bsx-blocks/banner', {
         value: 'fixed',
         label: __('fixed', 'bsx-blocks')
       }]
+    }), bgAttachment === 'fixed' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(ToggleControl, {
+      label: __('Limit fixed background', 'bsx-blocks'),
+      checked: !!bgAttachmentFixedLimited,
+      onChange: onChangeBgAttachmentFixedLimited,
+      help: __('If enabled large displays (>=2.000px) will have static background attachement.', 'bsx-blocks')
     }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(SelectControl, {
       label: __('Align items', 'bsx-blocks'),
       value: alignItems,
@@ -2288,6 +2309,7 @@ registerBlockType('bsx-blocks/banner', {
         bannerType = _props$attributes2.bannerType,
         bannerSize = _props$attributes2.bannerSize,
         bgAttachment = _props$attributes2.bgAttachment,
+        bgAttachmentFixedLimited = _props$attributes2.bgAttachmentFixedLimited,
         bgSize = _props$attributes2.bgSize,
         bgPosition = _props$attributes2.bgPosition,
         alignItems = _props$attributes2.alignItems,
@@ -2300,6 +2322,7 @@ registerBlockType('bsx-blocks/banner', {
       bannerType: bannerType,
       bannerSize: bannerSize,
       bgAttachment: bgAttachment,
+      bgAttachmentFixedLimited: bgAttachmentFixedLimited,
       bgSize: bgSize,
       bgPosition: bgPosition,
       alignItems: alignItems,
