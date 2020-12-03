@@ -152,7 +152,7 @@ registerBlockType( 'bsx-blocks/section', {
                                     galleryType: 'floating', 
                                     rounded: true,
                                     imgThumbnail: true,
-                                    border-state: 'dark',
+                                    borderState: 'info',
                                 },
                             ],
                         ],
