@@ -17,6 +17,9 @@
   padding-left: 0 !important;
   padding-right: 0 !important; }
 
+.bsxui-p-0 {
+  padding: 0 !important; }
+
 .bsxui-w-100 {
   width: 100% !important; }
 
@@ -25,6 +28,9 @@
 
 .bsxui-h-auto {
   height: auto !important; }
+
+.bsxui-va-middle {
+  vertical-align: middle !important; }
 
 .bsxui-text-danger {
   color: #ca4a1f !important; }

@@ -4719,6 +4719,8 @@ registerBlockType('bsx-blocks/img-gallery', {
     }, mediaList.map(function (media, index) {
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
         class: itemClassName
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("span", {
+        className: linkClassName
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(MediaUpload, {
         key: index,
         onSelect: function onSelect(value) {
@@ -4729,7 +4731,7 @@ registerBlockType('bsx-blocks/img-gallery', {
         render: function render(_ref) {
           var open = _ref.open;
           return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
-            className: "bsxui-h-auto bsxui-w-100 bsxui-px-0",
+            className: "bsxui-h-auto bsxui-w-100 bsxui-p-0 bsxui-va-middle",
             onClick: open
           }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("img", {
             className: imgClassName,
@@ -4737,7 +4739,7 @@ registerBlockType('bsx-blocks/img-gallery', {
             alt: __('Upload Image', 'bsx-blocks')
           }));
         }
-      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RichText, {
+      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RichText, {
         tagName: "div",
         multiline: false,
         placeholder: __('Caption (optional)', 'bsx-blocks'),

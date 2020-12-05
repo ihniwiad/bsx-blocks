@@ -511,17 +511,19 @@ registerBlockType( 'bsx-blocks/img-gallery', {
                         {
                             mediaList.map( ( media, index ) => 
                                 <div class={ itemClassName }>
-                                    <MediaUpload
-                                        key={ index }
-                                        onSelect={ ( value ) => onUpdateImage( value, index ) }
-                                        allowedTypes="image"
-                                        value={ media.id }
-                                        render={ ( { open } ) => (
-                                            <Button className="bsxui-h-auto bsxui-w-100 bsxui-px-0" onClick={ open }>
-                                                <img className={ imgClassName } src={ media.url } alt={ __( 'Upload Image', 'bsx-blocks' ) } />
-                                            </Button>
-                                        ) }
-                                    />
+                                    <span className={ linkClassName }>
+                                        <MediaUpload
+                                            key={ index }
+                                            onSelect={ ( value ) => onUpdateImage( value, index ) }
+                                            allowedTypes="image"
+                                            value={ media.id }
+                                            render={ ( { open } ) => (
+                                                <Button className="bsxui-h-auto bsxui-w-100 bsxui-p-0 bsxui-va-middle" onClick={ open }>
+                                                    <img className={ imgClassName } src={ media.url } alt={ __( 'Upload Image', 'bsx-blocks' ) } />
+                                                </Button>
+                                            ) }
+                                        />
+                                    </span>
                                     <div>
                                         <RichText
                                             tagName="div"

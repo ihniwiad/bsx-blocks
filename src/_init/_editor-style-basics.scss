@@ -28,6 +28,9 @@
 	padding-left: 0 !important;
 	padding-right: 0 !important;
 }
+.bsxui-p-0 {
+	padding: 0 !important;
+}
 
 
 // width
@@ -44,6 +47,13 @@
 
 .bsxui-h-auto {
 	height: auto !important;
+}
+
+
+// vertical align
+
+.bsxui-va-middle {
+	vertical-align: middle !important;
 }
 
 
