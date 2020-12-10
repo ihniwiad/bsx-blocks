@@ -716,7 +716,7 @@ registerBlockType( 'bsx-blocks/banner', {
                     />
                     {
                         imgSizes[ imgSizeIndex ] != undefined && imgSizes[ imgSizeIndex ].url != undefined && (
-                            <div class="components-base-control">
+                            <div class="bsxui-config-panel-text">
                                 <a class="bsxui-link" href={ imgSizes[ imgSizeIndex ].url } target="_blank">{ __( 'Preview selected image', 'bsx-blocks' ) }</a>
                             </div>
                         )
@@ -770,7 +770,7 @@ registerBlockType( 'bsx-blocks/banner', {
                     />
                     {
                         portraitImgSizes[ portraitImgSizeIndex ] != undefined && portraitImgSizes[ portraitImgSizeIndex ].url != undefined && (
-                            <div class="components-base-control">
+                            <div class="bsxui-config-panel-text">
                                 <a class="bsxui-link" href={ portraitImgSizes[ portraitImgSizeIndex ].url } target="_blank">{ __( 'Preview selected portrait image', 'bsx-blocks' ) }</a>
                             </div>
                         )
