@@ -13,6 +13,7 @@ const {
     PanelBody,
     RadioControl,
     SelectControl,
+    ToggleControl,
     SVG, 
     Path,
 } = wp.components;
@@ -32,8 +33,9 @@ import {
 
 import { svgIcon } from './../_functions/wp-icons.js';
 
-
 import { addClassNames } from './../_functions/add-class-names.js';
+
+import { makeSaveAttributes } from './../_functions/attributes.js';
 
 
 const responsivePortraitMediaIndexList = [
@@ -188,6 +190,12 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         rounded: {
             type: 'string',
         },
+        zoomable: {
+            type: 'boolean',
+        },
+        zoomImgSizeIndex: {
+            type: 'string',
+        },
     },
     edit: ( props ) => {
         const {
@@ -207,6 +215,8 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 alt,
                 figcaption,
                 rounded,
+                zoomable,
+                zoomImgSizeIndex,
             },
             setAttributes,
             isSelected,
@@ -245,6 +255,12 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 // do not use thumbnail for srcset if has square format, start with img sizes index 1 then
                 const newLowestSrcsetImgSizeIndex = img.sizes.thumbnail.width !== img.sizes.thumbnail.height ? 0 : 1;
 
+                // check if current zoom img size index fits to new img (might be too large) or is unset
+                let newZoomImgSizeIndex = zoomImgSizeIndex;
+                if ( ! zoomImgSizeIndex || parseInt( zoomImgSizeIndex ) < parseInt( newImgSizeIndex ) || parseInt( zoomImgSizeIndex ) >= parseInt( newImgSizes.length ) ) {
+                    newZoomImgSizeIndex = ( newImgSizes.length - 1 ).toString();
+                }
+
                 setAttributes( {
                     imgId: img.id,
                     imgSizes: newImgSizes,
@@ -255,6 +271,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                     origWidth: originalWidth,
                     origHeight: originalHeight,
                     alt: img.alt,
+                    zoomImgSizeIndex: newZoomImgSizeIndex,
                 } );
 
                 // TEST – TODO: remove
@@ -303,6 +320,13 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             setAttributes( { rounded: value } );
         };
 
+        const onChangeZoomable = ( value ) => {
+            setAttributes( { zoomable: value } );
+        };
+        const onChangeZoomImgSizeIndex = ( value ) => {
+            setAttributes( { zoomImgSizeIndex: value.toString() } );
+        };
+
         const onChangeImgSizeIndex = ( value ) => {
             setAttributes( { 
                 imgSizeIndex: value.toString(),
@@ -330,6 +354,15 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             );
         } );
 
+        const zoomImgSizeRadioControlOptions = [];
+        imgSizes.forEach( ( imgSize, index ) => {
+            if ( index >= imgSizeIndex ) {
+                zoomImgSizeRadioControlOptions.push( 
+                    { value: index.toString(), label: imgSize.width + 'x' + imgSize.height + ( imgSize.width === imgSize.height ? ' ' + __( '(Square format)', 'bsx-blocks' ) : '' ) } 
+                );
+            }
+        } );
+
         // prepare img sources attributes
 
         const sourcesAttributesList = makeSourcesAttributesList( {
@@ -347,6 +380,19 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         const imgClassName = addClassNames( {
             rounded: rounded,
         }, 'img-fluid' );
+
+        // image
+
+        const image = (
+            <picture>
+                {
+                    sourcesAttributesList.map( ( sourceAttributes, index ) => (
+                        <source { ...sourceAttributes } />
+                    ) )
+                }
+                <img className={ imgClassName } src={ url } alt={ alt } />
+            </picture>
+        );
 
         return [
             <InspectorControls>
@@ -402,7 +448,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                     />
                     {
                         imgSizes[ imgSizeIndex ] != undefined && imgSizes[ imgSizeIndex ].url != undefined && (
-                            <div class="components-base-control">
+                            <div class="bsxui-config-panel-text">
                                 <a class="bsxui-link" href={ imgSizes[ imgSizeIndex ].url } target="_blank">{ __( 'Preview selected image', 'bsx-blocks' ) }</a>
                             </div>
                         )
@@ -477,25 +523,62 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                     />
                     {
                         portraitImgSizes[ portraitImgSizeIndex ] != undefined && portraitImgSizes[ portraitImgSizeIndex ].url != undefined && (
-                            <div class="components-base-control">
+                            <div class="bsxui-config-panel-text">
                                 <a class="bsxui-link" href={ portraitImgSizes[ portraitImgSizeIndex ].url } target="_blank">{ __( 'Preview selected portrait image', 'bsx-blocks' ) }</a>
                             </div>
                         )
                     }
                 </PanelBody>
+
+
+                <PanelBody title={ __( 'Zoomable (optional)', 'bsx-blocks' ) }>
+                    <ToggleControl
+                        label={ __( 'Zoomable image', 'bsx-blocks' ) }
+                        checked={ !! zoomable }
+                        onChange={ onChangeZoomable }
+                        help={ __( 'If enabled click on image will open shadowbox with large image.', 'bsx-blocks' ) }
+                    />
+                    {
+                        zoomable && (
+                            <>
+                                <RadioControl
+                                    label={ __( 'Zoom image size', 'bsx-blocks' ) }
+                                    selected={ zoomImgSizeIndex }
+                                    options={ zoomImgSizeRadioControlOptions }
+                                    onChange={ onChangeZoomImgSizeIndex }
+                                />
+                                {
+                                    imgSizeIndex == zoomImgSizeIndex && (
+                                        <div class="bsxui-config-panel-text">
+                                            { __( 'Currently your zoom image is not larger than your original image.', 'bsx-blocks' ) }
+                                        </div>
+                                    )
+                                }
+                            </>
+                        )
+                    }
+                </PanelBody>
+
             </InspectorControls>,
             (
                 <figure className={ className }>
                     {
                         imgId ? (
-                            <picture>
-                                {
-                                    sourcesAttributesList.map( ( sourceAttributes, index ) => (
-                                        <source { ...sourceAttributes } />
-                                    ) )
+                            <>
+                                { 
+                                    ! zoomable ? (
+                                        <>
+                                            { image }
+                                        </>
+                                    )
+                                    :
+                                    (
+                                        <a className={ 'zoomable-img' }>
+                                            { image }
+                                        </a>
+                                    ) 
                                 }
-                                <img className={ imgClassName } src={ url } alt={ alt } />
-                            </picture>
+                            </>
                         )
                         : 
                         (
@@ -558,6 +641,8 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 alt,
                 figcaption,
                 rounded,
+                zoomable,
+                zoomImgSizeIndex,
             },
         } = props;
 
@@ -579,30 +664,82 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             rounded: rounded,
         }, 'img-fluid' );
 
+        // TODO: allow zoomable img
+
+/*
+<div class="float-md-right grid-float-md-6" data-fn="photoswipe">
+    <figure>
+        <a class="d-inline-block zoomable-img" href="example-img-006-1440x720.jpg" data-size="1440x720">
+            <script>document.write('<img class="img-fluid" src="" width="760" height="380" data-fn="lazyload" data-src="example-img-006-1440x720-thumb.jpg" alt="Image 6">');</script>
+            <noscript><img class="img-fluid" src="example-img-006-1440x720-thumb.jpg" alt="Image 6"></noscript>
+        </a>
+        <figcaption>
+            Donec pede justo, fringilla vel
+        </figcaption>
+    </figure>
+</div>
+*/
+        // attributes
+
+        const saveAttributes = ! zoomable ? 
+            {}
+            : 
+            makeSaveAttributes( {
+                'data-fn': 'photoswipe',
+            } )
+        ;
+
+        // TODO: manage zoomImgSizeIndex
+
+        const aSaveAttributes = zoomable && typeof imgSizes[ zoomImgSizeIndex ] != 'undefined' ? 
+            makeSaveAttributes( {
+                'href': imgSizes[ zoomImgSizeIndex ].url,
+                'data-size': imgSizes[ zoomImgSizeIndex ].width + 'x' + imgSizes[ zoomImgSizeIndex ].height,
+            } )
+            : 
+            {}
+        ;
+
+        const image = (
+            <>
+                <script>document.write( '
+                    <picture>
+                        {
+                            sourcesAttributesList.map( ( sourceAttributes, index ) => (
+                                <source { ...sourceAttributes } />
+                            ) )
+                        }
+                        <img className={ imgClassName } src="" alt={ alt } data-src={ url } width={ width } height={ height } data-fn="lazyload" />
+                    </picture>
+                ' );</script>
+                <noscript><img className={ imgClassName } src={ url } alt={ alt } width={ width } height={ height } /></noscript>
+            </>
+        );
+
         return (
-            <div className={ className }>
+            <div className={ className } { ...saveAttributes }>
 
                 {
                     url && (
                         <figure>
-                            <script>document.write( '
-                                <picture>
-                                    {
-                                        sourcesAttributesList.map( ( sourceAttributes, index ) => (
-                                            <source { ...sourceAttributes } />
-                                        ) )
-                                    }
-                                    <img className={ imgClassName } src="" alt={ alt } data-src={ url } width={ width } height={ height } data-fn="lazyload" />
-                                </picture>
-                            ' );</script>
-                            <noscript><img className={ imgClassName } src={ url } alt={ alt } width={ width } height={ height } /></noscript>
-
+                            { 
+                                zoomable ? (
+                                    <a className={ 'zoomable-img' } { ...aSaveAttributes }>
+                                        { image }
+                                    </a>
+                                )
+                                :
+                                (
+                                    <>
+                                        { image }
+                                    </>
+                                ) 
+                            }
                             {
                                 figcaption && ! RichText.isEmpty( figcaption ) && (
                                     <RichText.Content tagName="figcaption" className="font-italic" value={ figcaption } />
                                 )
                             }
-
                         </figure>
                     )
                 }
