@@ -247,7 +247,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
                 // check if current img size index fits to new img (might be too large)
                 let newImgSizeIndex = parseInt( imgSizeIndex );
-                if ( imgSizeIndex >= newImgSizes.length ) {
+                if ( parseInt( imgSizeIndex ) >= newImgSizes.length ) {
                     newImgSizeIndex = newImgSizes.length - 1;
                     // console.log( 'reduce initial imgSizeIndex to: ' + newImgSizeIndex );
                 }
@@ -291,8 +291,8 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
                 // check if current img size index fits to new img (might be too large)
                 let newPortraitImgSizeIndex = parseInt( portraitImgSizeIndex );
-                if ( portraitImgSizeIndex >= newPortraitImgSizeIndex.length ) {
-                    newPortraitImgSizeIndex = newPortraitImgSizeIndex.length - 1;
+                if ( parseInt( portraitImgSizeIndex ) >= newPortraitImgSizes.length ) {
+                    newPortraitImgSizeIndex = newPortraitImgSizes.length - 1;
                 }
 
                 setAttributes( {
@@ -478,7 +478,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
                 <PanelBody title={ __( 'Portrait image (optional)', 'bsx-blocks' ) }>
                     {
-                        portraitImgId ? (
+                        portraitImgId && typeof portraitImgSizes[ portraitImgSizeIndex ] != 'undefined' && typeof portraitImgSizes[ portraitImgSizeIndex ].url != 'undefined' ? (
                             <MediaUpload
                                 onSelect={ onSelectPortraitImage }
                                 allowedTypes="image"
@@ -522,7 +522,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                         onChange={ onChangePortraitImgSizeIndex }
                     />
                     {
-                        portraitImgSizes[ portraitImgSizeIndex ] != undefined && portraitImgSizes[ portraitImgSizeIndex ].url != undefined && (
+                        typeof portraitImgSizes[ portraitImgSizeIndex ] != 'undefined' && typeof portraitImgSizes[ portraitImgSizeIndex ].url != 'undefined' && (
                             <div class="bsxui-config-panel-text">
                                 <a class="bsxui-link" href={ portraitImgSizes[ portraitImgSizeIndex ].url } target="_blank">{ __( 'Preview selected portrait image', 'bsx-blocks' ) }</a>
                             </div>
@@ -664,7 +664,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             rounded: rounded,
         }, 'img-fluid' );
 
-        // TODO: allow zoomable img
+        // allow zoomable img
 
 /*
 <div class="float-md-right grid-float-md-6" data-fn="photoswipe">

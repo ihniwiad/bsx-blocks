@@ -1725,7 +1725,7 @@ registerBlockType('bsx-blocks/banner', {
 
                 newImgSizeIndex = parseInt(imgSizeIndex);
 
-                if (imgSizeIndex >= newImgSizes.length) {
+                if (parseInt(imgSizeIndex) >= newImgSizes.length) {
                   newImgSizeIndex = newImgSizes.length - 1;
                 }
 
@@ -1773,9 +1773,10 @@ registerBlockType('bsx-blocks/banner', {
 
                 newPortraitImgSizeIndex = parseInt(portraitImgSizeIndex);
 
-                if (portraitImgSizeIndex >= newPortraitImgSizeIndex.length) {
-                  newPortraitImgSizeIndex = newPortraitImgSizeIndex.length - 1;
-                }
+                if (parseInt(portraitImgSizeIndex) >= newPortraitImgSizes.length) {
+                  newPortraitImgSizeIndex = newPortraitImgSizes.length - 1;
+                } // console.log( 'newPortraitImgSizeIndex: ' + newPortraitImgSizeIndex );
+
 
                 setAttributes({
                   portraitImgId: portraitImg.id,
@@ -1976,7 +1977,7 @@ registerBlockType('bsx-blocks/banner', {
       target: "_blank"
     }, __('Preview selected image', 'bsx-blocks')))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(PanelBody, {
       title: __('Banner portrait image (optional)', 'bsx-blocks')
-    }, portraitImgId ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(MediaUpload, {
+    }, portraitImgId && typeof portraitImgSizes[portraitImgSizeIndex] != 'undefined' && typeof portraitImgSizes[portraitImgSizeIndex].url != 'undefined' ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(MediaUpload, {
       onSelect: onSelectPortraitImage,
       allowedTypes: "image",
       value: portraitImgId,
@@ -2013,7 +2014,7 @@ registerBlockType('bsx-blocks/banner', {
       selected: portraitImgSizeIndex.toString(),
       options: portraitImgSizeRadioControlOptions,
       onChange: onChangePortraitImgSizeIndex
-    }), portraitImgSizes[portraitImgSizeIndex] != undefined && portraitImgSizes[portraitImgSizeIndex].url != undefined && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+    }), typeof portraitImgSizes[portraitImgSizeIndex] != 'undefined' && typeof portraitImgSizes[portraitImgSizeIndex].url != 'undefined' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
       class: "bsxui-config-panel-text"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("a", {
       class: "bsxui-link",
@@ -5178,7 +5179,7 @@ registerBlockType('bsx-blocks/lazy-img', {
 
                 newImgSizeIndex = parseInt(imgSizeIndex);
 
-                if (imgSizeIndex >= newImgSizes.length) {
+                if (parseInt(imgSizeIndex) >= newImgSizes.length) {
                   newImgSizeIndex = newImgSizes.length - 1; // console.log( 'reduce initial imgSizeIndex to: ' + newImgSizeIndex );
                 } // do not use thumbnail for srcset if has square format, start with img sizes index 1 then
 
@@ -5244,8 +5245,8 @@ registerBlockType('bsx-blocks/lazy-img', {
 
                 newPortraitImgSizeIndex = parseInt(portraitImgSizeIndex);
 
-                if (portraitImgSizeIndex >= newPortraitImgSizeIndex.length) {
-                  newPortraitImgSizeIndex = newPortraitImgSizeIndex.length - 1;
+                if (parseInt(portraitImgSizeIndex) >= newPortraitImgSizes.length) {
+                  newPortraitImgSizeIndex = newPortraitImgSizes.length - 1;
                 }
 
                 setAttributes({
@@ -5442,7 +5443,7 @@ registerBlockType('bsx-blocks/lazy-img', {
       }]
     })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(PanelBody, {
       title: __('Portrait image (optional)', 'bsx-blocks')
-    }, portraitImgId ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(MediaUpload, {
+    }, portraitImgId && typeof portraitImgSizes[portraitImgSizeIndex] != 'undefined' && typeof portraitImgSizes[portraitImgSizeIndex].url != 'undefined' ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(MediaUpload, {
       onSelect: onSelectPortraitImage,
       allowedTypes: "image",
       value: portraitImgId,
@@ -5479,7 +5480,7 @@ registerBlockType('bsx-blocks/lazy-img', {
       selected: portraitImgSizeIndex.toString(),
       options: portraitImgSizeRadioControlOptions,
       onChange: onChangePortraitImgSizeIndex
-    }), portraitImgSizes[portraitImgSizeIndex] != undefined && portraitImgSizes[portraitImgSizeIndex].url != undefined && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
+    }), typeof portraitImgSizes[portraitImgSizeIndex] != 'undefined' && typeof portraitImgSizes[portraitImgSizeIndex].url != 'undefined' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
       class: "bsxui-config-panel-text"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("a", {
       class: "bsxui-link",
@@ -5567,7 +5568,7 @@ registerBlockType('bsx-blocks/lazy-img', {
 
     var imgClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_6__["addClassNames"])({
       rounded: rounded
-    }, 'img-fluid'); // TODO: allow zoomable img
+    }, 'img-fluid'); // allow zoomable img
 
     /*
     <div class="float-md-right grid-float-md-6" data-fn="photoswipe">

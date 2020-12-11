@@ -517,7 +517,7 @@ registerBlockType( 'bsx-blocks/banner', {
 
                 // check if current img size index fits to new img (might be too large)
                 let newImgSizeIndex = parseInt( imgSizeIndex );
-                if ( imgSizeIndex >= newImgSizes.length ) {
+                if ( parseInt( imgSizeIndex ) >= newImgSizes.length ) {
                     newImgSizeIndex = newImgSizes.length - 1;
                 }
 
@@ -541,9 +541,10 @@ registerBlockType( 'bsx-blocks/banner', {
 
                 // check if current img size index fits to new img (might be too large)
                 let newPortraitImgSizeIndex = parseInt( portraitImgSizeIndex );
-                if ( portraitImgSizeIndex >= newPortraitImgSizeIndex.length ) {
-                    newPortraitImgSizeIndex = newPortraitImgSizeIndex.length - 1;
+                if ( parseInt( portraitImgSizeIndex ) >= newPortraitImgSizes.length ) {
+                    newPortraitImgSizeIndex = newPortraitImgSizes.length - 1;
                 }
+                // console.log( 'newPortraitImgSizeIndex: ' + newPortraitImgSizeIndex );
 
                 setAttributes( {
                     portraitImgId: portraitImg.id,
@@ -725,7 +726,7 @@ registerBlockType( 'bsx-blocks/banner', {
 
                 <PanelBody title={ __( 'Banner portrait image (optional)', 'bsx-blocks' ) }>
                     {
-                        portraitImgId ? (
+                        portraitImgId && typeof portraitImgSizes[ portraitImgSizeIndex ] != 'undefined' && typeof portraitImgSizes[ portraitImgSizeIndex ].url != 'undefined' ? (
                             <MediaUpload
                                 onSelect={ onSelectPortraitImage }
                                 allowedTypes="image"
@@ -769,7 +770,7 @@ registerBlockType( 'bsx-blocks/banner', {
                         onChange={ onChangePortraitImgSizeIndex }
                     />
                     {
-                        portraitImgSizes[ portraitImgSizeIndex ] != undefined && portraitImgSizes[ portraitImgSizeIndex ].url != undefined && (
+                         typeof portraitImgSizes[ portraitImgSizeIndex ] != 'undefined' && typeof portraitImgSizes[ portraitImgSizeIndex ].url != 'undefined' && (
                             <div class="bsxui-config-panel-text">
                                 <a class="bsxui-link" href={ portraitImgSizes[ portraitImgSizeIndex ].url } target="_blank">{ __( 'Preview selected portrait image', 'bsx-blocks' ) }</a>
                             </div>
