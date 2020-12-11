@@ -1796,6 +1796,13 @@ registerBlockType('bsx-blocks/banner', {
 
     ;
 
+    var onDeletePortraitImage = function onDeletePortraitImage() {
+      setAttributes({
+        portraitImgId: '',
+        portraitImgSizes: []
+      });
+    };
+
     var onChangeBannerType = function onChangeBannerType(value) {
       setAttributes({
         bannerType: value
@@ -2009,7 +2016,12 @@ registerBlockType('bsx-blocks/banner', {
           isSecondary: true
         }, __('Change / upload portrait image', 'bsx-blocks'));
       }
-    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(RadioControl, {
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+      class: "bsxui-config-panel-row"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(Button, {
+      onClick: onDeletePortraitImage,
+      isDestructive: true
+    }, __('Remove portrait image', 'bsx-blocks'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(RadioControl, {
       label: __('Image size and format', 'bsx-blocks'),
       selected: portraitImgSizeIndex.toString(),
       options: portraitImgSizeRadioControlOptions,
@@ -5267,6 +5279,13 @@ registerBlockType('bsx-blocks/lazy-img', {
 
     ;
 
+    var onDeletePortraitImage = function onDeletePortraitImage() {
+      setAttributes({
+        portraitImgId: '',
+        portraitImgSizes: []
+      });
+    };
+
     var onChangeMediaAlt = function onChangeMediaAlt(value) {
       setAttributes({
         alt: value
@@ -5458,11 +5477,15 @@ registerBlockType('bsx-blocks/lazy-img', {
           alt: __('Change / upload portrait image', 'bsx-blocks')
         }));
       }
-    }) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
+    }) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["Fragment"], null, !!zoomable && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
+      class: "bsxui-config-panel-row"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
+      class: "bsxui-alert"
+    }, "Portrait image is deactivated since zoomable image is set.")), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
       class: "bsxui-config-panel-row"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
       class: "bsxui-config-panel-text"
-    }, __('– No portrait image selected yet –', 'bsx-blocks'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
+    }, __('– No portrait image selected yet –', 'bsx-blocks')))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
       class: "bsxui-config-panel-row"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(MediaUpload, {
       onSelect: onSelectPortraitImage,
@@ -5471,11 +5494,17 @@ registerBlockType('bsx-blocks/lazy-img', {
       render: function render(_ref4) {
         var open = _ref4.open;
         return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(Button, {
+          disabled: !!zoomable,
           onClick: open,
           isSecondary: true
         }, __('Change / upload portrait image', 'bsx-blocks'));
       }
-    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(RadioControl, {
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
+      class: "bsxui-config-panel-row"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(Button, {
+      onClick: onDeletePortraitImage,
+      isDestructive: true
+    }, __('Remove portrait image', 'bsx-blocks'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(RadioControl, {
       label: __('Image size and format', 'bsx-blocks'),
       selected: portraitImgSizeIndex.toString(),
       options: portraitImgSizeRadioControlOptions,
@@ -5488,7 +5517,12 @@ registerBlockType('bsx-blocks/lazy-img', {
       target: "_blank"
     }, __('Preview selected portrait image', 'bsx-blocks')))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(PanelBody, {
       title: __('Zoomable (optional)', 'bsx-blocks')
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(ToggleControl, {
+    }, portraitImgSizes.length > 0 && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
+      class: "bsxui-config-panel-row"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
+      class: "bsxui-alert"
+    }, "Zoomable image is deactivated since portrait image is set.")), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(ToggleControl, {
+      className: portraitImgSizes.length > 0 ? 'bsxui-disabled' : '',
       label: __('Zoomable image', 'bsx-blocks'),
       checked: !!zoomable,
       onChange: onChangeZoomable,

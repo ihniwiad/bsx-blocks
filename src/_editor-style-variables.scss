@@ -46,6 +46,15 @@ $bsxui-icon-text-button-list-item-width: 			50% !default;
 $bsxui-icon-text-button-list-item-inline-width: 	7.5rem !default;
 
 
+// alert
+
+$bsxui-alert-background-color: 		#fef8ee !default; // @wordpress
+$bsxui-alert-color: 				inherit !default; // @wordpress
+$bsxui-alert-border-color: 			darken($bsxui-alert-background-color, 15%) !default; // @wordpress
+$bsxui-alert-border-radius: 		.25rem !default; 
+$bsxui-alert-padding: 				.125rem .25rem !default; 
+
+
 
 // isselected config panel (deprecated! – do not delete before replacing varibles beeing used afterwards)
 

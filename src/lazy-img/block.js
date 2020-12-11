@@ -303,6 +303,13 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             }
         };
 
+        const onDeletePortraitImage = () => {
+            setAttributes( {
+                portraitImgId: '',
+                portraitImgSizes: [],
+            } );
+        };
+
         const onChangeMediaAlt = ( value ) => {
             setAttributes( { alt: value } );
         };
@@ -495,9 +502,20 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                         )
                         : 
                         (
-                            <div class="bsxui-config-panel-row">
-                                <div class="bsxui-config-panel-text">{ __( '– No portrait image selected yet –', 'bsx-blocks' ) }</div>
-                            </div>
+                            <>
+                                {
+                                    !! zoomable && (
+                                        <div class="bsxui-config-panel-row">
+                                            <div class="bsxui-alert">
+                                                Portrait image is deactivated since zoomable image is set. 
+                                            </div>
+                                        </div>
+                                    )
+                                }
+                                <div class="bsxui-config-panel-row">
+                                    <div class="bsxui-config-panel-text">{ __( '– No portrait image selected yet –', 'bsx-blocks' ) }</div>
+                                </div>
+                            </>
                         )
                     }
                     <div class="bsxui-config-panel-row">
@@ -507,6 +525,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                             value={ portraitImgId }
                             render={ ( { open } ) => (
                                 <Button 
+                                    disabled={ !! zoomable }
                                     onClick={ open }
                                     isSecondary
                                 >
@@ -514,6 +533,14 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                                 </Button>
                             ) }
                         />
+                    </div>
+                    <div class="bsxui-config-panel-row">
+                        <Button 
+                            onClick={ onDeletePortraitImage }
+                            isDestructive={ true }
+                        >
+                            { __( 'Remove portrait image', 'bsx-blocks' ) }
+                        </Button>
                     </div>
                     <RadioControl
                         label={ __( 'Image size and format', 'bsx-blocks' ) }
@@ -532,7 +559,17 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
 
                 <PanelBody title={ __( 'Zoomable (optional)', 'bsx-blocks' ) }>
+                    {
+                        portraitImgSizes.length > 0 && (
+                            <div class="bsxui-config-panel-row">
+                                <div class="bsxui-alert">
+                                    Zoomable image is deactivated since portrait image is set. 
+                                </div>
+                            </div>
+                        )
+                    }
                     <ToggleControl
+                        className={ portraitImgSizes.length > 0 ? 'bsxui-disabled' : '' }
                         label={ __( 'Zoomable image', 'bsx-blocks' ) }
                         checked={ !! zoomable }
                         onChange={ onChangeZoomable }

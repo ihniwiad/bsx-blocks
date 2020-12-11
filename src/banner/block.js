@@ -556,6 +556,13 @@ registerBlockType( 'bsx-blocks/banner', {
             }
         };
 
+        const onDeletePortraitImage = () => {
+            setAttributes( {
+                portraitImgId: '',
+                portraitImgSizes: [],
+            } );
+        };
+
         const onChangeBannerType = ( value ) => {
             setAttributes( { bannerType: value } );
         };
@@ -762,6 +769,14 @@ registerBlockType( 'bsx-blocks/banner', {
                                 </Button>
                             ) }
                         />
+                    </div>
+                    <div class="bsxui-config-panel-row">
+                        <Button 
+                            onClick={ onDeletePortraitImage }
+                            isDestructive={ true }
+                        >
+                            { __( 'Remove portrait image', 'bsx-blocks' ) }
+                        </Button>
                     </div>
                     <RadioControl
                         label={ __( 'Image size and format', 'bsx-blocks' ) }

@@ -68,3 +68,19 @@
 .bsxui-bg-danger {
 	background-color: $bsxui-danger-color !important;
 }
+
+
+// ui
+
+.bsxui-disabled {
+	pointer-events: none !important;
+}
+
+.bsxui-alert {
+	color: $bsxui-alert-color;
+	background: $bsxui-alert-background-color;
+	border: 1px solid $bsxui-alert-border-color;
+	border-radius: $bsxui-alert-border-radius;
+	font-size: $bsxui-config-panel-font-size;
+	padding: $bsxui-alert-padding;
+}

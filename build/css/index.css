@@ -41,6 +41,17 @@
 .bsxui-bg-danger {
   background-color: #ca4a1f !important; }
 
+.bsxui-disabled {
+  pointer-events: none !important; }
+
+.bsxui-alert {
+  color: inherit;
+  background: #fef8ee;
+  border: 1px solid #fadaa6;
+  border-radius: 0.25rem;
+  font-size: 13px;
+  padding: 0.125rem 0.25rem; }
+
 .wp-block {
   max-width: unset !important; }
 
