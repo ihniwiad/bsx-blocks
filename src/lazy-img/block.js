@@ -1,3 +1,6 @@
+// TODO: advanced setting: allow zoomable img without `data-fn="photoswipe"` attr for making gallery with external attr (e.g. container or wrapper)
+
+
 const { __, setLocaleData } = wp.i18n;
 const {
     registerBlockType,
@@ -6,6 +9,7 @@ const {
     RichText,
     MediaUpload,
     InspectorControls,
+    InspectorAdvancedControls,
 } = wp.blockEditor;
 const { 
     Button,
@@ -74,6 +78,7 @@ const makeSourcesAttributesList = ( attributes ) => {
         portraitImgSizeIndex,
         responsivePortraitMediaIndexList,
         skipIndex,
+        disableResponsiveDownsizing,
     } = attributes;
 
     const sourcesAttributesList = [];
@@ -109,7 +114,8 @@ const makeSourcesAttributesList = ( attributes ) => {
         const adaptedCurrentImgIndex = currentImgIndex < parseInt( item.minImgSizeIndex ) ? parseInt( item.minImgSizeIndex ) : currentImgIndex;
 
         if ( 
-            adaptedCurrentImgIndex < parseInt( imgSizeIndex ) 
+            ! disableResponsiveDownsizing
+            && adaptedCurrentImgIndex < parseInt( imgSizeIndex ) 
             && adaptedCurrentImgIndex > skipIndex
             && typeof imgSizes[ adaptedCurrentImgIndex ] != 'undefined' 
             && typeof imgSizes[ adaptedCurrentImgIndex ].url != 'undefined' 
@@ -196,6 +202,9 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         zoomImgSizeIndex: {
             type: 'string',
         },
+        disableResponsiveDownsizing: {
+            type: 'boolean',
+        },
     },
     edit: ( props ) => {
         const {
@@ -217,6 +226,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 rounded,
                 zoomable,
                 zoomImgSizeIndex,
+                disableResponsiveDownsizing,
             },
             setAttributes,
             isSelected,
@@ -334,6 +344,11 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             setAttributes( { zoomImgSizeIndex: value.toString() } );
         };
 
+        const onChangeDisableResponsiveDownsizing = ( value ) => {
+            setAttributes( { disableResponsiveDownsizing: value } );
+        };
+
+
         const onChangeImgSizeIndex = ( value ) => {
             setAttributes( { 
                 imgSizeIndex: value.toString(),
@@ -380,6 +395,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             portraitImgSizeIndex,
             responsivePortraitMediaIndexList,
             skipIndex,
+            disableResponsiveDownsizing,
         } );
 
         // class names
@@ -597,6 +613,14 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 </PanelBody>
 
             </InspectorControls>,
+            <InspectorAdvancedControls>
+                <ToggleControl
+                    label={ __( 'Disable responsive image downsizing', 'bsx-blocks' ) }
+                    checked={ !! disableResponsiveDownsizing }
+                    onChange={ onChangeDisableResponsiveDownsizing }
+                    help={ __( 'Enable if you don’t want smaller responsive image sizes, since small devices display image in large dimensions.', 'bsx-blocks' ) }
+                />
+            </InspectorAdvancedControls>,
             (
                 <figure className={ className }>
                     {
@@ -680,6 +704,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 rounded,
                 zoomable,
                 zoomImgSizeIndex,
+                disableResponsiveDownsizing,
             },
         } = props;
 
@@ -693,6 +718,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             portraitImgSizeIndex,
             responsivePortraitMediaIndexList,
             skipIndex,
+            disableResponsiveDownsizing,
         } );
 
         // class names
