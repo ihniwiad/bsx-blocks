@@ -1,3 +1,6 @@
+require( 'dotenv' ).config();
+const envConfig = process.env;
+
 const gulp          = require( 'gulp' );
 const { series, parallel } = require( 'gulp' );
 const sourcemaps    = require( 'gulp-sourcemaps' );
@@ -34,8 +37,10 @@ const defaultPublish = {
     "folderName": config.projectName
 };
 const mergedPublish = Object.assign( {}, defaultPublish, config.publish );
- // NOTE: take care at this path since you’re deleting files outside your project
-const mergedPublishDestFullPath = mergedPublish.dest + '/' + mergedPublish.folderName;
+// NOTE: take care at this path since you’re deleting files outside your project
+// const mergedPublishDestFullPath = mergedPublish.dest + '/' + mergedPublish.folderName;
+
+const mergedPublishDestFullPath = envConfig.PUBLISH_PATH + '/' + mergedPublish.folderName;
 
 
 // basic functions
@@ -81,7 +86,7 @@ const basicStylePackagePathReplace = ( cb ) => {
 
 function publishFolderDelete( cb ) {
 
-    if ( !! mergedPublish.dest && !! mergedPublish.folderName ) {
+    if ( !! envConfig.PUBLISH_PATH && !! mergedPublish.folderName ) {
         // console.log( 'delete: ' + mergedPublishDestFullPath );
         return gulp.src( mergedPublishDestFullPath, { read: false, allowEmpty: true } )
             .pipe( clean( { force: true } ) ) // NOTE: take care at this command since you’re deleting files outside your project
@@ -96,7 +101,7 @@ function publishFolderDelete( cb ) {
 
 function publishFolderCreate( cb ) {
 
-    if ( !! mergedPublish.dest && !! mergedPublish.folderName ) {
+    if ( !! envConfig.PUBLISH_PATH && !! mergedPublish.folderName ) {
         // console.log( 'create: ' + mergedPublishDestFullPath + ' (src: ' + mergedPublish.src + ', base: ' + mergedPublish.base + ')' );
         return gulp.src( mergedPublish.src, { base: mergedPublish.base } )
             .pipe( gulp.dest( mergedPublishDestFullPath ) )

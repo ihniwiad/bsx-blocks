@@ -17,16 +17,5 @@
 	"buildJsWatchPath": [
 		"./build/*.js",
 		"./build/**/*.js"
-	],
-	"publish": {
-		"dest": "../../../../../Applications/MAMP/htdocs/ib-ffo/wp-content/plugins/"
-	},
-	"comment": [
-		{
-			"dest": "../../../../../Applications/MAMP/htdocs/wordpress/wp-content/plugins/"
-		},
-		{
-			"dest": "../../../../../Applications/MAMP/htdocs/ib-ffo/wp-content/plugins/"
-		}
 	]
 }
