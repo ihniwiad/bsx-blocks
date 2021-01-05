@@ -388,15 +388,17 @@ export function addSaveProps( extraProps, blockType, attributes ) {
         // check wp internal attributes, add custom class names for certain ones
         // NOTE: added class name will be updated but never removed (as WP currently does too)
 
-        // text align
+        // textAlign
         const alignAllowedValues = [
             'left',
             'center',
             'right',
         ];
         const alignPrefix = 'text-';
-        if ( !! attributes.align && alignAllowedValues.includes( attributes.align ) ) {
-            classNames.push( alignPrefix + attributes.align );
+        const textAlignAttrVal = attributes.textAlign != undefined ? attributes.textAlign : attributes.align;
+        
+        if ( !! textAlignAttrVal && alignAllowedValues.includes( textAlignAttrVal ) ) {
+            classNames.push( alignPrefix + textAlignAttrVal );
         }
         else {
             for ( let i = 0; i < classNames.length; i++ ) {
