@@ -10,6 +10,8 @@ const {
     MediaUpload,
     InspectorControls,
     InspectorAdvancedControls,
+    BlockControls,
+    AlignmentToolbar,
 } = wp.blockEditor;
 const { 
     Button,
@@ -227,6 +229,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 zoomable,
                 zoomImgSizeIndex,
                 disableResponsiveDownsizing,
+                textAlign,
             },
             setAttributes,
             isSelected,
@@ -338,7 +341,15 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         };
 
         const onChangeZoomable = ( value ) => {
-            setAttributes( { zoomable: value } );
+            if ( zoomImgSizeIndex == undefined ) {
+                setAttributes( { 
+                    zoomable: value,
+                    zoomImgSizeIndex: ( imgSizes.length - 1 ).toString(),
+                } );
+            }
+            else {
+                setAttributes( { zoomable: value } );
+            }
         };
         const onChangeZoomImgSizeIndex = ( value ) => {
             setAttributes( { zoomImgSizeIndex: value.toString() } );
@@ -347,6 +358,28 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         const onChangeDisableResponsiveDownsizing = ( value ) => {
             setAttributes( { disableResponsiveDownsizing: value } );
         };
+
+        const onChangeTextAlign = ( value ) => {
+            setAttributes( { textAlign: value } );
+        };
+
+        const alignmentControls = [
+            {
+                icon: 'editor-alignleft',
+                title: __( 'Align left', 'bsx-blocks' ),
+                align: 'left',
+            },
+            {
+                icon: 'editor-aligncenter',
+                title: __( 'Align center', 'bsx-blocks' ),
+                align: 'center',
+            },
+            {
+                icon: 'editor-alignright',
+                title: __( 'Align right', 'bsx-blocks' ),
+                align: 'right',
+            },
+        ];
 
 
         const onChangeImgSizeIndex = ( value ) => {
@@ -400,6 +433,10 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
         // class names
 
+        const classNames = addClassNames( {
+            textAlign,
+        } );
+
         const imgClassName = addClassNames( {
             rounded: rounded,
         }, 'img-fluid' );
@@ -418,6 +455,14 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         );
 
         return [
+            <BlockControls>
+                <AlignmentToolbar
+                    label={ __( 'Alignment', 'bsx-blocks' ) }
+                    value={ textAlign }
+                    onChange={ onChangeTextAlign }
+                    alignmentControls={ alignmentControls }
+                />
+            </BlockControls>,
             <InspectorControls>
                 <PanelBody title={ __( 'Image', 'bsx-blocks' ) }>
                     <TextControl 
@@ -622,7 +667,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 />
             </InspectorAdvancedControls>,
             (
-                <figure className={ className }>
+                <figure className={ classNames }>
                     {
                         imgId ? (
                             <>
@@ -705,6 +750,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 zoomable,
                 zoomImgSizeIndex,
                 disableResponsiveDownsizing,
+                textAlign,
             },
         } = props;
 
@@ -723,8 +769,12 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
         // class names
 
+        const classNames = addClassNames( {
+            textAlign,
+        } );
+
         const imgClassName = addClassNames( {
-            rounded: rounded,
+            rounded,
         }, 'img-fluid' );
 
         // allow zoomable img
@@ -779,12 +829,12 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             </>
         );
 
-        return (
-            <div className={ className } { ...saveAttributes }>
+        const figure = (
+            <figure className={ classNames }>
 
                 {
                     url && (
-                        <figure>
+                        <>
                             { 
                                 zoomable ? (
                                     <a className={ 'zoomable-img' } { ...aSaveAttributes }>
@@ -803,11 +853,29 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                                     <RichText.Content tagName="figcaption" className="font-italic" value={ figcaption } />
                                 )
                             }
-                        </figure>
+                        </>
                     )
                 }
                 
-            </div>
+            </figure>
+        );
+
+        return (
+            <>
+                { 
+                    zoomable ? (
+                        <div { ...saveAttributes }>
+                            { figure }
+                        </div>
+                    )
+                    :
+                    (
+                        <>
+                            { figure }
+                        </>
+                    ) 
+                }
+            </>
         );
     },
 } );
