@@ -256,7 +256,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
                                 { value: 'dark-transparent', label: __( 'Dark transparent', 'bsx-blocks' ) },
                                 { value: 'transparent', label: __( 'Transparent', 'bsx-blocks' ) },
                             ] }
-                            help={ __( 'Spacer before Container', 'bsx-blocks' ) }
+                            help={ __( 'Spacer before element', 'bsx-blocks' ) }
                         />
                         <SelectControl 
                             label={ __( 'Text color (optional)', 'bsx-blocks' ) }
@@ -318,7 +318,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
                                 { value: '4', label: __( 'large', 'bsx-blocks' ) },
                                 { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
                             ] }
-                            help={ __( 'Spacer before Container', 'bsx-blocks' ) }
+                            help={ __( 'Spacer before element', 'bsx-blocks' ) }
                         />
                         <SelectControl 
                             label={ __( 'Margin after', 'bsx-blocks' ) }
@@ -333,7 +333,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
                                 { value: '4', label: __( 'large', 'bsx-blocks' ) },
                                 { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
                             ] }
-                            help={ __( 'Spacer after Container', 'bsx-blocks' ) }
+                            help={ __( 'Spacer after element', 'bsx-blocks' ) }
                         />
                     </PanelBody>
 
