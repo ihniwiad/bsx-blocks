@@ -15,6 +15,34 @@ export function svgIcon( iconKey ) {
 			break;
 
 
+		// button icons
+
+		case 'carret-left':
+			icon = (
+				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" role="img" focusable="false">
+					<path d="M14 5l-5 5 5 5-1 2-7-7 7-7z"></path>
+				</svg>
+			);
+			break;
+
+		case 'carret-right':
+			icon = (
+				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" role="img" focusable="false">
+					<path d="M6 15l5-5-5-5 1-2 7 7-7 7z"></path>
+				</svg>
+			);
+			break;
+
+		case 'trash':
+			icon = (
+				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" role="img" focusable="false">
+					<path d="M12 4h3c.6 0 1 .4 1 1v1H3V5c0-.6.5-1 1-1h3c.2-1.1 1.3-2 2.5-2s2.3.9 2.5 2zM8 4h3c-.2-.6-.9-1-1.5-1S8.2 3.4 8 4zM4 7h11l-.9 10.1c0 .5-.5.9-1 .9H5.9c-.5 0-.9-.4-1-.9L4 7z"></path>
+				</svg>
+			);
+			break;
+
+		
+
 		// banner
 
 		case 'banner':
@@ -108,6 +136,19 @@ export function svgIcon( iconKey ) {
 		// columns
 
 
+
+		// gallery
+
+		case 'gallery':
+			icon = (
+		        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" role="img" focusable="false"><path d="M8,10L6,9l-2,1v2.99h9V9l-2-1L8,10z M7,8c1.1,0,2-0.9,2-2c0-1.1-0.9-2-2-2S5,4.9,5,6C5,7.1,5.9,8,7,8z M18.71,4.29
+					C18.52,4.1,18.27,4,18,4h-2V2c0-0.27-0.1-0.52-0.29-0.71C15.52,1.1,15.27,1,15,1H2C1.74,1,1.48,1.11,1.29,1.29C1.11,1.48,1,1.74,1,2
+					v13c0,0.26,0.11,0.52,0.29,0.71C1.48,15.89,1.74,16,2,16h2v2c0,0.26,0.11,0.52,0.29,0.71C4.48,18.89,4.74,19,5,19h13
+					c0.27,0,0.52-0.1,0.71-0.29C18.9,18.52,19,18.27,19,18V5C19,4.73,18.9,4.48,18.71,4.29z M3,14V3h11v11H3z M17,17H6v-1h9
+					c0.27,0,0.52-0.1,0.71-0.29C15.9,15.52,16,15.27,16,15V6h1V17z"/>
+				</svg>
+			);
+			break;
 
 		// groups
 

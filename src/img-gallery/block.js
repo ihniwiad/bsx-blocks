@@ -22,6 +22,9 @@ const {
 } = wp.components;
 
 
+import { svgIcon } from './../_functions/wp-icons.js';
+
+
 import { addClassNames } from './../_functions/add-class-names.js';
 
 
@@ -143,7 +146,7 @@ const makeUploadElementClassName = ( attributes ) => {
 
 registerBlockType( 'bsx-blocks/img-gallery', {
     title: __( 'BSX Image Gallery', 'bsx-blocks' ),
-    icon: 'format-gallery',
+    icon: svgIcon( 'gallery' ),
     category: 'layout',
     attributes: {
         mediaList: {
@@ -541,21 +544,21 @@ registerBlockType( 'bsx-blocks/img-gallery', {
                                             onClick={ () => { onClickMoveUp( index ) } }
                                             label={ __( 'Move backward', 'bsx-blocks' ) }
                                         >
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" role="img" focusable="false"><path d="M14 5l-5 5 5 5-1 2-7-7 7-7z"></path></svg>
+                                            { svgIcon( 'carret-left' ) }
                                         </Button>
                                         <Button 
                                             className="button bsxui-icon-button" 
                                             onClick={ () => { onClickMoveDown( index ) } }
                                             label={ __( 'Move forward', 'bsx-blocks' ) }
                                         >
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" role="img" focusable="false"><path d="M6 15l5-5-5-5 1-2 7 7-7 7z"></path></svg>
+                                            { svgIcon( 'carret-right' ) }
                                         </Button>
                                         <Button 
                                             className="button bsxui-icon-button bsxui-text-danger bsxui-border-danger bsxui-ml-auto"
                                             onClick={ () => { onClickDelete( index ) } }
                                             label={ __( 'Remove Image', 'bsx-blocks' ) }
                                         >
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" role="img" focusable="false"><path d="M12 4h3c.6 0 1 .4 1 1v1H3V5c0-.6.5-1 1-1h3c.2-1.1 1.3-2 2.5-2s2.3.9 2.5 2zM8 4h3c-.2-.6-.9-1-1.5-1S8.2 3.4 8 4zM4 7h11l-.9 10.1c0 .5-.5.9-1 .9H5.9c-.5 0-.9-.4-1-.9L4 7z"></path></svg>
+                                            { svgIcon( 'trash' ) }
                                         </Button>
                                     </div>
                                 </div>
