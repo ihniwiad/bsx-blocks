@@ -414,7 +414,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         const imgSizeRadioControlOptions = [];
         imgSizes.forEach( ( imgSize, index ) => {
             imgSizeRadioControlOptions.push( 
-                { value: index.toString(), label: imgSize.width + 'x' + imgSize.height + ( imgSize.width === imgSize.height ? ' ' + __( '(Square format)', 'bsx-blocks' ) : '' ) } 
+                { value: index.toString(), label: imgSize.width + 'x' + imgSize.height + ( imgSizes[ imgSizes.length - 1 ].width !== imgSizes[ imgSizes.length - 1 ].height && imgSize.width === imgSize.height ? ' ' + __( '(Square format)', 'bsx-blocks' ) : '' ) } 
             );
         } );
 
@@ -426,7 +426,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         const portraitImgSizeRadioControlOptions = [];
         portraitImgSizes.forEach( ( portraitImgSize, index ) => {
             portraitImgSizeRadioControlOptions.push( 
-                { value: index.toString(), label: portraitImgSize.width + 'x' + portraitImgSize.height + ( portraitImgSize.width === portraitImgSize.height ? ' ' + __( '(Square format)', 'bsx-blocks' ) : '' ) } 
+                { value: index.toString(), label: portraitImgSize.width + 'x' + portraitImgSize.height + ( portraitImgSizes[ portraitImgSizes.length - 1 ].width !== portraitImgSizes[ portraitImgSizes.length - 1 ].height && portraitImgSize.width === portraitImgSize.height ? ' ' + __( '(Square format)', 'bsx-blocks' ) : '' ) } 
             );
         } );
 
@@ -434,7 +434,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         imgSizes.forEach( ( imgSize, index ) => {
             if ( index >= imgSizeIndex ) {
                 zoomImgSizeRadioControlOptions.push( 
-                    { value: index.toString(), label: imgSize.width + 'x' + imgSize.height + ( imgSize.width === imgSize.height ? ' ' + __( '(Square format)', 'bsx-blocks' ) : '' ) } 
+                    { value: index.toString(), label: imgSize.width + 'x' + imgSize.height + ( imgSizes[ imgSizes.length - 1 ].width !== imgSizes[ imgSizes.length - 1 ].height && imgSize.width === imgSize.height ? ' ' + __( '(Square format)', 'bsx-blocks' ) : '' ) } 
                 );
             }
         } );
