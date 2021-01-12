@@ -829,8 +829,8 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             </>
         );
 
-        const figure = (
-            <figure className={ classNames }>
+        return (
+            <figure className={ classNames } { ...saveAttributes }>
 
                 {
                     url && (
@@ -858,24 +858,6 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 }
                 
             </figure>
-        );
-
-        return (
-            <>
-                { 
-                    zoomable ? (
-                        <div { ...saveAttributes }>
-                            { figure }
-                        </div>
-                    )
-                    :
-                    (
-                        <>
-                            { figure }
-                        </>
-                    ) 
-                }
-            </>
         );
     },
 } );
