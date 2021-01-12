@@ -146,10 +146,6 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             boolean: 'string',
             default: true,
         },
-        textAlign: {
-            type: 'string',
-            default: '',
-        },
         imgSizes: {
             type: 'array',
             default: [],
@@ -198,6 +194,12 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         rounded: {
             type: 'string',
         },
+        imgThumbnail: {
+            type: 'boolean',
+        },
+        borderState: {
+            type: 'string',
+        },
         zoomable: {
             type: 'boolean',
         },
@@ -206,6 +208,13 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         },
         disableResponsiveDownsizing: {
             type: 'boolean',
+        },
+        textAlign: {
+            type: 'string',
+            default: '',
+        },
+        marginAfter: {
+            type: 'string',
         },
     },
     edit: ( props ) => {
@@ -226,10 +235,13 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 alt,
                 figcaption,
                 rounded,
+                imgThumbnail,
+                borderState,
                 zoomable,
                 zoomImgSizeIndex,
                 disableResponsiveDownsizing,
                 textAlign,
+                marginAfter,
             },
             setAttributes,
             isSelected,
@@ -339,6 +351,12 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         const onChangeRounded = ( value ) => {
             setAttributes( { rounded: value } );
         };
+        const onChangeImgThumbnail = ( value ) => {
+            setAttributes( { imgThumbnail: value } );
+        };
+        const onChangeBorderState = ( value ) => {
+            setAttributes( { borderState: value } );
+        };
 
         const onChangeZoomable = ( value ) => {
             if ( zoomImgSizeIndex == undefined ) {
@@ -361,6 +379,9 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
         const onChangeTextAlign = ( value ) => {
             setAttributes( { textAlign: value } );
+        };
+        const onChangeMarginAfter = ( value ) => {
+            setAttributes( { marginAfter: value } );
         };
 
         const alignmentControls = [
@@ -435,10 +456,13 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
         const classNames = addClassNames( {
             textAlign,
+            marginAfter,
         } );
 
         const imgClassName = addClassNames( {
-            rounded: rounded,
+            rounded,
+            imgThumbnail,
+            borderState,
         }, 'img-fluid' );
 
         // image
@@ -516,8 +540,10 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                     />
                     {
                         imgSizes[ imgSizeIndex ] != undefined && imgSizes[ imgSizeIndex ].url != undefined && (
-                            <div class="bsxui-config-panel-text">
-                                <a class="bsxui-link" href={ imgSizes[ imgSizeIndex ].url } target="_blank">{ __( 'Preview selected image', 'bsx-blocks' ) }</a>
+                            <div class="bsxui-config-panel-row">
+                                <div class="bsxui-config-panel-text">
+                                    <a class="bsxui-link" href={ imgSizes[ imgSizeIndex ].url } target="_blank">{ __( 'Preview selected image', 'bsx-blocks' ) }</a>
+                                </div>
                             </div>
                         )
                     }
@@ -540,6 +566,28 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                             { value: '', label: __( '– unset –', 'bsx-blocks' ) },
                             { value: 'rounded', label: __( 'Rounded corners', 'bsx-blocks' ) },
                             { value: 'circle', label: __( 'Circle', 'bsx-blocks' ) },
+                        ] }
+                    />
+                    <ToggleControl
+                        label={ __( 'Border', 'bsx-blocks' ) }
+                        checked={ !! imgThumbnail }
+                        onChange={ onChangeImgThumbnail }
+                    />
+                    <SelectControl 
+                        label={ __( 'Border color', 'bsx-blocks' ) }
+                        value={ borderState }
+                        onChange={ onChangeBorderState }
+                        options={ [
+                            { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+                            { value: 'white', label: __( 'White', 'bsx-blocks' ) },
+                            { value: 'primary', label: __( 'Primary', 'bsx-blocks' ) },
+                            { value: 'secondary', label: __( 'Secondary', 'bsx-blocks' ) },
+                            { value: 'success', label: __( 'Success', 'bsx-blocks' ) },
+                            { value: 'danger', label: __( 'Danger', 'bsx-blocks' ) },
+                            { value: 'warning', label: __( 'Warning', 'bsx-blocks' ) },
+                            { value: 'info', label: __( 'Info', 'bsx-blocks' ) },
+                            { value: 'light', label: __( 'Light', 'bsx-blocks' ) },
+                            { value: 'dark', label: __( 'Dark', 'bsx-blocks' ) },
                         ] }
                     />
                 </PanelBody>
@@ -595,14 +643,18 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                             ) }
                         />
                     </div>
-                    <div class="bsxui-config-panel-row">
-                        <Button 
-                            onClick={ onDeletePortraitImage }
-                            isDestructive={ true }
-                        >
-                            { __( 'Remove portrait image', 'bsx-blocks' ) }
-                        </Button>
-                    </div>
+                    {
+                        portraitImgId && typeof portraitImgSizes[ portraitImgSizeIndex ] != 'undefined' && typeof portraitImgSizes[ portraitImgSizeIndex ].url != 'undefined' && (
+                            <div class="bsxui-config-panel-row">
+                                <Button 
+                                    onClick={ onDeletePortraitImage }
+                                    isDestructive={ true }
+                                >
+                                    { __( 'Remove portrait image', 'bsx-blocks' ) }
+                                </Button>
+                            </div>
+                        )
+                    }
                     <RadioControl
                         label={ __( 'Image size and format', 'bsx-blocks' ) }
                         selected={ portraitImgSizeIndex.toString() }
@@ -617,7 +669,6 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                         )
                     }
                 </PanelBody>
-
 
                 <PanelBody title={ __( 'Zoomable (optional)', 'bsx-blocks' ) }>
                     {
@@ -655,6 +706,24 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                             </>
                         )
                     }
+                </PanelBody>
+
+                <PanelBody title={ __( 'Margin (optional)', 'bsx-blocks' ) }>
+                    <SelectControl 
+                        label={ __( 'Margin after', 'bsx-blocks' ) }
+                        value={ marginAfter }
+                        onChange={ onChangeMarginAfter }
+                        options={ [
+                            { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+                            { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
+                            { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
+                            { value: '2', label: __( 'small', 'bsx-blocks' ) },
+                            { value: '3', label: __( 'medium', 'bsx-blocks' ) },
+                            { value: '4', label: __( 'large', 'bsx-blocks' ) },
+                            { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
+                        ] }
+                        help={ __( 'Spacer after element', 'bsx-blocks' ) }
+                    />
                 </PanelBody>
 
             </InspectorControls>,
@@ -747,10 +816,13 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 alt,
                 figcaption,
                 rounded,
+                imgThumbnail,
+                borderState,
                 zoomable,
                 zoomImgSizeIndex,
                 disableResponsiveDownsizing,
                 textAlign,
+                marginAfter,
             },
         } = props;
 
@@ -771,10 +843,13 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
         const classNames = addClassNames( {
             textAlign,
+            marginAfter,
         } );
 
         const imgClassName = addClassNames( {
             rounded,
+            imgThumbnail,
+            borderState,
         }, 'img-fluid' );
 
         // allow zoomable img
