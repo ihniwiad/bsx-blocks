@@ -309,6 +309,40 @@ a.bsxui-link {
   margin-right: -5px;
   margin-left: -5px; }
 
+[data-flex-row-reverse="xs"][data-type="bsx-blocks/row-with-cols"] > .row > .block-editor-inner-blocks > .block-editor-block-list__layout {
+  -webkit-box-orient: horizontal !important;
+  -webkit-box-direction: reverse !important;
+  -ms-flex-direction: row-reverse !important;
+  flex-direction: row-reverse !important; }
+
+@media (min-width: 576px) {
+  [data-flex-row-reverse="sm"][data-type="bsx-blocks/row-with-cols"] > .row > .block-editor-inner-blocks > .block-editor-block-list__layout {
+    -webkit-box-orient: horizontal !important;
+    -webkit-box-direction: reverse !important;
+    -ms-flex-direction: row-reverse !important;
+    flex-direction: row-reverse !important; } }
+
+@media (min-width: 768px) {
+  [data-flex-row-reverse="md"][data-type="bsx-blocks/row-with-cols"] > .row > .block-editor-inner-blocks > .block-editor-block-list__layout {
+    -webkit-box-orient: horizontal !important;
+    -webkit-box-direction: reverse !important;
+    -ms-flex-direction: row-reverse !important;
+    flex-direction: row-reverse !important; } }
+
+@media (min-width: 992px) {
+  [data-flex-row-reverse="lg"][data-type="bsx-blocks/row-with-cols"] > .row > .block-editor-inner-blocks > .block-editor-block-list__layout {
+    -webkit-box-orient: horizontal !important;
+    -webkit-box-direction: reverse !important;
+    -ms-flex-direction: row-reverse !important;
+    flex-direction: row-reverse !important; } }
+
+@media (min-width: 1200px) {
+  [data-flex-row-reverse="xl"][data-type="bsx-blocks/row-with-cols"] > .row > .block-editor-inner-blocks > .block-editor-block-list__layout {
+    -webkit-box-orient: horizontal !important;
+    -webkit-box-direction: reverse !important;
+    -ms-flex-direction: row-reverse !important;
+    flex-direction: row-reverse !important; } }
+
 [data-type="bsx-blocks/row-with-cols"] > .row {
   display: block;
   margin-left: 0;
@@ -730,6 +764,10 @@ a.bsxui-link {
   padding-right: 0;
   padding-left: 0;
   max-width: unset; }
+
+[data-type="bsx-blocks/col"] p.wp-block > [data-rich-text-placeholder] {
+  max-width: 150px;
+  display: block; }
 
 [data-size] ~ .block-list-appender {
   width: 100%;

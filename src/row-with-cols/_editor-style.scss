@@ -14,6 +14,10 @@ $bsxui-col-list-appender-selector:		'.block-list-appender' !default;
 @import "../../build/_basic-style-vars-and-bootstrap-grid";
 
 
+
+// ROW
+
+
 // row mixin
 
 @mixin make-editor-row($gutter: $bsx-grid-gutter-width) {
@@ -85,6 +89,18 @@ $bsxui-justify-content-values: (
 }
 
 
+// row reverse
+// e.g. [data-flex-row-reverse="md"]
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    // do not use $infix, use 'xs' ... 'xl' instead
+
+    [data-flex-row-reverse="#{$breakpoint}"]#{$bsxui-editor-row-selector}    { flex-direction: row-reverse !important; }
+  }
+}
+
+
 // reset editor row inner width (.row)
 
 #{$bsxui-row-with-cols-block-selector} > .row {
@@ -92,6 +108,10 @@ $bsxui-justify-content-values: (
 	margin-left: 0;
 	margin-right: 0;
 }
+
+
+
+// COL
 
 
 // col mixin
@@ -157,6 +177,8 @@ $bsxui-justify-content-values: (
 @include make-editor-grid-columns();
 
 
+
+
 // form row col
 
 [data-form-row="true"]#{$bsxui-editor-col-selector} {
@@ -181,6 +203,13 @@ $bsxui-justify-content-values: (
 	    padding-left: 0;
 	    max-width: unset;
     }
+}
+
+
+// limitate empty p placeholder breacking layout (needed only for column width auto?) 
+[data-type="bsx-blocks/col"] p.wp-block > [data-rich-text-placeholder] {
+  max-width: $bsxui-in-col-placeholder-max-width;
+  display: block;
 }
 
 
