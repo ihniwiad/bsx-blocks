@@ -399,16 +399,18 @@ registerBlockType( 'bsx-blocks/img-gallery', {
             galleryType 
         } );
         linkClassName = addClassNames( {
-            rounded,
-            imgThumbnail,
-            borderState,
             hoverShadow,
             hoverMove,
         }, linkClassName );
 
-        const imgClassName = makeImgClassName( { 
+        let imgClassName = makeImgClassName( { 
             galleryType 
         } );
+        imgClassName = addClassNames( {
+            rounded,
+            imgThumbnail,
+            borderState,
+        }, imgClassName );
 
         const uploadElementClassName = makeUploadElementClassName( { 
             galleryType 
@@ -626,16 +628,18 @@ registerBlockType( 'bsx-blocks/img-gallery', {
             galleryType 
         } );
         linkClassName = addClassNames( {
-            rounded,
-            imgThumbnail,
-            borderState,
             hoverShadow,
             hoverMove,
         }, linkClassName );
 
-        const imgClassName = makeImgClassName( { 
+        let imgClassName = makeImgClassName( { 
             galleryType 
         } );
+        imgClassName = addClassNames( {
+            rounded,
+            imgThumbnail,
+            borderState,
+        }, imgClassName );
 
         const TagName = 'figure';
 
