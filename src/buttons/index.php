@@ -17,11 +17,11 @@ function bsx_blocks_buttons_register_block() {
         'editor_style' => array( 'bsx-blocks-editor-atf-style', 'bsx-blocks-editor-style' ),
         'editor_script' => 'bsx-blocks-script',
     ) );
-    register_block_type( 'bsx-blocks/button-wrapper', array(
+    register_block_type( 'bsx-blocks/button', array(
         'editor_style' => array( 'bsx-blocks-editor-atf-style', 'bsx-blocks-editor-style' ),
         'editor_script' => 'bsx-blocks-script',
     ) );
-    register_block_type( 'bsx-blocks/button', array(
+    register_block_type( 'bsx-blocks/button-label', array(
         'editor_style' => array( 'bsx-blocks-editor-atf-style', 'bsx-blocks-editor-style' ),
         'editor_script' => 'bsx-blocks-script',
     ) );

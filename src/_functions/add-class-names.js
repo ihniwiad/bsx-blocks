@@ -4,6 +4,7 @@ export function addClassNames( attributes, classNamesString ) {
 
     const {
         belowNavbar, 
+        display,
         marginBefore, 
         marginAfter, 
         marginLeft,
@@ -28,6 +29,10 @@ export function addClassNames( attributes, classNamesString ) {
 
     if ( !! belowNavbar ) {
         classNames.push( 'below-navbar-content' );
+    }
+
+    if ( !! display ) {
+        classNames.push( 'd-' + display );
     }
 
     if ( !! marginBefore && marginBefore === marginAfter && marginBefore === marginLeft && marginBefore === marginRight ) {

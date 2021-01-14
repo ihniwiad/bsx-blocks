@@ -4,15 +4,18 @@
 // selectors
 
 $bsxui-button-block-selector:           		'[data-type="bsx-blocks/button"]' !default;
+$bsxui-button-label-block-selector:             '[data-type="bsx-blocks/button-label"]' !default;
 $bsxui-buttons-list-appender-selector:  		'.block-list-appender' !default;
 $bsxui-buttons-list-appender-button-selector:  	'.block-list-appender__toggle' !default;
 
 
 // make button inline
 
-#{$bsxui-button-block-selector} {
+#{$bsxui-button-block-selector},
+#{$bsxui-button-label-block-selector} {
     display: inline-block;
     vertical-align: top;
+    margin-right: 0.25em !important;
 }
 
 

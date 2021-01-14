@@ -1,3 +1,4 @@
+import './buttons/block.js';
 import './button/block.js';
-import './buttons-wrapper/block.js';
+import './button-label/block.js';
 

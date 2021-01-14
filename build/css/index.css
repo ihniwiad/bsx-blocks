@@ -190,9 +190,11 @@ a.bsxui-link {
     display: flex;
     width: 100%; }
 
-[data-type="bsx-blocks/button"] {
+[data-type="bsx-blocks/button"],
+[data-type="bsx-blocks/button-label"] {
   display: inline-block;
-  vertical-align: top; }
+  vertical-align: top;
+  margin-right: 0.25em !important; }
 
 [data-type="bsx-blocks/button"] ~ .block-list-appender {
   display: inline-block;

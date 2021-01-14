@@ -1,5 +1,5 @@
-// TODO: add state classes for link button
-// TODO: add toggle control for spam protected mailto or tel links (requires basic package js adaption)
+// TODO: add state classes for text-link button
+// TODO: add toggle control for spam protected tel links (requires basic package js adaption)
 
 
 const { __, setLocaleData } = wp.i18n;
@@ -7,7 +7,6 @@ const {
     registerBlockType,
 } = wp.blocks;
 const {
-    InnerBlocks,
     InspectorControls,
     URLInput,
     RichText,
@@ -15,19 +14,17 @@ const {
 const { 
     TextControl,
     PanelBody,
-    RangeControl,
     ToggleControl,
     SelectControl,
     SVG, 
     Path,
 } = wp.components;
 
-const { 
-    withSelect, 
-} = wp.data;
-
 
 // functions imports
+
+
+import { svgIcon } from './../../_functions/wp-icons.js';
 
 import { addClassNames } from './../../_functions/add-class-names.js';
 
@@ -42,22 +39,26 @@ const makeButtonClassNames = ( attributes ) => {
         state,
         stateType,
         size,
-        hrefIsContentIsEmail,
+        hrefIsEmailIsContent,
+        ignoreMailtoSpamProtection,
     } = attributes;
 
-    const classNames = [ 'btn' ];
+    const classNames = [];
 
     let buildClassName = 'btn-';
 
     if ( !! state ) {
-        if ( !! stateType && state != 'link' && state != 'text-link' ) {
-            buildClassName += stateType + '-';
-        }
-        buildClassName += state != 'text-link' ? state : 'link';
-        classNames.push( buildClassName );
 
         if ( state == 'text-link' ) {
-            classNames.push( 'p-0' );
+            classNames.push( 'text-link' );
+        }
+        else {
+            classNames.push( 'btn' );
+            if ( !! stateType ) {
+                buildClassName += stateType + '-';
+            }
+            buildClassName += state;
+            classNames.push( buildClassName );
         }
     }
 
@@ -65,23 +66,12 @@ const makeButtonClassNames = ( attributes ) => {
         classNames.push( 'btn-' + size );
     }
 
-    if ( !! hrefIsContentIsEmail ) {
+    if ( ! ignoreMailtoSpamProtection && hrefIsEmailIsContent ) {
         classNames.push( 'create-mt' );
     }
 
     return classNames.join( ' ' );
 }
-
-// const makeSaveAttributes = ( attributes ) => {
-//     const nonEmptyAttributes = {};
-//     for ( let [ key, value ] of Object.entries( attributes ) ) {
-//         //console.log( 'key: "' + key + '", val: "' + value + '"' );
-//         if ( value ) {
-//             nonEmptyAttributes[ key ] = value;
-//         }
-//     }
-//     return nonEmptyAttributes;
-// }
 
 const isEmailFormat = ( href ) => {
     if ( href.indexOf( 'mailto:' ) == 0 && /\S+@\S+\.\S+/.test( href.substring( 7 ) ) ) {
@@ -112,17 +102,9 @@ const isEmailFormat = ( href ) => {
     }
 }
 
-// const checkHrefIsContentIsEmail = ( emailIsValid, href, content ) => {
-//     return emailIsValid && href == 'mailto:' + content;
-// }
-
 registerBlockType( 'bsx-blocks/button', {
     title: __( 'BSX Button', 'bsx-blocks' ),
-    icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" role="img" focusable="false">
-            <path d="M16,7H4C2.9,7,2,7.9,2,9v2c0,1.11,0.9,2,2,2h12c1.1,0,2-0.89,2-2V9C18,7.9,17.1,7,16,7z M15,11H5V9h10V11z"/>
-        </svg>
-    ),
+    icon: svgIcon( 'button' ),
     category: 'layout',
     parent: [ 'bsx-blocks/buttons' ],
     attributes: {
@@ -130,14 +112,10 @@ registerBlockType( 'bsx-blocks/button', {
             type: 'string',
             default: '',
         },
-        hash: {
-            type: 'string',
-            default: '',
-        },
         content: {
             type: 'array',
             source: 'children',
-            selector: '.btn',
+            selector: '.btn, .text-link',
         },
         target: {
             type: 'string',
@@ -179,6 +157,9 @@ registerBlockType( 'bsx-blocks/button', {
             type: 'string',
             default: '',
         },
+        ignoreMailtoSpamProtection: {
+            type: 'boolean',
+        },
     },
 
     edit: ( props ) => {
@@ -187,7 +168,6 @@ registerBlockType( 'bsx-blocks/button', {
             className,
             attributes: {
                 href,
-                hash,
                 content,
                 target,
                 rel,
@@ -199,6 +179,7 @@ registerBlockType( 'bsx-blocks/button', {
                 marginRight,
                 marginBefore,
                 marginAfter,
+                ignoreMailtoSpamProtection,
             },
             setAttributes,
             isSelected,
@@ -209,9 +190,6 @@ registerBlockType( 'bsx-blocks/button', {
         };
         const onChangeHref = ( value ) => {
             setAttributes( { href: value } );
-        };
-        const onChangeHash = ( value ) => {
-            setAttributes( { hash: value } );
         };
         const onChangeTarget = ( value ) => {
             setAttributes( { target: !! value ? '_blank' : '' } );
@@ -248,11 +226,16 @@ registerBlockType( 'bsx-blocks/button', {
             setAttributes( { marginAfter: value } );
         };
 
-        const checkEmail = isEmailFormat( href );
-        // const hrefIsContentIsEmail = checkEmail.valid && href == 'mailto:' + content;
-        const hrefIsContentIsEmail = checkEmail.valid && ( href == 'mailto:' + content || ( typeof content == 'object' && content.length == 0 ) );
+        const onChangeIgnoreMailtoSpamProtection = ( value ) => {
+            setAttributes( { ignoreMailtoSpamProtection: ! value } );
+        };
 
-        // exclude hrefIsContentIsEmail here to keep correct button title shown
+        const checkEmail = isEmailFormat( href );
+        const hrefIsEmail = checkEmail.valid
+        // const hrefIsEmailIsContent = checkEmail.valid && href == 'mailto:' + content;
+        const hrefIsEmailIsContent = hrefIsEmail && ( href == 'mailto:' + content || ( typeof content == 'object' && content.length == 0 ) );
+
+        // exclude hrefIsEmailIsContent here to keep correct button title shown
         let buttonClassNames = makeButtonClassNames( { 
             state, 
             stateType, 
@@ -265,11 +248,10 @@ registerBlockType( 'bsx-blocks/button', {
             marginAfter,
         }, buttonClassNames );
 
-        // adapt content since mailto link saves empty content, see `value={ ! content && hrefIsContentIsEmail ? href.substring( 7 ) : content }`
-
-        // edit spam-protected mailto link format (no class name `create-mt`, no data-attributes):
-        // `<a>MY_NAME@MY_DOMAIN.MY_DOMAIN_SUFFIX</a>` or `<a>SOME_CONTENT</a>`
-        // console.log( '! content && hrefIsContentIsEmail ? [ href.substring( 7 ) ] : content: ' + ! content && hrefIsContentIsEmail ? [ href.substring( 7 ) ] : content );
+        // get content if is empty since content is spam protected email, get content from href instead of from html
+        if ( ! ignoreMailtoSpamProtection && ! isSelected && typeof content == 'object' && content.length == 0 && hrefIsEmailIsContent ) {
+            setAttributes( { content: href.substring( 7 ) } );
+        }
 
         return [
             <InspectorControls>
@@ -279,15 +261,20 @@ registerBlockType( 'bsx-blocks/button', {
                         value={ href }
                         onChange={ onChangeHref }
                     />
+                    {
+                        hrefIsEmail && (
+                            <ToggleControl
+                                label={ __( 'Spam protected email link (default activated)', 'bsx-blocks' ) }
+                                checked={ ! ignoreMailtoSpamProtection }
+                                onChange={ onChangeIgnoreMailtoSpamProtection }
+                                help={ __( 'If activated email will not be easily readable for machines.', 'bsx-blocks' ) }
+                            />
+                        )
+                    }
                     <ToggleControl
                         label={ __( 'Open in new tab', 'bsx-blocks' ) }
                         checked={ target == '_blank' }
                         onChange={ onChangeTarget }
-                    />
-                    <TextControl 
-                        label={ __( 'Hash (optional)', 'bsx-blocks' ) }
-                        value={ hash } 
-                        onChange={ onChangeHash }
                     />
                     <TextControl 
                         label={ __( 'Rel (optional)', 'bsx-blocks' ) }
@@ -344,7 +331,8 @@ registerBlockType( 'bsx-blocks/button', {
                         value={ marginLeft }
                         onChange={ onChangeMarginLeft }
                         options={ [
-                            { value: '', label: __( '– none –', 'bsx-blocks' ) },
+                            { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+                            { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
                             { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
                             { value: '2', label: __( 'small', 'bsx-blocks' ) },
                             { value: '3', label: __( 'medium', 'bsx-blocks' ) },
@@ -355,7 +343,8 @@ registerBlockType( 'bsx-blocks/button', {
                         value={ marginRight }
                         onChange={ onChangeMarginRight }
                         options={ [
-                            { value: '', label: __( '– none –', 'bsx-blocks' ) },
+                            { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+                            { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
                             { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
                             { value: '2', label: __( 'small', 'bsx-blocks' ) },
                             { value: '3', label: __( 'medium', 'bsx-blocks' ) },
@@ -395,17 +384,17 @@ registerBlockType( 'bsx-blocks/button', {
             </InspectorControls>,
             (
                 <>
-                    <span className={ buttonClassNames }>
-                        <RichText
-                            tagName="a"
-                            multiline={ false }
-                            placeholder={ __( 'Add Title...', 'bsx-blocks' ) }
-                            value={ typeof content == 'object' && content.length == 0 && hrefIsContentIsEmail ? [ href.substring( 7 ) ] : content }
-                            onChange={ onChangeContent }
-                            allowedFormats={ [] }
-                            keepPlaceholderOnFocus
-                        />
-                    </span>
+                    <RichText
+                        tagName={ href || state == 'text-link' ? 'a' : 'button' }
+                        className={ buttonClassNames }
+                        multiline={ false }
+                        placeholder={ __( 'Add Title...', 'bsx-blocks' ) }
+                        value={ content }
+                        onChange={ onChangeContent }
+                        allowedFormats={ [] }
+                        keepPlaceholderOnFocus
+                        href={ 'javascript:void( 0 );' }
+                    />
                 </>
             )
         ];
@@ -415,7 +404,6 @@ registerBlockType( 'bsx-blocks/button', {
             className,
             attributes: {
                 href,
-                hash,
                 content,
                 target,
                 rel,
@@ -427,6 +415,7 @@ registerBlockType( 'bsx-blocks/button', {
                 marginRight,
                 marginBefore,
                 marginAfter,
+                ignoreMailtoSpamProtection,
             },
         } = props;
 
@@ -439,20 +428,22 @@ registerBlockType( 'bsx-blocks/button', {
         // }
 
         // after reload content is empty in case of valid mailto href
-        const hrefIsContentIsEmail = checkEmail.valid && ( href == 'mailto:' + content || ( typeof content == 'object' && content.length == 0 ) );
+        const hrefIsEmail = checkEmail.valid;
+        const hrefIsEmailIsContent = hrefIsEmail && ( href == 'mailto:' + content || ( typeof content == 'object' && content.length == 0 ) );
 
         // console.log( '---------- checkEmail.valid: ' + checkEmail.valid );
         // console.log( '----- href: ' + href );
         // console.log( '----- content: ' + content );
         // console.log( '----- typeof content: ' + typeof content );
         // console.log( '----- content.length: ' + content.length );
-        // console.log( '----- hrefIsContentIsEmail: ' + hrefIsContentIsEmail );
+        // console.log( '----- hrefIsEmailIsContent: ' + hrefIsEmailIsContent );
         
         let buttonClassNames = makeButtonClassNames( { 
             state, 
             stateType, 
             size,
-            hrefIsContentIsEmail,
+            hrefIsEmailIsContent,
+            ignoreMailtoSpamProtection,
         } );
         buttonClassNames = addClassNames( {
             marginLeft, 
@@ -465,22 +456,22 @@ registerBlockType( 'bsx-blocks/button', {
         // `<a class="create-mt" data-fn="create-mt" data-mt-n="MY_NAME" data-mt-d="MY_DOMAIN" data-mt-s="MY_DOMAIN_SUFFIX"></a>`
 
         const saveAttributes = makeSaveAttributes( {
-            href: ! hrefIsContentIsEmail ? ( hash ? href + '#' + hash : href ) : 'javascript:void( 0 );', 
-            'data-fn': checkEmail.valid ? 'create-mt' : dataFn,
-            'data-mt-n': checkEmail.valid ? checkEmail.name : '',
-            'data-mt-d': checkEmail.valid ? checkEmail.domain : '',
-            'data-mt-s': checkEmail.valid ? checkEmail.suffix : '',
+            href: ! ( ! ignoreMailtoSpamProtection && hrefIsEmail ) ? href : 'javascript:void( 0 );', 
+            'data-fn': ! ignoreMailtoSpamProtection && hrefIsEmail ? 'create-mt' : dataFn,
+            'data-mt-n': ! ignoreMailtoSpamProtection && hrefIsEmail ? checkEmail.name : '',
+            'data-mt-d': ! ignoreMailtoSpamProtection && hrefIsEmail ? checkEmail.domain : '',
+            'data-mt-s': ! ignoreMailtoSpamProtection && hrefIsEmail ? checkEmail.suffix : '',
             target: target, 
-            rel: href && ! hrefIsContentIsEmail ? ( rel ? rel + ' noopener noreferrer' : 'noopener noreferrer' ) : '',
+            rel: href ? ( rel ? rel + ' noopener noreferrer' : 'noopener noreferrer' ) : '',
         } );
 
         return (
             <>
                 {
-                    ( content && ! RichText.isEmpty( content ) || hrefIsContentIsEmail ) && (
+                    ( content && ! RichText.isEmpty( content ) || ! ignoreMailtoSpamProtection && hrefIsEmailIsContent ) && (
                         <RichText.Content 
-                            tagName={ href ? 'a' : 'button' } 
-                            value={ hrefIsContentIsEmail ? '' : content } 
+                            tagName={ href || state == 'text-link' ? 'a' : 'button' } 
+                            value={ ! ignoreMailtoSpamProtection && hrefIsEmailIsContent ? '' : content } 
                             className={ buttonClassNames }
                             { ...saveAttributes }
                         />
