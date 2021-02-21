@@ -34,6 +34,7 @@ import {
     getImgWithHeight,
     imgExists,
     getImgSizesData,
+    makeBase64PreloadImgSrc,
 } from './../_functions/img.js';
 
 
@@ -897,7 +898,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                                 <source { ...sourceAttributes } />
                             ) )
                         }
-                        <img className={ imgClassName } src="" alt={ alt } data-src={ url } width={ width } height={ height } data-fn="lazyload" />
+                        <img className={ imgClassName } src={ makeBase64PreloadImgSrc( width, height ) } alt={ alt } data-src={ url } width={ width } height={ height } data-fn="lazyload" />
                     </picture>
                 ' );</script>
                 <noscript><img className={ imgClassName } src={ url } alt={ alt } width={ width } height={ height } /></noscript>

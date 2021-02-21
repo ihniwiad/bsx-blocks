@@ -22,6 +22,11 @@ const {
 } = wp.components;
 
 
+import { 
+    makeBase64PreloadImgSrc,
+} from './../_functions/img.js';
+
+
 import { svgIcon } from './../_functions/wp-icons.js';
 
 
@@ -654,7 +659,7 @@ registerBlockType( 'bsx-blocks/img-gallery', {
                             mediaList.map( ( media, index ) =>     
                                 <figure class={ itemClassName } itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
                                     <a class={ linkClassName } href={ media.url } itemprop="contentUrl" data-size={ media.width + 'x' + media.height }>
-                                        <script>document.write( '<img className={ imgClassName } src="" alt={ media.alt } width={ media.thumbWidth } height={ media.thumbHeight } data-src={ media.thumbUrl } data-fn="lazyload" />' );</script>
+                                        <script>document.write( '<img className={ imgClassName } src={ makeBase64PreloadImgSrc( media.thumbWidth, media.thumbHeight ) } alt={ media.alt } width={ media.thumbWidth } height={ media.thumbHeight } data-src={ media.thumbUrl } data-fn="lazyload" />' );</script>
                                         <noscript><img className={ imgClassName } src={ media.thumbUrl } alt={ media.alt } width={ media.thumbWidth } height={ media.thumbHeight } /></noscript>
                                     </a>
 
