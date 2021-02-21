@@ -101,7 +101,7 @@ const makeSourcesAttributesList = ( attributes ) => {
         ) {
             sourcesAttributesList.push( {
                 media: item.media,
-                srcset: '',
+                srcset: makeBase64PreloadImgSrc( portraitImgSizes[ adaptedCurrentPortraitImgIndex ].width, portraitImgSizes[ adaptedCurrentPortraitImgIndex ].height ),
                 'data-srcset': portraitImgSizes[ adaptedCurrentPortraitImgIndex ].url,
                 'data-width': portraitImgSizes[ adaptedCurrentPortraitImgIndex ].width,
                 'data-height': portraitImgSizes[ adaptedCurrentPortraitImgIndex ].height,
@@ -125,7 +125,7 @@ const makeSourcesAttributesList = ( attributes ) => {
         ) {
             sourcesAttributesList.push( {
                 media: item.media,
-                srcset: '',
+                srcset: makeBase64PreloadImgSrc( imgSizes[ adaptedCurrentImgIndex ].width, imgSizes[ adaptedCurrentImgIndex ].height ),
                 'data-srcset': imgSizes[ adaptedCurrentImgIndex ].url,
                 'data-width': imgSizes[ adaptedCurrentImgIndex ].width,
                 'data-height': imgSizes[ adaptedCurrentImgIndex ].height,

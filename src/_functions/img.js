@@ -251,7 +251,7 @@ export async function getImgSizesData( img ) {
 }
 
 export const makeBase64PreloadImgSrc = ( imgWidth, imgHeight ) => {
-  const img = '<svg xmlns="http://www.w3.org/2000/svg" width="' + imgWidth + 'px" height="' + imgHeight + 'px" viewBox="0 0 ' + imgWidth + ' ' + imgHeight + '" role="img" focusable="false"><rect fill="none" width="' + imgWidth + '" height="' + imgHeight + '"/></svg>'
+  const img = '<svg xmlns="http://www.w3.org/2000/svg" width="' + imgWidth + 'px" height="' + imgHeight + 'px" viewBox="0 0 ' + imgWidth + ' ' + imgHeight + '"><rect fill="none" width="' + imgWidth + '" height="' + imgHeight + '"/></svg>'
   const imgBase64 = btoa( img )
   return 'data:image/svg+xml;base64,' + imgBase64
 } 
