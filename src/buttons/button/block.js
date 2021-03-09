@@ -1,6 +1,4 @@
 // TODO: add state classes for text-link button
-// TODO: add toggle control for spam protected tel links (requires basic package js adaption)
-
 
 const { __, setLocaleData } = wp.i18n;
 const {
@@ -8,14 +6,10 @@ const {
 } = wp.blocks;
 const {
     InspectorControls,
-    URLInput,
     RichText,
 } = wp.blockEditor;
 const { 
-    TextControl,
     PanelBody,
-    ToggleControl,
-    SelectControl,
     SVG, 
     Path,
 } = wp.components;
@@ -23,12 +17,23 @@ const {
 
 // functions imports
 
-
 import { svgIcon } from './../../_functions/wp-icons.js';
-
 import { addClassNames } from './../../_functions/add-class-names.js';
-
 import { makeSaveAttributes } from './../../_functions/attributes.js';
+import { 
+    stateSelect,
+    stateTypeSelect,
+    sizeSelect,
+    linkUrlInput,
+    ignoreMailtoSpamProtectionToggle,
+    targetToggle,
+    relInput,
+    dataFnInput,
+    marginLeftSelect,
+    marginRightSelect,
+    marginBeforeSelect,
+    marginAfterSelect,
+} from './../../_functions/controls.js';
 
 
 // functions
@@ -256,130 +261,54 @@ registerBlockType( 'bsx-blocks/button', {
         return [
             <InspectorControls>
                 <PanelBody title={ __( 'Button link settings', 'bsx-blocks' ) }>
-                    <URLInput
-                        label={ __( 'Link URL', 'bsx-blocks' ) }
-                        value={ href }
-                        onChange={ onChangeHref }
-                    />
+                    {
+                        linkUrlInput( href, onChangeHref )
+                    }
                     {
                         hrefIsEmail && (
-                            <ToggleControl
-                                label={ __( 'Spam protected email link (default activated)', 'bsx-blocks' ) }
-                                checked={ ! ignoreMailtoSpamProtection }
-                                onChange={ onChangeIgnoreMailtoSpamProtection }
-                                help={ __( 'If activated email will not be easily readable for machines.', 'bsx-blocks' ) }
-                            />
+                            <>
+                                {
+                                    ignoreMailtoSpamProtectionToggle( ignoreMailtoSpamProtection, onChangeIgnoreMailtoSpamProtection )
+                                }
+                            </>
                         )
                     }
-                    <ToggleControl
-                        label={ __( 'Open in new tab', 'bsx-blocks' ) }
-                        checked={ target == '_blank' }
-                        onChange={ onChangeTarget }
-                    />
-                    <TextControl 
-                        label={ __( 'Rel (optional)', 'bsx-blocks' ) }
-                        value={ rel } 
-                        onChange={ onChangeRel }
-                    />
-                    <TextControl 
-                        label={ __( 'data-fn (optional)', 'bsx-blocks' ) }
-                        value={ dataFn } 
-                        onChange={ onChangeDataFn }
-                    />
+                    {
+                        targetToggle( target, onChangeTarget )
+                    }
+                    {
+                        relInput( rel, onChangeRel )
+                    }
+                    {
+                        dataFnInput( dataFn, onChangeDataFn )
+                    }
                 </PanelBody>
 
                 <PanelBody title={ __( 'Button appearance', 'bsx-blocks' ) }>
-                    <SelectControl 
-                        label={ __( 'State', 'bsx-blocks' ) }
-                        value={ state }
-                        onChange={ onChangeState }
-                        options={ [
-                            { value: 'primary', label: __( 'Primary', 'bsx-blocks' ) },
-                            { value: 'secondary', label: __( 'Secondary', 'bsx-blocks' ) },
-                            { value: 'success', label: __( 'Success', 'bsx-blocks' ) },
-                            { value: 'danger', label: __( 'Danger', 'bsx-blocks' ) },
-                            { value: 'warning', label: __( 'Warning', 'bsx-blocks' ) },
-                            { value: 'info', label: __( 'Info', 'bsx-blocks' ) },
-                            { value: 'light', label: __( 'Light', 'bsx-blocks' ) },
-                            { value: 'dark', label: __( 'Dark', 'bsx-blocks' ) },
-                            { value: 'link', label: __( 'Link Button', 'bsx-blocks' ) },
-                            { value: 'text-link', label: __( 'Text link', 'bsx-blocks' ) },
-                        ] }
-                    />
-                    <SelectControl label={ __( 'State Type', 'bsx-blocks' ) }
-                        value={ stateType }
-                        onChange={ onChangeStateType }
-                        options={ [
-                            { value: 'outline', label: __( 'Outline', 'bsx-blocks' ) },
-                            { value: '', label: __( 'Filled', 'bsx-blocks' ) },
-                        ] }
-                    />
-                    <SelectControl label={ __( 'Size', 'bsx-blocks' ) }
-                        value={ size }
-                        onChange={ onChangeSize }
-                        options={ [
-                            { value: '', label: __( '– unset –', 'bsx-blocks' ) },
-                            { value: 'sm', label: __( 'Small', 'bsx-blocks' ) },
-                            { value: 'lg', label: __( 'Large', 'bsx-blocks' ) },
-                        ] }
-                    />
+                    {
+                        stateSelect( state, onChangeState )
+                    }
+                    {
+                        stateTypeSelect( stateType, onChangeStateType )
+                    }
+                    {
+                        sizeSelect( size, onChangeSize )
+                    }
                 </PanelBody>
 
                 <PanelBody title={ __( 'Margin', 'bsx-blocks' ) }>
-                    <SelectControl 
-                        label={ __( 'Margin left', 'bsx-blocks' ) }
-                        value={ marginLeft }
-                        onChange={ onChangeMarginLeft }
-                        options={ [
-                            { value: '', label: __( '– unset –', 'bsx-blocks' ) },
-                            { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
-                            { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
-                            { value: '2', label: __( 'small', 'bsx-blocks' ) },
-                            { value: '3', label: __( 'medium', 'bsx-blocks' ) },
-                        ] }
-                    />
-                    <SelectControl 
-                        label={ __( 'Margin right', 'bsx-blocks' ) }
-                        value={ marginRight }
-                        onChange={ onChangeMarginRight }
-                        options={ [
-                            { value: '', label: __( '– unset –', 'bsx-blocks' ) },
-                            { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
-                            { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
-                            { value: '2', label: __( 'small', 'bsx-blocks' ) },
-                            { value: '3', label: __( 'medium', 'bsx-blocks' ) },
-                        ] }
-                    />
-                    <SelectControl 
-                        label={ __( 'Margin before', 'bsx-blocks' ) }
-                        value={ marginBefore }
-                        onChange={ onChangeMarginBefore }
-                        options={ [
-                            { value: '', label: __( '– unset –', 'bsx-blocks' ) },
-                            { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
-                            { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
-                            { value: '2', label: __( 'small', 'bsx-blocks' ) },
-                            { value: '3', label: __( 'medium', 'bsx-blocks' ) },
-                            { value: '4', label: __( 'large', 'bsx-blocks' ) },
-                            { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
-                        ] }
-                        help={ __( 'Spacer before element', 'bsx-blocks' ) }
-                    />
-                    <SelectControl 
-                        label={ __( 'Margin after', 'bsx-blocks' ) }
-                        value={ marginAfter }
-                        onChange={ onChangeMarginAfter }
-                        options={ [
-                            { value: '', label: __( '– unset –', 'bsx-blocks' ) },
-                            { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
-                            { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
-                            { value: '2', label: __( 'small', 'bsx-blocks' ) },
-                            { value: '3', label: __( 'medium', 'bsx-blocks' ) },
-                            { value: '4', label: __( 'large', 'bsx-blocks' ) },
-                            { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
-                        ] }
-                        help={ __( 'Spacer after element', 'bsx-blocks' ) }
-                    />
+                    {
+                        marginLeftSelect( marginLeft, onChangeMarginLeft, [ '', '0', '1', '2', '3' ] )
+                    }
+                    {
+                        marginRightSelect( marginRight, onChangeMarginRight, [ '', '0', '1', '2', '3' ] )
+                    }
+                    {
+                        marginBeforeSelect( marginBefore, onChangeMarginBefore )
+                    }
+                    {
+                        marginAfterSelect( marginAfter, onChangeMarginAfter )
+                    }
                 </PanelBody>
             </InspectorControls>,
             (

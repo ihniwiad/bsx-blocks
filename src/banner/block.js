@@ -28,9 +28,7 @@ const {
 
 
 import { svgIcon } from './../_functions/wp-icons.js';
-
 import { addClassNames } from './../_functions/add-class-names.js';
-
 import { 
     getUrlTruncAndExtension,
     fullImgIsScaled,
@@ -41,6 +39,13 @@ import {
     imgExists,
     getImgSizesData,
 } from './../_functions/img.js';
+import { 
+    alignItemsSelect,
+    marginBeforeSelect,
+    marginAfterSelect,
+    paddingBeforeSelect,
+    paddingAfterSelect,
+} from './../_functions/controls.js';
 
 import { makeSaveAttributes } from './../_functions/attributes.js';
 
@@ -832,48 +837,18 @@ registerBlockType( 'bsx-blocks/banner', {
                             help={ __( 'If enabled large displays (>=2.000px) will have static background attachement.', 'bsx-blocks' ) }
                         />
                     ) }
-                    <SelectControl 
-                        label={ __( 'Align items', 'bsx-blocks' ) }
-                        value={ alignItems }
-                        onChange={ onChangeAlignItems }
-                        options={ [
-                            { value: 'center', label: __( 'center', 'bsx-blocks' ) },
-                            { value: 'end', label: __( 'end', 'bsx-blocks' ) },
-                        ] }
-                    />
+                    {
+                        alignItemsSelect( alignItems, onChangeAlignItems, [ 'center', 'end' ] )
+                    }
                 </PanelBody>
 
                 <PanelBody title={ __( 'Margin', 'bsx-blocks' ) }>
-                    <SelectControl 
-                        label={ __( 'Margin before', 'bsx-blocks' ) }
-                        value={ marginBefore }
-                        onChange={ onChangeMarginBefore }
-                        options={ [
-                            { value: '', label: __( '– unset –', 'bsx-blocks' ) },
-                            { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
-                            { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
-                            { value: '2', label: __( 'small', 'bsx-blocks' ) },
-                            { value: '3', label: __( 'medium', 'bsx-blocks' ) },
-                            { value: '4', label: __( 'large', 'bsx-blocks' ) },
-                            { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
-                        ] }
-                        help={ __( 'Spacer before Banner', 'bsx-blocks' ) }
-                    />
-                    <SelectControl 
-                        label={ __( 'Margin after', 'bsx-blocks' ) }
-                        value={ marginAfter }
-                        onChange={ onChangeMarginAfter }
-                        options={ [
-                            { value: '', label: __( '– unset –', 'bsx-blocks' ) },
-                            { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
-                            { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
-                            { value: '2', label: __( 'small', 'bsx-blocks' ) },
-                            { value: '3', label: __( 'medium', 'bsx-blocks' ) },
-                            { value: '4', label: __( 'large', 'bsx-blocks' ) },
-                            { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
-                        ] }
-                        help={ __( 'Spacer after Banner', 'bsx-blocks' ) }
-                    />
+                    {
+                        marginBeforeSelect( marginBefore, onChangeMarginBefore )
+                    }
+                    {
+                        marginAfterSelect( marginAfter, onChangeMarginAfter )
+                    }
                 </PanelBody>
             </InspectorControls>,
 
@@ -922,34 +897,12 @@ registerBlockType( 'bsx-blocks/banner', {
                     ] }
                 />
 
-                <SelectControl 
-                    label={ __( 'Padding before', 'bsx-blocks' ) }
-                    value={ paddingBefore }
-                    onChange={ onChangePaddingBefore }
-                    options={ [
-                        { value: '', label: __( '– none –', 'bsx-blocks' ) },
-                        { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
-                        { value: '2', label: __( 'small', 'bsx-blocks' ) },
-                        { value: '3', label: __( 'medium', 'bsx-blocks' ) },
-                        { value: '4', label: __( 'large', 'bsx-blocks' ) },
-                        { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
-                    ] }
-                    help={ __( 'Inner spacer before', 'bsx-blocks' ) }
-                />
-                <SelectControl 
-                    label={ __( 'Padding after', 'bsx-blocks' ) }
-                    value={ paddingAfter }
-                    onChange={ onChangePaddingAfter }
-                    options={ [
-                        { value: '', label: __( '– none –', 'bsx-blocks' ) },
-                        { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
-                        { value: '2', label: __( 'small', 'bsx-blocks' ) },
-                        { value: '3', label: __( 'medium', 'bsx-blocks' ) },
-                        { value: '4', label: __( 'large', 'bsx-blocks' ) },
-                        { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
-                    ] }
-                    help={ __( 'Inner spacer after', 'bsx-blocks' ) }
-                />
+                {
+                    paddingBeforeSelect( paddingBefore, onChangePaddingBefore )
+                }
+                {
+                    paddingAfterSelect( paddingAfter, onChangePaddingAfter )
+                }
             </InspectorAdvancedControls>,
 
             (

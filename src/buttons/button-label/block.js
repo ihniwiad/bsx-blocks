@@ -16,10 +16,15 @@ const {
 
 // functions imports
 
-
 import { svgIcon } from './../../_functions/wp-icons.js';
-
 import { addClassNames } from './../../_functions/add-class-names.js';
+import { 
+    marginLeftSelect,
+    marginRightSelect,
+    marginBeforeSelect,
+    marginAfterSelect,
+    displaySelect,
+} from './../../_functions/controls.js';
 
 
 registerBlockType( 'bsx-blocks/button-label', {
@@ -110,71 +115,24 @@ registerBlockType( 'bsx-blocks/button-label', {
         return [
             <InspectorControls>
                 <PanelBody title={ __( 'Button Label appearance (optional)', 'bsx-blocks' ) }>
-                    <SelectControl label={ __( 'Display', 'bsx-blocks' ) }
-                        value={ display }
-                        onChange={ onChangeDisplay }
-                        options={ [
-                            { value: '', label: __( '– unset –', 'bsx-blocks' ) },
-                            { value: 'inline-block', label: __( 'Inline-block', 'bsx-blocks' ) },
-                        ] }
-                    />
+                    {
+                        displaySelect( display, onChangeDisplay, [ '', 'inline-block' ] )
+                    }
                 </PanelBody>
 
                 <PanelBody title={ __( 'Margin (optional)', 'bsx-blocks' ) }>
-                    <SelectControl 
-                        label={ __( 'Margin left', 'bsx-blocks' ) }
-                        value={ marginLeft }
-                        onChange={ onChangeMarginLeft }
-                        options={ [
-                            { value: '', label: __( '– unset –', 'bsx-blocks' ) },
-                            { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
-                            { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
-                            { value: '2', label: __( 'small', 'bsx-blocks' ) },
-                            { value: '3', label: __( 'medium', 'bsx-blocks' ) },
-                        ] }
-                    />
-                    <SelectControl 
-                        label={ __( 'Margin right', 'bsx-blocks' ) }
-                        value={ marginRight }
-                        onChange={ onChangeMarginRight }
-                        options={ [
-                            { value: '', label: __( '– unset –', 'bsx-blocks' ) },
-                            { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
-                            { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
-                            { value: '2', label: __( 'small', 'bsx-blocks' ) },
-                            { value: '3', label: __( 'medium', 'bsx-blocks' ) },
-                        ] }
-                    />
-                    <SelectControl 
-                        label={ __( 'Margin before', 'bsx-blocks' ) }
-                        value={ marginBefore }
-                        onChange={ onChangeMarginBefore }
-                        options={ [
-                            { value: '', label: __( '– unset –', 'bsx-blocks' ) },
-                            { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
-                            { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
-                            { value: '2', label: __( 'small', 'bsx-blocks' ) },
-                            { value: '3', label: __( 'medium', 'bsx-blocks' ) },
-                            { value: '4', label: __( 'large', 'bsx-blocks' ) },
-                            { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
-                        ] }
-                        help={ __( 'Spacer before element', 'bsx-blocks' ) }
-                    />
-                    <SelectControl 
-                        label={ __( 'Margin after', 'bsx-blocks' ) }
-                        value={ marginAfter }
-                        onChange={ onChangeMarginAfter }
-                        options={ [
-                            { value: '', label: __( '– unset –', 'bsx-blocks' ) },
-                            { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
-                            { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
-                            { value: '2', label: __( 'small', 'bsx-blocks' ) },
-                            { value: '3', label: __( 'medium', 'bsx-blocks' ) },
-                            { value: '4', label: __( 'large', 'bsx-blocks' ) },
-                            { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
-                        ] }
-                        help={ __( 'Spacer after element', 'bsx-blocks' ) }
-                    />
+                    {
+                        marginLeftSelect( marginLeft, onChangeMarginLeft )
+                    }
+                    {
+                        marginRightSelect( marginRight, onChangeMarginRight )
+                    }
+                    {
+                        marginBeforeSelect( marginBefore, onChangeMarginBefore )
+                    }
+                    {
+                        marginAfterSelect( marginAfter, onChangeMarginAfter )
+                    }
                 </PanelBody>
             </InspectorControls>,
             (
