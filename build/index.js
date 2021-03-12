@@ -1,1 +1,9089 @@
-!function(e){var t={};function l(a){if(t[a])return t[a].exports;var n=t[a]={i:a,l:!1,exports:{}};return e[a].call(n.exports,n,n.exports,l),n.l=!0,n.exports}l.m=e,l.c=t,l.d=function(e,t,a){l.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:a})},l.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},l.t=function(e,t){if(1&t&&(e=l(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var a=Object.create(null);if(l.r(a),Object.defineProperty(a,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var n in e)l.d(a,n,function(t){return e[t]}.bind(null,n));return a},l.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return l.d(t,"a",t),t},l.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},l.p="",l(l.s=18)}([function(e,t){!function(){e.exports=this.wp.element}()},function(e,t){!function(){e.exports=this.regeneratorRuntime}()},function(e,t,l){var a=l(13),n=l(14),o=l(7),s=l(15);e.exports=function(e){return a(e)||n(e)||o(e)||s()}},function(e,t){e.exports=function(e,t,l){return t in e?Object.defineProperty(e,t,{value:l,enumerable:!0,configurable:!0,writable:!0}):e[t]=l,e}},function(e,t){function l(){return e.exports=l=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var l=arguments[t];for(var a in l)Object.prototype.hasOwnProperty.call(l,a)&&(e[a]=l[a])}return e},l.apply(this,arguments)}e.exports=l},function(e,t){function l(e,t,l,a,n,o,s){try{var r=e[o](s),i=r.value}catch(e){return void l(e)}r.done?t(i):Promise.resolve(i).then(a,n)}e.exports=function(e){return function(){var t=this,a=arguments;return new Promise((function(n,o){var s=e.apply(t,a);function r(e){l(s,n,o,r,i,"next",e)}function i(e){l(s,n,o,r,i,"throw",e)}r(void 0)}))}}},function(e,t){function l(t){return"function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?e.exports=l=function(e){return typeof e}:e.exports=l=function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},l(t)}e.exports=l},function(e,t,l){var a=l(8);e.exports=function(e,t){if(e){if("string"==typeof e)return a(e,t);var l=Object.prototype.toString.call(e).slice(8,-1);return"Object"===l&&e.constructor&&(l=e.constructor.name),"Map"===l||"Set"===l?Array.from(e):"Arguments"===l||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(l)?a(e,t):void 0}}},function(e,t){e.exports=function(e,t){(null==t||t>e.length)&&(t=e.length);for(var l=0,a=new Array(t);l<t;l++)a[l]=e[l];return a}},function(e,t,l){var a=l(10),n=l(11),o=l(7),s=l(12);e.exports=function(e,t){return a(e)||n(e,t)||o(e,t)||s()}},function(e,t){e.exports=function(e){if(Array.isArray(e))return e}},function(e,t){e.exports=function(e,t){if("undefined"!=typeof Symbol&&Symbol.iterator in Object(e)){var l=[],a=!0,n=!1,o=void 0;try{for(var s,r=e[Symbol.iterator]();!(a=(s=r.next()).done)&&(l.push(s.value),!t||l.length!==t);a=!0);}catch(e){n=!0,o=e}finally{try{a||null==r.return||r.return()}finally{if(n)throw o}}return l}}},function(e,t){e.exports=function(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}},function(e,t,l){var a=l(8);e.exports=function(e){if(Array.isArray(e))return a(e)}},function(e,t){e.exports=function(e){if("undefined"!=typeof Symbol&&Symbol.iterator in Object(e))return Array.from(e)}},function(e,t){e.exports=function(){throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}},,,function(e,t,l){"use strict";l.r(t);var a=l(4),n=l.n(a),o=l(1),s=l.n(o),r=l(5),i=l.n(r),c=l(3),b=l.n(c),u=l(0);function m(e){var t="";switch(e){case"default":t=Object(u.createElement)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"48",height:"48",viewBox:"0 0 48 48",role:"img","aria-hidden":"true",focusable:"false"},Object(u.createElement)("path",{"fill-rule":"evenodd","clip-rule":"evenodd",d:"M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9V14h30V34z M22.49,31.03h2.35v-2.21h-2.35V31.03z M22.51,19.38c0.36-0.28,0.81-0.42,1.35-0.42c0.63,0,1.1,0.17,1.43,0.5s0.49,0.81,0.49,1.44 c0,0.54-0.14,1.03-0.43,1.45s-0.68,0.89-1.18,1.38c-0.71,0.6-1.16,1.09-1.35,1.46s-0.3,1.02-0.3,1.94h2.3 c0-0.56,0.04-0.97,0.13-1.25s0.32-0.58,0.68-0.9c0.72-0.58,1.31-1.21,1.77-1.88c0.46-0.67,0.69-1.42,0.69-2.23 c0-1.22-0.37-2.16-1.09-2.83c-0.73-0.67-1.77-1-3.12-1c-1.25,0-2.26,0.31-3.02,0.94c-0.76,0.62-1.15,1.52-1.17,2.69h2.3 C21.97,20.09,22.15,19.66,22.51,19.38z"}));break;case"buttons":case"button":t=Object(u.createElement)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"20",height:"20",viewBox:"0 0 20 20","aria-hidden":"true",role:"img",focusable:"false"},Object(u.createElement)("path",{d:"M16,7H4C2.9,7,2,7.9,2,9v2c0,1.11,0.9,2,2,2h12c1.1,0,2-0.89,2-2V9C18,7.9,17.1,7,16,7z M15,11H5V9h10V11z"}));break;case"button-label":t=Object(u.createElement)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"20",height:"20",viewBox:"0 0 20 20","aria-hidden":"true",role:"img",focusable:"false"},Object(u.createElement)("path",{d:"M4,3v3.5h1v-1c0-0.55,0.45-1,1-1h3.25V15c0,0.55-0.45,1-1,1h-1v1h5.5v-1h-1c-0.55,0-1-0.45-1-1V4.5H14c0.55,0,1,0.45,1,1v1 h1V3H4z"}));break;case"buttons-one-button":t=Object(u.createElement)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"48",height:"48",viewBox:"0 0 48 48",role:"img","aria-hidden":"true",focusable:"false"},Object(u.createElement)("path",{"fill-rule":"evenodd","clip-rule":"evenodd",d:"M30,20H18c-1.1,0-2,0.9-2,2v4c0,1.11,0.9,2,2,2h12c1.1,0,2-0.89,2-2v-4C32,20.9,31.1,20,30,20z M29,25.5H19v-3h10V25.5z"}));break;case"buttons-two-buttons":t=Object(u.createElement)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"48",height:"48",viewBox:"0 0 48 48",role:"img","aria-hidden":"true",focusable:"false"},Object(u.createElement)("path",{"fill-rule":"evenodd","clip-rule":"evenodd",d:"M21,20H9c-1.1,0-2,0.9-2,2v4c0,1.11,0.9,2,2,2h12c1.1,0,2-0.89,2-2v-4C23,20.9,22.1,20,21,20z M20,25.5H10v-3h10V25.5z M39,20H27c-1.1,0-2,0.9-2,2v4c0,1.11,0.9,2,2,2h12c1.1,0,2-0.89,2-2v-4C41,20.9,40.1,20,39,20z M38,25.5H28v-3h10V25.5z"}));break;case"buttons-text-link":t=Object(u.createElement)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"48",height:"48",viewBox:"0 0 48 48",role:"img","aria-hidden":"true",focusable:"false"},Object(u.createElement)("path",{"fill-rule":"evenodd","clip-rule":"evenodd",d:"M19,20c0-0.55,0.45-1,1-1h2.5v7c0,0.55-0.45,1-1,1h-1v1h7v-1h-1c-0.55,0-1-0.45-1-1v-7H28c0.55,0,1,0.45,1,1v1h1v-5H18v5h1 V20z M17,30v2h14v-2H17z"}));break;case"buttons-label-text-link":t=Object(u.createElement)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"48",height:"48",viewBox:"0 0 48 48",role:"img","aria-hidden":"true",focusable:"false"},Object(u.createElement)("path",{"fill-rule":"evenodd","clip-rule":"evenodd",d:"M27,21c0-0.55,0.45-1,1-1h2.5v7c0,0.55-0.45,1-1,1h-1v1h7v-1h-1c-0.55,0-1-0.45-1-1v-7H36c0.55,0,1,0.45,1,1v1h1v-5H26v5h1 V21z M10,22h1v-1c0-0.55,0.45-1,1-1h2.5v7c0,0.55-0.45,1-1,1h-1v1h7v-1h-1c-0.55,0-1-0.45-1-1v-7H20c0.55,0,1,0.45,1,1v1h1v-5H10V22 z M25,31v2h14v-2H25z"}));break;case"carret-left":t=Object(u.createElement)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"20",height:"20",viewBox:"0 0 20 20","aria-hidden":"true",role:"img",focusable:"false"},Object(u.createElement)("path",{d:"M14 5l-5 5 5 5-1 2-7-7 7-7z"}));break;case"carret-right":t=Object(u.createElement)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"20",height:"20",viewBox:"0 0 20 20","aria-hidden":"true",role:"img",focusable:"false"},Object(u.createElement)("path",{d:"M6 15l5-5-5-5 1-2 7 7-7 7z"}));break;case"trash":t=Object(u.createElement)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"20",height:"20",viewBox:"0 0 20 20","aria-hidden":"true",role:"img",focusable:"false"},Object(u.createElement)("path",{d:"M12 4h3c.6 0 1 .4 1 1v1H3V5c0-.6.5-1 1-1h3c.2-1.1 1.3-2 2.5-2s2.3.9 2.5 2zM8 4h3c-.2-.6-.9-1-1.5-1S8.2 3.4 8 4zM4 7h11l-.9 10.1c0 .5-.5.9-1 .9H5.9c-.5 0-.9-.4-1-.9L4 7z"}));break;case"banner":t=Object(u.createElement)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"20",height:"20",viewBox:"0 0 20 20","aria-hidden":"true",role:"img",focusable:"false"},Object(u.createElement)("path",{d:"M17,5H3C1.9,5,1,5.9,1,7v6c0,1.11,0.9,2,2,2h14c1.1,0,2-0.89,2-2V7C19,5.9,18.1,5,17,5z M4.5,7C5.33,7,6,7.67,6,8.5 C6,9.33,5.33,10,4.5,10C3.67,10,3,9.33,3,8.5C3,7.67,3.67,7,4.5,7z M17,13H3l-0.02-1L7,10l2,1l5-3l3,2V13z"}));break;case"banner-empty":t=Object(u.createElement)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"48",height:"48",viewBox:"0 0 48 48",role:"img","aria-hidden":"true",focusable:"false"},Object(u.createElement)("path",{"fill-rule":"evenodd","clip-rule":"evenodd",d:"M39,16H9c-1.1,0-2,0.9-2,2v12c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V18C41,16.9,40.1,16,39,16z M24.72,30.03 h-2.02v-1.89h2.02V30.03z M26.91,23.22c-0.39,0.58-0.9,1.12-1.52,1.61c-0.31,0.28-0.51,0.53-0.58,0.77s-0.11,0.6-0.11,1.07h-1.98 c0.01-0.79,0.09-1.35,0.26-1.67c0.17-0.32,0.56-0.74,1.16-1.25c0.43-0.42,0.77-0.82,1.02-1.18c0.24-0.37,0.37-0.78,0.37-1.25 c0-0.54-0.14-0.95-0.42-1.23s-0.69-0.43-1.22-0.43c-0.46,0-0.85,0.12-1.15,0.36c-0.31,0.24-0.46,0.61-0.46,1.1h-1.98 c0.01-1,0.34-1.77,1-2.31c0.66-0.54,1.52-0.8,2.59-0.8c1.16,0,2.05,0.29,2.68,0.86s0.94,1.38,0.94,2.43 C27.5,22.01,27.3,22.65,26.91,23.22z"}));break;case"banner-container-with-heading":t=Object(u.createElement)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"48",height:"48",viewBox:"0 0 48 48",role:"img","aria-hidden":"true",focusable:"false"},Object(u.createElement)("path",{"fill-rule":"evenodd","clip-rule":"evenodd",d:"M39,16H9c-1.1,0-2,0.9-2,2v12c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V18C41,16.9,40.1,16,39,16z M13,31h-1v-2h1V31z M13,27h-1 v-2h1V27z M13,23h-1v-2h1V23z M13,19h-1v-2h1V19z M27,26H14v-3h13V26z M36,31h-1v-2h1V31z M36,27h-1v-2h1V27z M36,23h-1v-2h1V23z M36,19h-1v-2h1V19z"}));break;case"banner-static-container-with-heading":t=Object(u.createElement)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"48",height:"48",viewBox:"0 0 48 48",role:"img","aria-hidden":"true",focusable:"false"},Object(u.createElement)("path",{d:"M39,18H9c-1.1,0-2,0.9-2,2v8c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2v-8C41,18.9,40.1,18,39,18z M13,29h-1v-2h1V29z M13,25h-1 v-2h1V25z M13,21h-1v-2h1V21z M27,26H14v-3h13V26z M36,29h-1v-2h1V29z M36,25h-1v-2h1V25z M36,21h-1v-2h1V21z"}));break;case"banner-column-row":t=Object(u.createElement)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"48",height:"48",viewBox:"0 0 48 48",role:"img","aria-hidden":"true",focusable:"false"},Object(u.createElement)("path",{"fill-rule":"evenodd","clip-rule":"evenodd",d:"M39,16H9c-1.1,0-2,0.9-2,2v12c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V18C41,16.9,40.1,16,39,16z M35,17h1v2h-1V17z M35,21h1v2 h-1V21z M35,25h1v2h-1V25z M14,21h13v3H14V21z M12,17h1v2h-1V17z M12,21h1v2h-1V21z M12,25h1v2h-1V25z M39,30H9v-2h30V30z"}));break;case"container":t=Object(u.createElement)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"20",height:"20",viewBox:"0 0 20 20","aria-hidden":"true",role:"img",focusable:"false"},Object(u.createElement)("path",{d:"M18.71,3.29C18.52,3.1,18.27,3,18,3H2C1.74,3,1.48,3.11,1.29,3.29C1.11,3.48,1,3.74,1,4v12c0,0.26,0.11,0.52,0.29,0.71 C1.48,16.89,1.74,17,2,17h16c0.27,0,0.52-0.1,0.71-0.29C18.89,16.52,19,16.27,19,16V4C19,3.73,18.89,3.48,18.71,3.29z M17,15H3V5h14 V15z M6,12H5v2h1V12z M6,6H5v2h1V6z M6,9H5v2h1V9z M15,9h-1v2h1V9z M15,6h-1v2h1V6z M15,12h-1v2h1V12z"}));break;case"banner-empty":case"banner-container-with-heading":case"banner-static-container-with-heading":case"column-row-banner":t=Object(u.createElement)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"48",height:"48",viewBox:"0 0 48 48",role:"img","aria-hidden":"true",focusable:"false"},Object(u.createElement)("path",{"fill-rule":"evenodd","clip-rule":"evenodd",d:"M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9V14h30V34z M22.49,31.03h2.35v-2.21h-2.35V31.03z M22.51,19.38c0.36-0.28,0.81-0.42,1.35-0.42c0.63,0,1.1,0.17,1.43,0.5s0.49,0.81,0.49,1.44 c0,0.54-0.14,1.03-0.43,1.45s-0.68,0.89-1.18,1.38c-0.71,0.6-1.16,1.09-1.35,1.46s-0.3,1.02-0.3,1.94h2.3 c0-0.56,0.04-0.97,0.13-1.25s0.32-0.58,0.68-0.9c0.72-0.58,1.31-1.21,1.77-1.88c0.46-0.67,0.69-1.42,0.69-2.23 c0-1.22-0.37-2.16-1.09-2.83c-0.73-0.67-1.77-1-3.12-1c-1.25,0-2.26,0.31-3.02,0.94c-0.76,0.62-1.15,1.52-1.17,2.69h2.3 C21.97,20.09,22.15,19.66,22.51,19.38z"}));break;case"gallery":t=Object(u.createElement)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"20",height:"20",viewBox:"0 0 20 20","aria-hidden":"true",role:"img",focusable:"false"},Object(u.createElement)("path",{d:"M8,10L6,9l-2,1v2.99h9V9l-2-1L8,10z M7,8c1.1,0,2-0.9,2-2c0-1.1-0.9-2-2-2S5,4.9,5,6C5,7.1,5.9,8,7,8z M18.71,4.29 C18.52,4.1,18.27,4,18,4h-2V2c0-0.27-0.1-0.52-0.29-0.71C15.52,1.1,15.27,1,15,1H2C1.74,1,1.48,1.11,1.29,1.29C1.11,1.48,1,1.74,1,2 v13c0,0.26,0.11,0.52,0.29,0.71C1.48,15.89,1.74,16,2,16h2v2c0,0.26,0.11,0.52,0.29,0.71C4.48,18.89,4.74,19,5,19h13 c0.27,0,0.52-0.1,0.71-0.29C18.9,18.52,19,18.27,19,18V5C19,4.73,18.9,4.48,18.71,4.29z M3,14V3h11v11H3z M17,17H6v-1h9 c0.27,0,0.52-0.1,0.71-0.29C15.9,15.52,16,15.27,16,15V6h1V17z"}));break;case"groups":t=Object(u.createElement)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"20",height:"20",viewBox:"0 0 20 20","aria-hidden":"true",role:"img",focusable:"false"},Object(u.createElement)("path",{d:"M7,7h6c0.55,0,1-0.45,1-1V4c0-0.55-0.45-1-1-1H7C6.45,3,6,3.45,6,4v2C6,6.55,6.45,7,7,7z M13,13H7c-0.55,0-1,0.45-1,1v2 c0,0.55,0.45,1,1,1h6c0.55,0,1-0.45,1-1v-2C14,13.45,13.55,13,13,13z M9.5,11V9c0-0.55-0.45-1-1-1H3C2.45,8,2,8.45,2,9v2 c0,0.55,0.45,1,1,1h5.5C9.05,12,9.5,11.55,9.5,11z M17,8h-5.5c-0.55,0-1,0.45-1,1v2c0,0.55,0.45,1,1,1H17c0.55,0,1-0.45,1-1V9 C18,8.45,17.55,8,17,8z"}));break;case"groups-lazy-img-paragraph-button":case"groups-lazy-img-heading-paragraph":t=Object(u.createElement)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"48",height:"48",viewBox:"0 0 48 48",role:"img","aria-hidden":"true",focusable:"false"},Object(u.createElement)("path",{"fill-rule":"evenodd","clip-rule":"evenodd",d:"M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9V14h30V34z M22.49,31.03h2.35v-2.21h-2.35V31.03z M22.51,19.38c0.36-0.28,0.81-0.42,1.35-0.42c0.63,0,1.1,0.17,1.43,0.5s0.49,0.81,0.49,1.44 c0,0.54-0.14,1.03-0.43,1.45s-0.68,0.89-1.18,1.38c-0.71,0.6-1.16,1.09-1.35,1.46s-0.3,1.02-0.3,1.94h2.3 c0-0.56,0.04-0.97,0.13-1.25s0.32-0.58,0.68-0.9c0.72-0.58,1.31-1.21,1.77-1.88c0.46-0.67,0.69-1.42,0.69-2.23 c0-1.22-0.37-2.16-1.09-2.83c-0.73-0.67-1.77-1-3.12-1c-1.25,0-2.26,0.31-3.02,0.94c-0.76,0.62-1.15,1.52-1.17,2.69h2.3 C21.97,20.09,22.15,19.66,22.51,19.38z"}));break;case"lazy-img":t=Object(u.createElement)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"20",height:"20",viewBox:"0 0 20 20","aria-hidden":"true",role:"img",focusable:"false"},Object(u.createElement)("path",{d:"M18.71,1.29C18.52,1.11,18.26,1,18,1H2C1.74,1,1.48,1.11,1.29,1.29C1.11,1.48,1,1.74,1,2v16c0,0.26,0.11,0.52,0.29,0.71 C1.48,18.89,1.74,19,2,19h16c0.26,0,0.52-0.11,0.71-0.29C18.89,18.52,19,18.26,19,18V2C19,1.74,18.89,1.48,18.71,1.29z M3,17V3h14 l0,14H3z M9,12l-2-1l-3,2v2.98h12V11l-3-2L9,12z M7.5,9C8.88,9,10,7.88,10,6.5S8.88,4,7.5,4S5,5.12,5,6.5S6.12,9,7.5,9z"}));break;case"row-with-cols":t=Object(u.createElement)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"20",height:"20",viewBox:"0 0 20 20","aria-hidden":"true",role:"img",focusable:"false"},Object(u.createElement)("path",{d:"M18.71,1.29C18.52,1.11,18.26,1,18,1H2C1.74,1,1.48,1.11,1.29,1.29C1.11,1.48,1,1.74,1,2v16c0,0.26,0.11,0.52,0.29,0.71 C1.48,18.89,1.74,19,2,19h16c0.26,0,0.52-0.11,0.71-0.29C18.89,18.52,19,18.26,19,18V2C19,1.74,18.89,1.48,18.71,1.29z M12,3v14H8V3 H12z M3,3h3v14H3V3z M14,17V3h3l0,14H14z"}));break;case"section":t=Object(u.createElement)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"20",height:"20",viewBox:"0 0 20 20","aria-hidden":"true",role:"img",focusable:"false"},Object(u.createElement)("path",{d:"M14,4h-3v2h3V4z M8.29,5.71C8.48,5.9,8.73,6,9,6h0V3.59L7.71,2.29C7.52,2.1,7.26,2,7,2H6v2h0.58L8.29,5.71z M19,7V5 c0-0.27-0.1-0.52-0.29-0.71C18.52,4.1,18.27,4,18,4h-2v2h1v9L3,15v-2H1v3c0,0.26,0.11,0.52,0.29,0.71C1.48,16.89,1.74,17,2,17h2v-2 h2v2h3v-2h2v2h3v-2h2v2h2c0.27,0,0.52-0.1,0.71-0.29C18.89,16.52,19,16.27,19,16v-2h-2v-2h2V9h-2V7H19z M3,4h1V2H2 C1.74,2,1.48,2.11,1.29,2.29C1.11,2.48,1,2.74,1,3v3h2V4z M3,8H1v3h2V8z"}));break;case"section-empty":t=Object(u.createElement)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"48",height:"48",viewBox:"0 0 48 48",role:"img","aria-hidden":"true",focusable:"false"},Object(u.createElement)("path",{"fill-rule":"evenodd","clip-rule":"evenodd",d:"M38.96,30h2l0.01-3h-2L38.96,30z M23,18h3v-2h-3V18z M28,36h3v-2h-3V36z M33,36h3v-2h-3V36z M23,36h3v-2h-3V36z M40.71,16.29C40.52,16.1,40.27,16,40,16h-2v2h1l0,2h2L41,17C41,16.73,40.9,16.48,40.71,16.29z M13,36h3v-2h-3V36z M33,18h3v-2h-3 V18z M18,36h3v-2h-3V36z M28,18h3v-2h-3V18z M9,33H7v2c0,0.26,0.1,0.52,0.29,0.71C7.48,35.89,7.74,36,8,36h3v-2H9V33z M9,23H7v3h2 V23z M9,18H7v3h2V18z M38.95,34H38v2h1.95c0.55,0,1-0.45,1-1l0.01-3h-2L38.95,34z M15.58,14L17,12.59l-0.29-0.29 C16.52,12.11,16.26,12,16,12h-4v2L15.58,14L15.58,14z M9,28H7v3h2V28z M38.98,25h2l0.01-3h-2L38.98,25z M18.41,14L17,15.41 l2.29,2.29C19.48,17.9,19.73,18,20,18h1v-2h-0.59L18.41,14z M9,14h1v-2H8c-0.26,0-0.52,0.1-0.71,0.29C7.11,12.48,7,12.74,7,13v3h2 V14z"}));break;case"section-container-heading":t=Object(u.createElement)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"48",height:"48",viewBox:"0 0 48 48",role:"img","aria-hidden":"true",focusable:"false"},Object(u.createElement)("path",{"fill-rule":"evenodd","clip-rule":"evenodd",d:"M13,24h22v-3H13V24z M9,23H7v3h2V23z M9,28H7v3h2V28z M9,33H7v2c0,0.26,0.1,0.52,0.29,0.71C7.48,35.89,7.74,36,8,36h3v-2H9 V33z M9,18H7v3h2V18z M9,14h1v-2H8c-0.26,0-0.52,0.1-0.71,0.29C7.11,12.48,7,12.74,7,13v3h2V14z M31,16h-3v2h3V16z M26,16h-3v2h3V16 z M19.29,17.71C19.48,17.9,19.73,18,20,18h1v-2h-0.59l-2-2L17,15.41L19.29,17.71z M15.58,14L17,12.59l-0.29-0.29 C16.52,12.11,16.26,12,16,12h-4v2L15.58,14L15.58,14z M23,36h3v-2h-3V36z M38.96,30h2l0.01-3h-2L38.96,30z M38.95,34H38v2h1.95 c0.55,0,1-0.45,1-1l0.01-3h-2L38.95,34z M38.98,25h2l0.01-3h-2L38.98,25z M33,18h3v-2h-3V18z M33,36h3v-2h-3V36z M13,36h3v-2h-3V36z M40.71,16.29C40.52,16.1,40.27,16,40,16h-2v2h1l0,2h2L41,17C41,16.73,40.9,16.48,40.71,16.29z M18,36h3v-2h-3V36z M28,36h3v-2h-3 V36z"}));break;case"section-container-heading-text-gallery":t=Object(u.createElement)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"48",height:"48",viewBox:"0 0 48 48",role:"img","aria-hidden":"true",focusable:"false"},Object(u.createElement)("path",{"fill-rule":"evenodd","clip-rule":"evenodd",d:"M35,20H13v3h22V20z M9,23H7v3h2V23z M9,28H7v3h2V28z M9,18H7v3h2V18z M26,16h-3v2h3V16z M9,14h1v-2H8 c-0.26,0-0.52,0.1-0.71,0.29C7.11,12.48,7,12.74,7,13v3h2V14z M31,16h-3v2h3V16z M19.29,17.71C19.48,17.9,19.73,18,20,18h1v-2h-0.59 l-2-2L17,15.41L19.29,17.71z M9,33H7v2c0,0.26,0.1,0.52,0.29,0.71C7.48,35.89,7.74,36,8,36h3v-2H9V33z M38.95,34H38v2h1.95 c0.55,0,1-0.45,1-1l0.01-3h-2L38.95,34z M38.96,30h2l0.01-3h-2L38.96,30z M15.58,14L17,12.59l-0.29-0.29C16.52,12.11,16.26,12,16,12 h-4v2L15.58,14L15.58,14z M38.98,25h2l0.01-3h-2L38.98,25z M33,18h3v-2h-3V18z M40.71,16.29C40.52,16.1,40.27,16,40,16h-2v2h1l0,2h2 L41,17C41,16.73,40.9,16.48,40.71,16.29z M18,36h3v-2h-3V36z M13,36h3v-2h-3V36z M33,36h3v-2h-3V36z M23,36h3v-2h-3V36z M28,36h3v-2 h-3V36z M35,31v-3h-6v3H35z M21,31h6v-3h-6V31z M13,31h6v-3h-6V31z M35,24H13v1h22V24z M35,26H13v1h22V26z"}));break;case"section-container-rounded-colored-banner":t=Object(u.createElement)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"48",height:"48",viewBox:"0 0 48 48",role:"img","aria-hidden":"true",focusable:"false"},Object(u.createElement)("path",{"fill-rule":"evenodd","clip-rule":"evenodd",d:"M9,23H7v3h2V23z M9,28H7v3h2V28z M9,18H7v3h2V18z M31,16h-3v2h3V16z M9,14h1v-2H8c-0.26,0-0.52,0.1-0.71,0.29 C7.11,12.48,7,12.74,7,13v3h2V14z M26,16h-3v2h3V16z M9,33H7v2c0,0.26,0.1,0.52,0.29,0.71C7.48,35.89,7.74,36,8,36h3v-2H9V33z M19.29,17.71C19.48,17.9,19.73,18,20,18h1v-2h-0.59l-2-2L17,15.41L19.29,17.71z M15.58,14L17,12.59l-0.29-0.29 C16.52,12.11,16.26,12,16,12h-4v2L15.58,14L15.58,14z M38.96,30h2l0.01-3h-2L38.96,30z M38.95,34H38v2h1.95c0.55,0,1-0.45,1-1 l0.01-3h-2L38.95,34z M40.71,16.29C40.52,16.1,40.27,16,40,16h-2v2h1l0,2h2L41,17C41,16.73,40.9,16.48,40.71,16.29z M38.98,25h2 l0.01-3h-2L38.98,25z M33,18h3v-2h-3V18z M18,36h3v-2h-3V36z M13,36h3v-2h-3V36z M23,36h3v-2h-3V36z M28,36h3v-2h-3V36z M33,36h3v-2 h-3V36z M13,22v5c0,0.55,0.45,1,1,1h20c0.55,0,1-0.45,1-1v-5c0-0.55-0.45-1-1-1H14C13.45,21,13,21.45,13,22z M26,27h-4v-1h4V27z M20,22h8v1h-8V22z M15,24h18v1H15V24z"}));break;case"wrapper":t=Object(u.createElement)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"20",height:"20",viewBox:"0 0 20 20","aria-hidden":"true",role:"img",focusable:"false"},Object(u.createElement)("path",{d:"M2,17c-0.26,0-0.52-0.11-0.71-0.29l0,0C1.11,16.52,1,16.26,1,16l0,0V4c0-0.26,0.11-0.52,0.29-0.71l0,0 C1.48,3.11,1.74,3,2,3l0,0h16c0.27,0,0.52,0.1,0.71,0.29l0,0C18.89,3.48,19,3.73,19,4l0,0v12c0,0.27-0.1,0.52-0.29,0.71l0,0 C18.52,16.9,18.27,17,18,17l0,0H2L2,17z M18,16v-1V16L18,16z M3,15h14V5H3V15L3,15z"}));break;default:t=Object(u.createElement)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"48",height:"48",viewBox:"0 0 48 48",role:"img","aria-hidden":"true",focusable:"false"},Object(u.createElement)("path",{"fill-rule":"evenodd","clip-rule":"evenodd",d:"M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9V14h30V34z M22.49,31.03h2.35v-2.21h-2.35V31.03z M22.51,19.38c0.36-0.28,0.81-0.42,1.35-0.42c0.63,0,1.1,0.17,1.43,0.5s0.49,0.81,0.49,1.44 c0,0.54-0.14,1.03-0.43,1.45s-0.68,0.89-1.18,1.38c-0.71,0.6-1.16,1.09-1.35,1.46s-0.3,1.02-0.3,1.94h2.3 c0-0.56,0.04-0.97,0.13-1.25s0.32-0.58,0.68-0.9c0.72-0.58,1.31-1.21,1.77-1.88c0.46-0.67,0.69-1.42,0.69-2.23 c0-1.22-0.37-2.16-1.09-2.83c-0.73-0.67-1.77-1-3.12-1c-1.25,0-2.26,0.31-3.02,0.94c-0.76,0.62-1.15,1.52-1.17,2.69h2.3 C21.97,20.09,22.15,19.66,22.51,19.38z"}))}return t}function g(e,t){var l=e.belowNavbar,a=e.display,n=e.marginBefore,o=e.marginAfter,s=e.marginLeft,r=e.marginRight,i=e.paddingBefore,c=e.paddingAfter,b=e.paddingLeft,u=e.paddingRight,m=e.bgColor,g=e.textColor,d=e.textSize,h=e.rounded,p=e.textAlign,v=e.width,x=e.imgThumbnail,f=e.borderState,k=e.hoverShadow,w=e.hoverMove,y=void 0!==t?t.split(" "):[];return l&&y.push("below-navbar-content"),a&&y.push("d-"+a),n&&n===o&&n===s&&n===r?y.push("m-"+n):(n&&n===o?y.push("my-"+n):(n&&y.push("mt-"+n),o&&y.push("mb-"+o)),s&&s===r?y.push("mx-"+s):(s&&y.push("ml-"+s),r&&y.push("mr-"+r))),i&&i===c&&i===b&&i===u?y.push("p-"+i):(i&&i===c?y.push("py-"+i):(i&&y.push("pt-"+i),c&&y.push("pb-"+c)),b&&b===u?y.push("px-"+b):(b&&y.push("pt-"+b),u&&y.push("pb-"+u))),m&&y.push("bg-"+m),g&&y.push("text-"+g),d&&y.push(d),h&&(1==h||"rounded"==h?y.push("rounded"):y.push("rounded-"+h)),p&&y.push("text-"+p),v&&y.push("w-"+v),x&&y.push("img-thumbnail"),f&&y.push("border-"+f),k&&y.push("hover-shadow"),w&&y.push("hover-move"),y.join(" ")}function d(e){var t=e.split("."),l=t[t.length-1];return t.pop(),{trunc:t.join("."),extension:l}}function h(e){var t=d(e).trunc;return t.lastIndexOf("-scaled")===t.length-7}function p(e){var t=d(e);return t.trunc.substring(0,t.trunc.length-7)+"."+t.extension}function v(e){var t,l,a=e.originalWidth,n=e.originalHeight,o=e.url,s=e.scaleList,r=a/n,i=d(o),c=i.extension,b=i.trunc,u=(t=b.split("-"),l=t[t.length-1].split("x"),t.pop(),{width:l[0],height:l[1],withoutSizesTrunc:t.join("-")}),m=u.width,g=u.withoutSizesTrunc,h=[];return s.forEach((function(e,t){var l=Math.round(m*e);if(l<=a){var n=Math.round(l/r),o=g+"-"+l+"x"+n+"."+c;h.push({url:o,width:l,height:n})}})),h}function x(e){return new Promise((function(t,l){var a=document.createElement("img");a.onload=function(){t({width:a.width,height:a.height}),a.remove},a.onerror=function(t){l('Error on loading image "'+e+'"',t)},a.src=e,document.body.appendChild(a)}))}function f(e){return new Promise((function(t,l){var a=new XMLHttpRequest;a.open("HEAD",e,!0),a.onreadystatechange=function(){4==a.readyState&&(200==a.status?t(!0):t(!1))},a.send(null)}))}function k(e){return w.apply(this,arguments)}function w(){return(w=i()(s.a.mark((function e(t){var l,a,n,o,r,c,b,u,m,g,d,k;return s.a.wrap((function(e){for(;;)switch(e.prev=e.next){case 0:if(n=["thumbnail","medium",a="large","full"],o=["thumbnail","medium",(l=[.75,1.5,2])[0]+"",a,l[1]+"",l[2]+"","full","original"],r="",c=0,b=0,!h(t.url)){e.next=22;break}return r=p(t.url),e.prev=9,e.next=12,x(r);case 12:u=e.sent,e.next=18;break;case 15:e.prev=15,e.t0=e.catch(9),console.error(e.t0);case 18:c=u.width,b=u.height,e.next=24;break;case 22:c=t.sizes.full.width,b=t.sizes.full.height;case 24:if(m=new Map,g=[],null==t.sizes.large){e.next=31;break}return d={url:t.sizes[a].url,scaleList:l,originalWidth:c,originalHeight:b},k=v(d),e.next=31,Promise.all(k.map(function(){var e=i()(s.a.mark((function e(t,a){return s.a.wrap((function(e){for(;;)switch(e.prev=e.next){case 0:return e.next=2,f(t.url);case 2:e.sent&&m.set(l[a]+"",t);case 4:case"end":return e.stop()}}),e)})));return function(t,l){return e.apply(this,arguments)}}()));case 31:return o.forEach((function(e,a){-1!=n.indexOf(e)&&null!=t.sizes[e]?g.push({url:t.sizes[e].url,width:t.sizes[e].width,height:t.sizes[e].height}):-1!=l.indexOf(parseFloat(e))&&null!=m.get(e)?g.push(m.get(e)):"original"==e&&r&&g.push({url:r,width:c,height:b})})),e.abrupt("return",{imgs:g,originalWidth:c,originalHeight:b});case 33:case"end":return e.stop()}}),e,null,[[9,15]])})))).apply(this,arguments)}var y=function(e,t){return"data:image/svg+xml;base64,"+btoa('<svg xmlns="http://www.w3.org/2000/svg" width="'+e+'px" height="'+t+'px" viewBox="0 0 '+e+" "+t+'"><rect fill="none" width="'+e+'" height="'+t+'"/></svg>')},O=l(9),j=l.n(O);function E(e){for(var t={},l=0,a=Object.entries(e);l<a.length;l++){var n=j()(a[l],2),o=n[0],s=n[1];s&&(t[o]=s)}return t}function z(e,t){var l=Object.keys(e);if(Object.getOwnPropertySymbols){var a=Object.getOwnPropertySymbols(e);t&&(a=a.filter((function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable}))),l.push.apply(l,a)}return l}var C=wp.i18n,S=C.__,M=(C.setLocaleData,wp.blocks.registerBlockType),I=wp.blockEditor,B=I.InnerBlocks,A=I.InspectorControls,N=I.InspectorAdvancedControls,V=I.MediaUpload,L=wp.components,H=L.PanelBody,T=(L.TextControl,L.ToggleControl),P=L.SelectControl,R=L.Button,X=(L.SVG,L.Path,L.RadioControl),D=wp.element.Fragment,W=wp.data.withSelect,F=function(e){var t=e.bannerType,l=e.bannerSize,a=e.bgAttachment,n=e.bgAttachmentFixedLimited,o=e.bgSize,s=e.bgPosition,r=e.alignItems,i=e.templateName,c=[];return c.push("banner-"+t+"-"+l),a&&c.push("bg-"+a),n&&c.push("bg-w2000-static"),o&&c.push("bg-"+o),s&&c.push("bg-"+s),r&&(c.push("d-flex"),"column-row-banner"!==i&&c.push("align-items-"+r)),"column-row-banner"==!!i&&-1==c.indexOf("d-flex")&&c.push("d-flex"),c.join(" ")},_=function(e){var t=e.templateName,l=["banner-inner"];return t&&"column-row-banner"==t&&(l.push("w-100"),l.push("d-flex"),l.push("flex-column")),l.join(" ")},q=[{media:"(orientation: portrait) and (max-width: 499.98px)",imgSizeIndexShift:"-1"},{media:"(orientation: portrait)",imgSizeIndexShift:"0"}],G=[{media:"(max-width: 999.98px)",imgSizeIndexShift:"-3"},{media:"(max-width: 1399.98px)",imgSizeIndexShift:"-2"}],U=["column-row-banner"];function Z(e,t){var l=Object.keys(e);if(Object.getOwnPropertySymbols){var a=Object.getOwnPropertySymbols(e);t&&(a=a.filter((function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable}))),l.push.apply(l,a)}return l}M("bsx-blocks/banner",{title:S("BSX Banner","bsx-blocks"),icon:m("banner"),category:"layout",attributes:{nodeName:{type:"string",default:"div"},templateName:{type:"string"},belowNavbar:{type:"boolean",default:!1},imgId:{type:"number"},imgSizes:{type:"array",default:[]},imgSizeIndex:{type:"string",default:"6"},url:{type:"string"},portraitImgId:{type:"number"},portraitImgSizes:{type:"array",default:[]},portraitImgSizeIndex:{type:"string",default:"3"},bannerType:{type:"string",default:"vh"},bannerSize:{type:"string",default:"2"},bgAttachment:{type:"string",default:"fixed"},bgAttachmentFixedLimited:{type:"boolean"},bgSize:{type:"string",default:"cover"},bgPosition:{type:"string",default:"c"},alignItems:{type:"string",default:"center"},marginBefore:{type:"string",default:""},marginAfter:{type:"string",default:""},paddingBefore:{type:"string",default:""},paddingAfter:{type:"string",default:""}},edit:W((function(e,t){var l=t.clientId,a=e("core/block-editor"),n=a.getBlocksByClientId;a.getBlockAttributes;return{children:n(l)[0]?n(l)[0].innerBlocks:[]}}))((function(e){e.className;var t=e.attributes,l=t.nodeName,a=t.templateName,n=t.belowNavbar,o=t.imgId,r=t.imgSizes,c=t.imgSizeIndex,d=t.url,h=t.portraitImgId,p=t.portraitImgSizes,v=t.portraitImgSizeIndex,x=t.bannerType,f=t.bannerSize,w=t.bgAttachment,y=t.bgAttachmentFixedLimited,O=t.bgSize,j=t.bgPosition,E=t.alignItems,C=t.marginBefore,M=t.marginAfter,I=t.paddingBefore,L=t.paddingAfter,W=e.setAttributes,q=(e.isSelected,e.children,function(e){return e.length>0}),G=[{name:"empty",title:S("Empty","bsx-blocks"),icon:m("banner-empty"),attributes:{marginAfter:"5"},template:[["core/paragraph",{placeholder:"Change paragraph text or delete..."}]],templateLock:!1},{name:"container-with-heading",title:S("Container with Heading","bsx-blocks"),icon:m("banner-container-with-heading"),attributes:{marginAfter:"5"},template:[["bsx-blocks/container",{},[["core/heading",{placeholder:"Add heading text, configure heading level...",textSize:"display-1",textColor:"white",textShadow:"darker",marginAfter:"0"}]]]],templateLock:!1},{name:"static-container-with-heading",title:S("Static with Container & Heading","bsx-blocks"),icon:m("banner-static-container-with-heading"),attributes:{bannerType:"st",bannerSize:"3",marginAfter:"5"},template:[["bsx-blocks/container",{},[["core/heading",{placeholder:"Add heading text, configure heading level...",textSize:"display-1",textColor:"white",textShadow:"darker",marginAfter:"0"}]]]],templateLock:!1},{name:"column-row-banner",title:S("Bottom bar Banner","bsx-blocks"),icon:m("banner-column-row"),attributes:{marginAfter:"5"},template:[["bsx-blocks/column-rows",{templateName:"default-auto",display:"flex",flexDirection:"column",className:"banner-inner"},[["bsx-blocks/column-row",{columnRowType:"",display:"flex",alignItems:"center"},[["bsx-blocks/wrapper",{width:"100"},[["bsx-blocks/container",{},[["core/heading",{placeholder:"Add heading text, configure heading level...",textSize:"display-1",textColor:"white",textShadow:"darker",marginAfter:"0"}]]]]]]],["bsx-blocks/column-row",{columnRowType:"auto"},[["bsx-blocks/wrapper",{bgColor:"primary-transparent",paddingBefore:"3",paddingAfter:"3"},[["bsx-blocks/container",{},[["core/paragraph",{placeholder:"Add text...",textSize:"lead",textColor:"white",marginAfter:"0"}]]]]]]]]]],templateLock:!1}],Z=function(e){var t=G.find((function(t){return t.name===e}));return t||{}},J=Z(a).template,$=function(e){var t=Z(e);null!=t.template&&null!=t.attributes?(J=t.template,W(function(e){for(var t=1;t<arguments.length;t++){var l=null!=arguments[t]?arguments[t]:{};t%2?z(Object(l),!0).forEach((function(t){b()(e,t,l[t])})):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(l)):z(Object(l)).forEach((function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(l,t))}))}return e}({templateName:e},t.attributes))):console.log("Error: Template change failed.")};function K(e){return Q.apply(this,arguments)}function Q(){return(Q=i()(s.a.mark((function e(t){var l,a,n;return s.a.wrap((function(e){for(;;)switch(e.prev=e.next){case 0:if(void 0===t.url){e.next=8;break}return e.next=3,k(t);case 3:l=e.sent,a=l.imgs,n=parseInt(c),parseInt(c)>=a.length&&(n=a.length-1),W({imgId:t.id,imgSizes:a,imgSizeIndex:n.toString(),url:a[n].url});case 8:case"end":return e.stop()}}),e)})))).apply(this,arguments)}function Y(e){return ee.apply(this,arguments)}function ee(){return(ee=i()(s.a.mark((function e(t){var l,a,n;return s.a.wrap((function(e){for(;;)switch(e.prev=e.next){case 0:if(void 0===t.url){e.next=8;break}return e.next=3,k(t);case 3:l=e.sent,a=l.imgs,n=parseInt(v),parseInt(v)>=a.length&&(n=a.length-1),W({portraitImgId:t.id,portraitImgSizes:a,portraitImgSizeIndex:n.toString()});case 8:case"end":return e.stop()}}),e)})))).apply(this,arguments)}var te=[];r.forEach((function(e,t){te.push({value:t.toString(),label:e.width+"x"+e.height+(e.width===e.height?" "+S("(Square format)","bsx-blocks"):"")})}));var le=[];p.forEach((function(e,t){le.push({value:t.toString(),label:e.width+"x"+e.height+(e.width===e.height?" "+S("(Square format)","bsx-blocks"):"")})}));var ae=F({bannerType:x,bannerSize:f,bgAttachment:w,bgAttachmentFixedLimited:y,bgSize:O,bgPosition:j,alignItems:E,templateName:a});ae=g({belowNavbar:n,marginBefore:C,marginAfter:M,paddingBefore:I,paddingAfter:L},ae);var ne=_({templateName:a}),oe=l,se={backgroundImage:"url(".concat(d,")")};return[Object(u.createElement)(A,null,Object(u.createElement)(H,{title:S("Banner template","bsx-blocks")},Object(u.createElement)("div",{className:"bsxui-icon-text-button-list"},G.map((function(e,t){return Object(u.createElement)(R,{label:e.title,onClick:function(){$(e.name)},className:"bsxui-icon-text-button-list-item "+(a===e.name?"active":"")},Object(u.createElement)("div",{class:"bsxui-icon-text-button-list-item-icon"},e.icon),Object(u.createElement)("div",{class:"bsxui-icon-text-button-list-item-label"},e.title))})))),Object(u.createElement)(H,{title:S("Banner image","bsx-blocks")},o?Object(u.createElement)(V,{onSelect:K,allowedTypes:"image",value:o,render:function(e){var t=e.open;return Object(u.createElement)(R,{className:"bsxui-config-panel-img-button has-margin-bottom",onClick:t},Object(u.createElement)("img",{class:"bsxui-config-panel-img",src:d,alt:S("Change / upload image","bsx-blocks")}))}}):Object(u.createElement)("div",{class:"bsxui-config-panel-row"},Object(u.createElement)("div",{class:"bsxui-config-panel-text"},S("– No image selected yet –","bsx-blocks"))),Object(u.createElement)("div",{class:"bsxui-config-panel-row"},Object(u.createElement)(V,{onSelect:K,allowedTypes:"image",value:o,render:function(e){var t=e.open;return Object(u.createElement)(R,{onClick:t,isSecondary:!0},S("Change / upload image","bsx-blocks"))}})),Object(u.createElement)(X,{label:S("Image size and format","bsx-blocks"),selected:c.toString(),options:te,onChange:function(e){W({imgSizeIndex:e.toString(),url:r[e].url})}}),null!=r[c]&&null!=r[c].url&&Object(u.createElement)("div",{class:"bsxui-config-panel-text"},Object(u.createElement)("a",{class:"bsxui-link",href:r[c].url,target:"_blank"},S("Preview selected image","bsx-blocks")))),Object(u.createElement)(H,{title:S("Banner portrait image (optional)","bsx-blocks")},h&&void 0!==p[v]&&void 0!==p[v].url?Object(u.createElement)(V,{onSelect:Y,allowedTypes:"image",value:h,render:function(e){var t=e.open;return Object(u.createElement)(R,{className:"bsxui-config-panel-img-button has-margin-bottom",onClick:t},Object(u.createElement)("img",{class:"bsxui-config-panel-img",src:p[v].url,alt:S("Change / upload portrait image","bsx-blocks")}))}}):Object(u.createElement)("div",{class:"bsxui-config-panel-row"},Object(u.createElement)("div",{class:"bsxui-config-panel-text"},S("– No portrait image selected yet –","bsx-blocks"))),Object(u.createElement)("div",{class:"bsxui-config-panel-row"},Object(u.createElement)(V,{onSelect:Y,allowedTypes:"image",value:h,render:function(e){var t=e.open;return Object(u.createElement)(R,{onClick:t,isSecondary:!0},S("Change / upload portrait image","bsx-blocks"))}})),Object(u.createElement)("div",{class:"bsxui-config-panel-row"},Object(u.createElement)(R,{onClick:function(){W({portraitImgId:"",portraitImgSizes:[]})},isDestructive:!0},S("Remove portrait image","bsx-blocks"))),Object(u.createElement)(X,{label:S("Image size and format","bsx-blocks"),selected:v.toString(),options:le,onChange:function(e){W({portraitImgSizeIndex:e.toString()})}}),void 0!==p[v]&&void 0!==p[v].url&&Object(u.createElement)("div",{class:"bsxui-config-panel-text"},Object(u.createElement)("a",{class:"bsxui-link",href:p[v].url,target:"_blank"},S("Preview selected portrait image","bsx-blocks")))),Object(u.createElement)(H,{title:S("Banner dimensions","bsx-blocks")},Object(u.createElement)(P,{label:S("Banner height type","bsx-blocks"),value:x,onChange:function(e){W({bannerType:e})},options:[{value:"vh",label:S("Viewport dependent height","bsx-blocks")},{value:"st",label:S("Static height","bsx-blocks")}],help:S("Viewport dependent height will be e.g. all viewport height or viewport height - X pixels. Static height instead depends only on the banners contents.","bsx-blocks")}),Object(u.createElement)(P,{label:S("Banner height size","bsx-blocks"),value:f,onChange:function(e){W({bannerSize:e})},options:[{value:"1",label:S("1 (biggest)","bsx-blocks")},{value:"2",label:S("2","bsx-blocks")},{value:"3",label:S("3 (smallest)","bsx-blocks")}],help:S("Choose from 1 (maximum) to 3 (minimum)","bsx-blocks")}),Object(u.createElement)(P,{label:S("Background attachement","bsx-blocks"),value:w,onChange:function(e){W({bgAttachment:e})},options:[{value:"static",label:S("static","bsx-blocks")},{value:"fixed",label:S("fixed","bsx-blocks")}]}),"fixed"===w&&Object(u.createElement)(T,{label:S("Limit fixed background","bsx-blocks"),checked:!!y,onChange:function(e){W({bgAttachmentFixedLimited:e})},help:S("If enabled large displays (>=2.000px) will have static background attachement.","bsx-blocks")}),Object(u.createElement)(P,{label:S("Align items","bsx-blocks"),value:E,onChange:function(e){W({alignItems:e})},options:[{value:"center",label:S("center","bsx-blocks")},{value:"end",label:S("end","bsx-blocks")}]})),Object(u.createElement)(H,{title:S("Margin","bsx-blocks")},Object(u.createElement)(P,{label:S("Margin before","bsx-blocks"),value:C,onChange:function(e){W({marginBefore:e})},options:[{value:"",label:S("– unset –","bsx-blocks")},{value:"0",label:S("none (0)","bsx-blocks")},{value:"1",label:S("extra small","bsx-blocks")},{value:"2",label:S("small","bsx-blocks")},{value:"3",label:S("medium","bsx-blocks")},{value:"4",label:S("large","bsx-blocks")},{value:"5",label:S("extra large","bsx-blocks")}],help:S("Spacer before Banner","bsx-blocks")}),Object(u.createElement)(P,{label:S("Margin after","bsx-blocks"),value:M,onChange:function(e){W({marginAfter:e})},options:[{value:"",label:S("– unset –","bsx-blocks")},{value:"0",label:S("none (0)","bsx-blocks")},{value:"1",label:S("extra small","bsx-blocks")},{value:"2",label:S("small","bsx-blocks")},{value:"3",label:S("medium","bsx-blocks")},{value:"4",label:S("large","bsx-blocks")},{value:"5",label:S("extra large","bsx-blocks")}],help:S("Spacer after Banner","bsx-blocks")}))),Object(u.createElement)(N,null,Object(u.createElement)(T,{label:S("Below navbar","bsx-blocks"),checked:!!n,onChange:function(e){W({belowNavbar:e})},help:S("Enable if container starts below navbar. If enabled container has spacer top to avoid overlapping its contents by navbar.","bsx-blocks")}),Object(u.createElement)(P,{label:S("Node name","bsx-blocks"),value:l,onChange:function(e){W({nodeName:e})},options:[{value:"div",label:S("div","bsx-blocks")},{value:"section",label:S("section","bsx-blocks")}],help:S("Node name (please edit only if you know what you’re doing)","bsx-blocks")}),Object(u.createElement)(P,{label:S("Background advanced position","bsx-blocks"),value:j,onChange:function(e){W({bgPosition:e})},options:[{value:"c",label:S("Center center","bsx-blocks")},{value:"c25",label:S("Center 25%","bsx-blocks")},{value:"c66",label:S("Center 66%","bsx-blocks")},{value:"c75",label:S("Center 75%","bsx-blocks")},{value:"ct",label:S("Center top","bsx-blocks")},{value:"rc",label:S("Right center","bsx-blocks")},{value:"33c",label:S("33% center","bsx-blocks")},{value:"80c",label:S("80% center","bsx-blocks")},{value:"66t",label:S("66% top","bsx-blocks")},{value:"66c",label:S("66% center","bsx-blocks")}]}),Object(u.createElement)(P,{label:S("Background advanced size","bsx-blocks"),value:O,onChange:function(e){W({bgSize:e})},options:[{value:"cover",label:S("Cover","bsx-blocks")},{value:"contain",label:S("Contain","bsx-blocks")},{value:"100a",label:S("100% auto","bsx-blocks")}]}),Object(u.createElement)(P,{label:S("Padding before","bsx-blocks"),value:I,onChange:function(e){W({paddingBefore:e})},options:[{value:"",label:S("– none –","bsx-blocks")},{value:"1",label:S("extra small","bsx-blocks")},{value:"2",label:S("small","bsx-blocks")},{value:"3",label:S("medium","bsx-blocks")},{value:"4",label:S("large","bsx-blocks")},{value:"5",label:S("extra large","bsx-blocks")}],help:S("Inner spacer before","bsx-blocks")}),Object(u.createElement)(P,{label:S("Padding after","bsx-blocks"),value:L,onChange:function(e){W({paddingAfter:e})},options:[{value:"",label:S("– none –","bsx-blocks")},{value:"1",label:S("extra small","bsx-blocks")},{value:"2",label:S("small","bsx-blocks")},{value:"3",label:S("medium","bsx-blocks")},{value:"4",label:S("large","bsx-blocks")},{value:"5",label:S("extra large","bsx-blocks")}],help:S("Inner spacer after","bsx-blocks")})),Object(u.createElement)(D,null,a?Object(u.createElement)(oe,{className:ae,style:se},!o&&Object(u.createElement)("div",{className:"bsxui-in-widget-overlay-panel bsxui-top"},Object(u.createElement)(V,{onSelect:K,allowedTypes:"image",value:o,render:function(e){var t=e.open;return Object(u.createElement)(R,{onClick:t,isSecondary:!0},S("Select / upload Image","bsx-blocks"))}})),-1==U.indexOf(a)?Object(u.createElement)("div",{className:ne},Object(u.createElement)(B,{template:J,renderAppender:q?void 0:function(){return Object(u.createElement)(B.ButtonBlockAppender,null)}})):Object(u.createElement)(B,{template:J,renderAppender:q?void 0:function(){return Object(u.createElement)(B.ButtonBlockAppender,null)}})):Object(u.createElement)("div",{class:"bsxui-initial-inline-control"},Object(u.createElement)("div",{class:"bsxui-initial-inline-control-heading"},S("Please select Banner template","bsx-blocks")),Object(u.createElement)("div",{className:"bsxui-icon-text-button-list"},G.map((function(e,t){return Object(u.createElement)(R,{label:e.title,onClick:function(){$(e.name)},className:"bsxui-icon-text-button-list-item "+(a===e.name?"active":"")},Object(u.createElement)("div",{class:"bsxui-icon-text-button-list-item-icon"},e.icon),Object(u.createElement)("div",{class:"bsxui-icon-text-button-list-item-label"},e.title))})))))]})),save:function(e){e.className;var t=e.attributes,l=t.nodeName,a=t.templateName,o=t.belowNavbar,s=(t.imgId,t.imgSizes),r=t.imgSizeIndex,i=t.url,c=(t.portraitImgId,t.portraitImgSizes),b=t.portraitImgSizeIndex,m=t.bannerType,d=t.bannerSize,h=t.bgAttachment,p=t.bgAttachmentFixedLimited,v=t.bgSize,x=t.bgPosition,f=t.alignItems,k=t.marginBefore,w=t.marginAfter,y=t.paddingBefore,O=t.paddingAfter,j=F({bannerType:m,bannerSize:d,bgAttachment:h,bgAttachmentFixedLimited:p,bgSize:v,bgPosition:x,alignItems:f,templateName:a});j=g({belowNavbar:o,marginBefore:k,marginAfter:w,paddingBefore:y,paddingAfter:O},j);var z=_({templateName:a}),C=E({"data-srcset":function(e){var t=e.imgSizes,l=e.imgSizeIndex,a=e.portraitImgSizes,n=e.portraitImgSizeIndex,o="[ ";return q.forEach((function(e,t){var l=parseInt(n)+parseInt(e.imgSizeIndexShift);l>0&&l<a.length&&(o+="{ media: '"+e.media+"', src: '"+a[l].url+"' }, ")})),G.forEach((function(e,a){var n=parseInt(l)+parseInt(e.imgSizeIndexShift);n>0&&n<t.length&&(o+="{ media: '"+e.media+"', src: '"+t[n].url+"' }, ")})),o.lastIndexOf(", ")==o.length-2&&(o=o.substring(0,o.length-2)),o+=" ]"}({imgSizes:s,imgSizeIndex:r,portraitImgSizes:c,portraitImgSizeIndex:b})}),S=l;return Object(u.createElement)(S,n()({className:j,"data-fn":"lazyload","data-src":i},C),-1==U.indexOf(a)?Object(u.createElement)("div",{className:z},Object(u.createElement)(B.Content,null)):Object(u.createElement)(B.Content,null))}});var J=wp.i18n,$=J.__,K=(J.setLocaleData,wp.blocks.registerBlockType),Q=wp.blockEditor,Y=Q.InnerBlocks,ee=Q.InspectorControls,te=Q.BlockControls,le=Q.AlignmentToolbar,ae=wp.components,ne=(ae.TextControl,ae.PanelBody),oe=ae.SelectControl,se=ae.Button,re=(ae.SVG,ae.Path,wp.element.Fragment),ie=wp.data.withSelect;K("bsx-blocks/buttons",{title:$("BSX Buttons","bsx-blocks"),icon:m("buttons"),category:"layout",attributes:{templateName:{type:"string"},textAlign:{type:"string",default:""},marginBefore:{type:"string",default:""},marginAfter:{type:"string",default:""}},getEditWrapperProps:function(e){return{"data-template-name":e.templateName,"data-text-align":e.textAlign,"data-margin-before":e.marginBefore,"data-margin-after":e.marginAfter}},edit:ie((function(e,t){var l=t.clientId,a=e("core/block-editor").getBlocksByClientId;return{children:a(l)[0]?a(l)[0].innerBlocks:[]}}))((function(e){e.className;var t=e.attributes,l=t.templateName,a=t.textAlign,n=t.marginBefore,o=t.marginAfter,s=e.setAttributes,r=(e.children,[{name:"one-button",title:$("One Button","bsx-blocks"),icon:m("buttons-one-button"),attributes:{},template:[["bsx-blocks/button",{}]],templateLock:!1},{name:"two-buttons",title:$("Two Buttons","bsx-blocks"),icon:m("buttons-two-buttons"),attributes:{},template:[["bsx-blocks/button",{}],["bsx-blocks/button",{}]],templateLock:!1},{name:"text-link",title:$("Text Link","bsx-blocks"),icon:m("buttons-text-link"),attributes:{},template:[["bsx-blocks/button",{state:"text-link"}]],templateLock:!1},{name:"label-text-link",title:$("Label with Text Link","bsx-blocks"),icon:m("buttons-label-text-link"),attributes:{},template:[["bsx-blocks/button-label",{}],["bsx-blocks/button",{state:"text-link"}]],templateLock:!1}]),i=function(e){var t=r.find((function(t){return t.name===e}));return t||{}},c=i(l).template,d=function(e){var t=i(e);null!=t.template&&null!=t.attributes?(c=t.template,s(function(e){for(var t=1;t<arguments.length;t++){var l=null!=arguments[t]?arguments[t]:{};t%2?Z(Object(l),!0).forEach((function(t){b()(e,t,l[t])})):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(l)):Z(Object(l)).forEach((function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(l,t))}))}return e}({templateName:e},t.attributes))):console.log("Error: Template change failed.")},h=[{icon:"editor-alignleft",title:$("Align left","bsx-blocks"),align:"left"},{icon:"editor-aligncenter",title:$("Align center","bsx-blocks"),align:"center"},{icon:"editor-alignright",title:$("Align right","bsx-blocks"),align:"right"}],p=g({textAlign:a,marginBefore:n,marginAfter:o});return[Object(u.createElement)(re,null,Object(u.createElement)(te,null,Object(u.createElement)(le,{label:$("Alignment","bsx-blocks"),value:a,onChange:function(e){s({textAlign:e})},alignmentControls:h})),Object(u.createElement)(ee,null,Object(u.createElement)(ne,{title:$("Settings","bsx-blocks")},Object(u.createElement)("div",{className:"bsxui-icon-text-button-list"},r.map((function(e,t){return Object(u.createElement)(se,{label:e.title,onClick:function(){d(e.name)},className:"bsxui-icon-text-button-list-item "+(l===e.name?"active":"")},Object(u.createElement)("div",{class:"bsxui-icon-text-button-list-item-icon"},e.icon),Object(u.createElement)("div",{class:"bsxui-icon-text-button-list-item-label"},e.title))})))),Object(u.createElement)(ne,{title:$("Margin","bsx-blocks")},Object(u.createElement)(oe,{label:$("Margin before","bsx-blocks"),value:n,onChange:function(e){s({marginBefore:e})},options:[{value:"",label:$("– unset –","bsx-blocks")},{value:"0",label:$("none (0)","bsx-blocks")},{value:"1",label:$("extra small","bsx-blocks")},{value:"2",label:$("small","bsx-blocks")},{value:"3",label:$("medium","bsx-blocks")},{value:"4",label:$("large","bsx-blocks")},{value:"5",label:$("extra large","bsx-blocks")}],help:$("Spacer before element","bsx-blocks")}),Object(u.createElement)(oe,{label:$("Margin after","bsx-blocks"),value:o,onChange:function(e){s({marginAfter:e})},options:[{value:"",label:$("– unset –","bsx-blocks")},{value:"0",label:$("none (0)","bsx-blocks")},{value:"1",label:$("extra small","bsx-blocks")},{value:"2",label:$("small","bsx-blocks")},{value:"3",label:$("medium","bsx-blocks")},{value:"4",label:$("large","bsx-blocks")},{value:"5",label:$("extra large","bsx-blocks")}],help:$("Spacer after element","bsx-blocks")})))),Object(u.createElement)(re,null,l?Object(u.createElement)("div",{className:p},Object(u.createElement)(Y,{template:c,allowedBlocks:["bsx-blocks/button-label","bsx-blocks/button"],renderAppender:function(e){return e.length>0}?void 0:function(){return Object(u.createElement)(Y.ButtonBlockAppender,null)}})):Object(u.createElement)("div",{class:"bsxui-initial-inline-control"},Object(u.createElement)("div",{class:"bsxui-initial-inline-control-heading"},$("Please select template","bsx-blocks")),Object(u.createElement)("div",{className:"bsxui-icon-text-button-list"},r.map((function(e,t){return Object(u.createElement)(se,{label:e.title,onClick:function(){d(e.name)},className:"bsxui-icon-text-button-list-item "+(l===e.name?"active":"")},Object(u.createElement)("div",{class:"bsxui-icon-text-button-list-item-icon"},e.icon),Object(u.createElement)("div",{class:"bsxui-icon-text-button-list-item-label"},e.title))})))))]})),save:function(e){e.className;var t=e.attributes,l=(t.templateName,g({textAlign:t.textAlign,marginBefore:t.marginBefore,marginAfter:t.marginAfter}));return Object(u.createElement)("div",{className:l},Object(u.createElement)(Y.Content,null))}});var ce=l(6),be=l.n(ce),ue=wp.i18n,me=ue.__,ge=(ue.setLocaleData,wp.blocks.registerBlockType),de=wp.blockEditor,he=de.InspectorControls,pe=de.URLInput,ve=de.RichText,xe=wp.components,fe=xe.TextControl,ke=xe.PanelBody,we=xe.ToggleControl,ye=xe.SelectControl,Oe=(xe.SVG,xe.Path,function(e){var t=e.state,l=e.stateType,a=e.size,n=e.hrefIsEmailIsContent,o=e.ignoreMailtoSpamProtection,s=[],r="btn-";return t&&("text-link"==t?s.push("text-link"):(s.push("btn"),l&&(r+=l+"-"),r+=t,s.push(r))),a&&s.push("btn-"+a),!o&&n&&s.push("create-mt"),s.join(" ")}),je=function(e){if(0==e.indexOf("mailto:")&&/\S+@\S+\.\S+/.test(e.substring(7))){var t=e.substring(7).split("@"),l=t[0],a=(t=t[1].split("."))[t.length-1];return t.pop(),{valid:!0,name:l,domain:t.join("."),suffix:a}}return{valid:!1}};ge("bsx-blocks/button",{title:me("BSX Button","bsx-blocks"),icon:m("button"),category:"layout",parent:["bsx-blocks/buttons"],attributes:{href:{type:"string",default:""},content:{type:"array",source:"children",selector:".btn, .text-link"},target:{type:"string",default:""},rel:{type:"string",default:""},state:{type:"string",default:"primary"},stateType:{type:"string",default:"outline"},size:{type:"string",default:""},dataFn:{type:"string",default:""},marginLeft:{type:"string",default:""},marginRight:{type:"string",default:""},marginBefore:{type:"string",default:""},marginAfter:{type:"string",default:""},ignoreMailtoSpamProtection:{type:"boolean"}},edit:function(e){e.className;var t=e.attributes,l=t.href,a=t.content,n=t.target,o=t.rel,s=t.state,r=t.stateType,i=t.size,c=t.dataFn,b=t.marginLeft,m=t.marginRight,d=t.marginBefore,h=t.marginAfter,p=t.ignoreMailtoSpamProtection,v=e.setAttributes,x=e.isSelected,f=je(l).valid,k=f&&(l=="mailto:"+a||"object"==be()(a)&&0==a.length),w=Oe({state:s,stateType:r,size:i});return w=g({marginLeft:b,marginRight:m,marginBefore:d,marginAfter:h},w),p||x||"object"!=be()(a)||0!=a.length||!k||v({content:l.substring(7)}),[Object(u.createElement)(he,null,Object(u.createElement)(ke,{title:me("Button link settings","bsx-blocks")},Object(u.createElement)(pe,{label:me("Link URL","bsx-blocks"),value:l,onChange:function(e){v({href:e})}}),f&&Object(u.createElement)(we,{label:me("Spam protected email link (default activated)","bsx-blocks"),checked:!p,onChange:function(e){v({ignoreMailtoSpamProtection:!e})},help:me("If activated email will not be easily readable for machines.","bsx-blocks")}),Object(u.createElement)(we,{label:me("Open in new tab","bsx-blocks"),checked:"_blank"==n,onChange:function(e){v({target:e?"_blank":""})}}),Object(u.createElement)(fe,{label:me("Rel (optional)","bsx-blocks"),value:o,onChange:function(e){v({rel:e})}}),Object(u.createElement)(fe,{label:me("data-fn (optional)","bsx-blocks"),value:c,onChange:function(e){v({dataFn:e})}})),Object(u.createElement)(ke,{title:me("Button appearance","bsx-blocks")},Object(u.createElement)(ye,{label:me("State","bsx-blocks"),value:s,onChange:function(e){v({state:e})},options:[{value:"primary",label:me("Primary","bsx-blocks")},{value:"secondary",label:me("Secondary","bsx-blocks")},{value:"success",label:me("Success","bsx-blocks")},{value:"danger",label:me("Danger","bsx-blocks")},{value:"warning",label:me("Warning","bsx-blocks")},{value:"info",label:me("Info","bsx-blocks")},{value:"light",label:me("Light","bsx-blocks")},{value:"dark",label:me("Dark","bsx-blocks")},{value:"link",label:me("Link Button","bsx-blocks")},{value:"text-link",label:me("Text link","bsx-blocks")}]}),Object(u.createElement)(ye,{label:me("State Type","bsx-blocks"),value:r,onChange:function(e){v({stateType:e})},options:[{value:"outline",label:me("Outline","bsx-blocks")},{value:"",label:me("Filled","bsx-blocks")}]}),Object(u.createElement)(ye,{label:me("Size","bsx-blocks"),value:i,onChange:function(e){v({size:e})},options:[{value:"",label:me("– unset –","bsx-blocks")},{value:"sm",label:me("Small","bsx-blocks")},{value:"lg",label:me("Large","bsx-blocks")}]})),Object(u.createElement)(ke,{title:me("Margin","bsx-blocks")},Object(u.createElement)(ye,{label:me("Margin left","bsx-blocks"),value:b,onChange:function(e){v({marginLeft:e})},options:[{value:"",label:me("– unset –","bsx-blocks")},{value:"0",label:me("none (0)","bsx-blocks")},{value:"1",label:me("extra small","bsx-blocks")},{value:"2",label:me("small","bsx-blocks")},{value:"3",label:me("medium","bsx-blocks")}]}),Object(u.createElement)(ye,{label:me("Margin right","bsx-blocks"),value:m,onChange:function(e){v({marginRight:e})},options:[{value:"",label:me("– unset –","bsx-blocks")},{value:"0",label:me("none (0)","bsx-blocks")},{value:"1",label:me("extra small","bsx-blocks")},{value:"2",label:me("small","bsx-blocks")},{value:"3",label:me("medium","bsx-blocks")}]}),Object(u.createElement)(ye,{label:me("Margin before","bsx-blocks"),value:d,onChange:function(e){v({marginBefore:e})},options:[{value:"",label:me("– unset –","bsx-blocks")},{value:"0",label:me("none (0)","bsx-blocks")},{value:"1",label:me("extra small","bsx-blocks")},{value:"2",label:me("small","bsx-blocks")},{value:"3",label:me("medium","bsx-blocks")},{value:"4",label:me("large","bsx-blocks")},{value:"5",label:me("extra large","bsx-blocks")}],help:me("Spacer before element","bsx-blocks")}),Object(u.createElement)(ye,{label:me("Margin after","bsx-blocks"),value:h,onChange:function(e){v({marginAfter:e})},options:[{value:"",label:me("– unset –","bsx-blocks")},{value:"0",label:me("none (0)","bsx-blocks")},{value:"1",label:me("extra small","bsx-blocks")},{value:"2",label:me("small","bsx-blocks")},{value:"3",label:me("medium","bsx-blocks")},{value:"4",label:me("large","bsx-blocks")},{value:"5",label:me("extra large","bsx-blocks")}],help:me("Spacer after element","bsx-blocks")}))),Object(u.createElement)(u.Fragment,null,Object(u.createElement)(ve,{tagName:l||"text-link"==s?"a":"button",className:w,multiline:!1,placeholder:me("Add Title...","bsx-blocks"),value:a,onChange:function(e){v({content:e})},allowedFormats:[],keepPlaceholderOnFocus:!0,href:"javascript:void( 0 );"}))]},save:function(e){e.className;var t=e.attributes,l=t.href,a=t.content,o=t.target,s=t.rel,r=t.state,i=t.stateType,c=t.size,b=t.dataFn,m=t.marginLeft,d=t.marginRight,h=t.marginBefore,p=t.marginAfter,v=t.ignoreMailtoSpamProtection,x=je(l),f=x.valid,k=f&&(l=="mailto:"+a||"object"==be()(a)&&0==a.length),w=Oe({state:r,stateType:i,size:c,hrefIsEmailIsContent:k,ignoreMailtoSpamProtection:v});w=g({marginLeft:m,marginRight:d,marginBefore:h,marginAfter:p},w);var y=E({href:v||!f?l:"javascript:void( 0 );","data-fn":!v&&f?"create-mt":b,"data-mt-n":!v&&f?x.name:"","data-mt-d":!v&&f?x.domain:"","data-mt-s":!v&&f?x.suffix:"",target:o,rel:l?s?s+" noopener noreferrer":"noopener noreferrer":""});return Object(u.createElement)(u.Fragment,null,(a&&!ve.isEmpty(a)||!v&&k)&&Object(u.createElement)(ve.Content,n()({tagName:l||"text-link"==r?"a":"button",value:!v&&k?"":a,className:w},y)))}});var Ee=wp.i18n,ze=Ee.__,Ce=(Ee.setLocaleData,wp.blocks.registerBlockType),Se=wp.blockEditor,Me=Se.InspectorControls,Ie=Se.RichText,Be=wp.components,Ae=Be.PanelBody,Ne=Be.SelectControl;Be.SVG,Be.Path;Ce("bsx-blocks/button-label",{title:ze("BSX Button Label","bsx-blocks"),icon:m("button-label"),category:"layout",parent:["bsx-blocks/buttons"],attributes:{content:{type:"array",source:"children",selector:"span"},display:{type:"string",default:""},marginLeft:{type:"string",default:""},marginRight:{type:"string",default:""},marginBefore:{type:"string",default:""},marginAfter:{type:"string",default:""}},edit:function(e){e.className;var t=e.attributes,l=t.content,a=t.display,n=t.marginLeft,o=t.marginRight,s=t.marginBefore,r=t.marginAfter,i=e.setAttributes,c=(e.isSelected,g({display:a,marginLeft:n,marginRight:o,marginBefore:s,marginAfter:r}));return[Object(u.createElement)(Me,null,Object(u.createElement)(Ae,{title:ze("Button Label appearance (optional)","bsx-blocks")},Object(u.createElement)(Ne,{label:ze("Display","bsx-blocks"),value:a,onChange:function(e){i({display:e})},options:[{value:"",label:ze("– unset –","bsx-blocks")},{value:"inline-block",label:ze("Inline-block","bsx-blocks")}]})),Object(u.createElement)(Ae,{title:ze("Margin (optional)","bsx-blocks")},Object(u.createElement)(Ne,{label:ze("Margin left","bsx-blocks"),value:n,onChange:function(e){i({marginLeft:e})},options:[{value:"",label:ze("– unset –","bsx-blocks")},{value:"0",label:ze("none (0)","bsx-blocks")},{value:"1",label:ze("extra small","bsx-blocks")},{value:"2",label:ze("small","bsx-blocks")},{value:"3",label:ze("medium","bsx-blocks")}]}),Object(u.createElement)(Ne,{label:ze("Margin right","bsx-blocks"),value:o,onChange:function(e){i({marginRight:e})},options:[{value:"",label:ze("– unset –","bsx-blocks")},{value:"0",label:ze("none (0)","bsx-blocks")},{value:"1",label:ze("extra small","bsx-blocks")},{value:"2",label:ze("small","bsx-blocks")},{value:"3",label:ze("medium","bsx-blocks")}]}),Object(u.createElement)(Ne,{label:ze("Margin before","bsx-blocks"),value:s,onChange:function(e){i({marginBefore:e})},options:[{value:"",label:ze("– unset –","bsx-blocks")},{value:"0",label:ze("none (0)","bsx-blocks")},{value:"1",label:ze("extra small","bsx-blocks")},{value:"2",label:ze("small","bsx-blocks")},{value:"3",label:ze("medium","bsx-blocks")},{value:"4",label:ze("large","bsx-blocks")},{value:"5",label:ze("extra large","bsx-blocks")}],help:ze("Spacer before element","bsx-blocks")}),Object(u.createElement)(Ne,{label:ze("Margin after","bsx-blocks"),value:r,onChange:function(e){i({marginAfter:e})},options:[{value:"",label:ze("– unset –","bsx-blocks")},{value:"0",label:ze("none (0)","bsx-blocks")},{value:"1",label:ze("extra small","bsx-blocks")},{value:"2",label:ze("small","bsx-blocks")},{value:"3",label:ze("medium","bsx-blocks")},{value:"4",label:ze("large","bsx-blocks")},{value:"5",label:ze("extra large","bsx-blocks")}],help:ze("Spacer after element","bsx-blocks")}))),Object(u.createElement)(u.Fragment,null,Object(u.createElement)(Ie,{tagName:"span",className:c,multiline:!1,placeholder:ze("Add label...","bsx-blocks"),value:l,onChange:function(e){i({content:e})},allowedFormats:[],keepPlaceholderOnFocus:!0}))]},save:function(e){e.className;var t=e.attributes,l=t.content,a=g({display:t.display,marginLeft:t.marginLeft,marginRight:t.marginRight,marginBefore:t.marginBefore,marginAfter:t.marginAfter});return Object(u.createElement)(u.Fragment,null,l&&!Ie.isEmpty(l)&&Object(u.createElement)(Ie.Content,{tagName:"span",value:l,className:a}))}});var Ve=wp.i18n,Le=Ve.__,He=(Ve.setLocaleData,wp.blocks.registerBlockType),Te=wp.blockEditor,Pe=Te.InnerBlocks,Re=Te.InspectorControls,Xe=Te.InspectorAdvancedControls,De=wp.components,We=(De.TextControl,De.PanelBody),Fe=(De.RangeControl,De.ToggleControl,De.SelectControl),_e=De.Button,qe=(De.SVG,De.Path,wp.data),Ge=(qe.withSelect,qe.withDispatch,function(e){var t=e.display,l=e.flexDirection,a=e.width,n=[];return t&&n.push("d-"+t),l&&n.push("flex-"+l),a&&n.push("w-"+a),n.join(" ")});He("bsx-blocks/column-rows",{title:Le("BSX Column Rows","bsx-blocks"),icon:Object(u.createElement)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"48",height:"48",viewBox:"0 0 48 48",role:"img","aria-hidden":"true",focusable:"false"},Object(u.createElement)("path",{"fill-rule":"evenodd","clip-rule":"evenodd",d:"M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9v-5h30V34z M39,27H9 v-6h30V27z M39,19H9v-5h30V19z"})),category:"layout",attributes:{templateName:{type:"string"},display:{type:"string",default:"flex"},flexDirection:{type:"string",default:"column"},width:{type:"string",default:"100"}},getEditWrapperProps:function(e){return{"data-display":e.display,"data-flexDirection":e.flexDirection,"data-width":e.width}},edit:function(e){e.className;var t,l,a=e.attributes,n=a.templateName,o=a.display,s=a.flexDirection,r=a.width,i=e.setAttributes,c=(e.isSelected,[{name:"default-auto",title:Le("Flex, static","bsx-blocks"),icon:Object(u.createElement)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"48",height:"48",viewBox:"0 0 48 48",role:"img","aria-hidden":"true",focusable:"false"},Object(u.createElement)("path",{"fill-rule":"evenodd","clip-rule":"evenodd",d:"M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9v-5h30V34z M39,27H9 V14h30V27z"})),template:[["bsx-blocks/column-row",{},[["core/paragraph",{placeholder:"Edit or insert other content and delete paragraph..."}]]],["bsx-blocks/column-row",{columnRowType:"auto"},[["core/paragraph",{placeholder:"Edit or insert other content and delete paragraph..."}]]]],templateLock:!1},{name:"auto-default",title:Le("Static, flex","bsx-blocks"),icon:Object(u.createElement)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"48",height:"48",viewBox:"0 0 48 48",role:"img","aria-hidden":"true",focusable:"false"},Object(u.createElement)("path",{"fill-rule":"evenodd","clip-rule":"evenodd",d:"M39,36H9c-1.1,0-2-0.9-2-2V14c0-1.1,0.9-2,2-2h30c1.1,0,2,0.9,2,2v20C41,35.1,40.1,36,39,36z M39,14H9v5h30V14z M39,21H9v13 h30V21z"})),template:[["bsx-blocks/column-row",{columnRowType:"auto"},[["core/paragraph",{placeholder:"Edit or insert other content and delete paragraph..."}]]],["bsx-blocks/column-row",{},[["core/paragraph",{placeholder:"Edit or insert other content and delete paragraph..."}]]]],templateLock:!1}]),b=function(e){var t=c.find((function(t){return t.name===e}));return t?t.template:[]},m=b(n),g=(t=n,!!(l=c.find((function(e){return e.name===t})))&&l.templateLock),d=function(e){m=b(e),i({templateName:e})},h=Ge({display:o,flexDirection:s,width:r});return[Object(u.createElement)(Re,null,Object(u.createElement)(We,{title:Le("Column Rows layout","bsx-blocks")},Object(u.createElement)("div",{className:"bsxui-icon-text-button-list"},c.map((function(e,t){return Object(u.createElement)(_e,{label:e.title,onClick:function(){d(e.name)},className:"bsxui-icon-text-button-list-item "+(n===e.name?"active":"")},Object(u.createElement)("div",{class:"bsxui-icon-text-button-list-item-icon"},e.icon),Object(u.createElement)("div",{class:"bsxui-icon-text-button-list-item-label"},e.title))}))))),Object(u.createElement)(Xe,null,Object(u.createElement)(Fe,{label:Le("Display","bsx-blocks"),value:o,onChange:function(e){i({display:e})},options:[{value:"",label:Le("– unset –","bsx-blocks")},{value:"flex",label:Le("Flex","bsx-blocks")}]}),Object(u.createElement)(Fe,{label:Le("Flex direction","bsx-blocks"),value:s,onChange:function(e){i({flexDirection:e})},options:[{value:"",label:Le("– unset –","bsx-blocks")},{value:"column",label:Le("Column","bsx-blocks")}]}),Object(u.createElement)(Fe,{label:Le("Width","bsx-blocks"),value:r,onChange:function(e){i({width:e})},options:[{value:"",label:Le("– unset –","bsx-blocks")},{value:"100",label:Le("100 %","bsx-blocks")}]})),Object(u.createElement)(u.Fragment,null,n?Object(u.createElement)("div",{className:h,"data-block":"column-rows","data-template-name":n},Object(u.createElement)(Pe,{template:m,templateLock:g,allowedBlocks:["bsx-blocks/column-row"]})):Object(u.createElement)("div",{class:"bsxui-initial-inline-control"},Object(u.createElement)("div",{class:"bsxui-initial-inline-control-heading"},Le("Please select Column Rows template","bsx-blocks")),Object(u.createElement)("div",{className:"bsxui-icon-text-button-list"},c.map((function(e,t){return Object(u.createElement)(_e,{label:e.title,onClick:function(){d(e.name)},className:"bsxui-icon-text-button-list-item "+(n===e.name?"active":"")},Object(u.createElement)("div",{class:"bsxui-icon-text-button-list-item-icon"},e.icon),Object(u.createElement)("div",{class:"bsxui-icon-text-button-list-item-label"},e.title))})))))]},save:function(e){e.className;var t=e.attributes,l=(t.templateName,t.display),a=t.flexDirection,n=t.width,o=Ge({display:l,flexDirection:a,width:n});return Object(u.createElement)("div",{className:o},Object(u.createElement)(Pe.Content,null))}});var Ue=wp.i18n,Ze=Ue.__,Je=(Ue.setLocaleData,wp.blocks.registerBlockType),$e=wp.blockEditor,Ke=$e.InnerBlocks,Qe=$e.InspectorControls,Ye=wp.components,et=(Ye.TextControl,Ye.PanelBody),tt=(Ye.RangeControl,Ye.ToggleControl,Ye.Button,Ye.SelectControl),lt=(wp.data.withSelect,function(e){var t=e.columnRowType,l=e.alignItems,a=e.display,n=[];return t?n.push("column-row-"+t):n.push("column-row"),l&&n.push("align-items-"+l),a&&n.push("d-"+a),n.join(" ")});Je("bsx-blocks/column-row",{title:Ze("BSX Column Row","bsx-blocks"),icon:Object(u.createElement)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"48",height:"48",viewBox:"0 0 48 48",role:"img","aria-hidden":"true",focusable:"false"},Object(u.createElement)("path",{"fill-rule":"evenodd","clip-rule":"evenodd",d:"M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9v-5h30V34z M39,27H9 V14h30V27z"})),category:"layout",parent:["bsx-blocks/column-rows"],attributes:{columnRowType:{type:"string",default:""},alignItems:{type:"string"},display:{type:"string"}},getEditWrapperProps:function(e){return{"data-column-row-type":e.columnRowType,"data-align-items":e.alignItems,"data-display":e.display}},edit:function(e){e.className;var t=e.attributes,l=t.columnRowType,a=t.alignItems,n=t.display,o=e.setAttributes,s=lt({columnRowType:l,alignItems:a,display:n});return[Object(u.createElement)(Qe,null,Object(u.createElement)(et,{title:Ze("Column Row","bsx-blocks")},Object(u.createElement)(tt,{label:Ze("Columns Row height","bsx-blocks"),value:l,onChange:function(e){o({columnRowType:e})},options:[{value:"",label:Ze("– Default – (flexible height)","bsx-blocks")},{value:"auto",label:Ze("Auto (static height)","bsx-blocks")}],help:Ze("Column Rows will share their patent’s height dividing it into flexible and/or static height segments.","bsx-blocks")}),Object(u.createElement)(tt,{label:Ze("Vertical Align","bsx-blocks"),value:a,onChange:function(e){o({alignItems:e})},options:[{value:"",label:Ze("– unset –","bsx-blocks")},{value:"start",label:Ze("Start","bsx-blocks")},{value:"center",label:Ze("Center","bsx-blocks")},{value:"end",label:Ze("End","bsx-blocks")}]}),Object(u.createElement)(tt,{label:Ze("Display","bsx-blocks"),value:n,onChange:function(e){o({display:e})},options:[{value:"",label:Ze("– unset –","bsx-blocks")},{value:"flex",label:Ze("Flex","bsx-blocks")}]}))),Object(u.createElement)("div",{className:s,"data-block":"column-row","data-column-row-type":l},Object(u.createElement)(Ke,{renderAppender:function(e){return e.length>0}?void 0:function(){return Object(u.createElement)(Ke.ButtonBlockAppender,null)}}))]},save:function(e){e.className;var t=e.attributes,l=t.columnRowType,a=t.alignItems,n=t.display,o=lt({columnRowType:l,alignItems:a,display:n});return Object(u.createElement)("div",{className:o},Object(u.createElement)(Ke.Content,null))}});var at=wp.i18n,nt=at.__,ot=(at.setLocaleData,wp.blocks.registerBlockType),st=wp.blockEditor,rt=st.InnerBlocks,it=st.InspectorControls,ct=st.InspectorAdvancedControls,bt=wp.components,ut=bt.PanelBody,mt=bt.ToggleControl,gt=bt.SelectControl,dt=(bt.SVG,bt.Path,wp.data.withSelect),ht=function(e,t){var l=[];return e?""===t?l.push("container-fluid"):l.push("container-"+t):l.push("container"),l.join(" ")};function pt(e,t){var l=Object.keys(e);if(Object.getOwnPropertySymbols){var a=Object.getOwnPropertySymbols(e);t&&(a=a.filter((function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable}))),l.push.apply(l,a)}return l}ot("bsx-blocks/container",{title:nt("BSX Container","bsx-blocks"),icon:m("container"),category:"layout",attributes:{isFluid:{type:"boolean",default:!1},containerBreakpoint:{type:"string",default:""},belowNavbar:{type:"boolean",default:!1},marginBefore:{type:"string",default:""},marginAfter:{type:"string",default:""},paddingBefore:{type:"string",default:""},paddingAfter:{type:"string",default:""}},edit:dt((function(e,t){var l=t.clientId,a=e("core/block-editor"),n=a.getBlocksByClientId;a.getBlockAttributes;return{children:n(l)[0]?n(l)[0].innerBlocks:[]}}))((function(e){e.className;var t=e.attributes,l=t.isFluid,a=t.containerBreakpoint,n=t.belowNavbar,o=t.marginBefore,s=t.marginAfter,r=t.paddingBefore,i=t.paddingAfter,c=e.setAttributes,b=(e.children,ht(l,a));return b=g({belowNavbar:n,marginBefore:o,marginAfter:s,paddingBefore:r,paddingAfter:i},b),[Object(u.createElement)(it,null,Object(u.createElement)(ut,{title:nt("Container Settings","bsx-blocks")},Object(u.createElement)(mt,{label:nt("Fluid container","bsx-blocks"),checked:!!l,onChange:function(e){!1===e&&c({containerBreakpoint:""}),c({isFluid:e})},help:nt("Fluid width from XS up","bsx-blocks")}),Object(u.createElement)(gt,{label:nt("Non fluid Breakpoint","bsx-blocks"),value:a,onChange:function(e){c({containerBreakpoint:e})},options:[{value:"",label:nt("– unset –","bsx-blocks")},{value:"sm",label:nt("SM","bsx-blocks")},{value:"md",label:nt("MD","bsx-blocks")},{value:"lg",label:nt("LG","bsx-blocks")},{value:"xl",label:nt("XL","bsx-blocks")}],disabled:!l,help:nt("Has (non fluid) Container width from this breakpoint up","bsx-blocks")})),Object(u.createElement)(ut,{title:nt("Margin","bsx-blocks")},Object(u.createElement)(gt,{label:nt("Margin before","bsx-blocks"),value:o,onChange:function(e){c({marginBefore:e})},options:[{value:"",label:nt("– unset –","bsx-blocks")},{value:"0",label:nt("none (0)","bsx-blocks")},{value:"1",label:nt("extra small","bsx-blocks")},{value:"2",label:nt("small","bsx-blocks")},{value:"3",label:nt("medium","bsx-blocks")},{value:"4",label:nt("large","bsx-blocks")},{value:"5",label:nt("extra large","bsx-blocks")}],help:nt("Spacer before element","bsx-blocks")}),Object(u.createElement)(gt,{label:nt("Margin after","bsx-blocks"),value:s,onChange:function(e){c({marginAfter:e})},options:[{value:"",label:nt("– unset –","bsx-blocks")},{value:"0",label:nt("none (0)","bsx-blocks")},{value:"1",label:nt("extra small","bsx-blocks")},{value:"2",label:nt("small","bsx-blocks")},{value:"3",label:nt("medium","bsx-blocks")},{value:"4",label:nt("large","bsx-blocks")},{value:"5",label:nt("extra large","bsx-blocks")}],help:nt("Spacer after element","bsx-blocks")}))),Object(u.createElement)(ct,null,Object(u.createElement)(mt,{label:nt("Below navbar","bsx-blocks"),checked:!!n,onChange:function(e){c({belowNavbar:e})},help:nt("Enable if container starts below navbar. If enabled container has spacer top to avoid overlapping its contents by navbar.","bsx-blocks")}),Object(u.createElement)(gt,{label:nt("Padding before","bsx-blocks"),value:r,onChange:function(e){c({paddingBefore:e})},options:[{value:"",label:nt("– unset –","bsx-blocks")},{value:"0",label:nt("none (0)","bsx-blocks")},{value:"1",label:nt("extra small","bsx-blocks")},{value:"2",label:nt("small","bsx-blocks")},{value:"3",label:nt("medium","bsx-blocks")},{value:"4",label:nt("large","bsx-blocks")},{value:"5",label:nt("extra large","bsx-blocks")}],help:nt("Inner spacer before","bsx-blocks")}),Object(u.createElement)(gt,{label:nt("Padding after","bsx-blocks"),value:i,onChange:function(e){c({paddingAfter:e})},options:[{value:"",label:nt("– unset –","bsx-blocks")},{value:"0",label:nt("none (0)","bsx-blocks")},{value:"1",label:nt("extra small","bsx-blocks")},{value:"2",label:nt("small","bsx-blocks")},{value:"3",label:nt("medium","bsx-blocks")},{value:"4",label:nt("large","bsx-blocks")},{value:"5",label:nt("extra large","bsx-blocks")}],help:nt("Inner spacer after","bsx-blocks")})),Object(u.createElement)("div",{className:b},Object(u.createElement)(rt,{renderAppender:function(e){return e.length>0}?void 0:function(){return Object(u.createElement)(rt.ButtonBlockAppender,null)}}))]})),save:function(e){e.className;var t=e.attributes,l=t.isFluid,a=t.containerBreakpoint,n=t.belowNavbar,o=t.marginBefore,s=t.marginAfter,r=t.paddingBefore,i=t.paddingAfter,c=ht(l,a);return c=g({belowNavbar:n,marginBefore:o,marginAfter:s,paddingBefore:r,paddingAfter:i},c),Object(u.createElement)("div",{className:c},Object(u.createElement)(rt.Content,null))}});var vt=wp.i18n,xt=vt.__,ft=(vt.setLocaleData,wp.blocks.registerBlockType),kt=wp.blockEditor,wt=kt.InnerBlocks,yt=kt.InspectorControls,Ot=wp.components,jt=Ot.PanelBody,Et=(Ot.TextControl,Ot.ToggleControl,Ot.SelectControl,Ot.Button),zt=(Ot.SVG,Ot.Path,wp.element.Fragment),Ct=wp.data.withSelect;ft("bsx-blocks/groups",{title:xt("BSX Groups","bsx-blocks"),icon:m("groups"),category:"layout",attributes:{templateName:{type:"string"}},edit:Ct((function(e,t){var l=t.clientId,a=e("core/block-editor").getBlocksByClientId;return{children:a(l)[0]?a(l)[0].innerBlocks:[]}}))((function(e){e.className;var t=e.attributes.templateName,l=e.setAttributes,a=(e.children,[{name:"lazy-img-paragraph-button",title:xt("Lazy image, paragraph, button","bsx-blocks"),icon:m("groups-lazy-img-paragraph-button"),attributes:{},template:[["bsx-blocks/lazy-img",{}],["core/paragraph",{placeholder:"Add text..."}],["bsx-blocks/buttons",{}]],templateLock:!1},{name:"lazy-img-heading-paragraph",title:xt("Lazy image, heading, paragraph","bsx-blocks"),icon:m("groups-lazy-img-heading-paragraph"),attributes:{},template:[["bsx-blocks/lazy-img",{}],["core/heading",{placeholder:"Add heading, configure heading level..."}],["core/paragraph",{placeholder:"Add text..."}]],templateLock:!1}]),n=function(e){var t=a.find((function(t){return t.name===e}));return t||{}},o=n(t).template,s=function(e){var t=n(e);null!=t.template&&null!=t.attributes?(o=t.template,l(function(e){for(var t=1;t<arguments.length;t++){var l=null!=arguments[t]?arguments[t]:{};t%2?pt(Object(l),!0).forEach((function(t){b()(e,t,l[t])})):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(l)):pt(Object(l)).forEach((function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(l,t))}))}return e}({templateName:e},t.attributes))):console.log("Error: Template change failed."),console.log("changed templateName: "+e)};return[Object(u.createElement)(yt,null,Object(u.createElement)(jt,{title:xt("Group Settings","bsx-blocks")},Object(u.createElement)("div",{className:"bsxui-icon-text-button-list"},a.map((function(e,l){return Object(u.createElement)(Et,{label:e.title,onClick:function(){s(e.name)},className:"bsxui-icon-text-button-list-item "+(t===e.name?"active":"")},Object(u.createElement)("div",{class:"bsxui-icon-text-button-list-item-icon"},e.icon),Object(u.createElement)("div",{class:"bsxui-icon-text-button-list-item-label"},e.title))}))))),Object(u.createElement)(zt,null,t?Object(u.createElement)(wt,{template:o,renderAppender:function(e){return e.length>0}?void 0:function(){return Object(u.createElement)(wt.ButtonBlockAppender,null)}}):Object(u.createElement)("div",{class:"bsxui-initial-inline-control"},Object(u.createElement)("div",{class:"bsxui-initial-inline-control-heading"},xt("Please select Group template","bsx-blocks")),Object(u.createElement)("div",{className:"bsxui-icon-text-button-list"},a.map((function(e,l){return Object(u.createElement)(Et,{label:e.title,onClick:function(){s(e.name)},className:"bsxui-icon-text-button-list-item "+(t===e.name?"active":"")},Object(u.createElement)("div",{class:"bsxui-icon-text-button-list-item-icon"},e.icon),Object(u.createElement)("div",{class:"bsxui-icon-text-button-list-item-label"},e.title))})))))]})),save:function(e){e.className,e.attributes.templateName;return Object(u.createElement)(wt.Content,null)}});var St=l(2),Mt=l.n(St),It=wp.i18n,Bt=It.__,At=(It.setLocaleData,wp.blocks.registerBlockType),Nt=wp.blockEditor,Vt=Nt.RichText,Lt=Nt.MediaUpload,Ht=Nt.InspectorControls,Tt=(Nt.InspectorAdvancedControls,wp.components),Pt=Tt.Button,Rt=(Tt.TextControl,Tt.SelectControl),Xt=Tt.PanelBody,Dt=Tt.ToggleControl,Wt=(Tt.SVG,Tt.Path,function(e){var t=e.galleryType,l=["bsx-gallery"];return t&&"floating"==t&&l.push("bsx-floating-gallery"),l.join(" ")}),Ft=function(e){var t=e.galleryType,l=[];return t&&("floating"==t?l.push("bsx-floating-gallery-inner"):"columns"==t&&l.push("row")),l.join(" ")},_t=function(e){var t=e.galleryType,l=[];return t&&("floating"==t?l.push("bsx-floating-gallery-figure d-inline-block"):"columns"==t&&l.push("col-6 col-sm-3 mb-4")),l.join(" ")},qt=function(e){var t=e.galleryType,l=[];return t&&("floating"==t?l.push("d-inline-block"):"columns"==t&&l.push("d-block text-center")),l.join(" ")},Gt=function(e){var t=e.galleryType,l=[];return t&&("floating"==t?l.push("bsx-floating-gallery-img-md"):"columns"==t&&l.push("img-fluid")),l.join(" ")};At("bsx-blocks/img-gallery",{title:Bt("BSX Image Gallery","bsx-blocks"),icon:m("gallery"),category:"layout",attributes:{mediaList:{type:"array",default:[]},galleryType:{type:"string",default:"columns"},figcaption:{type:"array",source:"children",selector:".bsx-gallery-figcaption"},rounded:{type:"boolean"},imgThumbnail:{type:"boolean"},borderState:{type:"string"},hoverShadow:{type:"boolean"},hoverMove:{type:"boolean"},marginBefore:{type:"string",default:""},marginAfter:{type:"string",default:""}},edit:function(e){e.className;var t=e.attributes,l=t.mediaList,a=t.galleryType,n=t.figcaption,o=t.rounded,s=t.imgThumbnail,r=t.borderState,i=t.hoverShadow,c=t.hoverMove,b=t.marginBefore,d=t.marginAfter,h=e.setAttributes,p=(e.isSelected,function(e){return h({mediaList:[].concat(Mt()(l),Mt()(e))})}),v=function(e,t){var a=[].concat(Mt()(l.slice(0,t)),[e],Mt()(l.slice(t+1)));h({mediaList:a})},x=function(e){var t=[].concat(Mt()(l.slice(0,e)),Mt()(l.slice(e+1)));h({mediaList:t})},f=function(e,t){var a=[].concat(Mt()(l.slice(0,e)),Mt()(l.slice(e+1))),n=[].concat(Mt()(a.slice(0,t)),[l[e]],Mt()(a.slice(t)));h({mediaList:n})},k=Wt({galleryType:a});k=g({marginBefore:b,marginAfter:d},k);var w=Ft({galleryType:a}),y=_t({galleryType:a}),O=qt({galleryType:a});O=g({hoverShadow:i,hoverMove:c},O);var j=Gt({galleryType:a});j=g({rounded:o,imgThumbnail:s,borderState:r},j);var E=function(e){var t=e.galleryType,l=[];return t&&"floating"==t&&l.push("bsxui-mt-3"),l.join(" ")}({galleryType:a});return[Object(u.createElement)(Ht,null,Object(u.createElement)(Xt,{title:Bt("Gallery settings","bsx-blocks")},Object(u.createElement)(Rt,{label:Bt("Gallery type","bsx-blocks"),value:a,onChange:function(e){h({galleryType:e})},options:[{value:"columns",label:Bt("Columns","bsx-blocks")},{value:"floating",label:Bt("Floating (equal image height)","bsx-blocks")}]})),Object(u.createElement)(Xt,{title:Bt("Thumbnail appearance","bsx-blocks")},Object(u.createElement)(Dt,{label:Bt("Rounded corners","bsx-blocks"),checked:!!o,onChange:function(e){h({rounded:e})}}),Object(u.createElement)(Dt,{label:Bt("Border","bsx-blocks"),checked:!!s,onChange:function(e){h({imgThumbnail:e})}}),Object(u.createElement)(Rt,{label:Bt("Border color","bsx-blocks"),value:r,onChange:function(e){h({borderState:e})},options:[{value:"",label:Bt("– unset –","bsx-blocks")},{value:"white",label:Bt("White","bsx-blocks")},{value:"primary",label:Bt("Primary","bsx-blocks")},{value:"secondary",label:Bt("Secondary","bsx-blocks")},{value:"success",label:Bt("Success","bsx-blocks")},{value:"danger",label:Bt("Danger","bsx-blocks")},{value:"warning",label:Bt("Warning","bsx-blocks")},{value:"info",label:Bt("Info","bsx-blocks")},{value:"light",label:Bt("Light","bsx-blocks")},{value:"dark",label:Bt("Dark","bsx-blocks")}]}),Object(u.createElement)(Dt,{label:Bt("Mouseover shadow","bsx-blocks"),checked:!!i,onChange:function(e){h({hoverShadow:e})}}),Object(u.createElement)(Dt,{label:Bt("Mouseover move","bsx-blocks"),checked:!!c,onChange:function(e){h({hoverMove:e})}})),Object(u.createElement)(Xt,{title:Bt("Margin","bsx-blocks")},Object(u.createElement)(Rt,{label:Bt("Margin before","bsx-blocks"),value:b,onChange:function(e){h({marginBefore:e})},options:[{value:"",label:Bt("– unset –","bsx-blocks")},{value:"0",label:Bt("none (0)","bsx-blocks")},{value:"1",label:Bt("extra small","bsx-blocks")},{value:"2",label:Bt("small","bsx-blocks")},{value:"3",label:Bt("medium","bsx-blocks")},{value:"4",label:Bt("large","bsx-blocks")},{value:"5",label:Bt("extra large","bsx-blocks")}],help:Bt("Spacer before element","bsx-blocks")}),Object(u.createElement)(Rt,{label:Bt("Margin after","bsx-blocks"),value:d,onChange:function(e){h({marginAfter:e})},options:[{value:"",label:Bt("– unset –","bsx-blocks")},{value:"0",label:Bt("none (0)","bsx-blocks")},{value:"1",label:Bt("extra small","bsx-blocks")},{value:"2",label:Bt("small","bsx-blocks")},{value:"3",label:Bt("medium","bsx-blocks")},{value:"4",label:Bt("large","bsx-blocks")},{value:"5",label:Bt("extra large","bsx-blocks")}],help:Bt("Spacer after element","bsx-blocks")}))),Object(u.createElement)("figure",{className:k},Object(u.createElement)("div",{className:w},l.map((function(e,t){return Object(u.createElement)("div",{class:y},Object(u.createElement)("span",{className:O},Object(u.createElement)(Lt,{key:t,onSelect:function(e){return function(e,t){v({id:e.id,url:e.url,width:e.sizes.full.width,height:e.sizes.full.height,alt:e.alt,thumbUrl:e.sizes.medium.url,thumbWidth:e.sizes.medium.width,thumbHeight:e.sizes.medium.height,caption:e.alt},t)}(e,t)},allowedTypes:"image",value:e.id,render:function(t){var l=t.open;return Object(u.createElement)(Pt,{className:"bsxui-h-auto bsxui-w-100 bsxui-p-0 bsxui-va-middle",onClick:l},Object(u.createElement)("img",{className:j,src:e.url,alt:Bt("Upload Image","bsx-blocks")}))}})),Object(u.createElement)("div",null,Object(u.createElement)(Vt,{tagName:"div",multiline:!1,placeholder:Bt("Caption (optional)","bsx-blocks"),value:e.caption,onChange:function(e){!function(e,t){var a=[].concat(Mt()(l.slice(0,t)),[{id:l[t].id,url:l[t].url,width:l[t].width,height:l[t].height,alt:l[t].alt,thumbUrl:l[t].thumbUrl,thumbWidth:l[t].thumbWidth,thumbHeight:l[t].thumbHeight,caption:e}],Mt()(l.slice(t+1)));h({mediaList:a})}(e,t)}})),Object(u.createElement)("div",{className:"d-flex"},Object(u.createElement)(Pt,{className:"button bsxui-icon-button",onClick:function(){!function(e){var t=e>0?e-1:l.length-1;f(e,t)}(t)},label:Bt("Move backward","bsx-blocks")},m("carret-left")),Object(u.createElement)(Pt,{className:"button bsxui-icon-button",onClick:function(){!function(e){var t=e<l.length-1?e+1:0;f(e,t)}(t)},label:Bt("Move forward","bsx-blocks")},m("carret-right")),Object(u.createElement)(Pt,{className:"button bsxui-icon-button bsxui-text-danger bsxui-border-danger bsxui-ml-auto",onClick:function(){!function(e){x(e)}(t)},label:Bt("Remove Image","bsx-blocks")},m("trash"))))}))),Object(u.createElement)("div",{className:E},Object(u.createElement)(Lt,{onSelect:function(e){var t=[];e.forEach((function(e){t.push({id:e.id,url:e.url,width:e.sizes.full.width,height:e.sizes.full.height,alt:e.alt,thumbUrl:e.sizes.medium.url,thumbWidth:e.sizes.medium.width,thumbHeight:e.sizes.medium.height,caption:e.alt})})),p(t)},allowedTypes:"image",multiple:!0,render:function(e){var t=e.open;return Object(u.createElement)(Pt,{className:"button button-large bsxui-w-100",onClick:t},Bt("Add image(s)","bsx-blocks"))}})),Object(u.createElement)(Vt,{tagName:"figcaption",multiline:!1,placeholder:Bt("Caption (optional)","bsx-blocks"),value:n,onChange:function(e){h({figcaption:e})},keepPlaceholderOnFocus:!0}))]},save:function(e){e.className;var t=e.attributes,l=t.mediaList,a=t.galleryType,n=t.figcaption,o=t.rounded,s=t.imgThumbnail,r=t.borderState,i=t.hoverShadow,c=t.hoverMove,b=t.marginBefore,m=t.marginAfter,d=Wt({galleryType:a});d=g({marginBefore:b,marginAfter:m},d);var h=Ft({galleryType:a}),p=_t({galleryType:a}),v=qt({galleryType:a});v=g({hoverShadow:i,hoverMove:c},v);var x=Gt({galleryType:a});x=g({rounded:o,imgThumbnail:s,borderState:r},x);return Object(u.createElement)("figure",{className:d},Object(u.createElement)("div",{class:"bsx-gallery",itemscope:!0,itemtype:"http://schema.org/ImageGallery","data-fn":"photoswipe"},Object(u.createElement)("div",{class:h},l.map((function(e,t){return Object(u.createElement)("figure",{class:p,itemprop:"associatedMedia",itemscope:!0,itemtype:"http://schema.org/ImageObject"},Object(u.createElement)("a",{class:v,href:e.url,itemprop:"contentUrl","data-size":e.width+"x"+e.height},Object(u.createElement)("script",null,"document.write( '",Object(u.createElement)("img",{className:x,src:y(e.thumbWidth,e.thumbHeight),alt:e.alt,width:e.thumbWidth,height:e.thumbHeight,"data-src":e.thumbUrl,"data-fn":"lazyload"}),"' );"),Object(u.createElement)("noscript",null,Object(u.createElement)("img",{className:x,src:e.thumbUrl,alt:e.alt,width:e.thumbWidth,height:e.thumbHeight}))),e.caption&&!Vt.isEmpty(e.caption)&&Object(u.createElement)(Vt.Content,{tagName:"figcaption",className:"sr-only",value:e.caption,itemprop:"caption description"}))})))),n&&!Vt.isEmpty(n)&&Object(u.createElement)(Vt.Content,{tagName:"figcaption",className:"bsx-gallery-figcaption font-italic",value:n}))}});var Ut=wp.i18n,Zt=Ut.__,Jt=(Ut.setLocaleData,wp.blocks.registerBlockType),$t=wp.blockEditor,Kt=$t.RichText,Qt=$t.MediaUpload,Yt=$t.InspectorControls,el=$t.InspectorAdvancedControls,tl=$t.BlockControls,ll=$t.AlignmentToolbar,al=wp.components,nl=al.Button,ol=al.TextControl,sl=al.PanelBody,rl=al.RadioControl,il=al.SelectControl,cl=al.ToggleControl,bl=(al.SVG,al.Path,[{media:"(orientation: portrait) and (max-width: 499.98px)",imgSizeIndexShift:"-1",minImgSizeIndex:"1"},{media:"(orientation: portrait)",imgSizeIndexShift:"0",minImgSizeIndex:"2"}]),ul=[{media:"(max-width: 459.98px)",imgSizeIndexShift:"-2",minImgSizeIndex:"1"},{media:"(max-width: 767.98px)",imgSizeIndexShift:"-1",minImgSizeIndex:"2"}],ml=function(e){var t=e.imgSizes,l=e.imgSizeIndex,a=e.responsiveMediaIndexList,n=e.portraitImgSizes,o=e.portraitImgSizeIndex,s=e.responsivePortraitMediaIndexList,r=e.skipIndex,i=e.disableResponsiveDownsizing,c=[];return s.forEach((function(e,t){var l=parseInt(o)+parseInt(e.imgSizeIndexShift),a=l<parseInt(e.minImgSizeIndex)?parseInt(e.minImgSizeIndex):l;a<parseInt(o)&&a>r&&void 0!==n[a]&&void 0!==n[a].url&&c.push({media:e.media,srcset:y(n[a].width,n[a].height),"data-srcset":n[a].url,"data-width":n[a].width,"data-height":n[a].height})})),a.forEach((function(e,a){var n=parseInt(l)+parseInt(e.imgSizeIndexShift),o=n<parseInt(e.minImgSizeIndex)?parseInt(e.minImgSizeIndex):n;!i&&o<parseInt(l)&&o>r&&void 0!==t[o]&&void 0!==t[o].url&&c.push({media:e.media,srcset:y(t[o].width,t[o].height),"data-srcset":t[o].url,"data-width":t[o].width,"data-height":t[o].height})})),c};Jt("bsx-blocks/lazy-img",{title:Zt("BSX Lazy Image","bsx-blocks"),icon:m("lazy-img"),category:"layout",attributes:{hasFigure:{boolean:"string",default:!0},imgSizes:{type:"array",default:[]},imgSizeIndex:{type:"string",default:"3"},imgId:{type:"number"},url:{type:"string"},width:{type:"number"},height:{type:"number"},origWidth:{type:"number"},origHeight:{type:"number"},portraitImgId:{type:"number"},portraitImgSizes:{type:"array",default:[]},portraitImgSizeIndex:{type:"string",default:"3"},alt:{type:"string"},figcaption:{type:"array",source:"children",selector:"figcaption"},rounded:{type:"string"},imgThumbnail:{type:"boolean"},borderState:{type:"string"},zoomable:{type:"boolean"},zoomImgSizeIndex:{type:"string"},disableResponsiveDownsizing:{type:"boolean"},textAlign:{type:"string",default:""},marginAfter:{type:"string"}},edit:function(e){e.className;var t=e.attributes,l=t.imgId,a=t.imgSizes,n=t.imgSizeIndex,o=t.url,r=t.width,c=t.height,b=(t.origWidth,t.origHeight,t.portraitImgId),m=t.portraitImgSizes,d=t.portraitImgSizeIndex,h=t.alt,p=t.figcaption,v=t.rounded,x=t.imgThumbnail,f=t.borderState,w=t.zoomable,y=t.zoomImgSizeIndex,O=t.disableResponsiveDownsizing,j=t.textAlign,E=t.marginAfter,z=e.setAttributes;e.isSelected,e.setState;function C(e){return S.apply(this,arguments)}function S(){return(S=i()(s.a.mark((function e(t){var l,a,o,r,i,c;return s.a.wrap((function(e){for(;;)switch(e.prev=e.next){case 0:if(void 0===t.url){e.next=13;break}return e.next=3,k(t);case 3:l=e.sent,a=l.imgs,o=l.originalWidth,r=l.originalHeight,i=parseInt(n),parseInt(n)>=a.length&&(i=a.length-1),t.sizes.thumbnail.width!==t.sizes.thumbnail.height?0:1,c=y,(!y||parseInt(y)<parseInt(i)||parseInt(y)>=parseInt(a.length))&&(c=(a.length-1).toString()),z({imgId:t.id,imgSizes:a,imgSizeIndex:i.toString(),url:a[i].url,width:parseInt(a[i].width),height:parseInt(a[i].height),origWidth:o,origHeight:r,alt:t.alt,zoomImgSizeIndex:c});case 13:case"end":return e.stop()}}),e)})))).apply(this,arguments)}function M(e){return I.apply(this,arguments)}function I(){return(I=i()(s.a.mark((function e(t){var l,a,n;return s.a.wrap((function(e){for(;;)switch(e.prev=e.next){case 0:if(void 0===t.url){e.next=8;break}return e.next=3,k(t);case 3:l=e.sent,a=l.imgs,n=parseInt(d),parseInt(d)>=a.length&&(n=a.length-1),z({portraitImgId:t.id,portraitImgSizes:a,portraitImgSizeIndex:n.toString()});case 8:case"end":return e.stop()}}),e)})))).apply(this,arguments)}var B=[{icon:"editor-alignleft",title:Zt("Align left","bsx-blocks"),align:"left"},{icon:"editor-aligncenter",title:Zt("Align center","bsx-blocks"),align:"center"},{icon:"editor-alignright",title:Zt("Align right","bsx-blocks"),align:"right"}],A=[];a.forEach((function(e,t){A.push({value:t.toString(),label:e.width+"x"+e.height+(a[a.length-1].width!==a[a.length-1].height&&e.width===e.height?" "+Zt("(Square format)","bsx-blocks"):"")})}));var N=[];m.forEach((function(e,t){N.push({value:t.toString(),label:e.width+"x"+e.height+(m[m.length-1].width!==m[m.length-1].height&&e.width===e.height?" "+Zt("(Square format)","bsx-blocks"):"")})}));var V=[];a.forEach((function(e,t){t>=n&&V.push({value:t.toString(),label:e.width+"x"+e.height+(a[a.length-1].width!==a[a.length-1].height&&e.width===e.height?" "+Zt("(Square format)","bsx-blocks"):"")})}));var L=ml({imgSizes:a,imgSizeIndex:n,responsiveMediaIndexList:ul,portraitImgSizes:m,portraitImgSizeIndex:d,responsivePortraitMediaIndexList:bl,skipIndex:0,disableResponsiveDownsizing:O}),H=g({textAlign:j,marginAfter:E}),T=g({rounded:v,imgThumbnail:x,borderState:f},"img-fluid"),P=Object(u.createElement)("picture",null,L.map((function(e,t){return Object(u.createElement)("source",e)})),Object(u.createElement)("img",{className:T,src:o,alt:h}));return[Object(u.createElement)(tl,null,Object(u.createElement)(ll,{label:Zt("Alignment","bsx-blocks"),value:j,onChange:function(e){z({textAlign:e})},alignmentControls:B})),Object(u.createElement)(Yt,null,Object(u.createElement)(sl,{title:Zt("Image","bsx-blocks")},Object(u.createElement)(ol,{label:Zt("Alt","bsx-blocks"),value:h,onChange:function(e){z({alt:e})}}),l?Object(u.createElement)(Qt,{onSelect:C,allowedTypes:"image",value:l,render:function(e){var t=e.open;return Object(u.createElement)(nl,{className:"bsxui-config-panel-img-button has-margin-bottom",onClick:t},Object(u.createElement)("img",{class:"bsxui-config-panel-img",src:o,alt:Zt("Change / upload image","bsx-blocks")}))}}):Object(u.createElement)("div",{class:"bsxui-config-panel-row"},Object(u.createElement)("div",{class:"bsxui-config-panel-text"},Zt("– No image selected yet –","bsx-blocks"))),Object(u.createElement)("div",{class:"bsxui-config-panel-row"},Object(u.createElement)(Qt,{onSelect:C,allowedTypes:"image",value:l,render:function(e){var t=e.open;return Object(u.createElement)(nl,{onClick:t,isSecondary:!0},Zt("Change / upload image","bsx-blocks"))}})),Object(u.createElement)(rl,{label:Zt("Image size and format","bsx-blocks"),selected:n.toString(),options:A,onChange:function(e){z({imgSizeIndex:e.toString(),url:a[e].url,width:parseInt(a[e].width),height:parseInt(a[e].height)})}}),null!=a[n]&&null!=a[n].url&&Object(u.createElement)("div",{class:"bsxui-config-panel-row"},Object(u.createElement)("div",{class:"bsxui-config-panel-text"},Object(u.createElement)("a",{class:"bsxui-link",href:a[n].url,target:"_blank"},Zt("Preview selected image","bsx-blocks")))),Object(u.createElement)(ol,{label:Zt("Displayed image width","bsx-blocks"),value:r,onChange:function(e){z({width:parseInt(e)})}}),Object(u.createElement)(ol,{label:Zt("Displayed image height","bsx-blocks"),value:c,onChange:function(e){z({height:parseInt(e)})}}),Object(u.createElement)(il,{label:Zt("Rounded","bsx-blocks"),value:v,onChange:function(e){z({rounded:e})},options:[{value:"",label:Zt("– unset –","bsx-blocks")},{value:"rounded",label:Zt("Rounded corners","bsx-blocks")},{value:"circle",label:Zt("Circle","bsx-blocks")}]}),Object(u.createElement)(cl,{label:Zt("Border","bsx-blocks"),checked:!!x,onChange:function(e){z({imgThumbnail:e})}}),Object(u.createElement)(il,{label:Zt("Border color","bsx-blocks"),value:f,onChange:function(e){z({borderState:e})},options:[{value:"",label:Zt("– unset –","bsx-blocks")},{value:"white",label:Zt("White","bsx-blocks")},{value:"primary",label:Zt("Primary","bsx-blocks")},{value:"secondary",label:Zt("Secondary","bsx-blocks")},{value:"success",label:Zt("Success","bsx-blocks")},{value:"danger",label:Zt("Danger","bsx-blocks")},{value:"warning",label:Zt("Warning","bsx-blocks")},{value:"info",label:Zt("Info","bsx-blocks")},{value:"light",label:Zt("Light","bsx-blocks")},{value:"dark",label:Zt("Dark","bsx-blocks")}]})),Object(u.createElement)(sl,{title:Zt("Portrait image (optional)","bsx-blocks")},b&&void 0!==m[d]&&void 0!==m[d].url?Object(u.createElement)(Qt,{onSelect:M,allowedTypes:"image",value:b,render:function(e){var t=e.open;return Object(u.createElement)(nl,{className:"bsxui-config-panel-img-button has-margin-bottom",onClick:t},Object(u.createElement)("img",{class:"bsxui-config-panel-img",src:m[d].url,alt:Zt("Change / upload portrait image","bsx-blocks")}))}}):Object(u.createElement)(u.Fragment,null,!!w&&Object(u.createElement)("div",{class:"bsxui-config-panel-row"},Object(u.createElement)("div",{class:"bsxui-alert"},"Portrait image is deactivated since zoomable image is set.")),Object(u.createElement)("div",{class:"bsxui-config-panel-row"},Object(u.createElement)("div",{class:"bsxui-config-panel-text"},Zt("– No portrait image selected yet –","bsx-blocks")))),Object(u.createElement)("div",{class:"bsxui-config-panel-row"},Object(u.createElement)(Qt,{onSelect:M,allowedTypes:"image",value:b,render:function(e){var t=e.open;return Object(u.createElement)(nl,{disabled:!!w,onClick:t,isSecondary:!0},Zt("Change / upload portrait image","bsx-blocks"))}})),b&&void 0!==m[d]&&void 0!==m[d].url&&Object(u.createElement)("div",{class:"bsxui-config-panel-row"},Object(u.createElement)(nl,{onClick:function(){z({portraitImgId:"",portraitImgSizes:[]})},isDestructive:!0},Zt("Remove portrait image","bsx-blocks"))),Object(u.createElement)(rl,{label:Zt("Image size and format","bsx-blocks"),selected:d.toString(),options:N,onChange:function(e){z({portraitImgSizeIndex:e.toString()})}}),void 0!==m[d]&&void 0!==m[d].url&&Object(u.createElement)("div",{class:"bsxui-config-panel-text"},Object(u.createElement)("a",{class:"bsxui-link",href:m[d].url,target:"_blank"},Zt("Preview selected portrait image","bsx-blocks")))),Object(u.createElement)(sl,{title:Zt("Zoomable (optional)","bsx-blocks")},m.length>0&&Object(u.createElement)("div",{class:"bsxui-config-panel-row"},Object(u.createElement)("div",{class:"bsxui-alert"},"Zoomable image is deactivated since portrait image is set.")),Object(u.createElement)(cl,{className:m.length>0?"bsxui-disabled":"",label:Zt("Zoomable image","bsx-blocks"),checked:!!w,onChange:function(e){z(null==y?{zoomable:e,zoomImgSizeIndex:(a.length-1).toString()}:{zoomable:e})},help:Zt("If enabled click on image will open shadowbox with large image.","bsx-blocks")}),w&&Object(u.createElement)(u.Fragment,null,Object(u.createElement)(rl,{label:Zt("Zoom image size","bsx-blocks"),selected:y,options:V,onChange:function(e){z({zoomImgSizeIndex:e.toString()})}}),n==y&&Object(u.createElement)("div",{class:"bsxui-config-panel-text"},Zt("Currently your zoom image is not larger than your original image.","bsx-blocks")))),Object(u.createElement)(sl,{title:Zt("Margin (optional)","bsx-blocks")},Object(u.createElement)(il,{label:Zt("Margin after","bsx-blocks"),value:E,onChange:function(e){z({marginAfter:e})},options:[{value:"",label:Zt("– unset –","bsx-blocks")},{value:"0",label:Zt("none (0)","bsx-blocks")},{value:"1",label:Zt("extra small","bsx-blocks")},{value:"2",label:Zt("small","bsx-blocks")},{value:"3",label:Zt("medium","bsx-blocks")},{value:"4",label:Zt("large","bsx-blocks")},{value:"5",label:Zt("extra large","bsx-blocks")}],help:Zt("Spacer after element","bsx-blocks")}))),Object(u.createElement)(el,null,Object(u.createElement)(cl,{label:Zt("Disable responsive image downsizing","bsx-blocks"),checked:!!O,onChange:function(e){z({disableResponsiveDownsizing:e})},help:Zt("Enable if you don’t want smaller responsive image sizes, since small devices display image in large dimensions.","bsx-blocks")})),Object(u.createElement)("figure",{className:H},l?Object(u.createElement)(u.Fragment,null,w?Object(u.createElement)("a",{className:"zoomable-img"},P):Object(u.createElement)(u.Fragment,null,P)):Object(u.createElement)("div",{className:"bsxui-img-upload-placeholder"},Object(u.createElement)(Qt,{onSelect:C,allowedTypes:"image",value:l,render:function(e){var t=e.open;return Object(u.createElement)(nl,{onClick:t,isSecondary:!0},Zt("Select / upload Image","bsx-blocks"))}})),Object(u.createElement)(Kt,{tagName:"figcaption",multiline:!1,placeholder:Zt("Caption (optional)","bsx-blocks"),value:p,onChange:function(e){z({figcaption:e})},keepPlaceholderOnFocus:!0}))]},save:function(e){e.className;var t=e.attributes,l=t.imgSizeIndex,a=t.imgSizes,o=t.url,s=t.width,r=t.height,i=(t.origWidth,t.origHeight,t.portraitImgId,t.portraitImgSizes),c=t.portraitImgSizeIndex,b=t.alt,m=t.figcaption,d=t.rounded,h=t.imgThumbnail,p=t.borderState,v=t.zoomable,x=t.zoomImgSizeIndex,f=t.disableResponsiveDownsizing,k=t.textAlign,w=t.marginAfter,O=ml({imgSizes:a,imgSizeIndex:l,responsiveMediaIndexList:ul,portraitImgSizes:i,portraitImgSizeIndex:c,responsivePortraitMediaIndexList:bl,skipIndex:0,disableResponsiveDownsizing:f}),j=g({textAlign:k,marginAfter:w}),z=g({rounded:d,imgThumbnail:h,borderState:p},"img-fluid"),C=v?E({"data-fn":"photoswipe"}):{},S=v&&void 0!==a[x]?E({href:a[x].url,"data-size":a[x].width+"x"+a[x].height}):{},M=Object(u.createElement)(u.Fragment,null,Object(u.createElement)("script",null,"document.write( '",Object(u.createElement)("picture",null,O.map((function(e,t){return Object(u.createElement)("source",e)})),Object(u.createElement)("img",{className:z,src:y(s,r),alt:b,"data-src":o,width:s,height:r,"data-fn":"lazyload"})),"' );"),Object(u.createElement)("noscript",null,Object(u.createElement)("img",{className:z,src:o,alt:b,width:s,height:r})));return Object(u.createElement)("figure",n()({className:j},C),o&&Object(u.createElement)(u.Fragment,null,v?Object(u.createElement)("a",n()({className:"zoomable-img"},S),M):Object(u.createElement)(u.Fragment,null,M),m&&!Kt.isEmpty(m)&&Object(u.createElement)(Kt.Content,{tagName:"figcaption",className:"font-italic",value:m})))}});var gl=wp.i18n,dl=gl.__,hl=(gl.setLocaleData,wp.blocks.registerBlockType),pl=wp.blockEditor,vl=pl.InnerBlocks,xl=pl.InspectorControls,fl=wp.components,kl=(fl.TextControl,fl.PanelBody),wl=fl.RangeControl,yl=fl.ToggleControl,Ol=fl.Button,jl=fl.SelectControl,El=wp.data.withSelect,zl=function(e,t){var l=["xs","sm","md","lg","xl"],a=[];return e.forEach((function(e,t){var n=l[t],o="";e&&(o+="col","xs"==n||(o+="-"+n),"null"!=e&&(o+="-"+e),a.push(o))})),t&&a.push("mb-"+t),a.join(" ")};function Cl(e,t){var l=Object.keys(e);if(Object.getOwnPropertySymbols){var a=Object.getOwnPropertySymbols(e);t&&(a=a.filter((function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable}))),l.push.apply(l,a)}return l}hl("bsx-blocks/col",{title:dl("BSX Column","bsx-blocks"),icon:Object(u.createElement)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"20",height:"20",viewBox:"0 0 20 20","aria-hidden":"true",role:"img",focusable:"false"},Object(u.createElement)("path",{d:"M18.71,1.29C18.52,1.11,18.26,1,18,1H2C1.74,1,1.48,1.11,1.29,1.29C1.11,1.48,1,1.74,1,2v16c0,0.26,0.11,0.52,0.29,0.71 C1.48,18.89,1.74,19,2,19h16c0.26,0,0.52-0.11,0.71-0.29C18.89,18.52,19,18.26,19,18V2C19,1.74,18.89,1.48,18.71,1.29z M12,3v14H8V3 H12z M3,3h3v14H3V3z M14,17V3h3l0,14H14z"})),category:"layout",parent:["bsx-blocks/row-with-cols"],attributes:{colType:{type:"string",default:"custom"},enableInheritanceFromRow:{type:"boolean",default:!0},sizeXs:{type:"string",default:""},sizeSm:{type:"string",default:""},sizeMd:{type:"string",default:"4"},sizeLg:{type:"string",default:""},sizeXl:{type:"string",default:""},nodeName:{type:"string",default:"div"},marginAfter:{type:"string",default:"3"}},getEditWrapperProps:function(e){return{"data-size":e.sizeXs,"data-size-sm":e.sizeSm,"data-size-md":e.sizeMd,"data-size-lg":e.sizeLg,"data-size-xl":e.sizeXl}},edit:El((function(e,t){var l=t.clientId,a=e("core/block-editor"),n=a.getBlockParentsByBlockName,o=a.getBlocksByClientId,s=a.getBlockAttributes,r=o(l)[0]?o(l)[0].innerBlocks:[],i=n(l,"bsx-blocks/row-with-cols");return{parentAttributes:s(i[i.length-1]),children:r}}))((function(e){e.className;var t=e.attributes,l=t.colType,a=t.enableInheritanceFromRow,n=t.sizeXs,o=t.sizeSm,s=t.sizeMd,r=t.sizeLg,i=t.sizeXl,c=t.nodeName,b=t.marginAfter,m=e.setAttributes,g=e.parentAttributes,d=(e.children,zl([n,o,s,r,i],b));m({fromRowConfig:g.fromRowConfig});var h=c;return[Object(u.createElement)(xl,null,Object(u.createElement)(kl,{title:dl("Column Sizes (this Column)","bsx-blocks")},"custom"===l&&Object(u.createElement)(u.Fragment,null,Object(u.createElement)(yl,{label:dl("Enable inheritance from Row","bsx-blocks"),checked:!!a,onChange:function(e){m({enableInheritanceFromRow:e})},help:dl("If enabled allows overwriting Column settings from Row","bsx-blocks")}),Object(u.createElement)("div",{class:"components-base-control"},Object(u.createElement)(Ol,{onClick:function(e){m({sizeXs:g.sizeXs,sizeSm:g.sizeSm,sizeMd:g.sizeMd,sizeLg:g.sizeLg,sizeXl:g.sizeXl,nodeName:g.colsNodeName,marginAfter:g.colsMarginAfter})},isSecondary:!0,disabled:!a},dl("Inherit Settings for this Column","bsx-blocks")))),Object(u.createElement)("hr",null),Object(u.createElement)(wl,{label:dl("XS Column Width","bsx-blocks"),value:parseInt(n),onChange:function(e){m({sizeXs:e?e.toString():""})},min:0,max:12,help:dl("1 ... 12 or empty","bsx-blocks"),className:"mb-0"}),Object(u.createElement)(yl,{label:dl("XS Equal Width","bsx-blocks"),checked:"null"==n,onChange:function(e){e?m({sizeXs:"null"}):"null"==n&&m({sizeXs:""})},className:"mb-0"}),Object(u.createElement)(yl,{label:dl("XS Auto Width","bsx-blocks"),checked:"auto"==n,onChange:function(e){e?m({sizeXs:"auto"}):"auto"==n&&m({sizeXs:""})}}),Object(u.createElement)(wl,{label:dl("SM Column Width","bsx-blocks"),value:parseInt(o),onChange:function(e){m({sizeSm:e?e.toString():""})},min:0,max:12,help:dl("1 ... 12 or empty","bsx-blocks"),className:"mb-0"}),Object(u.createElement)(yl,{label:dl("SM Equal Width","bsx-blocks"),checked:"null"==o,onChange:function(e){e?m({sizeSm:"null"}):"null"==o&&m({sizeSm:""})},className:"mb-0"}),Object(u.createElement)(yl,{label:dl("SM Auto Width","bsx-blocks"),checked:"auto"==o,onChange:function(e){e?m({sizeSm:"auto"}):"auto"==o&&m({sizeSm:""})}}),Object(u.createElement)(wl,{label:dl("MD Column Width","bsx-blocks"),value:parseInt(s),onChange:function(e){m({sizeMd:e?e.toString():""})},min:0,max:12,help:dl("1 ... 12 or empty","bsx-blocks"),className:"mb-0"}),Object(u.createElement)(yl,{label:dl("MD Equal Width","bsx-blocks"),checked:"null"==s,onChange:function(e){e?m({sizeMd:"null"}):"null"==s&&m({sizeMd:""})},className:"mb-0"}),Object(u.createElement)(yl,{label:dl("MD Auto Width","bsx-blocks"),checked:"auto"==s,onChange:function(e){e?m({sizeMd:"auto"}):"auto"==s&&m({sizeMd:""})}}),Object(u.createElement)(wl,{label:dl("LG Column Width","bsx-blocks"),value:parseInt(r),onChange:function(e){m({sizeLg:e?e.toString():""})},min:0,max:12,help:dl("1 ... 12 or empty","bsx-blocks"),className:"mb-0"}),Object(u.createElement)(yl,{label:dl("LG Equal Width","bsx-blocks"),checked:"null"==r,onChange:function(e){e?m({sizeLg:"null"}):"null"==r&&m({sizeLg:""})},className:"mb-0"}),Object(u.createElement)(yl,{label:dl("LG Auto Width","bsx-blocks"),checked:"auto"==r,onChange:function(e){e?m({sizeLg:"auto"}):"auto"==r&&m({sizeLg:""})}}),Object(u.createElement)(wl,{label:dl("XL Column Width","bsx-blocks"),value:parseInt(i),onChange:function(e){m({sizeXl:e?e.toString():""})},min:0,max:12,help:dl("1 ... 12 or empty","bsx-blocks"),className:"mb-0"}),Object(u.createElement)(yl,{label:dl("XL Equal Width","bsx-blocks"),checked:"null"==i,onChange:function(e){e?m({sizeXl:"null"}):"null"==i&&m({sizeXl:""})},className:"mb-0"}),Object(u.createElement)(yl,{label:dl("XL Auto Width","bsx-blocks"),checked:"auto"==i,onChange:function(e){e?m({sizeXl:"auto"}):"auto"==i&&m({sizeXl:""})}}),Object(u.createElement)("hr",null),Object(u.createElement)(jl,{label:dl("Margin after","bsx-blocks"),value:b,onChange:function(e){m({marginAfter:e})},options:[{value:"",label:dl("– none –","bsx-blocks")},{value:"1",label:dl("extra small","bsx-blocks")},{value:"2",label:dl("small","bsx-blocks")},{value:"3",label:dl("medium","bsx-blocks")},{value:"4",label:dl("large","bsx-blocks")},{value:"5",label:dl("extra large","bsx-blocks")}],help:dl("Spacer after Column","bsx-blocks")}),Object(u.createElement)("hr",null),Object(u.createElement)(jl,{label:dl("Node name","bsx-blocks"),value:c,onChange:function(e){m({nodeName:e})},options:[{value:"div",label:dl("div","bsx-blocks")},{value:"section",label:dl("section","bsx-blocks")}],help:dl("Node name (please edit only if you know what you’re doing)","bsx-blocks")}))),Object(u.createElement)(h,{className:d,"data-col-type":l},Object(u.createElement)(vl,{renderAppender:function(e){return e.length>0}?void 0:function(){return Object(u.createElement)(vl.ButtonBlockAppender,null)}}))]})),save:function(e){e.className;var t=e.attributes,l=(t.colType,t.enableInheritanceFromRow,t.sizeXs),a=t.sizeSm,n=t.sizeMd,o=t.sizeLg,s=t.sizeXl,r=t.nodeName,i=t.marginAfter,c=zl([l,a,n,o,s],i),b=r;return Object(u.createElement)(b,{className:c},Object(u.createElement)(vl.Content,null))}});var Sl=wp.i18n,Ml=Sl.__,Il=(Sl.setLocaleData,wp.blocks.registerBlockType),Bl=wp.blockEditor,Al=Bl.InnerBlocks,Nl=Bl.InspectorControls,Vl=Bl.InspectorAdvancedControls,Ll=wp.components,Hl=(Ll.TextControl,Ll.PanelBody),Tl=Ll.RangeControl,Pl=Ll.ToggleControl,Rl=Ll.SelectControl,Xl=Ll.Button,Dl=(Ll.SVG,Ll.Path,wp.data),Wl=Dl.withSelect,Fl=Dl.withDispatch,_l=function(e){var t=e.alignItems,l=e.justifyContent,a=e.noGutters,n=e.formRow,o=e.rowReverse,s=["row"];return t&&s.push("align-items-"+t),l&&s.push("justify-content-"+l),a&&s.push("no-gutters"),n&&s.push("form-row"),o&&("xs"==o?s.push("flex-row-reverse"):s.push("flex-"+o+"-row-reverse")),s.join(" ")};function ql(e,t){var l=Object.keys(e);if(Object.getOwnPropertySymbols){var a=Object.getOwnPropertySymbols(e);t&&(a=a.filter((function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable}))),l.push.apply(l,a)}return l}Il("bsx-blocks/row-with-cols",{title:Ml("BSX Columns","bsx-blocks"),icon:m("row-with-cols"),category:"layout",attributes:{templateName:{type:"string"},enableInheritanceToCols:{type:"boolean",default:!1},alignItems:{type:"string"},justifyContent:{type:"string"},noGutters:{type:"boolean"},formRow:{type:"boolean"},rowReverse:{type:"string"},sizeXs:{type:"string",default:""},sizeSm:{type:"string",default:""},sizeMd:{type:"string",default:"4"},sizeLg:{type:"string",default:""},sizeXl:{type:"string",default:""},colsNodeName:{type:"string",default:"div"},colsMarginAfter:{type:"string",default:"3"},marginBefore:{type:"string",default:""},marginAfter:{type:"string",default:""},paddingBefore:{type:"string",default:""},paddingAfter:{type:"string",default:""}},getEditWrapperProps:function(e){return{"data-align-items":e.alignItems,"data-justify-content":e.justifyContent,"data-no-gutters":e.noGutters,"data-form-row":e.formRow,"data-flex-row-reverse":e.rowReverse}},edit:Wl((function(e,t){var l=t.clientId,a=e("core/block-editor"),n=a.getBlocksByClientId,o=a.getBlockAttributes,s=n(l)[0]?n(l)[0].innerBlocks:[],r=[];return s.forEach((function(e,t){r.push(o(e.clientId))})),{children:s,childrenAttributes:r}}))(Fl((function(e){return{updateBlockAttributes:e("core/block-editor").updateBlockAttributes}}))((function(e){e.className;var t,l,a=e.attributes,n=a.templateName,o=a.enableInheritanceToCols,s=a.alignItems,r=a.justifyContent,i=a.noGutters,c=a.formRow,m=a.rowReverse,d=a.sizeXs,h=a.sizeSm,p=a.sizeMd,v=a.sizeLg,x=a.sizeXl,f=a.colsNodeName,k=a.colsMarginAfter,w=a.marginBefore,y=a.marginAfter,O=a.paddingBefore,j=a.paddingAfter,E=e.setAttributes,z=(e.isSelected,e.children),C=e.childrenAttributes,S=e.updateBlockAttributes,M=[{name:"1-1-1",title:Ml("3 Columns (1:1:1)","bsx-blocks"),icon:Object(u.createElement)("svg",{width:"48",height:"48",viewBox:"0 0 48 48",xmlns:"http://www.w3.org/2000/svg",role:"img","aria-hidden":"true",focusable:"false"},Object(u.createElement)("path",{"fill-rule":"evenodd","clip-rule":"evenodd",d:"M41 14a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h30a2 2 0 0 0 2-2V14zM28.5 34h-9V14h9v20zm2 0V14H39v20h-8.5zm-13 0H9V14h8.5v20z"})),template:[["bsx-blocks/col",{colType:"default",sizeXs:"",sizeSm:"",sizeMd:"4",sizeLg:"",sizeXl:""}],["bsx-blocks/col",{colType:"default",sizeXs:"",sizeSm:"",sizeMd:"4",sizeLg:"",sizeXl:""}],["bsx-blocks/col",{colType:"default",sizeXs:"",sizeSm:"",sizeMd:"4",sizeLg:"",sizeXl:""}]],templateLock:!1},{name:"1-1",title:Ml("2 Columns (1:1)","bsx-blocks"),icon:Object(u.createElement)("svg",{width:"48",height:"48",viewBox:"0 0 48 48",xmlns:"http://www.w3.org/2000/svg",role:"img","aria-hidden":"true",focusable:"false"},Object(u.createElement)("path",{"fill-rule":"evenodd","clip-rule":"evenodd",d:"M39 12C40.1046 12 41 12.8954 41 14V34C41 35.1046 40.1046 36 39 36H9C7.89543 36 7 35.1046 7 34V14C7 12.8954 7.89543 12 9 12H39ZM39 34V14H25V34H39ZM23 34H9V14H23V34Z"})),template:[["bsx-blocks/col",{colType:"default",sizeXs:"",sizeSm:"",sizeMd:"6",sizeLg:"",sizeXl:""}],["bsx-blocks/col",{colType:"default",sizeXs:"",sizeSm:"",sizeMd:"6",sizeLg:"",sizeXl:""}]],templateLock:!1},{name:"1-2",title:Ml("2 Columns (1:2)","bsx-blocks"),icon:Object(u.createElement)("svg",{width:"48",height:"48",viewBox:"0 0 48 48",xmlns:"http://www.w3.org/2000/svg",role:"img","aria-hidden":"true",focusable:"false"},Object(u.createElement)("path",{"fill-rule":"evenodd","clip-rule":"evenodd",d:"M39 12C40.1046 12 41 12.8954 41 14V34C41 35.1046 40.1046 36 39 36H9C7.89543 36 7 35.1046 7 34V14C7 12.8954 7.89543 12 9 12H39ZM39 34V14H20V34H39ZM18 34H9V14H18V34Z"})),template:[["bsx-blocks/col",{colType:"default",sizeXs:"",sizeSm:"",sizeMd:"4",sizeLg:"",sizeXl:""}],["bsx-blocks/col",{colType:"default",sizeXs:"",sizeSm:"",sizeMd:"8",sizeLg:"",sizeXl:""}]],templateLock:!1},{name:"2-1",title:Ml("2 Columns (2:1)","bsx-blocks"),icon:Object(u.createElement)("svg",{width:"48",height:"48",viewBox:"0 0 48 48",xmlns:"http://www.w3.org/2000/svg",role:"img","aria-hidden":"true",focusable:"false"},Object(u.createElement)("path",{"fill-rule":"evenodd","clip-rule":"evenodd",d:"M39 12C40.1046 12 41 12.8954 41 14V34C41 35.1046 40.1046 36 39 36H9C7.89543 36 7 35.1046 7 34V14C7 12.8954 7.89543 12 9 12H39ZM39 34V14H30V34H39ZM28 34H9V14H28V34Z"})),template:[["bsx-blocks/col",{colType:"default",sizeXs:"",sizeSm:"",sizeMd:"8",sizeLg:"",sizeXl:""}],["bsx-blocks/col",{colType:"default",sizeXs:"",sizeSm:"",sizeMd:"4",sizeLg:"",sizeXl:""}]],templateLock:!1},{name:"1-2-1",title:Ml("3 Columns (1:2:1)","bsx-blocks"),icon:Object(u.createElement)("svg",{width:"48",height:"48",viewBox:"0 0 48 48",xmlns:"http://www.w3.org/2000/svg",role:"img","aria-hidden":"true",focusable:"false"},Object(u.createElement)("path",{"fill-rule":"evenodd","clip-rule":"evenodd",d:"M41 14a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h30a2 2 0 0 0 2-2V14zM31 34H17V14h14v20zm2 0V14h6v20h-6zm-18 0H9V14h6v20z"})),template:[["bsx-blocks/col",{colType:"default",sizeXs:"",sizeSm:"",sizeMd:"3",sizeLg:"",sizeXl:""}],["bsx-blocks/col",{colType:"default",sizeXs:"",sizeSm:"",sizeMd:"6",sizeLg:"",sizeXl:""}],["bsx-blocks/col",{colType:"default",sizeXs:"",sizeSm:"",sizeMd:"3",sizeLg:"",sizeXl:""}]],templateLock:!1},{name:"custom",title:Ml("Custom","bsx-blocks"),icon:Object(u.createElement)("svg",{width:"48",height:"48",viewBox:"0 0 48 48",xmlns:"http://www.w3.org/2000/svg",role:"img","aria-hidden":"true",focusable:"false"},Object(u.createElement)("path",{"fill-rule":"evenodd","clip-rule":"evenodd",d:"M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9V14h30V34z M22.49,31.03h2.35v-2.21h-2.35V31.03z M22.51,19.38c0.36-0.28,0.81-0.42,1.35-0.42c0.63,0,1.1,0.17,1.43,0.5s0.49,0.81,0.49,1.44 c0,0.54-0.14,1.03-0.43,1.45s-0.68,0.89-1.18,1.38c-0.71,0.6-1.16,1.09-1.35,1.46s-0.3,1.02-0.3,1.94h2.3 c0-0.56,0.04-0.97,0.13-1.25s0.32-0.58,0.68-0.9c0.72-0.58,1.31-1.21,1.77-1.88c0.46-0.67,0.69-1.42,0.69-2.23 c0-1.22-0.37-2.16-1.09-2.83c-0.73-0.67-1.77-1-3.12-1c-1.25,0-2.26,0.31-3.02,0.94c-0.76,0.62-1.15,1.52-1.17,2.69h2.3 C21.97,20.09,22.15,19.66,22.51,19.38z"})),template:[["bsx-blocks/col",{colType:"custom",sizeXs:"",sizeSm:"",sizeMd:"4",sizeLg:"",sizeXl:""}]],templateLock:!1}],I=function(e){var t=M.find((function(t){return t.name===e}));return t?t.template:[]},B=I(n),A=(t=n,!!(l=M.find((function(e){return e.name===t})))&&l.templateLock),N=function(e){B=I(e);var t="custom"==e?"custom":"default";console.log('onColsTemplateChange: "'+e+'"'),console.log('colType: "'+t+'"'),"custom"!=e?z.forEach((function(e,l){if(B.length>l){var a=B[l][1];S(e.clientId,function(e){for(var t=1;t<arguments.length;t++){var l=null!=arguments[t]?arguments[t]:{};t%2?Cl(Object(l),!0).forEach((function(t){b()(e,t,l[t])})):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(l)):Cl(Object(l)).forEach((function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(l,t))}))}return e}({colType:t},a))}})):z.forEach((function(e,l){var a={colType:t};S(e.clientId,a)})),E({templateName:e})},V=function(e){z.forEach((function(t,l){if(C[l].enableInheritanceFromRow){var a={sizeXs:null!=e.sizeXs?e.sizeXs:d,sizeSm:null!=e.sizeSm?e.sizeSm:h,sizeMd:null!=e.sizeMd?e.sizeMd:p,sizeLg:null!=e.sizeLg?e.sizeLg:v,sizeXl:null!=e.sizeXl?e.sizeXl:x,nodeName:null!=e.colsNodeName?e.colsNodeName:f,marginAfter:null!=e.colsMarginAfter?e.colsMarginAfter:k};S(t.clientId,a)}}))},L=_l({alignItems:s,justifyContent:r,noGutters:i,formRow:c,rowReverse:m});return L=g({marginBefore:w,marginAfter:y,paddingBefore:O,paddingAfter:j},L),[Object(u.createElement)(Nl,null,Object(u.createElement)(Hl,{title:Ml("Columns Layout","bsx-blocks")},Object(u.createElement)("div",{className:"bsxui-icon-text-button-list"},M.map((function(e,t){return Object(u.createElement)(Xl,{label:e.title,onClick:function(){N(e.name)},className:"bsxui-icon-text-button-list-item "+(n===e.name?"active":"")},Object(u.createElement)("div",{class:"bsxui-icon-text-button-list-item-icon"},e.icon),Object(u.createElement)("div",{class:"bsxui-icon-text-button-list-item-label"},e.title))})))),Object(u.createElement)(Hl,{title:Ml("Row Settings","bsx-blocks")},Object(u.createElement)(Rl,{label:Ml("Vertical Align","bsx-blocks"),value:s,onChange:function(e){E({alignItems:e})},options:[{value:"",label:Ml("– unset –","bsx-blocks")},{value:"start",label:Ml("Start","bsx-blocks")},{value:"center",label:Ml("Center","bsx-blocks")},{value:"end",label:Ml("End","bsx-blocks")}]}),Object(u.createElement)(Rl,{label:Ml("Justify Content","bsx-blocks"),value:r,onChange:function(e){E({justifyContent:e})},options:[{value:"",label:Ml("– unset –","bsx-blocks")},{value:"start",label:Ml("Start","bsx-blocks")},{value:"center",label:Ml("Center","bsx-blocks")},{value:"end",label:Ml("End","bsx-blocks")},{value:"between",label:Ml("Between","bsx-blocks")},{value:"around",label:Ml("Around","bsx-blocks")}]}),Object(u.createElement)(Pl,{label:Ml("No Gutters","bsx-blocks"),checked:!!i,onChange:function(e){E({noGutters:e}),!0===e&&E({formRow:!1})}}),Object(u.createElement)(Pl,{label:Ml("Form Row","bsx-blocks"),checked:!!c,onChange:function(e){E({formRow:e}),!0===e&&E({noGutters:!1})}})),"custom"===n&&Object(u.createElement)(Hl,{title:Ml("Inherit Columns Settings","bsx-blocks")},Object(u.createElement)(Pl,{label:Ml("Enable inheritance to Columns","bsx-blocks"),checked:!!o,onChange:function(e){E({enableInheritanceToCols:e})},help:Ml("If enabled all Columns settings can be overwritten here. To protect selected Columns from beeing overwritten, disable inheritance option in respective Column settings.","bsx-blocks")}),Object(u.createElement)("hr",null),Object(u.createElement)(Tl,{label:Ml("XS Column Width","bsx-blocks"),value:parseInt(d),onChange:function(e){var t={sizeXs:e?e.toString():""};E(t),V(t)},min:0,max:12,help:Ml("1 ... 12 or empty","bsx-blocks"),disabled:!o,className:"mb-0"}),Object(u.createElement)(Pl,{label:Ml("XS Equal Width","bsx-blocks"),checked:"null"==d,onChange:function(e){if(o)if(e){var t={sizeXs:"null"};E(t),V(t)}else if("null"==d){var l={sizeXs:""};E(l),V(l)}},className:"mb-0"}),Object(u.createElement)(Pl,{label:Ml("XS Auto Width","bsx-blocks"),checked:"auto"==d,onChange:function(e){if(o)if(e){var t={sizeXs:"auto"};E(t),V(t)}else if("auto"==d){var l={sizeXs:""};E(l),V(l)}}}),Object(u.createElement)(Tl,{label:Ml("SM Column Width","bsx-blocks"),value:parseInt(h),onChange:function(e){var t={sizeSm:e?e.toString():""};E(t),V(t)},min:0,max:12,help:Ml("1 ... 12 or empty","bsx-blocks"),disabled:!o,className:"mb-0"}),Object(u.createElement)(Pl,{label:Ml("SM Equal Width","bsx-blocks"),checked:"null"==h,onChange:function(e){if(o)if(e){var t={sizeSm:"null"};E(t),V(t)}else if("null"==h){var l={sizeSm:""};E(l),V(l)}},className:"mb-0"}),Object(u.createElement)(Pl,{label:Ml("SM Auto Width","bsx-blocks"),checked:"auto"==h,onChange:function(e){if(o)if(e){var t={sizeSm:"auto"};E(t),V(t)}else if("auto"==h){var l={sizeSm:""};E(l),V(l)}}}),Object(u.createElement)(Tl,{label:Ml("MD Column Width","bsx-blocks"),value:parseInt(p),onChange:function(e){var t={sizeMd:e?e.toString():""};E(t),V(t)},min:0,max:12,help:Ml("1 ... 12 or empty","bsx-blocks"),disabled:!o,className:"mb-0"}),Object(u.createElement)(Pl,{label:Ml("MD Equal Width","bsx-blocks"),checked:"null"==p,onChange:function(e){if(o)if(e){var t={sizeMd:"null"};E(t),V(t)}else if("null"==p){var l={sizeMd:""};E(l),V(l)}},className:"mb-0"}),Object(u.createElement)(Pl,{label:Ml("MD Auto Width","bsx-blocks"),checked:"auto"==p,onChange:function(e){if(o)if(e){var t={sizeMd:"auto"};E(t),V(t)}else if("auto"==p){var l={sizeMd:""};E(l),V(l)}}}),Object(u.createElement)(Tl,{label:Ml("LG Column Width","bsx-blocks"),value:parseInt(v),onChange:function(e){var t={sizeLg:e?e.toString():""};E(t),V(t)},min:0,max:12,help:Ml("1 ... 12 or empty","bsx-blocks"),disabled:!o,className:"mb-0"}),Object(u.createElement)(Pl,{label:Ml("LG Equal Width","bsx-blocks"),checked:"null"==v,onChange:function(e){if(o)if(e){var t={sizeLg:"null"};E(t),V(t)}else if("null"==v){var l={sizeLg:""};E(l),V(l)}},className:"mb-0"}),Object(u.createElement)(Pl,{label:Ml("LG Auto Width","bsx-blocks"),checked:"auto"==v,onChange:function(e){if(o)if(e){var t={sizeLg:"auto"};E(t),V(t)}else if("auto"==v){var l={sizeLg:""};E(l),V(l)}}}),Object(u.createElement)(Tl,{label:Ml("XL Column Width","bsx-blocks"),value:parseInt(x),onChange:function(e){var t={sizeXl:e?e.toString():""};E(t),V(t)},min:0,max:12,help:Ml("1 ... 12 or empty","bsx-blocks"),disabled:!o,className:"mb-0"}),Object(u.createElement)(Pl,{label:Ml("XL Equal Width","bsx-blocks"),checked:"null"==x,onChange:function(e){if(o)if(e){var t={sizeXl:"null"};E(t),V(t)}else if("null"==x){var l={sizeXl:""};E(l),V(l)}},className:"mb-0"}),Object(u.createElement)(Pl,{label:Ml("XL Auto Width","bsx-blocks"),checked:"auto"==x,onChange:function(e){if(o)if(e){var t={sizeXl:"auto"};E(t),V(t)}else if("auto"==x){var l={sizeXl:""};E(l),V(l)}}}),Object(u.createElement)("hr",null),Object(u.createElement)(Rl,{label:Ml("Margin after","bsx-blocks"),value:k,onChange:function(e){if(o){var t={colsMarginAfter:e};E(t),V(t)}},options:[{value:"",label:Ml("– none –","bsx-blocks")},{value:"1",label:Ml("extra small","bsx-blocks")},{value:"2",label:Ml("small","bsx-blocks")},{value:"3",label:Ml("medium","bsx-blocks")},{value:"4",label:Ml("large","bsx-blocks")},{value:"5",label:Ml("extra large","bsx-blocks")}],help:Ml("Spacer after Column (not Row)","bsx-blocks")}),Object(u.createElement)("hr",null),Object(u.createElement)(Rl,{label:Ml("Node name","bsx-blocks"),value:f,onChange:function(e){if(o){var t={colsNodeName:e};E(t),V(t)}},options:[{value:"div",label:Ml("div","bsx-blocks")},{value:"section",label:Ml("section","bsx-blocks")}],help:Ml("Column node name (please edit only if you know what you’re doing)","bsx-blocks")})),Object(u.createElement)(Hl,{title:Ml("Row margin (not Columns)","bsx-blocks")},Object(u.createElement)(Rl,{label:Ml("Margin before","bsx-blocks"),value:w,onChange:function(e){E({marginBefore:e})},options:[{value:"",label:Ml("– unset –","bsx-blocks")},{value:"0",label:Ml("none (0)","bsx-blocks")},{value:"1",label:Ml("extra small","bsx-blocks")},{value:"2",label:Ml("small","bsx-blocks")},{value:"3",label:Ml("medium","bsx-blocks")},{value:"4",label:Ml("large","bsx-blocks")},{value:"5",label:Ml("extra large","bsx-blocks")}],help:Ml("Spacer before Row","bsx-blocks")}),Object(u.createElement)(Rl,{label:Ml("Margin after","bsx-blocks"),value:y,onChange:function(e){E({marginAfter:e})},options:[{value:"",label:Ml("– unset –","bsx-blocks")},{value:"0",label:Ml("none (0)","bsx-blocks")},{value:"1",label:Ml("extra small","bsx-blocks")},{value:"2",label:Ml("small","bsx-blocks")},{value:"3",label:Ml("medium","bsx-blocks")},{value:"4",label:Ml("large","bsx-blocks")},{value:"5",label:Ml("extra large","bsx-blocks")}],help:Ml("Spacer after Row","bsx-blocks")}))),Object(u.createElement)(Vl,null,Object(u.createElement)(Rl,{label:Ml("Padding before","bsx-blocks"),value:O,onChange:function(e){E({paddingBefore:e})},options:[{value:"",label:Ml("– unset –","bsx-blocks")},{value:"0",label:Ml("none (0)","bsx-blocks")},{value:"1",label:Ml("extra small","bsx-blocks")},{value:"2",label:Ml("small","bsx-blocks")},{value:"3",label:Ml("medium","bsx-blocks")},{value:"4",label:Ml("large","bsx-blocks")},{value:"5",label:Ml("extra large","bsx-blocks")}],help:Ml("Inner spacer before","bsx-blocks")}),Object(u.createElement)(Rl,{label:Ml("Padding after","bsx-blocks"),value:j,onChange:function(e){E({paddingAfter:e})},options:[{value:"",label:Ml("– unset –","bsx-blocks")},{value:"0",label:Ml("none (0)","bsx-blocks")},{value:"1",label:Ml("extra small","bsx-blocks")},{value:"2",label:Ml("small","bsx-blocks")},{value:"3",label:Ml("medium","bsx-blocks")},{value:"4",label:Ml("large","bsx-blocks")},{value:"5",label:Ml("extra large","bsx-blocks")}],help:Ml("Inner spacer after","bsx-blocks")}),Object(u.createElement)(Rl,{label:Ml("Columns order reverse","bsx-blocks"),value:m,onChange:function(e){E({rowReverse:e})},options:[{value:"",label:Ml("– unset –","bsx-blocks")},{value:"xs",label:Ml("XS up","bsx-blocks")},{value:"sm",label:Ml("SM up","bsx-blocks")},{value:"md",label:Ml("MD up","bsx-blocks")},{value:"lg",label:Ml("LG up","bsx-blocks")},{value:"xl",label:Ml("XL","bsx-blocks")}],help:Ml("Reverse Column order from selected size","bsx-blocks")})),Object(u.createElement)(u.Fragment,null,n?Object(u.createElement)("div",{className:L,"data-template-name":n},Object(u.createElement)(Al,{template:B,templateLock:A,allowedBlocks:["bsx-blocks/col"]})):Object(u.createElement)("div",{class:"bsxui-initial-inline-control"},Object(u.createElement)("div",{class:"bsxui-initial-inline-control-heading"},Ml("Please select Columns template","bsx-blocks")),Object(u.createElement)("div",{className:"bsxui-icon-text-button-list"},M.map((function(e,t){return Object(u.createElement)(Xl,{label:e.title,onClick:function(){N(e.name)},className:"bsxui-icon-text-button-list-item "+(n===e.name?"active":"")},Object(u.createElement)("div",{class:"bsxui-icon-text-button-list-item-icon"},e.icon),Object(u.createElement)("div",{class:"bsxui-icon-text-button-list-item-label"},e.title))})))))]}))),save:function(e){e.className;var t=e.attributes,l=(t.templateName,t.enableInheritanceToCols,t.alignItems),a=t.justifyContent,n=t.noGutters,o=t.formRow,s=t.rowReverse,r=(t.sizeXs,t.sizeSm,t.sizeMd,t.sizeLg,t.sizeXl,t.colsNodeName,t.colsMarginAfter,t.marginBefore),i=t.marginAfter,c=t.paddingBefore,b=t.paddingAfter,m=_l({alignItems:l,justifyContent:a,noGutters:n,formRow:o,rowReverse:s});return m=g({marginBefore:r,marginAfter:i,paddingBefore:c,paddingAfter:b},m),Object(u.createElement)("div",{className:m},Object(u.createElement)(Al.Content,null))}});var Gl=wp.i18n,Ul=Gl.__,Zl=(Gl.setLocaleData,wp.blocks.registerBlockType),Jl=wp.blockEditor,$l=Jl.InnerBlocks,Kl=Jl.InspectorControls,Ql=wp.components,Yl=Ql.PanelBody,ea=Ql.TextControl,ta=Ql.ToggleControl,la=Ql.SelectControl,aa=Ql.Button,na=(Ql.SVG,Ql.Path,wp.element.Fragment),oa=wp.data.withSelect;Zl("bsx-blocks/section",{title:Ul("BSX Section","bsx-blocks"),icon:m("section"),category:"layout",attributes:{templateName:{type:"string"},belowNavbar:{type:"boolean",default:!1},id:{type:"string",default:""},marginBefore:{type:"string",default:""},marginAfter:{type:"string",default:""}},edit:oa((function(e,t){var l=t.clientId,a=e("core/block-editor").getBlocksByClientId;return{children:a(l)[0]?a(l)[0].innerBlocks:[]}}))((function(e){e.className;var t=e.attributes,l=t.templateName,a=t.belowNavbar,n=t.id,o=t.marginBefore,s=t.marginAfter,r=e.setAttributes,i=(e.children,[{name:"empty",title:Ul("Empty","bsx-blocks"),icon:m("section-empty"),attributes:{marginAfter:"5"},template:[],templateLock:!1},{name:"container-with-heading",title:Ul("Container with Heading","bsx-blocks"),icon:m("section-container-heading"),attributes:{marginAfter:"5"},template:[["bsx-blocks/container",{},[["core/heading",{placeholder:"Add heading, configure heading level..."}]]]],templateLock:!1},{name:"container-heading-text-gallery",title:Ul("Container, Heading, Text & Gallery","bsx-blocks"),icon:m("section-container-heading-text-gallery"),attributes:{marginAfter:"5"},template:[["bsx-blocks/container",{},[["core/heading",{placeholder:"Add heading, configure heading level..."}],["core/paragraph",{placeholder:"Add text..."}],["bsx-blocks/img-gallery",{galleryType:"floating",rounded:!0,imgThumbnail:!0,borderState:"info"}]]]],templateLock:!1},{name:"rounded-color-banner",title:Ul("Rounded colored Banner (primary dark)","bsx-blocks"),icon:m("section-container-rounded-colored-banner"),attributes:{marginAfter:"5"},template:[["bsx-blocks/container",{},[["bsx-blocks/wrapper",{bgColor:"primary",textColor:"dark",textAlign:"center",rounded:!0,paddingBefore:"4",paddingAfter:"4",paddingLeft:"3",paddingRight:"3"},[["core/heading",{placeholder:"Add heading, configure heading level...",textColor:"dark",marginAfter:"3"}],["core/paragraph",{placeholder:"Add text...",textSize:"lead"}],["bsx-blocks/buttons",{},[["bsx-blocks/button",{state:"dark",marginBefore:"1",marginAfter:"1",marginLeft:"1",marginRight:"1"}]]]]]]]],templateLock:!1}]),c=function(e){var t=i.find((function(t){return t.name===e}));return t||{}},d=c(l).template,h=function(e){var t=c(e);null!=t.template&&null!=t.attributes?(d=t.template,r(function(e){for(var t=1;t<arguments.length;t++){var l=null!=arguments[t]?arguments[t]:{};t%2?ql(Object(l),!0).forEach((function(t){b()(e,t,l[t])})):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(l)):ql(Object(l)).forEach((function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(l,t))}))}return e}({templateName:e},t.attributes))):console.log("Error: Template change failed.")},p=g({belowNavbar:a,marginBefore:o,marginAfter:s});return[Object(u.createElement)(na,null,Object(u.createElement)(Kl,null,Object(u.createElement)(Yl,{title:Ul("Section Settings","bsx-blocks")},Object(u.createElement)("div",{className:"bsxui-icon-text-button-list"},i.map((function(e,t){return Object(u.createElement)(aa,{label:e.title,onClick:function(){h(e.name)},className:"bsxui-icon-text-button-list-item "+(l===e.name?"active":"")},Object(u.createElement)("div",{class:"bsxui-icon-text-button-list-item-icon"},e.icon),Object(u.createElement)("div",{class:"bsxui-icon-text-button-list-item-label"},e.title))}))),Object(u.createElement)(ta,{label:Ul("Below navbar","bsx-blocks"),checked:!!a,onChange:function(e){r({belowNavbar:e})},help:Ul("Enable if element starts below navbar. If enabled element has spacer top to avoid overlapping its contents by navbar.","bsx-blocks")}),Object(u.createElement)(ea,{label:Ul("ID","bsx-blocks"),value:n,onChange:function(e){r({id:e})}})),Object(u.createElement)(Yl,{title:Ul("Margin","bsx-blocks")},Object(u.createElement)(la,{label:Ul("Margin before","bsx-blocks"),value:o,onChange:function(e){r({marginBefore:e})},options:[{value:"",label:Ul("– unset –","bsx-blocks")},{value:"0",label:Ul("none (0)","bsx-blocks")},{value:"1",label:Ul("extra small","bsx-blocks")},{value:"2",label:Ul("small","bsx-blocks")},{value:"3",label:Ul("medium","bsx-blocks")},{value:"4",label:Ul("large","bsx-blocks")},{value:"5",label:Ul("extra large","bsx-blocks")}],help:Ul("Spacer before Container","bsx-blocks")}),Object(u.createElement)(la,{label:Ul("Margin after","bsx-blocks"),value:s,onChange:function(e){r({marginAfter:e})},options:[{value:"",label:Ul("– unset –","bsx-blocks")},{value:"0",label:Ul("none (0)","bsx-blocks")},{value:"1",label:Ul("extra small","bsx-blocks")},{value:"2",label:Ul("small","bsx-blocks")},{value:"3",label:Ul("medium","bsx-blocks")},{value:"4",label:Ul("large","bsx-blocks")},{value:"5",label:Ul("extra large","bsx-blocks")}],help:Ul("Spacer after Container","bsx-blocks")})))),Object(u.createElement)(na,null,l?Object(u.createElement)("section",{className:p,id:n},Object(u.createElement)($l,{template:d,renderAppender:function(e){return e.length>0}?void 0:function(){return Object(u.createElement)($l.ButtonBlockAppender,null)}})):Object(u.createElement)("div",{class:"bsxui-initial-inline-control"},Object(u.createElement)("div",{class:"bsxui-initial-inline-control-heading"},Ul("Please select template","bsx-blocks")),Object(u.createElement)("div",{className:"bsxui-icon-text-button-list"},i.map((function(e,t){return Object(u.createElement)(aa,{label:e.title,onClick:function(){h(e.name)},className:"bsxui-icon-text-button-list-item "+(l===e.name?"active":"")},Object(u.createElement)("div",{class:"bsxui-icon-text-button-list-item-icon"},e.icon),Object(u.createElement)("div",{class:"bsxui-icon-text-button-list-item-label"},e.title))})))))]})),save:function(e){e.className;var t=e.attributes,l=(t.templateName,t.belowNavbar),a=t.id,o=g({belowNavbar:l,marginBefore:t.marginBefore,marginAfter:t.marginAfter}),s=E({id:a});return Object(u.createElement)("section",n()({className:o},s),Object(u.createElement)($l.Content,null))}});var sa=wp.i18n,ra=sa.__,ia=(sa.setLocaleData,wp.blocks.registerBlockType),ca=wp.blockEditor,ba=ca.InnerBlocks,ua=ca.InspectorControls,ma=ca.InspectorAdvancedControls,ga=ca.BlockControls,da=ca.AlignmentToolbar,ha=wp.components,pa=ha.PanelBody,va=ha.SelectControl,xa=ha.ToggleControl,fa=wp.element.Fragment;ia("bsx-blocks/wrapper",{title:ra("BSX Wrapper","bsx-blocks"),icon:m("wrapper"),category:"layout",attributes:{nodeName:{type:"string",default:"div"},id:{type:"string"},dataFn:{type:"string"},dataTg:{type:"string"},bgColor:{type:"string"},textSize:{type:"string"},rounded:{type:"boolean",default:!1},textColor:{type:"string"},textAlign:{type:"string",default:""},width:{type:"string"},marginBefore:{type:"string",default:""},marginAfter:{type:"string",default:""},paddingBefore:{type:"string",default:""},paddingAfter:{type:"string",default:""},paddingLeft:{type:"string",default:""},paddingRight:{type:"string",default:""}},getEditWrapperProps:function(e){return{"data-text-align":e.textAlign,"data-margin-before":e.marginBefore,"data-margin-after":e.marginAfter}},edit:function(e){e.className;var t=e.attributes,l=t.nodeName,a=(t.id,t.dataFn,t.dataTg,t.bgColor),n=t.textColor,o=t.textSize,s=t.textAlign,r=t.width,i=t.rounded,c=t.marginBefore,b=t.marginAfter,m=t.paddingBefore,d=t.paddingAfter,h=t.paddingLeft,p=t.paddingRight,v=e.setAttributes,x=[{icon:"editor-alignleft",title:ra("Align left","bsx-blocks"),align:"left"},{icon:"editor-aligncenter",title:ra("Align center","bsx-blocks"),align:"center"},{icon:"editor-alignright",title:ra("Align right","bsx-blocks"),align:"right"}],f=g({bgColor:a,textColor:n,textSize:o,rounded:i,textAlign:s,width:r,marginBefore:c,marginAfter:b,paddingBefore:m,paddingAfter:d,paddingLeft:h,paddingRight:p}),k=l;return[Object(u.createElement)(fa,null,Object(u.createElement)(ga,null,Object(u.createElement)(da,{label:ra("Alignment","bsx-blocks"),value:s,onChange:function(e){v({textAlign:e})},alignmentControls:x})),Object(u.createElement)(ua,null,Object(u.createElement)(pa,{title:ra("Color & appearance","bsx-blocks")},Object(u.createElement)(va,{label:ra("Background color","bsx-blocks"),value:a,onChange:function(e){v({bgColor:e})},options:[{value:"",label:ra("– unset –","bsx-blocks")},{value:"white",label:ra("White","bsx-blocks")},{value:"white-opaque",label:ra("White opaque","bsx-blocks")},{value:"white-transparent",label:ra("White transparent","bsx-blocks")},{value:"black",label:ra("Black","bsx-blocks")},{value:"black-opaque",label:ra("Black opaque","bsx-blocks")},{value:"black-transparent",label:ra("Black transparent","bsx-blocks")},{value:"primary",label:ra("Primary","bsx-blocks")},{value:"primary-opaque",label:ra("Primary opaque","bsx-blocks")},{value:"primary-transparent",label:ra("Primary transparent","bsx-blocks")},{value:"secondary",label:ra("Secondary","bsx-blocks")},{value:"secondary-opaque",label:ra("Secondary opaque","bsx-blocks")},{value:"secondary-transparent",label:ra("Secondary transparent","bsx-blocks")},{value:"success",label:ra("Success","bsx-blocks")},{value:"success-opaque",label:ra("Success opaque","bsx-blocks")},{value:"success-transparent",label:ra("Success transparent","bsx-blocks")},{value:"danger",label:ra("Danger","bsx-blocks")},{value:"danger-opaque",label:ra("Danger opaque","bsx-blocks")},{value:"danger-transparent",label:ra("Danger transparent","bsx-blocks")},{value:"warning",label:ra("Warning","bsx-blocks")},{value:"warning-opaque",label:ra("Warning opaque","bsx-blocks")},{value:"warning-transparent",label:ra("Warning transparent","bsx-blocks")},{value:"info",label:ra("Info","bsx-blocks")},{value:"info-opaque",label:ra("Info opaque","bsx-blocks")},{value:"info-transparent",label:ra("Info transparent","bsx-blocks")},{value:"light",label:ra("Light","bsx-blocks")},{value:"light-opaque",label:ra("Light opaque","bsx-blocks")},{value:"light-transparent",label:ra("Light transparent","bsx-blocks")},{value:"dark",label:ra("Dark","bsx-blocks")},{value:"dark-opaque",label:ra("Dark opaque","bsx-blocks")},{value:"dark-transparent",label:ra("Dark transparent","bsx-blocks")},{value:"transparent",label:ra("Transparent","bsx-blocks")}],help:ra("Spacer before element","bsx-blocks")}),Object(u.createElement)(va,{label:ra("Text color (optional)","bsx-blocks"),value:n,onChange:function(e){v({textColor:e})},options:[{value:"",label:ra("– unset –","bsx-blocks")},{value:"white",label:ra("White","bsx-blocks")},{value:"primary",label:ra("Primary","bsx-blocks")},{value:"secondary",label:ra("Secondary","bsx-blocks")},{value:"success",label:ra("Success","bsx-blocks")},{value:"danger",label:ra("Danger","bsx-blocks")},{value:"warning",label:ra("Warning","bsx-blocks")},{value:"info",label:ra("Info","bsx-blocks")},{value:"light",label:ra("Light","bsx-blocks")},{value:"dark",label:ra("Dark","bsx-blocks")},{value:"white-50",label:ra("White transparent","bsx-blocks")},{value:"black-50",label:ra("Black transparent","bsx-blocks")}]}),Object(u.createElement)(va,{label:ra("Text size (optional)","bsx-blocks"),value:o,onChange:function(e){v({textSize:e})},options:[{value:"",label:ra("– unset –","bsx-blocks")},{value:"lead",label:ra("Larger","bsx-blocks")},{value:"small",label:ra("Smaller","bsx-blocks")},{value:"h6",label:ra("Heading 6 (smallest)","bsx-blocks")},{value:"h5",label:ra("Heading 5","bsx-blocks")},{value:"h4",label:ra("Heading 4","bsx-blocks")},{value:"h3",label:ra("Heading 3","bsx-blocks")},{value:"h2",label:ra("Heading 2","bsx-blocks")},{value:"h1",label:ra("Heading 1 (biggest)","bsx-blocks")},{value:"display-4",label:ra("Large 4 (smallest)","bsx-blocks")},{value:"display-3",label:ra("Large 3","bsx-blocks")},{value:"display-2",label:ra("Large 2","bsx-blocks")},{value:"display-1",label:ra("Large 1 (biggest)","bsx-blocks")}]}),Object(u.createElement)(xa,{label:ra("Rounded","bsx-blocks"),checked:!!i,onChange:function(e){v({rounded:e})}})),Object(u.createElement)(pa,{title:ra("Margin","bsx-blocks")},Object(u.createElement)(va,{label:ra("Margin before","bsx-blocks"),value:c,onChange:function(e){v({marginBefore:e})},options:[{value:"",label:ra("– unset –","bsx-blocks")},{value:"0",label:ra("none (0)","bsx-blocks")},{value:"1",label:ra("extra small","bsx-blocks")},{value:"2",label:ra("small","bsx-blocks")},{value:"3",label:ra("medium","bsx-blocks")},{value:"4",label:ra("large","bsx-blocks")},{value:"5",label:ra("extra large","bsx-blocks")}],help:ra("Spacer before element","bsx-blocks")}),Object(u.createElement)(va,{label:ra("Margin after","bsx-blocks"),value:b,onChange:function(e){v({marginAfter:e})},options:[{value:"",label:ra("– unset –","bsx-blocks")},{value:"0",label:ra("none (0)","bsx-blocks")},{value:"1",label:ra("extra small","bsx-blocks")},{value:"2",label:ra("small","bsx-blocks")},{value:"3",label:ra("medium","bsx-blocks")},{value:"4",label:ra("large","bsx-blocks")},{value:"5",label:ra("extra large","bsx-blocks")}],help:ra("Spacer after element","bsx-blocks")})),Object(u.createElement)(pa,{title:ra("Padding","bsx-blocks")},Object(u.createElement)(va,{label:ra("Padding before","bsx-blocks"),value:m,onChange:function(e){v({paddingBefore:e})},options:[{value:"",label:ra("– unset –","bsx-blocks")},{value:"0",label:ra("none (0)","bsx-blocks")},{value:"1",label:ra("extra small","bsx-blocks")},{value:"2",label:ra("small","bsx-blocks")},{value:"3",label:ra("medium","bsx-blocks")},{value:"4",label:ra("large","bsx-blocks")},{value:"5",label:ra("extra large","bsx-blocks")}],help:ra("Inner spacer before","bsx-blocks")}),Object(u.createElement)(va,{label:ra("Padding after","bsx-blocks"),value:d,onChange:function(e){v({paddingAfter:e})},options:[{value:"",label:ra("– unset –","bsx-blocks")},{value:"0",label:ra("none (0)","bsx-blocks")},{value:"1",label:ra("extra small","bsx-blocks")},{value:"2",label:ra("small","bsx-blocks")},{value:"3",label:ra("medium","bsx-blocks")},{value:"4",label:ra("large","bsx-blocks")},{value:"5",label:ra("extra large","bsx-blocks")}],help:ra("Inner spacer after","bsx-blocks")}),Object(u.createElement)(va,{label:ra("Padding left","bsx-blocks"),value:h,onChange:function(e){v({paddingLeft:e})},options:[{value:"",label:ra("– none –","bsx-blocks")},{value:"1",label:ra("extra small","bsx-blocks")},{value:"2",label:ra("small","bsx-blocks")},{value:"3",label:ra("medium","bsx-blocks")},{value:"4",label:ra("large","bsx-blocks")},{value:"5",label:ra("extra large","bsx-blocks")}],help:ra("Inner spacer left","bsx-blocks")}),Object(u.createElement)(va,{label:ra("Padding right","bsx-blocks"),value:p,onChange:function(e){v({paddingRight:e})},options:[{value:"",label:ra("– none –","bsx-blocks")},{value:"1",label:ra("extra small","bsx-blocks")},{value:"2",label:ra("small","bsx-blocks")},{value:"3",label:ra("medium","bsx-blocks")},{value:"4",label:ra("large","bsx-blocks")},{value:"5",label:ra("extra large","bsx-blocks")}],help:ra("Inner spacer right","bsx-blocks")}))),Object(u.createElement)(ma,null,Object(u.createElement)(va,{label:ra("Node name","bsx-blocks"),value:l,onChange:function(e){v({nodeName:e})},options:[{value:"div",label:ra("div","bsx-blocks")},{value:"section",label:ra("section","bsx-blocks")}]}),Object(u.createElement)(va,{label:ra("Width","bsx-blocks"),value:r,onChange:function(e){v({width:e})},options:[{value:"",label:ra("– unset –","bsx-blocks")},{value:"100",label:ra("100 %","bsx-blocks")}]}))),Object(u.createElement)(k,{className:f},Object(u.createElement)(ba,null))]},save:function(e){e.className;var t=e.attributes,l=t.nodeName,a=(t.id,t.dataFn,t.dataTg,t.bgColor),n=t.textColor,o=t.textSize,s=t.textAlign,r=t.width,i=t.rounded,c=t.marginBefore,b=t.marginAfter,m=t.paddingBefore,d=t.paddingAfter,h=t.paddingLeft,p=t.paddingRight,v=(e.setAttributes,g({bgColor:a,textColor:n,textSize:o,rounded:i,textAlign:s,width:r,marginBefore:c,marginAfter:b,paddingBefore:m,paddingAfter:d,paddingLeft:h,paddingRight:p})),x=l;return Object(u.createElement)(x,{className:v},Object(u.createElement)(ba.Content,null))}})}]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/index.js");
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/arrayLikeToArray.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+module.exports = _arrayLikeToArray;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/arrayWithHoles.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/arrayWithHoles.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+module.exports = _arrayWithHoles;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray */ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
+
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return arrayLikeToArray(arr);
+}
+
+module.exports = _arrayWithoutHoles;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/asyncToGenerator.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/asyncToGenerator.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
+  try {
+    var info = gen[key](arg);
+    var value = info.value;
+  } catch (error) {
+    reject(error);
+    return;
+  }
+
+  if (info.done) {
+    resolve(value);
+  } else {
+    Promise.resolve(value).then(_next, _throw);
+  }
+}
+
+function _asyncToGenerator(fn) {
+  return function () {
+    var self = this,
+        args = arguments;
+    return new Promise(function (resolve, reject) {
+      var gen = fn.apply(self, args);
+
+      function _next(value) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
+      }
+
+      function _throw(err) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
+      }
+
+      _next(undefined);
+    });
+  };
+}
+
+module.exports = _asyncToGenerator;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/defineProperty.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/defineProperty.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+module.exports = _defineProperty;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/extends.js":
+/*!********************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/extends.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _extends() {
+  module.exports = _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+
+module.exports = _extends;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/iterableToArray.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/iterableToArray.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
+}
+
+module.exports = _iterableToArray;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/iterableToArrayLimit.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/iterableToArrayLimit.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _iterableToArrayLimit(arr, i) {
+  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+  var _e = undefined;
+
+  try {
+    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+module.exports = _iterableToArrayLimit;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/nonIterableRest.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/nonIterableRest.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+module.exports = _nonIterableRest;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/nonIterableSpread.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/nonIterableSpread.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+module.exports = _nonIterableSpread;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/slicedToArray.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/slicedToArray.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayWithHoles = __webpack_require__(/*! ./arrayWithHoles */ "./node_modules/@babel/runtime/helpers/arrayWithHoles.js");
+
+var iterableToArrayLimit = __webpack_require__(/*! ./iterableToArrayLimit */ "./node_modules/@babel/runtime/helpers/iterableToArrayLimit.js");
+
+var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray */ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js");
+
+var nonIterableRest = __webpack_require__(/*! ./nonIterableRest */ "./node_modules/@babel/runtime/helpers/nonIterableRest.js");
+
+function _slicedToArray(arr, i) {
+  return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
+}
+
+module.exports = _slicedToArray;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/toConsumableArray.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/toConsumableArray.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayWithoutHoles = __webpack_require__(/*! ./arrayWithoutHoles */ "./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js");
+
+var iterableToArray = __webpack_require__(/*! ./iterableToArray */ "./node_modules/@babel/runtime/helpers/iterableToArray.js");
+
+var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray */ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js");
+
+var nonIterableSpread = __webpack_require__(/*! ./nonIterableSpread */ "./node_modules/@babel/runtime/helpers/nonIterableSpread.js");
+
+function _toConsumableArray(arr) {
+  return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
+}
+
+module.exports = _toConsumableArray;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/typeof.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/typeof.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    module.exports = _typeof = function _typeof(obj) {
+      return typeof obj;
+    };
+  } else {
+    module.exports = _typeof = function _typeof(obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+  }
+
+  return _typeof(obj);
+}
+
+module.exports = _typeof;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray */ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
+}
+
+module.exports = _unsupportedIterableToArray;
+
+/***/ }),
+
+/***/ "./src/_functions/add-class-names.js":
+/*!*******************************************!*\
+  !*** ./src/_functions/add-class-names.js ***!
+  \*******************************************/
+/*! exports provided: addClassNames */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addClassNames", function() { return addClassNames; });
+// add class names
+function addClassNames(attributes, classNamesString) {
+  var belowNavbar = attributes.belowNavbar,
+      display = attributes.display,
+      marginBefore = attributes.marginBefore,
+      marginAfter = attributes.marginAfter,
+      marginLeft = attributes.marginLeft,
+      marginRight = attributes.marginRight,
+      paddingBefore = attributes.paddingBefore,
+      paddingAfter = attributes.paddingAfter,
+      paddingLeft = attributes.paddingLeft,
+      paddingRight = attributes.paddingRight,
+      bgColor = attributes.bgColor,
+      textColor = attributes.textColor,
+      textSize = attributes.textSize,
+      rounded = attributes.rounded,
+      textAlign = attributes.textAlign,
+      width = attributes.width,
+      imgThumbnail = attributes.imgThumbnail,
+      borderState = attributes.borderState,
+      hoverShadow = attributes.hoverShadow,
+      hoverMove = attributes.hoverMove;
+  var classNames = typeof classNamesString != 'undefined' ? classNamesString.split(' ') : [];
+
+  if (!!belowNavbar) {
+    classNames.push('below-navbar-content');
+  }
+
+  if (!!display) {
+    classNames.push('d-' + display);
+  }
+
+  if (!!marginBefore && marginBefore === marginAfter && marginBefore === marginLeft && marginBefore === marginRight) {
+    // all
+    classNames.push('m-' + marginBefore);
+  } else {
+    // top & bottom
+    if (!!marginBefore && marginBefore === marginAfter) {
+      classNames.push('my-' + marginBefore);
+    } else {
+      if (!!marginBefore) {
+        classNames.push('mt-' + marginBefore);
+      }
+
+      if (!!marginAfter) {
+        classNames.push('mb-' + marginAfter);
+      }
+    } // left & right
+
+
+    if (!!marginLeft && marginLeft === marginRight) {
+      classNames.push('mx-' + marginLeft);
+    } else {
+      if (!!marginLeft) {
+        classNames.push('ml-' + marginLeft);
+      }
+
+      if (!!marginRight) {
+        classNames.push('mr-' + marginRight);
+      }
+    }
+  }
+
+  if (!!paddingBefore && paddingBefore === paddingAfter && paddingBefore === paddingLeft && paddingBefore === paddingRight) {
+    // all
+    classNames.push('p-' + paddingBefore);
+  } else {
+    // top & bottom
+    if (!!paddingBefore && paddingBefore === paddingAfter) {
+      classNames.push('py-' + paddingBefore);
+    } else {
+      // top
+      if (!!paddingBefore) {
+        classNames.push('pt-' + paddingBefore);
+      } // bottom
+
+
+      if (!!paddingAfter) {
+        classNames.push('pb-' + paddingAfter);
+      }
+    } // left & right
+
+
+    if (!!paddingLeft && paddingLeft === paddingRight) {
+      classNames.push('px-' + paddingLeft);
+    } else {
+      // left
+      if (!!paddingLeft) {
+        classNames.push('pt-' + paddingLeft);
+      } // right
+
+
+      if (!!paddingRight) {
+        classNames.push('pb-' + paddingRight);
+      }
+    }
+  }
+
+  if (!!bgColor) {
+    classNames.push('bg-' + bgColor);
+  }
+
+  if (!!textColor) {
+    classNames.push('text-' + textColor);
+  }
+
+  if (!!textSize) {
+    classNames.push(textSize);
+  }
+
+  if (!!rounded) {
+    if (rounded == true || rounded == 'rounded') {
+      classNames.push('rounded');
+    } else {
+      classNames.push('rounded-' + rounded);
+    }
+  }
+
+  if (!!textAlign) {
+    classNames.push('text-' + textAlign);
+  }
+
+  if (!!width) {
+    classNames.push('w-' + width);
+  }
+
+  if (!!imgThumbnail) {
+    classNames.push('img-thumbnail');
+  }
+
+  if (!!borderState) {
+    classNames.push('border-' + borderState);
+  }
+
+  if (!!hoverShadow) {
+    classNames.push('hover-shadow');
+  }
+
+  if (!!hoverMove) {
+    classNames.push('hover-move');
+  }
+
+  return classNames.join(' ');
+}
+
+/***/ }),
+
+/***/ "./src/_functions/attributes.js":
+/*!**************************************!*\
+  !*** ./src/_functions/attributes.js ***!
+  \**************************************/
+/*! exports provided: makeSaveAttributes */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "makeSaveAttributes", function() { return makeSaveAttributes; });
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/slicedToArray.js");
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__);
+
+// attribute functions 
+// returns list of non empty attributes to add to html element
+function makeSaveAttributes(attributes) {
+  var nonEmptyAttributes = {};
+
+  for (var _i = 0, _Object$entries = Object.entries(attributes); _i < _Object$entries.length; _i++) {
+    var _Object$entries$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries[_i], 2),
+        key = _Object$entries$_i[0],
+        value = _Object$entries$_i[1];
+
+    //console.log( 'key: "' + key + '", val: "' + value + '"' );
+    if (value) {
+      nonEmptyAttributes[key] = value;
+    }
+  }
+
+  return nonEmptyAttributes;
+}
+
+/***/ }),
+
+/***/ "./src/_functions/controls.js":
+/*!************************************!*\
+  !*** ./src/_functions/controls.js ***!
+  \************************************/
+/*! exports provided: ignoreMailtoSpamProtectionToggle, targetToggle, belowNavbarToggle, linkUrlInput, bgAttachmentFixedLimitedToggle, relInput, dataFnInput, stateSelect, stateTypeSelect, sizeSelect, marginLeftSelect, marginRightSelect, marginBeforeSelect, marginAfterSelect, displaySelect, alignItemsSelect, paddingBeforeSelect, paddingAfterSelect, nodeNameSelect, bgPositionSelect, bgSizeSelect, bannerTypeSelect, bannerSizeSelect, bgAttachmentSelect, imgUploadClickableImg, imgUploadButton, inlineTemplateSelect, uiTemplateSelect */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ignoreMailtoSpamProtectionToggle", function() { return ignoreMailtoSpamProtectionToggle; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "targetToggle", function() { return targetToggle; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "belowNavbarToggle", function() { return belowNavbarToggle; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "linkUrlInput", function() { return linkUrlInput; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "bgAttachmentFixedLimitedToggle", function() { return bgAttachmentFixedLimitedToggle; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "relInput", function() { return relInput; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dataFnInput", function() { return dataFnInput; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "stateSelect", function() { return stateSelect; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "stateTypeSelect", function() { return stateTypeSelect; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sizeSelect", function() { return sizeSelect; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "marginLeftSelect", function() { return marginLeftSelect; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "marginRightSelect", function() { return marginRightSelect; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "marginBeforeSelect", function() { return marginBeforeSelect; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "marginAfterSelect", function() { return marginAfterSelect; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "displaySelect", function() { return displaySelect; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "alignItemsSelect", function() { return alignItemsSelect; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "paddingBeforeSelect", function() { return paddingBeforeSelect; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "paddingAfterSelect", function() { return paddingAfterSelect; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "nodeNameSelect", function() { return nodeNameSelect; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "bgPositionSelect", function() { return bgPositionSelect; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "bgSizeSelect", function() { return bgSizeSelect; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "bannerTypeSelect", function() { return bannerTypeSelect; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "bannerSizeSelect", function() { return bannerSizeSelect; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "bgAttachmentSelect", function() { return bgAttachmentSelect; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "imgUploadClickableImg", function() { return imgUploadClickableImg; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "imgUploadButton", function() { return imgUploadButton; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "inlineTemplateSelect", function() { return inlineTemplateSelect; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "uiTemplateSelect", function() { return uiTemplateSelect; });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utilities_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utilities.js */ "./src/_functions/utilities.js");
+
+var _wp$i18n = wp.i18n,
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData;
+var _wp$blockEditor = wp.blockEditor,
+    URLInput = _wp$blockEditor.URLInput,
+    RichText = _wp$blockEditor.RichText,
+    MediaUpload = _wp$blockEditor.MediaUpload;
+var _wp$components = wp.components,
+    TextControl = _wp$components.TextControl,
+    PanelBody = _wp$components.PanelBody,
+    ToggleControl = _wp$components.ToggleControl,
+    SelectControl = _wp$components.SelectControl,
+    SVG = _wp$components.SVG,
+    Path = _wp$components.Path,
+    Button = _wp$components.Button;
+ // internal vars
+
+var marginPaddingSizes = [{
+  value: '',
+  label: __('– unset –', 'bsx-blocks')
+}, {
+  value: '0',
+  label: __('none (0)', 'bsx-blocks')
+}, {
+  value: '1',
+  label: __('extra small', 'bsx-blocks')
+}, {
+  value: '2',
+  label: __('small', 'bsx-blocks')
+}, {
+  value: '3',
+  label: __('medium', 'bsx-blocks')
+}, {
+  value: '4',
+  label: __('large', 'bsx-blocks')
+}, {
+  value: '5',
+  label: __('extra large', 'bsx-blocks')
+}]; // toggles
+
+var ignoreMailtoSpamProtectionToggle = function ignoreMailtoSpamProtectionToggle(value, onChangeFunction) {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+    label: __('Spam protected email link (default activated)', 'bsx-blocks'),
+    checked: !value,
+    onChange: onChangeFunction,
+    help: __('If activated email will not be easily readable for machines.', 'bsx-blocks')
+  });
+};
+var targetToggle = function targetToggle(value, onChangeFunction) {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+    label: __('Open in new tab', 'bsx-blocks'),
+    checked: value == '_blank',
+    onChange: onChangeFunction
+  });
+};
+var belowNavbarToggle = function belowNavbarToggle(value, onChangeFunction) {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+    label: __('Below navbar', 'bsx-blocks'),
+    checked: !!value,
+    onChange: onChangeFunction,
+    help: __('Enable if container starts below navbar. If enabled container has spacer top to avoid overlapping its contents by navbar.', 'bsx-blocks')
+  });
+}; // url inputs
+
+var linkUrlInput = function linkUrlInput(value, onChangeFunction) {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(URLInput, {
+    label: __('Link URL', 'bsx-blocks'),
+    value: value,
+    onChange: onChangeFunction
+  });
+}; // text inputs
+
+var bgAttachmentFixedLimitedToggle = function bgAttachmentFixedLimitedToggle(value, onChangeFunction) {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+    label: __('Limit fixed background', 'bsx-blocks'),
+    checked: !!value,
+    onChange: onChangeFunction,
+    help: __('If enabled large displays (>=2.000px) will have static background attachement.', 'bsx-blocks')
+  });
+};
+var relInput = function relInput(value, onChangeFunction) {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
+    label: __('Rel (optional)', 'bsx-blocks'),
+    value: value,
+    onChange: onChangeFunction
+  });
+};
+var dataFnInput = function dataFnInput(value, onChangeFunction) {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
+    label: __('data-fn (optional)', 'bsx-blocks'),
+    value: value,
+    onChange: onChangeFunction
+  });
+}; // selects
+
+var stateSelect = function stateSelect(value, onChangeFunction) {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+    label: __('State', 'bsx-blocks'),
+    value: value,
+    onChange: onChangeFunction,
+    options: [{
+      value: 'primary',
+      label: __('Primary', 'bsx-blocks')
+    }, {
+      value: 'secondary',
+      label: __('Secondary', 'bsx-blocks')
+    }, {
+      value: 'success',
+      label: __('Success', 'bsx-blocks')
+    }, {
+      value: 'danger',
+      label: __('Danger', 'bsx-blocks')
+    }, {
+      value: 'warning',
+      label: __('Warning', 'bsx-blocks')
+    }, {
+      value: 'info',
+      label: __('Info', 'bsx-blocks')
+    }, {
+      value: 'light',
+      label: __('Light', 'bsx-blocks')
+    }, {
+      value: 'dark',
+      label: __('Dark', 'bsx-blocks')
+    }, {
+      value: 'link',
+      label: __('Link Button', 'bsx-blocks')
+    }, {
+      value: 'text-link',
+      label: __('Text link', 'bsx-blocks')
+    }]
+  });
+};
+var stateTypeSelect = function stateTypeSelect(value, onChangeFunction) {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+    label: __('State Type', 'bsx-blocks'),
+    value: value,
+    onChange: onChangeFunction,
+    options: [{
+      value: 'outline',
+      label: __('Outline', 'bsx-blocks')
+    }, {
+      value: '',
+      label: __('Filled', 'bsx-blocks')
+    }]
+  });
+};
+var sizeSelect = function sizeSelect(value, onChangeFunction) {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+    label: __('Size', 'bsx-blocks'),
+    value: value,
+    onChange: onChangeFunction,
+    options: [{
+      value: '',
+      label: __('– unset –', 'bsx-blocks')
+    }, {
+      value: 'sm',
+      label: __('Small', 'bsx-blocks')
+    }, {
+      value: 'lg',
+      label: __('Large', 'bsx-blocks')
+    }]
+  });
+};
+var marginLeftSelect = function marginLeftSelect(value, onChangeFunction, allowedValues) {
+  var defaultValues = marginPaddingSizes;
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+    label: __('Margin left', 'bsx-blocks'),
+    value: value,
+    onChange: onChangeFunction,
+    options: Object(_utilities_js__WEBPACK_IMPORTED_MODULE_1__["filterByAllowedValueKeys"])(defaultValues, allowedValues)
+  });
+};
+var marginRightSelect = function marginRightSelect(value, onChangeFunction, allowedValues) {
+  var defaultValues = marginPaddingSizes;
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+    label: __('Margin right', 'bsx-blocks'),
+    value: value,
+    onChange: onChangeFunction,
+    options: Object(_utilities_js__WEBPACK_IMPORTED_MODULE_1__["filterByAllowedValueKeys"])(defaultValues, allowedValues)
+  });
+};
+var marginBeforeSelect = function marginBeforeSelect(value, onChangeFunction, allowedValues) {
+  var defaultValues = marginPaddingSizes;
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+    label: __('Margin before', 'bsx-blocks'),
+    value: value,
+    onChange: onChangeFunction,
+    options: Object(_utilities_js__WEBPACK_IMPORTED_MODULE_1__["filterByAllowedValueKeys"])(defaultValues, allowedValues),
+    help: __('Spacer before element', 'bsx-blocks')
+  });
+};
+var marginAfterSelect = function marginAfterSelect(value, onChangeFunction, allowedValues) {
+  var defaultValues = marginPaddingSizes;
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+    label: __('Margin after', 'bsx-blocks'),
+    value: value,
+    onChange: onChangeFunction,
+    options: Object(_utilities_js__WEBPACK_IMPORTED_MODULE_1__["filterByAllowedValueKeys"])(defaultValues, allowedValues),
+    help: __('Spacer after element', 'bsx-blocks')
+  });
+};
+var displaySelect = function displaySelect(value, onChangeFunction, allowedValues) {
+  var defaultValues = [{
+    value: '',
+    label: __('– unset –', 'bsx-blocks')
+  }, {
+    value: 'block',
+    label: __('Block', 'bsx-blocks')
+  }, {
+    value: 'inline-block',
+    label: __('Inline-block', 'bsx-blocks')
+  }, {
+    value: 'inline',
+    label: __('Inline', 'bsx-blocks')
+  }, {
+    value: 'flex',
+    label: __('Flex', 'bsx-blocks')
+  }];
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+    label: __('Display', 'bsx-blocks'),
+    value: value,
+    onChange: onChangeFunction,
+    options: Object(_utilities_js__WEBPACK_IMPORTED_MODULE_1__["filterByAllowedValueKeys"])(defaultValues, allowedValues)
+  });
+};
+var alignItemsSelect = function alignItemsSelect(value, onChangeFunction, allowedValues) {
+  var defaultValues = [{
+    value: '',
+    label: __('– unset –', 'bsx-blocks')
+  }, {
+    value: 'start',
+    label: __('Start', 'bsx-blocks')
+  }, {
+    value: 'center',
+    label: __('Center', 'bsx-blocks')
+  }, {
+    value: 'end',
+    label: __('End', 'bsx-blocks')
+  }];
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+    label: __('Align items', 'bsx-blocks'),
+    value: value,
+    onChange: onChangeFunction,
+    options: Object(_utilities_js__WEBPACK_IMPORTED_MODULE_1__["filterByAllowedValueKeys"])(defaultValues, allowedValues)
+  });
+};
+var paddingBeforeSelect = function paddingBeforeSelect(value, onChangeFunction, allowedValues) {
+  var defaultValues = marginPaddingSizes;
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+    label: __('Padding before', 'bsx-blocks'),
+    value: value,
+    onChange: onChangeFunction,
+    options: Object(_utilities_js__WEBPACK_IMPORTED_MODULE_1__["filterByAllowedValueKeys"])(defaultValues, allowedValues),
+    help: __('Inner spacer before', 'bsx-blocks')
+  });
+};
+var paddingAfterSelect = function paddingAfterSelect(value, onChangeFunction, allowedValues) {
+  var defaultValues = marginPaddingSizes;
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+    label: __('Padding after', 'bsx-blocks'),
+    value: value,
+    onChange: onChangeFunction,
+    options: Object(_utilities_js__WEBPACK_IMPORTED_MODULE_1__["filterByAllowedValueKeys"])(defaultValues, allowedValues),
+    help: __('Inner spacer after', 'bsx-blocks')
+  });
+};
+var nodeNameSelect = function nodeNameSelect(value, onChangeFunction, allowedValues) {
+  var defaultValues = [{
+    value: 'div',
+    label: __('div', 'bsx-blocks')
+  }, {
+    value: 'section',
+    label: __('section', 'bsx-blocks')
+  }, {
+    value: 'ul',
+    label: __('ul', 'bsx-blocks')
+  }, {
+    value: 'ol',
+    label: __('ol', 'bsx-blocks')
+  }, {
+    value: 'li',
+    label: __('li', 'bsx-blocks')
+  }];
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+    label: __('Node name', 'bsx-blocks'),
+    value: value,
+    onChange: onChangeFunction,
+    options: Object(_utilities_js__WEBPACK_IMPORTED_MODULE_1__["filterByAllowedValueKeys"])(defaultValues, allowedValues),
+    help: __('Node name (please edit only if you know what you’re doing)', 'bsx-blocks')
+  });
+};
+var bgPositionSelect = function bgPositionSelect(value, onChangeFunction, allowedValues) {
+  var defaultValues = [{
+    value: 'c',
+    label: __('Center center', 'bsx-blocks')
+  }, {
+    value: 'c25',
+    label: __('Center 25%', 'bsx-blocks')
+  }, {
+    value: 'c66',
+    label: __('Center 66%', 'bsx-blocks')
+  }, {
+    value: 'c75',
+    label: __('Center 75%', 'bsx-blocks')
+  }, {
+    value: 'ct',
+    label: __('Center top', 'bsx-blocks')
+  }, {
+    value: 'rc',
+    label: __('Right center', 'bsx-blocks')
+  }, {
+    value: '33c',
+    label: __('33% center', 'bsx-blocks')
+  }, {
+    value: '80c',
+    label: __('80% center', 'bsx-blocks')
+  }, {
+    value: '66t',
+    label: __('66% top', 'bsx-blocks')
+  }, {
+    value: '66c',
+    label: __('66% center', 'bsx-blocks')
+  }];
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+    label: __('Background position', 'bsx-blocks'),
+    value: value,
+    onChange: onChangeFunction,
+    options: Object(_utilities_js__WEBPACK_IMPORTED_MODULE_1__["filterByAllowedValueKeys"])(defaultValues, allowedValues)
+  });
+};
+var bgSizeSelect = function bgSizeSelect(value, onChangeFunction, allowedValues) {
+  var defaultValues = [{
+    value: 'cover',
+    label: __('Cover', 'bsx-blocks')
+  }, {
+    value: 'contain',
+    label: __('Contain', 'bsx-blocks')
+  }, {
+    value: '100a',
+    label: __('100% auto', 'bsx-blocks')
+  }];
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+    label: __('Background size', 'bsx-blocks'),
+    value: value,
+    onChange: onChangeFunction,
+    options: Object(_utilities_js__WEBPACK_IMPORTED_MODULE_1__["filterByAllowedValueKeys"])(defaultValues, allowedValues)
+  });
+};
+var bannerTypeSelect = function bannerTypeSelect(value, onChangeFunction, allowedValues) {
+  var defaultValues = [{
+    value: 'vh',
+    label: __('Viewport dependent height', 'bsx-blocks')
+  }, {
+    value: 'st',
+    label: __('Static height', 'bsx-blocks')
+  }];
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+    label: __('Banner height type', 'bsx-blocks'),
+    value: value,
+    onChange: onChangeFunction,
+    options: Object(_utilities_js__WEBPACK_IMPORTED_MODULE_1__["filterByAllowedValueKeys"])(defaultValues, allowedValues),
+    help: __('Viewport dependant height will be e.g. all viewport height or viewport height - ? pixels. Static height instead depends only on the banners contents.', 'bsx-blocks')
+  });
+};
+var bannerSizeSelect = function bannerSizeSelect(value, onChangeFunction, allowedValues) {
+  var defaultValues = [{
+    value: '1',
+    label: __('1 (biggest)', 'bsx-blocks')
+  }, {
+    value: '2',
+    label: __('2', 'bsx-blocks')
+  }, {
+    value: '3',
+    label: __('3 (smallest)', 'bsx-blocks')
+  }];
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+    label: __('Banner height size', 'bsx-blocks'),
+    value: value,
+    onChange: onChangeFunction,
+    options: Object(_utilities_js__WEBPACK_IMPORTED_MODULE_1__["filterByAllowedValueKeys"])(defaultValues, allowedValues),
+    help: __('Choose from 1 (maximum) to 3 (minimum)', 'bsx-blocks')
+  });
+};
+var bgAttachmentSelect = function bgAttachmentSelect(value, onChangeFunction, allowedValues) {
+  var defaultValues = [{
+    value: 'static',
+    label: __('static', 'bsx-blocks')
+  }, {
+    value: 'fixed',
+    label: __('fixed', 'bsx-blocks')
+  }];
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+    label: __('Background attachement', 'bsx-blocks'),
+    value: value,
+    onChange: onChangeFunction,
+    options: Object(_utilities_js__WEBPACK_IMPORTED_MODULE_1__["filterByAllowedValueKeys"])(defaultValues, allowedValues)
+  });
+}; // uploads
+
+var imgUploadClickableImg = function imgUploadClickableImg(imgId, url, onChangeFunction, type) {
+  var alt = typeof type !== 'undefined' && type === 'p' ? __('Change / upload portrait image', 'bsx-blocks') : __('Change / upload image', 'bsx-blocks');
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(MediaUpload, {
+    onSelect: onChangeFunction,
+    allowedTypes: "image",
+    value: imgId,
+    render: function render(_ref) {
+      var open = _ref.open;
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Button, {
+        className: "bsxui-config-panel-img-button has-margin-bottom",
+        onClick: open
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
+        class: "bsxui-config-panel-img",
+        src: url,
+        alt: alt
+      }));
+    }
+  });
+};
+var imgUploadButton = function imgUploadButton(imgId, onChangeFunction, type) {
+  var label = typeof type !== 'undefined' && type === 'p' ? __('Change / upload portrait image', 'bsx-blocks') : __('Change / upload image', 'bsx-blocks');
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(MediaUpload, {
+    onSelect: onChangeFunction,
+    allowedTypes: "image",
+    value: imgId,
+    render: function render(_ref2) {
+      var open = _ref2.open;
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Button, {
+        onClick: open,
+        isSecondary: true
+      }, label);
+    }
+  });
+}; // template selects
+
+var inlineTemplateSelect = function inlineTemplateSelect(templates, templateName, onChangeFunction) {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    class: "bsxui-initial-inline-control"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    class: "bsxui-initial-inline-control-heading"
+  }, __('Please select template', 'bsx-blocks')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "bsxui-icon-text-button-list"
+  }, templates.map(function (template, index) {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Button, {
+      label: template.title,
+      onClick: function onClick() {
+        onChangeFunction(template.name);
+      },
+      className: 'bsxui-icon-text-button-list-item ' + (templateName === template.name ? 'active' : '')
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      class: "bsxui-icon-text-button-list-item-icon"
+    }, template.icon), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      class: "bsxui-icon-text-button-list-item-label"
+    }, template.title));
+  })));
+};
+var uiTemplateSelect = function uiTemplateSelect(templates, templateName, onChangeFunction) {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "bsxui-icon-text-button-list"
+  }, templates.map(function (template, index) {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Button, {
+      label: template.title,
+      onClick: function onClick() {
+        onChangeFunction(template.name);
+      },
+      className: 'bsxui-icon-text-button-list-item ' + (templateName === template.name ? 'active' : '')
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      class: "bsxui-icon-text-button-list-item-icon"
+    }, template.icon), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      class: "bsxui-icon-text-button-list-item-label"
+    }, template.title));
+  }));
+};
+
+/***/ }),
+
+/***/ "./src/_functions/img.js":
+/*!*******************************!*\
+  !*** ./src/_functions/img.js ***!
+  \*******************************/
+/*! exports provided: getUrlTruncAndExtension, fullImgIsScaled, getOriginalImgUrl, getSizesAndWithoutSizesTruncFromUrlTrunc, makeSizedImgs, getImgWidthHeight, imgExists, getImgSizesData, makeBase64PreloadImgSrc */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUrlTruncAndExtension", function() { return getUrlTruncAndExtension; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fullImgIsScaled", function() { return fullImgIsScaled; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getOriginalImgUrl", function() { return getOriginalImgUrl; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getSizesAndWithoutSizesTruncFromUrlTrunc", function() { return getSizesAndWithoutSizesTruncFromUrlTrunc; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "makeSizedImgs", function() { return makeSizedImgs; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getImgWidthHeight", function() { return getImgWidthHeight; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "imgExists", function() { return imgExists; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getImgSizesData", function() { return getImgSizesData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "makeBase64PreloadImgSrc", function() { return makeBase64PreloadImgSrc; });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "@babel/runtime/regenerator");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "./node_modules/@babel/runtime/helpers/asyncToGenerator.js");
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__);
+
+
+// img functions
+function getUrlTruncAndExtension(url) {
+  var urlExplode = url.split('.');
+  var fileExtension = urlExplode[urlExplode.length - 1];
+  urlExplode.pop();
+  var urlWithoutFileExtension = urlExplode.join('.');
+  return {
+    trunc: urlWithoutFileExtension,
+    extension: fileExtension
+  };
+}
+function fullImgIsScaled(fullUrl) {
+  var urlWithoutFileExtension = getUrlTruncAndExtension(fullUrl).trunc;
+  return urlWithoutFileExtension.lastIndexOf('-scaled') === urlWithoutFileExtension.length - 7;
+}
+function getOriginalImgUrl(fullUrl) {
+  var truncAndExtension = getUrlTruncAndExtension(fullUrl);
+  return truncAndExtension.trunc.substring(0, truncAndExtension.trunc.length - 7) + '.' + truncAndExtension.extension;
+}
+function getSizesAndWithoutSizesTruncFromUrlTrunc(urlTrunc) {
+  var urlWithoutFileExtensionExplode = urlTrunc.split('-');
+  var sizes = urlWithoutFileExtensionExplode[urlWithoutFileExtensionExplode.length - 1].split('x');
+  urlWithoutFileExtensionExplode.pop();
+  return {
+    width: sizes[0],
+    height: sizes[1],
+    withoutSizesTrunc: urlWithoutFileExtensionExplode.join('-')
+  };
+}
+function makeSizedImgs(config) {
+  var originalWidth = config.originalWidth,
+      originalHeight = config.originalHeight,
+      url = config.url,
+      scaleList = config.scaleList;
+  var ratio = originalWidth / originalHeight;
+  var urlTruncAndExtension = getUrlTruncAndExtension(url);
+  var fileExtension = urlTruncAndExtension.extension;
+  var urlWithoutFileExtension = urlTruncAndExtension.trunc;
+  var sizesAndWithoutSizesTrunc = getSizesAndWithoutSizesTruncFromUrlTrunc(urlWithoutFileExtension);
+  var width = sizesAndWithoutSizesTrunc.width;
+  var urlWithoutSizesAndFileExtension = sizesAndWithoutSizesTrunc.withoutSizesTrunc;
+  var returnList = [];
+  scaleList.forEach(function (scale, index) {
+    // calculate new size
+    var scaledWidth = Math.round(width * scale); // check if default size exists for current img (only if original img is larger)
+
+    if (scaledWidth <= originalWidth) {
+      var scaledHeight = Math.round(scaledWidth / ratio);
+      var scaledUrl = urlWithoutSizesAndFileExtension + '-' + scaledWidth + 'x' + scaledHeight + '.' + fileExtension;
+      returnList.push({
+        url: scaledUrl,
+        width: scaledWidth,
+        height: scaledHeight
+      });
+    }
+  });
+  return returnList;
+}
+function getImgWidthHeight(imgUrl) {
+  return new Promise(function (resolve, reject) {
+    var img = document.createElement('img');
+
+    img.onload = function () {
+      resolve({
+        width: img.width,
+        height: img.height
+      });
+      img.remove;
+    };
+
+    img.onerror = function (err) {
+      reject('Error on loading image "' + imgUrl + '"', err);
+    };
+
+    img.src = imgUrl;
+    document.body.appendChild(img);
+  });
+}
+function imgExists(url) {
+  return new Promise(function (resolve, reject) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('HEAD', url, true);
+
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4) {
+        if (xhr.status == 200) {
+          resolve(true);
+        } else {
+          resolve(false);
+        }
+      }
+    };
+
+    xhr.send(null);
+  });
+} // getting sorted list of all imgs (default and hidden scaled)
+
+function getImgSizesData(_x) {
+  return _getImgSizesData.apply(this, arguments);
+}
+
+function _getImgSizesData() {
+  _getImgSizesData = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(img) {
+    var imgScaleList, imgBaseSize, defaultImgList, imgSizesOrder, originalImgUrl, originalWidth, originalHeight, originalImgSizes, scaledImgs, returnImgs, sizedImgsConfig, sizedImgs;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            // scaled (hidden) img settings
+            imgScaleList = [0.75, 1.5, 2];
+            imgBaseSize = 'large';
+            defaultImgList = ['thumbnail', 'medium', imgBaseSize, 'full'];
+            imgSizesOrder = ['thumbnail', 'medium', imgScaleList[0] + '', imgBaseSize, imgScaleList[1] + '', imgScaleList[2] + '', 'full', 'original'];
+            originalImgUrl = '';
+            originalWidth = 0;
+            originalHeight = 0;
+
+            if (!fullImgIsScaled(img.url)) {
+              _context2.next = 22;
+              break;
+            }
+
+            // get original, get sizes
+            originalImgUrl = getOriginalImgUrl(img.url);
+            _context2.prev = 9;
+            _context2.next = 12;
+            return getImgWidthHeight(originalImgUrl);
+
+          case 12:
+            originalImgSizes = _context2.sent;
+            _context2.next = 18;
+            break;
+
+          case 15:
+            _context2.prev = 15;
+            _context2.t0 = _context2["catch"](9);
+            console.error(_context2.t0);
+
+          case 18:
+            originalWidth = originalImgSizes.width;
+            originalHeight = originalImgSizes.height;
+            _context2.next = 24;
+            break;
+
+          case 22:
+            // get sizes from full img
+            originalWidth = img.sizes.full.width;
+            originalHeight = img.sizes.full.height;
+
+          case 24:
+            scaledImgs = new Map();
+            returnImgs = []; // make sizes only if large img exists
+
+            if (!(img.sizes.large != undefined)) {
+              _context2.next = 31;
+              break;
+            }
+
+            // config for making sizes (might change in newer WP versions)
+            sizedImgsConfig = {
+              url: img.sizes[imgBaseSize].url,
+              scaleList: imgScaleList,
+              originalWidth: originalWidth,
+              originalHeight: originalHeight
+            };
+            sizedImgs = makeSizedImgs(sizedImgsConfig); // check all imgs if exist (since WordPress might change hidden img sizes one day);
+
+            _context2.next = 31;
+            return Promise.all(sizedImgs.map( /*#__PURE__*/function () {
+              var _ref = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(sizedImg, index) {
+                var currentImageExists;
+                return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+                  while (1) {
+                    switch (_context.prev = _context.next) {
+                      case 0:
+                        _context.next = 2;
+                        return imgExists(sizedImg.url);
+
+                      case 2:
+                        currentImageExists = _context.sent;
+
+                        if (currentImageExists) {
+                          scaledImgs.set(imgScaleList[index] + '', sizedImg);
+                        }
+
+                      case 4:
+                      case "end":
+                        return _context.stop();
+                    }
+                  }
+                }, _callee);
+              }));
+
+              return function (_x2, _x3) {
+                return _ref.apply(this, arguments);
+              };
+            }()));
+
+          case 31:
+            // TEST – TODO: remove
+            // for ( let [ key, value ] of Object.entries( scaledImgs ) ) {
+            //     console.log( 'scaledImgs[ ' + key + ' ]: ' + value.url );
+            // }
+            // make ordered list of all existing default img sizes and scaled (hidden) img sizes
+            imgSizesOrder.forEach(function (imgSize, index) {
+              if (defaultImgList.indexOf(imgSize) != -1 && img.sizes[imgSize] != undefined) {
+                // get from default img list
+                returnImgs.push({
+                  url: img.sizes[imgSize].url,
+                  width: img.sizes[imgSize].width,
+                  height: img.sizes[imgSize].height
+                });
+              } else if (imgScaleList.indexOf(parseFloat(imgSize)) != -1 && scaledImgs.get(imgSize) != undefined) {
+                // get from scaled imgs list
+                returnImgs.push(scaledImgs.get(imgSize));
+              } else if (imgSize == 'original' && originalImgUrl) {
+                // add unscaled original
+                returnImgs.push({
+                  url: originalImgUrl,
+                  width: originalWidth,
+                  height: originalHeight
+                });
+              }
+            }); // TEST – TODO: remove
+            // returnImgs.forEach( ( returnImg, index ) => {
+            //     console.log( 
+            //         index + ':\n' 
+            //         + returnImg.url + '\n'
+            //         + returnImg.width + '\n'
+            //         + returnImg.height + '\n'
+            //     );
+            // } );
+
+            return _context2.abrupt("return", {
+              imgs: returnImgs,
+              originalWidth: originalWidth,
+              originalHeight: originalHeight
+            });
+
+          case 33:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2, null, [[9, 15]]);
+  }));
+  return _getImgSizesData.apply(this, arguments);
+}
+
+var makeBase64PreloadImgSrc = function makeBase64PreloadImgSrc(imgWidth, imgHeight) {
+  var img = '<svg xmlns="http://www.w3.org/2000/svg" width="' + imgWidth + 'px" height="' + imgHeight + 'px" viewBox="0 0 ' + imgWidth + ' ' + imgHeight + '"><rect fill="none" width="' + imgWidth + '" height="' + imgHeight + '"/></svg>';
+  var imgBase64 = btoa(img);
+  return 'data:image/svg+xml;base64,' + imgBase64;
+}; // export async function getOriginalImgSizes( img ) {
+//     if ( fullImgIsScaled( img.url ) ) {
+//         // find original img
+//         let originalImgSizes;
+//         try {
+//             originalImgSizes = await getImgWidthHeight( getOriginalImgUrl( img.url ) );
+//         } catch( err ) {
+//             console.error( err );
+//         }
+//         return {
+//             width: originalImgSizes.width,
+//             height: originalImgSizes.height,
+//         };
+//     }
+//     else {
+//         // get sizes from full img
+//         return {
+//             width: img.sizes.full.width,
+//             height: img.sizes.full.height,
+//         };
+//     }
+// }
+
+/***/ }),
+
+/***/ "./src/_functions/utilities.js":
+/*!*************************************!*\
+  !*** ./src/_functions/utilities.js ***!
+  \*************************************/
+/*! exports provided: filterByAllowedValueKeys */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "filterByAllowedValueKeys", function() { return filterByAllowedValueKeys; });
+var filterByAllowedValueKeys = function filterByAllowedValueKeys(mapArray, allowedValues) {
+  var filteredValues = [];
+
+  if (typeof allowedValues !== 'undefined' && allowedValues.length > 0) {
+    mapArray.forEach(function (item) {
+      if (typeof allowedValues.find(function (key) {
+        return key === item.value;
+      }) !== 'undefined') {
+        filteredValues.push(item);
+      }
+    });
+  } else {
+    filteredValues = mapArray;
+  }
+
+  return filteredValues;
+};
+
+/***/ }),
+
+/***/ "./src/_functions/wp-icons.js":
+/*!************************************!*\
+  !*** ./src/_functions/wp-icons.js ***!
+  \************************************/
+/*! exports provided: svgIcon */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "svgIcon", function() { return svgIcon; });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+
+// svg icons
+function svgIcon(iconKey) {
+  var icon = '';
+
+  switch (iconKey) {
+    case 'default':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9V14h30V34z M22.49,31.03h2.35v-2.21h-2.35V31.03z M22.51,19.38c0.36-0.28,0.81-0.42,1.35-0.42c0.63,0,1.1,0.17,1.43,0.5s0.49,0.81,0.49,1.44 c0,0.54-0.14,1.03-0.43,1.45s-0.68,0.89-1.18,1.38c-0.71,0.6-1.16,1.09-1.35,1.46s-0.3,1.02-0.3,1.94h2.3 c0-0.56,0.04-0.97,0.13-1.25s0.32-0.58,0.68-0.9c0.72-0.58,1.31-1.21,1.77-1.88c0.46-0.67,0.69-1.42,0.69-2.23 c0-1.22-0.37-2.16-1.09-2.83c-0.73-0.67-1.77-1-3.12-1c-1.25,0-2.26,0.31-3.02,0.94c-0.76,0.62-1.15,1.52-1.17,2.69h2.3 C21.97,20.09,22.15,19.66,22.51,19.38z"
+      }));
+      break;
+    // button
+
+    case 'buttons':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "20",
+        height: "20",
+        viewBox: "0 0 20 20",
+        "aria-hidden": "true",
+        role: "img",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        d: "M16,7H4C2.9,7,2,7.9,2,9v2c0,1.11,0.9,2,2,2h12c1.1,0,2-0.89,2-2V9C18,7.9,17.1,7,16,7z M15,11H5V9h10V11z"
+      }));
+      break;
+
+    case 'button':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "20",
+        height: "20",
+        viewBox: "0 0 20 20",
+        "aria-hidden": "true",
+        role: "img",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        d: "M16,7H4C2.9,7,2,7.9,2,9v2c0,1.11,0.9,2,2,2h12c1.1,0,2-0.89,2-2V9C18,7.9,17.1,7,16,7z M15,11H5V9h10V11z"
+      }));
+      break;
+
+    case 'button-label':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "20",
+        height: "20",
+        viewBox: "0 0 20 20",
+        "aria-hidden": "true",
+        role: "img",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        d: "M4,3v3.5h1v-1c0-0.55,0.45-1,1-1h3.25V15c0,0.55-0.45,1-1,1h-1v1h5.5v-1h-1c-0.55,0-1-0.45-1-1V4.5H14c0.55,0,1,0.45,1,1v1 h1V3H4z"
+      }));
+      break;
+
+    case 'buttons-one-button':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M30,20H18c-1.1,0-2,0.9-2,2v4c0,1.11,0.9,2,2,2h12c1.1,0,2-0.89,2-2v-4C32,20.9,31.1,20,30,20z M29,25.5H19v-3h10V25.5z"
+      }));
+      break;
+
+    case 'buttons-two-buttons':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M21,20H9c-1.1,0-2,0.9-2,2v4c0,1.11,0.9,2,2,2h12c1.1,0,2-0.89,2-2v-4C23,20.9,22.1,20,21,20z M20,25.5H10v-3h10V25.5z M39,20H27c-1.1,0-2,0.9-2,2v4c0,1.11,0.9,2,2,2h12c1.1,0,2-0.89,2-2v-4C41,20.9,40.1,20,39,20z M38,25.5H28v-3h10V25.5z"
+      }));
+      break;
+
+    case 'buttons-text-link':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M19,20c0-0.55,0.45-1,1-1h2.5v7c0,0.55-0.45,1-1,1h-1v1h7v-1h-1c-0.55,0-1-0.45-1-1v-7H28c0.55,0,1,0.45,1,1v1h1v-5H18v5h1 V20z M17,30v2h14v-2H17z"
+      }));
+      break;
+
+    case 'buttons-label-text-link':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M27,21c0-0.55,0.45-1,1-1h2.5v7c0,0.55-0.45,1-1,1h-1v1h7v-1h-1c-0.55,0-1-0.45-1-1v-7H36c0.55,0,1,0.45,1,1v1h1v-5H26v5h1 V21z M10,22h1v-1c0-0.55,0.45-1,1-1h2.5v7c0,0.55-0.45,1-1,1h-1v1h7v-1h-1c-0.55,0-1-0.45-1-1v-7H20c0.55,0,1,0.45,1,1v1h1v-5H10V22 z M25,31v2h14v-2H25z"
+      }));
+      break;
+    // button icons (wp ui button)
+
+    case 'carret-left':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "20",
+        height: "20",
+        viewBox: "0 0 20 20",
+        "aria-hidden": "true",
+        role: "img",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        d: "M14 5l-5 5 5 5-1 2-7-7 7-7z"
+      }));
+      break;
+
+    case 'carret-right':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "20",
+        height: "20",
+        viewBox: "0 0 20 20",
+        "aria-hidden": "true",
+        role: "img",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        d: "M6 15l5-5-5-5 1-2 7 7-7 7z"
+      }));
+      break;
+
+    case 'trash':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "20",
+        height: "20",
+        viewBox: "0 0 20 20",
+        "aria-hidden": "true",
+        role: "img",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        d: "M12 4h3c.6 0 1 .4 1 1v1H3V5c0-.6.5-1 1-1h3c.2-1.1 1.3-2 2.5-2s2.3.9 2.5 2zM8 4h3c-.2-.6-.9-1-1.5-1S8.2 3.4 8 4zM4 7h11l-.9 10.1c0 .5-.5.9-1 .9H5.9c-.5 0-.9-.4-1-.9L4 7z"
+      }));
+      break;
+    // banner
+
+    case 'banner':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "20",
+        height: "20",
+        viewBox: "0 0 20 20",
+        "aria-hidden": "true",
+        role: "img",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        d: "M17,5H3C1.9,5,1,5.9,1,7v6c0,1.11,0.9,2,2,2h14c1.1,0,2-0.89,2-2V7C19,5.9,18.1,5,17,5z M4.5,7C5.33,7,6,7.67,6,8.5 C6,9.33,5.33,10,4.5,10C3.67,10,3,9.33,3,8.5C3,7.67,3.67,7,4.5,7z M17,13H3l-0.02-1L7,10l2,1l5-3l3,2V13z"
+      }));
+      break;
+
+    case 'banner-empty':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M39,16H9c-1.1,0-2,0.9-2,2v12c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V18C41,16.9,40.1,16,39,16z M24.72,30.03 h-2.02v-1.89h2.02V30.03z M26.91,23.22c-0.39,0.58-0.9,1.12-1.52,1.61c-0.31,0.28-0.51,0.53-0.58,0.77s-0.11,0.6-0.11,1.07h-1.98 c0.01-0.79,0.09-1.35,0.26-1.67c0.17-0.32,0.56-0.74,1.16-1.25c0.43-0.42,0.77-0.82,1.02-1.18c0.24-0.37,0.37-0.78,0.37-1.25 c0-0.54-0.14-0.95-0.42-1.23s-0.69-0.43-1.22-0.43c-0.46,0-0.85,0.12-1.15,0.36c-0.31,0.24-0.46,0.61-0.46,1.1h-1.98 c0.01-1,0.34-1.77,1-2.31c0.66-0.54,1.52-0.8,2.59-0.8c1.16,0,2.05,0.29,2.68,0.86s0.94,1.38,0.94,2.43 C27.5,22.01,27.3,22.65,26.91,23.22z"
+      }));
+      break;
+
+    case 'banner-container-with-heading':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M39,16H9c-1.1,0-2,0.9-2,2v12c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V18C41,16.9,40.1,16,39,16z M13,31h-1v-2h1V31z M13,27h-1 v-2h1V27z M13,23h-1v-2h1V23z M13,19h-1v-2h1V19z M27,26H14v-3h13V26z M36,31h-1v-2h1V31z M36,27h-1v-2h1V27z M36,23h-1v-2h1V23z M36,19h-1v-2h1V19z"
+      }));
+      break;
+
+    case 'banner-static-container-with-heading':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        d: "M39,18H9c-1.1,0-2,0.9-2,2v8c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2v-8C41,18.9,40.1,18,39,18z M13,29h-1v-2h1V29z M13,25h-1 v-2h1V25z M13,21h-1v-2h1V21z M27,26H14v-3h13V26z M36,29h-1v-2h1V29z M36,25h-1v-2h1V25z M36,21h-1v-2h1V21z"
+      }));
+      break;
+
+    case 'banner-column-row':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M39,16H9c-1.1,0-2,0.9-2,2v12c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V18C41,16.9,40.1,16,39,16z M35,17h1v2h-1V17z M35,21h1v2 h-1V21z M35,25h1v2h-1V25z M14,21h13v3H14V21z M12,17h1v2h-1V17z M12,21h1v2h-1V21z M12,25h1v2h-1V25z M39,30H9v-2h30V30z"
+      }));
+      break;
+    // container
+
+    case 'container':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "20",
+        height: "20",
+        viewBox: "0 0 20 20",
+        "aria-hidden": "true",
+        role: "img",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        d: "M18.71,3.29C18.52,3.1,18.27,3,18,3H2C1.74,3,1.48,3.11,1.29,3.29C1.11,3.48,1,3.74,1,4v12c0,0.26,0.11,0.52,0.29,0.71 C1.48,16.89,1.74,17,2,17h16c0.27,0,0.52-0.1,0.71-0.29C18.89,16.52,19,16.27,19,16V4C19,3.73,18.89,3.48,18.71,3.29z M17,15H3V5h14 V15z M6,12H5v2h1V12z M6,6H5v2h1V6z M6,9H5v2h1V9z M15,9h-1v2h1V9z M15,6h-1v2h1V6z M15,12h-1v2h1V12z"
+      }));
+      break;
+    // banner
+
+    case 'banner-empty':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9V14h30V34z M22.49,31.03h2.35v-2.21h-2.35V31.03z M22.51,19.38c0.36-0.28,0.81-0.42,1.35-0.42c0.63,0,1.1,0.17,1.43,0.5s0.49,0.81,0.49,1.44 c0,0.54-0.14,1.03-0.43,1.45s-0.68,0.89-1.18,1.38c-0.71,0.6-1.16,1.09-1.35,1.46s-0.3,1.02-0.3,1.94h2.3 c0-0.56,0.04-0.97,0.13-1.25s0.32-0.58,0.68-0.9c0.72-0.58,1.31-1.21,1.77-1.88c0.46-0.67,0.69-1.42,0.69-2.23 c0-1.22-0.37-2.16-1.09-2.83c-0.73-0.67-1.77-1-3.12-1c-1.25,0-2.26,0.31-3.02,0.94c-0.76,0.62-1.15,1.52-1.17,2.69h2.3 C21.97,20.09,22.15,19.66,22.51,19.38z"
+      }));
+      break;
+
+    case 'banner-container-with-heading':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9V14h30V34z M22.49,31.03h2.35v-2.21h-2.35V31.03z M22.51,19.38c0.36-0.28,0.81-0.42,1.35-0.42c0.63,0,1.1,0.17,1.43,0.5s0.49,0.81,0.49,1.44 c0,0.54-0.14,1.03-0.43,1.45s-0.68,0.89-1.18,1.38c-0.71,0.6-1.16,1.09-1.35,1.46s-0.3,1.02-0.3,1.94h2.3 c0-0.56,0.04-0.97,0.13-1.25s0.32-0.58,0.68-0.9c0.72-0.58,1.31-1.21,1.77-1.88c0.46-0.67,0.69-1.42,0.69-2.23 c0-1.22-0.37-2.16-1.09-2.83c-0.73-0.67-1.77-1-3.12-1c-1.25,0-2.26,0.31-3.02,0.94c-0.76,0.62-1.15,1.52-1.17,2.69h2.3 C21.97,20.09,22.15,19.66,22.51,19.38z"
+      }));
+      break;
+
+    case 'banner-static-container-with-heading':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9V14h30V34z M22.49,31.03h2.35v-2.21h-2.35V31.03z M22.51,19.38c0.36-0.28,0.81-0.42,1.35-0.42c0.63,0,1.1,0.17,1.43,0.5s0.49,0.81,0.49,1.44 c0,0.54-0.14,1.03-0.43,1.45s-0.68,0.89-1.18,1.38c-0.71,0.6-1.16,1.09-1.35,1.46s-0.3,1.02-0.3,1.94h2.3 c0-0.56,0.04-0.97,0.13-1.25s0.32-0.58,0.68-0.9c0.72-0.58,1.31-1.21,1.77-1.88c0.46-0.67,0.69-1.42,0.69-2.23 c0-1.22-0.37-2.16-1.09-2.83c-0.73-0.67-1.77-1-3.12-1c-1.25,0-2.26,0.31-3.02,0.94c-0.76,0.62-1.15,1.52-1.17,2.69h2.3 C21.97,20.09,22.15,19.66,22.51,19.38z"
+      }));
+      break;
+
+    case 'column-row-banner':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9V14h30V34z M22.49,31.03h2.35v-2.21h-2.35V31.03z M22.51,19.38c0.36-0.28,0.81-0.42,1.35-0.42c0.63,0,1.1,0.17,1.43,0.5s0.49,0.81,0.49,1.44 c0,0.54-0.14,1.03-0.43,1.45s-0.68,0.89-1.18,1.38c-0.71,0.6-1.16,1.09-1.35,1.46s-0.3,1.02-0.3,1.94h2.3 c0-0.56,0.04-0.97,0.13-1.25s0.32-0.58,0.68-0.9c0.72-0.58,1.31-1.21,1.77-1.88c0.46-0.67,0.69-1.42,0.69-2.23 c0-1.22-0.37-2.16-1.09-2.83c-0.73-0.67-1.77-1-3.12-1c-1.25,0-2.26,0.31-3.02,0.94c-0.76,0.62-1.15,1.52-1.17,2.69h2.3 C21.97,20.09,22.15,19.66,22.51,19.38z"
+      }));
+      break;
+    // columns
+    // gallery
+
+    case 'gallery':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "20",
+        height: "20",
+        viewBox: "0 0 20 20",
+        "aria-hidden": "true",
+        role: "img",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        d: "M8,10L6,9l-2,1v2.99h9V9l-2-1L8,10z M7,8c1.1,0,2-0.9,2-2c0-1.1-0.9-2-2-2S5,4.9,5,6C5,7.1,5.9,8,7,8z M18.71,4.29 C18.52,4.1,18.27,4,18,4h-2V2c0-0.27-0.1-0.52-0.29-0.71C15.52,1.1,15.27,1,15,1H2C1.74,1,1.48,1.11,1.29,1.29C1.11,1.48,1,1.74,1,2 v13c0,0.26,0.11,0.52,0.29,0.71C1.48,15.89,1.74,16,2,16h2v2c0,0.26,0.11,0.52,0.29,0.71C4.48,18.89,4.74,19,5,19h13 c0.27,0,0.52-0.1,0.71-0.29C18.9,18.52,19,18.27,19,18V5C19,4.73,18.9,4.48,18.71,4.29z M3,14V3h11v11H3z M17,17H6v-1h9 c0.27,0,0.52-0.1,0.71-0.29C15.9,15.52,16,15.27,16,15V6h1V17z"
+      }));
+      break;
+    // groups
+
+    case 'groups':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "20",
+        height: "20",
+        viewBox: "0 0 20 20",
+        "aria-hidden": "true",
+        role: "img",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        d: "M7,7h6c0.55,0,1-0.45,1-1V4c0-0.55-0.45-1-1-1H7C6.45,3,6,3.45,6,4v2C6,6.55,6.45,7,7,7z M13,13H7c-0.55,0-1,0.45-1,1v2 c0,0.55,0.45,1,1,1h6c0.55,0,1-0.45,1-1v-2C14,13.45,13.55,13,13,13z M9.5,11V9c0-0.55-0.45-1-1-1H3C2.45,8,2,8.45,2,9v2 c0,0.55,0.45,1,1,1h5.5C9.05,12,9.5,11.55,9.5,11z M17,8h-5.5c-0.55,0-1,0.45-1,1v2c0,0.55,0.45,1,1,1H17c0.55,0,1-0.45,1-1V9 C18,8.45,17.55,8,17,8z"
+      }));
+      break;
+
+    case 'groups-lazy-img-paragraph-button':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9V14h30V34z M22.49,31.03h2.35v-2.21h-2.35V31.03z M22.51,19.38c0.36-0.28,0.81-0.42,1.35-0.42c0.63,0,1.1,0.17,1.43,0.5s0.49,0.81,0.49,1.44 c0,0.54-0.14,1.03-0.43,1.45s-0.68,0.89-1.18,1.38c-0.71,0.6-1.16,1.09-1.35,1.46s-0.3,1.02-0.3,1.94h2.3 c0-0.56,0.04-0.97,0.13-1.25s0.32-0.58,0.68-0.9c0.72-0.58,1.31-1.21,1.77-1.88c0.46-0.67,0.69-1.42,0.69-2.23 c0-1.22-0.37-2.16-1.09-2.83c-0.73-0.67-1.77-1-3.12-1c-1.25,0-2.26,0.31-3.02,0.94c-0.76,0.62-1.15,1.52-1.17,2.69h2.3 C21.97,20.09,22.15,19.66,22.51,19.38z"
+      }));
+      break;
+
+    case 'groups-lazy-img-heading-paragraph':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9V14h30V34z M22.49,31.03h2.35v-2.21h-2.35V31.03z M22.51,19.38c0.36-0.28,0.81-0.42,1.35-0.42c0.63,0,1.1,0.17,1.43,0.5s0.49,0.81,0.49,1.44 c0,0.54-0.14,1.03-0.43,1.45s-0.68,0.89-1.18,1.38c-0.71,0.6-1.16,1.09-1.35,1.46s-0.3,1.02-0.3,1.94h2.3 c0-0.56,0.04-0.97,0.13-1.25s0.32-0.58,0.68-0.9c0.72-0.58,1.31-1.21,1.77-1.88c0.46-0.67,0.69-1.42,0.69-2.23 c0-1.22-0.37-2.16-1.09-2.83c-0.73-0.67-1.77-1-3.12-1c-1.25,0-2.26,0.31-3.02,0.94c-0.76,0.62-1.15,1.52-1.17,2.69h2.3 C21.97,20.09,22.15,19.66,22.51,19.38z"
+      }));
+      break;
+    // lazy img
+
+    case 'lazy-img':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "20",
+        height: "20",
+        viewBox: "0 0 20 20",
+        "aria-hidden": "true",
+        role: "img",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        d: "M18.71,1.29C18.52,1.11,18.26,1,18,1H2C1.74,1,1.48,1.11,1.29,1.29C1.11,1.48,1,1.74,1,2v16c0,0.26,0.11,0.52,0.29,0.71 C1.48,18.89,1.74,19,2,19h16c0.26,0,0.52-0.11,0.71-0.29C18.89,18.52,19,18.26,19,18V2C19,1.74,18.89,1.48,18.71,1.29z M3,17V3h14 l0,14H3z M9,12l-2-1l-3,2v2.98h12V11l-3-2L9,12z M7.5,9C8.88,9,10,7.88,10,6.5S8.88,4,7.5,4S5,5.12,5,6.5S6.12,9,7.5,9z"
+      }));
+      break;
+    // row with columns
+
+    case 'row-with-cols':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "20",
+        height: "20",
+        viewBox: "0 0 20 20",
+        "aria-hidden": "true",
+        role: "img",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        d: "M18.71,1.29C18.52,1.11,18.26,1,18,1H2C1.74,1,1.48,1.11,1.29,1.29C1.11,1.48,1,1.74,1,2v16c0,0.26,0.11,0.52,0.29,0.71 C1.48,18.89,1.74,19,2,19h16c0.26,0,0.52-0.11,0.71-0.29C18.89,18.52,19,18.26,19,18V2C19,1.74,18.89,1.48,18.71,1.29z M12,3v14H8V3 H12z M3,3h3v14H3V3z M14,17V3h3l0,14H14z"
+      }));
+      break;
+    // section
+
+    case 'section':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "20",
+        height: "20",
+        viewBox: "0 0 20 20",
+        "aria-hidden": "true",
+        role: "img",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        d: "M14,4h-3v2h3V4z M8.29,5.71C8.48,5.9,8.73,6,9,6h0V3.59L7.71,2.29C7.52,2.1,7.26,2,7,2H6v2h0.58L8.29,5.71z M19,7V5 c0-0.27-0.1-0.52-0.29-0.71C18.52,4.1,18.27,4,18,4h-2v2h1v9L3,15v-2H1v3c0,0.26,0.11,0.52,0.29,0.71C1.48,16.89,1.74,17,2,17h2v-2 h2v2h3v-2h2v2h3v-2h2v2h2c0.27,0,0.52-0.1,0.71-0.29C18.89,16.52,19,16.27,19,16v-2h-2v-2h2V9h-2V7H19z M3,4h1V2H2 C1.74,2,1.48,2.11,1.29,2.29C1.11,2.48,1,2.74,1,3v3h2V4z M3,8H1v3h2V8z"
+      }));
+      break;
+
+    case 'section-empty':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M38.96,30h2l0.01-3h-2L38.96,30z M23,18h3v-2h-3V18z M28,36h3v-2h-3V36z M33,36h3v-2h-3V36z M23,36h3v-2h-3V36z M40.71,16.29C40.52,16.1,40.27,16,40,16h-2v2h1l0,2h2L41,17C41,16.73,40.9,16.48,40.71,16.29z M13,36h3v-2h-3V36z M33,18h3v-2h-3 V18z M18,36h3v-2h-3V36z M28,18h3v-2h-3V18z M9,33H7v2c0,0.26,0.1,0.52,0.29,0.71C7.48,35.89,7.74,36,8,36h3v-2H9V33z M9,23H7v3h2 V23z M9,18H7v3h2V18z M38.95,34H38v2h1.95c0.55,0,1-0.45,1-1l0.01-3h-2L38.95,34z M15.58,14L17,12.59l-0.29-0.29 C16.52,12.11,16.26,12,16,12h-4v2L15.58,14L15.58,14z M9,28H7v3h2V28z M38.98,25h2l0.01-3h-2L38.98,25z M18.41,14L17,15.41 l2.29,2.29C19.48,17.9,19.73,18,20,18h1v-2h-0.59L18.41,14z M9,14h1v-2H8c-0.26,0-0.52,0.1-0.71,0.29C7.11,12.48,7,12.74,7,13v3h2 V14z"
+      }));
+      break;
+
+    case 'section-container-heading':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M13,24h22v-3H13V24z M9,23H7v3h2V23z M9,28H7v3h2V28z M9,33H7v2c0,0.26,0.1,0.52,0.29,0.71C7.48,35.89,7.74,36,8,36h3v-2H9 V33z M9,18H7v3h2V18z M9,14h1v-2H8c-0.26,0-0.52,0.1-0.71,0.29C7.11,12.48,7,12.74,7,13v3h2V14z M31,16h-3v2h3V16z M26,16h-3v2h3V16 z M19.29,17.71C19.48,17.9,19.73,18,20,18h1v-2h-0.59l-2-2L17,15.41L19.29,17.71z M15.58,14L17,12.59l-0.29-0.29 C16.52,12.11,16.26,12,16,12h-4v2L15.58,14L15.58,14z M23,36h3v-2h-3V36z M38.96,30h2l0.01-3h-2L38.96,30z M38.95,34H38v2h1.95 c0.55,0,1-0.45,1-1l0.01-3h-2L38.95,34z M38.98,25h2l0.01-3h-2L38.98,25z M33,18h3v-2h-3V18z M33,36h3v-2h-3V36z M13,36h3v-2h-3V36z M40.71,16.29C40.52,16.1,40.27,16,40,16h-2v2h1l0,2h2L41,17C41,16.73,40.9,16.48,40.71,16.29z M18,36h3v-2h-3V36z M28,36h3v-2h-3 V36z"
+      }));
+      break;
+
+    case 'section-container-heading-text-gallery':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M35,20H13v3h22V20z M9,23H7v3h2V23z M9,28H7v3h2V28z M9,18H7v3h2V18z M26,16h-3v2h3V16z M9,14h1v-2H8 c-0.26,0-0.52,0.1-0.71,0.29C7.11,12.48,7,12.74,7,13v3h2V14z M31,16h-3v2h3V16z M19.29,17.71C19.48,17.9,19.73,18,20,18h1v-2h-0.59 l-2-2L17,15.41L19.29,17.71z M9,33H7v2c0,0.26,0.1,0.52,0.29,0.71C7.48,35.89,7.74,36,8,36h3v-2H9V33z M38.95,34H38v2h1.95 c0.55,0,1-0.45,1-1l0.01-3h-2L38.95,34z M38.96,30h2l0.01-3h-2L38.96,30z M15.58,14L17,12.59l-0.29-0.29C16.52,12.11,16.26,12,16,12 h-4v2L15.58,14L15.58,14z M38.98,25h2l0.01-3h-2L38.98,25z M33,18h3v-2h-3V18z M40.71,16.29C40.52,16.1,40.27,16,40,16h-2v2h1l0,2h2 L41,17C41,16.73,40.9,16.48,40.71,16.29z M18,36h3v-2h-3V36z M13,36h3v-2h-3V36z M33,36h3v-2h-3V36z M23,36h3v-2h-3V36z M28,36h3v-2 h-3V36z M35,31v-3h-6v3H35z M21,31h6v-3h-6V31z M13,31h6v-3h-6V31z M35,24H13v1h22V24z M35,26H13v1h22V26z"
+      }));
+      break;
+
+    case 'section-container-rounded-colored-banner':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M9,23H7v3h2V23z M9,28H7v3h2V28z M9,18H7v3h2V18z M31,16h-3v2h3V16z M9,14h1v-2H8c-0.26,0-0.52,0.1-0.71,0.29 C7.11,12.48,7,12.74,7,13v3h2V14z M26,16h-3v2h3V16z M9,33H7v2c0,0.26,0.1,0.52,0.29,0.71C7.48,35.89,7.74,36,8,36h3v-2H9V33z M19.29,17.71C19.48,17.9,19.73,18,20,18h1v-2h-0.59l-2-2L17,15.41L19.29,17.71z M15.58,14L17,12.59l-0.29-0.29 C16.52,12.11,16.26,12,16,12h-4v2L15.58,14L15.58,14z M38.96,30h2l0.01-3h-2L38.96,30z M38.95,34H38v2h1.95c0.55,0,1-0.45,1-1 l0.01-3h-2L38.95,34z M40.71,16.29C40.52,16.1,40.27,16,40,16h-2v2h1l0,2h2L41,17C41,16.73,40.9,16.48,40.71,16.29z M38.98,25h2 l0.01-3h-2L38.98,25z M33,18h3v-2h-3V18z M18,36h3v-2h-3V36z M13,36h3v-2h-3V36z M23,36h3v-2h-3V36z M28,36h3v-2h-3V36z M33,36h3v-2 h-3V36z M13,22v5c0,0.55,0.45,1,1,1h20c0.55,0,1-0.45,1-1v-5c0-0.55-0.45-1-1-1H14C13.45,21,13,21.45,13,22z M26,27h-4v-1h4V27z M20,22h8v1h-8V22z M15,24h18v1H15V24z"
+      }));
+      break;
+    // wrapper
+
+    case 'wrapper':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "20",
+        height: "20",
+        viewBox: "0 0 20 20",
+        "aria-hidden": "true",
+        role: "img",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        d: "M2,17c-0.26,0-0.52-0.11-0.71-0.29l0,0C1.11,16.52,1,16.26,1,16l0,0V4c0-0.26,0.11-0.52,0.29-0.71l0,0 C1.48,3.11,1.74,3,2,3l0,0h16c0.27,0,0.52,0.1,0.71,0.29l0,0C18.89,3.48,19,3.73,19,4l0,0v12c0,0.27-0.1,0.52-0.29,0.71l0,0 C18.52,16.9,18.27,17,18,17l0,0H2L2,17z M18,16v-1V16L18,16z M3,15h14V5H3V15L3,15z"
+      }));
+      break;
+    // default
+
+    default:
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9V14h30V34z M22.49,31.03h2.35v-2.21h-2.35V31.03z M22.51,19.38c0.36-0.28,0.81-0.42,1.35-0.42c0.63,0,1.1,0.17,1.43,0.5s0.49,0.81,0.49,1.44 c0,0.54-0.14,1.03-0.43,1.45s-0.68,0.89-1.18,1.38c-0.71,0.6-1.16,1.09-1.35,1.46s-0.3,1.02-0.3,1.94h2.3 c0-0.56,0.04-0.97,0.13-1.25s0.32-0.58,0.68-0.9c0.72-0.58,1.31-1.21,1.77-1.88c0.46-0.67,0.69-1.42,0.69-2.23 c0-1.22-0.37-2.16-1.09-2.83c-0.73-0.67-1.77-1-3.12-1c-1.25,0-2.26,0.31-3.02,0.94c-0.76,0.62-1.15,1.52-1.17,2.69h2.3 C21.97,20.09,22.15,19.66,22.51,19.38z"
+      }));
+  }
+
+  return icon;
+}
+
+/***/ }),
+
+/***/ "./src/banner/block.js":
+/*!*****************************!*\
+  !*** ./src/banner/block.js ***!
+  \*****************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js");
+/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/regenerator */ "@babel/runtime/regenerator");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "./node_modules/@babel/runtime/helpers/asyncToGenerator.js");
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../_functions/wp-icons.js */ "./src/_functions/wp-icons.js");
+/* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
+/* harmony import */ var _functions_img_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../_functions/img.js */ "./src/_functions/img.js");
+/* harmony import */ var _functions_controls_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./../_functions/controls.js */ "./src/_functions/controls.js");
+/* harmony import */ var _functions_attributes_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./../_functions/attributes.js */ "./src/_functions/attributes.js");
+
+
+
+
+
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_3___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+var _wp$i18n = wp.i18n,
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData;
+var registerBlockType = wp.blocks.registerBlockType;
+var _wp$blockEditor = wp.blockEditor,
+    InnerBlocks = _wp$blockEditor.InnerBlocks,
+    InspectorControls = _wp$blockEditor.InspectorControls,
+    InspectorAdvancedControls = _wp$blockEditor.InspectorAdvancedControls,
+    MediaUpload = _wp$blockEditor.MediaUpload;
+var _wp$components = wp.components,
+    PanelBody = _wp$components.PanelBody,
+    TextControl = _wp$components.TextControl,
+    ToggleControl = _wp$components.ToggleControl,
+    SelectControl = _wp$components.SelectControl,
+    Button = _wp$components.Button,
+    SVG = _wp$components.SVG,
+    Path = _wp$components.Path,
+    RadioControl = _wp$components.RadioControl;
+var Fragment = wp.element.Fragment;
+var withSelect = wp.data.withSelect;
+
+
+
+
+ // functions
+
+var makeBannerClassNames = function makeBannerClassNames(attributes) {
+  var bannerType = attributes.bannerType,
+      bannerSize = attributes.bannerSize,
+      bgAttachment = attributes.bgAttachment,
+      bgAttachmentFixedLimited = attributes.bgAttachmentFixedLimited,
+      bgSize = attributes.bgSize,
+      bgPosition = attributes.bgPosition,
+      alignItems = attributes.alignItems,
+      templateName = attributes.templateName;
+  var classNames = [];
+
+  if (true) {
+    // always set bannerType and bannerSize to keep debugging easy
+    classNames.push('banner-' + bannerType + '-' + bannerSize);
+  }
+
+  if (!!bgAttachment) {
+    classNames.push('bg-' + bgAttachment);
+  }
+
+  if (!!bgAttachmentFixedLimited) {
+    classNames.push('bg-w2000-static');
+  }
+
+  if (!!bgSize) {
+    classNames.push('bg-' + bgSize);
+  }
+
+  if (!!bgPosition) {
+    classNames.push('bg-' + bgPosition);
+  }
+
+  if (!!alignItems) {
+    classNames.push('d-flex');
+
+    if (templateName !== 'column-row-banner') {
+      classNames.push('align-items-' + alignItems);
+    }
+  }
+
+  if (!!templateName == 'column-row-banner' && classNames.indexOf('d-flex') == -1) {
+    classNames.push('d-flex');
+  }
+
+  return classNames.join(' ');
+};
+
+var makeBannerInnerClassNames = function makeBannerInnerClassNames(attributes) {
+  var templateName = attributes.templateName;
+  var classNames = ['banner-inner'];
+
+  if (!!templateName && templateName == 'column-row-banner') {
+    classNames.push('w-100');
+    classNames.push('d-flex');
+    classNames.push('flex-column');
+  }
+
+  return classNames.join(' ');
+}; // responsive sizes
+
+
+var responsivePortraitMediaIndexList = [{
+  media: '(orientation: portrait) and (max-width: 499.98px)',
+  imgSizeIndexShift: '-1'
+}, {
+  media: '(orientation: portrait)',
+  imgSizeIndexShift: '0'
+}];
+var responsiveMediaIndexList = [{
+  media: '(max-width: 999.98px)',
+  imgSizeIndexShift: '-3'
+}, {
+  media: '(max-width: 1399.98px)',
+  imgSizeIndexShift: '-2'
+}];
+var skipIndex = 0;
+
+var makeSrcsetJson = function makeSrcsetJson(attributes) {
+  var imgSizes = attributes.imgSizes,
+      imgSizeIndex = attributes.imgSizeIndex,
+      portraitImgSizes = attributes.portraitImgSizes,
+      portraitImgSizeIndex = attributes.portraitImgSizeIndex; // srcsetJson = "[ { media: '" + mobileMediaQuery + "', src: '" + url + "' }, { media: '" + smallMobileMediaQuery + "', src: '" + imgSizes[ ( imgSizeIndex - mobileSizeStep > 0 ? imgSizeIndex - mobileSizeStep : 0 ) ].url + "' }, { media: '', src: '" + imgSizes[ ( imgSizeIndex - smallMobileSizeStep > 0 ? imgSizeIndex - smallMobileSizeStep : 0 ) ].url + "' } ]";
+
+  var srcsetJson = '[ ';
+  responsivePortraitMediaIndexList.forEach(function (item, index) {
+    // add item if img resulting indes > skipIndex (no square format)
+    var currentPortraitImgSizeIndex = parseInt(portraitImgSizeIndex) + parseInt(item.imgSizeIndexShift);
+
+    if (currentPortraitImgSizeIndex > skipIndex && currentPortraitImgSizeIndex < portraitImgSizes.length) {
+      srcsetJson += '{ media: \'' + item.media + '\', src: \'' + portraitImgSizes[currentPortraitImgSizeIndex].url + '\' }, ';
+    }
+  });
+  responsiveMediaIndexList.forEach(function (item, index) {
+    // add item if img resulting indes > skipIndex (no square format)
+    var currentImgSizeIndex = parseInt(imgSizeIndex) + parseInt(item.imgSizeIndexShift);
+
+    if (currentImgSizeIndex > skipIndex && currentImgSizeIndex < imgSizes.length) {
+      srcsetJson += '{ media: \'' + item.media + '\', src: \'' + imgSizes[currentImgSizeIndex].url + '\' }, ';
+    }
+  });
+
+  if (srcsetJson.lastIndexOf(', ') == srcsetJson.length - 2) {
+    srcsetJson = srcsetJson.substring(0, srcsetJson.length - 2);
+  }
+
+  srcsetJson += ' ]';
+  return srcsetJson;
+}; // insert directly into banner element without `.banner-inner`
+
+
+var noBannerInnerTemplateNames = ['column-row-banner'];
+registerBlockType('bsx-blocks/banner', {
+  title: __('BSX Banner', 'bsx-blocks'),
+  icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_5__["svgIcon"])('banner'),
+  category: 'layout',
+  attributes: {
+    nodeName: {
+      type: 'string',
+      default: 'div'
+    },
+    templateName: {
+      type: 'string'
+    },
+    belowNavbar: {
+      type: 'boolean',
+      default: false
+    },
+    imgId: {
+      type: 'number'
+    },
+    imgSizes: {
+      type: 'array',
+      default: []
+    },
+    imgSizeIndex: {
+      type: 'string',
+      default: '6'
+    },
+    url: {
+      type: 'string'
+    },
+    portraitImgId: {
+      type: 'number'
+    },
+    portraitImgSizes: {
+      type: 'array',
+      default: []
+    },
+    portraitImgSizeIndex: {
+      type: 'string',
+      default: '3'
+    },
+    bannerType: {
+      type: 'string',
+      default: 'vh'
+    },
+    bannerSize: {
+      type: 'string',
+      default: '2'
+    },
+    bgAttachment: {
+      type: 'string',
+      default: 'fixed'
+    },
+    bgAttachmentFixedLimited: {
+      type: 'boolean'
+    },
+    bgSize: {
+      type: 'string',
+      default: 'cover'
+    },
+    bgPosition: {
+      type: 'string',
+      default: 'c'
+    },
+    alignItems: {
+      type: 'string',
+      default: 'center'
+    },
+    marginBefore: {
+      type: 'string',
+      default: ''
+    },
+    marginAfter: {
+      type: 'string',
+      default: ''
+    },
+    paddingBefore: {
+      type: 'string',
+      default: ''
+    },
+    paddingAfter: {
+      type: 'string',
+      default: ''
+    }
+  },
+  edit: withSelect(function (select, _ref) {
+    var clientId = _ref.clientId;
+
+    var _select = select('core/block-editor'),
+        getBlocksByClientId = _select.getBlocksByClientId,
+        getBlockAttributes = _select.getBlockAttributes;
+
+    var children = getBlocksByClientId(clientId)[0] ? getBlocksByClientId(clientId)[0].innerBlocks : [];
+    return {
+      children: children
+    };
+  })(function (props) {
+    var className = props.className,
+        _props$attributes = props.attributes,
+        nodeName = _props$attributes.nodeName,
+        templateName = _props$attributes.templateName,
+        belowNavbar = _props$attributes.belowNavbar,
+        imgId = _props$attributes.imgId,
+        imgSizes = _props$attributes.imgSizes,
+        imgSizeIndex = _props$attributes.imgSizeIndex,
+        url = _props$attributes.url,
+        portraitImgId = _props$attributes.portraitImgId,
+        portraitImgSizes = _props$attributes.portraitImgSizes,
+        portraitImgSizeIndex = _props$attributes.portraitImgSizeIndex,
+        bannerType = _props$attributes.bannerType,
+        bannerSize = _props$attributes.bannerSize,
+        bgAttachment = _props$attributes.bgAttachment,
+        bgAttachmentFixedLimited = _props$attributes.bgAttachmentFixedLimited,
+        bgSize = _props$attributes.bgSize,
+        bgPosition = _props$attributes.bgPosition,
+        alignItems = _props$attributes.alignItems,
+        marginBefore = _props$attributes.marginBefore,
+        marginAfter = _props$attributes.marginAfter,
+        paddingBefore = _props$attributes.paddingBefore,
+        paddingAfter = _props$attributes.paddingAfter,
+        setAttributes = props.setAttributes,
+        isSelected = props.isSelected,
+        children = props.children;
+
+    var hasInnerBlocks = function hasInnerBlocks(children) {
+      return children.length > 0;
+    };
+
+    var templates = [{
+      name: 'empty',
+      title: __('Empty', 'bsx-blocks'),
+      icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_5__["svgIcon"])('banner-empty'),
+      attributes: {
+        marginAfter: '5'
+      },
+      template: [['core/paragraph', {
+        placeholder: 'Change paragraph text or delete...'
+      }]],
+      templateLock: false
+    }, {
+      name: 'container-with-heading',
+      title: __('Container with Heading', 'bsx-blocks'),
+      icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_5__["svgIcon"])('banner-container-with-heading'),
+      attributes: {
+        marginAfter: '5'
+      },
+      template: [['bsx-blocks/container', {}, [['core/heading', {
+        placeholder: 'Add heading text, configure heading level...',
+        textSize: 'display-1',
+        textColor: 'white',
+        textShadow: 'darker',
+        marginAfter: '0'
+      }]]]],
+      templateLock: false
+    }, {
+      name: 'static-container-with-heading',
+      title: __('Static with Container & Heading', 'bsx-blocks'),
+      icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_5__["svgIcon"])('banner-static-container-with-heading'),
+      attributes: {
+        bannerType: 'st',
+        bannerSize: '3',
+        marginAfter: '5'
+      },
+      template: [['bsx-blocks/container', {}, [['core/heading', {
+        placeholder: 'Add heading text, configure heading level...',
+        textSize: 'display-1',
+        textColor: 'white',
+        textShadow: 'darker',
+        marginAfter: '0'
+      }]]]],
+      templateLock: false
+    }, {
+      name: 'column-row-banner',
+      title: __('Bottom bar Banner', 'bsx-blocks'),
+      icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_5__["svgIcon"])('banner-column-row'),
+      attributes: {
+        marginAfter: '5'
+      },
+      template: [['bsx-blocks/column-rows', {
+        templateName: 'default-auto',
+        display: 'flex',
+        flexDirection: 'column',
+        className: 'banner-inner'
+      }, [['bsx-blocks/column-row', {
+        columnRowType: '',
+        display: 'flex',
+        alignItems: 'center'
+      }, [['bsx-blocks/wrapper', {
+        width: '100'
+      }, [['bsx-blocks/container', {}, [['core/heading', {
+        placeholder: 'Add heading text, configure heading level...',
+        textSize: 'display-1',
+        textColor: 'white',
+        textShadow: 'darker',
+        marginAfter: '0'
+      }]]]]]]], ['bsx-blocks/column-row', {
+        columnRowType: 'auto'
+      }, [['bsx-blocks/wrapper', {
+        bgColor: 'primary-transparent',
+        paddingBefore: '3',
+        paddingAfter: '3'
+      }, [['bsx-blocks/container', {}, [['core/paragraph', {
+        placeholder: 'Add text...',
+        textSize: 'lead',
+        textColor: 'white',
+        marginAfter: '0'
+      }]]]]]]]]]],
+      templateLock: false
+    }];
+
+    var getTemplateMap = function getTemplateMap(currentTemplateName) {
+      var currentTemplate = templates.find(function (item) {
+        return item.name === currentTemplateName;
+      });
+      return currentTemplate ? currentTemplate : {};
+    };
+
+    var template = getTemplateMap(templateName).template;
+
+    var onChangeTemplate = function onChangeTemplate(value) {
+      var currentTemplateMap = getTemplateMap(value);
+
+      if (currentTemplateMap.template != undefined && currentTemplateMap.attributes != undefined) {
+        template = currentTemplateMap.template;
+        setAttributes(_objectSpread({
+          templateName: value
+        }, currentTemplateMap.attributes));
+      } else {
+        console.log('Error: Template change failed.');
+      } // console.log( 'changed templateName: ' + value );
+      // console.log( 'changed template: ' + template );
+
+    };
+
+    var onChangeNodeName = function onChangeNodeName(value) {
+      setAttributes({
+        nodeName: value
+      });
+    };
+
+    var onChangeBelowNavbar = function onChangeBelowNavbar(value) {
+      setAttributes({
+        belowNavbar: value
+      });
+    };
+
+    function onSelectImage(_x) {
+      return _onSelectImage.apply(this, arguments);
+    }
+
+    function _onSelectImage() {
+      _onSelectImage = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee(img) {
+        var newImgSizesData, newImgSizes, newImgSizeIndex;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!(typeof img.url !== 'undefined')) {
+                  _context.next = 8;
+                  break;
+                }
+
+                _context.next = 3;
+                return Object(_functions_img_js__WEBPACK_IMPORTED_MODULE_7__["getImgSizesData"])(img);
+
+              case 3:
+                newImgSizesData = _context.sent;
+                newImgSizes = newImgSizesData.imgs; // check if current img size index fits to new img (might be too large)
+
+                newImgSizeIndex = parseInt(imgSizeIndex);
+
+                if (parseInt(imgSizeIndex) >= newImgSizes.length) {
+                  newImgSizeIndex = newImgSizes.length - 1;
+                }
+
+                setAttributes({
+                  imgId: img.id,
+                  imgSizes: newImgSizes,
+                  imgSizeIndex: newImgSizeIndex.toString(),
+                  url: newImgSizes[newImgSizeIndex].url
+                }); // console.log( 'url: ' + newImgSizes[ newImgSizeIndex ].url );
+
+              case 8:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+      return _onSelectImage.apply(this, arguments);
+    }
+
+    ;
+
+    function onSelectPortraitImage(_x2) {
+      return _onSelectPortraitImage.apply(this, arguments);
+    }
+
+    function _onSelectPortraitImage() {
+      _onSelectPortraitImage = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee2(portraitImg) {
+        var newPortraitImgSizesData, newPortraitImgSizes, newPortraitImgSizeIndex;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                if (!(typeof portraitImg.url !== 'undefined')) {
+                  _context2.next = 8;
+                  break;
+                }
+
+                _context2.next = 3;
+                return Object(_functions_img_js__WEBPACK_IMPORTED_MODULE_7__["getImgSizesData"])(portraitImg);
+
+              case 3:
+                newPortraitImgSizesData = _context2.sent;
+                newPortraitImgSizes = newPortraitImgSizesData.imgs; // check if current img size index fits to new img (might be too large)
+
+                newPortraitImgSizeIndex = parseInt(portraitImgSizeIndex);
+
+                if (parseInt(portraitImgSizeIndex) >= newPortraitImgSizes.length) {
+                  newPortraitImgSizeIndex = newPortraitImgSizes.length - 1;
+                } // console.log( 'newPortraitImgSizeIndex: ' + newPortraitImgSizeIndex );
+
+
+                setAttributes({
+                  portraitImgId: portraitImg.id,
+                  portraitImgSizes: newPortraitImgSizes,
+                  portraitImgSizeIndex: newPortraitImgSizeIndex.toString()
+                }); // console.log( 'portraitImgSizes[ portraitImgSizeIndex ].url: ' + newPortraitImgSizes[ newPortraitImgSizeIndex ].url );
+
+              case 8:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+      return _onSelectPortraitImage.apply(this, arguments);
+    }
+
+    ;
+
+    var onDeletePortraitImage = function onDeletePortraitImage() {
+      setAttributes({
+        portraitImgId: '',
+        portraitImgSizes: []
+      });
+    };
+
+    var onChangeBannerType = function onChangeBannerType(value) {
+      setAttributes({
+        bannerType: value
+      });
+    };
+
+    var onChangeBannerSize = function onChangeBannerSize(value) {
+      setAttributes({
+        bannerSize: value
+      });
+    };
+
+    var onChangeBgAttachment = function onChangeBgAttachment(value) {
+      setAttributes({
+        bgAttachment: value
+      });
+    };
+
+    var onChangeBgAttachmentFixedLimited = function onChangeBgAttachmentFixedLimited(value) {
+      setAttributes({
+        bgAttachmentFixedLimited: value
+      });
+    };
+
+    var onChangeBgSize = function onChangeBgSize(value) {
+      setAttributes({
+        bgSize: value
+      });
+    };
+
+    var onChangeBgPosition = function onChangeBgPosition(value) {
+      setAttributes({
+        bgPosition: value
+      });
+    };
+
+    var onChangeAlignItems = function onChangeAlignItems(value) {
+      setAttributes({
+        alignItems: value
+      });
+    };
+
+    var onChangeMarginBefore = function onChangeMarginBefore(value) {
+      setAttributes({
+        marginBefore: value
+      });
+    };
+
+    var onChangeMarginAfter = function onChangeMarginAfter(value) {
+      setAttributes({
+        marginAfter: value
+      });
+    };
+
+    var onChangePaddingBefore = function onChangePaddingBefore(value) {
+      setAttributes({
+        paddingBefore: value
+      });
+    };
+
+    var onChangePaddingAfter = function onChangePaddingAfter(value) {
+      setAttributes({
+        paddingAfter: value
+      });
+    };
+
+    var onChangeImgSizeIndex = function onChangeImgSizeIndex(value) {
+      setAttributes({
+        imgSizeIndex: value.toString(),
+        url: imgSizes[value].url
+      });
+    };
+
+    var imgSizeRadioControlOptions = [];
+    imgSizes.forEach(function (imgSize, index) {
+      imgSizeRadioControlOptions.push({
+        value: index.toString(),
+        label: imgSize.width + 'x' + imgSize.height + (imgSize.width === imgSize.height ? ' ' + __('(Square format)', 'bsx-blocks') : '')
+      });
+    });
+
+    var onChangePortraitImgSizeIndex = function onChangePortraitImgSizeIndex(value) {
+      setAttributes({
+        portraitImgSizeIndex: value.toString()
+      });
+    };
+
+    var portraitImgSizeRadioControlOptions = [];
+    portraitImgSizes.forEach(function (portraitImgSize, index) {
+      portraitImgSizeRadioControlOptions.push({
+        value: index.toString(),
+        label: portraitImgSize.width + 'x' + portraitImgSize.height + (portraitImgSize.width === portraitImgSize.height ? ' ' + __('(Square format)', 'bsx-blocks') : '')
+      });
+    });
+    var bannerClassName = makeBannerClassNames({
+      bannerType: bannerType,
+      bannerSize: bannerSize,
+      bgAttachment: bgAttachment,
+      bgAttachmentFixedLimited: bgAttachmentFixedLimited,
+      bgSize: bgSize,
+      bgPosition: bgPosition,
+      alignItems: alignItems,
+      templateName: templateName
+    });
+    bannerClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_6__["addClassNames"])({
+      belowNavbar: belowNavbar,
+      marginBefore: marginBefore,
+      marginAfter: marginAfter,
+      paddingBefore: paddingBefore,
+      paddingAfter: paddingAfter
+    }, bannerClassName);
+    var bannerInnerClassName = makeBannerInnerClassNames({
+      templateName: templateName
+    });
+    var TagName = nodeName;
+    var bannerStyle = {
+      backgroundImage: "url(".concat(url, ")")
+    };
+    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(PanelBody, {
+      title: __('Banner template', 'bsx-blocks')
+    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["uiTemplateSelect"])(templates, templateName, onChangeTemplate)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(PanelBody, {
+      title: __('Banner image', 'bsx-blocks')
+    }, imgId ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(Fragment, null, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["imgUploadClickableImg"])(imgId, url, onSelectImage)) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+      class: "bsxui-config-panel-row"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+      class: "bsxui-config-panel-text"
+    }, __('– No image selected yet –', 'bsx-blocks'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+      class: "bsxui-config-panel-row"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(Fragment, null, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["imgUploadButton"])(imgId, onSelectImage))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(RadioControl, {
+      label: __('Image size and format', 'bsx-blocks'),
+      selected: imgSizeIndex.toString(),
+      options: imgSizeRadioControlOptions,
+      onChange: onChangeImgSizeIndex
+    }), imgSizes[imgSizeIndex] != undefined && imgSizes[imgSizeIndex].url != undefined && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+      class: "bsxui-config-panel-text"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("a", {
+      class: "bsxui-link",
+      href: imgSizes[imgSizeIndex].url,
+      target: "_blank"
+    }, __('Preview selected image', 'bsx-blocks')))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(PanelBody, {
+      title: __('Banner portrait image (optional)', 'bsx-blocks')
+    }, portraitImgId && typeof portraitImgSizes[portraitImgSizeIndex] != 'undefined' && typeof portraitImgSizes[portraitImgSizeIndex].url != 'undefined' ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(Fragment, null, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["imgUploadClickableImg"])(portraitImgId, portraitImgSizes[portraitImgSizeIndex].url, onSelectPortraitImage, 'p')) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+      class: "bsxui-config-panel-row"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+      class: "bsxui-config-panel-text"
+    }, __('– No portrait image selected yet –', 'bsx-blocks'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+      class: "bsxui-config-panel-row"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(Fragment, null, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["imgUploadButton"])(portraitImgId, onSelectPortraitImage, 'p'))), portraitImgId && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+      class: "bsxui-config-panel-row"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(Button, {
+      onClick: onDeletePortraitImage,
+      isDestructive: true
+    }, __('Remove portrait image', 'bsx-blocks'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(RadioControl, {
+      label: __('Image size and format', 'bsx-blocks'),
+      selected: portraitImgSizeIndex.toString(),
+      options: portraitImgSizeRadioControlOptions,
+      onChange: onChangePortraitImgSizeIndex
+    }), typeof portraitImgSizes[portraitImgSizeIndex] != 'undefined' && typeof portraitImgSizes[portraitImgSizeIndex].url != 'undefined' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+      class: "bsxui-config-panel-text"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("a", {
+      class: "bsxui-link",
+      href: portraitImgSizes[portraitImgSizeIndex].url,
+      target: "_blank"
+    }, __('Preview selected portrait image', 'bsx-blocks')))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(PanelBody, {
+      title: __('Banner dimensions', 'bsx-blocks')
+    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["bannerTypeSelect"])(bannerType, onChangeBannerType), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["bannerSizeSelect"])(bannerSize, onChangeBannerSize), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["bgAttachmentSelect"])(bgAttachment, onChangeBgAttachment), bgAttachment === 'fixed' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(Fragment, null, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["bgAttachmentFixedLimitedToggle"])(bgAttachmentFixedLimited, onChangeBgAttachmentFixedLimited)), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["alignItemsSelect"])(alignItems, onChangeAlignItems, ['center', 'end'])), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(PanelBody, {
+      title: __('Margin', 'bsx-blocks')
+    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["marginBeforeSelect"])(marginBefore, onChangeMarginBefore), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["marginAfterSelect"])(marginAfter, onChangeMarginAfter))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(InspectorAdvancedControls, null, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["belowNavbarToggle"])(belowNavbar, onChangeBelowNavbar), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["nodeNameSelect"])(nodeName, onChangeNodeName, ['div', 'section']), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["bgPositionSelect"])(bgPosition, onChangeBgPosition), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["bgSizeSelect"])(bgSize, onChangeBgSize), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["paddingBeforeSelect"])(paddingBefore, onChangePaddingBefore), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["paddingAfterSelect"])(paddingAfter, onChangePaddingAfter)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(Fragment, null, !templateName ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+      class: "bsxui-initial-inline-control"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+      class: "bsxui-initial-inline-control-heading"
+    }, __('Please select Banner template', 'bsx-blocks')), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["inlineTemplateSelect"])(templates, templateName, onChangeTemplate)) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(TagName, {
+      className: bannerClassName,
+      style: bannerStyle
+    }, !imgId && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+      className: "bsxui-in-widget-overlay-panel bsxui-top"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(MediaUpload, {
+      onSelect: onSelectImage,
+      allowedTypes: "image",
+      value: imgId,
+      render: function render(_ref2) {
+        var open = _ref2.open;
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(Button, {
+          onClick: open,
+          isSecondary: true
+        }, __('Select / upload Image', 'bsx-blocks'));
+      }
+    })), noBannerInnerTemplateNames.indexOf(templateName) == -1 ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+      className: bannerInnerClassName
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(InnerBlocks, {
+      template: template,
+      renderAppender: hasInnerBlocks ? undefined : function () {
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(InnerBlocks.ButtonBlockAppender, null);
+      }
+    })) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(InnerBlocks, {
+      template: template,
+      renderAppender: hasInnerBlocks ? undefined : function () {
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(InnerBlocks.ButtonBlockAppender, null);
+      }
+    })))];
+  }),
+  save: function save(props) {
+    var className = props.className,
+        _props$attributes2 = props.attributes,
+        nodeName = _props$attributes2.nodeName,
+        templateName = _props$attributes2.templateName,
+        belowNavbar = _props$attributes2.belowNavbar,
+        imgId = _props$attributes2.imgId,
+        imgSizes = _props$attributes2.imgSizes,
+        imgSizeIndex = _props$attributes2.imgSizeIndex,
+        url = _props$attributes2.url,
+        portraitImgId = _props$attributes2.portraitImgId,
+        portraitImgSizes = _props$attributes2.portraitImgSizes,
+        portraitImgSizeIndex = _props$attributes2.portraitImgSizeIndex,
+        bannerType = _props$attributes2.bannerType,
+        bannerSize = _props$attributes2.bannerSize,
+        bgAttachment = _props$attributes2.bgAttachment,
+        bgAttachmentFixedLimited = _props$attributes2.bgAttachmentFixedLimited,
+        bgSize = _props$attributes2.bgSize,
+        bgPosition = _props$attributes2.bgPosition,
+        alignItems = _props$attributes2.alignItems,
+        marginBefore = _props$attributes2.marginBefore,
+        marginAfter = _props$attributes2.marginAfter,
+        paddingBefore = _props$attributes2.paddingBefore,
+        paddingAfter = _props$attributes2.paddingAfter; // class names
+
+    var bannerClassName = makeBannerClassNames({
+      bannerType: bannerType,
+      bannerSize: bannerSize,
+      bgAttachment: bgAttachment,
+      bgAttachmentFixedLimited: bgAttachmentFixedLimited,
+      bgSize: bgSize,
+      bgPosition: bgPosition,
+      alignItems: alignItems,
+      templateName: templateName
+    });
+    bannerClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_6__["addClassNames"])({
+      belowNavbar: belowNavbar,
+      marginBefore: marginBefore,
+      marginAfter: marginAfter,
+      paddingBefore: paddingBefore,
+      paddingAfter: paddingAfter
+    }, bannerClassName);
+    var bannerInnerClassName = makeBannerInnerClassNames({
+      templateName: templateName
+    });
+    var srcsetJson = makeSrcsetJson({
+      imgSizes: imgSizes,
+      imgSizeIndex: imgSizeIndex,
+      portraitImgSizes: portraitImgSizes,
+      portraitImgSizeIndex: portraitImgSizeIndex
+    });
+    var saveAttributes = Object(_functions_attributes_js__WEBPACK_IMPORTED_MODULE_9__["makeSaveAttributes"])({
+      'data-srcset': srcsetJson
+    });
+    var TagName = nodeName;
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(TagName, _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+      className: bannerClassName,
+      "data-fn": "lazyload",
+      "data-src": url
+    }, saveAttributes), noBannerInnerTemplateNames.indexOf(templateName) == -1 ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+      className: bannerInnerClassName
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(InnerBlocks.Content, null)) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(InnerBlocks.Content, null));
+  }
+});
+
+/***/ }),
+
+/***/ "./src/buttons/button-label/block.js":
+/*!*******************************************!*\
+  !*** ./src/buttons/button-label/block.js ***!
+  \*******************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../_functions/wp-icons.js */ "./src/_functions/wp-icons.js");
+/* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
+/* harmony import */ var _functions_controls_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../_functions/controls.js */ "./src/_functions/controls.js");
+
+var _wp$i18n = wp.i18n,
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData;
+var registerBlockType = wp.blocks.registerBlockType;
+var _wp$blockEditor = wp.blockEditor,
+    InspectorControls = _wp$blockEditor.InspectorControls,
+    RichText = _wp$blockEditor.RichText;
+var _wp$components = wp.components,
+    PanelBody = _wp$components.PanelBody,
+    SelectControl = _wp$components.SelectControl,
+    SVG = _wp$components.SVG,
+    Path = _wp$components.Path; // functions imports
+
+
+
+
+registerBlockType('bsx-blocks/button-label', {
+  title: __('BSX Button Label', 'bsx-blocks'),
+  icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_1__["svgIcon"])('button-label'),
+  category: 'layout',
+  parent: ['bsx-blocks/buttons'],
+  attributes: {
+    content: {
+      type: 'array',
+      source: 'children',
+      selector: 'span'
+    },
+    display: {
+      type: 'string',
+      default: ''
+    },
+    marginLeft: {
+      type: 'string',
+      default: ''
+    },
+    marginRight: {
+      type: 'string',
+      default: ''
+    },
+    marginBefore: {
+      type: 'string',
+      default: ''
+    },
+    marginAfter: {
+      type: 'string',
+      default: ''
+    }
+  },
+  edit: function edit(props) {
+    var className = props.className,
+        _props$attributes = props.attributes,
+        content = _props$attributes.content,
+        display = _props$attributes.display,
+        marginLeft = _props$attributes.marginLeft,
+        marginRight = _props$attributes.marginRight,
+        marginBefore = _props$attributes.marginBefore,
+        marginAfter = _props$attributes.marginAfter,
+        setAttributes = props.setAttributes,
+        isSelected = props.isSelected;
+
+    var onChangeContent = function onChangeContent(value) {
+      setAttributes({
+        content: value
+      });
+    };
+
+    var onChangeDisplay = function onChangeDisplay(value) {
+      setAttributes({
+        display: value
+      });
+    };
+
+    var onChangeMarginLeft = function onChangeMarginLeft(value) {
+      setAttributes({
+        marginLeft: value
+      });
+    };
+
+    var onChangeMarginRight = function onChangeMarginRight(value) {
+      setAttributes({
+        marginRight: value
+      });
+    };
+
+    var onChangeMarginBefore = function onChangeMarginBefore(value) {
+      setAttributes({
+        marginBefore: value
+      });
+    };
+
+    var onChangeMarginAfter = function onChangeMarginAfter(value) {
+      setAttributes({
+        marginAfter: value
+      });
+    };
+
+    var onChangeIgnoreMailtoSpamProtection = function onChangeIgnoreMailtoSpamProtection(value) {
+      setAttributes({
+        ignoreMailtoSpamProtection: !value
+      });
+    };
+
+    var labelClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__["addClassNames"])({
+      display: display,
+      marginLeft: marginLeft,
+      marginRight: marginRight,
+      marginBefore: marginBefore,
+      marginAfter: marginAfter
+    });
+    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
+      title: __('Button Label appearance (optional)', 'bsx-blocks')
+    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["displaySelect"])(display, onChangeDisplay, ['', 'inline-block'])), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
+      title: __('Margin (optional)', 'bsx-blocks')
+    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["marginLeftSelect"])(marginLeft, onChangeMarginLeft), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["marginRightSelect"])(marginRight, onChangeMarginRight), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["marginBeforeSelect"])(marginBefore, onChangeMarginBefore), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["marginAfterSelect"])(marginAfter, onChangeMarginAfter))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText, {
+      tagName: "span",
+      className: labelClassNames,
+      multiline: false,
+      placeholder: __('Add label...', 'bsx-blocks'),
+      value: content,
+      onChange: onChangeContent,
+      allowedFormats: [],
+      keepPlaceholderOnFocus: true
+    }))];
+  },
+  save: function save(props) {
+    var className = props.className,
+        _props$attributes2 = props.attributes,
+        content = _props$attributes2.content,
+        display = _props$attributes2.display,
+        marginLeft = _props$attributes2.marginLeft,
+        marginRight = _props$attributes2.marginRight,
+        marginBefore = _props$attributes2.marginBefore,
+        marginAfter = _props$attributes2.marginAfter;
+    var labelClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__["addClassNames"])({
+      display: display,
+      marginLeft: marginLeft,
+      marginRight: marginRight,
+      marginBefore: marginBefore,
+      marginAfter: marginAfter
+    });
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, content && !RichText.isEmpty(content) && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText.Content, {
+      tagName: "span",
+      value: content,
+      className: labelClassNames
+    }));
+  }
+});
+
+/***/ }),
+
+/***/ "./src/buttons/button/block.js":
+/*!*************************************!*\
+  !*** ./src/buttons/button/block.js ***!
+  \*************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js");
+/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../_functions/wp-icons.js */ "./src/_functions/wp-icons.js");
+/* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
+/* harmony import */ var _functions_attributes_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../_functions/attributes.js */ "./src/_functions/attributes.js");
+/* harmony import */ var _functions_controls_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../../_functions/controls.js */ "./src/_functions/controls.js");
+
+
+
+// TODO: add state classes for text-link button
+var _wp$i18n = wp.i18n,
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData;
+var registerBlockType = wp.blocks.registerBlockType;
+var _wp$blockEditor = wp.blockEditor,
+    InspectorControls = _wp$blockEditor.InspectorControls,
+    RichText = _wp$blockEditor.RichText;
+var _wp$components = wp.components,
+    PanelBody = _wp$components.PanelBody,
+    SVG = _wp$components.SVG,
+    Path = _wp$components.Path; // functions imports
+
+
+
+
+ // functions
+
+var makeButtonClassNames = function makeButtonClassNames(attributes) {
+  var state = attributes.state,
+      stateType = attributes.stateType,
+      size = attributes.size,
+      hrefIsEmailIsContent = attributes.hrefIsEmailIsContent,
+      ignoreMailtoSpamProtection = attributes.ignoreMailtoSpamProtection;
+  var classNames = [];
+  var buildClassName = 'btn-';
+
+  if (!!state) {
+    if (state == 'text-link') {
+      classNames.push('text-link');
+    } else {
+      classNames.push('btn');
+
+      if (!!stateType) {
+        buildClassName += stateType + '-';
+      }
+
+      buildClassName += state;
+      classNames.push(buildClassName);
+    }
+  }
+
+  if (!!size) {
+    classNames.push('btn-' + size);
+  }
+
+  if (!ignoreMailtoSpamProtection && hrefIsEmailIsContent) {
+    classNames.push('create-mt');
+  }
+
+  return classNames.join(' ');
+};
+
+var isEmailFormat = function isEmailFormat(href) {
+  if (href.indexOf('mailto:') == 0 && /\S+@\S+\.\S+/.test(href.substring(7))) {
+    var explode = href.substring(7).split('@');
+    var name = explode[0];
+    explode = explode[1].split('.');
+    var suffix = explode[explode.length - 1]; // doest’t need to contain the whole suffix in cases of e.g. `.co.uk`
+
+    explode.pop();
+    var domain = explode.join('.'); // might contain part of suffix in cases of e.g. `.co.uk`
+    // console.log( 'href: ' + href );
+    // console.log( 'valid: ' + true );
+    // console.log( 'name: ' + name );
+    // console.log( 'domain: ' + domain );
+    // console.log( 'suffix: ' + suffix );
+
+    return {
+      valid: true,
+      name: name,
+      domain: domain,
+      suffix: suffix
+    };
+  } else {
+    // console.log( 'href: ' + href );
+    // console.log( 'valid: ' + false );
+    return {
+      valid: false
+    };
+  }
+};
+
+registerBlockType('bsx-blocks/button', {
+  title: __('BSX Button', 'bsx-blocks'),
+  icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_3__["svgIcon"])('button'),
+  category: 'layout',
+  parent: ['bsx-blocks/buttons'],
+  attributes: {
+    href: {
+      type: 'string',
+      default: ''
+    },
+    content: {
+      type: 'array',
+      source: 'children',
+      selector: '.btn, .text-link'
+    },
+    target: {
+      type: 'string',
+      default: ''
+    },
+    rel: {
+      type: 'string',
+      default: ''
+    },
+    state: {
+      type: 'string',
+      default: 'primary'
+    },
+    stateType: {
+      type: 'string',
+      default: 'outline'
+    },
+    size: {
+      type: 'string',
+      default: ''
+    },
+    dataFn: {
+      type: 'string',
+      default: ''
+    },
+    marginLeft: {
+      type: 'string',
+      default: ''
+    },
+    marginRight: {
+      type: 'string',
+      default: ''
+    },
+    marginBefore: {
+      type: 'string',
+      default: ''
+    },
+    marginAfter: {
+      type: 'string',
+      default: ''
+    },
+    ignoreMailtoSpamProtection: {
+      type: 'boolean'
+    }
+  },
+  edit: function edit(props) {
+    var className = props.className,
+        _props$attributes = props.attributes,
+        href = _props$attributes.href,
+        content = _props$attributes.content,
+        target = _props$attributes.target,
+        rel = _props$attributes.rel,
+        state = _props$attributes.state,
+        stateType = _props$attributes.stateType,
+        size = _props$attributes.size,
+        dataFn = _props$attributes.dataFn,
+        marginLeft = _props$attributes.marginLeft,
+        marginRight = _props$attributes.marginRight,
+        marginBefore = _props$attributes.marginBefore,
+        marginAfter = _props$attributes.marginAfter,
+        ignoreMailtoSpamProtection = _props$attributes.ignoreMailtoSpamProtection,
+        setAttributes = props.setAttributes,
+        isSelected = props.isSelected;
+
+    var onChangeContent = function onChangeContent(value) {
+      setAttributes({
+        content: value
+      });
+    };
+
+    var onChangeHref = function onChangeHref(value) {
+      setAttributes({
+        href: value
+      });
+    };
+
+    var onChangeTarget = function onChangeTarget(value) {
+      setAttributes({
+        target: !!value ? '_blank' : ''
+      });
+    };
+
+    var onChangeRel = function onChangeRel(value) {
+      setAttributes({
+        rel: value
+      });
+    };
+
+    var onChangeState = function onChangeState(value) {
+      setAttributes({
+        state: value
+      });
+    };
+
+    var onChangeStateType = function onChangeStateType(value) {
+      setAttributes({
+        stateType: value
+      });
+    };
+
+    var onChangeSize = function onChangeSize(value) {
+      setAttributes({
+        size: value
+      });
+    };
+
+    var onChangeDataFn = function onChangeDataFn(value) {
+      setAttributes({
+        dataFn: value
+      });
+    };
+
+    var onChangeMarginLeft = function onChangeMarginLeft(value) {
+      setAttributes({
+        marginLeft: value
+      });
+    };
+
+    var onChangeMarginRight = function onChangeMarginRight(value) {
+      setAttributes({
+        marginRight: value
+      });
+    };
+
+    var onChangeMarginBefore = function onChangeMarginBefore(value) {
+      setAttributes({
+        marginBefore: value
+      });
+    };
+
+    var onChangeMarginAfter = function onChangeMarginAfter(value) {
+      setAttributes({
+        marginAfter: value
+      });
+    };
+
+    var onChangeIgnoreMailtoSpamProtection = function onChangeIgnoreMailtoSpamProtection(value) {
+      setAttributes({
+        ignoreMailtoSpamProtection: !value
+      });
+    };
+
+    var checkEmail = isEmailFormat(href);
+    var hrefIsEmail = checkEmail.valid; // const hrefIsEmailIsContent = checkEmail.valid && href == 'mailto:' + content;
+
+    var hrefIsEmailIsContent = hrefIsEmail && (href == 'mailto:' + content || _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(content) == 'object' && content.length == 0); // exclude hrefIsEmailIsContent here to keep correct button title shown
+
+    var buttonClassNames = makeButtonClassNames({
+      state: state,
+      stateType: stateType,
+      size: size
+    });
+    buttonClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_4__["addClassNames"])({
+      marginLeft: marginLeft,
+      marginRight: marginRight,
+      marginBefore: marginBefore,
+      marginAfter: marginAfter
+    }, buttonClassNames); // get content if is empty since content is spam protected email, get content from href instead of from html
+
+    if (!ignoreMailtoSpamProtection && !isSelected && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(content) == 'object' && content.length == 0 && hrefIsEmailIsContent) {
+      setAttributes({
+        content: href.substring(7)
+      });
+    }
+
+    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(PanelBody, {
+      title: __('Button link settings', 'bsx-blocks')
+    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["linkUrlInput"])(href, onChangeHref), hrefIsEmail && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["Fragment"], null, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["ignoreMailtoSpamProtectionToggle"])(ignoreMailtoSpamProtection, onChangeIgnoreMailtoSpamProtection)), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["targetToggle"])(target, onChangeTarget), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["relInput"])(rel, onChangeRel), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["dataFnInput"])(dataFn, onChangeDataFn)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(PanelBody, {
+      title: __('Button appearance', 'bsx-blocks')
+    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["stateSelect"])(state, onChangeState), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["stateTypeSelect"])(stateType, onChangeStateType), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["sizeSelect"])(size, onChangeSize)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(PanelBody, {
+      title: __('Margin', 'bsx-blocks')
+    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["marginLeftSelect"])(marginLeft, onChangeMarginLeft, ['', '0', '1', '2', '3']), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["marginRightSelect"])(marginRight, onChangeMarginRight, ['', '0', '1', '2', '3']), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["marginBeforeSelect"])(marginBefore, onChangeMarginBefore), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["marginAfterSelect"])(marginAfter, onChangeMarginAfter))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(RichText, {
+      tagName: href || state == 'text-link' ? 'a' : 'button',
+      className: buttonClassNames,
+      multiline: false,
+      placeholder: __('Add Title...', 'bsx-blocks'),
+      value: content,
+      onChange: onChangeContent,
+      allowedFormats: [],
+      keepPlaceholderOnFocus: true,
+      href: 'javascript:void( 0 );'
+    }))];
+  },
+  save: function save(props) {
+    var className = props.className,
+        _props$attributes2 = props.attributes,
+        href = _props$attributes2.href,
+        content = _props$attributes2.content,
+        target = _props$attributes2.target,
+        rel = _props$attributes2.rel,
+        state = _props$attributes2.state,
+        stateType = _props$attributes2.stateType,
+        size = _props$attributes2.size,
+        dataFn = _props$attributes2.dataFn,
+        marginLeft = _props$attributes2.marginLeft,
+        marginRight = _props$attributes2.marginRight,
+        marginBefore = _props$attributes2.marginBefore,
+        marginAfter = _props$attributes2.marginAfter,
+        ignoreMailtoSpamProtection = _props$attributes2.ignoreMailtoSpamProtection;
+    var checkEmail = isEmailFormat(href); // adapt empty content of email link
+    // if ( ! content && checkEmail.valid ) {
+    //     content.push[ href.substring( 7 ) ];
+    //     console.log( '----- save: content adapted' );
+    // }
+    // after reload content is empty in case of valid mailto href
+
+    var hrefIsEmail = checkEmail.valid;
+    var hrefIsEmailIsContent = hrefIsEmail && (href == 'mailto:' + content || _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(content) == 'object' && content.length == 0); // console.log( '---------- checkEmail.valid: ' + checkEmail.valid );
+    // console.log( '----- href: ' + href );
+    // console.log( '----- content: ' + content );
+    // console.log( '----- typeof content: ' + typeof content );
+    // console.log( '----- content.length: ' + content.length );
+    // console.log( '----- hrefIsEmailIsContent: ' + hrefIsEmailIsContent );
+
+    var buttonClassNames = makeButtonClassNames({
+      state: state,
+      stateType: stateType,
+      size: size,
+      hrefIsEmailIsContent: hrefIsEmailIsContent,
+      ignoreMailtoSpamProtection: ignoreMailtoSpamProtection
+    });
+    buttonClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_4__["addClassNames"])({
+      marginLeft: marginLeft,
+      marginRight: marginRight,
+      marginBefore: marginBefore,
+      marginAfter: marginAfter
+    }, buttonClassNames); // save spam-protected mailto link format (no href-attribute, no content – both will be set via css / js):
+    // `<a class="create-mt" data-fn="create-mt" data-mt-n="MY_NAME" data-mt-d="MY_DOMAIN" data-mt-s="MY_DOMAIN_SUFFIX"></a>`
+
+    var saveAttributes = Object(_functions_attributes_js__WEBPACK_IMPORTED_MODULE_5__["makeSaveAttributes"])({
+      href: !(!ignoreMailtoSpamProtection && hrefIsEmail) ? href : 'javascript:void( 0 );',
+      'data-fn': !ignoreMailtoSpamProtection && hrefIsEmail ? 'create-mt' : dataFn,
+      'data-mt-n': !ignoreMailtoSpamProtection && hrefIsEmail ? checkEmail.name : '',
+      'data-mt-d': !ignoreMailtoSpamProtection && hrefIsEmail ? checkEmail.domain : '',
+      'data-mt-s': !ignoreMailtoSpamProtection && hrefIsEmail ? checkEmail.suffix : '',
+      target: target,
+      rel: href ? rel ? rel + ' noopener noreferrer' : 'noopener noreferrer' : ''
+    });
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["Fragment"], null, (content && !RichText.isEmpty(content) || !ignoreMailtoSpamProtection && hrefIsEmailIsContent) && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(RichText.Content, _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+      tagName: href || state == 'text-link' ? 'a' : 'button',
+      value: !ignoreMailtoSpamProtection && hrefIsEmailIsContent ? '' : content,
+      className: buttonClassNames
+    }, saveAttributes)));
+  }
+});
+
+/***/ }),
+
+/***/ "./src/buttons/buttons/block.js":
+/*!**************************************!*\
+  !*** ./src/buttons/buttons/block.js ***!
+  \**************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../_functions/wp-icons.js */ "./src/_functions/wp-icons.js");
+/* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
+/* harmony import */ var _functions_controls_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../_functions/controls.js */ "./src/_functions/controls.js");
+
+
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+// TODO: enable inheritance of default attribute values to allow precomposed blocks of equal buttons ?
+var _wp$i18n = wp.i18n,
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData;
+var registerBlockType = wp.blocks.registerBlockType;
+var _wp$blockEditor = wp.blockEditor,
+    InnerBlocks = _wp$blockEditor.InnerBlocks,
+    InspectorControls = _wp$blockEditor.InspectorControls,
+    BlockControls = _wp$blockEditor.BlockControls,
+    AlignmentToolbar = _wp$blockEditor.AlignmentToolbar;
+var _wp$components = wp.components,
+    TextControl = _wp$components.TextControl,
+    PanelBody = _wp$components.PanelBody,
+    SelectControl = _wp$components.SelectControl,
+    Button = _wp$components.Button,
+    SVG = _wp$components.SVG,
+    Path = _wp$components.Path;
+var Fragment = wp.element.Fragment;
+var withSelect = wp.data.withSelect; // functions imports
+
+
+
+
+registerBlockType('bsx-blocks/buttons', {
+  title: __('BSX Buttons', 'bsx-blocks'),
+  icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_2__["svgIcon"])('buttons'),
+  category: 'layout',
+  attributes: {
+    templateName: {
+      type: 'string'
+    },
+    textAlign: {
+      type: 'string',
+      default: ''
+    },
+    marginBefore: {
+      type: 'string',
+      default: ''
+    },
+    marginAfter: {
+      type: 'string',
+      default: ''
+    }
+  },
+  getEditWrapperProps: function getEditWrapperProps(attributes) {
+    var templateName = attributes.templateName,
+        textAlign = attributes.textAlign,
+        marginBefore = attributes.marginBefore,
+        marginAfter = attributes.marginAfter;
+    return {
+      'data-template-name': templateName,
+      'data-text-align': textAlign,
+      'data-margin-before': marginBefore,
+      'data-margin-after': marginAfter
+    };
+  },
+  edit: withSelect(function (select, _ref) {
+    var clientId = _ref.clientId;
+
+    var _select = select('core/block-editor'),
+        getBlocksByClientId = _select.getBlocksByClientId;
+
+    var children = getBlocksByClientId(clientId)[0] ? getBlocksByClientId(clientId)[0].innerBlocks : [];
+    return {
+      children: children
+    };
+  })(function (props) {
+    var className = props.className,
+        _props$attributes = props.attributes,
+        templateName = _props$attributes.templateName,
+        textAlign = _props$attributes.textAlign,
+        marginBefore = _props$attributes.marginBefore,
+        marginAfter = _props$attributes.marginAfter,
+        setAttributes = props.setAttributes,
+        children = props.children;
+
+    var hasInnerBlocks = function hasInnerBlocks(children) {
+      return children.length > 0;
+    };
+
+    var allowedBlocks = ['bsx-blocks/button-label', 'bsx-blocks/button'];
+    var templates = [{
+      name: 'one-button',
+      title: __('One Button', 'bsx-blocks'),
+      icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_2__["svgIcon"])('buttons-one-button'),
+      attributes: {},
+      template: [['bsx-blocks/button', {}]],
+      templateLock: false
+    }, {
+      name: 'two-buttons',
+      title: __('Two Buttons', 'bsx-blocks'),
+      icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_2__["svgIcon"])('buttons-two-buttons'),
+      attributes: {},
+      template: [['bsx-blocks/button', {}], ['bsx-blocks/button', {}]],
+      templateLock: false
+    }, {
+      name: 'text-link',
+      title: __('Text Link', 'bsx-blocks'),
+      icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_2__["svgIcon"])('buttons-text-link'),
+      attributes: {},
+      template: [['bsx-blocks/button', {
+        state: 'text-link'
+      }]],
+      templateLock: false
+    }, {
+      name: 'label-text-link',
+      title: __('Label with Text Link', 'bsx-blocks'),
+      icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_2__["svgIcon"])('buttons-label-text-link'),
+      attributes: {},
+      template: [['bsx-blocks/button-label', {}], ['bsx-blocks/button', {
+        state: 'text-link'
+      }]],
+      templateLock: false
+    }];
+
+    var getTemplateMap = function getTemplateMap(currentTemplateName) {
+      var currentTemplate = templates.find(function (item) {
+        return item.name === currentTemplateName;
+      });
+      return currentTemplate ? currentTemplate : {};
+    };
+
+    var template = getTemplateMap(templateName).template;
+
+    var onChangeTemplate = function onChangeTemplate(value) {
+      var currentTemplateMap = getTemplateMap(value);
+
+      if (currentTemplateMap.template != undefined && currentTemplateMap.attributes != undefined) {
+        template = currentTemplateMap.template;
+        setAttributes(_objectSpread({
+          templateName: value
+        }, currentTemplateMap.attributes));
+      } else {
+        console.log('Error: Template change failed.');
+      } // console.log( 'changed templateName: ' + value );
+      // console.log( 'changed template: ' + template );
+
+    };
+
+    var onChangeTextAlign = function onChangeTextAlign(value) {
+      setAttributes({
+        textAlign: value
+      });
+    };
+
+    var onChangeMarginBefore = function onChangeMarginBefore(value) {
+      setAttributes({
+        marginBefore: value
+      });
+    };
+
+    var onChangeMarginAfter = function onChangeMarginAfter(value) {
+      setAttributes({
+        marginAfter: value
+      });
+    };
+
+    var alignmentControls = [{
+      icon: 'editor-alignleft',
+      title: __('Align left', 'bsx-blocks'),
+      align: 'left'
+    }, {
+      icon: 'editor-aligncenter',
+      title: __('Align center', 'bsx-blocks'),
+      align: 'center'
+    }, {
+      icon: 'editor-alignright',
+      title: __('Align right', 'bsx-blocks'),
+      align: 'right'
+    }];
+    var wrapperClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_3__["addClassNames"])({
+      textAlign: textAlign,
+      marginBefore: marginBefore,
+      marginAfter: marginAfter
+    });
+    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Fragment, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(BlockControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(AlignmentToolbar, {
+      label: __('Alignment', 'bsx-blocks'),
+      value: textAlign,
+      onChange: onChangeTextAlign,
+      alignmentControls: alignmentControls
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
+      title: __('Settings', 'bsx-blocks')
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      className: "bsxui-icon-text-button-list"
+    }, templates.map(function (template, index) {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
+        label: template.title,
+        onClick: function onClick() {
+          onChangeTemplate(template.name);
+        },
+        className: 'bsxui-icon-text-button-list-item ' + (templateName === template.name ? 'active' : '')
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+        class: "bsxui-icon-text-button-list-item-icon"
+      }, template.icon), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+        class: "bsxui-icon-text-button-list-item-label"
+      }, template.title));
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
+      title: __('Margin', 'bsx-blocks')
+    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_4__["marginBeforeSelect"])(marginBefore, onChangeMarginBefore), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_4__["marginAfterSelect"])(marginAfter, onChangeMarginAfter)))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Fragment, null, !templateName ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      class: "bsxui-initial-inline-control"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      class: "bsxui-initial-inline-control-heading"
+    }, __('Please select template', 'bsx-blocks')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      className: "bsxui-icon-text-button-list"
+    }, templates.map(function (template, index) {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
+        label: template.title,
+        onClick: function onClick() {
+          onChangeTemplate(template.name);
+        },
+        className: 'bsxui-icon-text-button-list-item ' + (templateName === template.name ? 'active' : '')
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+        class: "bsxui-icon-text-button-list-item-icon"
+      }, template.icon), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+        class: "bsxui-icon-text-button-list-item-label"
+      }, template.title));
+    }))) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      className: wrapperClassNames
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerBlocks, {
+      template: template,
+      allowedBlocks: allowedBlocks,
+      renderAppender: hasInnerBlocks ? undefined : function () {
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerBlocks.ButtonBlockAppender, null);
+      }
+    })))];
+  }),
+  save: function save(props) {
+    var className = props.className,
+        _props$attributes2 = props.attributes,
+        templateName = _props$attributes2.templateName,
+        textAlign = _props$attributes2.textAlign,
+        marginBefore = _props$attributes2.marginBefore,
+        marginAfter = _props$attributes2.marginAfter;
+    var wrapperClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_3__["addClassNames"])({
+      textAlign: textAlign,
+      marginBefore: marginBefore,
+      marginAfter: marginAfter
+    });
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      className: wrapperClassNames
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerBlocks.Content, null));
+  }
+});
+
+/***/ }),
+
+/***/ "./src/buttons/index.js":
+/*!******************************!*\
+  !*** ./src/buttons/index.js ***!
+  \******************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _buttons_block_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./buttons/block.js */ "./src/buttons/buttons/block.js");
+/* harmony import */ var _button_block_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./button/block.js */ "./src/buttons/button/block.js");
+/* harmony import */ var _button_label_block_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./button-label/block.js */ "./src/buttons/button-label/block.js");
+
+
+
+
+/***/ }),
+
+/***/ "./src/column-rows/column-row/block.js":
+/*!*********************************************!*\
+  !*** ./src/column-rows/column-row/block.js ***!
+  \*********************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+
+var _wp$i18n = wp.i18n,
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData;
+var registerBlockType = wp.blocks.registerBlockType;
+var _wp$blockEditor = wp.blockEditor,
+    InnerBlocks = _wp$blockEditor.InnerBlocks,
+    InspectorControls = _wp$blockEditor.InspectorControls;
+var _wp$components = wp.components,
+    TextControl = _wp$components.TextControl,
+    PanelBody = _wp$components.PanelBody,
+    RangeControl = _wp$components.RangeControl,
+    ToggleControl = _wp$components.ToggleControl,
+    Button = _wp$components.Button,
+    SelectControl = _wp$components.SelectControl;
+var withSelect = wp.data.withSelect;
+
+var makeColumnRowClassNames = function makeColumnRowClassNames(attributes) {
+  var columnRowType = attributes.columnRowType,
+      alignItems = attributes.alignItems,
+      display = attributes.display;
+  var classNames = [];
+
+  if (!!columnRowType) {
+    classNames.push('column-row-' + columnRowType);
+  } else {
+    // default class name
+    classNames.push('column-row');
+  }
+
+  if (!!alignItems) {
+    classNames.push('align-items-' + alignItems);
+  }
+
+  if (!!display) {
+    classNames.push('d-' + display);
+  } //console.log( 'classNames.join( \' \' ): "' + classNames.join( ' ' ) + '"' );
+
+
+  return classNames.join(' ');
+};
+
+registerBlockType('bsx-blocks/column-row', {
+  title: __('BSX Column Row', 'bsx-blocks'),
+  icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "48",
+    height: "48",
+    viewBox: "0 0 48 48",
+    role: "img",
+    "aria-hidden": "true",
+    focusable: "false"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+    "fill-rule": "evenodd",
+    "clip-rule": "evenodd",
+    d: "M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9v-5h30V34z M39,27H9 V14h30V27z"
+  })),
+  category: 'layout',
+  parent: ['bsx-blocks/column-rows'],
+  attributes: {
+    columnRowType: {
+      type: 'string',
+      default: ''
+    },
+    alignItems: {
+      type: 'string'
+    },
+    display: {
+      type: 'string'
+    }
+  },
+  getEditWrapperProps: function getEditWrapperProps(attributes) {
+    var columnRowType = attributes.columnRowType,
+        alignItems = attributes.alignItems,
+        display = attributes.display;
+    return {
+      'data-column-row-type': columnRowType,
+      'data-align-items': alignItems,
+      'data-display': display
+    };
+  },
+  edit: function edit(props) {
+    var className = props.className,
+        _props$attributes = props.attributes,
+        columnRowType = _props$attributes.columnRowType,
+        alignItems = _props$attributes.alignItems,
+        display = _props$attributes.display,
+        setAttributes = props.setAttributes;
+
+    var hasInnerBlocks = function hasInnerBlocks(children) {
+      return children.length > 0;
+    };
+
+    var onChangeColumnRowType = function onChangeColumnRowType(value) {
+      setAttributes({
+        columnRowType: value
+      });
+    };
+
+    var onChangeAlignItems = function onChangeAlignItems(value) {
+      setAttributes({
+        alignItems: value
+      });
+    };
+
+    var onChangeDisplay = function onChangeDisplay(value) {
+      setAttributes({
+        display: value
+      });
+    };
+
+    var columnRowClassNames = makeColumnRowClassNames({
+      columnRowType: columnRowType,
+      alignItems: alignItems,
+      display: display
+    });
+    /*
+    if ( !! props.attributes ) {
+        console.log( 'build col: ' );
+        for ( let [ key, value ] of Object.entries( props.attributes ) ) {
+            console.log( 'key: "' + key + '", value: "' + value + '"' );
+        }
+    }
+    */
+
+    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
+      title: __('Column Row', 'bsx-blocks')
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+      label: __('Columns Row height', 'bsx-blocks'),
+      value: columnRowType,
+      onChange: onChangeColumnRowType,
+      options: [{
+        value: '',
+        label: __('– Default – (flexible height)', 'bsx-blocks')
+      }, {
+        value: 'auto',
+        label: __('Auto (static height)', 'bsx-blocks')
+      }],
+      help: __('Column Rows will share their patent’s height dividing it into flexible and/or static height segments.', 'bsx-blocks')
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+      label: __('Vertical Align', 'bsx-blocks'),
+      value: alignItems,
+      onChange: onChangeAlignItems,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: 'start',
+        label: __('Start', 'bsx-blocks')
+      }, {
+        value: 'center',
+        label: __('Center', 'bsx-blocks')
+      }, {
+        value: 'end',
+        label: __('End', 'bsx-blocks')
+      }]
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+      label: __('Display', 'bsx-blocks'),
+      value: display,
+      onChange: onChangeDisplay,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: 'flex',
+        label: __('Flex', 'bsx-blocks')
+      }]
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: columnRowClassNames,
+      "data-block": "column-row",
+      "data-column-row-type": columnRowType
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks, {
+      renderAppender: hasInnerBlocks ? undefined : function () {
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks.ButtonBlockAppender, null);
+      }
+    }))];
+  },
+  save: function save(props) {
+    var className = props.className,
+        _props$attributes2 = props.attributes,
+        columnRowType = _props$attributes2.columnRowType,
+        alignItems = _props$attributes2.alignItems,
+        display = _props$attributes2.display;
+    var columnRowClassNames = makeColumnRowClassNames({
+      columnRowType: columnRowType,
+      alignItems: alignItems,
+      display: display
+    });
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: columnRowClassNames
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks.Content, null));
+  }
+});
+
+/***/ }),
+
+/***/ "./src/column-rows/column-rows/block.js":
+/*!**********************************************!*\
+  !*** ./src/column-rows/column-rows/block.js ***!
+  \**********************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+
+var _wp$i18n = wp.i18n,
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData;
+var registerBlockType = wp.blocks.registerBlockType;
+var _wp$blockEditor = wp.blockEditor,
+    InnerBlocks = _wp$blockEditor.InnerBlocks,
+    InspectorControls = _wp$blockEditor.InspectorControls,
+    InspectorAdvancedControls = _wp$blockEditor.InspectorAdvancedControls;
+var _wp$components = wp.components,
+    TextControl = _wp$components.TextControl,
+    PanelBody = _wp$components.PanelBody,
+    RangeControl = _wp$components.RangeControl,
+    ToggleControl = _wp$components.ToggleControl,
+    SelectControl = _wp$components.SelectControl,
+    Button = _wp$components.Button,
+    SVG = _wp$components.SVG,
+    Path = _wp$components.Path;
+var _wp$data = wp.data,
+    withSelect = _wp$data.withSelect,
+    withDispatch = _wp$data.withDispatch;
+
+var makeColumnRowsClassNames = function makeColumnRowsClassNames(attributes) {
+  var display = attributes.display,
+      flexDirection = attributes.flexDirection,
+      width = attributes.width;
+  var classNames = [];
+
+  if (!!display) {
+    classNames.push('d-' + display);
+  }
+
+  if (!!flexDirection) {
+    classNames.push('flex-' + flexDirection);
+  }
+
+  if (!!width) {
+    classNames.push('w-' + width);
+  } // console.log( 'classNames.join( \' \' ): "' + classNames.join( ' ' ) + '"' );
+
+
+  return classNames.join(' ');
+};
+
+registerBlockType('bsx-blocks/column-rows', {
+  title: __('BSX Column Rows', 'bsx-blocks'),
+  icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "48",
+    height: "48",
+    viewBox: "0 0 48 48",
+    role: "img",
+    "aria-hidden": "true",
+    focusable: "false"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+    "fill-rule": "evenodd",
+    "clip-rule": "evenodd",
+    d: "M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9v-5h30V34z M39,27H9 v-6h30V27z M39,19H9v-5h30V19z"
+  })),
+  category: 'layout',
+  attributes: {
+    templateName: {
+      type: 'string'
+    },
+    display: {
+      type: 'string',
+      default: 'flex'
+    },
+    flexDirection: {
+      type: 'string',
+      default: 'column'
+    },
+    width: {
+      type: 'string',
+      default: '100'
+    }
+  },
+  getEditWrapperProps: function getEditWrapperProps(attributes) {
+    var display = attributes.display,
+        flexDirection = attributes.flexDirection,
+        width = attributes.width;
+    return {
+      'data-display': display,
+      'data-flexDirection': flexDirection,
+      'data-width': width
+    };
+  },
+  edit: function edit(props) {
+    var className = props.className,
+        _props$attributes = props.attributes,
+        templateName = _props$attributes.templateName,
+        display = _props$attributes.display,
+        flexDirection = _props$attributes.flexDirection,
+        width = _props$attributes.width,
+        setAttributes = props.setAttributes,
+        isSelected = props.isSelected;
+    var templates = [{
+      name: 'default-auto',
+      title: __('Flex, static', 'bsx-blocks'),
+      icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9v-5h30V34z M39,27H9 V14h30V27z"
+      })),
+      template: [['bsx-blocks/column-row', {}, [['core/paragraph', {
+        placeholder: 'Edit or insert other content and delete paragraph...'
+      }]]], ['bsx-blocks/column-row', {
+        columnRowType: 'auto'
+      }, [['core/paragraph', {
+        placeholder: 'Edit or insert other content and delete paragraph...'
+      }]]]],
+      templateLock: false
+    }, {
+      name: 'auto-default',
+      title: __('Static, flex', 'bsx-blocks'),
+      icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M39,36H9c-1.1,0-2-0.9-2-2V14c0-1.1,0.9-2,2-2h30c1.1,0,2,0.9,2,2v20C41,35.1,40.1,36,39,36z M39,14H9v5h30V14z M39,21H9v13 h30V21z"
+      })),
+      template: [['bsx-blocks/column-row', {
+        columnRowType: 'auto'
+      }, [['core/paragraph', {
+        placeholder: 'Edit or insert other content and delete paragraph...'
+      }]]], ['bsx-blocks/column-row', {}, [['core/paragraph', {
+        placeholder: 'Edit or insert other content and delete paragraph...'
+      }]]]],
+      templateLock: false
+    }];
+
+    var getTemplate = function getTemplate(currentTemplateName) {
+      var currentTemplate = templates.find(function (item) {
+        return item.name === currentTemplateName;
+      });
+      return currentTemplate ? currentTemplate.template : [];
+    };
+
+    var getTemplateLock = function getTemplateLock(currentTemplateName) {
+      var currentTemplate = templates.find(function (item) {
+        return item.name === currentTemplateName;
+      });
+      return currentTemplate ? currentTemplate.templateLock : false;
+    };
+
+    var template = getTemplate(templateName);
+    var templateLock = getTemplateLock(templateName);
+    var allowedBlocks = ['bsx-blocks/column-row'];
+
+    var onTemplateChange = function onTemplateChange(value) {
+      template = getTemplate(value);
+      setAttributes({
+        templateName: value
+      }); // console.log( 'changed templateName: ' + value );
+      // console.log( 'changed template: ' + template );
+    };
+
+    var onChangeDisplay = function onChangeDisplay(value) {
+      setAttributes({
+        display: value
+      });
+    };
+
+    var onChangeFlexDirection = function onChangeFlexDirection(value) {
+      setAttributes({
+        flexDirection: value
+      });
+    };
+
+    var onChangeWidth = function onChangeWidth(value) {
+      setAttributes({
+        width: value
+      });
+    };
+
+    var columnsRowsClassNames = makeColumnRowsClassNames({
+      display: display,
+      flexDirection: flexDirection,
+      width: width
+    });
+    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
+      title: __('Column Rows layout', 'bsx-blocks')
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "bsxui-icon-text-button-list"
+    }, templates.map(function (template, index) {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Button, {
+        label: template.title,
+        onClick: function onClick() {
+          onTemplateChange(template.name);
+        },
+        className: 'bsxui-icon-text-button-list-item ' + (templateName === template.name ? 'active' : '')
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+        class: "bsxui-icon-text-button-list-item-icon"
+      }, template.icon), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+        class: "bsxui-icon-text-button-list-item-label"
+      }, template.title));
+    })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorAdvancedControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+      label: __('Display', 'bsx-blocks'),
+      value: display,
+      onChange: onChangeDisplay,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: 'flex',
+        label: __('Flex', 'bsx-blocks')
+      }]
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+      label: __('Flex direction', 'bsx-blocks'),
+      value: flexDirection,
+      onChange: onChangeFlexDirection,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: 'column',
+        label: __('Column', 'bsx-blocks')
+      }]
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+      label: __('Width', 'bsx-blocks'),
+      value: width,
+      onChange: onChangeWidth,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: '100',
+        label: __('100 %', 'bsx-blocks')
+      }]
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, !templateName ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      class: "bsxui-initial-inline-control"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      class: "bsxui-initial-inline-control-heading"
+    }, __('Please select Column Rows template', 'bsx-blocks')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "bsxui-icon-text-button-list"
+    }, templates.map(function (template, index) {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Button, {
+        label: template.title,
+        onClick: function onClick() {
+          onTemplateChange(template.name);
+        },
+        className: 'bsxui-icon-text-button-list-item ' + (templateName === template.name ? 'active' : '')
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+        class: "bsxui-icon-text-button-list-item-icon"
+      }, template.icon), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+        class: "bsxui-icon-text-button-list-item-label"
+      }, template.title));
+    }))) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: columnsRowsClassNames,
+      "data-block": "column-rows",
+      "data-template-name": templateName
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks, {
+      template: template,
+      templateLock: templateLock,
+      allowedBlocks: allowedBlocks
+    })))];
+  },
+  save: function save(props) {
+    var className = props.className,
+        _props$attributes2 = props.attributes,
+        templateName = _props$attributes2.templateName,
+        display = _props$attributes2.display,
+        flexDirection = _props$attributes2.flexDirection,
+        width = _props$attributes2.width;
+    var columnsRowsClassNames = makeColumnRowsClassNames({
+      display: display,
+      flexDirection: flexDirection,
+      width: width
+    });
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: columnsRowsClassNames
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks.Content, null));
+  }
+});
+
+/***/ }),
+
+/***/ "./src/column-rows/index.js":
+/*!**********************************!*\
+  !*** ./src/column-rows/index.js ***!
+  \**********************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _column_rows_block_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./column-rows/block.js */ "./src/column-rows/column-rows/block.js");
+/* harmony import */ var _column_row_block_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./column-row/block.js */ "./src/column-rows/column-row/block.js");
+
+
+
+/***/ }),
+
+/***/ "./src/container/block.js":
+/*!********************************!*\
+  !*** ./src/container/block.js ***!
+  \********************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../_functions/wp-icons.js */ "./src/_functions/wp-icons.js");
+/* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
+
+// TODO: add default marginAfter: '5'?
+var _wp$i18n = wp.i18n,
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData;
+var registerBlockType = wp.blocks.registerBlockType;
+var _wp$blockEditor = wp.blockEditor,
+    InnerBlocks = _wp$blockEditor.InnerBlocks,
+    InspectorControls = _wp$blockEditor.InspectorControls,
+    InspectorAdvancedControls = _wp$blockEditor.InspectorAdvancedControls;
+var _wp$components = wp.components,
+    PanelBody = _wp$components.PanelBody,
+    ToggleControl = _wp$components.ToggleControl,
+    SelectControl = _wp$components.SelectControl,
+    SVG = _wp$components.SVG,
+    Path = _wp$components.Path;
+var withSelect = wp.data.withSelect;
+
+
+
+var makeContainerClassNames = function makeContainerClassNames(isFluid, containerBreakpoint) {
+  var prefix = 'container';
+  var classNames = [];
+
+  if (isFluid) {
+    if (containerBreakpoint === '') {
+      classNames.push(prefix + '-fluid');
+    } else {
+      classNames.push(prefix + '-' + containerBreakpoint);
+    }
+  } else {
+    classNames.push(prefix);
+  }
+
+  return classNames.join(' ');
+};
+
+registerBlockType('bsx-blocks/container', {
+  title: __('BSX Container', 'bsx-blocks'),
+  icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_1__["svgIcon"])('container'),
+  category: 'layout',
+  attributes: {
+    isFluid: {
+      type: 'boolean',
+      default: false
+    },
+    containerBreakpoint: {
+      type: 'string',
+      default: ''
+    },
+    belowNavbar: {
+      type: 'boolean',
+      default: false
+    },
+    marginBefore: {
+      type: 'string',
+      default: ''
+    },
+    marginAfter: {
+      type: 'string',
+      default: ''
+    },
+    paddingBefore: {
+      type: 'string',
+      default: ''
+    },
+    paddingAfter: {
+      type: 'string',
+      default: ''
+    }
+  },
+  edit: withSelect(function (select, _ref) {
+    var clientId = _ref.clientId;
+
+    var _select = select('core/block-editor'),
+        getBlocksByClientId = _select.getBlocksByClientId,
+        getBlockAttributes = _select.getBlockAttributes;
+
+    var children = getBlocksByClientId(clientId)[0] ? getBlocksByClientId(clientId)[0].innerBlocks : [];
+    return {
+      children: children
+    };
+  })(function (props) {
+    var className = props.className,
+        _props$attributes = props.attributes,
+        isFluid = _props$attributes.isFluid,
+        containerBreakpoint = _props$attributes.containerBreakpoint,
+        belowNavbar = _props$attributes.belowNavbar,
+        marginBefore = _props$attributes.marginBefore,
+        marginAfter = _props$attributes.marginAfter,
+        paddingBefore = _props$attributes.paddingBefore,
+        paddingAfter = _props$attributes.paddingAfter,
+        setAttributes = props.setAttributes,
+        children = props.children;
+
+    var hasInnerBlocks = function hasInnerBlocks(children) {
+      return children.length > 0;
+    };
+
+    var onChangeIsFluid = function onChangeIsFluid(value) {
+      if (value === false) {
+        // reset container breakpoint
+        setAttributes({
+          containerBreakpoint: ''
+        });
+      }
+
+      setAttributes({
+        isFluid: value
+      });
+    };
+
+    var onChangeContainerBreakpoint = function onChangeContainerBreakpoint(value) {
+      setAttributes({
+        containerBreakpoint: value
+      });
+    };
+
+    var onChangeBelowNavbar = function onChangeBelowNavbar(value) {
+      setAttributes({
+        belowNavbar: value
+      });
+    };
+
+    var onChangeMarginBefore = function onChangeMarginBefore(value) {
+      setAttributes({
+        marginBefore: value
+      });
+    };
+
+    var onChangeMarginAfter = function onChangeMarginAfter(value) {
+      setAttributes({
+        marginAfter: value
+      });
+    };
+
+    var onChangePaddingBefore = function onChangePaddingBefore(value) {
+      setAttributes({
+        paddingBefore: value
+      });
+    };
+
+    var onChangePaddingAfter = function onChangePaddingAfter(value) {
+      setAttributes({
+        paddingAfter: value
+      });
+    };
+
+    var containerClassName = makeContainerClassNames(isFluid, containerBreakpoint);
+    containerClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__["addClassNames"])({
+      belowNavbar: belowNavbar,
+      marginBefore: marginBefore,
+      marginAfter: marginAfter,
+      paddingBefore: paddingBefore,
+      paddingAfter: paddingAfter
+    }, containerClassName);
+    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
+      title: __('Container Settings', 'bsx-blocks')
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+      label: __('Fluid container', 'bsx-blocks'),
+      checked: !!isFluid,
+      onChange: onChangeIsFluid,
+      help: __('Fluid width from XS up', 'bsx-blocks')
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+      label: __('Non fluid Breakpoint', 'bsx-blocks'),
+      value: containerBreakpoint,
+      onChange: onChangeContainerBreakpoint,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: 'sm',
+        label: __('SM', 'bsx-blocks')
+      }, {
+        value: 'md',
+        label: __('MD', 'bsx-blocks')
+      }, {
+        value: 'lg',
+        label: __('LG', 'bsx-blocks')
+      }, {
+        value: 'xl',
+        label: __('XL', 'bsx-blocks')
+      }],
+      disabled: !isFluid,
+      help: __('Has (non fluid) Container width from this breakpoint up', 'bsx-blocks')
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
+      title: __('Margin', 'bsx-blocks')
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+      label: __('Margin before', 'bsx-blocks'),
+      value: marginBefore,
+      onChange: onChangeMarginBefore,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: '0',
+        label: __('none (0)', 'bsx-blocks')
+      }, {
+        value: '1',
+        label: __('extra small', 'bsx-blocks')
+      }, {
+        value: '2',
+        label: __('small', 'bsx-blocks')
+      }, {
+        value: '3',
+        label: __('medium', 'bsx-blocks')
+      }, {
+        value: '4',
+        label: __('large', 'bsx-blocks')
+      }, {
+        value: '5',
+        label: __('extra large', 'bsx-blocks')
+      }],
+      help: __('Spacer before element', 'bsx-blocks')
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+      label: __('Margin after', 'bsx-blocks'),
+      value: marginAfter,
+      onChange: onChangeMarginAfter,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: '0',
+        label: __('none (0)', 'bsx-blocks')
+      }, {
+        value: '1',
+        label: __('extra small', 'bsx-blocks')
+      }, {
+        value: '2',
+        label: __('small', 'bsx-blocks')
+      }, {
+        value: '3',
+        label: __('medium', 'bsx-blocks')
+      }, {
+        value: '4',
+        label: __('large', 'bsx-blocks')
+      }, {
+        value: '5',
+        label: __('extra large', 'bsx-blocks')
+      }],
+      help: __('Spacer after element', 'bsx-blocks')
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorAdvancedControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+      label: __('Below navbar', 'bsx-blocks'),
+      checked: !!belowNavbar,
+      onChange: onChangeBelowNavbar,
+      help: __('Enable if container starts below navbar. If enabled container has spacer top to avoid overlapping its contents by navbar.', 'bsx-blocks')
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+      label: __('Padding before', 'bsx-blocks'),
+      value: paddingBefore,
+      onChange: onChangePaddingBefore,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: '0',
+        label: __('none (0)', 'bsx-blocks')
+      }, {
+        value: '1',
+        label: __('extra small', 'bsx-blocks')
+      }, {
+        value: '2',
+        label: __('small', 'bsx-blocks')
+      }, {
+        value: '3',
+        label: __('medium', 'bsx-blocks')
+      }, {
+        value: '4',
+        label: __('large', 'bsx-blocks')
+      }, {
+        value: '5',
+        label: __('extra large', 'bsx-blocks')
+      }],
+      help: __('Inner spacer before', 'bsx-blocks')
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+      label: __('Padding after', 'bsx-blocks'),
+      value: paddingAfter,
+      onChange: onChangePaddingAfter,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: '0',
+        label: __('none (0)', 'bsx-blocks')
+      }, {
+        value: '1',
+        label: __('extra small', 'bsx-blocks')
+      }, {
+        value: '2',
+        label: __('small', 'bsx-blocks')
+      }, {
+        value: '3',
+        label: __('medium', 'bsx-blocks')
+      }, {
+        value: '4',
+        label: __('large', 'bsx-blocks')
+      }, {
+        value: '5',
+        label: __('extra large', 'bsx-blocks')
+      }],
+      help: __('Inner spacer after', 'bsx-blocks')
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: containerClassName
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks, {
+      renderAppender: hasInnerBlocks ? undefined : function () {
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks.ButtonBlockAppender, null);
+      }
+    }))];
+  }),
+  save: function save(props) {
+    var className = props.className,
+        _props$attributes2 = props.attributes,
+        isFluid = _props$attributes2.isFluid,
+        containerBreakpoint = _props$attributes2.containerBreakpoint,
+        belowNavbar = _props$attributes2.belowNavbar,
+        marginBefore = _props$attributes2.marginBefore,
+        marginAfter = _props$attributes2.marginAfter,
+        paddingBefore = _props$attributes2.paddingBefore,
+        paddingAfter = _props$attributes2.paddingAfter;
+    var containerClassName = makeContainerClassNames(isFluid, containerBreakpoint);
+    containerClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__["addClassNames"])({
+      belowNavbar: belowNavbar,
+      marginBefore: marginBefore,
+      marginAfter: marginAfter,
+      paddingBefore: paddingBefore,
+      paddingAfter: paddingAfter
+    }, containerClassName);
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: containerClassName
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks.Content, null));
+  }
+});
+
+/***/ }),
+
+/***/ "./src/groups/block.js":
+/*!*****************************!*\
+  !*** ./src/groups/block.js ***!
+  \*****************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../_functions/wp-icons.js */ "./src/_functions/wp-icons.js");
+
+
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+var _wp$i18n = wp.i18n,
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData;
+var registerBlockType = wp.blocks.registerBlockType;
+var _wp$blockEditor = wp.blockEditor,
+    InnerBlocks = _wp$blockEditor.InnerBlocks,
+    InspectorControls = _wp$blockEditor.InspectorControls;
+var _wp$components = wp.components,
+    PanelBody = _wp$components.PanelBody,
+    TextControl = _wp$components.TextControl,
+    ToggleControl = _wp$components.ToggleControl,
+    SelectControl = _wp$components.SelectControl,
+    Button = _wp$components.Button,
+    SVG = _wp$components.SVG,
+    Path = _wp$components.Path;
+var Fragment = wp.element.Fragment;
+var withSelect = wp.data.withSelect;
+
+registerBlockType('bsx-blocks/groups', {
+  title: __('BSX Groups', 'bsx-blocks'),
+  icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_2__["svgIcon"])('groups'),
+  category: 'layout',
+  attributes: {
+    templateName: {
+      type: 'string'
+    }
+  },
+  edit: withSelect(function (select, _ref) {
+    var clientId = _ref.clientId;
+
+    var _select = select('core/block-editor'),
+        getBlocksByClientId = _select.getBlocksByClientId;
+
+    var children = getBlocksByClientId(clientId)[0] ? getBlocksByClientId(clientId)[0].innerBlocks : [];
+    return {
+      children: children
+    };
+  })(function (props) {
+    var className = props.className,
+        templateName = props.attributes.templateName,
+        setAttributes = props.setAttributes,
+        children = props.children;
+
+    var hasInnerBlocks = function hasInnerBlocks(children) {
+      return children.length > 0;
+    };
+
+    var templates = [{
+      name: 'lazy-img-paragraph-button',
+      title: __('Lazy image, paragraph, button', 'bsx-blocks'),
+      icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_2__["svgIcon"])('groups-lazy-img-paragraph-button'),
+      attributes: {},
+      template: [['bsx-blocks/lazy-img', {}], ['core/paragraph', {
+        placeholder: 'Add text...'
+      }], ['bsx-blocks/buttons', {}]],
+      templateLock: false
+    }, {
+      name: 'lazy-img-heading-paragraph',
+      title: __('Lazy image, heading, paragraph', 'bsx-blocks'),
+      icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_2__["svgIcon"])('groups-lazy-img-heading-paragraph'),
+      attributes: {},
+      template: [['bsx-blocks/lazy-img', {}], ['core/heading', {
+        placeholder: 'Add heading, configure heading level...'
+      }], ['core/paragraph', {
+        placeholder: 'Add text...'
+      }]],
+      templateLock: false
+    }];
+
+    var getTemplateMap = function getTemplateMap(currentTemplateName) {
+      var currentTemplate = templates.find(function (item) {
+        return item.name === currentTemplateName;
+      });
+      return currentTemplate ? currentTemplate : {};
+    };
+
+    var template = getTemplateMap(templateName).template;
+
+    var onChangeTemplate = function onChangeTemplate(value) {
+      var currentTemplateMap = getTemplateMap(value);
+
+      if (currentTemplateMap.template != undefined && currentTemplateMap.attributes != undefined) {
+        template = currentTemplateMap.template;
+        setAttributes(_objectSpread({
+          templateName: value
+        }, currentTemplateMap.attributes));
+      } else {
+        console.log('Error: Template change failed.');
+      }
+
+      console.log('changed templateName: ' + value); // console.log( 'changed template: ' + template );
+    };
+
+    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
+      title: __('Group Settings', 'bsx-blocks')
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      className: "bsxui-icon-text-button-list"
+    }, templates.map(function (template, index) {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
+        label: template.title,
+        onClick: function onClick() {
+          onChangeTemplate(template.name);
+        },
+        className: 'bsxui-icon-text-button-list-item ' + (templateName === template.name ? 'active' : '')
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+        class: "bsxui-icon-text-button-list-item-icon"
+      }, template.icon), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+        class: "bsxui-icon-text-button-list-item-label"
+      }, template.title));
+    })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Fragment, null, !templateName ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      class: "bsxui-initial-inline-control"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      class: "bsxui-initial-inline-control-heading"
+    }, __('Please select Group template', 'bsx-blocks')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      className: "bsxui-icon-text-button-list"
+    }, templates.map(function (template, index) {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
+        label: template.title,
+        onClick: function onClick() {
+          onChangeTemplate(template.name);
+        },
+        className: 'bsxui-icon-text-button-list-item ' + (templateName === template.name ? 'active' : '')
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+        class: "bsxui-icon-text-button-list-item-icon"
+      }, template.icon), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+        class: "bsxui-icon-text-button-list-item-label"
+      }, template.title));
+    }))) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerBlocks, {
+      template: template,
+      renderAppender: hasInnerBlocks ? undefined : function () {
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerBlocks.ButtonBlockAppender, null);
+      }
+    }))];
+  }),
+  save: function save(props) {
+    var className = props.className,
+        templateName = props.attributes.templateName;
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerBlocks.Content, null);
+  }
+});
+
+/***/ }),
+
+/***/ "./src/img-gallery/block.js":
+/*!**********************************!*\
+  !*** ./src/img-gallery/block.js ***!
+  \**********************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/toConsumableArray.js");
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _functions_img_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../_functions/img.js */ "./src/_functions/img.js");
+/* harmony import */ var _functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../_functions/wp-icons.js */ "./src/_functions/wp-icons.js");
+/* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
+
+
+// TODO: get caption or more data from html? (thumb data will not be available from noscript)
+var _wp$i18n = wp.i18n,
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData;
+var registerBlockType = wp.blocks.registerBlockType;
+var _wp$blockEditor = wp.blockEditor,
+    RichText = _wp$blockEditor.RichText,
+    MediaUpload = _wp$blockEditor.MediaUpload,
+    InspectorControls = _wp$blockEditor.InspectorControls,
+    InspectorAdvancedControls = _wp$blockEditor.InspectorAdvancedControls;
+var _wp$components = wp.components,
+    Button = _wp$components.Button,
+    TextControl = _wp$components.TextControl,
+    SelectControl = _wp$components.SelectControl,
+    PanelBody = _wp$components.PanelBody,
+    ToggleControl = _wp$components.ToggleControl,
+    SVG = _wp$components.SVG,
+    Path = _wp$components.Path;
+
+
+
+
+var makeClassName = function makeClassName(attributes) {
+  var galleryType = attributes.galleryType;
+  var classNames = ['bsx-gallery'];
+
+  if (!!galleryType) {
+    if (galleryType == 'floating') {
+      classNames.push('bsx-floating-gallery');
+    }
+  }
+
+  return classNames.join(' ');
+};
+
+var makeInnerClassName = function makeInnerClassName(attributes) {
+  var galleryType = attributes.galleryType;
+  var classNames = [];
+
+  if (!!galleryType) {
+    if (galleryType == 'floating') {
+      classNames.push('bsx-floating-gallery-inner');
+    } else if (galleryType == 'columns') {
+      classNames.push('row');
+    }
+  }
+
+  return classNames.join(' ');
+};
+
+var makeItemClassName = function makeItemClassName(attributes) {
+  var galleryType = attributes.galleryType;
+  var classNames = [];
+
+  if (!!galleryType) {
+    if (galleryType == 'floating') {
+      classNames.push('bsx-floating-gallery-figure d-inline-block');
+    } else if (galleryType == 'columns') {
+      // TODO: make configurable later
+      classNames.push('col-6 col-sm-3 mb-4');
+    }
+  }
+
+  return classNames.join(' ');
+};
+
+var makeLinkClassName = function makeLinkClassName(attributes) {
+  var galleryType = attributes.galleryType;
+  var classNames = [];
+
+  if (!!galleryType) {
+    if (galleryType == 'floating') {
+      classNames.push('d-inline-block');
+    } else if (galleryType == 'columns') {
+      classNames.push('d-block text-center');
+    }
+  }
+
+  return classNames.join(' ');
+};
+
+var makeImgClassName = function makeImgClassName(attributes) {
+  var galleryType = attributes.galleryType;
+  var classNames = [];
+
+  if (!!galleryType) {
+    if (galleryType == 'floating') {
+      classNames.push('bsx-floating-gallery-img-md');
+    } else if (galleryType == 'columns') {
+      classNames.push('img-fluid');
+    }
+  }
+
+  return classNames.join(' ');
+};
+
+var makeUploadElementClassName = function makeUploadElementClassName(attributes) {
+  var galleryType = attributes.galleryType;
+  var classNames = [];
+
+  if (!!galleryType) {
+    if (galleryType == 'floating') {
+      classNames.push('bsxui-mt-3');
+    }
+  }
+
+  return classNames.join(' ');
+};
+
+registerBlockType('bsx-blocks/img-gallery', {
+  title: __('BSX Image Gallery', 'bsx-blocks'),
+  icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_3__["svgIcon"])('gallery'),
+  category: 'layout',
+  attributes: {
+    mediaList: {
+      type: 'array',
+      default: []
+    },
+    // itemData: {
+    //     type: 'array',
+    //     source: 'query',
+    //     selector: 'figure',
+    //     query: {
+    //         figcaption: {
+    //             type: 'array',
+    //             source: 'children',
+    //             selector: 'figcaption',
+    //         },
+    //         url: {
+    //             type: 'string',
+    //             source: 'attribute',
+    //             selector: 'a',
+    //             attribute: 'href',
+    //         },
+    //         size: {
+    //             type: 'string',
+    //             source: 'attribute',
+    //             selector: 'a',
+    //             attribute: 'data-size',
+    //         },
+    //     },
+    //     default: [],
+    // },
+    galleryType: {
+      type: 'string',
+      default: 'columns'
+    },
+    figcaption: {
+      type: 'array',
+      source: 'children',
+      selector: '.bsx-gallery-figcaption'
+    },
+    rounded: {
+      type: 'boolean'
+    },
+    imgThumbnail: {
+      type: 'boolean'
+    },
+    borderState: {
+      type: 'string'
+    },
+    hoverShadow: {
+      type: 'boolean'
+    },
+    hoverMove: {
+      type: 'boolean'
+    },
+    marginBefore: {
+      type: 'string',
+      default: ''
+    },
+    marginAfter: {
+      type: 'string',
+      default: ''
+    }
+  },
+  edit: function edit(props) {
+    var className = props.className,
+        _props$attributes = props.attributes,
+        mediaList = _props$attributes.mediaList,
+        galleryType = _props$attributes.galleryType,
+        figcaption = _props$attributes.figcaption,
+        rounded = _props$attributes.rounded,
+        imgThumbnail = _props$attributes.imgThumbnail,
+        borderState = _props$attributes.borderState,
+        hoverShadow = _props$attributes.hoverShadow,
+        hoverMove = _props$attributes.hoverMove,
+        marginBefore = _props$attributes.marginBefore,
+        marginAfter = _props$attributes.marginAfter,
+        setAttributes = props.setAttributes,
+        isSelected = props.isSelected; // TEST – TODO: remove
+    // console.log( 'typeof itemData: ' + typeof itemData );
+    // itemData.forEach( ( item, index ) => {
+    //     console.log( index + ' : ' + item );
+    //     for ( let [ key, value ] of Object.entries( item ) ) {
+    //         // const printValue = ( value ) => {
+    //         //     let returnString = '';
+    //         //     if ( Array.isArray( value ) ) {
+    //         //         value.forEach( ( item, index ) => {
+    //         //             returnString += index + ': ' + item + ', ';
+    //         //         } );
+    //         //     }
+    //         //     else {
+    //         //         returnString = value;
+    //         //     }
+    //         //     return returnString;
+    //         // }
+    //         console.log( '----- key: "' + key + '", val: "' + value + '"' );
+    //     }
+    // } );
+
+    var onAddImage = function onAddImage(mediaStack) {
+      var addMedia = [];
+      mediaStack.forEach(function (media) {
+        addMedia.push({
+          id: media.id,
+          url: media.url,
+          width: media.sizes.full.width,
+          height: media.sizes.full.height,
+          alt: media.alt,
+          thumbUrl: media.sizes.medium.url,
+          thumbWidth: media.sizes.medium.width,
+          thumbHeight: media.sizes.medium.height,
+          caption: media.alt
+        });
+      });
+      addMediaListItem(addMedia);
+    };
+
+    var onUpdateImage = function onUpdateImage(media, index) {
+      updateMediaListItem({
+        id: media.id,
+        url: media.url,
+        width: media.sizes.full.width,
+        height: media.sizes.full.height,
+        alt: media.alt,
+        thumbUrl: media.sizes.medium.url,
+        thumbWidth: media.sizes.medium.width,
+        thumbHeight: media.sizes.medium.height,
+        caption: media.alt
+      }, index);
+    };
+
+    var onClickDelete = function onClickDelete(index) {
+      deleteMediaListItem(index);
+    };
+
+    var onClickMoveUp = function onClickMoveUp(index) {
+      var newIndex = index > 0 ? index - 1 : mediaList.length - 1;
+      mediaListItemMoveTo(index, newIndex);
+    };
+
+    var onClickMoveDown = function onClickMoveDown(index) {
+      var newIndex = index < mediaList.length - 1 ? index + 1 : 0;
+      mediaListItemMoveTo(index, newIndex);
+    };
+
+    var onChangeCaption = function onChangeCaption(value, index) {
+      var newMediaList = [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(mediaList.slice(0, index)), [{
+        id: mediaList[index].id,
+        url: mediaList[index].url,
+        width: mediaList[index].width,
+        height: mediaList[index].height,
+        alt: mediaList[index].alt,
+        thumbUrl: mediaList[index].thumbUrl,
+        thumbWidth: mediaList[index].thumbWidth,
+        thumbHeight: mediaList[index].thumbHeight,
+        caption: value
+      }], _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(mediaList.slice(index + 1)));
+      setAttributes({
+        mediaList: newMediaList
+      });
+    };
+
+    var addMediaListItem = function addMediaListItem(newItem) {
+      return setAttributes({
+        mediaList: [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(mediaList), _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(newItem))
+      });
+    };
+
+    var updateMediaListItem = function updateMediaListItem(newItem, index) {
+      var newMediaList = [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(mediaList.slice(0, index)), [newItem], _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(mediaList.slice(index + 1)));
+      setAttributes({
+        mediaList: newMediaList
+      });
+    };
+
+    var deleteMediaListItem = function deleteMediaListItem(index) {
+      var newMediaList = [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(mediaList.slice(0, index)), _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(mediaList.slice(index + 1)));
+      setAttributes({
+        mediaList: newMediaList
+      });
+    };
+
+    var mediaListItemMoveTo = function mediaListItemMoveTo(index, newIndex) {
+      var newMediaList = [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(mediaList.slice(0, index)), _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(mediaList.slice(index + 1)));
+      var newMediaList2 = [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(newMediaList.slice(0, newIndex)), [mediaList[index]], _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(newMediaList.slice(newIndex)));
+      setAttributes({
+        mediaList: newMediaList2
+      });
+    };
+
+    var onChangeGalleryType = function onChangeGalleryType(value) {
+      setAttributes({
+        galleryType: value
+      });
+    };
+
+    var onChangeFigcaption = function onChangeFigcaption(value) {
+      setAttributes({
+        figcaption: value
+      });
+    };
+
+    var onChangeRounded = function onChangeRounded(value) {
+      setAttributes({
+        rounded: value
+      });
+    };
+
+    var onChangeImgThumbnail = function onChangeImgThumbnail(value) {
+      setAttributes({
+        imgThumbnail: value
+      });
+    };
+
+    var onChangeBorderState = function onChangeBorderState(value) {
+      setAttributes({
+        borderState: value
+      });
+    };
+
+    var onChangeHoverShadow = function onChangeHoverShadow(value) {
+      setAttributes({
+        hoverShadow: value
+      });
+    };
+
+    var onChangeHoverMove = function onChangeHoverMove(value) {
+      setAttributes({
+        hoverMove: value
+      });
+    };
+
+    var onChangeMarginBefore = function onChangeMarginBefore(value) {
+      setAttributes({
+        marginBefore: value
+      });
+    };
+
+    var onChangeMarginAfter = function onChangeMarginAfter(value) {
+      setAttributes({
+        marginAfter: value
+      });
+    }; // class names
+
+
+    var galleryClassName = makeClassName({
+      galleryType: galleryType
+    });
+    galleryClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_4__["addClassNames"])({
+      marginBefore: marginBefore,
+      marginAfter: marginAfter
+    }, galleryClassName);
+    var innerClassName = makeInnerClassName({
+      galleryType: galleryType
+    });
+    var itemClassName = makeItemClassName({
+      galleryType: galleryType
+    });
+    var linkClassName = makeLinkClassName({
+      galleryType: galleryType
+    });
+    linkClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_4__["addClassNames"])({
+      hoverShadow: hoverShadow,
+      hoverMove: hoverMove
+    }, linkClassName);
+    var imgClassName = makeImgClassName({
+      galleryType: galleryType
+    });
+    imgClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_4__["addClassNames"])({
+      rounded: rounded,
+      imgThumbnail: imgThumbnail,
+      borderState: borderState
+    }, imgClassName);
+    var uploadElementClassName = makeUploadElementClassName({
+      galleryType: galleryType
+    });
+    var TagName = 'figure';
+    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
+      title: __('Gallery settings', 'bsx-blocks')
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(SelectControl, {
+      label: __('Gallery type', 'bsx-blocks'),
+      value: galleryType,
+      onChange: onChangeGalleryType,
+      options: [{
+        value: 'columns',
+        label: __('Columns', 'bsx-blocks')
+      }, {
+        value: 'floating',
+        label: __('Floating (equal image height)', 'bsx-blocks')
+      }]
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
+      title: __('Thumbnail appearance', 'bsx-blocks')
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ToggleControl, {
+      label: __('Rounded corners', 'bsx-blocks'),
+      checked: !!rounded,
+      onChange: onChangeRounded
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ToggleControl, {
+      label: __('Border', 'bsx-blocks'),
+      checked: !!imgThumbnail,
+      onChange: onChangeImgThumbnail
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(SelectControl, {
+      label: __('Border color', 'bsx-blocks'),
+      value: borderState,
+      onChange: onChangeBorderState,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: 'white',
+        label: __('White', 'bsx-blocks')
+      }, {
+        value: 'primary',
+        label: __('Primary', 'bsx-blocks')
+      }, {
+        value: 'secondary',
+        label: __('Secondary', 'bsx-blocks')
+      }, {
+        value: 'success',
+        label: __('Success', 'bsx-blocks')
+      }, {
+        value: 'danger',
+        label: __('Danger', 'bsx-blocks')
+      }, {
+        value: 'warning',
+        label: __('Warning', 'bsx-blocks')
+      }, {
+        value: 'info',
+        label: __('Info', 'bsx-blocks')
+      }, {
+        value: 'light',
+        label: __('Light', 'bsx-blocks')
+      }, {
+        value: 'dark',
+        label: __('Dark', 'bsx-blocks')
+      }]
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ToggleControl, {
+      label: __('Mouseover shadow', 'bsx-blocks'),
+      checked: !!hoverShadow,
+      onChange: onChangeHoverShadow
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ToggleControl, {
+      label: __('Mouseover move', 'bsx-blocks'),
+      checked: !!hoverMove,
+      onChange: onChangeHoverMove
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
+      title: __('Margin', 'bsx-blocks')
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(SelectControl, {
+      label: __('Margin before', 'bsx-blocks'),
+      value: marginBefore,
+      onChange: onChangeMarginBefore,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: '0',
+        label: __('none (0)', 'bsx-blocks')
+      }, {
+        value: '1',
+        label: __('extra small', 'bsx-blocks')
+      }, {
+        value: '2',
+        label: __('small', 'bsx-blocks')
+      }, {
+        value: '3',
+        label: __('medium', 'bsx-blocks')
+      }, {
+        value: '4',
+        label: __('large', 'bsx-blocks')
+      }, {
+        value: '5',
+        label: __('extra large', 'bsx-blocks')
+      }],
+      help: __('Spacer before element', 'bsx-blocks')
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(SelectControl, {
+      label: __('Margin after', 'bsx-blocks'),
+      value: marginAfter,
+      onChange: onChangeMarginAfter,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: '0',
+        label: __('none (0)', 'bsx-blocks')
+      }, {
+        value: '1',
+        label: __('extra small', 'bsx-blocks')
+      }, {
+        value: '2',
+        label: __('small', 'bsx-blocks')
+      }, {
+        value: '3',
+        label: __('medium', 'bsx-blocks')
+      }, {
+        value: '4',
+        label: __('large', 'bsx-blocks')
+      }, {
+        value: '5',
+        label: __('extra large', 'bsx-blocks')
+      }],
+      help: __('Spacer after element', 'bsx-blocks')
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(TagName, {
+      className: galleryClassName
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      className: innerClassName
+    }, mediaList.map(function (media, index) {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+        class: itemClassName
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("span", {
+        className: linkClassName
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(MediaUpload, {
+        key: index,
+        onSelect: function onSelect(value) {
+          return onUpdateImage(value, index);
+        },
+        allowedTypes: "image",
+        value: media.id,
+        render: function render(_ref) {
+          var open = _ref.open;
+          return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
+            className: "bsxui-h-auto bsxui-w-100 bsxui-p-0 bsxui-va-middle",
+            onClick: open
+          }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("img", {
+            className: imgClassName,
+            src: media.url,
+            alt: __('Upload Image', 'bsx-blocks')
+          }));
+        }
+      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RichText, {
+        tagName: "div",
+        multiline: false,
+        placeholder: __('Caption (optional)', 'bsx-blocks'),
+        value: media.caption,
+        onChange: function onChange(value) {
+          onChangeCaption(value, index);
+        }
+      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+        className: "d-flex"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
+        className: "button bsxui-icon-button",
+        onClick: function onClick() {
+          onClickMoveUp(index);
+        },
+        label: __('Move backward', 'bsx-blocks')
+      }, Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_3__["svgIcon"])('carret-left')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
+        className: "button bsxui-icon-button",
+        onClick: function onClick() {
+          onClickMoveDown(index);
+        },
+        label: __('Move forward', 'bsx-blocks')
+      }, Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_3__["svgIcon"])('carret-right')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
+        className: "button bsxui-icon-button bsxui-text-danger bsxui-border-danger bsxui-ml-auto",
+        onClick: function onClick() {
+          onClickDelete(index);
+        },
+        label: __('Remove Image', 'bsx-blocks')
+      }, Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_3__["svgIcon"])('trash'))));
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      className: uploadElementClassName
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(MediaUpload, {
+      onSelect: onAddImage,
+      allowedTypes: "image",
+      multiple: true,
+      render: function render(_ref2) {
+        var open = _ref2.open;
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
+          className: "button button-large bsxui-w-100",
+          onClick: open
+        }, __('Add image(s)', 'bsx-blocks'));
+      }
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RichText, {
+      tagName: "figcaption",
+      multiline: false,
+      placeholder: __('Caption (optional)', 'bsx-blocks'),
+      value: figcaption,
+      onChange: onChangeFigcaption,
+      keepPlaceholderOnFocus: true
+    }))];
+  },
+  save: function save(props) {
+    var className = props.className,
+        _props$attributes2 = props.attributes,
+        mediaList = _props$attributes2.mediaList,
+        galleryType = _props$attributes2.galleryType,
+        figcaption = _props$attributes2.figcaption,
+        rounded = _props$attributes2.rounded,
+        imgThumbnail = _props$attributes2.imgThumbnail,
+        borderState = _props$attributes2.borderState,
+        hoverShadow = _props$attributes2.hoverShadow,
+        hoverMove = _props$attributes2.hoverMove,
+        marginBefore = _props$attributes2.marginBefore,
+        marginAfter = _props$attributes2.marginAfter; // class names
+
+    var galleryClassName = makeClassName({
+      galleryType: galleryType
+    });
+    galleryClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_4__["addClassNames"])({
+      marginBefore: marginBefore,
+      marginAfter: marginAfter
+    }, galleryClassName);
+    var innerClassName = makeInnerClassName({
+      galleryType: galleryType
+    });
+    var itemClassName = makeItemClassName({
+      galleryType: galleryType
+    });
+    var linkClassName = makeLinkClassName({
+      galleryType: galleryType
+    });
+    linkClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_4__["addClassNames"])({
+      hoverShadow: hoverShadow,
+      hoverMove: hoverMove
+    }, linkClassName);
+    var imgClassName = makeImgClassName({
+      galleryType: galleryType
+    });
+    imgClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_4__["addClassNames"])({
+      rounded: rounded,
+      imgThumbnail: imgThumbnail,
+      borderState: borderState
+    }, imgClassName);
+    var TagName = 'figure';
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(TagName, {
+      className: galleryClassName
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      class: "bsx-gallery",
+      itemscope: true,
+      itemtype: "http://schema.org/ImageGallery",
+      "data-fn": "photoswipe"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      class: innerClassName
+    }, mediaList.map(function (media, index) {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("figure", {
+        class: itemClassName,
+        itemprop: "associatedMedia",
+        itemscope: true,
+        itemtype: "http://schema.org/ImageObject"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("a", {
+        class: linkClassName,
+        href: media.url,
+        itemprop: "contentUrl",
+        "data-size": media.width + 'x' + media.height
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("script", null, "document.write( '", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("img", {
+        className: imgClassName,
+        src: Object(_functions_img_js__WEBPACK_IMPORTED_MODULE_2__["makeBase64PreloadImgSrc"])(media.thumbWidth, media.thumbHeight),
+        alt: media.alt,
+        width: media.thumbWidth,
+        height: media.thumbHeight,
+        "data-src": media.thumbUrl,
+        "data-fn": "lazyload"
+      }), "' );"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("noscript", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("img", {
+        className: imgClassName,
+        src: media.thumbUrl,
+        alt: media.alt,
+        width: media.thumbWidth,
+        height: media.thumbHeight
+      }))), media.caption && !RichText.isEmpty(media.caption) && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RichText.Content, {
+        tagName: "figcaption",
+        className: "sr-only",
+        value: media.caption,
+        itemprop: "caption description"
+      }));
+    }))), figcaption && !RichText.isEmpty(figcaption) && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RichText.Content, {
+      tagName: "figcaption",
+      className: "bsx-gallery-figcaption font-italic",
+      value: figcaption
+    }));
+  }
+});
+
+/***/ }),
+
+/***/ "./src/index.js":
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _banner_block_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./banner/block.js */ "./src/banner/block.js");
+/* harmony import */ var _buttons_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./buttons/index.js */ "./src/buttons/index.js");
+/* harmony import */ var _column_rows_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./column-rows/index.js */ "./src/column-rows/index.js");
+/* harmony import */ var _container_block_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./container/block.js */ "./src/container/block.js");
+/* harmony import */ var _groups_block_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./groups/block.js */ "./src/groups/block.js");
+/* harmony import */ var _img_gallery_block_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./img-gallery/block.js */ "./src/img-gallery/block.js");
+/* harmony import */ var _lazy_img_block_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./lazy-img/block.js */ "./src/lazy-img/block.js");
+/* harmony import */ var _row_with_cols_index_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./row-with-cols/index.js */ "./src/row-with-cols/index.js");
+/* harmony import */ var _section_block_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./section/block.js */ "./src/section/block.js");
+/* harmony import */ var _wrapper_block_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./wrapper/block.js */ "./src/wrapper/block.js");
+
+
+
+
+
+
+
+
+
+
+
+/***/ }),
+
+/***/ "./src/lazy-img/block.js":
+/*!*******************************!*\
+  !*** ./src/lazy-img/block.js ***!
+  \*******************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js");
+/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/regenerator */ "@babel/runtime/regenerator");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "./node_modules/@babel/runtime/helpers/asyncToGenerator.js");
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _functions_img_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../_functions/img.js */ "./src/_functions/img.js");
+/* harmony import */ var _functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../_functions/wp-icons.js */ "./src/_functions/wp-icons.js");
+/* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
+/* harmony import */ var _functions_attributes_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../_functions/attributes.js */ "./src/_functions/attributes.js");
+
+
+
+
+// TODO: advanced setting: allow zoomable img without `data-fn="photoswipe"` attr for making gallery with external attr (e.g. container or wrapper)
+var _wp$i18n = wp.i18n,
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData;
+var registerBlockType = wp.blocks.registerBlockType;
+var _wp$blockEditor = wp.blockEditor,
+    RichText = _wp$blockEditor.RichText,
+    MediaUpload = _wp$blockEditor.MediaUpload,
+    InspectorControls = _wp$blockEditor.InspectorControls,
+    InspectorAdvancedControls = _wp$blockEditor.InspectorAdvancedControls,
+    BlockControls = _wp$blockEditor.BlockControls,
+    AlignmentToolbar = _wp$blockEditor.AlignmentToolbar;
+var _wp$components = wp.components,
+    Button = _wp$components.Button,
+    TextControl = _wp$components.TextControl,
+    PanelBody = _wp$components.PanelBody,
+    RadioControl = _wp$components.RadioControl,
+    SelectControl = _wp$components.SelectControl,
+    ToggleControl = _wp$components.ToggleControl,
+    SVG = _wp$components.SVG,
+    Path = _wp$components.Path;
+
+
+
+
+var responsivePortraitMediaIndexList = [{
+  media: '(orientation: portrait) and (max-width: 499.98px)',
+  imgSizeIndexShift: '-1',
+  minImgSizeIndex: '1'
+}, {
+  media: '(orientation: portrait)',
+  imgSizeIndexShift: '0',
+  minImgSizeIndex: '2'
+}];
+var responsiveMediaIndexList = [{
+  media: '(max-width: 459.98px)',
+  imgSizeIndexShift: '-2',
+  minImgSizeIndex: '1'
+}, {
+  media: '(max-width: 767.98px)',
+  imgSizeIndexShift: '-1',
+  minImgSizeIndex: '2'
+}];
+var skipIndex = 0;
+
+var makeSourcesAttributesList = function makeSourcesAttributesList(attributes) {
+  var imgSizes = attributes.imgSizes,
+      imgSizeIndex = attributes.imgSizeIndex,
+      responsiveMediaIndexList = attributes.responsiveMediaIndexList,
+      portraitImgSizes = attributes.portraitImgSizes,
+      portraitImgSizeIndex = attributes.portraitImgSizeIndex,
+      responsivePortraitMediaIndexList = attributes.responsivePortraitMediaIndexList,
+      skipIndex = attributes.skipIndex,
+      disableResponsiveDownsizing = attributes.disableResponsiveDownsizing;
+  var sourcesAttributesList = []; // portrait img
+
+  responsivePortraitMediaIndexList.forEach(function (item, index) {
+    var currentPortraitImgIndex = parseInt(portraitImgSizeIndex) + parseInt(item.imgSizeIndexShift);
+    var adaptedCurrentPortraitImgIndex = currentPortraitImgIndex < parseInt(item.minImgSizeIndex) ? parseInt(item.minImgSizeIndex) : currentPortraitImgIndex;
+
+    if (adaptedCurrentPortraitImgIndex < parseInt(portraitImgSizeIndex) && adaptedCurrentPortraitImgIndex > skipIndex && typeof portraitImgSizes[adaptedCurrentPortraitImgIndex] != 'undefined' && typeof portraitImgSizes[adaptedCurrentPortraitImgIndex].url != 'undefined') {
+      sourcesAttributesList.push({
+        media: item.media,
+        srcset: Object(_functions_img_js__WEBPACK_IMPORTED_MODULE_4__["makeBase64PreloadImgSrc"])(portraitImgSizes[adaptedCurrentPortraitImgIndex].width, portraitImgSizes[adaptedCurrentPortraitImgIndex].height),
+        'data-srcset': portraitImgSizes[adaptedCurrentPortraitImgIndex].url,
+        'data-width': portraitImgSizes[adaptedCurrentPortraitImgIndex].width,
+        'data-height': portraitImgSizes[adaptedCurrentPortraitImgIndex].height
+      });
+    }
+  }); // default img
+
+  responsiveMediaIndexList.forEach(function (item, index) {
+    var currentImgIndex = parseInt(imgSizeIndex) + parseInt(item.imgSizeIndexShift);
+    var adaptedCurrentImgIndex = currentImgIndex < parseInt(item.minImgSizeIndex) ? parseInt(item.minImgSizeIndex) : currentImgIndex;
+
+    if (!disableResponsiveDownsizing && adaptedCurrentImgIndex < parseInt(imgSizeIndex) && adaptedCurrentImgIndex > skipIndex && typeof imgSizes[adaptedCurrentImgIndex] != 'undefined' && typeof imgSizes[adaptedCurrentImgIndex].url != 'undefined') {
+      sourcesAttributesList.push({
+        media: item.media,
+        srcset: Object(_functions_img_js__WEBPACK_IMPORTED_MODULE_4__["makeBase64PreloadImgSrc"])(imgSizes[adaptedCurrentImgIndex].width, imgSizes[adaptedCurrentImgIndex].height),
+        'data-srcset': imgSizes[adaptedCurrentImgIndex].url,
+        'data-width': imgSizes[adaptedCurrentImgIndex].width,
+        'data-height': imgSizes[adaptedCurrentImgIndex].height
+      });
+    }
+  });
+  return sourcesAttributesList;
+};
+
+registerBlockType('bsx-blocks/lazy-img', {
+  title: __('BSX Lazy Image', 'bsx-blocks'),
+  icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_5__["svgIcon"])('lazy-img'),
+  category: 'layout',
+  attributes: {
+    hasFigure: {
+      boolean: 'string',
+      default: true
+    },
+    imgSizes: {
+      type: 'array',
+      default: []
+    },
+    imgSizeIndex: {
+      type: 'string',
+      default: '3'
+    },
+    imgId: {
+      type: 'number'
+    },
+    url: {
+      type: 'string'
+    },
+    width: {
+      type: 'number'
+    },
+    height: {
+      type: 'number'
+    },
+    origWidth: {
+      type: 'number'
+    },
+    origHeight: {
+      type: 'number'
+    },
+    portraitImgId: {
+      type: 'number'
+    },
+    portraitImgSizes: {
+      type: 'array',
+      default: []
+    },
+    portraitImgSizeIndex: {
+      type: 'string',
+      default: '3'
+    },
+    alt: {
+      type: 'string'
+    },
+    figcaption: {
+      type: 'array',
+      source: 'children',
+      selector: 'figcaption'
+    },
+    rounded: {
+      type: 'string'
+    },
+    imgThumbnail: {
+      type: 'boolean'
+    },
+    borderState: {
+      type: 'string'
+    },
+    zoomable: {
+      type: 'boolean'
+    },
+    zoomImgSizeIndex: {
+      type: 'string'
+    },
+    disableResponsiveDownsizing: {
+      type: 'boolean'
+    },
+    textAlign: {
+      type: 'string',
+      default: ''
+    },
+    marginAfter: {
+      type: 'string'
+    }
+  },
+  edit: function edit(props) {
+    var className = props.className,
+        _props$attributes = props.attributes,
+        imgId = _props$attributes.imgId,
+        imgSizes = _props$attributes.imgSizes,
+        imgSizeIndex = _props$attributes.imgSizeIndex,
+        url = _props$attributes.url,
+        width = _props$attributes.width,
+        height = _props$attributes.height,
+        origWidth = _props$attributes.origWidth,
+        origHeight = _props$attributes.origHeight,
+        portraitImgId = _props$attributes.portraitImgId,
+        portraitImgSizes = _props$attributes.portraitImgSizes,
+        portraitImgSizeIndex = _props$attributes.portraitImgSizeIndex,
+        alt = _props$attributes.alt,
+        figcaption = _props$attributes.figcaption,
+        rounded = _props$attributes.rounded,
+        imgThumbnail = _props$attributes.imgThumbnail,
+        borderState = _props$attributes.borderState,
+        zoomable = _props$attributes.zoomable,
+        zoomImgSizeIndex = _props$attributes.zoomImgSizeIndex,
+        disableResponsiveDownsizing = _props$attributes.disableResponsiveDownsizing,
+        textAlign = _props$attributes.textAlign,
+        marginAfter = _props$attributes.marginAfter,
+        setAttributes = props.setAttributes,
+        isSelected = props.isSelected,
+        setState = props.setState;
+
+    function onSelectImage(_x) {
+      return _onSelectImage.apply(this, arguments);
+    }
+
+    function _onSelectImage() {
+      _onSelectImage = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee(img) {
+        var newImgSizesData, newImgSizes, originalWidth, originalHeight, newImgSizeIndex, newLowestSrcsetImgSizeIndex, newZoomImgSizeIndex;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!(typeof img.url !== 'undefined')) {
+                  _context.next = 13;
+                  break;
+                }
+
+                _context.next = 3;
+                return Object(_functions_img_js__WEBPACK_IMPORTED_MODULE_4__["getImgSizesData"])(img);
+
+              case 3:
+                newImgSizesData = _context.sent;
+                newImgSizes = newImgSizesData.imgs;
+                originalWidth = newImgSizesData.originalWidth;
+                originalHeight = newImgSizesData.originalHeight; // TEST
+                // console.log( 'originalWidth: ' + originalWidth );
+                // console.log( 'originalHeight: ' + originalHeight );
+                // console.log( 'newImgSizes.length: ' + newImgSizes.length );
+                // console.log( 'imgSizeIndex: ' + imgSizeIndex );
+                // console.log( '-----> newImgSizes:' );
+                // newImgSizes.forEach( ( imgSize, index ) => {
+                //     console.log( 'imgSize[ ' + index + ' ] ( ' + imgSize.width + 'x' + imgSize.height + ' ): "' + imgSize.url + '"' );
+                // } );
+                // check if current img size index fits to new img (might be too large)
+
+                newImgSizeIndex = parseInt(imgSizeIndex);
+
+                if (parseInt(imgSizeIndex) >= newImgSizes.length) {
+                  newImgSizeIndex = newImgSizes.length - 1; // console.log( 'reduce initial imgSizeIndex to: ' + newImgSizeIndex );
+                } // do not use thumbnail for srcset if has square format, start with img sizes index 1 then
+
+
+                newLowestSrcsetImgSizeIndex = img.sizes.thumbnail.width !== img.sizes.thumbnail.height ? 0 : 1; // check if current zoom img size index fits to new img (might be too large) or is unset
+
+                newZoomImgSizeIndex = zoomImgSizeIndex;
+
+                if (!zoomImgSizeIndex || parseInt(zoomImgSizeIndex) < parseInt(newImgSizeIndex) || parseInt(zoomImgSizeIndex) >= parseInt(newImgSizes.length)) {
+                  newZoomImgSizeIndex = (newImgSizes.length - 1).toString();
+                }
+
+                setAttributes({
+                  imgId: img.id,
+                  imgSizes: newImgSizes,
+                  imgSizeIndex: newImgSizeIndex.toString(),
+                  url: newImgSizes[newImgSizeIndex].url,
+                  width: parseInt(newImgSizes[newImgSizeIndex].width),
+                  height: parseInt(newImgSizes[newImgSizeIndex].height),
+                  origWidth: originalWidth,
+                  origHeight: originalHeight,
+                  alt: img.alt,
+                  zoomImgSizeIndex: newZoomImgSizeIndex
+                }); // TEST – TODO: remove
+                // for ( let [ key, value ] of Object.entries( img.sizes ) ) {
+                //     console.log( 'key: "' + key + '", val: "' + value + '"' );
+                // }
+
+              case 13:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+      return _onSelectImage.apply(this, arguments);
+    }
+
+    ;
+
+    function onSelectPortraitImage(_x2) {
+      return _onSelectPortraitImage.apply(this, arguments);
+    }
+
+    function _onSelectPortraitImage() {
+      _onSelectPortraitImage = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee2(portraitImg) {
+        var newPortraitImgSizesData, newPortraitImgSizes, newPortraitImgSizeIndex;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                if (!(typeof portraitImg.url !== 'undefined')) {
+                  _context2.next = 8;
+                  break;
+                }
+
+                _context2.next = 3;
+                return Object(_functions_img_js__WEBPACK_IMPORTED_MODULE_4__["getImgSizesData"])(portraitImg);
+
+              case 3:
+                newPortraitImgSizesData = _context2.sent;
+                newPortraitImgSizes = newPortraitImgSizesData.imgs; // check if current img size index fits to new img (might be too large)
+
+                newPortraitImgSizeIndex = parseInt(portraitImgSizeIndex);
+
+                if (parseInt(portraitImgSizeIndex) >= newPortraitImgSizes.length) {
+                  newPortraitImgSizeIndex = newPortraitImgSizes.length - 1;
+                }
+
+                setAttributes({
+                  portraitImgId: portraitImg.id,
+                  portraitImgSizes: newPortraitImgSizes,
+                  portraitImgSizeIndex: newPortraitImgSizeIndex.toString()
+                });
+
+              case 8:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+      return _onSelectPortraitImage.apply(this, arguments);
+    }
+
+    ;
+
+    var onDeletePortraitImage = function onDeletePortraitImage() {
+      setAttributes({
+        portraitImgId: '',
+        portraitImgSizes: []
+      });
+    };
+
+    var onChangeMediaAlt = function onChangeMediaAlt(value) {
+      setAttributes({
+        alt: value
+      });
+    };
+
+    var onChangeFigcaption = function onChangeFigcaption(value) {
+      setAttributes({
+        figcaption: value
+      });
+    };
+
+    var onChangeImgWidth = function onChangeImgWidth(value) {
+      setAttributes({
+        width: parseInt(value)
+      });
+    };
+
+    var onChangeImgHeight = function onChangeImgHeight(value) {
+      setAttributes({
+        height: parseInt(value)
+      });
+    };
+
+    var onChangeRounded = function onChangeRounded(value) {
+      setAttributes({
+        rounded: value
+      });
+    };
+
+    var onChangeImgThumbnail = function onChangeImgThumbnail(value) {
+      setAttributes({
+        imgThumbnail: value
+      });
+    };
+
+    var onChangeBorderState = function onChangeBorderState(value) {
+      setAttributes({
+        borderState: value
+      });
+    };
+
+    var onChangeZoomable = function onChangeZoomable(value) {
+      if (zoomImgSizeIndex == undefined) {
+        setAttributes({
+          zoomable: value,
+          zoomImgSizeIndex: (imgSizes.length - 1).toString()
+        });
+      } else {
+        setAttributes({
+          zoomable: value
+        });
+      }
+    };
+
+    var onChangeZoomImgSizeIndex = function onChangeZoomImgSizeIndex(value) {
+      setAttributes({
+        zoomImgSizeIndex: value.toString()
+      });
+    };
+
+    var onChangeDisableResponsiveDownsizing = function onChangeDisableResponsiveDownsizing(value) {
+      setAttributes({
+        disableResponsiveDownsizing: value
+      });
+    };
+
+    var onChangeTextAlign = function onChangeTextAlign(value) {
+      setAttributes({
+        textAlign: value
+      });
+    };
+
+    var onChangeMarginAfter = function onChangeMarginAfter(value) {
+      setAttributes({
+        marginAfter: value
+      });
+    };
+
+    var alignmentControls = [{
+      icon: 'editor-alignleft',
+      title: __('Align left', 'bsx-blocks'),
+      align: 'left'
+    }, {
+      icon: 'editor-aligncenter',
+      title: __('Align center', 'bsx-blocks'),
+      align: 'center'
+    }, {
+      icon: 'editor-alignright',
+      title: __('Align right', 'bsx-blocks'),
+      align: 'right'
+    }];
+
+    var onChangeImgSizeIndex = function onChangeImgSizeIndex(value) {
+      setAttributes({
+        imgSizeIndex: value.toString(),
+        url: imgSizes[value].url,
+        width: parseInt(imgSizes[value].width),
+        height: parseInt(imgSizes[value].height)
+      });
+    };
+
+    var imgSizeRadioControlOptions = [];
+    imgSizes.forEach(function (imgSize, index) {
+      imgSizeRadioControlOptions.push({
+        value: index.toString(),
+        label: imgSize.width + 'x' + imgSize.height + (imgSizes[imgSizes.length - 1].width !== imgSizes[imgSizes.length - 1].height && imgSize.width === imgSize.height ? ' ' + __('(Square format)', 'bsx-blocks') : '')
+      });
+    });
+
+    var onChangePortraitImgSizeIndex = function onChangePortraitImgSizeIndex(value) {
+      setAttributes({
+        portraitImgSizeIndex: value.toString()
+      });
+    };
+
+    var portraitImgSizeRadioControlOptions = [];
+    portraitImgSizes.forEach(function (portraitImgSize, index) {
+      portraitImgSizeRadioControlOptions.push({
+        value: index.toString(),
+        label: portraitImgSize.width + 'x' + portraitImgSize.height + (portraitImgSizes[portraitImgSizes.length - 1].width !== portraitImgSizes[portraitImgSizes.length - 1].height && portraitImgSize.width === portraitImgSize.height ? ' ' + __('(Square format)', 'bsx-blocks') : '')
+      });
+    });
+    var zoomImgSizeRadioControlOptions = [];
+    imgSizes.forEach(function (imgSize, index) {
+      if (index >= imgSizeIndex) {
+        zoomImgSizeRadioControlOptions.push({
+          value: index.toString(),
+          label: imgSize.width + 'x' + imgSize.height + (imgSizes[imgSizes.length - 1].width !== imgSizes[imgSizes.length - 1].height && imgSize.width === imgSize.height ? ' ' + __('(Square format)', 'bsx-blocks') : '')
+        });
+      }
+    }); // prepare img sources attributes
+
+    var sourcesAttributesList = makeSourcesAttributesList({
+      imgSizes: imgSizes,
+      imgSizeIndex: imgSizeIndex,
+      responsiveMediaIndexList: responsiveMediaIndexList,
+      portraitImgSizes: portraitImgSizes,
+      portraitImgSizeIndex: portraitImgSizeIndex,
+      responsivePortraitMediaIndexList: responsivePortraitMediaIndexList,
+      skipIndex: skipIndex,
+      disableResponsiveDownsizing: disableResponsiveDownsizing
+    }); // class names
+
+    var classNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_6__["addClassNames"])({
+      textAlign: textAlign,
+      marginAfter: marginAfter
+    });
+    var imgClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_6__["addClassNames"])({
+      rounded: rounded,
+      imgThumbnail: imgThumbnail,
+      borderState: borderState
+    }, 'img-fluid'); // image
+
+    var image = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("picture", null, sourcesAttributesList.map(function (sourceAttributes, index) {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("source", sourceAttributes);
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("img", {
+      className: imgClassName,
+      src: url,
+      alt: alt
+    }));
+    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(BlockControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(AlignmentToolbar, {
+      label: __('Alignment', 'bsx-blocks'),
+      value: textAlign,
+      onChange: onChangeTextAlign,
+      alignmentControls: alignmentControls
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(PanelBody, {
+      title: __('Image', 'bsx-blocks')
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(TextControl, {
+      label: __('Alt', 'bsx-blocks'),
+      value: alt,
+      onChange: onChangeMediaAlt
+    }), imgId ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(MediaUpload, {
+      onSelect: onSelectImage,
+      allowedTypes: "image",
+      value: imgId,
+      render: function render(_ref) {
+        var open = _ref.open;
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(Button, {
+          className: "bsxui-config-panel-img-button has-margin-bottom",
+          onClick: open
+        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("img", {
+          class: "bsxui-config-panel-img",
+          src: url,
+          alt: __('Change / upload image', 'bsx-blocks')
+        }));
+      }
+    }) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
+      class: "bsxui-config-panel-row"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
+      class: "bsxui-config-panel-text"
+    }, __('– No image selected yet –', 'bsx-blocks'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
+      class: "bsxui-config-panel-row"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(MediaUpload, {
+      onSelect: onSelectImage,
+      allowedTypes: "image",
+      value: imgId,
+      render: function render(_ref2) {
+        var open = _ref2.open;
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(Button, {
+          onClick: open,
+          isSecondary: true
+        }, __('Change / upload image', 'bsx-blocks'));
+      }
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(RadioControl, {
+      label: __('Image size and format', 'bsx-blocks'),
+      selected: imgSizeIndex.toString(),
+      options: imgSizeRadioControlOptions,
+      onChange: onChangeImgSizeIndex
+    }), imgSizes[imgSizeIndex] != undefined && imgSizes[imgSizeIndex].url != undefined && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
+      class: "bsxui-config-panel-row"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
+      class: "bsxui-config-panel-text"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("a", {
+      class: "bsxui-link",
+      href: imgSizes[imgSizeIndex].url,
+      target: "_blank"
+    }, __('Preview selected image', 'bsx-blocks')))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(TextControl, {
+      label: __('Displayed image width', 'bsx-blocks'),
+      value: width,
+      onChange: onChangeImgWidth
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(TextControl, {
+      label: __('Displayed image height', 'bsx-blocks'),
+      value: height,
+      onChange: onChangeImgHeight
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(SelectControl, {
+      label: __('Rounded', 'bsx-blocks'),
+      value: rounded,
+      onChange: onChangeRounded,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: 'rounded',
+        label: __('Rounded corners', 'bsx-blocks')
+      }, {
+        value: 'circle',
+        label: __('Circle', 'bsx-blocks')
+      }]
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(ToggleControl, {
+      label: __('Border', 'bsx-blocks'),
+      checked: !!imgThumbnail,
+      onChange: onChangeImgThumbnail
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(SelectControl, {
+      label: __('Border color', 'bsx-blocks'),
+      value: borderState,
+      onChange: onChangeBorderState,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: 'white',
+        label: __('White', 'bsx-blocks')
+      }, {
+        value: 'primary',
+        label: __('Primary', 'bsx-blocks')
+      }, {
+        value: 'secondary',
+        label: __('Secondary', 'bsx-blocks')
+      }, {
+        value: 'success',
+        label: __('Success', 'bsx-blocks')
+      }, {
+        value: 'danger',
+        label: __('Danger', 'bsx-blocks')
+      }, {
+        value: 'warning',
+        label: __('Warning', 'bsx-blocks')
+      }, {
+        value: 'info',
+        label: __('Info', 'bsx-blocks')
+      }, {
+        value: 'light',
+        label: __('Light', 'bsx-blocks')
+      }, {
+        value: 'dark',
+        label: __('Dark', 'bsx-blocks')
+      }]
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(PanelBody, {
+      title: __('Portrait image (optional)', 'bsx-blocks')
+    }, portraitImgId && typeof portraitImgSizes[portraitImgSizeIndex] != 'undefined' && typeof portraitImgSizes[portraitImgSizeIndex].url != 'undefined' ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(MediaUpload, {
+      onSelect: onSelectPortraitImage,
+      allowedTypes: "image",
+      value: portraitImgId,
+      render: function render(_ref3) {
+        var open = _ref3.open;
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(Button, {
+          className: "bsxui-config-panel-img-button has-margin-bottom",
+          onClick: open
+        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("img", {
+          class: "bsxui-config-panel-img",
+          src: portraitImgSizes[portraitImgSizeIndex].url,
+          alt: __('Change / upload portrait image', 'bsx-blocks')
+        }));
+      }
+    }) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["Fragment"], null, !!zoomable && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
+      class: "bsxui-config-panel-row"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
+      class: "bsxui-alert"
+    }, "Portrait image is deactivated since zoomable image is set.")), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
+      class: "bsxui-config-panel-row"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
+      class: "bsxui-config-panel-text"
+    }, __('– No portrait image selected yet –', 'bsx-blocks')))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
+      class: "bsxui-config-panel-row"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(MediaUpload, {
+      onSelect: onSelectPortraitImage,
+      allowedTypes: "image",
+      value: portraitImgId,
+      render: function render(_ref4) {
+        var open = _ref4.open;
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(Button, {
+          disabled: !!zoomable,
+          onClick: open,
+          isSecondary: true
+        }, __('Change / upload portrait image', 'bsx-blocks'));
+      }
+    })), portraitImgId && typeof portraitImgSizes[portraitImgSizeIndex] != 'undefined' && typeof portraitImgSizes[portraitImgSizeIndex].url != 'undefined' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
+      class: "bsxui-config-panel-row"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(Button, {
+      onClick: onDeletePortraitImage,
+      isDestructive: true
+    }, __('Remove portrait image', 'bsx-blocks'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(RadioControl, {
+      label: __('Image size and format', 'bsx-blocks'),
+      selected: portraitImgSizeIndex.toString(),
+      options: portraitImgSizeRadioControlOptions,
+      onChange: onChangePortraitImgSizeIndex
+    }), typeof portraitImgSizes[portraitImgSizeIndex] != 'undefined' && typeof portraitImgSizes[portraitImgSizeIndex].url != 'undefined' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
+      class: "bsxui-config-panel-text"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("a", {
+      class: "bsxui-link",
+      href: portraitImgSizes[portraitImgSizeIndex].url,
+      target: "_blank"
+    }, __('Preview selected portrait image', 'bsx-blocks')))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(PanelBody, {
+      title: __('Zoomable (optional)', 'bsx-blocks')
+    }, portraitImgSizes.length > 0 && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
+      class: "bsxui-config-panel-row"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
+      class: "bsxui-alert"
+    }, "Zoomable image is deactivated since portrait image is set.")), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(ToggleControl, {
+      className: portraitImgSizes.length > 0 ? 'bsxui-disabled' : '',
+      label: __('Zoomable image', 'bsx-blocks'),
+      checked: !!zoomable,
+      onChange: onChangeZoomable,
+      help: __('If enabled click on image will open shadowbox with large image.', 'bsx-blocks')
+    }), zoomable && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(RadioControl, {
+      label: __('Zoom image size', 'bsx-blocks'),
+      selected: zoomImgSizeIndex,
+      options: zoomImgSizeRadioControlOptions,
+      onChange: onChangeZoomImgSizeIndex
+    }), imgSizeIndex == zoomImgSizeIndex && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
+      class: "bsxui-config-panel-text"
+    }, __('Currently your zoom image is not larger than your original image.', 'bsx-blocks')))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(PanelBody, {
+      title: __('Margin (optional)', 'bsx-blocks')
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(SelectControl, {
+      label: __('Margin after', 'bsx-blocks'),
+      value: marginAfter,
+      onChange: onChangeMarginAfter,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: '0',
+        label: __('none (0)', 'bsx-blocks')
+      }, {
+        value: '1',
+        label: __('extra small', 'bsx-blocks')
+      }, {
+        value: '2',
+        label: __('small', 'bsx-blocks')
+      }, {
+        value: '3',
+        label: __('medium', 'bsx-blocks')
+      }, {
+        value: '4',
+        label: __('large', 'bsx-blocks')
+      }, {
+        value: '5',
+        label: __('extra large', 'bsx-blocks')
+      }],
+      help: __('Spacer after element', 'bsx-blocks')
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(InspectorAdvancedControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(ToggleControl, {
+      label: __('Disable responsive image downsizing', 'bsx-blocks'),
+      checked: !!disableResponsiveDownsizing,
+      onChange: onChangeDisableResponsiveDownsizing,
+      help: __('Enable if you don’t want smaller responsive image sizes, since small devices display image in large dimensions.', 'bsx-blocks')
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("figure", {
+      className: classNames
+    }, imgId ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["Fragment"], null, !zoomable ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["Fragment"], null, image) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("a", {
+      className: 'zoomable-img'
+    }, image)) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
+      className: 'bsxui-img-upload-placeholder'
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(MediaUpload, {
+      onSelect: onSelectImage,
+      allowedTypes: "image",
+      value: imgId,
+      render: function render(_ref5) {
+        var open = _ref5.open;
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(Button, {
+          onClick: open,
+          isSecondary: true
+        }, __('Select / upload Image', 'bsx-blocks'));
+      }
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(RichText, {
+      tagName: "figcaption",
+      multiline: false,
+      placeholder: __('Caption (optional)', 'bsx-blocks'),
+      value: figcaption,
+      onChange: onChangeFigcaption,
+      keepPlaceholderOnFocus: true
+    }))];
+  },
+  // <script>
+  //     document.write(
+  //         '<picture>'
+  //         + '<source media="(orientation: portrait) and (max-width: 799.98px)" srcset="" data-srcset="/example-img-006-720x720-thumb.jpg" data-width="720" data-height="720">\n'
+  //         + '<source media="(min-width: 1440px)" srcset="" data-srcset="/example-img-006-1440x720.jpg" data-width="1440" data-height="480">\n'
+  //         + '<source media="(min-width: 1140px)" srcset="" data-srcset="/example-img-006-1140x380.jpg" data-width="1140" data-height="380">\n'
+  //         + '<img class="img-fluid" alt="Example image" src="" data-fn="lazyload" data-src="/example-img-006-720x480.jpg" data-width="1140" data-height="380">'
+  //         + '</picture>'
+  //     );
+  // </script>
+  // <noscript><img class="img-fluid" src="/example-img-006-720x480.jpg" alt="Example image"></noscript>
+  save: function save(props) {
+    var className = props.className,
+        _props$attributes2 = props.attributes,
+        imgSizeIndex = _props$attributes2.imgSizeIndex,
+        imgSizes = _props$attributes2.imgSizes,
+        url = _props$attributes2.url,
+        width = _props$attributes2.width,
+        height = _props$attributes2.height,
+        origWidth = _props$attributes2.origWidth,
+        origHeight = _props$attributes2.origHeight,
+        portraitImgId = _props$attributes2.portraitImgId,
+        portraitImgSizes = _props$attributes2.portraitImgSizes,
+        portraitImgSizeIndex = _props$attributes2.portraitImgSizeIndex,
+        alt = _props$attributes2.alt,
+        figcaption = _props$attributes2.figcaption,
+        rounded = _props$attributes2.rounded,
+        imgThumbnail = _props$attributes2.imgThumbnail,
+        borderState = _props$attributes2.borderState,
+        zoomable = _props$attributes2.zoomable,
+        zoomImgSizeIndex = _props$attributes2.zoomImgSizeIndex,
+        disableResponsiveDownsizing = _props$attributes2.disableResponsiveDownsizing,
+        textAlign = _props$attributes2.textAlign,
+        marginAfter = _props$attributes2.marginAfter; // prepare img sources attributes
+
+    var sourcesAttributesList = makeSourcesAttributesList({
+      imgSizes: imgSizes,
+      imgSizeIndex: imgSizeIndex,
+      responsiveMediaIndexList: responsiveMediaIndexList,
+      portraitImgSizes: portraitImgSizes,
+      portraitImgSizeIndex: portraitImgSizeIndex,
+      responsivePortraitMediaIndexList: responsivePortraitMediaIndexList,
+      skipIndex: skipIndex,
+      disableResponsiveDownsizing: disableResponsiveDownsizing
+    }); // class names
+
+    var classNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_6__["addClassNames"])({
+      textAlign: textAlign,
+      marginAfter: marginAfter
+    });
+    var imgClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_6__["addClassNames"])({
+      rounded: rounded,
+      imgThumbnail: imgThumbnail,
+      borderState: borderState
+    }, 'img-fluid'); // allow zoomable img
+
+    /*
+    <div class="float-md-right grid-float-md-6" data-fn="photoswipe">
+        <figure>
+            <a class="d-inline-block zoomable-img" href="example-img-006-1440x720.jpg" data-size="1440x720">
+                <script>document.write('<img class="img-fluid" src="" width="760" height="380" data-fn="lazyload" data-src="example-img-006-1440x720-thumb.jpg" alt="Image 6">');</script>
+                <noscript><img class="img-fluid" src="example-img-006-1440x720-thumb.jpg" alt="Image 6"></noscript>
+            </a>
+            <figcaption>
+                Donec pede justo, fringilla vel
+            </figcaption>
+        </figure>
+    </div>
+    */
+    // attributes
+
+    var saveAttributes = !zoomable ? {} : Object(_functions_attributes_js__WEBPACK_IMPORTED_MODULE_7__["makeSaveAttributes"])({
+      'data-fn': 'photoswipe'
+    }); // TODO: manage zoomImgSizeIndex
+
+    var aSaveAttributes = zoomable && typeof imgSizes[zoomImgSizeIndex] != 'undefined' ? Object(_functions_attributes_js__WEBPACK_IMPORTED_MODULE_7__["makeSaveAttributes"])({
+      'href': imgSizes[zoomImgSizeIndex].url,
+      'data-size': imgSizes[zoomImgSizeIndex].width + 'x' + imgSizes[zoomImgSizeIndex].height
+    }) : {};
+    var image = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("script", null, "document.write( '", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("picture", null, sourcesAttributesList.map(function (sourceAttributes, index) {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("source", sourceAttributes);
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("img", {
+      className: imgClassName,
+      src: Object(_functions_img_js__WEBPACK_IMPORTED_MODULE_4__["makeBase64PreloadImgSrc"])(width, height),
+      alt: alt,
+      "data-src": url,
+      width: width,
+      height: height,
+      "data-fn": "lazyload"
+    })), "' );"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("noscript", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("img", {
+      className: imgClassName,
+      src: url,
+      alt: alt,
+      width: width,
+      height: height
+    })));
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("figure", _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+      className: classNames
+    }, saveAttributes), url && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["Fragment"], null, zoomable ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("a", _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+      className: 'zoomable-img'
+    }, aSaveAttributes), image) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["Fragment"], null, image), figcaption && !RichText.isEmpty(figcaption) && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(RichText.Content, {
+      tagName: "figcaption",
+      className: "font-italic",
+      value: figcaption
+    })));
+  }
+});
+
+/***/ }),
+
+/***/ "./src/row-with-cols/col/block.js":
+/*!****************************************!*\
+  !*** ./src/row-with-cols/col/block.js ***!
+  \****************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+
+var _wp$i18n = wp.i18n,
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData;
+var registerBlockType = wp.blocks.registerBlockType;
+var _wp$blockEditor = wp.blockEditor,
+    InnerBlocks = _wp$blockEditor.InnerBlocks,
+    InspectorControls = _wp$blockEditor.InspectorControls;
+var _wp$components = wp.components,
+    TextControl = _wp$components.TextControl,
+    PanelBody = _wp$components.PanelBody,
+    RangeControl = _wp$components.RangeControl,
+    ToggleControl = _wp$components.ToggleControl,
+    Button = _wp$components.Button,
+    SelectControl = _wp$components.SelectControl;
+var withSelect = wp.data.withSelect; // import { svgIcon } from './../../_functions/wp-icons.js';
+// import { addClassNames } from './../../_functions/add-class-names.js';
+
+var makeColClassNames = function makeColClassNames(sizesArray, marginAfter) {
+  var prefix = 'col';
+  var sizeIntervals = ['xs', 'sm', 'md', 'lg', 'xl'];
+  var colClassNames = [];
+  sizesArray.forEach(function (value, index) {
+    var sizeInterval = sizeIntervals[index];
+    var buildClassName = '';
+
+    if (value) {
+      buildClassName += 'col';
+
+      if (sizeInterval == 'xs') {// do nothing 
+      } else {
+        buildClassName += '-' + sizeInterval;
+      }
+
+      if (value != 'null') {
+        buildClassName += '-' + value;
+      }
+
+      colClassNames.push(buildClassName);
+    }
+  });
+
+  if (marginAfter) {
+    colClassNames.push('mb-' + marginAfter);
+  } //console.log( 'colClassNames.join( \' \' ): "' + colClassNames.join( ' ' ) + '"' );
+
+
+  return colClassNames.join(' ');
+};
+
+registerBlockType('bsx-blocks/col', {
+  title: __('BSX Column', 'bsx-blocks'),
+  icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "20",
+    height: "20",
+    viewBox: "0 0 20 20",
+    "aria-hidden": "true",
+    role: "img",
+    focusable: "false"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+    d: "M18.71,1.29C18.52,1.11,18.26,1,18,1H2C1.74,1,1.48,1.11,1.29,1.29C1.11,1.48,1,1.74,1,2v16c0,0.26,0.11,0.52,0.29,0.71 C1.48,18.89,1.74,19,2,19h16c0.26,0,0.52-0.11,0.71-0.29C18.89,18.52,19,18.26,19,18V2C19,1.74,18.89,1.48,18.71,1.29z M12,3v14H8V3 H12z M3,3h3v14H3V3z M14,17V3h3l0,14H14z"
+  })),
+  category: 'layout',
+  parent: ['bsx-blocks/row-with-cols'],
+  attributes: {
+    colType: {
+      type: 'string',
+      default: 'custom'
+    },
+    enableInheritanceFromRow: {
+      type: 'boolean',
+      default: true
+    },
+    sizeXs: {
+      type: 'string',
+      default: ''
+    },
+    sizeSm: {
+      type: 'string',
+      default: ''
+    },
+    sizeMd: {
+      type: 'string',
+      default: '4'
+    },
+    sizeLg: {
+      type: 'string',
+      default: ''
+    },
+    sizeXl: {
+      type: 'string',
+      default: ''
+    },
+    nodeName: {
+      type: 'string',
+      default: 'div'
+    },
+    marginAfter: {
+      type: 'string',
+      default: '3'
+    }
+  },
+  getEditWrapperProps: function getEditWrapperProps(attributes) {
+    var sizeXs = attributes.sizeXs,
+        sizeSm = attributes.sizeSm,
+        sizeMd = attributes.sizeMd,
+        sizeLg = attributes.sizeLg,
+        sizeXl = attributes.sizeXl;
+    return {
+      'data-size': sizeXs,
+      'data-size-sm': sizeSm,
+      'data-size-md': sizeMd,
+      'data-size-lg': sizeLg,
+      'data-size-xl': sizeXl
+    };
+  },
+  edit: withSelect(function (select, _ref) {
+    var clientId = _ref.clientId;
+
+    var _select = select('core/block-editor'),
+        getBlockParentsByBlockName = _select.getBlockParentsByBlockName,
+        getBlocksByClientId = _select.getBlocksByClientId,
+        getBlockAttributes = _select.getBlockAttributes;
+
+    var children = getBlocksByClientId(clientId)[0] ? getBlocksByClientId(clientId)[0].innerBlocks : []; // console.log( 'parentClientId: "' + parentClientId + '"' );
+
+    var ancestorClientIds = getBlockParentsByBlockName(clientId, 'bsx-blocks/row-with-cols'); // console.log( 'ancestorClientIds: "' + ancestorClientIds + '"' );
+    // ancestorClientIds.forEach( ( ancestorClientId, index ) => {
+    //     console.log( 'ancestorClientId[ ' + index + ' ]: "' + ancestorClientId + '"' );
+    // } ); 
+    // get last item which is parent
+
+    var parentClientId = ancestorClientIds[ancestorClientIds.length - 1];
+    var parentAttributes = getBlockAttributes(parentClientId); // console.log( 'parentAttributes: "' + parentAttributes + '"' );
+    // if ( !! parentAttributes ) {
+    //     for ( let [ key, value ] of Object.entries( parentAttributes ) ) {
+    //         console.log( 'key: "' + key + '", value: "' + value + '"' );
+    //     }
+    // }
+    // console.log( 'parentAttributes.fromRowConfig: "' + parentAttributes.fromRowConfig + '"' );
+
+    return {
+      parentAttributes: parentAttributes,
+      children: children
+    };
+  })(function (props) {
+    var className = props.className,
+        _props$attributes = props.attributes,
+        colType = _props$attributes.colType,
+        enableInheritanceFromRow = _props$attributes.enableInheritanceFromRow,
+        sizeXs = _props$attributes.sizeXs,
+        sizeSm = _props$attributes.sizeSm,
+        sizeMd = _props$attributes.sizeMd,
+        sizeLg = _props$attributes.sizeLg,
+        sizeXl = _props$attributes.sizeXl,
+        nodeName = _props$attributes.nodeName,
+        marginAfter = _props$attributes.marginAfter,
+        setAttributes = props.setAttributes,
+        parentAttributes = props.parentAttributes,
+        children = props.children;
+
+    var hasInnerBlocks = function hasInnerBlocks(children) {
+      return children.length > 0;
+    }; // xs
+
+
+    var onChangeXsColSize = function onChangeXsColSize(value) {
+      setAttributes({
+        sizeXs: !!value ? value.toString() : ''
+      });
+    };
+
+    var onChangeXsEqualSize = function onChangeXsEqualSize(value) {
+      if (value) {
+        setAttributes({
+          sizeXs: 'null'
+        });
+      } else if (sizeXs == 'null') {
+        setAttributes({
+          sizeXs: ''
+        });
+      }
+    };
+
+    var onChangeXsAutoSize = function onChangeXsAutoSize(value) {
+      if (value) {
+        setAttributes({
+          sizeXs: 'auto'
+        });
+      } else if (sizeXs == 'auto') {
+        setAttributes({
+          sizeXs: ''
+        });
+      }
+    }; // sm
+
+
+    var onChangeSmColSize = function onChangeSmColSize(value) {
+      setAttributes({
+        sizeSm: !!value ? value.toString() : ''
+      });
+    };
+
+    var onChangeSmEqualSize = function onChangeSmEqualSize(value) {
+      if (value) {
+        setAttributes({
+          sizeSm: 'null'
+        });
+      } else if (sizeSm == 'null') {
+        setAttributes({
+          sizeSm: ''
+        });
+      }
+    };
+
+    var onChangeSmAutoSize = function onChangeSmAutoSize(value) {
+      if (value) {
+        setAttributes({
+          sizeSm: 'auto'
+        });
+      } else if (sizeSm == 'auto') {
+        setAttributes({
+          sizeSm: ''
+        });
+      }
+    }; // md
+
+
+    var onChangeMdColSize = function onChangeMdColSize(value) {
+      setAttributes({
+        sizeMd: !!value ? value.toString() : ''
+      });
+    };
+
+    var onChangeMdEqualSize = function onChangeMdEqualSize(value) {
+      if (value) {
+        setAttributes({
+          sizeMd: 'null'
+        });
+      } else if (sizeMd == 'null') {
+        setAttributes({
+          sizeMd: ''
+        });
+      }
+    };
+
+    var onChangeMdAutoSize = function onChangeMdAutoSize(value) {
+      if (value) {
+        setAttributes({
+          sizeMd: 'auto'
+        });
+      } else if (sizeMd == 'auto') {
+        setAttributes({
+          sizeMd: ''
+        });
+      }
+    }; // lg
+
+
+    var onChangeLgColSize = function onChangeLgColSize(value) {
+      setAttributes({
+        sizeLg: !!value ? value.toString() : ''
+      });
+    };
+
+    var onChangeLgEqualSize = function onChangeLgEqualSize(value) {
+      if (value) {
+        setAttributes({
+          sizeLg: 'null'
+        });
+      } else if (sizeLg == 'null') {
+        setAttributes({
+          sizeLg: ''
+        });
+      }
+    };
+
+    var onChangeLgAutoSize = function onChangeLgAutoSize(value) {
+      if (value) {
+        setAttributes({
+          sizeLg: 'auto'
+        });
+      } else if (sizeLg == 'auto') {
+        setAttributes({
+          sizeLg: ''
+        });
+      }
+    }; // xl
+
+
+    var onChangeXlColSize = function onChangeXlColSize(value) {
+      setAttributes({
+        sizeXl: !!value ? value.toString() : ''
+      });
+    };
+
+    var onChangeXlEqualSize = function onChangeXlEqualSize(value) {
+      if (value) {
+        setAttributes({
+          sizeXl: 'null'
+        });
+      } else if (sizeXl == 'null') {
+        setAttributes({
+          sizeXl: ''
+        });
+      }
+    };
+
+    var onChangeXlAutoSize = function onChangeXlAutoSize(value) {
+      if (value) {
+        setAttributes({
+          sizeXl: 'auto'
+        });
+      } else if (sizeXl == 'auto') {
+        setAttributes({
+          sizeXl: ''
+        });
+      }
+    };
+
+    var onChangeEnableInheritanceFromRow = function onChangeEnableInheritanceFromRow(value) {
+      setAttributes({
+        enableInheritanceFromRow: value
+      });
+    };
+
+    var onClickEnableInheritanceFromRow = function onClickEnableInheritanceFromRow(value) {
+      //console.log( 'onClickEnableInheritanceFromRow' );
+      setAttributes({
+        sizeXs: parentAttributes.sizeXs,
+        sizeSm: parentAttributes.sizeSm,
+        sizeMd: parentAttributes.sizeMd,
+        sizeLg: parentAttributes.sizeLg,
+        sizeXl: parentAttributes.sizeXl,
+        nodeName: parentAttributes.colsNodeName,
+        marginAfter: parentAttributes.colsMarginAfter
+      });
+    };
+
+    var onChangeNodeName = function onChangeNodeName(value) {
+      setAttributes({
+        nodeName: value
+      });
+    };
+
+    var onChangeMarginAfter = function onChangeMarginAfter(value) {
+      setAttributes({
+        marginAfter: value
+      });
+    };
+
+    var colClassName = makeColClassNames([sizeXs, sizeSm, sizeMd, sizeLg, sizeXl], marginAfter);
+    setAttributes({
+      fromRowConfig: parentAttributes.fromRowConfig
+    });
+    var TagName = nodeName;
+    /*
+    if ( !! props.attributes ) {
+        console.log( 'build col: ' );
+        for ( let [ key, value ] of Object.entries( props.attributes ) ) {
+            console.log( 'key: "' + key + '", value: "' + value + '"' );
+        }
+    }
+    */
+
+    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
+      title: __('Column Sizes (this Column)', 'bsx-blocks')
+    }, colType === 'custom' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+      label: __('Enable inheritance from Row', 'bsx-blocks'),
+      checked: !!enableInheritanceFromRow,
+      onChange: onChangeEnableInheritanceFromRow,
+      help: __('If enabled allows overwriting Column settings from Row', 'bsx-blocks')
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      class: "components-base-control"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Button, {
+      onClick: onClickEnableInheritanceFromRow,
+      isSecondary: true,
+      disabled: !enableInheritanceFromRow
+    }, __('Inherit Settings for this Column', 'bsx-blocks')))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("hr", null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RangeControl, {
+      label: __('XS Column Width', 'bsx-blocks'),
+      value: parseInt(sizeXs),
+      onChange: onChangeXsColSize,
+      min: 0,
+      max: 12,
+      help: __('1 ... 12 or empty', 'bsx-blocks'),
+      className: "mb-0"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+      label: __('XS Equal Width', 'bsx-blocks'),
+      checked: sizeXs == 'null',
+      onChange: onChangeXsEqualSize,
+      className: "mb-0"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+      label: __('XS Auto Width', 'bsx-blocks'),
+      checked: sizeXs == 'auto',
+      onChange: onChangeXsAutoSize
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RangeControl, {
+      label: __('SM Column Width', 'bsx-blocks'),
+      value: parseInt(sizeSm),
+      onChange: onChangeSmColSize,
+      min: 0,
+      max: 12,
+      help: __('1 ... 12 or empty', 'bsx-blocks'),
+      className: "mb-0"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+      label: __('SM Equal Width', 'bsx-blocks'),
+      checked: sizeSm == 'null',
+      onChange: onChangeSmEqualSize,
+      className: "mb-0"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+      label: __('SM Auto Width', 'bsx-blocks'),
+      checked: sizeSm == 'auto',
+      onChange: onChangeSmAutoSize
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RangeControl, {
+      label: __('MD Column Width', 'bsx-blocks'),
+      value: parseInt(sizeMd),
+      onChange: onChangeMdColSize,
+      min: 0,
+      max: 12,
+      help: __('1 ... 12 or empty', 'bsx-blocks'),
+      className: "mb-0"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+      label: __('MD Equal Width', 'bsx-blocks'),
+      checked: sizeMd == 'null',
+      onChange: onChangeMdEqualSize,
+      className: "mb-0"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+      label: __('MD Auto Width', 'bsx-blocks'),
+      checked: sizeMd == 'auto',
+      onChange: onChangeMdAutoSize
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RangeControl, {
+      label: __('LG Column Width', 'bsx-blocks'),
+      value: parseInt(sizeLg),
+      onChange: onChangeLgColSize,
+      min: 0,
+      max: 12,
+      help: __('1 ... 12 or empty', 'bsx-blocks'),
+      className: "mb-0"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+      label: __('LG Equal Width', 'bsx-blocks'),
+      checked: sizeLg == 'null',
+      onChange: onChangeLgEqualSize,
+      className: "mb-0"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+      label: __('LG Auto Width', 'bsx-blocks'),
+      checked: sizeLg == 'auto',
+      onChange: onChangeLgAutoSize
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RangeControl, {
+      label: __('XL Column Width', 'bsx-blocks'),
+      value: parseInt(sizeXl),
+      onChange: onChangeXlColSize,
+      min: 0,
+      max: 12,
+      help: __('1 ... 12 or empty', 'bsx-blocks'),
+      className: "mb-0"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+      label: __('XL Equal Width', 'bsx-blocks'),
+      checked: sizeXl == 'null',
+      onChange: onChangeXlEqualSize,
+      className: "mb-0"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+      label: __('XL Auto Width', 'bsx-blocks'),
+      checked: sizeXl == 'auto',
+      onChange: onChangeXlAutoSize
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("hr", null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+      label: __('Margin after', 'bsx-blocks'),
+      value: marginAfter,
+      onChange: onChangeMarginAfter,
+      options: [{
+        value: '',
+        label: __('– none –', 'bsx-blocks')
+      }, {
+        value: '1',
+        label: __('extra small', 'bsx-blocks')
+      }, {
+        value: '2',
+        label: __('small', 'bsx-blocks')
+      }, {
+        value: '3',
+        label: __('medium', 'bsx-blocks')
+      }, {
+        value: '4',
+        label: __('large', 'bsx-blocks')
+      }, {
+        value: '5',
+        label: __('extra large', 'bsx-blocks')
+      }],
+      help: __('Spacer after Column', 'bsx-blocks')
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("hr", null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+      label: __('Node name', 'bsx-blocks'),
+      value: nodeName,
+      onChange: onChangeNodeName,
+      options: [{
+        value: 'div',
+        label: __('div', 'bsx-blocks')
+      }, {
+        value: 'section',
+        label: __('section', 'bsx-blocks')
+      }],
+      help: __('Node name (please edit only if you know what you’re doing)', 'bsx-blocks')
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TagName, {
+      className: colClassName,
+      "data-col-type": colType
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks, {
+      renderAppender: hasInnerBlocks ? undefined : function () {
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks.ButtonBlockAppender, null);
+      }
+    }))];
+  }),
+  save: function save(props) {
+    var className = props.className,
+        _props$attributes2 = props.attributes,
+        colType = _props$attributes2.colType,
+        enableInheritanceFromRow = _props$attributes2.enableInheritanceFromRow,
+        sizeXs = _props$attributes2.sizeXs,
+        sizeSm = _props$attributes2.sizeSm,
+        sizeMd = _props$attributes2.sizeMd,
+        sizeLg = _props$attributes2.sizeLg,
+        sizeXl = _props$attributes2.sizeXl,
+        nodeName = _props$attributes2.nodeName,
+        marginAfter = _props$attributes2.marginAfter;
+    var colClassName = makeColClassNames([sizeXs, sizeSm, sizeMd, sizeLg, sizeXl], marginAfter);
+    var TagName = nodeName;
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TagName, {
+      className: colClassName
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks.Content, null));
+  }
+});
+
+/***/ }),
+
+/***/ "./src/row-with-cols/index.js":
+/*!************************************!*\
+  !*** ./src/row-with-cols/index.js ***!
+  \************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _col_block_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./col/block.js */ "./src/row-with-cols/col/block.js");
+/* harmony import */ var _row_block_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./row/block.js */ "./src/row-with-cols/row/block.js");
+
+
+
+/***/ }),
+
+/***/ "./src/row-with-cols/row/block.js":
+/*!****************************************!*\
+  !*** ./src/row-with-cols/row/block.js ***!
+  \****************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../_functions/wp-icons.js */ "./src/_functions/wp-icons.js");
+/* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
+
+
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+var _wp$i18n = wp.i18n,
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData;
+var registerBlockType = wp.blocks.registerBlockType;
+var _wp$blockEditor = wp.blockEditor,
+    InnerBlocks = _wp$blockEditor.InnerBlocks,
+    InspectorControls = _wp$blockEditor.InspectorControls,
+    InspectorAdvancedControls = _wp$blockEditor.InspectorAdvancedControls;
+var _wp$components = wp.components,
+    TextControl = _wp$components.TextControl,
+    PanelBody = _wp$components.PanelBody,
+    RangeControl = _wp$components.RangeControl,
+    ToggleControl = _wp$components.ToggleControl,
+    SelectControl = _wp$components.SelectControl,
+    Button = _wp$components.Button,
+    SVG = _wp$components.SVG,
+    Path = _wp$components.Path;
+var _wp$data = wp.data,
+    withSelect = _wp$data.withSelect,
+    withDispatch = _wp$data.withDispatch;
+
+
+
+var makeRowClassNames = function makeRowClassNames(attributes) {
+  var alignItems = attributes.alignItems,
+      justifyContent = attributes.justifyContent,
+      noGutters = attributes.noGutters,
+      formRow = attributes.formRow,
+      rowReverse = attributes.rowReverse;
+  var prefix = 'col';
+  var classNames = ['row'];
+
+  if (alignItems) {
+    classNames.push('align-items-' + alignItems);
+  }
+
+  if (justifyContent) {
+    classNames.push('justify-content-' + justifyContent);
+  }
+
+  if (noGutters) {
+    classNames.push('no-gutters');
+  }
+
+  if (formRow) {
+    classNames.push('form-row');
+  }
+
+  if (rowReverse) {
+    if (rowReverse == 'xs') {
+      classNames.push('flex-row-reverse');
+    } else {
+      classNames.push('flex-' + rowReverse + '-row-reverse');
+    }
+  } //console.log( 'classNames.join( \' \' ): "' + classNames.join( ' ' ) + '"' );
+
+
+  return classNames.join(' ');
+};
+
+registerBlockType('bsx-blocks/row-with-cols', {
+  title: __('BSX Columns', 'bsx-blocks'),
+  icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_2__["svgIcon"])('row-with-cols'),
+  category: 'layout',
+  attributes: {
+    templateName: {
+      type: 'string'
+    },
+    enableInheritanceToCols: {
+      type: 'boolean',
+      default: false
+    },
+    alignItems: {
+      type: 'string'
+    },
+    justifyContent: {
+      type: 'string'
+    },
+    noGutters: {
+      type: 'boolean'
+    },
+    formRow: {
+      type: 'boolean'
+    },
+    rowReverse: {
+      type: 'string'
+    },
+    sizeXs: {
+      type: 'string',
+      default: ''
+    },
+    sizeSm: {
+      type: 'string',
+      default: ''
+    },
+    sizeMd: {
+      type: 'string',
+      default: '4'
+    },
+    sizeLg: {
+      type: 'string',
+      default: ''
+    },
+    sizeXl: {
+      type: 'string',
+      default: ''
+    },
+    colsNodeName: {
+      type: 'string',
+      default: 'div'
+    },
+    colsMarginAfter: {
+      type: 'string',
+      default: '3'
+    },
+    marginBefore: {
+      type: 'string',
+      default: ''
+    },
+    marginAfter: {
+      type: 'string',
+      default: ''
+    },
+    paddingBefore: {
+      type: 'string',
+      default: ''
+    },
+    paddingAfter: {
+      type: 'string',
+      default: ''
+    }
+  },
+  getEditWrapperProps: function getEditWrapperProps(attributes) {
+    var alignItems = attributes.alignItems,
+        justifyContent = attributes.justifyContent,
+        noGutters = attributes.noGutters,
+        formRow = attributes.formRow,
+        rowReverse = attributes.rowReverse;
+    return {
+      'data-align-items': alignItems,
+      'data-justify-content': justifyContent,
+      'data-no-gutters': noGutters,
+      'data-form-row': formRow,
+      'data-flex-row-reverse': rowReverse
+    };
+  },
+  edit: withSelect(function (select, _ref) {
+    var clientId = _ref.clientId;
+
+    var _select = select('core/block-editor'),
+        getBlocksByClientId = _select.getBlocksByClientId,
+        getBlockAttributes = _select.getBlockAttributes;
+
+    var children = getBlocksByClientId(clientId)[0] ? getBlocksByClientId(clientId)[0].innerBlocks : [];
+    var childrenAttributes = [];
+    children.forEach(function (column, index) {
+      childrenAttributes.push(getBlockAttributes(column.clientId));
+    });
+    return {
+      children: children,
+      childrenAttributes: childrenAttributes
+    };
+  })(withDispatch(function (dispatch) {
+    var _dispatch = dispatch('core/block-editor'),
+        updateBlockAttributes = _dispatch.updateBlockAttributes;
+
+    return {
+      updateBlockAttributes: updateBlockAttributes
+    };
+  })(function (props) {
+    var className = props.className,
+        _props$attributes = props.attributes,
+        templateName = _props$attributes.templateName,
+        enableInheritanceToCols = _props$attributes.enableInheritanceToCols,
+        alignItems = _props$attributes.alignItems,
+        justifyContent = _props$attributes.justifyContent,
+        noGutters = _props$attributes.noGutters,
+        formRow = _props$attributes.formRow,
+        rowReverse = _props$attributes.rowReverse,
+        sizeXs = _props$attributes.sizeXs,
+        sizeSm = _props$attributes.sizeSm,
+        sizeMd = _props$attributes.sizeMd,
+        sizeLg = _props$attributes.sizeLg,
+        sizeXl = _props$attributes.sizeXl,
+        colsNodeName = _props$attributes.colsNodeName,
+        colsMarginAfter = _props$attributes.colsMarginAfter,
+        marginBefore = _props$attributes.marginBefore,
+        marginAfter = _props$attributes.marginAfter,
+        paddingBefore = _props$attributes.paddingBefore,
+        paddingAfter = _props$attributes.paddingAfter,
+        setAttributes = props.setAttributes,
+        isSelected = props.isSelected,
+        children = props.children,
+        childrenAttributes = props.childrenAttributes,
+        updateBlockAttributes = props.updateBlockAttributes;
+    var templates = [{
+      name: '1-1-1',
+      title: __('3 Columns (1:1:1)', 'bsx-blocks'),
+      icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("svg", {
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        xmlns: "http://www.w3.org/2000/svg",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M41 14a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h30a2 2 0 0 0 2-2V14zM28.5 34h-9V14h9v20zm2 0V14H39v20h-8.5zm-13 0H9V14h8.5v20z"
+      })),
+      template: [['bsx-blocks/col', {
+        colType: 'default',
+        sizeXs: '',
+        sizeSm: '',
+        sizeMd: '4',
+        sizeLg: '',
+        sizeXl: ''
+      }], ['bsx-blocks/col', {
+        colType: 'default',
+        sizeXs: '',
+        sizeSm: '',
+        sizeMd: '4',
+        sizeLg: '',
+        sizeXl: ''
+      }], ['bsx-blocks/col', {
+        colType: 'default',
+        sizeXs: '',
+        sizeSm: '',
+        sizeMd: '4',
+        sizeLg: '',
+        sizeXl: ''
+      }]],
+      templateLock: false
+    }, {
+      name: '1-1',
+      title: __('2 Columns (1:1)', 'bsx-blocks'),
+      icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("svg", {
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        xmlns: "http://www.w3.org/2000/svg",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M39 12C40.1046 12 41 12.8954 41 14V34C41 35.1046 40.1046 36 39 36H9C7.89543 36 7 35.1046 7 34V14C7 12.8954 7.89543 12 9 12H39ZM39 34V14H25V34H39ZM23 34H9V14H23V34Z"
+      })),
+      template: [['bsx-blocks/col', {
+        colType: 'default',
+        sizeXs: '',
+        sizeSm: '',
+        sizeMd: '6',
+        sizeLg: '',
+        sizeXl: ''
+      }], ['bsx-blocks/col', {
+        colType: 'default',
+        sizeXs: '',
+        sizeSm: '',
+        sizeMd: '6',
+        sizeLg: '',
+        sizeXl: ''
+      }]],
+      templateLock: false
+    }, {
+      name: '1-2',
+      title: __('2 Columns (1:2)', 'bsx-blocks'),
+      icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("svg", {
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        xmlns: "http://www.w3.org/2000/svg",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M39 12C40.1046 12 41 12.8954 41 14V34C41 35.1046 40.1046 36 39 36H9C7.89543 36 7 35.1046 7 34V14C7 12.8954 7.89543 12 9 12H39ZM39 34V14H20V34H39ZM18 34H9V14H18V34Z"
+      })),
+      template: [['bsx-blocks/col', {
+        colType: 'default',
+        sizeXs: '',
+        sizeSm: '',
+        sizeMd: '4',
+        sizeLg: '',
+        sizeXl: ''
+      }], ['bsx-blocks/col', {
+        colType: 'default',
+        sizeXs: '',
+        sizeSm: '',
+        sizeMd: '8',
+        sizeLg: '',
+        sizeXl: ''
+      }]],
+      templateLock: false
+    }, {
+      name: '2-1',
+      title: __('2 Columns (2:1)', 'bsx-blocks'),
+      icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("svg", {
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        xmlns: "http://www.w3.org/2000/svg",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M39 12C40.1046 12 41 12.8954 41 14V34C41 35.1046 40.1046 36 39 36H9C7.89543 36 7 35.1046 7 34V14C7 12.8954 7.89543 12 9 12H39ZM39 34V14H30V34H39ZM28 34H9V14H28V34Z"
+      })),
+      template: [['bsx-blocks/col', {
+        colType: 'default',
+        sizeXs: '',
+        sizeSm: '',
+        sizeMd: '8',
+        sizeLg: '',
+        sizeXl: ''
+      }], ['bsx-blocks/col', {
+        colType: 'default',
+        sizeXs: '',
+        sizeSm: '',
+        sizeMd: '4',
+        sizeLg: '',
+        sizeXl: ''
+      }]],
+      templateLock: false
+    }, {
+      name: '1-2-1',
+      title: __('3 Columns (1:2:1)', 'bsx-blocks'),
+      icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("svg", {
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        xmlns: "http://www.w3.org/2000/svg",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M41 14a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h30a2 2 0 0 0 2-2V14zM31 34H17V14h14v20zm2 0V14h6v20h-6zm-18 0H9V14h6v20z"
+      })),
+      template: [['bsx-blocks/col', {
+        colType: 'default',
+        sizeXs: '',
+        sizeSm: '',
+        sizeMd: '3',
+        sizeLg: '',
+        sizeXl: ''
+      }], ['bsx-blocks/col', {
+        colType: 'default',
+        sizeXs: '',
+        sizeSm: '',
+        sizeMd: '6',
+        sizeLg: '',
+        sizeXl: ''
+      }], ['bsx-blocks/col', {
+        colType: 'default',
+        sizeXs: '',
+        sizeSm: '',
+        sizeMd: '3',
+        sizeLg: '',
+        sizeXl: ''
+      }]],
+      templateLock: false
+    }, {
+      name: 'custom',
+      title: __('Custom', 'bsx-blocks'),
+      icon: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("svg", {
+        width: "48",
+        height: "48",
+        viewBox: "0 0 48 48",
+        xmlns: "http://www.w3.org/2000/svg",
+        role: "img",
+        "aria-hidden": "true",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("path", {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9V14h30V34z M22.49,31.03h2.35v-2.21h-2.35V31.03z M22.51,19.38c0.36-0.28,0.81-0.42,1.35-0.42c0.63,0,1.1,0.17,1.43,0.5s0.49,0.81,0.49,1.44 c0,0.54-0.14,1.03-0.43,1.45s-0.68,0.89-1.18,1.38c-0.71,0.6-1.16,1.09-1.35,1.46s-0.3,1.02-0.3,1.94h2.3 c0-0.56,0.04-0.97,0.13-1.25s0.32-0.58,0.68-0.9c0.72-0.58,1.31-1.21,1.77-1.88c0.46-0.67,0.69-1.42,0.69-2.23 c0-1.22-0.37-2.16-1.09-2.83c-0.73-0.67-1.77-1-3.12-1c-1.25,0-2.26,0.31-3.02,0.94c-0.76,0.62-1.15,1.52-1.17,2.69h2.3 C21.97,20.09,22.15,19.66,22.51,19.38z"
+      })),
+      template: [['bsx-blocks/col', {
+        colType: 'custom',
+        sizeXs: '',
+        sizeSm: '',
+        sizeMd: '4',
+        sizeLg: '',
+        sizeXl: ''
+      }]],
+      templateLock: false
+    }];
+
+    var getColsTemplate = function getColsTemplate(currentTemplateName) {
+      var currentTemplate = templates.find(function (item) {
+        return item.name === currentTemplateName;
+      });
+      return currentTemplate ? currentTemplate.template : [];
+    };
+
+    var getColsTemplateLock = function getColsTemplateLock(currentTemplateName) {
+      var currentTemplate = templates.find(function (item) {
+        return item.name === currentTemplateName;
+      });
+      return currentTemplate ? currentTemplate.templateLock : false;
+    };
+
+    var colsTemplate = getColsTemplate(templateName);
+    var colsTemplateLock = getColsTemplateLock(templateName);
+    var allowedBlocks = ['bsx-blocks/col'];
+
+    var onColsTemplateChange = function onColsTemplateChange(value) {
+      colsTemplate = getColsTemplate(value);
+      var colType = value == 'custom' ? 'custom' : 'default';
+      console.log('onColsTemplateChange: "' + value + '"');
+      console.log('colType: "' + colType + '"');
+      /*
+      console.log( 'value: "' + value + '"' );
+      console.log( 'colsTemplate: "' + colsTemplate + '"' );
+      console.log( 'colsTemplate.length: "' + colsTemplate.length + '"' );
+       colsTemplate.forEach( ( item, index ) => {
+          console.log( 'item[ ' + index + ' ]: "' + item + '"' );
+           if ( !! item ) {
+              for ( let [ key, value ] of Object.entries( item ) ) {
+                  console.log( 'key: "' + key + '", value: "' + value + '"' );
+              }
+          }
+      } ); 
+      */
+
+      if (value != 'custom') {
+        // resize columns
+        children.forEach(function (column, index) {
+          if (colsTemplate.length > index) {
+            var newAttributes = colsTemplate[index][1];
+            updateBlockAttributes(column.clientId, _objectSpread({
+              colType: colType
+            }, newAttributes));
+          }
+        });
+      } else {
+        // change col type
+        children.forEach(function (column, index) {
+          var newAttributes = {
+            colType: colType
+          };
+          updateBlockAttributes(column.clientId, newAttributes);
+        });
+      }
+
+      setAttributes({
+        templateName: value
+      });
+    };
+
+    var onChangeAlignItems = function onChangeAlignItems(value) {
+      setAttributes({
+        alignItems: value
+      });
+    };
+
+    var onChangeJustifyContent = function onChangeJustifyContent(value) {
+      setAttributes({
+        justifyContent: value
+      });
+    };
+
+    var onChangeNoGutters = function onChangeNoGutters(value) {
+      setAttributes({
+        noGutters: value
+      });
+
+      if (value === true) {
+        setAttributes({
+          formRow: false
+        });
+      }
+    };
+
+    var onChangeFormRow = function onChangeFormRow(value) {
+      setAttributes({
+        formRow: value
+      });
+
+      if (value === true) {
+        setAttributes({
+          noGutters: false
+        });
+      }
+    };
+
+    var onChangeRowReverse = function onChangeRowReverse(value) {
+      setAttributes({
+        rowReverse: value
+      });
+    };
+
+    var onChangeMarginBefore = function onChangeMarginBefore(value) {
+      setAttributes({
+        marginBefore: value
+      });
+    };
+
+    var onChangeMarginAfter = function onChangeMarginAfter(value) {
+      setAttributes({
+        marginAfter: value
+      });
+    };
+
+    var onChangePaddingBefore = function onChangePaddingBefore(value) {
+      setAttributes({
+        paddingBefore: value
+      });
+    };
+
+    var onChangePaddingAfter = function onChangePaddingAfter(value) {
+      setAttributes({
+        paddingAfter: value
+      });
+    };
+
+    var onChangeEnableInheritanceToCols = function onChangeEnableInheritanceToCols(value) {
+      setAttributes({
+        enableInheritanceToCols: value
+      });
+    }; // value = { sizeXX: 'newValue' }
+
+
+    var inheritToCols = function inheritToCols(value) {
+      //console.log( 'inheritToCols: ' + typeof value );
+      children.forEach(function (column, index) {
+        //console.log( 'childrenAttributes[' + index + ' ]: "' + childrenAttributes[ index ] + '"' );
+        if (childrenAttributes[index].enableInheritanceFromRow) {
+          var newAttributes = {
+            sizeXs: value.sizeXs != undefined ? value.sizeXs : sizeXs,
+            sizeSm: value.sizeSm != undefined ? value.sizeSm : sizeSm,
+            sizeMd: value.sizeMd != undefined ? value.sizeMd : sizeMd,
+            sizeLg: value.sizeLg != undefined ? value.sizeLg : sizeLg,
+            sizeXl: value.sizeXl != undefined ? value.sizeXl : sizeXl,
+            nodeName: value.colsNodeName != undefined ? value.colsNodeName : colsNodeName,
+            marginAfter: value.colsMarginAfter != undefined ? value.colsMarginAfter : colsMarginAfter
+          };
+          updateBlockAttributes(column.clientId, newAttributes);
+        }
+      });
+    }; // xs
+
+
+    var onChangeXsColSize = function onChangeXsColSize(value) {
+      var attr = {
+        sizeXs: !!value ? value.toString() : ''
+      };
+      setAttributes(attr);
+      inheritToCols(attr);
+    };
+
+    var onChangeXsEqualSize = function onChangeXsEqualSize(value) {
+      if (enableInheritanceToCols) {
+        if (value) {
+          var attr = {
+            sizeXs: 'null'
+          };
+          setAttributes(attr);
+          inheritToCols(attr);
+        } else if (sizeXs == 'null') {
+          var _attr = {
+            sizeXs: ''
+          };
+          setAttributes(_attr);
+          inheritToCols(_attr);
+        }
+      }
+    };
+
+    var onChangeXsAutoSize = function onChangeXsAutoSize(value) {
+      if (enableInheritanceToCols) {
+        if (value) {
+          var attr = {
+            sizeXs: 'auto'
+          };
+          setAttributes(attr);
+          inheritToCols(attr);
+        } else if (sizeXs == 'auto') {
+          var _attr2 = {
+            sizeXs: ''
+          };
+          setAttributes(_attr2);
+          inheritToCols(_attr2);
+        }
+      }
+    }; // sm
+
+
+    var onChangeSmColSize = function onChangeSmColSize(value) {
+      var attr = {
+        sizeSm: !!value ? value.toString() : ''
+      };
+      setAttributes(attr);
+      inheritToCols(attr);
+    };
+
+    var onChangeSmEqualSize = function onChangeSmEqualSize(value) {
+      if (enableInheritanceToCols) {
+        if (value) {
+          var attr = {
+            sizeSm: 'null'
+          };
+          setAttributes(attr);
+          inheritToCols(attr);
+        } else if (sizeSm == 'null') {
+          var _attr3 = {
+            sizeSm: ''
+          };
+          setAttributes(_attr3);
+          inheritToCols(_attr3);
+        }
+      }
+    };
+
+    var onChangeSmAutoSize = function onChangeSmAutoSize(value) {
+      if (enableInheritanceToCols) {
+        if (value) {
+          var attr = {
+            sizeSm: 'auto'
+          };
+          setAttributes(attr);
+          inheritToCols(attr);
+        } else if (sizeSm == 'auto') {
+          var _attr4 = {
+            sizeSm: ''
+          };
+          setAttributes(_attr4);
+          inheritToCols(_attr4);
+        }
+      }
+    }; // md
+
+
+    var onChangeMdColSize = function onChangeMdColSize(value) {
+      var attr = {
+        sizeMd: !!value ? value.toString() : ''
+      };
+      setAttributes(attr);
+      inheritToCols(attr);
+    };
+
+    var onChangeMdEqualSize = function onChangeMdEqualSize(value) {
+      if (enableInheritanceToCols) {
+        if (value) {
+          var attr = {
+            sizeMd: 'null'
+          };
+          setAttributes(attr);
+          inheritToCols(attr);
+        } else if (sizeMd == 'null') {
+          var _attr5 = {
+            sizeMd: ''
+          };
+          setAttributes(_attr5);
+          inheritToCols(_attr5);
+        }
+      }
+    };
+
+    var onChangeMdAutoSize = function onChangeMdAutoSize(value) {
+      if (enableInheritanceToCols) {
+        if (value) {
+          var attr = {
+            sizeMd: 'auto'
+          };
+          setAttributes(attr);
+          inheritToCols(attr);
+        } else if (sizeMd == 'auto') {
+          var _attr6 = {
+            sizeMd: ''
+          };
+          setAttributes(_attr6);
+          inheritToCols(_attr6);
+        }
+      }
+    }; // lg
+
+
+    var onChangeLgColSize = function onChangeLgColSize(value) {
+      var attr = {
+        sizeLg: !!value ? value.toString() : ''
+      };
+      setAttributes(attr);
+      inheritToCols(attr);
+    };
+
+    var onChangeLgEqualSize = function onChangeLgEqualSize(value) {
+      if (enableInheritanceToCols) {
+        if (value) {
+          var attr = {
+            sizeLg: 'null'
+          };
+          setAttributes(attr);
+          inheritToCols(attr);
+        } else if (sizeLg == 'null') {
+          var _attr7 = {
+            sizeLg: ''
+          };
+          setAttributes(_attr7);
+          inheritToCols(_attr7);
+        }
+      }
+    };
+
+    var onChangeLgAutoSize = function onChangeLgAutoSize(value) {
+      if (enableInheritanceToCols) {
+        if (value) {
+          var attr = {
+            sizeLg: 'auto'
+          };
+          setAttributes(attr);
+          inheritToCols(attr);
+        } else if (sizeLg == 'auto') {
+          var _attr8 = {
+            sizeLg: ''
+          };
+          setAttributes(_attr8);
+          inheritToCols(_attr8);
+        }
+      }
+    }; // xl
+
+
+    var onChangeXlColSize = function onChangeXlColSize(value) {
+      var attr = {
+        sizeXl: !!value ? value.toString() : ''
+      };
+      setAttributes(attr);
+      inheritToCols(attr);
+    };
+
+    var onChangeXlEqualSize = function onChangeXlEqualSize(value) {
+      if (enableInheritanceToCols) {
+        if (value) {
+          var attr = {
+            sizeXl: 'null'
+          };
+          setAttributes(attr);
+          inheritToCols(attr);
+        } else if (sizeXl == 'null') {
+          var _attr9 = {
+            sizeXl: ''
+          };
+          setAttributes(_attr9);
+          inheritToCols(_attr9);
+        }
+      }
+    };
+
+    var onChangeXlAutoSize = function onChangeXlAutoSize(value) {
+      if (enableInheritanceToCols) {
+        if (value) {
+          var attr = {
+            sizeXl: 'auto'
+          };
+          setAttributes(attr);
+          inheritToCols(attr);
+        } else if (sizeXl == 'auto') {
+          var _attr10 = {
+            sizeXl: ''
+          };
+          setAttributes(_attr10);
+          inheritToCols(_attr10);
+        }
+      }
+    }; // cols node name bottom
+
+
+    var onChangeColsNodeName = function onChangeColsNodeName(value) {
+      if (enableInheritanceToCols) {
+        var attr = {
+          colsNodeName: value
+        };
+        setAttributes(attr);
+        inheritToCols(attr);
+      }
+    }; // cols margin bottom
+
+
+    var onChangeColsMarginAfter = function onChangeColsMarginAfter(value) {
+      if (enableInheritanceToCols) {
+        var attr = {
+          colsMarginAfter: value
+        };
+        setAttributes(attr);
+        inheritToCols(attr);
+      }
+    };
+
+    var rowClassNames = makeRowClassNames({
+      alignItems: alignItems,
+      justifyContent: justifyContent,
+      noGutters: noGutters,
+      formRow: formRow,
+      rowReverse: rowReverse
+    });
+    rowClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_3__["addClassNames"])({
+      marginBefore: marginBefore,
+      marginAfter: marginAfter,
+      paddingBefore: paddingBefore,
+      paddingAfter: paddingAfter
+    }, rowClassNames);
+    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
+      title: __('Columns Layout', 'bsx-blocks')
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      className: "bsxui-icon-text-button-list"
+    }, templates.map(function (template, index) {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
+        label: template.title,
+        onClick: function onClick() {
+          onColsTemplateChange(template.name);
+        },
+        className: 'bsxui-icon-text-button-list-item ' + (templateName === template.name ? 'active' : '')
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+        class: "bsxui-icon-text-button-list-item-icon"
+      }, template.icon), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+        class: "bsxui-icon-text-button-list-item-label"
+      }, template.title));
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
+      title: __('Row Settings', 'bsx-blocks')
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(SelectControl, {
+      label: __('Vertical Align', 'bsx-blocks'),
+      value: alignItems,
+      onChange: onChangeAlignItems,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: 'start',
+        label: __('Start', 'bsx-blocks')
+      }, {
+        value: 'center',
+        label: __('Center', 'bsx-blocks')
+      }, {
+        value: 'end',
+        label: __('End', 'bsx-blocks')
+      }]
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(SelectControl, {
+      label: __('Justify Content', 'bsx-blocks'),
+      value: justifyContent,
+      onChange: onChangeJustifyContent,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: 'start',
+        label: __('Start', 'bsx-blocks')
+      }, {
+        value: 'center',
+        label: __('Center', 'bsx-blocks')
+      }, {
+        value: 'end',
+        label: __('End', 'bsx-blocks')
+      }, {
+        value: 'between',
+        label: __('Between', 'bsx-blocks')
+      }, {
+        value: 'around',
+        label: __('Around', 'bsx-blocks')
+      }]
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ToggleControl, {
+      label: __('No Gutters', 'bsx-blocks'),
+      checked: !!noGutters,
+      onChange: onChangeNoGutters
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ToggleControl, {
+      label: __('Form Row', 'bsx-blocks'),
+      checked: !!formRow,
+      onChange: onChangeFormRow
+    })), templateName === 'custom' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
+      title: __('Inherit Columns Settings', 'bsx-blocks')
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ToggleControl, {
+      label: __('Enable inheritance to Columns', 'bsx-blocks'),
+      checked: !!enableInheritanceToCols,
+      onChange: onChangeEnableInheritanceToCols,
+      help: __('If enabled all Columns settings can be overwritten here. To protect selected Columns from beeing overwritten, disable inheritance option in respective Column settings.', 'bsx-blocks')
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("hr", null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RangeControl, {
+      label: __('XS Column Width', 'bsx-blocks'),
+      value: parseInt(sizeXs),
+      onChange: onChangeXsColSize,
+      min: 0,
+      max: 12,
+      help: __('1 ... 12 or empty', 'bsx-blocks'),
+      disabled: !enableInheritanceToCols,
+      className: "mb-0"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ToggleControl, {
+      label: __('XS Equal Width', 'bsx-blocks'),
+      checked: sizeXs == 'null',
+      onChange: onChangeXsEqualSize,
+      className: "mb-0"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ToggleControl, {
+      label: __('XS Auto Width', 'bsx-blocks'),
+      checked: sizeXs == 'auto',
+      onChange: onChangeXsAutoSize
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RangeControl, {
+      label: __('SM Column Width', 'bsx-blocks'),
+      value: parseInt(sizeSm),
+      onChange: onChangeSmColSize,
+      min: 0,
+      max: 12,
+      help: __('1 ... 12 or empty', 'bsx-blocks'),
+      disabled: !enableInheritanceToCols,
+      className: "mb-0"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ToggleControl, {
+      label: __('SM Equal Width', 'bsx-blocks'),
+      checked: sizeSm == 'null',
+      onChange: onChangeSmEqualSize,
+      className: "mb-0"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ToggleControl, {
+      label: __('SM Auto Width', 'bsx-blocks'),
+      checked: sizeSm == 'auto',
+      onChange: onChangeSmAutoSize
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RangeControl, {
+      label: __('MD Column Width', 'bsx-blocks'),
+      value: parseInt(sizeMd),
+      onChange: onChangeMdColSize,
+      min: 0,
+      max: 12,
+      help: __('1 ... 12 or empty', 'bsx-blocks'),
+      disabled: !enableInheritanceToCols,
+      className: "mb-0"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ToggleControl, {
+      label: __('MD Equal Width', 'bsx-blocks'),
+      checked: sizeMd == 'null',
+      onChange: onChangeMdEqualSize,
+      className: "mb-0"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ToggleControl, {
+      label: __('MD Auto Width', 'bsx-blocks'),
+      checked: sizeMd == 'auto',
+      onChange: onChangeMdAutoSize
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RangeControl, {
+      label: __('LG Column Width', 'bsx-blocks'),
+      value: parseInt(sizeLg),
+      onChange: onChangeLgColSize,
+      min: 0,
+      max: 12,
+      help: __('1 ... 12 or empty', 'bsx-blocks'),
+      disabled: !enableInheritanceToCols,
+      className: "mb-0"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ToggleControl, {
+      label: __('LG Equal Width', 'bsx-blocks'),
+      checked: sizeLg == 'null',
+      onChange: onChangeLgEqualSize,
+      className: "mb-0"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ToggleControl, {
+      label: __('LG Auto Width', 'bsx-blocks'),
+      checked: sizeLg == 'auto',
+      onChange: onChangeLgAutoSize
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RangeControl, {
+      label: __('XL Column Width', 'bsx-blocks'),
+      value: parseInt(sizeXl),
+      onChange: onChangeXlColSize,
+      min: 0,
+      max: 12,
+      help: __('1 ... 12 or empty', 'bsx-blocks'),
+      disabled: !enableInheritanceToCols,
+      className: "mb-0"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ToggleControl, {
+      label: __('XL Equal Width', 'bsx-blocks'),
+      checked: sizeXl == 'null',
+      onChange: onChangeXlEqualSize,
+      className: "mb-0"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ToggleControl, {
+      label: __('XL Auto Width', 'bsx-blocks'),
+      checked: sizeXl == 'auto',
+      onChange: onChangeXlAutoSize
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("hr", null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(SelectControl, {
+      label: __('Margin after', 'bsx-blocks'),
+      value: colsMarginAfter,
+      onChange: onChangeColsMarginAfter,
+      options: [{
+        value: '',
+        label: __('– none –', 'bsx-blocks')
+      }, {
+        value: '1',
+        label: __('extra small', 'bsx-blocks')
+      }, {
+        value: '2',
+        label: __('small', 'bsx-blocks')
+      }, {
+        value: '3',
+        label: __('medium', 'bsx-blocks')
+      }, {
+        value: '4',
+        label: __('large', 'bsx-blocks')
+      }, {
+        value: '5',
+        label: __('extra large', 'bsx-blocks')
+      }],
+      help: __('Spacer after Column (not Row)', 'bsx-blocks')
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("hr", null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(SelectControl, {
+      label: __('Node name', 'bsx-blocks'),
+      value: colsNodeName,
+      onChange: onChangeColsNodeName,
+      options: [{
+        value: 'div',
+        label: __('div', 'bsx-blocks')
+      }, {
+        value: 'section',
+        label: __('section', 'bsx-blocks')
+      }],
+      help: __('Column node name (please edit only if you know what you’re doing)', 'bsx-blocks')
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
+      title: __('Row margin (not Columns)', 'bsx-blocks')
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(SelectControl, {
+      label: __('Margin before', 'bsx-blocks'),
+      value: marginBefore,
+      onChange: onChangeMarginBefore,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: '0',
+        label: __('none (0)', 'bsx-blocks')
+      }, {
+        value: '1',
+        label: __('extra small', 'bsx-blocks')
+      }, {
+        value: '2',
+        label: __('small', 'bsx-blocks')
+      }, {
+        value: '3',
+        label: __('medium', 'bsx-blocks')
+      }, {
+        value: '4',
+        label: __('large', 'bsx-blocks')
+      }, {
+        value: '5',
+        label: __('extra large', 'bsx-blocks')
+      }],
+      help: __('Spacer before Row', 'bsx-blocks')
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(SelectControl, {
+      label: __('Margin after', 'bsx-blocks'),
+      value: marginAfter,
+      onChange: onChangeMarginAfter,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: '0',
+        label: __('none (0)', 'bsx-blocks')
+      }, {
+        value: '1',
+        label: __('extra small', 'bsx-blocks')
+      }, {
+        value: '2',
+        label: __('small', 'bsx-blocks')
+      }, {
+        value: '3',
+        label: __('medium', 'bsx-blocks')
+      }, {
+        value: '4',
+        label: __('large', 'bsx-blocks')
+      }, {
+        value: '5',
+        label: __('extra large', 'bsx-blocks')
+      }],
+      help: __('Spacer after Row', 'bsx-blocks')
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InspectorAdvancedControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(SelectControl, {
+      label: __('Padding before', 'bsx-blocks'),
+      value: paddingBefore,
+      onChange: onChangePaddingBefore,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: '0',
+        label: __('none (0)', 'bsx-blocks')
+      }, {
+        value: '1',
+        label: __('extra small', 'bsx-blocks')
+      }, {
+        value: '2',
+        label: __('small', 'bsx-blocks')
+      }, {
+        value: '3',
+        label: __('medium', 'bsx-blocks')
+      }, {
+        value: '4',
+        label: __('large', 'bsx-blocks')
+      }, {
+        value: '5',
+        label: __('extra large', 'bsx-blocks')
+      }],
+      help: __('Inner spacer before', 'bsx-blocks')
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(SelectControl, {
+      label: __('Padding after', 'bsx-blocks'),
+      value: paddingAfter,
+      onChange: onChangePaddingAfter,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: '0',
+        label: __('none (0)', 'bsx-blocks')
+      }, {
+        value: '1',
+        label: __('extra small', 'bsx-blocks')
+      }, {
+        value: '2',
+        label: __('small', 'bsx-blocks')
+      }, {
+        value: '3',
+        label: __('medium', 'bsx-blocks')
+      }, {
+        value: '4',
+        label: __('large', 'bsx-blocks')
+      }, {
+        value: '5',
+        label: __('extra large', 'bsx-blocks')
+      }],
+      help: __('Inner spacer after', 'bsx-blocks')
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(SelectControl, {
+      label: __('Columns order reverse', 'bsx-blocks'),
+      value: rowReverse,
+      onChange: onChangeRowReverse,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: 'xs',
+        label: __('XS up', 'bsx-blocks')
+      }, {
+        value: 'sm',
+        label: __('SM up', 'bsx-blocks')
+      }, {
+        value: 'md',
+        label: __('MD up', 'bsx-blocks')
+      }, {
+        value: 'lg',
+        label: __('LG up', 'bsx-blocks')
+      }, {
+        value: 'xl',
+        label: __('XL', 'bsx-blocks')
+      }],
+      help: __('Reverse Column order from selected size', 'bsx-blocks')
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, !templateName ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      class: "bsxui-initial-inline-control"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      class: "bsxui-initial-inline-control-heading"
+    }, __('Please select Columns template', 'bsx-blocks')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      className: "bsxui-icon-text-button-list"
+    }, templates.map(function (template, index) {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
+        label: template.title,
+        onClick: function onClick() {
+          onColsTemplateChange(template.name);
+        },
+        className: 'bsxui-icon-text-button-list-item ' + (templateName === template.name ? 'active' : '')
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+        class: "bsxui-icon-text-button-list-item-icon"
+      }, template.icon), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+        class: "bsxui-icon-text-button-list-item-label"
+      }, template.title));
+    }))) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      className: rowClassNames,
+      "data-template-name": templateName
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerBlocks, {
+      template: colsTemplate,
+      templateLock: colsTemplateLock,
+      allowedBlocks: allowedBlocks
+    })))];
+  })),
+  save: function save(props) {
+    var className = props.className,
+        _props$attributes2 = props.attributes,
+        templateName = _props$attributes2.templateName,
+        enableInheritanceToCols = _props$attributes2.enableInheritanceToCols,
+        alignItems = _props$attributes2.alignItems,
+        justifyContent = _props$attributes2.justifyContent,
+        noGutters = _props$attributes2.noGutters,
+        formRow = _props$attributes2.formRow,
+        rowReverse = _props$attributes2.rowReverse,
+        sizeXs = _props$attributes2.sizeXs,
+        sizeSm = _props$attributes2.sizeSm,
+        sizeMd = _props$attributes2.sizeMd,
+        sizeLg = _props$attributes2.sizeLg,
+        sizeXl = _props$attributes2.sizeXl,
+        colsNodeName = _props$attributes2.colsNodeName,
+        colsMarginAfter = _props$attributes2.colsMarginAfter,
+        marginBefore = _props$attributes2.marginBefore,
+        marginAfter = _props$attributes2.marginAfter,
+        paddingBefore = _props$attributes2.paddingBefore,
+        paddingAfter = _props$attributes2.paddingAfter;
+    var rowClassNames = makeRowClassNames({
+      alignItems: alignItems,
+      justifyContent: justifyContent,
+      noGutters: noGutters,
+      formRow: formRow,
+      rowReverse: rowReverse
+    });
+    rowClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_3__["addClassNames"])({
+      marginBefore: marginBefore,
+      marginAfter: marginAfter,
+      paddingBefore: paddingBefore,
+      paddingAfter: paddingAfter
+    }, rowClassNames);
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      className: rowClassNames
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerBlocks.Content, null));
+  }
+});
+
+/***/ }),
+
+/***/ "./src/section/block.js":
+/*!******************************!*\
+  !*** ./src/section/block.js ***!
+  \******************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js");
+/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../_functions/wp-icons.js */ "./src/_functions/wp-icons.js");
+/* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
+/* harmony import */ var _functions_attributes_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../_functions/attributes.js */ "./src/_functions/attributes.js");
+
+
+
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+var _wp$i18n = wp.i18n,
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData;
+var registerBlockType = wp.blocks.registerBlockType;
+var _wp$blockEditor = wp.blockEditor,
+    InnerBlocks = _wp$blockEditor.InnerBlocks,
+    InspectorControls = _wp$blockEditor.InspectorControls;
+var _wp$components = wp.components,
+    PanelBody = _wp$components.PanelBody,
+    TextControl = _wp$components.TextControl,
+    ToggleControl = _wp$components.ToggleControl,
+    SelectControl = _wp$components.SelectControl,
+    Button = _wp$components.Button,
+    SVG = _wp$components.SVG,
+    Path = _wp$components.Path;
+var Fragment = wp.element.Fragment;
+var withSelect = wp.data.withSelect;
+
+
+
+registerBlockType('bsx-blocks/section', {
+  title: __('BSX Section', 'bsx-blocks'),
+  icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_3__["svgIcon"])('section'),
+  category: 'layout',
+  attributes: {
+    templateName: {
+      type: 'string'
+    },
+    belowNavbar: {
+      type: 'boolean',
+      default: false
+    },
+    id: {
+      type: 'string',
+      default: ''
+    },
+    marginBefore: {
+      type: 'string',
+      default: ''
+    },
+    marginAfter: {
+      type: 'string',
+      default: ''
+    }
+  },
+  edit: withSelect(function (select, _ref) {
+    var clientId = _ref.clientId;
+
+    var _select = select('core/block-editor'),
+        getBlocksByClientId = _select.getBlocksByClientId;
+
+    var children = getBlocksByClientId(clientId)[0] ? getBlocksByClientId(clientId)[0].innerBlocks : [];
+    return {
+      children: children
+    };
+  })(function (props) {
+    var className = props.className,
+        _props$attributes = props.attributes,
+        templateName = _props$attributes.templateName,
+        belowNavbar = _props$attributes.belowNavbar,
+        id = _props$attributes.id,
+        marginBefore = _props$attributes.marginBefore,
+        marginAfter = _props$attributes.marginAfter,
+        setAttributes = props.setAttributes,
+        children = props.children;
+
+    var hasInnerBlocks = function hasInnerBlocks(children) {
+      return children.length > 0;
+    };
+
+    var templates = [{
+      name: 'empty',
+      title: __('Empty', 'bsx-blocks'),
+      icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_3__["svgIcon"])('section-empty'),
+      attributes: {
+        marginAfter: '5'
+      },
+      template: [],
+      templateLock: false
+    }, {
+      name: 'container-with-heading',
+      title: __('Container with Heading', 'bsx-blocks'),
+      icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_3__["svgIcon"])('section-container-heading'),
+      attributes: {
+        marginAfter: '5'
+      },
+      template: [['bsx-blocks/container', {}, [['core/heading', {
+        placeholder: 'Add heading, configure heading level...'
+      }]]]],
+      templateLock: false
+    }, {
+      name: 'container-heading-text-gallery',
+      title: __('Container, Heading, Text & Gallery', 'bsx-blocks'),
+      icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_3__["svgIcon"])('section-container-heading-text-gallery'),
+      attributes: {
+        marginAfter: '5'
+      },
+      template: [['bsx-blocks/container', {}, [['core/heading', {
+        placeholder: 'Add heading, configure heading level...'
+      }], ['core/paragraph', {
+        placeholder: 'Add text...'
+      }], ['bsx-blocks/img-gallery', {
+        galleryType: 'floating',
+        rounded: true,
+        imgThumbnail: true,
+        borderState: 'info'
+      }]]]],
+      templateLock: false
+    }, {
+      name: 'rounded-color-banner',
+      title: __('Rounded colored Banner (primary dark)', 'bsx-blocks'),
+      icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_3__["svgIcon"])('section-container-rounded-colored-banner'),
+      attributes: {
+        marginAfter: '5'
+      },
+      template: [['bsx-blocks/container', {}, [['bsx-blocks/wrapper', {
+        bgColor: 'primary',
+        textColor: 'dark',
+        textAlign: 'center',
+        rounded: true,
+        paddingBefore: '4',
+        paddingAfter: '4',
+        paddingLeft: '3',
+        paddingRight: '3'
+      }, [['core/heading', {
+        placeholder: 'Add heading, configure heading level...',
+        textColor: 'dark',
+        marginAfter: '3'
+      }], ['core/paragraph', {
+        placeholder: 'Add text...',
+        textSize: 'lead'
+      }], ['bsx-blocks/buttons', {}, [['bsx-blocks/button', {
+        state: 'dark',
+        marginBefore: '1',
+        marginAfter: '1',
+        marginLeft: '1',
+        marginRight: '1'
+      }]]]]]]]],
+      templateLock: false
+    }];
+
+    var getTemplateMap = function getTemplateMap(currentTemplateName) {
+      var currentTemplate = templates.find(function (item) {
+        return item.name === currentTemplateName;
+      });
+      return currentTemplate ? currentTemplate : {};
+    };
+
+    var template = getTemplateMap(templateName).template;
+
+    var onChangeTemplate = function onChangeTemplate(value) {
+      var currentTemplateMap = getTemplateMap(value);
+
+      if (currentTemplateMap.template != undefined && currentTemplateMap.attributes != undefined) {
+        template = currentTemplateMap.template;
+        setAttributes(_objectSpread({
+          templateName: value
+        }, currentTemplateMap.attributes));
+      } else {
+        console.log('Error: Template change failed.');
+      } // console.log( 'changed templateName: ' + value );
+      // console.log( 'changed template: ' + template );
+
+    };
+
+    var onChangeBelowNavbar = function onChangeBelowNavbar(value) {
+      setAttributes({
+        belowNavbar: value
+      });
+    };
+
+    var onChangeId = function onChangeId(value) {
+      setAttributes({
+        id: value
+      });
+    };
+
+    var onChangeMarginBefore = function onChangeMarginBefore(value) {
+      setAttributes({
+        marginBefore: value
+      });
+    };
+
+    var onChangeMarginAfter = function onChangeMarginAfter(value) {
+      setAttributes({
+        marginAfter: value
+      });
+    }; // class name
+
+
+    var containerClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_4__["addClassNames"])({
+      belowNavbar: belowNavbar,
+      marginBefore: marginBefore,
+      marginAfter: marginAfter
+    });
+    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(Fragment, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(PanelBody, {
+      title: __('Section Settings', 'bsx-blocks')
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      className: "bsxui-icon-text-button-list"
+    }, templates.map(function (template, index) {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(Button, {
+        label: template.title,
+        onClick: function onClick() {
+          onChangeTemplate(template.name);
+        },
+        className: 'bsxui-icon-text-button-list-item ' + (templateName === template.name ? 'active' : '')
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+        class: "bsxui-icon-text-button-list-item-icon"
+      }, template.icon), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+        class: "bsxui-icon-text-button-list-item-label"
+      }, template.title));
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(ToggleControl, {
+      label: __('Below navbar', 'bsx-blocks'),
+      checked: !!belowNavbar,
+      onChange: onChangeBelowNavbar,
+      help: __('Enable if element starts below navbar. If enabled element has spacer top to avoid overlapping its contents by navbar.', 'bsx-blocks')
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(TextControl, {
+      label: __('ID', 'bsx-blocks'),
+      value: id,
+      onChange: onChangeId
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(PanelBody, {
+      title: __('Margin', 'bsx-blocks')
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(SelectControl, {
+      label: __('Margin before', 'bsx-blocks'),
+      value: marginBefore,
+      onChange: onChangeMarginBefore,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: '0',
+        label: __('none (0)', 'bsx-blocks')
+      }, {
+        value: '1',
+        label: __('extra small', 'bsx-blocks')
+      }, {
+        value: '2',
+        label: __('small', 'bsx-blocks')
+      }, {
+        value: '3',
+        label: __('medium', 'bsx-blocks')
+      }, {
+        value: '4',
+        label: __('large', 'bsx-blocks')
+      }, {
+        value: '5',
+        label: __('extra large', 'bsx-blocks')
+      }],
+      help: __('Spacer before Container', 'bsx-blocks')
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(SelectControl, {
+      label: __('Margin after', 'bsx-blocks'),
+      value: marginAfter,
+      onChange: onChangeMarginAfter,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: '0',
+        label: __('none (0)', 'bsx-blocks')
+      }, {
+        value: '1',
+        label: __('extra small', 'bsx-blocks')
+      }, {
+        value: '2',
+        label: __('small', 'bsx-blocks')
+      }, {
+        value: '3',
+        label: __('medium', 'bsx-blocks')
+      }, {
+        value: '4',
+        label: __('large', 'bsx-blocks')
+      }, {
+        value: '5',
+        label: __('extra large', 'bsx-blocks')
+      }],
+      help: __('Spacer after Container', 'bsx-blocks')
+    })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(Fragment, null, !templateName ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      class: "bsxui-initial-inline-control"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      class: "bsxui-initial-inline-control-heading"
+    }, __('Please select template', 'bsx-blocks')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+      className: "bsxui-icon-text-button-list"
+    }, templates.map(function (template, index) {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(Button, {
+        label: template.title,
+        onClick: function onClick() {
+          onChangeTemplate(template.name);
+        },
+        className: 'bsxui-icon-text-button-list-item ' + (templateName === template.name ? 'active' : '')
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+        class: "bsxui-icon-text-button-list-item-icon"
+      }, template.icon), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
+        class: "bsxui-icon-text-button-list-item-label"
+      }, template.title));
+    }))) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("section", {
+      className: containerClassName,
+      id: id
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(InnerBlocks, {
+      template: template,
+      renderAppender: hasInnerBlocks ? undefined : function () {
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(InnerBlocks.ButtonBlockAppender, null);
+      }
+    })))];
+  }),
+  save: function save(props) {
+    var className = props.className,
+        _props$attributes2 = props.attributes,
+        templateName = _props$attributes2.templateName,
+        belowNavbar = _props$attributes2.belowNavbar,
+        id = _props$attributes2.id,
+        marginBefore = _props$attributes2.marginBefore,
+        marginAfter = _props$attributes2.marginAfter;
+    var containerClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_4__["addClassNames"])({
+      belowNavbar: belowNavbar,
+      marginBefore: marginBefore,
+      marginAfter: marginAfter
+    });
+    var saveAttributes = Object(_functions_attributes_js__WEBPACK_IMPORTED_MODULE_5__["makeSaveAttributes"])({
+      id: id
+    });
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("section", _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+      className: containerClassName
+    }, saveAttributes), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(InnerBlocks.Content, null));
+  }
+});
+
+/***/ }),
+
+/***/ "./src/wrapper/block.js":
+/*!******************************!*\
+  !*** ./src/wrapper/block.js ***!
+  \******************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../_functions/wp-icons.js */ "./src/_functions/wp-icons.js");
+/* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
+
+var _wp$i18n = wp.i18n,
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData;
+var registerBlockType = wp.blocks.registerBlockType;
+var _wp$blockEditor = wp.blockEditor,
+    InnerBlocks = _wp$blockEditor.InnerBlocks,
+    InspectorControls = _wp$blockEditor.InspectorControls,
+    InspectorAdvancedControls = _wp$blockEditor.InspectorAdvancedControls,
+    BlockControls = _wp$blockEditor.BlockControls,
+    AlignmentToolbar = _wp$blockEditor.AlignmentToolbar;
+var _wp$components = wp.components,
+    PanelBody = _wp$components.PanelBody,
+    SelectControl = _wp$components.SelectControl,
+    ToggleControl = _wp$components.ToggleControl;
+var Fragment = wp.element.Fragment;
+
+
+registerBlockType('bsx-blocks/wrapper', {
+  title: __('BSX Wrapper', 'bsx-blocks'),
+  icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_1__["svgIcon"])('wrapper'),
+  category: 'layout',
+  attributes: {
+    nodeName: {
+      type: 'string',
+      default: 'div'
+    },
+    id: {
+      type: 'string'
+    },
+    dataFn: {
+      type: 'string'
+    },
+    dataTg: {
+      type: 'string'
+    },
+    bgColor: {
+      type: 'string'
+    },
+    textSize: {
+      type: 'string'
+    },
+    rounded: {
+      type: 'boolean',
+      default: false
+    },
+    textColor: {
+      type: 'string'
+    },
+    textAlign: {
+      type: 'string',
+      default: ''
+    },
+    width: {
+      type: 'string'
+    },
+    marginBefore: {
+      type: 'string',
+      default: ''
+    },
+    marginAfter: {
+      type: 'string',
+      default: ''
+    },
+    paddingBefore: {
+      type: 'string',
+      default: ''
+    },
+    paddingAfter: {
+      type: 'string',
+      default: ''
+    },
+    paddingLeft: {
+      type: 'string',
+      default: ''
+    },
+    paddingRight: {
+      type: 'string',
+      default: ''
+    }
+  },
+  getEditWrapperProps: function getEditWrapperProps(attributes) {
+    var textAlign = attributes.textAlign,
+        marginBefore = attributes.marginBefore,
+        marginAfter = attributes.marginAfter;
+    return {
+      'data-text-align': textAlign,
+      'data-margin-before': marginBefore,
+      'data-margin-after': marginAfter
+    };
+  },
+  edit: function edit(props) {
+    var className = props.className,
+        _props$attributes = props.attributes,
+        nodeName = _props$attributes.nodeName,
+        id = _props$attributes.id,
+        dataFn = _props$attributes.dataFn,
+        dataTg = _props$attributes.dataTg,
+        bgColor = _props$attributes.bgColor,
+        textColor = _props$attributes.textColor,
+        textSize = _props$attributes.textSize,
+        textAlign = _props$attributes.textAlign,
+        width = _props$attributes.width,
+        rounded = _props$attributes.rounded,
+        marginBefore = _props$attributes.marginBefore,
+        marginAfter = _props$attributes.marginAfter,
+        paddingBefore = _props$attributes.paddingBefore,
+        paddingAfter = _props$attributes.paddingAfter,
+        paddingLeft = _props$attributes.paddingLeft,
+        paddingRight = _props$attributes.paddingRight,
+        setAttributes = props.setAttributes;
+
+    var onChangeNodeName = function onChangeNodeName(value) {
+      setAttributes({
+        nodeName: value
+      });
+    };
+
+    var onChangeBgColor = function onChangeBgColor(value) {
+      setAttributes({
+        bgColor: value
+      });
+    };
+
+    var onChangeTextColor = function onChangeTextColor(value) {
+      setAttributes({
+        textColor: value
+      });
+    };
+
+    var onChangeTextSize = function onChangeTextSize(value) {
+      setAttributes({
+        textSize: value
+      });
+    };
+
+    var onChangeTextAlign = function onChangeTextAlign(value) {
+      setAttributes({
+        textAlign: value
+      });
+    };
+
+    var onChangeWidth = function onChangeWidth(value) {
+      setAttributes({
+        width: value
+      });
+    };
+
+    var onChangeRounded = function onChangeRounded(value) {
+      setAttributes({
+        rounded: value
+      });
+    };
+
+    var onChangeMarginBefore = function onChangeMarginBefore(value) {
+      setAttributes({
+        marginBefore: value
+      });
+    };
+
+    var onChangeMarginAfter = function onChangeMarginAfter(value) {
+      setAttributes({
+        marginAfter: value
+      });
+    };
+
+    var onChangePaddingBefore = function onChangePaddingBefore(value) {
+      setAttributes({
+        paddingBefore: value
+      });
+    };
+
+    var onChangePaddingAfter = function onChangePaddingAfter(value) {
+      setAttributes({
+        paddingAfter: value
+      });
+    };
+
+    var onChangePaddingLeft = function onChangePaddingLeft(value) {
+      setAttributes({
+        paddingLeft: value
+      });
+    };
+
+    var onChangePaddingRight = function onChangePaddingRight(value) {
+      setAttributes({
+        paddingRight: value
+      });
+    };
+
+    var alignmentControls = [{
+      icon: 'editor-alignleft',
+      title: __('Align left', 'bsx-blocks'),
+      align: 'left'
+    }, {
+      icon: 'editor-aligncenter',
+      title: __('Align center', 'bsx-blocks'),
+      align: 'center'
+    }, {
+      icon: 'editor-alignright',
+      title: __('Align right', 'bsx-blocks'),
+      align: 'right'
+    }];
+    var wrapperClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__["addClassNames"])({
+      bgColor: bgColor,
+      textColor: textColor,
+      textSize: textSize,
+      rounded: rounded,
+      textAlign: textAlign,
+      width: width,
+      marginBefore: marginBefore,
+      marginAfter: marginAfter,
+      paddingBefore: paddingBefore,
+      paddingAfter: paddingAfter,
+      paddingLeft: paddingLeft,
+      paddingRight: paddingRight
+    });
+    var TagName = nodeName;
+    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Fragment, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(BlockControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(AlignmentToolbar, {
+      label: __('Alignment', 'bsx-blocks'),
+      value: textAlign,
+      onChange: onChangeTextAlign,
+      alignmentControls: alignmentControls
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
+      title: __('Color & appearance', 'bsx-blocks')
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+      label: __('Background color', 'bsx-blocks'),
+      value: bgColor,
+      onChange: onChangeBgColor,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: 'white',
+        label: __('White', 'bsx-blocks')
+      }, {
+        value: 'white-opaque',
+        label: __('White opaque', 'bsx-blocks')
+      }, {
+        value: 'white-transparent',
+        label: __('White transparent', 'bsx-blocks')
+      }, {
+        value: 'black',
+        label: __('Black', 'bsx-blocks')
+      }, {
+        value: 'black-opaque',
+        label: __('Black opaque', 'bsx-blocks')
+      }, {
+        value: 'black-transparent',
+        label: __('Black transparent', 'bsx-blocks')
+      }, {
+        value: 'primary',
+        label: __('Primary', 'bsx-blocks')
+      }, {
+        value: 'primary-opaque',
+        label: __('Primary opaque', 'bsx-blocks')
+      }, {
+        value: 'primary-transparent',
+        label: __('Primary transparent', 'bsx-blocks')
+      }, {
+        value: 'secondary',
+        label: __('Secondary', 'bsx-blocks')
+      }, {
+        value: 'secondary-opaque',
+        label: __('Secondary opaque', 'bsx-blocks')
+      }, {
+        value: 'secondary-transparent',
+        label: __('Secondary transparent', 'bsx-blocks')
+      }, {
+        value: 'success',
+        label: __('Success', 'bsx-blocks')
+      }, {
+        value: 'success-opaque',
+        label: __('Success opaque', 'bsx-blocks')
+      }, {
+        value: 'success-transparent',
+        label: __('Success transparent', 'bsx-blocks')
+      }, {
+        value: 'danger',
+        label: __('Danger', 'bsx-blocks')
+      }, {
+        value: 'danger-opaque',
+        label: __('Danger opaque', 'bsx-blocks')
+      }, {
+        value: 'danger-transparent',
+        label: __('Danger transparent', 'bsx-blocks')
+      }, {
+        value: 'warning',
+        label: __('Warning', 'bsx-blocks')
+      }, {
+        value: 'warning-opaque',
+        label: __('Warning opaque', 'bsx-blocks')
+      }, {
+        value: 'warning-transparent',
+        label: __('Warning transparent', 'bsx-blocks')
+      }, {
+        value: 'info',
+        label: __('Info', 'bsx-blocks')
+      }, {
+        value: 'info-opaque',
+        label: __('Info opaque', 'bsx-blocks')
+      }, {
+        value: 'info-transparent',
+        label: __('Info transparent', 'bsx-blocks')
+      }, {
+        value: 'light',
+        label: __('Light', 'bsx-blocks')
+      }, {
+        value: 'light-opaque',
+        label: __('Light opaque', 'bsx-blocks')
+      }, {
+        value: 'light-transparent',
+        label: __('Light transparent', 'bsx-blocks')
+      }, {
+        value: 'dark',
+        label: __('Dark', 'bsx-blocks')
+      }, {
+        value: 'dark-opaque',
+        label: __('Dark opaque', 'bsx-blocks')
+      }, {
+        value: 'dark-transparent',
+        label: __('Dark transparent', 'bsx-blocks')
+      }, {
+        value: 'transparent',
+        label: __('Transparent', 'bsx-blocks')
+      }],
+      help: __('Spacer before element', 'bsx-blocks')
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+      label: __('Text color (optional)', 'bsx-blocks'),
+      value: textColor,
+      onChange: onChangeTextColor,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: 'white',
+        label: __('White', 'bsx-blocks')
+      }, {
+        value: 'primary',
+        label: __('Primary', 'bsx-blocks')
+      }, {
+        value: 'secondary',
+        label: __('Secondary', 'bsx-blocks')
+      }, {
+        value: 'success',
+        label: __('Success', 'bsx-blocks')
+      }, {
+        value: 'danger',
+        label: __('Danger', 'bsx-blocks')
+      }, {
+        value: 'warning',
+        label: __('Warning', 'bsx-blocks')
+      }, {
+        value: 'info',
+        label: __('Info', 'bsx-blocks')
+      }, {
+        value: 'light',
+        label: __('Light', 'bsx-blocks')
+      }, {
+        value: 'dark',
+        label: __('Dark', 'bsx-blocks')
+      }, {
+        value: 'white-50',
+        label: __('White transparent', 'bsx-blocks')
+      }, {
+        value: 'black-50',
+        label: __('Black transparent', 'bsx-blocks')
+      }]
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+      label: __('Text size (optional)', 'bsx-blocks'),
+      value: textSize,
+      onChange: onChangeTextSize,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: 'lead',
+        label: __('Larger', 'bsx-blocks')
+      }, {
+        value: 'small',
+        label: __('Smaller', 'bsx-blocks')
+      }, {
+        value: 'h6',
+        label: __('Heading 6 (smallest)', 'bsx-blocks')
+      }, {
+        value: 'h5',
+        label: __('Heading 5', 'bsx-blocks')
+      }, {
+        value: 'h4',
+        label: __('Heading 4', 'bsx-blocks')
+      }, {
+        value: 'h3',
+        label: __('Heading 3', 'bsx-blocks')
+      }, {
+        value: 'h2',
+        label: __('Heading 2', 'bsx-blocks')
+      }, {
+        value: 'h1',
+        label: __('Heading 1 (biggest)', 'bsx-blocks')
+      }, {
+        value: 'display-4',
+        label: __('Large 4 (smallest)', 'bsx-blocks')
+      }, {
+        value: 'display-3',
+        label: __('Large 3', 'bsx-blocks')
+      }, {
+        value: 'display-2',
+        label: __('Large 2', 'bsx-blocks')
+      }, {
+        value: 'display-1',
+        label: __('Large 1 (biggest)', 'bsx-blocks')
+      }]
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+      label: __('Rounded', 'bsx-blocks'),
+      checked: !!rounded,
+      onChange: onChangeRounded
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
+      title: __('Margin', 'bsx-blocks')
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+      label: __('Margin before', 'bsx-blocks'),
+      value: marginBefore,
+      onChange: onChangeMarginBefore,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: '0',
+        label: __('none (0)', 'bsx-blocks')
+      }, {
+        value: '1',
+        label: __('extra small', 'bsx-blocks')
+      }, {
+        value: '2',
+        label: __('small', 'bsx-blocks')
+      }, {
+        value: '3',
+        label: __('medium', 'bsx-blocks')
+      }, {
+        value: '4',
+        label: __('large', 'bsx-blocks')
+      }, {
+        value: '5',
+        label: __('extra large', 'bsx-blocks')
+      }],
+      help: __('Spacer before element', 'bsx-blocks')
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+      label: __('Margin after', 'bsx-blocks'),
+      value: marginAfter,
+      onChange: onChangeMarginAfter,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: '0',
+        label: __('none (0)', 'bsx-blocks')
+      }, {
+        value: '1',
+        label: __('extra small', 'bsx-blocks')
+      }, {
+        value: '2',
+        label: __('small', 'bsx-blocks')
+      }, {
+        value: '3',
+        label: __('medium', 'bsx-blocks')
+      }, {
+        value: '4',
+        label: __('large', 'bsx-blocks')
+      }, {
+        value: '5',
+        label: __('extra large', 'bsx-blocks')
+      }],
+      help: __('Spacer after element', 'bsx-blocks')
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
+      title: __('Padding', 'bsx-blocks')
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+      label: __('Padding before', 'bsx-blocks'),
+      value: paddingBefore,
+      onChange: onChangePaddingBefore,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: '0',
+        label: __('none (0)', 'bsx-blocks')
+      }, {
+        value: '1',
+        label: __('extra small', 'bsx-blocks')
+      }, {
+        value: '2',
+        label: __('small', 'bsx-blocks')
+      }, {
+        value: '3',
+        label: __('medium', 'bsx-blocks')
+      }, {
+        value: '4',
+        label: __('large', 'bsx-blocks')
+      }, {
+        value: '5',
+        label: __('extra large', 'bsx-blocks')
+      }],
+      help: __('Inner spacer before', 'bsx-blocks')
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+      label: __('Padding after', 'bsx-blocks'),
+      value: paddingAfter,
+      onChange: onChangePaddingAfter,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: '0',
+        label: __('none (0)', 'bsx-blocks')
+      }, {
+        value: '1',
+        label: __('extra small', 'bsx-blocks')
+      }, {
+        value: '2',
+        label: __('small', 'bsx-blocks')
+      }, {
+        value: '3',
+        label: __('medium', 'bsx-blocks')
+      }, {
+        value: '4',
+        label: __('large', 'bsx-blocks')
+      }, {
+        value: '5',
+        label: __('extra large', 'bsx-blocks')
+      }],
+      help: __('Inner spacer after', 'bsx-blocks')
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+      label: __('Padding left', 'bsx-blocks'),
+      value: paddingLeft,
+      onChange: onChangePaddingLeft,
+      options: [{
+        value: '',
+        label: __('– none –', 'bsx-blocks')
+      }, {
+        value: '1',
+        label: __('extra small', 'bsx-blocks')
+      }, {
+        value: '2',
+        label: __('small', 'bsx-blocks')
+      }, {
+        value: '3',
+        label: __('medium', 'bsx-blocks')
+      }, {
+        value: '4',
+        label: __('large', 'bsx-blocks')
+      }, {
+        value: '5',
+        label: __('extra large', 'bsx-blocks')
+      }],
+      help: __('Inner spacer left', 'bsx-blocks')
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+      label: __('Padding right', 'bsx-blocks'),
+      value: paddingRight,
+      onChange: onChangePaddingRight,
+      options: [{
+        value: '',
+        label: __('– none –', 'bsx-blocks')
+      }, {
+        value: '1',
+        label: __('extra small', 'bsx-blocks')
+      }, {
+        value: '2',
+        label: __('small', 'bsx-blocks')
+      }, {
+        value: '3',
+        label: __('medium', 'bsx-blocks')
+      }, {
+        value: '4',
+        label: __('large', 'bsx-blocks')
+      }, {
+        value: '5',
+        label: __('extra large', 'bsx-blocks')
+      }],
+      help: __('Inner spacer right', 'bsx-blocks')
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorAdvancedControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+      label: __('Node name', 'bsx-blocks'),
+      value: nodeName,
+      onChange: onChangeNodeName,
+      options: [{
+        value: 'div',
+        label: __('div', 'bsx-blocks')
+      }, {
+        value: 'section',
+        label: __('section', 'bsx-blocks')
+      }]
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+      label: __('Width', 'bsx-blocks'),
+      value: width,
+      onChange: onChangeWidth,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: '100',
+        label: __('100 %', 'bsx-blocks')
+      }]
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TagName, {
+      className: wrapperClassName
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks, null))];
+  },
+  save: function save(props) {
+    var className = props.className,
+        _props$attributes2 = props.attributes,
+        nodeName = _props$attributes2.nodeName,
+        id = _props$attributes2.id,
+        dataFn = _props$attributes2.dataFn,
+        dataTg = _props$attributes2.dataTg,
+        bgColor = _props$attributes2.bgColor,
+        textColor = _props$attributes2.textColor,
+        textSize = _props$attributes2.textSize,
+        textAlign = _props$attributes2.textAlign,
+        width = _props$attributes2.width,
+        rounded = _props$attributes2.rounded,
+        marginBefore = _props$attributes2.marginBefore,
+        marginAfter = _props$attributes2.marginAfter,
+        paddingBefore = _props$attributes2.paddingBefore,
+        paddingAfter = _props$attributes2.paddingAfter,
+        paddingLeft = _props$attributes2.paddingLeft,
+        paddingRight = _props$attributes2.paddingRight,
+        setAttributes = props.setAttributes;
+    var wrapperClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__["addClassNames"])({
+      bgColor: bgColor,
+      textColor: textColor,
+      textSize: textSize,
+      rounded: rounded,
+      textAlign: textAlign,
+      width: width,
+      marginBefore: marginBefore,
+      marginAfter: marginAfter,
+      paddingBefore: paddingBefore,
+      paddingAfter: paddingAfter,
+      paddingLeft: paddingLeft,
+      paddingRight: paddingRight
+    });
+    var TagName = nodeName;
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TagName, {
+      className: wrapperClassName
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks.Content, null));
+  }
+});
+
+/***/ }),
+
+/***/ "@babel/runtime/regenerator":
+/*!**********************************************!*\
+  !*** external {"this":"regeneratorRuntime"} ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+(function() { module.exports = this["regeneratorRuntime"]; }());
+
+/***/ }),
+
+/***/ "@wordpress/element":
+/*!******************************************!*\
+  !*** external {"this":["wp","element"]} ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+(function() { module.exports = this["wp"]["element"]; }());
+
+/***/ })
+
+/******/ });
+//# sourceMappingURL=index.js.map

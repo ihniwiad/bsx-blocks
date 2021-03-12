@@ -1,8 +1,8 @@
 const { __, setLocaleData } = wp.i18n;
 const {
-    InspectorControls,
     URLInput,
     RichText,
+    MediaUpload,
 } = wp.blockEditor;
 const { 
     TextControl,
@@ -11,6 +11,7 @@ const {
     SelectControl,
     SVG, 
     Path,
+    Button,
 } = wp.components;
 
 import { 
@@ -19,6 +20,7 @@ import {
 
 
 // internal vars
+
 const marginPaddingSizes = [
     { value: '', label: __( '– unset –', 'bsx-blocks' ) },
     { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
@@ -29,6 +31,90 @@ const marginPaddingSizes = [
     { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
 ];
 
+
+// toggles
+
+export const ignoreMailtoSpamProtectionToggle = ( value, onChangeFunction ) => {
+    return (
+        <ToggleControl
+            label={ __( 'Spam protected email link (default activated)', 'bsx-blocks' ) }
+            checked={ ! value }
+            onChange={ onChangeFunction }
+            help={ __( 'If activated email will not be easily readable for machines.', 'bsx-blocks' ) }
+        />
+    )
+}
+
+export const targetToggle = ( value, onChangeFunction ) => {
+    return (
+        <ToggleControl
+            label={ __( 'Open in new tab', 'bsx-blocks' ) }
+            checked={ value == '_blank' }
+            onChange={ onChangeFunction }
+        />
+    )
+}
+
+export const belowNavbarToggle = ( value, onChangeFunction ) => {
+    return (
+        <ToggleControl
+            label={ __( 'Below navbar', 'bsx-blocks' ) }
+            checked={ !! value }
+            onChange={ onChangeFunction }
+            help={ __( 'Enable if container starts below navbar. If enabled container has spacer top to avoid overlapping its contents by navbar.', 'bsx-blocks' ) }
+        />
+    )
+}
+
+
+// url inputs
+
+export const linkUrlInput = ( value, onChangeFunction ) => {
+    return (
+        <URLInput
+            label={ __( 'Link URL', 'bsx-blocks' ) }
+            value={ value }
+            onChange={ onChangeFunction }
+        />
+    )
+}
+
+
+// text inputs
+
+export const bgAttachmentFixedLimitedToggle = ( value, onChangeFunction ) => {
+    return (
+        <ToggleControl
+            label={ __( 'Limit fixed background', 'bsx-blocks' ) }
+            checked={ !! value }
+            onChange={ onChangeFunction }
+            help={ __( 'If enabled large displays (>=2.000px) will have static background attachement.', 'bsx-blocks' ) }
+        />
+    )
+}
+
+export const relInput = ( value, onChangeFunction ) => {
+    return (
+        <TextControl 
+            label={ __( 'Rel (optional)', 'bsx-blocks' ) }
+            value={ value } 
+            onChange={ onChangeFunction }
+        />
+    )
+}
+
+export const dataFnInput = ( value, onChangeFunction ) => {
+    return (
+        <TextControl 
+            label={ __( 'data-fn (optional)', 'bsx-blocks' ) }
+            value={ value } 
+            onChange={ onChangeFunction }
+        />
+    )
+}
+
+
+// selects
 
 export const stateSelect = ( value, onChangeFunction ) => {
     return (
@@ -75,57 +161,6 @@ export const sizeSelect = ( value, onChangeFunction ) => {
                 { value: 'sm', label: __( 'Small', 'bsx-blocks' ) },
                 { value: 'lg', label: __( 'Large', 'bsx-blocks' ) },
             ] }
-        />
-    )
-}
-
-export const linkUrlInput = ( value, onChangeFunction ) => {
-    return (
-        <URLInput
-            label={ __( 'Link URL', 'bsx-blocks' ) }
-            value={ value }
-            onChange={ onChangeFunction }
-        />
-    )
-}
-
-export const ignoreMailtoSpamProtectionToggle = ( value, onChangeFunction ) => {
-    return (
-        <ToggleControl
-            label={ __( 'Spam protected email link (default activated)', 'bsx-blocks' ) }
-            checked={ ! value }
-            onChange={ onChangeFunction }
-            help={ __( 'If activated email will not be easily readable for machines.', 'bsx-blocks' ) }
-        />
-    )
-}
-
-export const targetToggle = ( value, onChangeFunction ) => {
-    return (
-        <ToggleControl
-            label={ __( 'Open in new tab', 'bsx-blocks' ) }
-            checked={ value == '_blank' }
-            onChange={ onChangeFunction }
-        />
-    )
-}
-
-export const relInput = ( value, onChangeFunction ) => {
-    return (
-        <TextControl 
-            label={ __( 'Rel (optional)', 'bsx-blocks' ) }
-            value={ value } 
-            onChange={ onChangeFunction }
-        />
-    )
-}
-
-export const dataFnInput = ( value, onChangeFunction ) => {
-    return (
-        <TextControl 
-            label={ __( 'data-fn (optional)', 'bsx-blocks' ) }
-            value={ value } 
-            onChange={ onChangeFunction }
         />
     )
 }
@@ -235,5 +270,216 @@ export const paddingAfterSelect = ( value, onChangeFunction, allowedValues ) => 
         />
     )
 }
+
+export const nodeNameSelect = ( value, onChangeFunction, allowedValues ) => {
+    const defaultValues = [
+        { value: 'div', label: __( 'div', 'bsx-blocks' ) },
+        { value: 'section', label: __( 'section', 'bsx-blocks' ) },
+        { value: 'ul', label: __( 'ul', 'bsx-blocks' ) },
+        { value: 'ol', label: __( 'ol', 'bsx-blocks' ) },
+        { value: 'li', label: __( 'li', 'bsx-blocks' ) },
+    ];
+    return (
+        <SelectControl 
+            label={ __( 'Node name', 'bsx-blocks' ) }
+            value={ value }
+            onChange={ onChangeFunction }
+            options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
+            help={ __( 'Node name (please edit only if you know what you’re doing)', 'bsx-blocks' ) }
+        />
+    )
+}
+
+export const bgPositionSelect = ( value, onChangeFunction, allowedValues ) => {
+    const defaultValues = [
+        { value: 'c', label: __( 'Center center', 'bsx-blocks' ) },
+        { value: 'c25', label: __( 'Center 25%', 'bsx-blocks' ) },
+        { value: 'c66', label: __( 'Center 66%', 'bsx-blocks' ) },
+        { value: 'c75', label: __( 'Center 75%', 'bsx-blocks' ) },
+        { value: 'ct', label: __( 'Center top', 'bsx-blocks' ) },
+        { value: 'rc', label: __( 'Right center', 'bsx-blocks' ) },
+        { value: '33c', label: __( '33% center', 'bsx-blocks' ) },
+        { value: '80c', label: __( '80% center', 'bsx-blocks' ) },
+        { value: '66t', label: __( '66% top', 'bsx-blocks' ) },
+        { value: '66c', label: __( '66% center', 'bsx-blocks' ) },
+    ];
+    return (
+        <SelectControl 
+            label={ __( 'Background position', 'bsx-blocks' ) }
+            value={ value }
+            onChange={ onChangeFunction }
+            options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
+        />
+    )
+}
+
+export const bgSizeSelect = ( value, onChangeFunction, allowedValues ) => {
+    const defaultValues = [
+        { value: 'cover', label: __( 'Cover', 'bsx-blocks' ) },
+        { value: 'contain', label: __( 'Contain', 'bsx-blocks' ) },
+        { value: '100a', label: __( '100% auto', 'bsx-blocks' ) },
+    ];
+    return (
+        <SelectControl 
+            label={ __( 'Background size', 'bsx-blocks' ) }
+            value={ value }
+            onChange={ onChangeFunction }
+            options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
+        />
+    )
+}
+
+export const bannerTypeSelect = ( value, onChangeFunction, allowedValues ) => {
+    const defaultValues = [
+        { value: 'vh', label: __( 'Viewport dependent height', 'bsx-blocks' ) },
+        { value: 'st', label: __( 'Static height', 'bsx-blocks' ) },
+    ];
+    return (
+        <SelectControl 
+            label={ __( 'Banner height type', 'bsx-blocks' ) }
+            value={ value }
+            onChange={ onChangeFunction }
+            options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
+            help={ __( 'Viewport dependant height will be e.g. all viewport height or viewport height - ? pixels. Static height instead depends only on the banners contents.', 'bsx-blocks' ) }
+        />
+    )
+}
+
+export const bannerSizeSelect = ( value, onChangeFunction, allowedValues ) => {
+    const defaultValues = [
+        { value: '1', label: __( '1 (biggest)', 'bsx-blocks' ) },
+        { value: '2', label: __( '2', 'bsx-blocks' ) },
+        { value: '3', label: __( '3 (smallest)', 'bsx-blocks' ) },
+    ];
+    return (
+        <SelectControl 
+            label={ __( 'Banner height size', 'bsx-blocks' ) }
+            value={ value }
+            onChange={ onChangeFunction }
+            options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
+            help={ __( 'Choose from 1 (maximum) to 3 (minimum)', 'bsx-blocks' ) }
+        />
+    )
+}
+
+export const bgAttachmentSelect = ( value, onChangeFunction, allowedValues ) => {
+    const defaultValues = [
+        { value: 'static', label: __( 'static', 'bsx-blocks' ) },
+        { value: 'fixed', label: __( 'fixed', 'bsx-blocks' ) },
+    ];
+    return (
+        <SelectControl 
+            label={ __( 'Background attachement', 'bsx-blocks' ) }
+            value={ value }
+            onChange={ onChangeFunction }
+            options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
+        />
+    )
+}
+
+
+// uploads
+
+export const imgUploadClickableImg = ( imgId, url, onChangeFunction, type ) => {
+    const alt = ( typeof type !== 'undefined' && type === 'p' ) 
+        ? __( 'Change / upload portrait image', 'bsx-blocks' ) 
+        : __( 'Change / upload image', 'bsx-blocks' )
+    ;
+    return (
+        <MediaUpload
+            onSelect={ onChangeFunction }
+            allowedTypes="image"
+            value={ imgId }
+            render={ ( { open } ) => (
+                <Button
+                    className="bsxui-config-panel-img-button has-margin-bottom"
+                    onClick={ open }
+                >
+                    <img class="bsxui-config-panel-img" src={ url } alt={ alt } />
+                </Button>
+            ) }
+        />
+    )
+}
+
+export const imgUploadButton = ( imgId, onChangeFunction, type ) => {
+    const label = ( typeof type !== 'undefined' && type === 'p' ) 
+        ? __( 'Change / upload portrait image', 'bsx-blocks' ) 
+        : __( 'Change / upload image', 'bsx-blocks' )
+    ;
+    return (
+        <MediaUpload
+            onSelect={ onChangeFunction }
+            allowedTypes="image"
+            value={ imgId }
+            render={ ( { open } ) => (
+                <Button 
+                    onClick={ open }
+                    isSecondary
+                >
+                    { label }
+                </Button>
+            ) }
+        />
+    )
+}
+
+
+// template selects
+
+export const inlineTemplateSelect = ( templates, templateName, onChangeFunction ) => {
+    return (
+        <div class="bsxui-initial-inline-control">
+            <div class="bsxui-initial-inline-control-heading">
+                { __( 'Please select template', 'bsx-blocks' ) }
+            </div>
+            <div className="bsxui-icon-text-button-list">
+                { templates.map( ( template, index ) => (
+                    <Button
+                        label={ template.title }
+                        onClick={ () => {
+                            onChangeFunction( template.name );
+                        } }
+                        className={ 'bsxui-icon-text-button-list-item ' + ( templateName === template.name ? 'active' : '' ) }
+                    >
+                        <div class="bsxui-icon-text-button-list-item-icon">
+                            { template.icon }
+                        </div>
+                        <div class="bsxui-icon-text-button-list-item-label">
+                            { template.title }
+                        </div>
+                    </Button>
+                ) ) }
+            </div>
+        </div>
+    )
+}
+
+export const uiTemplateSelect = ( templates, templateName, onChangeFunction ) => {
+    return (
+        <div className="bsxui-icon-text-button-list">
+            { templates.map( ( template, index ) => (
+                <Button
+                    label={ template.title }
+                    onClick={ () => {
+                        onChangeFunction( template.name );
+                    } }
+                    className={ 'bsxui-icon-text-button-list-item ' + ( templateName === template.name ? 'active' : '' ) }
+                >
+                    <div class="bsxui-icon-text-button-list-item-icon">
+                        { template.icon }
+                    </div>
+                    <div class="bsxui-icon-text-button-list-item-label">
+                        { template.title }
+                    </div>
+                </Button>
+            ) ) }
+        </div>
+    )
+}
+
+
+
+
 
 

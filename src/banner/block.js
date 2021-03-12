@@ -45,6 +45,18 @@ import {
     marginAfterSelect,
     paddingBeforeSelect,
     paddingAfterSelect,
+    belowNavbarToggle,
+    nodeNameSelect,
+    bgPositionSelect,
+    bgSizeSelect,
+    bannerTypeSelect,
+    bannerSizeSelect,
+    bgAttachmentSelect,
+    bgAttachmentFixedLimitedToggle,
+    inlineTemplateSelect,
+    uiTemplateSelect,
+    imgUploadClickableImg,
+    imgUploadButton,
 } from './../_functions/controls.js';
 
 import { makeSaveAttributes } from './../_functions/attributes.js';
@@ -662,42 +674,19 @@ registerBlockType( 'bsx-blocks/banner', {
         return [
             <InspectorControls>
                 <PanelBody title={ __( 'Banner template', 'bsx-blocks' ) }>
-                    <div className="bsxui-icon-text-button-list">
-                        { templates.map( ( template, index ) => (
-                            <Button
-                                label={ template.title }
-                                onClick={ () => {
-                                    onChangeTemplate( template.name );
-                                } }
-                                className={ 'bsxui-icon-text-button-list-item ' + ( templateName === template.name ? 'active' : '' ) }
-                            >
-                                <div class="bsxui-icon-text-button-list-item-icon">
-                                    { template.icon }
-                                </div>
-                                <div class="bsxui-icon-text-button-list-item-label">
-                                    { template.title }
-                                </div>
-                            </Button>
-                        ) ) }
-                    </div>
+                    {
+                        uiTemplateSelect( templates, templateName, onChangeTemplate )
+                    }
                 </PanelBody>
 
                 <PanelBody title={ __( 'Banner image', 'bsx-blocks' ) }>
                     {
                         imgId ? (
-                            <MediaUpload
-                                onSelect={ onSelectImage }
-                                allowedTypes="image"
-                                value={ imgId }
-                                render={ ( { open } ) => (
-                                    <Button
-                                        className="bsxui-config-panel-img-button has-margin-bottom"
-                                        onClick={ open }
-                                    >
-                                        <img class="bsxui-config-panel-img" src={ url } alt={ __( 'Change / upload image', 'bsx-blocks' ) } />
-                                    </Button>
-                                ) }
-                            />
+                            <>
+                                {
+                                    imgUploadClickableImg( imgId, url, onSelectImage )
+                                }
+                            </>
                         )
                         : 
                         (
@@ -707,19 +696,11 @@ registerBlockType( 'bsx-blocks/banner', {
                         )
                     }
                     <div class="bsxui-config-panel-row">
-                        <MediaUpload
-                            onSelect={ onSelectImage }
-                            allowedTypes="image"
-                            value={ imgId }
-                            render={ ( { open } ) => (
-                                <Button 
-                                    onClick={ open }
-                                    isSecondary
-                                >
-                                    { __( 'Change / upload image', 'bsx-blocks' ) }
-                                </Button>
-                            ) }
-                        />
+                        <>
+                            {
+                                imgUploadButton( imgId, onSelectImage )
+                            }
+                        </>
                     </div>
                     <RadioControl
                         label={ __( 'Image size and format', 'bsx-blocks' ) }
@@ -739,19 +720,11 @@ registerBlockType( 'bsx-blocks/banner', {
                 <PanelBody title={ __( 'Banner portrait image (optional)', 'bsx-blocks' ) }>
                     {
                         portraitImgId && typeof portraitImgSizes[ portraitImgSizeIndex ] != 'undefined' && typeof portraitImgSizes[ portraitImgSizeIndex ].url != 'undefined' ? (
-                            <MediaUpload
-                                onSelect={ onSelectPortraitImage }
-                                allowedTypes="image"
-                                value={ portraitImgId }
-                                render={ ( { open } ) => (
-                                    <Button
-                                        className="bsxui-config-panel-img-button has-margin-bottom"
-                                        onClick={ open }
-                                    >
-                                        <img class="bsxui-config-panel-img" src={ portraitImgSizes[ portraitImgSizeIndex ].url } alt={ __( 'Change / upload portrait image', 'bsx-blocks' ) } />
-                                    </Button>
-                                ) }
-                            />
+                            <>
+                                {
+                                    imgUploadClickableImg( portraitImgId, portraitImgSizes[ portraitImgSizeIndex ].url, onSelectPortraitImage, 'p' )
+                                }
+                            </>
                         )
                         : 
                         (
@@ -761,28 +734,24 @@ registerBlockType( 'bsx-blocks/banner', {
                         )
                     }
                     <div class="bsxui-config-panel-row">
-                        <MediaUpload
-                            onSelect={ onSelectPortraitImage }
-                            allowedTypes="image"
-                            value={ portraitImgId }
-                            render={ ( { open } ) => (
+                        <>
+                            {
+                                imgUploadButton( portraitImgId, onSelectPortraitImage, 'p' )
+                            }
+                        </>
+                    </div>
+                    {
+                        portraitImgId && (
+                            <div class="bsxui-config-panel-row">
                                 <Button 
-                                    onClick={ open }
-                                    isSecondary
+                                    onClick={ onDeletePortraitImage }
+                                    isDestructive={ true }
                                 >
-                                    { __( 'Change / upload portrait image', 'bsx-blocks' ) }
+                                    { __( 'Remove portrait image', 'bsx-blocks' ) }
                                 </Button>
-                            ) }
-                        />
-                    </div>
-                    <div class="bsxui-config-panel-row">
-                        <Button 
-                            onClick={ onDeletePortraitImage }
-                            isDestructive={ true }
-                        >
-                            { __( 'Remove portrait image', 'bsx-blocks' ) }
-                        </Button>
-                    </div>
+                            </div>
+                        )
+                    }
                     <RadioControl
                         label={ __( 'Image size and format', 'bsx-blocks' ) }
                         selected={ portraitImgSizeIndex.toString() }
@@ -799,43 +768,21 @@ registerBlockType( 'bsx-blocks/banner', {
                 </PanelBody>
 
                 <PanelBody title={ __( 'Banner dimensions', 'bsx-blocks' ) }>
-                    <SelectControl 
-                        label={ __( 'Banner height type', 'bsx-blocks' ) }
-                        value={ bannerType }
-                        onChange={ onChangeBannerType }
-                        options={ [
-                            { value: 'vh', label: __( 'Viewport dependent height', 'bsx-blocks' ) },
-                            { value: 'st', label: __( 'Static height', 'bsx-blocks' ) },
-                        ] }
-                        help={ __( 'Viewport dependent height will be e.g. all viewport height or viewport height - X pixels. Static height instead depends only on the banners contents.', 'bsx-blocks' ) }
-                    />
-                    <SelectControl 
-                        label={ __( 'Banner height size', 'bsx-blocks' ) }
-                        value={ bannerSize }
-                        onChange={ onChangeBannerSize }
-                        options={ [
-                            { value: '1', label: __( '1 (biggest)', 'bsx-blocks' ) },
-                            { value: '2', label: __( '2', 'bsx-blocks' ) },
-                            { value: '3', label: __( '3 (smallest)', 'bsx-blocks' ) },
-                        ] }
-                        help={ __( 'Choose from 1 (maximum) to 3 (minimum)', 'bsx-blocks' ) }
-                    />
-                    <SelectControl 
-                        label={ __( 'Background attachement', 'bsx-blocks' ) }
-                        value={ bgAttachment }
-                        onChange={ onChangeBgAttachment }
-                        options={ [
-                            { value: 'static', label: __( 'static', 'bsx-blocks' ) },
-                            { value: 'fixed', label: __( 'fixed', 'bsx-blocks' ) },
-                        ] }
-                    />
+                    {
+                        bannerTypeSelect( bannerType, onChangeBannerType )
+                    }
+                    {
+                        bannerSizeSelect( bannerSize, onChangeBannerSize )
+                    }
+                    {
+                        bgAttachmentSelect( bgAttachment, onChangeBgAttachment )
+                    }
                     { bgAttachment === 'fixed' && (
-                        <ToggleControl
-                            label={ __( 'Limit fixed background', 'bsx-blocks' ) }
-                            checked={ !! bgAttachmentFixedLimited }
-                            onChange={ onChangeBgAttachmentFixedLimited }
-                            help={ __( 'If enabled large displays (>=2.000px) will have static background attachement.', 'bsx-blocks' ) }
-                        />
+                        <>
+                            {
+                                bgAttachmentFixedLimitedToggle( bgAttachmentFixedLimited, onChangeBgAttachmentFixedLimited )
+                            }
+                        </>
                     ) }
                     {
                         alignItemsSelect( alignItems, onChangeAlignItems, [ 'center', 'end' ] )
@@ -853,50 +800,18 @@ registerBlockType( 'bsx-blocks/banner', {
             </InspectorControls>,
 
             <InspectorAdvancedControls>
-                <ToggleControl
-                    label={ __( 'Below navbar', 'bsx-blocks' ) }
-                    checked={ !! belowNavbar }
-                    onChange={ onChangeBelowNavbar }
-                    help={ __( 'Enable if container starts below navbar. If enabled container has spacer top to avoid overlapping its contents by navbar.', 'bsx-blocks' ) }
-                />
-                <SelectControl 
-                    label={ __( 'Node name', 'bsx-blocks' ) }
-                    value={ nodeName }
-                    onChange={ onChangeNodeName }
-                    options={ [
-                        { value: 'div', label: __( 'div', 'bsx-blocks' ) },
-                        { value: 'section', label: __( 'section', 'bsx-blocks' ) },
-                    ] }
-                    help={ __( 'Node name (please edit only if you know what you’re doing)', 'bsx-blocks' ) }
-                />
-                <SelectControl 
-                    label={ __( 'Background advanced position', 'bsx-blocks' ) }
-                    value={ bgPosition }
-                    onChange={ onChangeBgPosition }
-                    options={ [
-                        { value: 'c', label: __( 'Center center', 'bsx-blocks' ) },
-                        { value: 'c25', label: __( 'Center 25%', 'bsx-blocks' ) },
-                        { value: 'c66', label: __( 'Center 66%', 'bsx-blocks' ) },
-                        { value: 'c75', label: __( 'Center 75%', 'bsx-blocks' ) },
-                        { value: 'ct', label: __( 'Center top', 'bsx-blocks' ) },
-                        { value: 'rc', label: __( 'Right center', 'bsx-blocks' ) },
-                        { value: '33c', label: __( '33% center', 'bsx-blocks' ) },
-                        { value: '80c', label: __( '80% center', 'bsx-blocks' ) },
-                        { value: '66t', label: __( '66% top', 'bsx-blocks' ) },
-                        { value: '66c', label: __( '66% center', 'bsx-blocks' ) },
-                    ] }
-                />
-                <SelectControl 
-                    label={ __( 'Background advanced size', 'bsx-blocks' ) }
-                    value={ bgSize }
-                    onChange={ onChangeBgSize }
-                    options={ [
-                        { value: 'cover', label: __( 'Cover', 'bsx-blocks' ) },
-                        { value: 'contain', label: __( 'Contain', 'bsx-blocks' ) },
-                        { value: '100a', label: __( '100% auto', 'bsx-blocks' ) },
-                    ] }
-                />
-
+                {
+                    belowNavbarToggle( belowNavbar, onChangeBelowNavbar )
+                }
+                {
+                    nodeNameSelect( nodeName, onChangeNodeName, [ 'div', 'section' ] )
+                }
+                {
+                    bgPositionSelect( bgPosition, onChangeBgPosition )
+                }
+                {
+                    bgSizeSelect( bgSize, onChangeBgSize )
+                }
                 {
                     paddingBeforeSelect( paddingBefore, onChangePaddingBefore )
                 }
@@ -913,24 +828,9 @@ registerBlockType( 'bsx-blocks/banner', {
                                 <div class="bsxui-initial-inline-control-heading">
                                     { __( 'Please select Banner template', 'bsx-blocks' ) }
                                 </div>
-                                <div className="bsxui-icon-text-button-list">
-                                    { templates.map( ( template, index ) => (
-                                        <Button
-                                            label={ template.title }
-                                            onClick={ () => {
-                                                onChangeTemplate( template.name );
-                                            } }
-                                            className={ 'bsxui-icon-text-button-list-item ' + ( templateName === template.name ? 'active' : '' ) }
-                                        >
-                                            <div class="bsxui-icon-text-button-list-item-icon">
-                                                { template.icon }
-                                            </div>
-                                            <div class="bsxui-icon-text-button-list-item-label">
-                                                { template.title }
-                                            </div>
-                                        </Button>
-                                    ) ) }
-                                </div>
+                                {
+                                    inlineTemplateSelect( templates, templateName, onChangeTemplate )
+                                }
                             </div>
                         )
                         : 
