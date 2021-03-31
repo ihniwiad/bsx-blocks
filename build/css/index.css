@@ -146,7 +146,8 @@ a.bsxui-link {
     bottom: 0; }
 
 .bsxui-initial-inline-control {
-  background-color: #eeeeee; }
+  background-color: #eeeeee;
+  width: 100%; }
 
 .bsxui-initial-inline-control-heading {
   text-align: left;
