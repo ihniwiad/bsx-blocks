@@ -163,24 +163,29 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
     },
 
     edit: withSelect( ( select, { clientId } ) => {
+
+        // TODO: get only children’s config `enableInheritanceFromRow`?
+
         const { 
             getBlocksByClientId,
-            getBlockAttributes, 
+            getBlockAttributes,
         } = select( 'core/block-editor' );
 
         const children = getBlocksByClientId( clientId )[ 0 ]
             ? getBlocksByClientId( clientId )[ 0 ].innerBlocks
             : [];
 
-        const childrenAttributes = [];
+        // const childrenAttributes = [];
 
-        children.forEach( ( column, index ) => {
-            childrenAttributes.push( getBlockAttributes( column.clientId ) );
-        } );
+        // children.forEach( ( column, index ) => {
+        //     // childrenAttributes.push( getBlockAttributes( column.clientId ) );
+        //     const currentChildAttributes = getBlockAttributes( column.clientId );
+        // } );
 
         return {
             children,
-            childrenAttributes,
+            // childrenAttributes, // HAD TO BE FIXED: React doesn’t seem to like this
+            getBlockAttributes, // FIX: return function instead and get attributes later
         };
     } )( withDispatch( ( dispatch ) => {
 
@@ -215,8 +220,9 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
             setAttributes,
             isSelected,
             children,
-            childrenAttributes,
+            // childrenAttributes,
             updateBlockAttributes,
+            getBlockAttributes,
         } = props;
 
         const templates = [
@@ -569,6 +575,8 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
             }
 
             setAttributes( { templateName: value } );
+
+            // console.log( 'DONE onColsTemplateChange' )
         };
 
         const onChangeAlignItems = ( value ) => {
@@ -624,7 +632,9 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
 
                 //console.log( 'childrenAttributes[' + index + ' ]: "' + childrenAttributes[ index ] + '"' );
 
-                if ( childrenAttributes[ index ].enableInheritanceFromRow ) {
+                // if ( childrenAttributes[ index ].enableInheritanceFromRow ) {
+                // FIX: get attributes here
+                if ( getBlockAttributes( column.clientId ).enableInheritanceFromRow ) {
 
                     const newAttributes = { 
                         sizeXs: value.sizeXs != undefined ? value.sizeXs : sizeXs,
