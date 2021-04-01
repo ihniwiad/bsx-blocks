@@ -1,7 +1,7 @@
 // root variables
 
-@import "###BASIC_STYLE_PACKAGE_PATH###/resources/components/scss/variables/scss/_variables";
+@import "###THEME_PACKAGE_PATH######VARIABLES_PATH_AND_FILE###";
 
-@import "###BASIC_STYLE_PACKAGE_PATH###/node_modules/bootstrap/scss/mixins/breakpoints";
-@import "###BASIC_STYLE_PACKAGE_PATH###/node_modules/bootstrap/scss/mixins/grid-framework";
-@import "###BASIC_STYLE_PACKAGE_PATH###/node_modules/bootstrap/scss/mixins/grid";
+@import "###THEME_PACKAGE_PATH###node_modules/bootstrap/scss/mixins/breakpoints";
+@import "###THEME_PACKAGE_PATH###node_modules/bootstrap/scss/mixins/grid-framework";
+@import "###THEME_PACKAGE_PATH###node_modules/bootstrap/scss/mixins/grid";

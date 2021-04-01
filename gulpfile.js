@@ -14,81 +14,86 @@ const replace       = require( 'gulp-string-replace' );
 const fs            = require( 'fs' );
 
 
-// scss
-const SCSS_SRC_PATH = './src';
-const CSS_DEST_PATH = './build/css';
+const paths = {
+    themePathReplace: {
+        src: 'src/',
+        dest: 'build/',
+        fileName: '_basic-style-vars-and-bootstrap-grid.scss'
+    },
+    css: {
+        src: 'src/',
+        dest: 'build/css/',
+        fileName: '**/*.scss',
+        watchSrc: [
+            "./build/css/*.css",
+            "!./build/css/*.min.css",
+            "!./build/css/*.css.map"
+        ],
+    },
+    js: {
+        watchSrc: [
+            "./build/*.js",
+            "./build/**/*.js"
+        ],
+    },
+    publish: {
+        watchSrc: [],
+    },
+};
 
 
-// include config file
-/* 
-    related packages: 
-        0 -> basic style package
-*/
-const config = require( './config.json' );
-
+// PUBLISH HOWTO: 
+// If you like to copy your files to another folder after build make 
+// `.env` file with content 
+// `PUBLISH_PATH=path_to_your_folder` ...e.g. `PUBLISH_PATH=../../../../../Applications/MAMP/htdocs/`
+// `THEME_PACKAGE_PATH=path_to_your_theme_workspace_folder` ...e.g `THEME_PACKAGE_PATH=../../bsx-basic-style/`
+// `VARIABLES_PATH_AND_FILE=path_inside_your_theme_to_your_scss_valiables` ...e.g. `VARIABLES_PATH_AND_FILE=resources/components/scss/variables/scss/variables`
+// Have a look at `publishConfig` which files to include / exclude
+// and how to name your created destination folder
+// 
 // NOTE: within `src` all (1..n) non-negative globs must be followed by (0..n) only negative globs
-const defaultPublish = {
+const publishConfig = {
     "src": [
         "**/*",
         "!**/node_modules",
         "!**/node_modules/**", 
     ],
     "base": ".",
-    "folderName": config.projectName
+    "folderName": "bsx-blocks"
 };
-const mergedPublish = Object.assign( {}, defaultPublish, config.publish );
-// NOTE: take care at this path since you’re deleting files outside your project
-// const mergedPublishDestFullPath = mergedPublish.dest + '/' + mergedPublish.folderName;
-
-const mergedPublishDestFullPath = envConfig.PUBLISH_PATH + '/' + mergedPublish.folderName;
 
 
-// basic functions
+// scss replace path to theme package
+const PATH_REPLACE_PATTERN = /###THEME_PACKAGE_PATH###/g;
+const VARIABLES_REPLACE_PATTERN = /###VARIABLES_PATH_AND_FILE###/g;
+const THEME_PACKAGE_PATH_CONFIG = envConfig.THEME_PACKAGE_PATH;
+const VARIABLES_PATH_AND_FILE_CONFIG = envConfig.VARIABLES_PATH_AND_FILE;
 
-const checkAdDotBefore = ( path ) => {
-    path = ( path.indexOf( '.' ) != 0 ) ? '.' + path :  path;
-    return path;
-}
+const themePackagePathReplace = ( cb ) => {
 
-
-// scss
-const REPLACE_SRC_PATH = checkAdDotBefore( config.basicStylePackagePathReplaceSrcFolder );
-const REPLACE_DEST_PATH = checkAdDotBefore( config.basicStylePackagePathReplaceDestFolder );
-const REPLACE_FILES = config.basicStylePackagePathReplaceDestFiles;
-const REPLACE_PATTERN = /###BASIC_STYLE_PACKAGE_PATH###/g;
-const BASIC_STYLE_PACKAGE_PATH = checkAdDotBefore( config.relatedPackages[ 0 ].scssPath )
-
-
-// task functions
-
-const basicStylePackagePathReplace = ( cb ) => {
-
-    var REPLACE_FILE_STACK = [
-        {
-            SRC: REPLACE_SRC_PATH,
-            DEST: REPLACE_DEST_PATH,
-            FILES: REPLACE_FILES
-        }
-    ];
-
-    var stream;
-    for ( var i = 0; i < REPLACE_FILE_STACK.length; i++ ) {
-        stream = gulp.src( REPLACE_FILE_STACK[ i ].SRC + REPLACE_FILE_STACK[ i ].FILES )
-            .pipe( replace( REPLACE_PATTERN, BASIC_STYLE_PACKAGE_PATH ) )
-            .pipe( gulp.dest( REPLACE_FILE_STACK[ i ].DEST ) )
-        ;
-    }
-
-    return stream;
+    return gulp.src( paths.themePathReplace.src + paths.themePathReplace.fileName )
+        .pipe( replace( PATH_REPLACE_PATTERN, THEME_PACKAGE_PATH_CONFIG ) )
+        .pipe( replace( VARIABLES_REPLACE_PATTERN, VARIABLES_PATH_AND_FILE_CONFIG ) )
+        .pipe( gulp.dest( paths.themePathReplace.dest ) )
+    ;
 
     cb();
 }
 
-function publishFolderDelete( cb ) {
+exports.replace = series(
+    themePackagePathReplace,
+);
 
-    if ( !! envConfig.PUBLISH_PATH && !! mergedPublish.folderName ) {
-        // console.log( 'delete: ' + mergedPublishDestFullPath );
-        return gulp.src( mergedPublishDestFullPath, { read: false, allowEmpty: true } )
+
+// NOTE: take care at this path since you’re deleting files outside your project
+const publishFullPath = envConfig.PUBLISH_PATH + '/' + publishConfig.folderName;
+
+
+const publishFolderDelete = ( cb ) => {
+
+    if ( !! envConfig.PUBLISH_PATH && !! publishConfig.folderName ) {
+        // console.log( 'delete: ' + publishFullPath );
+        return gulp.src( publishFullPath, { read: false, allowEmpty: true } )
             .pipe( clean( { force: true } ) ) // NOTE: take care at this command since you’re deleting files outside your project
         ;
     }
@@ -99,12 +104,12 @@ function publishFolderDelete( cb ) {
     cb();
 }
 
-function publishFolderCreate( cb ) {
+const publishFolderCreate = ( cb ) => {
 
-    if ( !! envConfig.PUBLISH_PATH && !! mergedPublish.folderName ) {
-        // console.log( 'create: ' + mergedPublishDestFullPath + ' (src: ' + mergedPublish.src + ', base: ' + mergedPublish.base + ')' );
-        return gulp.src( mergedPublish.src, { base: mergedPublish.base } )
-            .pipe( gulp.dest( mergedPublishDestFullPath ) )
+    if ( !! envConfig.PUBLISH_PATH && !! publishConfig.folderName ) {
+        // console.log( 'create: ' + publishFullPath + ' (src: ' + publishConfig.src + ', base: ' + publishConfig.base + ')' );
+        return gulp.src( publishConfig.src, { base: publishConfig.base } )
+            .pipe( gulp.dest( publishFullPath ) )
         ;
     }
     else {
@@ -115,18 +120,27 @@ function publishFolderCreate( cb ) {
     cb();
 }
 
+const publish = series(
+    // copy all project but `node_modules` to configured dest
+    publishFolderDelete,
+    publishFolderCreate,
+);
+
+exports.publish = publish;
+
+
 const cssFolderClean = ( cb ) => {
 
-    return gulp.src( CSS_DEST_PATH, { read: false, allowEmpty: true } )
+    return gulp.src( paths.css.dest, { read: false, allowEmpty: true } )
         .pipe( clean() )
     ;
 
     cb();
 }
 
-const scssToCss = ( cb ) => {
+const makeCss = ( cb ) => {
 
-    return gulp.src( SCSS_SRC_PATH + '/**/*.scss' )
+    return gulp.src( paths.css.src + paths.css.fileName )
         .pipe( sourcemaps.init() )
         .pipe( sass().on( 'error', sass.logError ) )
         .pipe( autoprefixer( {
@@ -134,7 +148,7 @@ const scssToCss = ( cb ) => {
             cascade: false
         } ) )
         .pipe( sourcemaps.write( '.' ) )
-        .pipe( gulp.dest( CSS_DEST_PATH ) )
+        .pipe( gulp.dest( paths.css.dest ) )
     ;
 
     cb();
@@ -142,7 +156,7 @@ const scssToCss = ( cb ) => {
 
 const cssCleanAndMinify = ( cb ) => {
 
-    return gulp.src( CSS_DEST_PATH + '/**/*.css' )
+    return gulp.src( paths.css.dest + '**/*.css' )
         .pipe( cleanCSS( { debug: true }, function( details ) {
             console.log( details.name + ': ' + details.stats.originalSize );
             console.log( details.name + ': ' + details.stats.minifiedSize );
@@ -150,73 +164,36 @@ const cssCleanAndMinify = ( cb ) => {
         .pipe( rename( function( path ) {
             path.basename += '.min';
         } ) )
-        .pipe( gulp.dest( CSS_DEST_PATH ) )
+        .pipe( gulp.dest( paths.css.dest ) )
     ;
 
     cb();
 }
 
-const scssWatch = () => {
-    watch( SCSS_SRC_PATH + '/**/*.scss', css );
-}
-
-
-// tasks
-
-const publish = series(
-    // copy all project but `node_modules` to configured dest
-    publishFolderDelete,
-    publishFolderCreate,
-);
-
-const jsWatch = () => {
-    watch( checkAdDotBefore( config.buildJsWatchPath ), publish );
-}
-
-// const cssWatch = () => {
-//     watch( checkAdDotBefore( config.buildCssWatchPath ), publish );
-// }
-
-// const allWatch = () => {
-//     watch( [
-//         ...config.buildCssWatchPath,
-//         ...config.buildJsWatchPath,
-//     ], publish );
-// }
-
 const css = series(
     cssFolderClean,
-    scssToCss,
+    makeCss,
     cssCleanAndMinify,
 );
 
-const scss_watch = scssWatch;
-
-
-// exports
-
-exports.publish = publish;
-
-exports.replace = series(
-    basicStylePackagePathReplace,
-);
-
-exports.build = series(
-    basicStylePackagePathReplace,
-    css,
-    publish,
-);
-
+// exports.css = css;
 exports.css = series(
     css,
     publish,
 );
 
-exports.css_watch = scss_watch;
 
-exports.js_watch = jsWatch;
+const scssWatch = () => {
+    watch( paths.css.src + paths.css.fileName, css );
+}
 
-// exports.css_watch = cssWatch;
+exports.css_watch = scssWatch;
 
-// exports.all_watch = allWatch;
+
+exports.build = series(
+    themePackagePathReplace,
+    css,
+    publish,
+);
+
 
