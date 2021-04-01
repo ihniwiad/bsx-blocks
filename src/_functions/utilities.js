@@ -12,3 +12,8 @@ export const filterByAllowedValueKeys = ( mapArray, allowedValues ) => {
     }
     return filteredValues;
 }
+
+export const getTemplate = ( templates, currentTemplateName ) => {
+    const currentTemplate = templates.find( ( item ) => item.name === currentTemplateName );
+    return currentTemplate ? currentTemplate : {};
+}; 

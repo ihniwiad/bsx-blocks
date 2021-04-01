@@ -23,6 +23,17 @@ const {
     withDispatch, 
 } = wp.data;
 
+// functions
+import { 
+    inlineTemplateSelect,
+    uiTemplateSelect,
+    displaySelect,
+} from './../../_functions/controls.js';
+// import { getTemplate } from './../../_functions/utilities.js';
+
+// data
+import templates from './templates';
+
 
 const makeColumnRowsClassNames = ( attributes ) => {
 
@@ -103,84 +114,84 @@ registerBlockType( 'bsx-blocks/column-rows', {
             isSelected
         } = props;
 
-        const templates = [
-            {
-                name: 'default-auto',
-                title: __( 'Flex, static', 'bsx-blocks' ),
-                icon: (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" role="img" aria-hidden="true" focusable="false">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9v-5h30V34z M39,27H9 V14h30V27z"/>
-                    </svg>
-                ),
-                template: [ 
-                    [ 
-                        'bsx-blocks/column-row', 
-                        {},
-                        [
-                            [
-                                'core/paragraph',
-                                { 
-                                    placeholder: 'Edit or insert other content and delete paragraph...',
-                                }
-                            ]
-                        ],
-                    ], 
-                    [ 
-                        'bsx-blocks/column-row', 
-                        {
-                            columnRowType: 'auto',
-                        },
-                        [
-                            [
-                                'core/paragraph',
-                                { 
-                                    placeholder: 'Edit or insert other content and delete paragraph...',
-                                }
-                            ]
-                        ],
-                    ], 
-                ],
-                templateLock: false,
-            },
-            {
-                name: 'auto-default',
-                title: __( 'Static, flex', 'bsx-blocks' ),
-                icon: (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" role="img" aria-hidden="true" focusable="false">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M39,36H9c-1.1,0-2-0.9-2-2V14c0-1.1,0.9-2,2-2h30c1.1,0,2,0.9,2,2v20C41,35.1,40.1,36,39,36z M39,14H9v5h30V14z M39,21H9v13 h30V21z"/>
-                    </svg>
-                ),
-                template: [ 
-                    [ 
-                        'bsx-blocks/column-row', 
-                        {
-                            columnRowType: 'auto',
-                        },
-                        [
-                            [
-                                'core/paragraph',
-                                { 
-                                    placeholder: 'Edit or insert other content and delete paragraph...',
-                                }
-                            ]
-                        ],
-                    ], 
-                    [ 
-                        'bsx-blocks/column-row', 
-                        {},
-                        [
-                            [
-                                'core/paragraph',
-                                { 
-                                    placeholder: 'Edit or insert other content and delete paragraph...',
-                                }
-                            ]
-                        ],
-                    ], 
-                ],
-                templateLock: false,
-            },
-        ];
+        // const templates = [
+        //     {
+        //         name: 'default-auto',
+        //         title: __( 'Flex, static', 'bsx-blocks' ),
+        //         icon: (
+        //             <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" role="img" aria-hidden="true" focusable="false">
+        //                 <path fill-rule="evenodd" clip-rule="evenodd" d="M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9v-5h30V34z M39,27H9 V14h30V27z"/>
+        //             </svg>
+        //         ),
+        //         template: [ 
+        //             [ 
+        //                 'bsx-blocks/column-row', 
+        //                 {},
+        //                 [
+        //                     [
+        //                         'core/paragraph',
+        //                         { 
+        //                             placeholder: 'Edit or insert other content and delete paragraph...',
+        //                         }
+        //                     ]
+        //                 ],
+        //             ], 
+        //             [ 
+        //                 'bsx-blocks/column-row', 
+        //                 {
+        //                     columnRowType: 'auto',
+        //                 },
+        //                 [
+        //                     [
+        //                         'core/paragraph',
+        //                         { 
+        //                             placeholder: 'Edit or insert other content and delete paragraph...',
+        //                         }
+        //                     ]
+        //                 ],
+        //             ], 
+        //         ],
+        //         templateLock: false,
+        //     },
+        //     {
+        //         name: 'auto-default',
+        //         title: __( 'Static, flex', 'bsx-blocks' ),
+        //         icon: (
+        //             <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" role="img" aria-hidden="true" focusable="false">
+        //                 <path fill-rule="evenodd" clip-rule="evenodd" d="M39,36H9c-1.1,0-2-0.9-2-2V14c0-1.1,0.9-2,2-2h30c1.1,0,2,0.9,2,2v20C41,35.1,40.1,36,39,36z M39,14H9v5h30V14z M39,21H9v13 h30V21z"/>
+        //             </svg>
+        //         ),
+        //         template: [ 
+        //             [ 
+        //                 'bsx-blocks/column-row', 
+        //                 {
+        //                     columnRowType: 'auto',
+        //                 },
+        //                 [
+        //                     [
+        //                         'core/paragraph',
+        //                         { 
+        //                             placeholder: 'Edit or insert other content and delete paragraph...',
+        //                         }
+        //                     ]
+        //                 ],
+        //             ], 
+        //             [ 
+        //                 'bsx-blocks/column-row', 
+        //                 {},
+        //                 [
+        //                     [
+        //                         'core/paragraph',
+        //                         { 
+        //                             placeholder: 'Edit or insert other content and delete paragraph...',
+        //                         }
+        //                     ]
+        //                 ],
+        //             ], 
+        //         ],
+        //         templateLock: false,
+        //     },
+        // ];
 
         const getTemplate = ( currentTemplateName ) => {
             const currentTemplate = templates.find( ( item ) => item.name === currentTemplateName );
@@ -197,7 +208,7 @@ registerBlockType( 'bsx-blocks/column-rows', {
 
         const allowedBlocks = [ 'bsx-blocks/column-row' ];
 
-        const onTemplateChange = ( value ) => {
+        const onChangeTemplate = ( value ) => {
             template = getTemplate( value );
             setAttributes( { templateName: value } );
 
@@ -226,12 +237,15 @@ registerBlockType( 'bsx-blocks/column-rows', {
                 <PanelBody
                     title={ __( 'Column Rows layout', 'bsx-blocks' ) }
                 >
+                    {
+
+                    }
                     <div className="bsxui-icon-text-button-list">
                         { templates.map( ( template, index ) => (
                             <Button
                                 label={ template.title }
                                 onClick={ () => {
-                                    onTemplateChange( template.name );
+                                    onChangeTemplate( template.name );
                                 } }
                                 className={ 'bsxui-icon-text-button-list-item ' + ( templateName === template.name ? 'active' : '' ) }
                             >
@@ -248,15 +262,9 @@ registerBlockType( 'bsx-blocks/column-rows', {
             </InspectorControls>,
 
             <InspectorAdvancedControls>
-                <SelectControl 
-                    label={ __( 'Display', 'bsx-blocks' ) }
-                    value={ display }
-                    onChange={ onChangeDisplay }
-                    options={ [
-                        { value: '', label: __( '– unset –', 'bsx-blocks' ) },
-                        { value: 'flex', label: __( 'Flex', 'bsx-blocks' ) },
-                    ] }
-                />
+                {
+                    displaySelect( display, onChangeDisplay, [ '', 'flex' ] )
+                }
                 <SelectControl 
                     label={ __( 'Flex direction', 'bsx-blocks' ) }
                     value={ flexDirection }
@@ -289,9 +297,9 @@ registerBlockType( 'bsx-blocks/column-rows', {
                                     <Button
                                         label={ template.title }
                                         onClick={ () => {
-                                            onTemplateChange( template.name );
+                                            onChangeTemplate( template.name );
                                         } }
-                                        className={ 'bsxui-icon-text-button-list-item ' + ( templateName === template.name ? 'active' : '' ) }
+                                        className={ 'bsxui-icon-text-button-list-item ' }
                                     >
                                         <div class="bsxui-icon-text-button-list-item-icon">
                                             { template.icon }

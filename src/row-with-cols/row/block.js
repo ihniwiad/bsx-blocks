@@ -24,8 +24,9 @@ const {
 } = wp.data;
 
 
-import { svgIcon } from './../../_functions/wp-icons.js';
+// functions
 
+import { svgIcon } from './../../_functions/wp-icons.js';
 import { addClassNames } from './../../_functions/add-class-names.js';
 
 
@@ -529,24 +530,24 @@ registerBlockType( 'bsx-blocks/row-with-cols', {
 
             const colType = value == 'custom' ? 'custom' : 'default';
 
-            console.log( 'onColsTemplateChange: "' + value + '"' );
-            console.log( 'colType: "' + colType + '"' );
+            // console.log( 'onColsTemplateChange: "' + value + '"' );
+            // console.log( 'colType: "' + colType + '"' );
 
-            /*
-            console.log( 'value: "' + value + '"' );
-            console.log( 'colsTemplate: "' + colsTemplate + '"' );
-            console.log( 'colsTemplate.length: "' + colsTemplate.length + '"' );
+            
+            // console.log( 'value: "' + value + '"' );
+            // console.log( 'colsTemplate: "' + colsTemplate + '"' );
+            // console.log( 'colsTemplate.length: "' + colsTemplate.length + '"' );
 
-            colsTemplate.forEach( ( item, index ) => {
-                console.log( 'item[ ' + index + ' ]: "' + item + '"' );
+            // colsTemplate.forEach( ( item, index ) => {
+            //     console.log( 'item[ ' + index + ' ]: "' + item + '"' );
 
-                if ( !! item ) {
-                    for ( let [ key, value ] of Object.entries( item ) ) {
-                        console.log( 'key: "' + key + '", value: "' + value + '"' );
-                    }
-                }
-            } ); 
-            */
+            //     if ( !! item ) {
+            //         for ( let [ key, value ] of Object.entries( item ) ) {
+            //             console.log( 'key: "' + key + '", value: "' + value + '"' );
+            //         }
+            //     }
+            // } ); 
+            
 
             if ( value != 'custom' ) {
                 // resize columns

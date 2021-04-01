@@ -1,3 +1,4 @@
+// wp import
 const { __, setLocaleData } = wp.i18n;
 const {
     URLInput,
@@ -14,6 +15,7 @@ const {
     Button,
 } = wp.components;
 
+// functions
 import { 
     filterByAllowedValueKeys,
 } from './utilities.js';
@@ -427,7 +429,8 @@ export const imgUploadButton = ( imgId, onChangeFunction, type ) => {
 
 // template selects
 
-export const inlineTemplateSelect = ( templates, templateName, onChangeFunction ) => {
+export const inlineTemplateSelect = ( templates, onChangeFunction ) => {
+    // has no templateName since non selected yet
     return (
         <div class="bsxui-initial-inline-control">
             <div class="bsxui-initial-inline-control-heading">
@@ -440,7 +443,7 @@ export const inlineTemplateSelect = ( templates, templateName, onChangeFunction 
                         onClick={ () => {
                             onChangeFunction( template.name );
                         } }
-                        className={ 'bsxui-icon-text-button-list-item ' + ( templateName === template.name ? 'active' : '' ) }
+                        className={ 'bsxui-icon-text-button-list-item ' }
                     >
                         <div class="bsxui-icon-text-button-list-item-icon">
                             { template.icon }

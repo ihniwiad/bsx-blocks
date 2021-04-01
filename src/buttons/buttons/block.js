@@ -35,6 +35,10 @@ import {
     marginBeforeSelect,
     marginAfterSelect,
 } from './../../_functions/controls.js';
+import { getTemplate } from './../../_functions/utilities.js';
+
+// data
+import templates from './templates';
 
 
 registerBlockType( 'bsx-blocks/buttons', {
@@ -109,86 +113,10 @@ registerBlockType( 'bsx-blocks/buttons', {
             'bsx-blocks/button',  
         ];
 
-        const templates = [
-            {
-                name: 'one-button',
-                title: __( 'One Button', 'bsx-blocks' ),
-                icon: svgIcon( 'buttons-one-button' ),
-                attributes: {},
-                template: [
-                    [ 
-                        'bsx-blocks/button', 
-                        {
-                        },
-                    ],
-                ],
-                templateLock: false,
-            },
-            {
-                name: 'two-buttons',
-                title: __( 'Two Buttons', 'bsx-blocks' ),
-                icon: svgIcon( 'buttons-two-buttons' ),
-                attributes: {},
-                template: [
-                    [ 
-                        'bsx-blocks/button', 
-                        {
-                        },
-                    ],
-                    [ 
-                        'bsx-blocks/button', 
-                        {
-                        },
-                    ],
-                ],
-                templateLock: false,
-            },
-            {
-                name: 'text-link',
-                title: __( 'Text Link', 'bsx-blocks' ),
-                icon: svgIcon( 'buttons-text-link' ),
-                attributes: {},
-                template: [ 
-                    [ 
-                        'bsx-blocks/button', 
-                        {
-                            state: 'text-link',
-                        },
-                    ],
-                ],
-                templateLock: false,
-            },
-            {
-                name: 'label-text-link',
-                title: __( 'Label with Text Link', 'bsx-blocks' ),
-                icon: svgIcon( 'buttons-label-text-link' ),
-                attributes: {},
-                template: [  
-                    [ 
-                        'bsx-blocks/button-label', 
-                        {
-                        },
-                    ],
-                    [ 
-                        'bsx-blocks/button', 
-                        {
-                            state: 'text-link',
-                        },
-                    ],
-                ],
-                templateLock: false,
-            },
-        ];
-
-        const getTemplateMap = ( currentTemplateName ) => {
-            const currentTemplate = templates.find( ( item ) => item.name === currentTemplateName );
-            return currentTemplate ? currentTemplate : {};
-        };
-
-        let template = getTemplateMap( templateName ).template;
+        let template = getTemplate( templates, templateName ).template;
 
         const onChangeTemplate = ( value ) => {
-            const currentTemplateMap = getTemplateMap( value );
+            const currentTemplateMap = getTemplate( templates, value );
             if ( currentTemplateMap.template != undefined && currentTemplateMap.attributes != undefined ) {
                 template = currentTemplateMap.template;
                 setAttributes( { 

@@ -20,12 +20,17 @@ const {
 } = wp.data;
 
 
-// import { svgIcon } from './../../_functions/wp-icons.js';
+// functions
 
-// import { addClassNames } from './../../_functions/add-class-names.js';
+import { svgIcon } from './../../_functions/wp-icons.js';
+import { addClassNames } from './../../_functions/add-class-names.js';
+import { 
+    marginAfterSelect,
+    displaySelect,
+} from './../../_functions/controls.js';
 
 
-const makeColClassNames = ( sizesArray, marginAfter ) => {
+const makeColClassNames = ( sizesArray ) => {
 
     const prefix = 'col';
     const sizeIntervals = [ 'xs', 'sm', 'md', 'lg', 'xl' ];
@@ -58,10 +63,6 @@ const makeColClassNames = ( sizesArray, marginAfter ) => {
 
     } );
 
-    if ( marginAfter ) {
-        colClassNames.push( 'mb-' + marginAfter );
-    }
-
     //console.log( 'colClassNames.join( \' \' ): "' + colClassNames.join( ' ' ) + '"' );
 
     return colClassNames.join( ' ' );
@@ -70,11 +71,7 @@ const makeColClassNames = ( sizesArray, marginAfter ) => {
 
 registerBlockType( 'bsx-blocks/col', {
     title: __( 'BSX Column', 'bsx-blocks' ),
-    icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" role="img" focusable="false">
-            <path d="M18.71,1.29C18.52,1.11,18.26,1,18,1H2C1.74,1,1.48,1.11,1.29,1.29C1.11,1.48,1,1.74,1,2v16c0,0.26,0.11,0.52,0.29,0.71 C1.48,18.89,1.74,19,2,19h16c0.26,0,0.52-0.11,0.71-0.29C18.89,18.52,19,18.26,19,18V2C19,1.74,18.89,1.48,18.71,1.29z M12,3v14H8V3 H12z M3,3h3v14H3V3z M14,17V3h3l0,14H14z"/>
-        </svg>
-    ),
+    icon: svgIcon( 'row-with-cols-col' ),
     category: 'layout',
     parent: [ 'bsx-blocks/row-with-cols' ],
     attributes: {
@@ -114,6 +111,9 @@ registerBlockType( 'bsx-blocks/col', {
             type: 'string',
             default: '3',
         },
+        display: {
+            type: 'string',
+        },
     },
 
     getEditWrapperProps( attributes ) {
@@ -123,6 +123,7 @@ registerBlockType( 'bsx-blocks/col', {
             sizeMd,
             sizeLg,
             sizeXl,
+            display,
         } = attributes;
 
         return {
@@ -131,6 +132,7 @@ registerBlockType( 'bsx-blocks/col', {
             'data-size-md': sizeMd,
             'data-size-lg': sizeLg,
             'data-size-xl': sizeXl,
+            'data-display': display,
         };
     },
 
@@ -185,6 +187,7 @@ registerBlockType( 'bsx-blocks/col', {
                 sizeXl,
                 nodeName,
                 marginAfter,
+                display,
             },
             setAttributes,
             parentAttributes,
@@ -326,7 +329,15 @@ registerBlockType( 'bsx-blocks/col', {
             setAttributes( { marginAfter: value } );
         };
 
-        const colClassName = makeColClassNames( [ sizeXs, sizeSm, sizeMd, sizeLg, sizeXl ], marginAfter );
+        const onChangeDisplay = ( value ) => {
+            setAttributes( { display: value } );
+        };
+
+        let colClassName = makeColClassNames( [ sizeXs, sizeSm, sizeMd, sizeLg, sizeXl ] );
+        colClassName = addClassNames( {
+            marginAfter,
+            display,
+        }, colClassName );
 
         setAttributes( { fromRowConfig: parentAttributes.fromRowConfig } );
 
@@ -475,20 +486,9 @@ registerBlockType( 'bsx-blocks/col', {
 
                     <hr/>
 
-                    <SelectControl 
-                        label={ __( 'Margin after', 'bsx-blocks' ) }
-                        value={ marginAfter }
-                        onChange={ onChangeMarginAfter }
-                        options={ [
-                            { value: '', label: __( '– none –', 'bsx-blocks' ) },
-                            { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
-                            { value: '2', label: __( 'small', 'bsx-blocks' ) },
-                            { value: '3', label: __( 'medium', 'bsx-blocks' ) },
-                            { value: '4', label: __( 'large', 'bsx-blocks' ) },
-                            { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
-                        ] }
-                        help={ __( 'Spacer after Column', 'bsx-blocks' ) }
-                    />
+                    {
+                        marginAfterSelect( marginAfter, onChangeMarginAfter )
+                    }
 
                     <hr/>
 
@@ -502,6 +502,12 @@ registerBlockType( 'bsx-blocks/col', {
                         ] }
                         help={ __( 'Node name (please edit only if you know what you’re doing)', 'bsx-blocks' ) }
                     />
+
+                    <hr/>
+
+                    {
+                        displaySelect( display, onChangeDisplay, [ '', 'flex' ] )
+                    }
 
                 </PanelBody>
             </InspectorControls>,
@@ -531,10 +537,15 @@ registerBlockType( 'bsx-blocks/col', {
                 sizeXl,
                 nodeName,
                 marginAfter,
+                display,
             },
         } = props;
 
-        const colClassName = makeColClassNames( [ sizeXs, sizeSm, sizeMd, sizeLg, sizeXl ], marginAfter );
+        let colClassName = makeColClassNames( [ sizeXs, sizeSm, sizeMd, sizeLg, sizeXl ] );
+        colClassName = addClassNames( {
+            marginAfter,
+            display,
+        }, colClassName );
 
         const TagName = nodeName;
 
