@@ -14,15 +14,6 @@ defined( 'ABSPATH' ) || exit;
 
 
 /**
- * Load all translations for our plugin from the MO file.
- */
-// function bsx_blocks_load_textdomain() {
-//     load_plugin_textdomain( 'bsx-blocks', false, basename( __DIR__ ) . '/languages' );
-// }
-// add_action( 'init', 'bsx_blocks_load_textdomain' );
-
-
-/**
  * include stylesheet from theme `assets/css/atf.css` and `assets/css/style.css`
  *
  * use `'editor_style' => array( 'bsx-blocks-editor-atf-style', 'bsx-blocks-editor-style' ),` within `register_block_type()` to include styles into your block or plugin
@@ -59,14 +50,14 @@ function bsx_blocks_include_style_and_script() {
         // filemtime( BSX_BLOCKS_PLUGIN_DIR_PATH . 'build/index.js' )
     );
 
-    // if ( function_exists( 'wp_set_script_translations' ) ) {
+    if ( function_exists( 'wp_set_script_translations' ) ) {
         /**
          * May be extended to wp_set_script_translations( 'my-handle', 'my-domain',
          * plugin_dir_path( MY_PLUGIN ) . 'languages' ) ). For details see
          * https://make.wordpress.org/core/2018/11/09/new-javascript-i18n-support-in-wordpress/
          */
-    //     wp_set_script_translations( 'bsx-blocks', 'bsx-blocks' );
-    // }
+        wp_set_script_translations( '4ce22f4e704ba9511fe28284498d5a36', 'bsx-blocks', BSX_BLOCKS_PLUGINS_URL . 'languages' );
+    }
 }
 add_action( 'init', 'bsx_blocks_include_style_and_script' );
 

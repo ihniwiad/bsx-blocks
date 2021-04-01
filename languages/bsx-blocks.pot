@@ -1,0 +1,1563 @@
+# Copyright (C) 2021 ihniwiad
+# This file is distributed under the same license as the BSX Blocks plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: BSX Blocks 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bsx-blocks\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2021-04-01T10:59:50+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.4.0\n"
+"X-Domain: bsx-blocks\n"
+
+#. Plugin Name of the plugin
+msgid "BSX Blocks"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://github.com/ihniwiad/bsx-blocks"
+msgstr ""
+
+#. Description of the plugin
+msgid "BSX WordPress blocks."
+msgstr ""
+
+#. Author of the plugin
+msgid "ihniwiad"
+msgstr ""
+
+#: src/banner/templates.js:11
+#: src/section/block.js:94
+msgid "Empty"
+msgstr ""
+
+#: src/banner/templates.js:28
+#: src/section/block.js:104
+msgid "Container with Heading"
+msgstr ""
+
+#: src/banner/templates.js:56
+msgid "Static with Container & Heading"
+msgstr ""
+
+#: src/banner/templates.js:86
+msgid "Bottom bar Banner"
+msgstr ""
+
+#: src/buttons/button-label/block.js:31
+msgid "BSX Button Label"
+msgstr ""
+
+#: src/buttons/button-label/block.js:117
+msgid "Button Label appearance (optional)"
+msgstr ""
+
+#: src/buttons/button-label/block.js:123
+#: src/lazy-img/block.js:712
+msgid "Margin (optional)"
+msgstr ""
+
+#: src/buttons/button-label/block.js:144
+msgid "Add label..."
+msgstr ""
+
+#: src/buttons/button/block.js:111
+msgid "BSX Button"
+msgstr ""
+
+#: src/buttons/button/block.js:263
+msgid "Button link settings"
+msgstr ""
+
+#: src/buttons/button/block.js:287
+msgid "Button appearance"
+msgstr ""
+
+#: src/buttons/button/block.js:299
+#: src/buttons/buttons/block.js:203
+#: src/container/block.js:188
+#: src/img-gallery/block.js:484
+#: src/section/block.js:311
+#: src/wrapper/block.js:307
+msgid "Margin"
+msgstr ""
+
+#: src/buttons/button/block.js:320
+msgid "Add Title..."
+msgstr ""
+
+#: src/buttons/buttons/block.js:45
+msgid "BSX Buttons"
+msgstr ""
+
+#: src/buttons/buttons/block.js:150
+#: src/lazy-img/block.js:391
+#: src/wrapper/block.js:177
+msgid "Align left"
+msgstr ""
+
+#: src/buttons/buttons/block.js:155
+#: src/lazy-img/block.js:396
+#: src/wrapper/block.js:182
+msgid "Align center"
+msgstr ""
+
+#: src/buttons/buttons/block.js:160
+#: src/lazy-img/block.js:401
+#: src/wrapper/block.js:187
+msgid "Align right"
+msgstr ""
+
+#: src/buttons/buttons/block.js:175
+#: src/lazy-img/block.js:485
+#: src/wrapper/block.js:213
+msgid "Alignment"
+msgstr ""
+
+#: src/buttons/buttons/block.js:183
+msgid "Settings"
+msgstr ""
+
+#: src/buttons/buttons/block.js:218
+#: src/section/block.js:351
+#: src/_functions/controls.js:437
+msgid "Please select template"
+msgstr ""
+
+#: src/buttons/buttons/templates.js:11
+msgid "One Button"
+msgstr ""
+
+#: src/buttons/buttons/templates.js:25
+msgid "Two Buttons"
+msgstr ""
+
+#: src/buttons/buttons/templates.js:44
+msgid "Text Link"
+msgstr ""
+
+#: src/buttons/buttons/templates.js:59
+msgid "Label with Text Link"
+msgstr ""
+
+#: src/column-rows/column-row/block.js:55
+msgid "BSX Column Row"
+msgstr ""
+
+#: src/column-rows/column-row/block.js:133
+msgid "Column Row"
+msgstr ""
+
+#: src/column-rows/column-row/block.js:135
+msgid "Columns Row height"
+msgstr ""
+
+#: src/column-rows/column-row/block.js:139
+msgid "– Default – (flexible height)"
+msgstr ""
+
+#: src/column-rows/column-row/block.js:140
+msgid "Auto (static height)"
+msgstr ""
+
+#: src/column-rows/column-row/block.js:142
+msgid "Column Rows will share their patent’s height dividing it into flexible and/or static height segments."
+msgstr ""
+
+#: src/column-rows/column-row/block.js:145
+#: src/row-with-cols/row/block.js:879
+msgid "Vertical Align"
+msgstr ""
+
+#: src/column-rows/column-row/block.js:149
+#: src/column-rows/column-row/block.js:160
+#: src/column-rows/column-rows/block.js:273
+#: src/column-rows/column-rows/block.js:282
+#: src/container/block.js:177
+#: src/container/block.js:194
+#: src/container/block.js:209
+#: src/container/block.js:234
+#: src/container/block.js:249
+#: src/global-block-settings/settings.js:102
+#: src/global-block-settings/settings.js:122
+#: src/global-block-settings/settings.js:141
+#: src/global-block-settings/settings.js:173
+#: src/global-block-settings/settings.js:188
+#: src/img-gallery/block.js:460
+#: src/img-gallery/block.js:490
+#: src/img-gallery/block.js:505
+#: src/lazy-img/block.js:567
+#: src/lazy-img/block.js:582
+#: src/lazy-img/block.js:718
+#: src/row-with-cols/row/block.js:883
+#: src/row-with-cols/row/block.js:894
+#: src/row-with-cols/row/block.js:1074
+#: src/row-with-cols/row/block.js:1089
+#: src/row-with-cols/row/block.js:1107
+#: src/row-with-cols/row/block.js:1122
+#: src/row-with-cols/row/block.js:1137
+#: src/section/block.js:317
+#: src/section/block.js:332
+#: src/wrapper/block.js:226
+#: src/wrapper/block.js:266
+#: src/wrapper/block.js:285
+#: src/wrapper/block.js:313
+#: src/wrapper/block.js:328
+#: src/wrapper/block.js:346
+#: src/wrapper/block.js:361
+#: src/wrapper/block.js:416
+#: src/_functions/controls.js:27
+#: src/_functions/controls.js:162
+#: src/_functions/controls.js:219
+#: src/_functions/controls.js:236
+msgid "– unset –"
+msgstr ""
+
+#: src/column-rows/column-row/block.js:150
+#: src/row-with-cols/row/block.js:884
+#: src/row-with-cols/row/block.js:895
+#: src/_functions/controls.js:237
+msgid "Start"
+msgstr ""
+
+#: src/column-rows/column-row/block.js:151
+#: src/row-with-cols/row/block.js:885
+#: src/row-with-cols/row/block.js:896
+#: src/_functions/controls.js:238
+msgid "Center"
+msgstr ""
+
+#: src/column-rows/column-row/block.js:152
+#: src/row-with-cols/row/block.js:886
+#: src/row-with-cols/row/block.js:897
+#: src/_functions/controls.js:239
+msgid "End"
+msgstr ""
+
+#: src/column-rows/column-row/block.js:156
+#: src/_functions/controls.js:226
+msgid "Display"
+msgstr ""
+
+#: src/column-rows/column-row/block.js:161
+#: src/_functions/controls.js:223
+msgid "Flex"
+msgstr ""
+
+#: src/column-rows/column-rows/block.js:65
+msgid "BSX Column Rows"
+msgstr ""
+
+#: src/column-rows/column-rows/block.js:238
+msgid "Column Rows layout"
+msgstr ""
+
+#: src/column-rows/column-rows/block.js:269
+msgid "Flex direction"
+msgstr ""
+
+#: src/column-rows/column-rows/block.js:274
+msgid "Column"
+msgstr ""
+
+#: src/column-rows/column-rows/block.js:278
+#: src/wrapper/block.js:412
+msgid "Width"
+msgstr ""
+
+#: src/column-rows/column-rows/block.js:283
+#: src/wrapper/block.js:417
+msgid "100 %"
+msgstr ""
+
+#: src/column-rows/column-rows/block.js:293
+msgid "Please select Column Rows template"
+msgstr ""
+
+#: src/column-rows/column-rows/templates.js:11
+msgid "Flex, static"
+msgstr ""
+
+#: src/column-rows/column-rows/templates.js:49
+msgid "Static, flex"
+msgstr ""
+
+#: src/container/block.js:53
+msgid "BSX Container"
+msgstr ""
+
+#: src/container/block.js:165
+msgid "Container Settings"
+msgstr ""
+
+#: src/container/block.js:167
+msgid "Fluid container"
+msgstr ""
+
+#: src/container/block.js:170
+msgid "Fluid width from XS up"
+msgstr ""
+
+#: src/container/block.js:173
+msgid "Non fluid Breakpoint"
+msgstr ""
+
+#: src/container/block.js:178
+msgid "SM"
+msgstr ""
+
+#: src/container/block.js:179
+msgid "MD"
+msgstr ""
+
+#: src/container/block.js:180
+msgid "LG"
+msgstr ""
+
+#: src/container/block.js:181
+#: src/row-with-cols/row/block.js:1142
+msgid "XL"
+msgstr ""
+
+#: src/container/block.js:184
+msgid "Has (non fluid) Container width from this breakpoint up"
+msgstr ""
+
+#: src/container/block.js:190
+#: src/global-block-settings/settings.js:169
+#: src/img-gallery/block.js:486
+#: src/row-with-cols/row/block.js:1070
+#: src/section/block.js:313
+#: src/wrapper/block.js:309
+#: src/_functions/controls.js:196
+msgid "Margin before"
+msgstr ""
+
+#: src/container/block.js:195
+#: src/container/block.js:210
+#: src/container/block.js:235
+#: src/container/block.js:250
+#: src/global-block-settings/settings.js:174
+#: src/global-block-settings/settings.js:189
+#: src/img-gallery/block.js:491
+#: src/img-gallery/block.js:506
+#: src/lazy-img/block.js:719
+#: src/row-with-cols/row/block.js:1075
+#: src/row-with-cols/row/block.js:1090
+#: src/row-with-cols/row/block.js:1108
+#: src/row-with-cols/row/block.js:1123
+#: src/section/block.js:318
+#: src/section/block.js:333
+#: src/wrapper/block.js:314
+#: src/wrapper/block.js:329
+#: src/wrapper/block.js:347
+#: src/wrapper/block.js:362
+#: src/_functions/controls.js:28
+msgid "none (0)"
+msgstr ""
+
+#: src/container/block.js:196
+#: src/container/block.js:211
+#: src/container/block.js:236
+#: src/container/block.js:251
+#: src/global-block-settings/settings.js:175
+#: src/global-block-settings/settings.js:190
+#: src/img-gallery/block.js:492
+#: src/img-gallery/block.js:507
+#: src/lazy-img/block.js:720
+#: src/row-with-cols/row/block.js:1043
+#: src/row-with-cols/row/block.js:1076
+#: src/row-with-cols/row/block.js:1091
+#: src/row-with-cols/row/block.js:1109
+#: src/row-with-cols/row/block.js:1124
+#: src/section/block.js:319
+#: src/section/block.js:334
+#: src/wrapper/block.js:315
+#: src/wrapper/block.js:330
+#: src/wrapper/block.js:348
+#: src/wrapper/block.js:363
+#: src/wrapper/block.js:377
+#: src/wrapper/block.js:391
+#: src/_functions/controls.js:29
+msgid "extra small"
+msgstr ""
+
+#: src/container/block.js:197
+#: src/container/block.js:212
+#: src/container/block.js:237
+#: src/container/block.js:252
+#: src/global-block-settings/settings.js:176
+#: src/global-block-settings/settings.js:191
+#: src/img-gallery/block.js:493
+#: src/img-gallery/block.js:508
+#: src/lazy-img/block.js:721
+#: src/row-with-cols/row/block.js:1044
+#: src/row-with-cols/row/block.js:1077
+#: src/row-with-cols/row/block.js:1092
+#: src/row-with-cols/row/block.js:1110
+#: src/row-with-cols/row/block.js:1125
+#: src/section/block.js:320
+#: src/section/block.js:335
+#: src/wrapper/block.js:316
+#: src/wrapper/block.js:331
+#: src/wrapper/block.js:349
+#: src/wrapper/block.js:364
+#: src/wrapper/block.js:378
+#: src/wrapper/block.js:392
+#: src/_functions/controls.js:30
+msgid "small"
+msgstr ""
+
+#: src/container/block.js:198
+#: src/container/block.js:213
+#: src/container/block.js:238
+#: src/container/block.js:253
+#: src/global-block-settings/settings.js:177
+#: src/global-block-settings/settings.js:192
+#: src/img-gallery/block.js:494
+#: src/img-gallery/block.js:509
+#: src/lazy-img/block.js:722
+#: src/row-with-cols/row/block.js:1045
+#: src/row-with-cols/row/block.js:1078
+#: src/row-with-cols/row/block.js:1093
+#: src/row-with-cols/row/block.js:1111
+#: src/row-with-cols/row/block.js:1126
+#: src/section/block.js:321
+#: src/section/block.js:336
+#: src/wrapper/block.js:317
+#: src/wrapper/block.js:332
+#: src/wrapper/block.js:350
+#: src/wrapper/block.js:365
+#: src/wrapper/block.js:379
+#: src/wrapper/block.js:393
+#: src/_functions/controls.js:31
+msgid "medium"
+msgstr ""
+
+#: src/container/block.js:199
+#: src/container/block.js:214
+#: src/container/block.js:239
+#: src/container/block.js:254
+#: src/global-block-settings/settings.js:178
+#: src/global-block-settings/settings.js:193
+#: src/img-gallery/block.js:495
+#: src/img-gallery/block.js:510
+#: src/lazy-img/block.js:723
+#: src/row-with-cols/row/block.js:1046
+#: src/row-with-cols/row/block.js:1079
+#: src/row-with-cols/row/block.js:1094
+#: src/row-with-cols/row/block.js:1112
+#: src/row-with-cols/row/block.js:1127
+#: src/section/block.js:322
+#: src/section/block.js:337
+#: src/wrapper/block.js:318
+#: src/wrapper/block.js:333
+#: src/wrapper/block.js:351
+#: src/wrapper/block.js:366
+#: src/wrapper/block.js:380
+#: src/wrapper/block.js:394
+#: src/_functions/controls.js:32
+msgid "large"
+msgstr ""
+
+#: src/container/block.js:200
+#: src/container/block.js:215
+#: src/container/block.js:240
+#: src/container/block.js:255
+#: src/global-block-settings/settings.js:179
+#: src/global-block-settings/settings.js:194
+#: src/img-gallery/block.js:496
+#: src/img-gallery/block.js:511
+#: src/lazy-img/block.js:724
+#: src/row-with-cols/row/block.js:1047
+#: src/row-with-cols/row/block.js:1080
+#: src/row-with-cols/row/block.js:1095
+#: src/row-with-cols/row/block.js:1113
+#: src/row-with-cols/row/block.js:1128
+#: src/section/block.js:323
+#: src/section/block.js:338
+#: src/wrapper/block.js:319
+#: src/wrapper/block.js:334
+#: src/wrapper/block.js:352
+#: src/wrapper/block.js:367
+#: src/wrapper/block.js:381
+#: src/wrapper/block.js:395
+#: src/_functions/controls.js:33
+msgid "extra large"
+msgstr ""
+
+#: src/container/block.js:202
+#: src/global-block-settings/settings.js:181
+#: src/img-gallery/block.js:498
+#: src/wrapper/block.js:259
+#: src/wrapper/block.js:321
+#: src/_functions/controls.js:200
+msgid "Spacer before element"
+msgstr ""
+
+#: src/container/block.js:205
+#: src/global-block-settings/settings.js:184
+#: src/img-gallery/block.js:501
+#: src/lazy-img/block.js:714
+#: src/row-with-cols/row/block.js:1038
+#: src/row-with-cols/row/block.js:1085
+#: src/section/block.js:328
+#: src/wrapper/block.js:324
+#: src/_functions/controls.js:208
+msgid "Margin after"
+msgstr ""
+
+#: src/container/block.js:217
+#: src/global-block-settings/settings.js:196
+#: src/img-gallery/block.js:513
+#: src/lazy-img/block.js:726
+#: src/wrapper/block.js:336
+#: src/_functions/controls.js:212
+msgid "Spacer after element"
+msgstr ""
+
+#: src/container/block.js:223
+#: src/global-block-settings/settings.js:163
+#: src/section/block.js:299
+#: src/_functions/controls.js:63
+msgid "Below navbar"
+msgstr ""
+
+#: src/container/block.js:226
+#: src/global-block-settings/settings.js:166
+#: src/_functions/controls.js:66
+msgid "Enable if container starts below navbar. If enabled container has spacer top to avoid overlapping its contents by navbar."
+msgstr ""
+
+#: src/container/block.js:230
+#: src/row-with-cols/row/block.js:1103
+#: src/wrapper/block.js:342
+#: src/_functions/controls.js:255
+msgid "Padding before"
+msgstr ""
+
+#: src/container/block.js:242
+#: src/row-with-cols/row/block.js:1115
+#: src/wrapper/block.js:354
+#: src/_functions/controls.js:259
+msgid "Inner spacer before"
+msgstr ""
+
+#: src/container/block.js:245
+#: src/row-with-cols/row/block.js:1118
+#: src/wrapper/block.js:357
+#: src/_functions/controls.js:267
+msgid "Padding after"
+msgstr ""
+
+#: src/container/block.js:257
+#: src/row-with-cols/row/block.js:1130
+#: src/wrapper/block.js:369
+#: src/_functions/controls.js:271
+msgid "Inner spacer after"
+msgstr ""
+
+#: src/global-block-settings/settings.js:90
+msgid "BSX global settings"
+msgstr ""
+
+#: src/global-block-settings/settings.js:92
+#: src/global-block-settings/settings.js:157
+#: src/section/block.js:305
+msgid "ID"
+msgstr ""
+
+#: src/global-block-settings/settings.js:95
+#: src/global-block-settings/settings.js:160
+msgid "Add ID if necessary (optional)."
+msgstr ""
+
+#: src/global-block-settings/settings.js:98
+#: src/wrapper/block.js:281
+msgid "Text size (optional)"
+msgstr ""
+
+#: src/global-block-settings/settings.js:103
+#: src/wrapper/block.js:286
+msgid "Larger"
+msgstr ""
+
+#: src/global-block-settings/settings.js:104
+#: src/wrapper/block.js:287
+msgid "Smaller"
+msgstr ""
+
+#: src/global-block-settings/settings.js:105
+#: src/wrapper/block.js:288
+msgid "Heading 6 (smallest)"
+msgstr ""
+
+#: src/global-block-settings/settings.js:106
+#: src/wrapper/block.js:289
+msgid "Heading 5"
+msgstr ""
+
+#: src/global-block-settings/settings.js:107
+#: src/wrapper/block.js:290
+msgid "Heading 4"
+msgstr ""
+
+#: src/global-block-settings/settings.js:108
+#: src/wrapper/block.js:291
+msgid "Heading 3"
+msgstr ""
+
+#: src/global-block-settings/settings.js:109
+#: src/wrapper/block.js:292
+msgid "Heading 2"
+msgstr ""
+
+#: src/global-block-settings/settings.js:110
+#: src/wrapper/block.js:293
+msgid "Heading 1 (biggest)"
+msgstr ""
+
+#: src/global-block-settings/settings.js:111
+#: src/wrapper/block.js:294
+msgid "Large 4 (smallest)"
+msgstr ""
+
+#: src/global-block-settings/settings.js:112
+#: src/wrapper/block.js:295
+msgid "Large 3"
+msgstr ""
+
+#: src/global-block-settings/settings.js:113
+#: src/wrapper/block.js:296
+msgid "Large 2"
+msgstr ""
+
+#: src/global-block-settings/settings.js:114
+#: src/wrapper/block.js:297
+msgid "Large 1 (biggest)"
+msgstr ""
+
+#: src/global-block-settings/settings.js:118
+#: src/wrapper/block.js:262
+msgid "Text color (optional)"
+msgstr ""
+
+#: src/global-block-settings/settings.js:123
+#: src/img-gallery/block.js:461
+#: src/lazy-img/block.js:583
+#: src/wrapper/block.js:227
+#: src/wrapper/block.js:267
+msgid "White"
+msgstr ""
+
+#: src/global-block-settings/settings.js:124
+#: src/img-gallery/block.js:462
+#: src/lazy-img/block.js:584
+#: src/wrapper/block.js:233
+#: src/wrapper/block.js:268
+#: src/_functions/controls.js:128
+msgid "Primary"
+msgstr ""
+
+#: src/global-block-settings/settings.js:125
+#: src/img-gallery/block.js:463
+#: src/lazy-img/block.js:585
+#: src/wrapper/block.js:236
+#: src/wrapper/block.js:269
+#: src/_functions/controls.js:129
+msgid "Secondary"
+msgstr ""
+
+#: src/global-block-settings/settings.js:126
+#: src/img-gallery/block.js:464
+#: src/lazy-img/block.js:586
+#: src/wrapper/block.js:239
+#: src/wrapper/block.js:270
+#: src/_functions/controls.js:130
+msgid "Success"
+msgstr ""
+
+#: src/global-block-settings/settings.js:127
+#: src/img-gallery/block.js:465
+#: src/lazy-img/block.js:587
+#: src/wrapper/block.js:242
+#: src/wrapper/block.js:271
+#: src/_functions/controls.js:131
+msgid "Danger"
+msgstr ""
+
+#: src/global-block-settings/settings.js:128
+#: src/img-gallery/block.js:466
+#: src/lazy-img/block.js:588
+#: src/wrapper/block.js:245
+#: src/wrapper/block.js:272
+#: src/_functions/controls.js:132
+msgid "Warning"
+msgstr ""
+
+#: src/global-block-settings/settings.js:129
+#: src/img-gallery/block.js:467
+#: src/lazy-img/block.js:589
+#: src/wrapper/block.js:248
+#: src/wrapper/block.js:273
+#: src/_functions/controls.js:133
+msgid "Info"
+msgstr ""
+
+#: src/global-block-settings/settings.js:130
+#: src/img-gallery/block.js:468
+#: src/lazy-img/block.js:590
+#: src/wrapper/block.js:251
+#: src/wrapper/block.js:274
+#: src/_functions/controls.js:134
+msgid "Light"
+msgstr ""
+
+#: src/global-block-settings/settings.js:131
+#: src/global-block-settings/settings.js:142
+#: src/img-gallery/block.js:469
+#: src/lazy-img/block.js:591
+#: src/wrapper/block.js:254
+#: src/wrapper/block.js:275
+#: src/_functions/controls.js:135
+msgid "Dark"
+msgstr ""
+
+#: src/global-block-settings/settings.js:132
+#: src/wrapper/block.js:229
+#: src/wrapper/block.js:276
+msgid "White transparent"
+msgstr ""
+
+#: src/global-block-settings/settings.js:133
+#: src/wrapper/block.js:232
+#: src/wrapper/block.js:277
+msgid "Black transparent"
+msgstr ""
+
+#: src/global-block-settings/settings.js:137
+msgid "Text shadow (optional)"
+msgstr ""
+
+#: src/global-block-settings/settings.js:143
+msgid "Darker"
+msgstr ""
+
+#: src/global-block-settings/settings.js:144
+msgid "Darkest"
+msgstr ""
+
+#: src/groups/block.js:31
+msgid "BSX Groups"
+msgstr ""
+
+#: src/groups/block.js:70
+msgid "Lazy image, paragraph, button"
+msgstr ""
+
+#: src/groups/block.js:93
+msgid "Lazy image, heading, paragraph"
+msgstr ""
+
+#: src/groups/block.js:144
+msgid "Group Settings"
+msgstr ""
+
+#: src/groups/block.js:170
+msgid "Please select Group template"
+msgstr ""
+
+#: src/img-gallery/block.js:153
+msgid "BSX Image Gallery"
+msgstr ""
+
+#: src/img-gallery/block.js:432
+msgid "Gallery settings"
+msgstr ""
+
+#: src/img-gallery/block.js:434
+msgid "Gallery type"
+msgstr ""
+
+#: src/img-gallery/block.js:438
+msgid "Columns"
+msgstr ""
+
+#: src/img-gallery/block.js:439
+msgid "Floating (equal image height)"
+msgstr ""
+
+#: src/img-gallery/block.js:444
+msgid "Thumbnail appearance"
+msgstr ""
+
+#: src/img-gallery/block.js:446
+#: src/lazy-img/block.js:568
+msgid "Rounded corners"
+msgstr ""
+
+#: src/img-gallery/block.js:451
+#: src/lazy-img/block.js:573
+msgid "Border"
+msgstr ""
+
+#: src/img-gallery/block.js:456
+#: src/lazy-img/block.js:578
+msgid "Border color"
+msgstr ""
+
+#: src/img-gallery/block.js:473
+msgid "Mouseover shadow"
+msgstr ""
+
+#: src/img-gallery/block.js:478
+msgid "Mouseover move"
+msgstr ""
+
+#: src/img-gallery/block.js:532
+msgid "Upload Image"
+msgstr ""
+
+#: src/img-gallery/block.js:541
+#: src/img-gallery/block.js:590
+#: src/lazy-img/block.js:781
+msgid "Caption (optional)"
+msgstr ""
+
+#: src/img-gallery/block.js:550
+msgid "Move backward"
+msgstr ""
+
+#: src/img-gallery/block.js:557
+msgid "Move forward"
+msgstr ""
+
+#: src/img-gallery/block.js:564
+msgid "Remove Image"
+msgstr ""
+
+#: src/img-gallery/block.js:581
+msgid "Add image(s)"
+msgstr ""
+
+#: src/lazy-img/block.js:142
+msgid "BSX Lazy Image"
+msgstr ""
+
+#: src/lazy-img/block.js:418
+#: src/lazy-img/block.js:430
+#: src/lazy-img/block.js:438
+msgid "(Square format)"
+msgstr ""
+
+#: src/lazy-img/block.js:492
+msgid "Image"
+msgstr ""
+
+#: src/lazy-img/block.js:494
+msgid "Alt"
+msgstr ""
+
+#: src/lazy-img/block.js:509
+#: src/lazy-img/block.js:531
+#: src/_functions/controls.js:388
+#: src/_functions/controls.js:410
+msgid "Change / upload image"
+msgstr ""
+
+#: src/lazy-img/block.js:517
+msgid "– No image selected yet –"
+msgstr ""
+
+#: src/lazy-img/block.js:537
+#: src/lazy-img/block.js:660
+msgid "Image size and format"
+msgstr ""
+
+#: src/lazy-img/block.js:546
+msgid "Preview selected image"
+msgstr ""
+
+#: src/lazy-img/block.js:553
+msgid "Displayed image width"
+msgstr ""
+
+#: src/lazy-img/block.js:558
+msgid "Displayed image height"
+msgstr ""
+
+#: src/lazy-img/block.js:563
+#: src/wrapper/block.js:301
+msgid "Rounded"
+msgstr ""
+
+#: src/lazy-img/block.js:569
+msgid "Circle"
+msgstr ""
+
+#: src/lazy-img/block.js:596
+msgid "Portrait image (optional)"
+msgstr ""
+
+#: src/lazy-img/block.js:608
+#: src/lazy-img/block.js:642
+#: src/_functions/controls.js:387
+#: src/_functions/controls.js:409
+msgid "Change / upload portrait image"
+msgstr ""
+
+#: src/lazy-img/block.js:626
+msgid "– No portrait image selected yet –"
+msgstr ""
+
+#: src/lazy-img/block.js:654
+msgid "Remove portrait image"
+msgstr ""
+
+#: src/lazy-img/block.js:668
+msgid "Preview selected portrait image"
+msgstr ""
+
+#: src/lazy-img/block.js:674
+msgid "Zoomable (optional)"
+msgstr ""
+
+#: src/lazy-img/block.js:686
+msgid "Zoomable image"
+msgstr ""
+
+#: src/lazy-img/block.js:689
+msgid "If enabled click on image will open shadowbox with large image."
+msgstr ""
+
+#: src/lazy-img/block.js:695
+msgid "Zoom image size"
+msgstr ""
+
+#: src/lazy-img/block.js:703
+msgid "Currently your zoom image is not larger than your original image."
+msgstr ""
+
+#: src/lazy-img/block.js:733
+msgid "Disable responsive image downsizing"
+msgstr ""
+
+#: src/lazy-img/block.js:736
+msgid "Enable if you don’t want smaller responsive image sizes, since small devices display image in large dimensions."
+msgstr ""
+
+#: src/lazy-img/block.js:771
+msgid "Select / upload Image"
+msgstr ""
+
+#: src/row-with-cols/col/block.js:73
+msgid "BSX Column"
+msgstr ""
+
+#: src/row-with-cols/col/block.js:357
+msgid "Column Sizes (this Column)"
+msgstr ""
+
+#: src/row-with-cols/col/block.js:362
+msgid "Enable inheritance from Row"
+msgstr ""
+
+#: src/row-with-cols/col/block.js:365
+msgid "If enabled allows overwriting Column settings from Row"
+msgstr ""
+
+#: src/row-with-cols/col/block.js:374
+msgid "Inherit Settings for this Column"
+msgstr ""
+
+#: src/row-with-cols/col/block.js:383
+#: src/row-with-cols/row/block.js:926
+msgid "XS Column Width"
+msgstr ""
+
+#: src/row-with-cols/col/block.js:388
+#: src/row-with-cols/col/block.js:409
+#: src/row-with-cols/col/block.js:430
+#: src/row-with-cols/col/block.js:451
+#: src/row-with-cols/col/block.js:472
+#: src/row-with-cols/row/block.js:931
+#: src/row-with-cols/row/block.js:953
+#: src/row-with-cols/row/block.js:975
+#: src/row-with-cols/row/block.js:997
+#: src/row-with-cols/row/block.js:1019
+msgid "1 ... 12 or empty"
+msgstr ""
+
+#: src/row-with-cols/col/block.js:392
+#: src/row-with-cols/row/block.js:936
+msgid "XS Equal Width"
+msgstr ""
+
+#: src/row-with-cols/col/block.js:398
+#: src/row-with-cols/row/block.js:942
+msgid "XS Auto Width"
+msgstr ""
+
+#: src/row-with-cols/col/block.js:404
+#: src/row-with-cols/row/block.js:948
+msgid "SM Column Width"
+msgstr ""
+
+#: src/row-with-cols/col/block.js:413
+#: src/row-with-cols/row/block.js:958
+msgid "SM Equal Width"
+msgstr ""
+
+#: src/row-with-cols/col/block.js:419
+#: src/row-with-cols/row/block.js:964
+msgid "SM Auto Width"
+msgstr ""
+
+#: src/row-with-cols/col/block.js:425
+#: src/row-with-cols/row/block.js:970
+msgid "MD Column Width"
+msgstr ""
+
+#: src/row-with-cols/col/block.js:434
+#: src/row-with-cols/row/block.js:980
+msgid "MD Equal Width"
+msgstr ""
+
+#: src/row-with-cols/col/block.js:440
+#: src/row-with-cols/row/block.js:986
+msgid "MD Auto Width"
+msgstr ""
+
+#: src/row-with-cols/col/block.js:446
+#: src/row-with-cols/row/block.js:992
+msgid "LG Column Width"
+msgstr ""
+
+#: src/row-with-cols/col/block.js:455
+#: src/row-with-cols/row/block.js:1002
+msgid "LG Equal Width"
+msgstr ""
+
+#: src/row-with-cols/col/block.js:461
+#: src/row-with-cols/row/block.js:1008
+msgid "LG Auto Width"
+msgstr ""
+
+#: src/row-with-cols/col/block.js:467
+#: src/row-with-cols/row/block.js:1014
+msgid "XL Column Width"
+msgstr ""
+
+#: src/row-with-cols/col/block.js:476
+#: src/row-with-cols/row/block.js:1024
+msgid "XL Equal Width"
+msgstr ""
+
+#: src/row-with-cols/col/block.js:482
+#: src/row-with-cols/row/block.js:1030
+msgid "XL Auto Width"
+msgstr ""
+
+#: src/row-with-cols/col/block.js:496
+#: src/row-with-cols/row/block.js:1055
+#: src/wrapper/block.js:403
+#: src/_functions/controls.js:286
+msgid "Node name"
+msgstr ""
+
+#: src/row-with-cols/col/block.js:500
+#: src/row-with-cols/row/block.js:1059
+#: src/wrapper/block.js:407
+#: src/_functions/controls.js:278
+msgid "div"
+msgstr ""
+
+#: src/row-with-cols/col/block.js:501
+#: src/row-with-cols/row/block.js:1060
+#: src/wrapper/block.js:408
+#: src/_functions/controls.js:279
+msgid "section"
+msgstr ""
+
+#: src/row-with-cols/col/block.js:503
+#: src/_functions/controls.js:290
+msgid "Node name (please edit only if you know what you’re doing)"
+msgstr ""
+
+#: src/row-with-cols/row/block.js:75
+msgid "BSX Columns"
+msgstr ""
+
+#: src/row-with-cols/row/block.js:225
+msgid "3 Columns (1:1:1)"
+msgstr ""
+
+#: src/row-with-cols/row/block.js:282
+msgid "2 Columns (1:1)"
+msgstr ""
+
+#: src/row-with-cols/row/block.js:328
+msgid "2 Columns (1:2)"
+msgstr ""
+
+#: src/row-with-cols/row/block.js:374
+msgid "2 Columns (2:1)"
+msgstr ""
+
+#: src/row-with-cols/row/block.js:420
+msgid "3 Columns (1:2:1)"
+msgstr ""
+
+#: src/row-with-cols/row/block.js:477
+msgid "Custom"
+msgstr ""
+
+#: src/row-with-cols/row/block.js:856
+msgid "Columns Layout"
+msgstr ""
+
+#: src/row-with-cols/row/block.js:877
+msgid "Row Settings"
+msgstr ""
+
+#: src/row-with-cols/row/block.js:890
+msgid "Justify Content"
+msgstr ""
+
+#: src/row-with-cols/row/block.js:898
+msgid "Between"
+msgstr ""
+
+#: src/row-with-cols/row/block.js:899
+msgid "Around"
+msgstr ""
+
+#: src/row-with-cols/row/block.js:903
+msgid "No Gutters"
+msgstr ""
+
+#: src/row-with-cols/row/block.js:908
+msgid "Form Row"
+msgstr ""
+
+#: src/row-with-cols/row/block.js:915
+msgid "Inherit Columns Settings"
+msgstr ""
+
+#: src/row-with-cols/row/block.js:917
+msgid "Enable inheritance to Columns"
+msgstr ""
+
+#: src/row-with-cols/row/block.js:920
+msgid "If enabled all Columns settings can be overwritten here. To protect selected Columns from beeing overwritten, disable inheritance option in respective Column settings."
+msgstr ""
+
+#: src/row-with-cols/row/block.js:1042
+#: src/wrapper/block.js:376
+#: src/wrapper/block.js:390
+msgid "– none –"
+msgstr ""
+
+#: src/row-with-cols/row/block.js:1049
+msgid "Spacer after Column (not Row)"
+msgstr ""
+
+#: src/row-with-cols/row/block.js:1062
+msgid "Column node name (please edit only if you know what you’re doing)"
+msgstr ""
+
+#: src/row-with-cols/row/block.js:1068
+msgid "Row margin (not Columns)"
+msgstr ""
+
+#: src/row-with-cols/row/block.js:1082
+msgid "Spacer before Row"
+msgstr ""
+
+#: src/row-with-cols/row/block.js:1097
+msgid "Spacer after Row"
+msgstr ""
+
+#: src/row-with-cols/row/block.js:1133
+msgid "Columns order reverse"
+msgstr ""
+
+#: src/row-with-cols/row/block.js:1138
+msgid "XS up"
+msgstr ""
+
+#: src/row-with-cols/row/block.js:1139
+msgid "SM up"
+msgstr ""
+
+#: src/row-with-cols/row/block.js:1140
+msgid "MD up"
+msgstr ""
+
+#: src/row-with-cols/row/block.js:1141
+msgid "LG up"
+msgstr ""
+
+#: src/row-with-cols/row/block.js:1144
+msgid "Reverse Column order from selected size"
+msgstr ""
+
+#: src/row-with-cols/row/block.js:1154
+msgid "Please select Columns template"
+msgstr ""
+
+#: src/section/block.js:35
+msgid "BSX Section"
+msgstr ""
+
+#: src/section/block.js:127
+msgid "Container, Heading, Text & Gallery"
+msgstr ""
+
+#: src/section/block.js:165
+msgid "Rounded colored Banner (primary dark)"
+msgstr ""
+
+#: src/section/block.js:279
+msgid "Section Settings"
+msgstr ""
+
+#: src/section/block.js:302
+msgid "Enable if element starts below navbar. If enabled element has spacer top to avoid overlapping its contents by navbar."
+msgstr ""
+
+#: src/section/block.js:325
+msgid "Spacer before Container"
+msgstr ""
+
+#: src/section/block.js:340
+msgid "Spacer after Container"
+msgstr ""
+
+#: src/wrapper/block.js:28
+msgid "BSX Wrapper"
+msgstr ""
+
+#: src/wrapper/block.js:220
+msgid "Color & appearance"
+msgstr ""
+
+#: src/wrapper/block.js:222
+msgid "Background color"
+msgstr ""
+
+#: src/wrapper/block.js:228
+msgid "White opaque"
+msgstr ""
+
+#: src/wrapper/block.js:230
+msgid "Black"
+msgstr ""
+
+#: src/wrapper/block.js:231
+msgid "Black opaque"
+msgstr ""
+
+#: src/wrapper/block.js:234
+msgid "Primary opaque"
+msgstr ""
+
+#: src/wrapper/block.js:235
+msgid "Primary transparent"
+msgstr ""
+
+#: src/wrapper/block.js:237
+msgid "Secondary opaque"
+msgstr ""
+
+#: src/wrapper/block.js:238
+msgid "Secondary transparent"
+msgstr ""
+
+#: src/wrapper/block.js:240
+msgid "Success opaque"
+msgstr ""
+
+#: src/wrapper/block.js:241
+msgid "Success transparent"
+msgstr ""
+
+#: src/wrapper/block.js:243
+msgid "Danger opaque"
+msgstr ""
+
+#: src/wrapper/block.js:244
+msgid "Danger transparent"
+msgstr ""
+
+#: src/wrapper/block.js:246
+msgid "Warning opaque"
+msgstr ""
+
+#: src/wrapper/block.js:247
+msgid "Warning transparent"
+msgstr ""
+
+#: src/wrapper/block.js:249
+msgid "Info opaque"
+msgstr ""
+
+#: src/wrapper/block.js:250
+msgid "Info transparent"
+msgstr ""
+
+#: src/wrapper/block.js:252
+msgid "Light opaque"
+msgstr ""
+
+#: src/wrapper/block.js:253
+msgid "Light transparent"
+msgstr ""
+
+#: src/wrapper/block.js:255
+msgid "Dark opaque"
+msgstr ""
+
+#: src/wrapper/block.js:256
+msgid "Dark transparent"
+msgstr ""
+
+#: src/wrapper/block.js:257
+msgid "Transparent"
+msgstr ""
+
+#: src/wrapper/block.js:340
+msgid "Padding"
+msgstr ""
+
+#: src/wrapper/block.js:372
+msgid "Padding left"
+msgstr ""
+
+#: src/wrapper/block.js:383
+msgid "Inner spacer left"
+msgstr ""
+
+#: src/wrapper/block.js:386
+msgid "Padding right"
+msgstr ""
+
+#: src/wrapper/block.js:397
+msgid "Inner spacer right"
+msgstr ""
+
+#: src/_functions/controls.js:42
+msgid "Spam protected email link (default activated)"
+msgstr ""
+
+#: src/_functions/controls.js:45
+msgid "If activated email will not be easily readable for machines."
+msgstr ""
+
+#: src/_functions/controls.js:53
+msgid "Open in new tab"
+msgstr ""
+
+#: src/_functions/controls.js:77
+msgid "Link URL"
+msgstr ""
+
+#: src/_functions/controls.js:90
+msgid "Limit fixed background"
+msgstr ""
+
+#: src/_functions/controls.js:93
+msgid "If enabled large displays (>=2.000px) will have static background attachement."
+msgstr ""
+
+#: src/_functions/controls.js:101
+msgid "Rel (optional)"
+msgstr ""
+
+#: src/_functions/controls.js:111
+msgid "data-fn (optional)"
+msgstr ""
+
+#: src/_functions/controls.js:124
+msgid "State"
+msgstr ""
+
+#: src/_functions/controls.js:136
+msgid "Link Button"
+msgstr ""
+
+#: src/_functions/controls.js:137
+msgid "Text link"
+msgstr ""
+
+#: src/_functions/controls.js:145
+msgid "State Type"
+msgstr ""
+
+#: src/_functions/controls.js:149
+msgid "Outline"
+msgstr ""
+
+#: src/_functions/controls.js:150
+msgid "Filled"
+msgstr ""
+
+#: src/_functions/controls.js:158
+msgid "Size"
+msgstr ""
+
+#: src/_functions/controls.js:163
+msgid "Small"
+msgstr ""
+
+#: src/_functions/controls.js:164
+msgid "Large"
+msgstr ""
+
+#: src/_functions/controls.js:174
+msgid "Margin left"
+msgstr ""
+
+#: src/_functions/controls.js:185
+msgid "Margin right"
+msgstr ""
+
+#: src/_functions/controls.js:220
+msgid "Block"
+msgstr ""
+
+#: src/_functions/controls.js:221
+msgid "Inline-block"
+msgstr ""
+
+#: src/_functions/controls.js:222
+msgid "Inline"
+msgstr ""
+
+#: src/_functions/controls.js:243
+msgid "Align items"
+msgstr ""
+
+#: src/_functions/controls.js:280
+msgid "ul"
+msgstr ""
+
+#: src/_functions/controls.js:281
+msgid "ol"
+msgstr ""
+
+#: src/_functions/controls.js:282
+msgid "li"
+msgstr ""
+
+#: src/_functions/controls.js:297
+msgid "Center center"
+msgstr ""
+
+#: src/_functions/controls.js:298
+msgid "Center 25%"
+msgstr ""
+
+#: src/_functions/controls.js:299
+msgid "Center 66%"
+msgstr ""
+
+#: src/_functions/controls.js:300
+msgid "Center 75%"
+msgstr ""
+
+#: src/_functions/controls.js:301
+msgid "Center top"
+msgstr ""
+
+#: src/_functions/controls.js:302
+msgid "Right center"
+msgstr ""
+
+#: src/_functions/controls.js:303
+msgid "33% center"
+msgstr ""
+
+#: src/_functions/controls.js:304
+msgid "80% center"
+msgstr ""
+
+#: src/_functions/controls.js:305
+msgid "66% top"
+msgstr ""
+
+#: src/_functions/controls.js:306
+msgid "66% center"
+msgstr ""
+
+#: src/_functions/controls.js:310
+msgid "Background position"
+msgstr ""
+
+#: src/_functions/controls.js:320
+msgid "Cover"
+msgstr ""
+
+#: src/_functions/controls.js:321
+msgid "Contain"
+msgstr ""
+
+#: src/_functions/controls.js:322
+msgid "100% auto"
+msgstr ""
+
+#: src/_functions/controls.js:326
+msgid "Background size"
+msgstr ""
+
+#: src/_functions/controls.js:336
+msgid "Viewport dependent height"
+msgstr ""
+
+#: src/_functions/controls.js:337
+msgid "Static height"
+msgstr ""
+
+#: src/_functions/controls.js:341
+msgid "Banner height type"
+msgstr ""
+
+#: src/_functions/controls.js:345
+msgid "Viewport dependant height will be e.g. all viewport height or viewport height - ? pixels. Static height instead depends only on the banners contents."
+msgstr ""
+
+#: src/_functions/controls.js:352
+msgid "1 (biggest)"
+msgstr ""
+
+#: src/_functions/controls.js:353
+msgid "2"
+msgstr ""
+
+#: src/_functions/controls.js:354
+msgid "3 (smallest)"
+msgstr ""
+
+#: src/_functions/controls.js:358
+msgid "Banner height size"
+msgstr ""
+
+#: src/_functions/controls.js:362
+msgid "Choose from 1 (maximum) to 3 (minimum)"
+msgstr ""
+
+#: src/_functions/controls.js:369
+msgid "static"
+msgstr ""
+
+#: src/_functions/controls.js:370
+msgid "fixed"
+msgstr ""
+
+#: src/_functions/controls.js:374
+msgid "Background attachement"
+msgstr ""

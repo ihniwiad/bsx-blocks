@@ -22,6 +22,38 @@ if ( ! defined( 'BSX_BLOCKS_PLUGINS_URL' ) ) {
 }
 
 
+/**
+ * Load all translations for our plugin from the MO file.
+ */
+// function bsx_blocks_load_textdomain() {
+//     load_plugin_textdomain( 'bsx-blocks', false, basename( __DIR__ ) . '/languages' );
+// }
+// add_action( 'plugins_loaded', 'bsx_blocks_load_textdomain' );
+
+
+
+/**
+ * Load plugin textdomain.
+ */
+// add_action( 'init', 'bsx_blocks_load_textdomain' );
+// function bsx_blocks_load_textdomain() {
+//     // echo '<h1 class="m-5">dirname( plugin_basename( __FILE__ ) ): "' . dirname( plugin_basename( __FILE__ ) ) . '"</h1>';
+//     // echo '<h1 class="m-5">$local: "' . $local . '"</h1>';
+//     // load_plugin_textdomain( 'bsx-blocks', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' ); 
+// }
+
+// load translations
+// function bsx_blocks_set_script_translations() {
+    // wp_set_script_translations( '4ce22f4e704ba9511fe28284498d5a36', 'bsx-blocks', plugin_dir_path( __FILE__ ) . 'languages' );
+    // wp_set_script_translations( '4ce22f4e704ba9511fe28284498d5a36', 'bsx-blocks', dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+
+    // echo '<script>console.log( "plugin_dir_path( __FILE__ ) . \'languages\': ' . plugin_dir_path( __FILE__ ) . 'languages' . '" );</script>';
+    // echo '<script>console.log( "dirname( plugin_basename( __FILE__ ) ) . \'/languages\': ' . dirname( plugin_basename( __FILE__ ) ) . '/languages' . '" );</script>';
+// }
+// add_action( 'plugins_loaded', 'bsx_blocks_set_script_translations' );
+
+
+
 // init
 include 'src/_init/index.php';
 
