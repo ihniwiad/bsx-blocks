@@ -691,6 +691,37 @@ var marginPaddingSizes = [{
 }, {
   value: '5',
   label: __('extra large', 'bsx-blocks')
+}];
+var states = [{
+  value: 'primary',
+  label: __('Primary', 'bsx-blocks')
+}, {
+  value: 'secondary',
+  label: __('Secondary', 'bsx-blocks')
+}, {
+  value: 'success',
+  label: __('Success', 'bsx-blocks')
+}, {
+  value: 'danger',
+  label: __('Danger', 'bsx-blocks')
+}, {
+  value: 'warning',
+  label: __('Warning', 'bsx-blocks')
+}, {
+  value: 'info',
+  label: __('Info', 'bsx-blocks')
+}, {
+  value: 'light',
+  label: __('Light', 'bsx-blocks')
+}, {
+  value: 'dark',
+  label: __('Dark', 'bsx-blocks')
+}, {
+  value: 'link',
+  label: __('Link Button', 'bsx-blocks')
+}, {
+  value: 'text-link',
+  label: __('Text link', 'bsx-blocks')
 }]; // toggles
 
 var ignoreMailtoSpamProtectionToggle = function ignoreMailtoSpamProtectionToggle(value, onChangeFunction) {
@@ -753,37 +784,7 @@ var stateSelect = function stateSelect(value, onChangeFunction) {
     label: __('State', 'bsx-blocks'),
     value: value,
     onChange: onChangeFunction,
-    options: [{
-      value: 'primary',
-      label: __('Primary', 'bsx-blocks')
-    }, {
-      value: 'secondary',
-      label: __('Secondary', 'bsx-blocks')
-    }, {
-      value: 'success',
-      label: __('Success', 'bsx-blocks')
-    }, {
-      value: 'danger',
-      label: __('Danger', 'bsx-blocks')
-    }, {
-      value: 'warning',
-      label: __('Warning', 'bsx-blocks')
-    }, {
-      value: 'info',
-      label: __('Info', 'bsx-blocks')
-    }, {
-      value: 'light',
-      label: __('Light', 'bsx-blocks')
-    }, {
-      value: 'dark',
-      label: __('Dark', 'bsx-blocks')
-    }, {
-      value: 'link',
-      label: __('Link Button', 'bsx-blocks')
-    }, {
-      value: 'text-link',
-      label: __('Text link', 'bsx-blocks')
-    }]
+    options: states
   });
 };
 var stateTypeSelect = function stateTypeSelect(value, onChangeFunction) {
@@ -4825,6 +4826,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions_img_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../_functions/img.js */ "./src/_functions/img.js");
 /* harmony import */ var _functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../_functions/wp-icons.js */ "./src/_functions/wp-icons.js");
 /* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
+!(function webpackMissingModule() { var e = new Error("Cannot find module './../../_functions/controls.js'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
 
 
 // TODO: get caption or more data from html? (thumb data will not be available from noscript)
@@ -4844,7 +4846,9 @@ var _wp$components = wp.components,
     PanelBody = _wp$components.PanelBody,
     ToggleControl = _wp$components.ToggleControl,
     SVG = _wp$components.SVG,
-    Path = _wp$components.Path;
+    Path = _wp$components.Path; // functions imports
+
+
 
 
 
@@ -5284,61 +5288,7 @@ registerBlockType('bsx-blocks/img-gallery', {
       onChange: onChangeHoverMove
     })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
       title: __('Margin', 'bsx-blocks')
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(SelectControl, {
-      label: __('Margin before', 'bsx-blocks'),
-      value: marginBefore,
-      onChange: onChangeMarginBefore,
-      options: [{
-        value: '',
-        label: __('– unset –', 'bsx-blocks')
-      }, {
-        value: '0',
-        label: __('none (0)', 'bsx-blocks')
-      }, {
-        value: '1',
-        label: __('extra small', 'bsx-blocks')
-      }, {
-        value: '2',
-        label: __('small', 'bsx-blocks')
-      }, {
-        value: '3',
-        label: __('medium', 'bsx-blocks')
-      }, {
-        value: '4',
-        label: __('large', 'bsx-blocks')
-      }, {
-        value: '5',
-        label: __('extra large', 'bsx-blocks')
-      }],
-      help: __('Spacer before element', 'bsx-blocks')
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(SelectControl, {
-      label: __('Margin after', 'bsx-blocks'),
-      value: marginAfter,
-      onChange: onChangeMarginAfter,
-      options: [{
-        value: '',
-        label: __('– unset –', 'bsx-blocks')
-      }, {
-        value: '0',
-        label: __('none (0)', 'bsx-blocks')
-      }, {
-        value: '1',
-        label: __('extra small', 'bsx-blocks')
-      }, {
-        value: '2',
-        label: __('small', 'bsx-blocks')
-      }, {
-        value: '3',
-        label: __('medium', 'bsx-blocks')
-      }, {
-        value: '4',
-        label: __('large', 'bsx-blocks')
-      }, {
-        value: '5',
-        label: __('extra large', 'bsx-blocks')
-      }],
-      help: __('Spacer after element', 'bsx-blocks')
-    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(TagName, {
+    }, !(function webpackMissingModule() { var e = new Error("Cannot find module './../../_functions/controls.js'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())(marginBefore, onChangeMarginBefore), !(function webpackMissingModule() { var e = new Error("Cannot find module './../../_functions/controls.js'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())(marginAfter, onChangeMarginAfter))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(TagName, {
       className: galleryClassName
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
       className: innerClassName
@@ -8356,7 +8306,9 @@ registerBlockType('bsx-blocks/section', {
       }], ['core/paragraph', {
         placeholder: 'Add text...',
         textSize: 'lead'
-      }], ['bsx-blocks/buttons', {}, [['bsx-blocks/button', {
+      }], ['bsx-blocks/buttons', {
+        templateName: 'one-button'
+      }, [['bsx-blocks/button', {
         state: 'dark',
         marginBefore: '1',
         marginAfter: '1',
