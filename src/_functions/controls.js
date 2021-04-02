@@ -33,6 +33,19 @@ const marginPaddingSizes = [
     { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
 ];
 
+const states = [
+    { value: 'primary', label: __( 'Primary', 'bsx-blocks' ) },
+    { value: 'secondary', label: __( 'Secondary', 'bsx-blocks' ) },
+    { value: 'success', label: __( 'Success', 'bsx-blocks' ) },
+    { value: 'danger', label: __( 'Danger', 'bsx-blocks' ) },
+    { value: 'warning', label: __( 'Warning', 'bsx-blocks' ) },
+    { value: 'info', label: __( 'Info', 'bsx-blocks' ) },
+    { value: 'light', label: __( 'Light', 'bsx-blocks' ) },
+    { value: 'dark', label: __( 'Dark', 'bsx-blocks' ) },
+    { value: 'link', label: __( 'Link Button', 'bsx-blocks' ) },
+    { value: 'text-link', label: __( 'Text link', 'bsx-blocks' ) },
+];
+
 
 // toggles
 
@@ -124,18 +137,7 @@ export const stateSelect = ( value, onChangeFunction ) => {
             label={ __( 'State', 'bsx-blocks' ) }
             value={ value }
             onChange={ onChangeFunction }
-            options={ [
-                { value: 'primary', label: __( 'Primary', 'bsx-blocks' ) },
-                { value: 'secondary', label: __( 'Secondary', 'bsx-blocks' ) },
-                { value: 'success', label: __( 'Success', 'bsx-blocks' ) },
-                { value: 'danger', label: __( 'Danger', 'bsx-blocks' ) },
-                { value: 'warning', label: __( 'Warning', 'bsx-blocks' ) },
-                { value: 'info', label: __( 'Info', 'bsx-blocks' ) },
-                { value: 'light', label: __( 'Light', 'bsx-blocks' ) },
-                { value: 'dark', label: __( 'Dark', 'bsx-blocks' ) },
-                { value: 'link', label: __( 'Link Button', 'bsx-blocks' ) },
-                { value: 'text-link', label: __( 'Text link', 'bsx-blocks' ) },
-            ] }
+            options={ states }
         />
     )
 }
