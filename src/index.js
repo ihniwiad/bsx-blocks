@@ -7,5 +7,6 @@ import './img-gallery/block.js';
 import './lazy-img/block.js';
 import './row-with-cols/index.js';
 import './section/block.js';
+import './slider/block.js';
 import './wrapper/block.js';
 
