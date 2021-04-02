@@ -202,7 +202,9 @@ registerBlockType( 'bsx-blocks/section', {
                                     ],
                                     [
                                         'bsx-blocks/buttons',
-                                        {},
+                                        {
+                                            templateName: 'one-button',
+                                        },
                                         [
                                             [
                                                 'bsx-blocks/button',
