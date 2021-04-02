@@ -4826,7 +4826,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions_img_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../_functions/img.js */ "./src/_functions/img.js");
 /* harmony import */ var _functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../_functions/wp-icons.js */ "./src/_functions/wp-icons.js");
 /* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
-!(function webpackMissingModule() { var e = new Error("Cannot find module './../../_functions/controls.js'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+/* harmony import */ var _functions_controls_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../_functions/controls.js */ "./src/_functions/controls.js");
 
 
 // TODO: get caption or more data from html? (thumb data will not be available from noscript)
@@ -5288,7 +5288,7 @@ registerBlockType('bsx-blocks/img-gallery', {
       onChange: onChangeHoverMove
     })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
       title: __('Margin', 'bsx-blocks')
-    }, !(function webpackMissingModule() { var e = new Error("Cannot find module './../../_functions/controls.js'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())(marginBefore, onChangeMarginBefore), !(function webpackMissingModule() { var e = new Error("Cannot find module './../../_functions/controls.js'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())(marginAfter, onChangeMarginAfter))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(TagName, {
+    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_5__["marginBeforeSelect"])(marginBefore, onChangeMarginBefore), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_5__["marginAfterSelect"])(marginAfter, onChangeMarginAfter))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(TagName, {
       className: galleryClassName
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
       className: innerClassName

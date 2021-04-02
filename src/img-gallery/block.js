@@ -32,7 +32,7 @@ import { addClassNames } from './../_functions/add-class-names.js';
 import { 
     marginBeforeSelect,
     marginAfterSelect,
-} from './../../_functions/controls.js';
+} from './../_functions/controls.js';
 
 
 const makeClassName = ( attributes ) => {
