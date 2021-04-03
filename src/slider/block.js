@@ -525,7 +525,7 @@ registerBlockType( 'bsx-blocks/slider', {
             marginAfter, 
         }, sliderWrapperClassName );
 
-        const sliderClassName = 'owl-carousel owl-theme outer-nav nav-radius-sm-up';
+        const sliderClassName = 'owl-carousel owl-theme outer-nav nav-lg';
 
         let imgClassName = 'owl-lazy img-fluid';
         imgClassName = addClassNames( {
@@ -544,10 +544,10 @@ registerBlockType( 'bsx-blocks/slider', {
 
         const prevLabel = __( 'Prev', 'bsx-blocks' );
         const nextLabel = __( 'Next', 'bsx-blocks' );
-        const prevHtml = '<i class="fa fa-arrow-left" aria-label="' + prevLabel + '"></i>';
-        const nextHtml = '<i class="fa fa-arrow-right" aria-label="' + nextLabel + '"></i>';
+        const prevHtml = '<i class="fa fa-chevron-left" aria-label="' + prevLabel + '"></i>';
+        const nextHtml = '<i class="fa fa-chevron-right" aria-label="' + nextLabel + '"></i>';
 
-        const options = "{ lazyLoad: true, responsive: { 0: { items: 1 } }, margin: 0, encodeUriNavText: [ '" + encodeURI( prevHtml ) + "', '" + encodeURI( nextHtml ) + "' ] }";
+        const options = "{ lazyLoad: true, responsive: { 0: { items: 1 } }, margin: 0, encodeUriNavText: [ '" + encodeURI( prevHtml ) + "', '" + encodeURI( nextHtml ) + "' ], navClass: [ 'btn btn-link is-prev', 'btn btn-link is-next' ] }";
         // makeBase64PreloadImgSrc( item.imgWidth, item.imgHeight )
 
         return (

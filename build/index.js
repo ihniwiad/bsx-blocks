@@ -9036,7 +9036,7 @@ registerBlockType('bsx-blocks/slider', {
       marginBefore: marginBefore,
       marginAfter: marginAfter
     }, sliderWrapperClassName);
-    var sliderClassName = 'owl-carousel owl-theme outer-nav nav-radius-sm-up';
+    var sliderClassName = 'owl-carousel owl-theme outer-nav nav-lg';
     var imgClassName = 'owl-lazy img-fluid';
     imgClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_6__["addClassNames"])({
       rounded: rounded,
@@ -9053,9 +9053,9 @@ registerBlockType('bsx-blocks/slider', {
 
     var nextLabel = __('Next', 'bsx-blocks');
 
-    var prevHtml = '<i class="fa fa-arrow-left" aria-label="' + prevLabel + '"></i>';
-    var nextHtml = '<i class="fa fa-arrow-right" aria-label="' + nextLabel + '"></i>';
-    var options = "{ lazyLoad: true, responsive: { 0: { items: 1 } }, margin: 0, encodeUriNavText: [ '" + encodeURI(prevHtml) + "', '" + encodeURI(nextHtml) + "' ] }"; // makeBase64PreloadImgSrc( item.imgWidth, item.imgHeight )
+    var prevHtml = '<i class="fa fa-chevron-left" aria-label="' + prevLabel + '"></i>';
+    var nextHtml = '<i class="fa fa-chevron-right" aria-label="' + nextLabel + '"></i>';
+    var options = "{ lazyLoad: true, responsive: { 0: { items: 1 } }, margin: 0, encodeUriNavText: [ '" + encodeURI(prevHtml) + "', '" + encodeURI(nextHtml) + "' ], navClass: [ 'btn btn-link is-prev', 'btn btn-link is-next' ] }"; // makeBase64PreloadImgSrc( item.imgWidth, item.imgHeight )
 
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(TagName, {
       className: sliderWrapperClassName

@@ -21,3 +21,11 @@ msgstr "BSX Bildergalerie"
 #: src/buttons/button/block.js:275
 msgid "Open in new tab"
 msgstr "In neuem Tab öffnen"
+
+#: src/slider/block.js:545
+msgid "Prev"
+msgstr "Zurück"
+
+#: src/slider/block.js:545
+msgid "Next"
+msgstr "Weiter"
