@@ -62,10 +62,10 @@ registerBlockType( 'bsx-blocks/slider', {
             type: 'string',
             default: 'columns',
         },
-        imgList: { // TODO: later
-            type: 'array',
-            default: [],
-        },
+        // imgList: { // TODO: maybe do later?
+        //     type: 'array',
+        //     default: [],
+        // },
         itemData: {
             type: 'array',
             source: 'query',
@@ -195,7 +195,7 @@ registerBlockType( 'bsx-blocks/slider', {
             }
         } );
 
-        // update all `item` at position `index`
+        // update itemData all `item` at position `index`
         const updateItemDataItem = ( index, newItem ) => {
             const newItemData = [
                 ...itemData.slice( 0, index ),
@@ -205,18 +205,35 @@ registerBlockType( 'bsx-blocks/slider', {
             setAttributes( { itemData: newItemData } );
         }
 
-        // update single `value` for `key` at position `index`
+        // update itemData single `value` for `key` at position `index`
         const updateItemDataValue = ( index, key, value ) => {
             let newItem = itemData[ index ];
             newItem[ key ] = value;
             updateItemDataItem( index, newItem );
         }
 
+        // // update imgList all `item` at position `index`
+        // const updateImgListItem = ( index, newItem ) => {
+        //     const newImgList = [
+        //         ...imgList.slice( 0, index ),
+        //         newItem,
+        //         ...imgList.slice( index + 1 )
+        //     ];
+        //     setAttributes( { imgList: newImgList } );
+        // }
+
+        // // update imgList single `value` for `key` at position `index`
+        // const updateImgListValue = ( index, key, value ) => {
+        //     let newItem = imgList[ index ];
+        //     newItem[ key ] = value;
+        //     updateImgListItem( index, newItem );
+        // }
+
         const onChangeSliderType = ( value ) => {
             setAttributes( { sliderType: value } );
         }
 
-        const onChangeImg = ( img, index ) => {
+        const onChangeImg = ( index, img ) => {
             updateItemDataItem( index, { 
                 imgId: img.id,
                 imgUrl: img.sizes.thumbnail.url,
@@ -227,67 +244,35 @@ registerBlockType( 'bsx-blocks/slider', {
                 footerText_1: itemData[ index ].footerText_1,
                 footerText_2: itemData[ index ].footerText_2,
             } );
+            // updateImgListItem( index, { 
+            //     imgId: img.id,
+            //     imgUrl: img.sizes.thumbnail.url,
+            //     imgWidth: img.sizes.thumbnail.width,
+            //     imgHeight: img.sizes.thumbnail.height,
+            //     imgAlt: img.alt,
+            // } );
         };
 
         const onChangeAlt = ( index, value ) => {
             updateItemDataValue( index, 'imgAlt', value );
-            // updateItemDataItem( index, { 
-            //     imgId: itemData[ index ].imgId,
-            //     imgUrl: itemData[ index ].imgUrl,
-            //     imgWidth: itemData[ index ].imgWidth,
-            //     imgHeight: itemData[ index ].imgHeight,
-            //     imgAlt: value,
-            //     text: itemData[ index ].text,
-            //     footerText_1: itemData[ index ].footerText_1,
-            //     footerText_2: itemData[ index ].footerText_2,
-            // } );
+            // updateImgListValue( index, 'imgAlt', value );
         }
 
         const onChangeText = ( index, value ) => {
             updateItemDataValue( index, 'text', value );
-            // updateItemDataItem( index, { 
-            //     imgId: itemData[ index ].imgId,
-            //     imgUrl: itemData[ index ].imgUrl,
-            //     imgWidth: itemData[ index ].imgWidth,
-            //     imgHeight: itemData[ index ].imgHeight,
-            //     imgAlt: itemData[ index ].imgAlt,
-            //     text: value,
-            //     footerText_1: itemData[ index ].footerText_1,
-            //     footerText_2: itemData[ index ].footerText_2,
-            // } );
         }
         const onChangeFooterText_1 = ( index, value ) => {
             updateItemDataValue( index, 'footerText_1', value );
-            // updateItemDataItem( index, { 
-            //     imgId: itemData[ index ].imgId,
-            //     imgUrl: itemData[ index ].imgUrl,
-            //     imgWidth: itemData[ index ].imgWidth,
-            //     imgHeight: itemData[ index ].imgHeight,
-            //     imgAlt: itemData[ index ].imgAlt,
-            //     text: itemData[ index ].text,
-            //     footerText_1: value,
-            //     footerText_2: itemData[ index ].footerText_2,
-            // } );
         }
         const onChangeFooterText_2 = ( index, value ) => {
             updateItemDataValue( index, 'footerText_2', value );
-            // updateItemDataItem( index, { 
-            //     imgId: itemData[ index ].imgId,
-            //     imgUrl: itemData[ index ].imgUrl,
-            //     imgWidth: itemData[ index ].imgWidth,
-            //     imgHeight: itemData[ index ].imgHeight,
-            //     imgAlt: itemData[ index ].imgAlt,
-            //     text: itemData[ index ].text,
-            //     footerText_1: itemData[ index ].footerText_1,
-            //     footerText_2: value,
-            // } );
         }
 
         const onAddItem = () => { 
             setAttributes( { itemData: [ ...itemData, {} ] } );
         }
 
-        const deleteMediaListItem = ( index ) => {
+        const deleteItemDataItem = ( index ) => {
             const newMediaList = [
                 ...itemData.slice( 0, index ),
                 ...itemData.slice( index + 1 )
@@ -311,7 +296,7 @@ registerBlockType( 'bsx-blocks/slider', {
         const onClickDelete = ( index ) => {
             const response = confirm( __( 'Delete item' ) + ' ' + ( index + 1) + '?' );
             if ( response == true ) {
-                deleteMediaListItem( index );
+                deleteItemDataItem( index );
             }
             else {
                 // do nothing
@@ -468,7 +453,7 @@ registerBlockType( 'bsx-blocks/slider', {
                                                                 (
                                                                     <Button className="button button-large bsxui-w-100" onClick={ open }>
                                                                         { __( 'Add Image', 'bsx-blocks' ) }
-                                                                    </Button> 
+                                                                    </Button>
                                                                 )
                                                             }
                                                         </>

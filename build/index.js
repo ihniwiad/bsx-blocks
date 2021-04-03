@@ -8585,11 +8585,10 @@ registerBlockType('bsx-blocks/slider', {
       type: 'string',
       default: 'columns'
     },
-    imgList: {
-      // TODO: later
-      type: 'array',
-      default: []
-    },
+    // imgList: { // TODO: maybe do later?
+    //     type: 'array',
+    //     default: [],
+    // },
     itemData: {
       type: 'array',
       source: 'query',
@@ -8718,21 +8717,36 @@ registerBlockType('bsx-blocks/slider', {
         // }
         console.log('----- key: "' + key + '", val: "' + value + '"');
       }
-    }); // update all `item` at position `index`
+    }); // update itemData all `item` at position `index`
 
     var updateItemDataItem = function updateItemDataItem(index, newItem) {
       var newItemData = [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(itemData.slice(0, index)), [newItem], _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(itemData.slice(index + 1)));
       setAttributes({
         itemData: newItemData
       });
-    }; // update single `value` for `key` at position `index`
+    }; // update itemData single `value` for `key` at position `index`
 
 
     var updateItemDataValue = function updateItemDataValue(index, key, value) {
       var newItem = itemData[index];
       newItem[key] = value;
       updateItemDataItem(index, newItem);
-    };
+    }; // // update imgList all `item` at position `index`
+    // const updateImgListItem = ( index, newItem ) => {
+    //     const newImgList = [
+    //         ...imgList.slice( 0, index ),
+    //         newItem,
+    //         ...imgList.slice( index + 1 )
+    //     ];
+    //     setAttributes( { imgList: newImgList } );
+    // }
+    // // update imgList single `value` for `key` at position `index`
+    // const updateImgListValue = ( index, key, value ) => {
+    //     let newItem = imgList[ index ];
+    //     newItem[ key ] = value;
+    //     updateImgListItem( index, newItem );
+    // }
+
 
     var onChangeSliderType = function onChangeSliderType(value) {
       setAttributes({
@@ -8740,7 +8754,7 @@ registerBlockType('bsx-blocks/slider', {
       });
     };
 
-    var onChangeImg = function onChangeImg(img, index) {
+    var onChangeImg = function onChangeImg(index, img) {
       updateItemDataItem(index, {
         imgId: img.id,
         imgUrl: img.sizes.thumbnail.url,
@@ -8750,59 +8764,29 @@ registerBlockType('bsx-blocks/slider', {
         text: itemData[index].text,
         footerText_1: itemData[index].footerText_1,
         footerText_2: itemData[index].footerText_2
-      });
+      }); // updateImgListItem( index, { 
+      //     imgId: img.id,
+      //     imgUrl: img.sizes.thumbnail.url,
+      //     imgWidth: img.sizes.thumbnail.width,
+      //     imgHeight: img.sizes.thumbnail.height,
+      //     imgAlt: img.alt,
+      // } );
     };
 
     var onChangeAlt = function onChangeAlt(index, value) {
-      updateItemDataValue(index, 'imgAlt', value); // updateItemDataItem( index, { 
-      //     imgId: itemData[ index ].imgId,
-      //     imgUrl: itemData[ index ].imgUrl,
-      //     imgWidth: itemData[ index ].imgWidth,
-      //     imgHeight: itemData[ index ].imgHeight,
-      //     imgAlt: value,
-      //     text: itemData[ index ].text,
-      //     footerText_1: itemData[ index ].footerText_1,
-      //     footerText_2: itemData[ index ].footerText_2,
-      // } );
+      updateItemDataValue(index, 'imgAlt', value); // updateImgListValue( index, 'imgAlt', value );
     };
 
     var onChangeText = function onChangeText(index, value) {
-      updateItemDataValue(index, 'text', value); // updateItemDataItem( index, { 
-      //     imgId: itemData[ index ].imgId,
-      //     imgUrl: itemData[ index ].imgUrl,
-      //     imgWidth: itemData[ index ].imgWidth,
-      //     imgHeight: itemData[ index ].imgHeight,
-      //     imgAlt: itemData[ index ].imgAlt,
-      //     text: value,
-      //     footerText_1: itemData[ index ].footerText_1,
-      //     footerText_2: itemData[ index ].footerText_2,
-      // } );
+      updateItemDataValue(index, 'text', value);
     };
 
     var onChangeFooterText_1 = function onChangeFooterText_1(index, value) {
-      updateItemDataValue(index, 'footerText_1', value); // updateItemDataItem( index, { 
-      //     imgId: itemData[ index ].imgId,
-      //     imgUrl: itemData[ index ].imgUrl,
-      //     imgWidth: itemData[ index ].imgWidth,
-      //     imgHeight: itemData[ index ].imgHeight,
-      //     imgAlt: itemData[ index ].imgAlt,
-      //     text: itemData[ index ].text,
-      //     footerText_1: value,
-      //     footerText_2: itemData[ index ].footerText_2,
-      // } );
+      updateItemDataValue(index, 'footerText_1', value);
     };
 
     var onChangeFooterText_2 = function onChangeFooterText_2(index, value) {
-      updateItemDataValue(index, 'footerText_2', value); // updateItemDataItem( index, { 
-      //     imgId: itemData[ index ].imgId,
-      //     imgUrl: itemData[ index ].imgUrl,
-      //     imgWidth: itemData[ index ].imgWidth,
-      //     imgHeight: itemData[ index ].imgHeight,
-      //     imgAlt: itemData[ index ].imgAlt,
-      //     text: itemData[ index ].text,
-      //     footerText_1: itemData[ index ].footerText_1,
-      //     footerText_2: value,
-      // } );
+      updateItemDataValue(index, 'footerText_2', value);
     };
 
     var onAddItem = function onAddItem() {
@@ -8811,7 +8795,7 @@ registerBlockType('bsx-blocks/slider', {
       });
     };
 
-    var deleteMediaListItem = function deleteMediaListItem(index) {
+    var deleteItemDataItem = function deleteItemDataItem(index) {
       var newMediaList = [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(itemData.slice(0, index)), _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(itemData.slice(index + 1)));
       setAttributes({
         itemData: newMediaList
@@ -8830,7 +8814,7 @@ registerBlockType('bsx-blocks/slider', {
       var response = confirm(__('Delete item') + ' ' + (index + 1) + '?');
 
       if (response == true) {
-        deleteMediaListItem(index);
+        deleteItemDataItem(index);
       } else {// do nothing
       }
     };
