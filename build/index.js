@@ -5075,7 +5075,12 @@ registerBlockType('bsx-blocks/img-gallery', {
     };
 
     var onClickDelete = function onClickDelete(index) {
-      deleteMediaListItem(index);
+      var response = confirm(__('Delete item') + ' ' + (index + 1) + '?');
+
+      if (response == true) {
+        deleteMediaListItem(index);
+      } else {// do nothing
+      }
     };
 
     var onClickMoveUp = function onClickMoveUp(index) {
@@ -8648,6 +8653,12 @@ registerBlockType('bsx-blocks/slider', {
       },
       default: []
     },
+    prevText: {
+      type: 'string'
+    },
+    nextText: {
+      type: 'string'
+    },
     rounded: {
       type: 'string',
       default: 'circle'
@@ -8672,6 +8683,8 @@ registerBlockType('bsx-blocks/slider', {
         _props$attributes = props.attributes,
         sliderType = _props$attributes.sliderType,
         itemData = _props$attributes.itemData,
+        prevText = _props$attributes.prevText,
+        nextText = _props$attributes.nextText,
         rounded = _props$attributes.rounded,
         imgThumbnail = _props$attributes.imgThumbnail,
         borderState = _props$attributes.borderState,
@@ -8812,7 +8825,12 @@ registerBlockType('bsx-blocks/slider', {
     };
 
     var onClickDelete = function onClickDelete(index) {
-      deleteMediaListItem(index);
+      var response = confirm(__('Delete item') + ' ' + (index + 1) + '?');
+
+      if (response == true) {
+        deleteMediaListItem(index);
+      } else {// do nothing
+      }
     };
 
     var onClickMoveUp = function onClickMoveUp(index) {
@@ -8823,6 +8841,18 @@ registerBlockType('bsx-blocks/slider', {
     var onClickMoveDown = function onClickMoveDown(index) {
       var newIndex = index < itemData.length - 1 ? index + 1 : 0;
       itemDataItemMoveTo(index, newIndex);
+    };
+
+    var onChangePrevText = function onChangePrevText(value) {
+      setAttributes({
+        prevText: value
+      });
+    };
+
+    var onChangeNextText = function onChangeNextText(value) {
+      setAttributes({
+        nextText: value
+      });
     };
 
     var onChangeRounded = function onChangeRounded(value) {
@@ -8885,6 +8915,14 @@ registerBlockType('bsx-blocks/slider', {
         value: 'citation',
         label: __('Citation', 'bsx-blocks')
       }]
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(TextControl, {
+      label: __('Prev button text', 'bsx-blocks'),
+      value: prevText,
+      onChange: onChangePrevText
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(TextControl, {
+      label: __('Next button text', 'bsx-blocks'),
+      value: nextText,
+      onChange: onChangeNextText
     })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(PanelBody, {
       title: __('Image appearance', 'bsx-blocks')
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(ToggleControl, {
@@ -9023,6 +9061,8 @@ registerBlockType('bsx-blocks/slider', {
         _props$attributes2 = props.attributes,
         sliderType = _props$attributes2.sliderType,
         itemData = _props$attributes2.itemData,
+        prevText = _props$attributes2.prevText,
+        nextText = _props$attributes2.nextText,
         rounded = _props$attributes2.rounded,
         imgThumbnail = _props$attributes2.imgThumbnail,
         borderState = _props$attributes2.borderState,
@@ -9048,11 +9088,8 @@ registerBlockType('bsx-blocks/slider', {
     var footer1ClassName = 'font-weight-bold text-uppercase';
     var footer2ClassName = '';
     var TagName = 'div';
-
-    var prevLabel = __('Prev', 'bsx-blocks');
-
-    var nextLabel = __('Next', 'bsx-blocks');
-
+    var prevLabel = !!prevText ? prevText : __('Prev', 'bsx-blocks');
+    var nextLabel = !!nextText ? nextText : __('Next', 'bsx-blocks');
     var prevHtml = '<i class="fa fa-chevron-left" aria-label="' + prevLabel + '"></i>';
     var nextHtml = '<i class="fa fa-chevron-right" aria-label="' + nextLabel + '"></i>';
     var options = "{ lazyLoad: true, responsive: { 0: { items: 1 } }, margin: 0, encodeUriNavText: [ '" + encodeURI(prevHtml) + "', '" + encodeURI(nextHtml) + "' ], navClass: [ 'btn btn-link is-prev', 'btn btn-link is-next' ] }"; // makeBase64PreloadImgSrc( item.imgWidth, item.imgHeight )

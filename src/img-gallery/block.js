@@ -292,7 +292,13 @@ registerBlockType( 'bsx-blocks/img-gallery', {
         };
 
         const onClickDelete = ( index ) => {
-            deleteMediaListItem( index );
+            const response = confirm( __( 'Delete item' ) + ' ' + ( index + 1) + '?' );
+            if ( response == true ) {
+                deleteMediaListItem( index );
+            }
+            else {
+                // do nothing
+            }
         };
 
         const onClickMoveUp = ( index ) => {

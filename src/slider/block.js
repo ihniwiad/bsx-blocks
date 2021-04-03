@@ -131,6 +131,12 @@ registerBlockType( 'bsx-blocks/slider', {
             },
             default: [],
         },
+        prevText: {
+            type: 'string',
+        },
+        nextText: {
+            type: 'string',
+        },
         rounded: {
             type: 'string',
             default: 'circle',
@@ -156,6 +162,8 @@ registerBlockType( 'bsx-blocks/slider', {
             attributes: {
                 sliderType,
                 itemData,
+                prevText,
+                nextText,
                 rounded,
                 imgThumbnail,
                 borderState,
@@ -301,7 +309,13 @@ registerBlockType( 'bsx-blocks/slider', {
         }
 
         const onClickDelete = ( index ) => {
-            deleteMediaListItem( index );
+            const response = confirm( __( 'Delete item' ) + ' ' + ( index + 1) + '?' );
+            if ( response == true ) {
+                deleteMediaListItem( index );
+            }
+            else {
+                // do nothing
+            }
         };
         const onClickMoveUp = ( index ) => {
             const newIndex = index > 0 ? index - 1 : itemData.length - 1;
@@ -310,6 +324,13 @@ registerBlockType( 'bsx-blocks/slider', {
         const onClickMoveDown = ( index ) => {
             const newIndex = index < itemData.length - 1 ? index + 1 : 0;
             itemDataItemMoveTo( index, newIndex );
+        };
+
+        const onChangePrevText = ( value ) => {
+            setAttributes( { prevText: value } );
+        };
+        const onChangeNextText = ( value ) => {
+            setAttributes( { nextText: value } );
         };
 
         const onChangeRounded = ( value ) => {
@@ -367,6 +388,16 @@ registerBlockType( 'bsx-blocks/slider', {
                         options={ [
                             { value: 'citation', label: __( 'Citation', 'bsx-blocks' ) },
                         ] }
+                    />
+                    <TextControl 
+                        label={ __( 'Prev button text', 'bsx-blocks' ) }
+                        value={ prevText } 
+                        onChange={ onChangePrevText }
+                    />
+                    <TextControl 
+                        label={ __( 'Next button text', 'bsx-blocks' ) }
+                        value={ nextText } 
+                        onChange={ onChangeNextText }
                     />
                 </PanelBody>
 
@@ -507,6 +538,8 @@ registerBlockType( 'bsx-blocks/slider', {
             attributes: {
                 sliderType,
                 itemData,
+                prevText,
+                nextText,
                 rounded,
                 imgThumbnail,
                 borderState,
@@ -542,8 +575,8 @@ registerBlockType( 'bsx-blocks/slider', {
 
         const TagName = 'div';
 
-        const prevLabel = __( 'Prev', 'bsx-blocks' );
-        const nextLabel = __( 'Next', 'bsx-blocks' );
+        const prevLabel = !! prevText ? prevText : __( 'Prev', 'bsx-blocks' );
+        const nextLabel = !! nextText ? nextText : __( 'Next', 'bsx-blocks' );
         const prevHtml = '<i class="fa fa-chevron-left" aria-label="' + prevLabel + '"></i>';
         const nextHtml = '<i class="fa fa-chevron-right" aria-label="' + nextLabel + '"></i>';
 
