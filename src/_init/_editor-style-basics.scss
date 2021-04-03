@@ -1,6 +1,13 @@
 // editor style basics
 
 
+// display
+
+.bsxui-d-flex {
+	display: flex;
+}
+
+
 // margin
 
 .bsxui-mt-3 {
@@ -30,6 +37,22 @@
 }
 .bsxui-p-0 {
 	padding: 0 !important;
+}
+.bsxui-pt-0 {
+	padding-top: 0 !important;
+}
+.bsxui-pb-0 {
+	padding-bottom: 0 !important;
+}
+
+
+// border
+
+.bsxui-bt-0 {
+	border-top: 0 !important;
+}
+.bsxui-bb-0 {
+	border-bottom: 0 !important;
 }
 
 

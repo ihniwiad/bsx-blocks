@@ -229,7 +229,7 @@ registerBlockType( 'bsx-blocks/slider', {
             } );
         };
 
-        const onChangeAlt = ( value, index ) => {
+        const onChangeAlt = ( index, value ) => {
             updateItemDataValue( index, 'imgAlt', value );
             // updateItemDataItem( index, { 
             //     imgId: itemData[ index ].imgId,
@@ -243,7 +243,7 @@ registerBlockType( 'bsx-blocks/slider', {
             // } );
         }
 
-        const onChangeText = ( value, index ) => {
+        const onChangeText = ( index, value ) => {
             updateItemDataValue( index, 'text', value );
             // updateItemDataItem( index, { 
             //     imgId: itemData[ index ].imgId,
@@ -256,7 +256,7 @@ registerBlockType( 'bsx-blocks/slider', {
             //     footerText_2: itemData[ index ].footerText_2,
             // } );
         }
-        const onChangeFooterText_1 = ( value, index ) => {
+        const onChangeFooterText_1 = ( index, value ) => {
             updateItemDataValue( index, 'footerText_1', value );
             // updateItemDataItem( index, { 
             //     imgId: itemData[ index ].imgId,
@@ -269,7 +269,7 @@ registerBlockType( 'bsx-blocks/slider', {
             //     footerText_2: itemData[ index ].footerText_2,
             // } );
         }
-        const onChangeFooterText_2 = ( value, index ) => {
+        const onChangeFooterText_2 = ( index, value ) => {
             updateItemDataValue( index, 'footerText_2', value );
             // updateItemDataItem( index, { 
             //     imgId: itemData[ index ].imgId,
@@ -453,16 +453,35 @@ registerBlockType( 'bsx-blocks/slider', {
                                             <figure>
                                                 <MediaUpload
                                                     key={ index }
-                                                    onSelect={ ( value ) => onChangeImg( value, index ) }
+                                                    onSelect={ ( value ) => onChangeImg( index, value ) }
                                                     allowedTypes="image"
                                                     value={ item.id }
                                                     render={ ( { open } ) => (
-                                                        <Button className="bsxui-h-auto bsxui-w-100 bsxui-p-0 bsxui-va-middle" onClick={ open }>
-                                                            <img className={ imgClassName } src={ item.imgUrl } alt={ __( 'Change/upload Image', 'bsx-blocks' ) } />
-                                                        </Button>
+                                                        <>
+                                                            {
+                                                                item.imgUrl ? (
+                                                                    <Button className="bsxui-h-auto bsxui-w-100 bsxui-p-0 bsxui-va-middle" onClick={ open }>
+                                                                        <img className={ imgClassName } src={ item.imgUrl } alt={ __( 'Change/upload Image', 'bsx-blocks' ) } />
+                                                                    </Button>
+                                                                )
+                                                                :
+                                                                (
+                                                                    <Button className="button button-large bsxui-w-100" onClick={ open }>
+                                                                        { __( 'Add Image', 'bsx-blocks' ) }
+                                                                    </Button> 
+                                                                )
+                                                            }
+                                                        </>
                                                     ) }
                                                 />
                                             </figure>
+                                            <div class="bsxui-inline-control">
+                                                <TextControl 
+                                                    label={ __( 'Alt text', 'bsx-blocks' ) }
+                                                    value={ item.imgAlt } 
+                                                    onChange={ ( value ) => { onChangeAlt( index, value ) } }
+                                                />
+                                            </div>
                                         </div>
                                     </div>
 
@@ -473,7 +492,7 @@ registerBlockType( 'bsx-blocks/slider', {
                                             multiline={ false }
                                             placeholder={ __( 'Insert text here...', 'bsx-blocks' ) }
                                             value={ item.text }
-                                            onChange={ ( value ) => { onChangeText( value, index ) } }
+                                            onChange={ ( value ) => { onChangeText( index, value ) } }
                                         />
                                         <RichText
                                             tagName="div"
@@ -481,7 +500,7 @@ registerBlockType( 'bsx-blocks/slider', {
                                             multiline={ false }
                                             placeholder={ __( 'Insert footer text 1 here...', 'bsx-blocks' ) }
                                             value={ item.footerText_1 }
-                                            onChange={ ( value ) => { onChangeFooterText_1( value, index ) } }
+                                            onChange={ ( value ) => { onChangeFooterText_1( index, value ) } }
                                         />
                                         <RichText
                                             tagName="div"
@@ -489,32 +508,34 @@ registerBlockType( 'bsx-blocks/slider', {
                                             multiline={ false }
                                             placeholder={ __( 'Insert footer text 2 here...', 'bsx-blocks' ) }
                                             value={ item.footerText_2 }
-                                            onChange={ ( value ) => { onChangeFooterText_2( value, index ) } }
+                                            onChange={ ( value ) => { onChangeFooterText_2( index, value ) } }
                                         />
                                     </div>
 
-                                    <div className="d-flex">
-                                        <Button 
-                                            className="button bsxui-icon-button" 
-                                            onClick={ () => { onClickMoveUp( index ) } }
-                                            label={ __( 'Move backward', 'bsx-blocks' ) }
-                                        >
-                                            { svgIcon( 'carret-left' ) }
-                                        </Button>
-                                        <Button 
-                                            className="button bsxui-icon-button" 
-                                            onClick={ () => { onClickMoveDown( index ) } }
-                                            label={ __( 'Move forward', 'bsx-blocks' ) }
-                                        >
-                                            { svgIcon( 'carret-right' ) }
-                                        </Button>
-                                        <Button 
-                                            className="button bsxui-icon-button bsxui-text-danger bsxui-border-danger bsxui-ml-auto"
-                                            onClick={ () => { onClickDelete( index ) } }
-                                            label={ __( 'Remove Item', 'bsx-blocks' ) }
-                                        >
-                                            { svgIcon( 'trash' ) }
-                                        </Button>
+                                    <div class="bsxui-inline-control bsxui-mb-3">
+                                        <div className="bsxui-d-flex">
+                                            <Button 
+                                                className="button bsxui-icon-button" 
+                                                onClick={ () => { onClickMoveUp( index ) } }
+                                                label={ __( 'Move backward', 'bsx-blocks' ) }
+                                            >
+                                                { svgIcon( 'carret-left' ) }
+                                            </Button>
+                                            <Button 
+                                                className="button bsxui-icon-button" 
+                                                onClick={ () => { onClickMoveDown( index ) } }
+                                                label={ __( 'Move forward', 'bsx-blocks' ) }
+                                            >
+                                                { svgIcon( 'carret-right' ) }
+                                            </Button>
+                                            <Button 
+                                                className="button bsxui-icon-button bsxui-text-danger bsxui-border-danger bsxui-ml-auto"
+                                                onClick={ () => { onClickDelete( index ) } }
+                                                label={ __( 'Remove Item', 'bsx-blocks' ) }
+                                            >
+                                                { svgIcon( 'trash' ) }
+                                            </Button>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -523,7 +544,7 @@ registerBlockType( 'bsx-blocks/slider', {
 
                     </div>
 
-                    <div className="">
+                    <div className="bsxui-inline-control">
                         <Button className="button button-large bsxui-w-100" onClick={ onAddItem }>
                             { __( 'Add item', 'bsx-blocks' ) }
                         </Button>

@@ -165,6 +165,20 @@ a.bsxui-link {
 	padding: $bsxui-initial-inline-control-heading-padding;
 }
 
+// permanent inline control
+
+.bsxui-inline-control {
+	// background-color: $bsxui-placeholder-bg-color;
+	width: 100%;
+	border: 1px dashed $bsxui-hover-active-color;
+	padding: .25rem;
+	text-align: left;
+
+	*:not[class^="bsxui-"] {
+		margin-bottom: 0;
+	}
+}
+
 // icon text button list
 
 .bsxui-icon-text-button-list {

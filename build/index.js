@@ -4929,7 +4929,7 @@ var makeImgClassName = function makeImgClassName(attributes) {
 
 var makeUploadElementClassName = function makeUploadElementClassName(attributes) {
   var galleryType = attributes.galleryType;
-  var classNames = [];
+  var classNames = ['bsxui-inline-control'];
 
   if (!!galleryType) {
     if (galleryType == 'floating') {
@@ -5329,7 +5329,9 @@ registerBlockType('bsx-blocks/img-gallery', {
           onChangeCaption(value, index);
         }
       })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
-        className: "d-flex"
+        class: "bsxui-inline-control"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+        className: "bsxui-d-flex"
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
         className: "button bsxui-icon-button",
         onClick: function onClick() {
@@ -5348,7 +5350,7 @@ registerBlockType('bsx-blocks/img-gallery', {
           onClickDelete(index);
         },
         label: __('Remove Image', 'bsx-blocks')
-      }, Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_3__["svgIcon"])('trash'))));
+      }, Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_3__["svgIcon"])('trash')))));
     })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
       className: uploadElementClassName
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(MediaUpload, {
@@ -8751,7 +8753,7 @@ registerBlockType('bsx-blocks/slider', {
       });
     };
 
-    var onChangeAlt = function onChangeAlt(value, index) {
+    var onChangeAlt = function onChangeAlt(index, value) {
       updateItemDataValue(index, 'imgAlt', value); // updateItemDataItem( index, { 
       //     imgId: itemData[ index ].imgId,
       //     imgUrl: itemData[ index ].imgUrl,
@@ -8764,7 +8766,7 @@ registerBlockType('bsx-blocks/slider', {
       // } );
     };
 
-    var onChangeText = function onChangeText(value, index) {
+    var onChangeText = function onChangeText(index, value) {
       updateItemDataValue(index, 'text', value); // updateItemDataItem( index, { 
       //     imgId: itemData[ index ].imgId,
       //     imgUrl: itemData[ index ].imgUrl,
@@ -8777,7 +8779,7 @@ registerBlockType('bsx-blocks/slider', {
       // } );
     };
 
-    var onChangeFooterText_1 = function onChangeFooterText_1(value, index) {
+    var onChangeFooterText_1 = function onChangeFooterText_1(index, value) {
       updateItemDataValue(index, 'footerText_1', value); // updateItemDataItem( index, { 
       //     imgId: itemData[ index ].imgId,
       //     imgUrl: itemData[ index ].imgUrl,
@@ -8790,7 +8792,7 @@ registerBlockType('bsx-blocks/slider', {
       // } );
     };
 
-    var onChangeFooterText_2 = function onChangeFooterText_2(value, index) {
+    var onChangeFooterText_2 = function onChangeFooterText_2(index, value) {
       updateItemDataValue(index, 'footerText_2', value); // updateItemDataItem( index, { 
       //     imgId: itemData[ index ].imgId,
       //     imgUrl: itemData[ index ].imgUrl,
@@ -8984,20 +8986,31 @@ registerBlockType('bsx-blocks/slider', {
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("figure", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(MediaUpload, {
         key: index,
         onSelect: function onSelect(value) {
-          return onChangeImg(value, index);
+          return onChangeImg(index, value);
         },
         allowedTypes: "image",
         value: item.id,
         render: function render(_ref) {
           var open = _ref.open;
-          return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(Button, {
+          return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["Fragment"], null, item.imgUrl ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(Button, {
             className: "bsxui-h-auto bsxui-w-100 bsxui-p-0 bsxui-va-middle",
             onClick: open
           }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("img", {
             className: imgClassName,
             src: item.imgUrl,
             alt: __('Change/upload Image', 'bsx-blocks')
-          }));
+          })) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(Button, {
+            className: "button button-large bsxui-w-100",
+            onClick: open
+          }, __('Add Image', 'bsx-blocks')));
+        }
+      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
+        class: "bsxui-inline-control"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(TextControl, {
+        label: __('Alt text', 'bsx-blocks'),
+        value: item.imgAlt,
+        onChange: function onChange(value) {
+          onChangeAlt(index, value);
         }
       })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
         class: "px-3 px-md-5"
@@ -9008,7 +9021,7 @@ registerBlockType('bsx-blocks/slider', {
         placeholder: __('Insert text here...', 'bsx-blocks'),
         value: item.text,
         onChange: function onChange(value) {
-          onChangeText(value, index);
+          onChangeText(index, value);
         }
       }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(RichText, {
         tagName: "div",
@@ -9017,7 +9030,7 @@ registerBlockType('bsx-blocks/slider', {
         placeholder: __('Insert footer text 1 here...', 'bsx-blocks'),
         value: item.footerText_1,
         onChange: function onChange(value) {
-          onChangeFooterText_1(value, index);
+          onChangeFooterText_1(index, value);
         }
       }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(RichText, {
         tagName: "div",
@@ -9026,10 +9039,12 @@ registerBlockType('bsx-blocks/slider', {
         placeholder: __('Insert footer text 2 here...', 'bsx-blocks'),
         value: item.footerText_2,
         onChange: function onChange(value) {
-          onChangeFooterText_2(value, index);
+          onChangeFooterText_2(index, value);
         }
       })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
-        className: "d-flex"
+        class: "bsxui-inline-control bsxui-mb-3"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
+        className: "bsxui-d-flex"
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(Button, {
         className: "button bsxui-icon-button",
         onClick: function onClick() {
@@ -9048,9 +9063,9 @@ registerBlockType('bsx-blocks/slider', {
           onClickDelete(index);
         },
         label: __('Remove Item', 'bsx-blocks')
-      }, Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_5__["svgIcon"])('trash'))));
+      }, Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_5__["svgIcon"])('trash')))));
     })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
-      className: ""
+      className: "bsxui-inline-control"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(Button, {
       className: "button button-large bsxui-w-100",
       onClick: onAddItem

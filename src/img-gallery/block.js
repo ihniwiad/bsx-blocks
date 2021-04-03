@@ -139,7 +139,7 @@ const makeUploadElementClassName = ( attributes ) => {
         galleryType,
     } = attributes;
 
-    const classNames = [];
+    const classNames = [ 'bsxui-inline-control' ];
 
     if ( !! galleryType ) {
         if ( galleryType == 'floating' ) {
@@ -527,28 +527,30 @@ registerBlockType( 'bsx-blocks/img-gallery', {
                                             onChange={ ( value ) => { onChangeCaption( value, index ) } }
                                         />
                                     </div>
-                                    <div className="d-flex">
-                                        <Button 
-                                            className="button bsxui-icon-button" 
-                                            onClick={ () => { onClickMoveUp( index ) } }
-                                            label={ __( 'Move backward', 'bsx-blocks' ) }
-                                        >
-                                            { svgIcon( 'carret-left' ) }
-                                        </Button>
-                                        <Button 
-                                            className="button bsxui-icon-button" 
-                                            onClick={ () => { onClickMoveDown( index ) } }
-                                            label={ __( 'Move forward', 'bsx-blocks' ) }
-                                        >
-                                            { svgIcon( 'carret-right' ) }
-                                        </Button>
-                                        <Button 
-                                            className="button bsxui-icon-button bsxui-text-danger bsxui-border-danger bsxui-ml-auto"
-                                            onClick={ () => { onClickDelete( index ) } }
-                                            label={ __( 'Remove Image', 'bsx-blocks' ) }
-                                        >
-                                            { svgIcon( 'trash' ) }
-                                        </Button>
+                                    <div class="bsxui-inline-control">
+                                        <div className="bsxui-d-flex">
+                                            <Button 
+                                                className="button bsxui-icon-button" 
+                                                onClick={ () => { onClickMoveUp( index ) } }
+                                                label={ __( 'Move backward', 'bsx-blocks' ) }
+                                            >
+                                                { svgIcon( 'carret-left' ) }
+                                            </Button>
+                                            <Button 
+                                                className="button bsxui-icon-button" 
+                                                onClick={ () => { onClickMoveDown( index ) } }
+                                                label={ __( 'Move forward', 'bsx-blocks' ) }
+                                            >
+                                                { svgIcon( 'carret-right' ) }
+                                            </Button>
+                                            <Button 
+                                                className="button bsxui-icon-button bsxui-text-danger bsxui-border-danger bsxui-ml-auto"
+                                                onClick={ () => { onClickDelete( index ) } }
+                                                label={ __( 'Remove Image', 'bsx-blocks' ) }
+                                            >
+                                                { svgIcon( 'trash' ) }
+                                            </Button>
+                                        </div>
                                     </div>
                                 </div>
                             )
