@@ -607,7 +607,7 @@ registerBlockType( 'bsx-blocks/slider', {
                                             data-height={ item.imgHeight } 
                                             data-alt={ item.imgAlt }
                                         >
-                                            <script>document.write( '<img className={ imgClassName } src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAQAAAAnOwc2AAAAEUlEQVR42mNk4GHAAIxDWRAAOokAg37Zbo4AAAAASUVORK5CYII=" alt={ item.imgAlt } width={ item.imgWidth } height={ item.imgHeight } data-src={ item.imgUrl } />' );</script>
+                                            <script>document.write( '<img className={ imgClassName } src={ makeBase64PreloadImgSrc( item.imgWidth, item.imgHeight ) } alt={ item.imgAlt } width={ item.imgWidth } height={ item.imgHeight } data-src={ item.imgUrl } />' );</script>
                                             <noscript><img className={ imgClassName } src={ item.imgUrl } alt={ item.imgAlt } width={ item.imgWidth } height={ item.imgHeight } /></noscript>
                                         </figure>
                                     </div>
