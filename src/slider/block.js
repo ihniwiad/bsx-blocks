@@ -566,7 +566,7 @@ registerBlockType( 'bsx-blocks/slider', {
 
         const sliderClassName = 'owl-carousel owl-theme outer-nav nav-lg';
 
-        let imgClassName = 'owl-lazy img-fluid';
+        let imgClassName = 'img-fluid';
         imgClassName = addClassNames( {
             rounded,
             imgThumbnail,
@@ -586,7 +586,7 @@ registerBlockType( 'bsx-blocks/slider', {
         const prevHtml = '<i class="fa fa-chevron-left" aria-label="' + prevLabel + '"></i>';
         const nextHtml = '<i class="fa fa-chevron-right" aria-label="' + nextLabel + '"></i>';
 
-        const options = "{ lazyLoad: true, responsive: { 0: { items: 1 } }, margin: 0, encodeUriNavText: [ '" + encodeURI( prevHtml ) + "', '" + encodeURI( nextHtml ) + "' ], navClass: [ 'btn btn-link is-prev', 'btn btn-link is-next' ] }";
+        const options = "{ lazyLoad: false, multiLazyload: true, responsive: { 0: { items: 1 } }, margin: 0, encodeUriNavText: [ '" + encodeURI( prevHtml ) + "', '" + encodeURI( nextHtml ) + "' ], navClass: [ 'btn btn-link is-prev', 'btn btn-link is-next' ] }";
         // makeBase64PreloadImgSrc( item.imgWidth, item.imgHeight )
 
         return (
@@ -607,7 +607,7 @@ registerBlockType( 'bsx-blocks/slider', {
                                             data-height={ item.imgHeight } 
                                             data-alt={ item.imgAlt }
                                         >
-                                            <script>document.write( '<img className={ imgClassName } src={ makeBase64PreloadImgSrc( item.imgWidth, item.imgHeight ) } alt={ item.imgAlt } width={ item.imgWidth } height={ item.imgHeight } data-src={ item.imgUrl } />' );</script>
+                                            <script>document.write( '<img className={ imgClassName } src={ makeBase64PreloadImgSrc( item.imgWidth, item.imgHeight ) } alt={ item.imgAlt } width={ item.imgWidth } height={ item.imgHeight } data-g-src={ item.imgUrl } data-g-fn="lazyload"/>' );</script>
                                             <noscript><img className={ imgClassName } src={ item.imgUrl } alt={ item.imgAlt } width={ item.imgWidth } height={ item.imgHeight } /></noscript>
                                         </figure>
                                     </div>
