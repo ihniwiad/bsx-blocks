@@ -45,9 +45,9 @@ const paths = {
 // PUBLISH HOWTO: 
 // If you like to copy your files to another folder after build make 
 // `.env` file with content 
-// `PUBLISH_PATH=path_to_your_folder` ...e.g. `PUBLISH_PATH=../../../../../Applications/MAMP/htdocs/`
-// `THEME_PACKAGE_PATH=path_to_your_theme_workspace_folder` ...e.g `THEME_PACKAGE_PATH=../../bsx-basic-style/`
-// `VARIABLES_PATH_AND_FILE=path_inside_your_theme_to_your_scss_valiables` ...e.g. `VARIABLES_PATH_AND_FILE=resources/components/scss/variables/scss/variables`
+// `PUBLISH_PATH=path_to_your_folder` ...e.g. `PUBLISH_PATH=../../../../../Applications/MAMP/htdocs/wordpress-testing/wp-content/plugins/`
+// `THEME_PACKAGE_PATH=path_to_your_theme_workspace_folder` ...e.g `THEME_PACKAGE_PATH=../bsx-wordpress/`
+// `VARIABLES_PATH_AND_FILE=path_inside_your_theme_to_your_scss_valiables` ...e.g. `VARIABLES_PATH_AND_FILE=src/scss/variables`
 // Have a look at `publishConfig` which files to include / exclude
 // and how to name your created destination folder
 // 
