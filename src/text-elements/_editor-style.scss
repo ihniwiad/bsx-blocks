@@ -14,3 +14,21 @@ $bsxui-badge-block-selector:                   '[data-type="bsx-blocks/badge"]' 
     vertical-align: top;
     margin-right: 0.25em !important;
 }
+
+
+// resize block list appender
+
+#{$bsxui-badge-block-selector} ~ #{$bsxui-list-appender-selector} {
+    display: inline-block;
+    width: auto;
+    margin-left: 1em;
+    margin-top: 2em;
+    vertical-align: middle;
+
+    > #{$bsxui-list-appender-button-selector} {
+        padding: 2px;
+        border-radius: 50%;
+        outline: none;
+        background: transparent;
+    }
+}

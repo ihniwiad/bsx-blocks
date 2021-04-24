@@ -215,6 +215,7 @@ registerBlockType( 'bsx-blocks/badge', {
                         onChange={ onChangeContent }
                         allowedFormats={ [] }
                         keepPlaceholderOnFocus
+                        href={ 'javascript:void( 0 );' }
                     />
                 </>
             )

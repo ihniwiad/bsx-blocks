@@ -25,6 +25,10 @@ const {
 
 
 import { svgIcon } from './../_functions/wp-icons.js';
+import { getTemplate } from './../_functions/utilities.js';
+
+// data
+import templates from './templates';
 
 
 registerBlockType( 'bsx-blocks/groups', {
@@ -64,66 +68,10 @@ registerBlockType( 'bsx-blocks/groups', {
             return children.length > 0;
         }
 
-        const templates = [
-            {
-                name: 'lazy-img-paragraph-button',
-                title: __( 'Lazy image, paragraph, button', 'bsx-blocks' ),
-                icon: svgIcon( 'groups-lazy-img-paragraph-button' ),
-                attributes: {},
-                template: [ 
-                    [ 
-                        'bsx-blocks/lazy-img', 
-                        {},
-                    ], 
-                    [
-                        'core/paragraph',
-                        { 
-                            placeholder: 'Add text...', 
-                        },
-                    ],
-                    [
-                        'bsx-blocks/buttons',
-                        {},
-                    ],
-                ],
-                templateLock: false,
-            },
-            {
-                name: 'lazy-img-heading-paragraph',
-                title: __( 'Lazy image, heading, paragraph', 'bsx-blocks' ),
-                icon: svgIcon( 'groups-lazy-img-heading-paragraph' ),
-                attributes: {},
-                template: [ 
-                    [ 
-                        'bsx-blocks/lazy-img', 
-                        {},
-                    ], 
-                    [
-                        'core/heading',
-                        { 
-                            placeholder: 'Add heading, configure heading level...', 
-                        },
-                    ],
-                    [
-                        'core/paragraph',
-                        { 
-                            placeholder: 'Add text...', 
-                        },
-                    ],
-                ],
-                templateLock: false,
-            },
-        ];
-
-        const getTemplateMap = ( currentTemplateName ) => {
-            const currentTemplate = templates.find( ( item ) => item.name === currentTemplateName );
-            return currentTemplate ? currentTemplate : {};
-        };
-
-        let template = getTemplateMap( templateName ).template;
+        let template = getTemplate( templates, templateName ).template;
 
         const onChangeTemplate = ( value ) => {
-            const currentTemplateMap = getTemplateMap( value );
+            const currentTemplateMap = getTemplate( templates, value );
             if ( currentTemplateMap.template != undefined && currentTemplateMap.attributes != undefined ) {
                 template = currentTemplateMap.template;
                 setAttributes( { 
@@ -135,7 +83,7 @@ registerBlockType( 'bsx-blocks/groups', {
                 console.log( 'Error: Template change failed.' );
             }
 
-            console.log( 'changed templateName: ' + value );
+            // console.log( 'changed templateName: ' + value );
             // console.log( 'changed template: ' + template );
         };
 

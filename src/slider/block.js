@@ -175,25 +175,25 @@ registerBlockType( 'bsx-blocks/slider', {
         } = props;
 
         // TEST – TODO: remove
-        console.log( 'typeof itemData: ' + typeof itemData );
-        itemData.forEach( ( item, index ) => {
-            console.log( index + ' : ' + item );
-            for ( let [ key, value ] of Object.entries( item ) ) {
-                // const printValue = ( value ) => {
-                //     let returnString = '';
-                //     if ( Array.isArray( value ) ) {
-                //         value.forEach( ( item, index ) => {
-                //             returnString += index + ': ' + item + ', ';
-                //         } );
-                //     }
-                //     else {
-                //         returnString = value;
-                //     }
-                //     return returnString;
-                // }
-                console.log( '----- key: "' + key + '", val: "' + value + '"' );
-            }
-        } );
+        // console.log( 'typeof itemData: ' + typeof itemData );
+        // itemData.forEach( ( item, index ) => {
+        //     console.log( index + ' : ' + item );
+        //     for ( let [ key, value ] of Object.entries( item ) ) {
+        //         // const printValue = ( value ) => {
+        //         //     let returnString = '';
+        //         //     if ( Array.isArray( value ) ) {
+        //         //         value.forEach( ( item, index ) => {
+        //         //             returnString += index + ': ' + item + ', ';
+        //         //         } );
+        //         //     }
+        //         //     else {
+        //         //         returnString = value;
+        //         //     }
+        //         //     return returnString;
+        //         // }
+        //         console.log( '----- key: "' + key + '", val: "' + value + '"' );
+        //     }
+        // } );
 
         // update itemData all `item` at position `index`
         const updateItemDataItem = ( index, newItem ) => {
