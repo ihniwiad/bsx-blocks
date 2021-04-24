@@ -1,0 +1,16 @@
+// editor style
+
+
+
+// badge selectors
+
+$bsxui-badge-block-selector:                   '[data-type="bsx-blocks/badge"]' !default;
+
+
+// make badge inline
+
+#{$bsxui-badge-block-selector} {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 0.25em !important;
+}

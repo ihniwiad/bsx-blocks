@@ -1,4 +1,6 @@
-// root variables
+// this file will be processed by gulpfile using `.env` varibles
+// the result will be saved as `build/.envscss` and included in `index.scss`
+
 
 @import "###THEME_PACKAGE_PATH######VARIABLES_PATH_AND_FILE###";
 

@@ -68,6 +68,7 @@ include 'src/lazy-img/index.php';
 include 'src/row-with-cols/index.php';
 include 'src/section/index.php';
 include 'src/slider/index.php';
+include 'src/text-elements/index.php';
 include 'src/wrapper/index.php';
 
 

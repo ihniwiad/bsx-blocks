@@ -1,0 +1,2 @@
+import './badge/block.js';
+

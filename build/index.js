@@ -5485,7 +5485,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _row_with_cols_index_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./row-with-cols/index.js */ "./src/row-with-cols/index.js");
 /* harmony import */ var _section_block_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./section/block.js */ "./src/section/block.js");
 /* harmony import */ var _slider_block_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./slider/block.js */ "./src/slider/block.js");
-/* harmony import */ var _wrapper_block_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./wrapper/block.js */ "./src/wrapper/block.js");
+/* harmony import */ var _text_elements_index_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./text-elements/index.js */ "./src/text-elements/index.js");
+/* harmony import */ var _wrapper_block_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./wrapper/block.js */ "./src/wrapper/block.js");
+
 
 
 
@@ -9147,6 +9149,254 @@ registerBlockType('bsx-blocks/slider', {
     })));
   }
 });
+
+/***/ }),
+
+/***/ "./src/text-elements/badge/block.js":
+/*!******************************************!*\
+  !*** ./src/text-elements/badge/block.js ***!
+  \******************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js");
+/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../_functions/wp-icons.js */ "./src/_functions/wp-icons.js");
+/* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
+/* harmony import */ var _functions_attributes_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../_functions/attributes.js */ "./src/_functions/attributes.js");
+/* harmony import */ var _functions_controls_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../_functions/controls.js */ "./src/_functions/controls.js");
+
+
+var _wp$i18n = wp.i18n,
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData;
+var registerBlockType = wp.blocks.registerBlockType;
+var _wp$blockEditor = wp.blockEditor,
+    InspectorControls = _wp$blockEditor.InspectorControls,
+    RichText = _wp$blockEditor.RichText;
+var _wp$components = wp.components,
+    PanelBody = _wp$components.PanelBody,
+    SVG = _wp$components.SVG,
+    Path = _wp$components.Path,
+    SelectControl = _wp$components.SelectControl; // functions imports
+
+
+
+
+ // functions
+
+var makeBadgeClassNames = function makeBadgeClassNames(attributes) {
+  var state = attributes.state,
+      type = attributes.type;
+  var classNames = ['badge'];
+
+  if (!!state) {
+    classNames.push('badge-' + state);
+  }
+
+  if (!!type) {
+    classNames.push('badge-' + type);
+  }
+
+  return classNames.join(' ');
+};
+
+registerBlockType('bsx-blocks/badge', {
+  title: __('BSX Badge', 'bsx-blocks'),
+  icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_2__["svgIcon"])('badge'),
+  category: 'layout',
+  attributes: {
+    href: {
+      type: 'string',
+      default: ''
+    },
+    content: {
+      type: 'array',
+      source: 'children',
+      selector: '.badge'
+    },
+    state: {
+      type: 'string',
+      default: 'primary'
+    },
+    type: {
+      type: 'string',
+      default: ''
+    },
+    marginLeft: {
+      type: 'string',
+      default: ''
+    },
+    marginRight: {
+      type: 'string',
+      default: ''
+    },
+    marginBefore: {
+      type: 'string',
+      default: ''
+    },
+    marginAfter: {
+      type: 'string',
+      default: ''
+    }
+  },
+  edit: function edit(props) {
+    var className = props.className,
+        _props$attributes = props.attributes,
+        href = _props$attributes.href,
+        content = _props$attributes.content,
+        state = _props$attributes.state,
+        type = _props$attributes.type,
+        marginLeft = _props$attributes.marginLeft,
+        marginRight = _props$attributes.marginRight,
+        marginBefore = _props$attributes.marginBefore,
+        marginAfter = _props$attributes.marginAfter,
+        setAttributes = props.setAttributes,
+        isSelected = props.isSelected;
+
+    var onChangeContent = function onChangeContent(value) {
+      setAttributes({
+        content: value
+      });
+    };
+
+    var onChangeHref = function onChangeHref(value) {
+      setAttributes({
+        href: value
+      });
+    }; // const onChangeTarget = ( value ) => {
+    //     setAttributes( { target: !! value ? '_blank' : '' } );
+    // };
+    // const onChangeRel = ( value ) => {
+    //     setAttributes( { rel: value } );
+    // };
+
+
+    var onChangeState = function onChangeState(value) {
+      setAttributes({
+        state: value
+      });
+    };
+
+    var onChangeType = function onChangeType(value) {
+      setAttributes({
+        type: value
+      });
+    };
+
+    var onChangeMarginLeft = function onChangeMarginLeft(value) {
+      setAttributes({
+        marginLeft: value
+      });
+    };
+
+    var onChangeMarginRight = function onChangeMarginRight(value) {
+      setAttributes({
+        marginRight: value
+      });
+    };
+
+    var onChangeMarginBefore = function onChangeMarginBefore(value) {
+      setAttributes({
+        marginBefore: value
+      });
+    };
+
+    var onChangeMarginAfter = function onChangeMarginAfter(value) {
+      setAttributes({
+        marginAfter: value
+      });
+    };
+
+    var badgeClassNames = makeBadgeClassNames({
+      state: state,
+      type: type
+    });
+    badgeClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_3__["addClassNames"])({
+      marginLeft: marginLeft,
+      marginRight: marginRight,
+      marginBefore: marginBefore,
+      marginAfter: marginAfter
+    }, badgeClassNames);
+    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
+      title: __('Settings', 'bsx-blocks')
+    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_5__["linkUrlInput"])(href, onChangeHref)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
+      title: __('Appearance', 'bsx-blocks')
+    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_5__["stateSelect"])(state, onChangeState), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(SelectControl, {
+      label: __('Type', 'bsx-blocks'),
+      value: type,
+      onChange: onChangeType,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: 'pill',
+        label: __('Pill', 'bsx-blocks')
+      }]
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
+      title: __('Margin', 'bsx-blocks')
+    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_5__["marginLeftSelect"])(marginLeft, onChangeMarginLeft, ['', '0', '1', '2', '3']), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_5__["marginRightSelect"])(marginRight, onChangeMarginRight, ['', '0', '1', '2', '3']), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_5__["marginBeforeSelect"])(marginBefore, onChangeMarginBefore), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_5__["marginAfterSelect"])(marginAfter, onChangeMarginAfter))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RichText, {
+      tagName: href ? 'a' : 'span',
+      className: badgeClassNames,
+      multiline: false,
+      placeholder: __('Add Text...', 'bsx-blocks'),
+      value: content,
+      onChange: onChangeContent,
+      allowedFormats: [],
+      keepPlaceholderOnFocus: true
+    }))];
+  },
+  save: function save(props) {
+    var className = props.className,
+        _props$attributes2 = props.attributes,
+        href = _props$attributes2.href,
+        content = _props$attributes2.content,
+        state = _props$attributes2.state,
+        type = _props$attributes2.type,
+        marginLeft = _props$attributes2.marginLeft,
+        marginRight = _props$attributes2.marginRight,
+        marginBefore = _props$attributes2.marginBefore,
+        marginAfter = _props$attributes2.marginAfter;
+    var badgeClassNames = makeBadgeClassNames({
+      state: state,
+      type: type
+    });
+    badgeClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_3__["addClassNames"])({
+      marginLeft: marginLeft,
+      marginRight: marginRight,
+      marginBefore: marginBefore,
+      marginAfter: marginAfter
+    }, badgeClassNames);
+    var saveAttributes = Object(_functions_attributes_js__WEBPACK_IMPORTED_MODULE_4__["makeSaveAttributes"])({
+      href: href // target: target, 
+      // rel: href ? ( rel ? rel + ' noopener noreferrer' : 'noopener noreferrer' ) : '',
+
+    });
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, content && !RichText.isEmpty(content) && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RichText.Content, _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+      tagName: href ? 'a' : 'span',
+      value: content,
+      className: badgeClassNames
+    }, saveAttributes)));
+  }
+});
+
+/***/ }),
+
+/***/ "./src/text-elements/index.js":
+/*!************************************!*\
+  !*** ./src/text-elements/index.js ***!
+  \************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _badge_block_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./badge/block.js */ "./src/text-elements/badge/block.js");
+
 
 /***/ }),
 

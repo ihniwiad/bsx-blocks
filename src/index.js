@@ -8,5 +8,6 @@ import './lazy-img/block.js';
 import './row-with-cols/index.js';
 import './section/block.js';
 import './slider/block.js';
+import './text-elements/index.js';
 import './wrapper/block.js';
 

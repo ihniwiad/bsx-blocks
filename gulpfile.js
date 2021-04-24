@@ -18,14 +18,15 @@ const paths = {
     themePathReplace: {
         src: 'src/',
         dest: 'build/',
-        fileName: '_basic-style-vars-and-bootstrap-grid.scss'
+        fileName: '_build-env.scss',
+        renamedFileName: '.envscss'
     },
     css: {
         src: 'src/',
         dest: 'build/css/',
-        fileName: '**/*.scss',
+        fileName: 'index.scss',
         watchSrc: [
-            "./build/css/*.css",
+            "./build/**/*.css",
             "!./build/css/*.min.css",
             "!./build/css/*.css.map"
         ],
@@ -37,7 +38,7 @@ const paths = {
         ],
     },
     publish: {
-        watchSrc: [],
+        watchSrc: [ 'build/index.js', 'index.php', 'src/**/*.php' ],
     },
 };
 
@@ -66,14 +67,13 @@ const publishConfig = {
 // scss replace path to theme package
 const PATH_REPLACE_PATTERN = /###THEME_PACKAGE_PATH###/g;
 const VARIABLES_REPLACE_PATTERN = /###VARIABLES_PATH_AND_FILE###/g;
-const THEME_PACKAGE_PATH_CONFIG = envConfig.THEME_PACKAGE_PATH;
-const VARIABLES_PATH_AND_FILE_CONFIG = envConfig.VARIABLES_PATH_AND_FILE;
 
 const themePackagePathReplace = ( cb ) => {
 
     return gulp.src( paths.themePathReplace.src + paths.themePathReplace.fileName )
-        .pipe( replace( PATH_REPLACE_PATTERN, THEME_PACKAGE_PATH_CONFIG ) )
-        .pipe( replace( VARIABLES_REPLACE_PATTERN, VARIABLES_PATH_AND_FILE_CONFIG ) )
+        .pipe( replace( PATH_REPLACE_PATTERN, envConfig.THEME_PACKAGE_PATH ) )
+        .pipe( replace( VARIABLES_REPLACE_PATTERN, envConfig.VARIABLES_PATH_AND_FILE ) )
+        .pipe( rename( paths.themePathReplace.renamedFileName ) )
         .pipe( gulp.dest( paths.themePathReplace.dest ) )
     ;
 
@@ -138,6 +138,7 @@ const cssFolderClean = ( cb ) => {
     cb();
 }
 
+
 const makeCss = ( cb ) => {
 
     return gulp.src( paths.css.src + paths.css.fileName )
@@ -195,5 +196,18 @@ exports.build = series(
     css,
     publish,
 );
+
+
+function allWatch() {
+    gulp.watch( paths.css.watchSrc, 
+        series(
+            css,
+            publish,
+        ) 
+    );
+    gulp.watch( paths.publish.watchSrc, publish );
+}
+
+exports.watch = allWatch;
 
 

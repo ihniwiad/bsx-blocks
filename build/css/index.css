@@ -234,6 +234,11 @@ a.bsxui-link {
     outline: none;
     background: transparent; }
 
+[data-type="bsx-blocks/badge"] {
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 0.25em !important; }
+
 [data-type="bsx-blocks/column-rows"] {
   display: -webkit-box;
   display: -ms-flexbox;

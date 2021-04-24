@@ -1,8 +1,16 @@
-@import "_editor-style-variables";
-@import "_init/_editor-style-basics";
-@import "_init/_editor-style";
+// import dynamic data from theme
 
-@import "banner/_editor-style";
-@import "buttons/_editor-style";
-@import "column-rows/_editor-style";
-@import "row-with-cols/_editor-style";
+@import "../build/.envscss";
+
+
+// import block mudules
+
+@import "editor-style-variables";
+@import "_init/editor-style-basics";
+@import "_init/editor-style";
+
+@import "banner/editor-style";
+@import "buttons/editor-style";
+@import "text-elements/editor-style";
+@import "column-rows/editor-style";
+@import "row-with-cols/editor-style";
