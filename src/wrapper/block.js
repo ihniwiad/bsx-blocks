@@ -20,8 +20,22 @@ const {
 
 
 import { svgIcon } from './../_functions/wp-icons.js';
-
 import { addClassNames } from './../_functions/add-class-names.js';
+import { 
+    textShadowSelect,
+    fontWeightSelect,
+    inverseTextColorToggle,
+    headingInheritTextColorToggle,
+    headingInheritFontWeightToggle,
+    marginLeftSelect,
+    marginRightSelect,
+    marginBeforeSelect,
+    marginAfterSelect,
+    paddingBeforeSelect,
+    paddingAfterSelect,
+    paddingLeftSelect,
+    paddingRightSelect,
+} from './../_functions/controls.js';
 
 
 registerBlockType( 'bsx-blocks/wrapper', {
@@ -47,6 +61,21 @@ registerBlockType( 'bsx-blocks/wrapper', {
         },
         textSize: {
             type: 'string',
+        },
+        textShadow: {
+            type: 'string',
+        },
+        fontWeight: {
+            type: 'string',
+        },
+        inverseTextColor: {
+            type: 'boolean',
+        },
+        headingInheritTextColor: {
+            type: 'boolean',
+        },
+        headingInheritFontWeight: {
+            type: 'boolean',
         },
         rounded: {
             type: 'boolean',
@@ -114,6 +143,11 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 textColor,
                 textSize,
                 textAlign,
+                textShadow,
+                fontWeight,
+                inverseTextColor,
+                headingInheritTextColor,
+                headingInheritFontWeight,
                 width,
                 rounded,
                 marginBefore,
@@ -139,8 +173,24 @@ registerBlockType( 'bsx-blocks/wrapper', {
         const onChangeTextSize = ( value ) => {
             setAttributes( { textSize: value } );
         };
+        const onChangeTextShadow = ( value ) => {
+            setAttributes( { textShadow: value } );
+        };
         const onChangeTextAlign = ( value ) => {
             setAttributes( { textAlign: value } );
+        };
+        const onChangeFontWeight = ( value ) => {
+            setAttributes( { fontWeight: value } );
+        };
+        const onChangeInverseTextColor = ( value ) => {
+            setAttributes( { inverseTextColor: value } );
+        };
+
+        const onChangeHeadingInheritTextColor = ( value ) => {
+            setAttributes( { headingInheritTextColor: value } );
+        };
+        const onChangeHeadingInheritFontWeight = ( value ) => {
+            setAttributes( { headingInheritFontWeight: value } );
         };
 
         const onChangeWidth = ( value ) => {
@@ -195,6 +245,11 @@ registerBlockType( 'bsx-blocks/wrapper', {
             textSize,
             rounded, 
             textAlign,
+            textShadow,
+            fontWeight,
+            inverseTextColor,
+            headingInheritTextColor,
+            headingInheritFontWeight,
             width,
             marginBefore, 
             marginAfter, 
@@ -297,6 +352,21 @@ registerBlockType( 'bsx-blocks/wrapper', {
                                 { value: 'display-1', label: __( 'Large 1 (biggest)', 'bsx-blocks' ) },
                             ] }
                         />
+                        {
+                            textShadowSelect( textShadow, onChangeTextShadow )
+                        }
+                        {
+                            fontWeightSelect( fontWeight, onChangeFontWeight )
+                        }
+                        {
+                            inverseTextColorToggle( inverseTextColor, onChangeInverseTextColor )
+                        }
+                        {
+                            headingInheritTextColorToggle( headingInheritTextColor, onChangeHeadingInheritTextColor )
+                        }
+                        {
+                            headingInheritFontWeightToggle( headingInheritFontWeight, onChangeHeadingInheritFontWeight )
+                        }
                         <ToggleControl
                             label={ __( 'Rounded', 'bsx-blocks' ) }
                             checked={ !! rounded }
@@ -305,97 +375,27 @@ registerBlockType( 'bsx-blocks/wrapper', {
                     </PanelBody>
 
                     <PanelBody title={ __( 'Margin', 'bsx-blocks' ) }>
-                        <SelectControl 
-                            label={ __( 'Margin before', 'bsx-blocks' ) }
-                            value={ marginBefore }
-                            onChange={ onChangeMarginBefore }
-                            options={ [
-                                { value: '', label: __( '– unset –', 'bsx-blocks' ) },
-                                { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
-                                { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
-                                { value: '2', label: __( 'small', 'bsx-blocks' ) },
-                                { value: '3', label: __( 'medium', 'bsx-blocks' ) },
-                                { value: '4', label: __( 'large', 'bsx-blocks' ) },
-                                { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
-                            ] }
-                            help={ __( 'Spacer before element', 'bsx-blocks' ) }
-                        />
-                        <SelectControl 
-                            label={ __( 'Margin after', 'bsx-blocks' ) }
-                            value={ marginAfter }
-                            onChange={ onChangeMarginAfter }
-                            options={ [
-                                { value: '', label: __( '– unset –', 'bsx-blocks' ) },
-                                { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
-                                { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
-                                { value: '2', label: __( 'small', 'bsx-blocks' ) },
-                                { value: '3', label: __( 'medium', 'bsx-blocks' ) },
-                                { value: '4', label: __( 'large', 'bsx-blocks' ) },
-                                { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
-                            ] }
-                            help={ __( 'Spacer after element', 'bsx-blocks' ) }
-                        />
+                        {
+                            marginBeforeSelect( marginBefore, onChangeMarginBefore )
+                        }
+                        {
+                            marginAfterSelect( marginAfter, onChangeMarginAfter )
+                        }
                     </PanelBody>
 
                     <PanelBody title={ __( 'Padding', 'bsx-blocks' ) }>
-                        <SelectControl 
-                            label={ __( 'Padding before', 'bsx-blocks' ) }
-                            value={ paddingBefore }
-                            onChange={ onChangePaddingBefore }
-                            options={ [
-                                { value: '', label: __( '– unset –', 'bsx-blocks' ) },
-                                { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
-                                { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
-                                { value: '2', label: __( 'small', 'bsx-blocks' ) },
-                                { value: '3', label: __( 'medium', 'bsx-blocks' ) },
-                                { value: '4', label: __( 'large', 'bsx-blocks' ) },
-                                { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
-                            ] }
-                            help={ __( 'Inner spacer before', 'bsx-blocks' ) }
-                        />
-                        <SelectControl 
-                            label={ __( 'Padding after', 'bsx-blocks' ) }
-                            value={ paddingAfter }
-                            onChange={ onChangePaddingAfter }
-                            options={ [
-                                { value: '', label: __( '– unset –', 'bsx-blocks' ) },
-                                { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
-                                { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
-                                { value: '2', label: __( 'small', 'bsx-blocks' ) },
-                                { value: '3', label: __( 'medium', 'bsx-blocks' ) },
-                                { value: '4', label: __( 'large', 'bsx-blocks' ) },
-                                { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
-                            ] }
-                            help={ __( 'Inner spacer after', 'bsx-blocks' ) }
-                        />
-                        <SelectControl 
-                            label={ __( 'Padding left', 'bsx-blocks' ) }
-                            value={ paddingLeft }
-                            onChange={ onChangePaddingLeft }
-                            options={ [
-                                { value: '', label: __( '– none –', 'bsx-blocks' ) },
-                                { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
-                                { value: '2', label: __( 'small', 'bsx-blocks' ) },
-                                { value: '3', label: __( 'medium', 'bsx-blocks' ) },
-                                { value: '4', label: __( 'large', 'bsx-blocks' ) },
-                                { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
-                            ] }
-                            help={ __( 'Inner spacer left', 'bsx-blocks' ) }
-                        />
-                        <SelectControl 
-                            label={ __( 'Padding right', 'bsx-blocks' ) }
-                            value={ paddingRight }
-                            onChange={ onChangePaddingRight }
-                            options={ [
-                                { value: '', label: __( '– none –', 'bsx-blocks' ) },
-                                { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
-                                { value: '2', label: __( 'small', 'bsx-blocks' ) },
-                                { value: '3', label: __( 'medium', 'bsx-blocks' ) },
-                                { value: '4', label: __( 'large', 'bsx-blocks' ) },
-                                { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
-                            ] }
-                            help={ __( 'Inner spacer right', 'bsx-blocks' ) }
-                        />
+                        {
+                            paddingBeforeSelect( paddingBefore, onChangePaddingBefore )
+                        }
+                        {
+                            paddingAfterSelect( paddingAfter, onChangePaddingAfter )
+                        }
+                        {
+                            paddingLeftSelect( paddingLeft, onChangePaddingLeft )
+                        }
+                        {
+                            paddingRightSelect( paddingRight, onChangePaddingRight )
+                        }
                     </PanelBody>
                 </InspectorControls>
                 <InspectorAdvancedControls>
@@ -438,6 +438,11 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 textColor,
                 textSize,
                 textAlign,
+                textShadow,
+                fontWeight,
+                inverseTextColor,
+                headingInheritTextColor,
+                headingInheritFontWeight,
                 width,
                 rounded,
                 marginBefore,
@@ -456,6 +461,11 @@ registerBlockType( 'bsx-blocks/wrapper', {
             textSize,
             rounded, 
             textAlign,
+            textShadow,
+            fontWeight,
+            inverseTextColor,
+            headingInheritTextColor,
+            headingInheritFontWeight,
             width,
             marginBefore, 
             marginAfter, 

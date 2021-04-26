@@ -83,9 +83,12 @@ const makeBannerClassNames = ( attributes ) => {
 
     const classNames = [];
 
-    if ( true ) {
+    if ( !! bannerType ) {
         // always set bannerType and bannerSize to keep debugging easy
         classNames.push( 'banner-' + bannerType + '-' + bannerSize );
+    }
+    else {
+        classNames.push( 'banner-' + bannerSize );
     }
 
     if ( !! bgAttachment ) {

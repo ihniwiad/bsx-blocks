@@ -81,6 +81,36 @@ export const belowNavbarToggle = ( value, onChangeFunction ) => {
     )
 }
 
+export const inverseTextColorToggle = ( value, onChangeFunction ) => {
+    return (
+        <ToggleControl
+            label={ __( 'Inverse text color', 'bsx-blocks' ) }
+            checked={ !! value }
+            onChange={ onChangeFunction }
+        />
+    )
+}
+
+export const headingInheritTextColorToggle = ( value, onChangeFunction ) => {
+    return (
+        <ToggleControl
+            label={ __( 'Inherit text color to headings', 'bsx-blocks' ) }
+            checked={ !! value }
+            onChange={ onChangeFunction }
+        />
+    )
+}
+
+export const headingInheritFontWeightToggle = ( value, onChangeFunction ) => {
+    return (
+        <ToggleControl
+            label={ __( 'Inherit font weight to headings', 'bsx-blocks' ) }
+            checked={ !! value }
+            onChange={ onChangeFunction }
+        />
+    )
+}
+
 
 // url inputs
 
@@ -274,6 +304,30 @@ export const paddingAfterSelect = ( value, onChangeFunction, allowedValues ) => 
         />
     )
 }
+export const paddingLeftSelect = ( value, onChangeFunction, allowedValues ) => {
+    const defaultValues = marginPaddingSizes;
+    return (
+        <SelectControl 
+            label={ __( 'Padding left', 'bsx-blocks' ) }
+            value={ value }
+            onChange={ onChangeFunction }
+            options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
+            help={ __( 'Inner spacer left', 'bsx-blocks' ) }
+        />
+    )
+}
+export const paddingRightSelect = ( value, onChangeFunction, allowedValues ) => {
+    const defaultValues = marginPaddingSizes;
+    return (
+        <SelectControl 
+            label={ __( 'Padding right', 'bsx-blocks' ) }
+            value={ value }
+            onChange={ onChangeFunction }
+            options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
+            help={ __( 'Inner spacer right', 'bsx-blocks' ) }
+        />
+    )
+}
 
 export const nodeNameSelect = ( value, onChangeFunction, allowedValues ) => {
     const defaultValues = [
@@ -335,6 +389,7 @@ export const bgSizeSelect = ( value, onChangeFunction, allowedValues ) => {
 
 export const bannerTypeSelect = ( value, onChangeFunction, allowedValues ) => {
     const defaultValues = [
+        { value: '', label: __( 'Fix height', 'bsx-blocks' ) },
         { value: 'vh', label: __( 'Viewport dependent height', 'bsx-blocks' ) },
         { value: 'st', label: __( 'Static height', 'bsx-blocks' ) },
     ];
@@ -374,6 +429,38 @@ export const bgAttachmentSelect = ( value, onChangeFunction, allowedValues ) => 
     return (
         <SelectControl 
             label={ __( 'Background attachement', 'bsx-blocks' ) }
+            value={ value }
+            onChange={ onChangeFunction }
+            options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
+        />
+    )
+}
+
+export const textShadowSelect = ( value, onChangeFunction, allowedValues ) => {
+    const defaultValues = [
+        { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+        { value: 'dark', label: __( 'Dark', 'bsx-blocks' ) },
+        { value: 'darker', label: __( 'Darker', 'bsx-blocks' ) },
+        { value: 'darkest', label: __( 'Darkest', 'bsx-blocks' ) },
+    ];
+    return (
+        <SelectControl label={ __( 'Text shadow', 'bsx-blocks' ) }
+            value={ value }
+            onChange={ onChangeFunction }
+            options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
+        />
+    )
+}
+
+export const fontWeightSelect = ( value, onChangeFunction, allowedValues ) => {
+    const defaultValues = [
+        { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+        { value: 'light', label: __( 'Light', 'bsx-blocks' ) },
+        { value: 'normal', label: __( 'Normal', 'bsx-blocks' ) },
+        { value: 'bold', label: __( 'Bold', 'bsx-blocks' ) },
+    ];
+    return (
+        <SelectControl label={ __( 'Font weight', 'bsx-blocks' ) }
             value={ value }
             onChange={ onChangeFunction }
             options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }

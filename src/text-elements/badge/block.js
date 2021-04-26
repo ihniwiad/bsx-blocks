@@ -41,7 +41,7 @@ const makeBadgeClassNames = ( attributes ) => {
 
     const {
         state,
-        type,
+        badgeType,
     } = attributes;
 
     const classNames = [ 'badge' ];
@@ -50,8 +50,8 @@ const makeBadgeClassNames = ( attributes ) => {
         classNames.push( 'badge-' + state );
     }
 
-    if ( !! type ) {
-        classNames.push( 'badge-' + type );
+    if ( !! badgeType ) {
+        classNames.push( 'badge-' + badgeType );
     }
 
     return classNames.join( ' ' );
@@ -75,25 +75,20 @@ registerBlockType( 'bsx-blocks/badge', {
             type: 'string',
             default: 'primary',
         },
-        type: {
+        badgeType: {
             type: 'string',
-            default: '',
         },
         marginLeft: {
             type: 'string',
-            default: '',
         },
         marginRight: {
             type: 'string',
-            default: '',
         },
         marginBefore: {
             type: 'string',
-            default: '',
         },
         marginAfter: {
             type: 'string',
-            default: '',
         },
     },
 
@@ -105,7 +100,7 @@ registerBlockType( 'bsx-blocks/badge', {
                 href,
                 content,
                 state,
-                type,
+                badgeType,
                 marginLeft,
                 marginRight,
                 marginBefore,
@@ -130,8 +125,8 @@ registerBlockType( 'bsx-blocks/badge', {
         const onChangeState = ( value ) => {
             setAttributes( { state: value } );
         };
-        const onChangeType = ( value ) => {
-            setAttributes( { type: value } );
+        const onChangeBadgeType = ( value ) => {
+            setAttributes( { badgeType: value } );
         };
 
         const onChangeMarginLeft = ( value ) => {
@@ -152,7 +147,7 @@ registerBlockType( 'bsx-blocks/badge', {
 
         let badgeClassNames = makeBadgeClassNames( { 
             state, 
-            type,
+            badgeType,
         } );
         badgeClassNames = addClassNames( {
             marginLeft, 
@@ -180,8 +175,8 @@ registerBlockType( 'bsx-blocks/badge', {
                         stateSelect( state, onChangeState )
                     }
                     <SelectControl label={ __( 'Type', 'bsx-blocks' ) }
-                        value={ type }
-                        onChange={ onChangeType }
+                        value={ badgeType }
+                        onChange={ onChangeBadgeType }
                         options={ [
                             { value: '', label: __( '– unset –', 'bsx-blocks' ) },
                             { value: 'pill', label: __( 'Pill', 'bsx-blocks' ) },
@@ -228,7 +223,7 @@ registerBlockType( 'bsx-blocks/badge', {
                 href,
                 content,
                 state,
-                type,
+                badgeType,
                 marginLeft,
                 marginRight,
                 marginBefore,
@@ -238,7 +233,7 @@ registerBlockType( 'bsx-blocks/badge', {
         
         let badgeClassNames = makeBadgeClassNames( { 
             state, 
-            type,
+            badgeType,
         } );
         badgeClassNames = addClassNames( {
             marginLeft, 

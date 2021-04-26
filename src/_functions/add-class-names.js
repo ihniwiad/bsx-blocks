@@ -18,6 +18,11 @@ export function addClassNames( attributes, classNamesString ) {
         textSize, 
         rounded, 
         textAlign,
+        textShadow,
+        fontWeight,
+        inverseTextColor,
+        headingInheritTextColor,
+        headingInheritFontWeight,
         width,
         imgThumbnail,
         borderState,
@@ -117,6 +122,26 @@ export function addClassNames( attributes, classNamesString ) {
 
     if ( !! textSize ) {
         classNames.push( textSize );
+    }
+
+    if ( !! textShadow ) {
+        classNames.push( 'text-shadow-' + textShadow );
+    }
+
+    if ( !! fontWeight ) {
+        classNames.push( 'font-weight-' + fontWeight );
+    }
+
+    if ( !! inverseTextColor ) {
+        classNames.push( 'text-inverse' );
+    }
+
+    if ( !! headingInheritTextColor ) {
+        classNames.push( 'heading-inherit-text' );
+    }
+
+    if ( !! headingInheritFontWeight ) {
+        classNames.push( 'heading-inherit-font-weight' );
     }
     
     if ( !! rounded ) {
