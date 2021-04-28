@@ -47,6 +47,7 @@ import {
     paddingBeforeSelect,
     paddingAfterSelect,
     belowNavbarToggle,
+    touchFooterToggle,
     nodeNameSelect,
     bgPositionSelect,
     bgSizeSelect,
@@ -214,6 +215,10 @@ registerBlockType( 'bsx-blocks/banner', {
             type: 'boolean',
             default: false,
         },
+        touchFooter: {
+            type: 'boolean',
+            default: false,
+        },
         imgId: {
             type: 'number',
         },
@@ -305,6 +310,7 @@ registerBlockType( 'bsx-blocks/banner', {
                 nodeName,
                 templateName,
                 belowNavbar,
+                touchFooter,
                 imgId,
                 imgSizes,
                 imgSizeIndex,
@@ -358,6 +364,9 @@ registerBlockType( 'bsx-blocks/banner', {
 
         const onChangeBelowNavbar = ( value ) => {
             setAttributes( { belowNavbar: value } );
+        };
+        const onChangeTouchFooter = ( value ) => {
+            setAttributes( { touchFooter: value } );
         };
 
         async function onSelectImage( img ) {
@@ -492,6 +501,7 @@ registerBlockType( 'bsx-blocks/banner', {
         } );
         bannerClassName = addClassNames( {
             belowNavbar,
+            touchFooter,
             marginBefore, 
             marginAfter, 
             paddingBefore, 
@@ -639,6 +649,9 @@ registerBlockType( 'bsx-blocks/banner', {
                     belowNavbarToggle( belowNavbar, onChangeBelowNavbar )
                 }
                 {
+                    touchFooterToggle( touchFooter, onChangeTouchFooter )
+                }
+                {
                     nodeNameSelect( nodeName, onChangeNodeName, [ 'div', 'section' ] )
                 }
                 {
@@ -727,6 +740,7 @@ registerBlockType( 'bsx-blocks/banner', {
                 nodeName,
                 templateName,
                 belowNavbar,
+                touchFooter,
                 imgId,
                 imgSizes,
                 imgSizeIndex,
@@ -750,7 +764,7 @@ registerBlockType( 'bsx-blocks/banner', {
 
         // class names
 
-        let bannerClassName = makeBannerClassNames( { 
+        let bannerClassName = makeBannerClassNames( {
             bannerType, 
             bannerSize, 
             bgAttachment, 
@@ -761,7 +775,8 @@ registerBlockType( 'bsx-blocks/banner', {
             templateName,
         } );
         bannerClassName = addClassNames( {
-            belowNavbar,
+            belowNavbar, 
+            touchFooter,
             marginBefore, 
             marginAfter, 
             paddingBefore, 

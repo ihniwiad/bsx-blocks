@@ -22,6 +22,7 @@ const {
 import { svgIcon } from './../_functions/wp-icons.js';
 import { addClassNames } from './../_functions/add-class-names.js';
 import { 
+    touchFooterToggle,
     textShadowSelect,
     fontWeightSelect,
     inverseTextColorToggle,
@@ -115,6 +116,10 @@ registerBlockType( 'bsx-blocks/wrapper', {
             type: 'string',
             default: '',
         },
+        touchFooter: {
+            type: 'boolean',
+            default: false,
+        },
     },
 
     getEditWrapperProps( attributes ) {
@@ -156,6 +161,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 paddingAfter,
                 paddingLeft,
                 paddingRight,
+                touchFooter,
             },
             setAttributes,
         } = props;
@@ -220,6 +226,9 @@ registerBlockType( 'bsx-blocks/wrapper', {
         const onChangePaddingRight = ( value ) => {
             setAttributes( { paddingRight: value } );
         };
+        const onChangeTouchFooter = ( value ) => {
+            setAttributes( { touchFooter: value } );
+        };
 
         const alignmentControls = [
             {
@@ -257,6 +266,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
             paddingAfter, 
             paddingLeft, 
             paddingRight,
+            touchFooter,
         } );
 
         const TagName = nodeName;
@@ -417,6 +427,9 @@ registerBlockType( 'bsx-blocks/wrapper', {
                             { value: '100', label: __( '100 %', 'bsx-blocks' ) },
                         ] }
                     />
+                    {
+                        touchFooterToggle( touchFooter, onChangeTouchFooter )
+                    }
                 </InspectorAdvancedControls>
             </Fragment>,
             (
@@ -451,6 +464,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 paddingAfter,
                 paddingLeft,
                 paddingRight,
+                touchFooter,
             },
             setAttributes,
         } = props;
@@ -473,6 +487,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
             paddingAfter, 
             paddingLeft, 
             paddingRight,
+            touchFooter,
         } );
 
         const TagName = nodeName;

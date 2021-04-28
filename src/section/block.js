@@ -5,6 +5,7 @@ const {
 const {
     InnerBlocks,
     InspectorControls,
+    InspectorAdvancedControls
 } = wp.blockEditor;
 const { 
     PanelBody,
@@ -28,6 +29,13 @@ import { svgIcon } from './../_functions/wp-icons.js';
 import { addClassNames } from './../_functions/add-class-names.js';
 import { makeSaveAttributes } from './../_functions/attributes.js';
 import { getTemplate } from './../_functions/utilities.js';
+import { 
+    belowNavbarToggle,
+    touchFooterToggle,
+    marginBeforeSelect,
+    marginAfterSelect,
+} from './../_functions/controls.js';
+
 
 // data
 import templates from './templates';
@@ -42,6 +50,10 @@ registerBlockType( 'bsx-blocks/section', {
             type: 'string',
         },
         belowNavbar: {
+            type: 'boolean',
+            default: false,
+        },
+        touchFooter: {
             type: 'boolean',
             default: false,
         },
@@ -78,6 +90,7 @@ registerBlockType( 'bsx-blocks/section', {
             attributes: {
                 templateName,
 	            belowNavbar,
+                touchFooter,
 	            id,
 	            marginBefore,
 	            marginAfter,
@@ -112,6 +125,9 @@ registerBlockType( 'bsx-blocks/section', {
         const onChangeBelowNavbar = ( value ) => {
             setAttributes( { belowNavbar: value } );
         };
+        const onChangeTouchFooter = ( value ) => {
+            setAttributes( { touchFooter: value } );
+        };
 
         const onChangeId = ( value ) => {
             setAttributes( { id: value } );
@@ -129,6 +145,7 @@ registerBlockType( 'bsx-blocks/section', {
 
         const containerClassName = addClassNames( { 
             belowNavbar, 
+            touchFooter,
             marginBefore, 
             marginAfter, 
         } );
@@ -155,12 +172,6 @@ registerBlockType( 'bsx-blocks/section', {
                                 </Button>
                             ) ) }
                         </div>
-                        <ToggleControl
-                            label={ __( 'Below navbar', 'bsx-blocks' ) }
-                            checked={ !! belowNavbar }
-                            onChange={ onChangeBelowNavbar }
-                            help={ __( 'Enable if element starts below navbar. If enabled element has spacer top to avoid overlapping its contents by navbar.', 'bsx-blocks' ) }
-                        />
                         <TextControl 
                             label={ __( 'ID', 'bsx-blocks' ) }
                             value={ id } 
@@ -169,38 +180,22 @@ registerBlockType( 'bsx-blocks/section', {
                     </PanelBody>
 
                     <PanelBody title={ __( 'Margin', 'bsx-blocks' ) }>
-                        <SelectControl 
-                            label={ __( 'Margin before', 'bsx-blocks' ) }
-                            value={ marginBefore }
-                            onChange={ onChangeMarginBefore }
-                            options={ [
-                                { value: '', label: __( '– unset –', 'bsx-blocks' ) },
-                                { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
-                                { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
-                                { value: '2', label: __( 'small', 'bsx-blocks' ) },
-                                { value: '3', label: __( 'medium', 'bsx-blocks' ) },
-                                { value: '4', label: __( 'large', 'bsx-blocks' ) },
-                                { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
-                            ] }
-                            help={ __( 'Spacer before Container', 'bsx-blocks' ) }
-                        />
-                        <SelectControl 
-                            label={ __( 'Margin after', 'bsx-blocks' ) }
-                            value={ marginAfter }
-                            onChange={ onChangeMarginAfter }
-                            options={ [
-                                { value: '', label: __( '– unset –', 'bsx-blocks' ) },
-                                { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
-                                { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
-                                { value: '2', label: __( 'small', 'bsx-blocks' ) },
-                                { value: '3', label: __( 'medium', 'bsx-blocks' ) },
-                                { value: '4', label: __( 'large', 'bsx-blocks' ) },
-                                { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
-                            ] }
-                            help={ __( 'Spacer after Container', 'bsx-blocks' ) }
-                        />
+                        {
+                            marginBeforeSelect( marginBefore, onChangeMarginBefore )
+                        }
+                        {
+                            marginAfterSelect( marginAfter, onChangeMarginAfter )
+                        }
                     </PanelBody>
                 </InspectorControls>
+                <InspectorAdvancedControls>
+                    {
+                        belowNavbarToggle( belowNavbar, onChangeBelowNavbar )
+                    }
+                    {
+                        touchFooterToggle( touchFooter, onChangeTouchFooter )
+                    }
+                </InspectorAdvancedControls>
             </Fragment>,
             (
                 <Fragment>
@@ -254,6 +249,7 @@ registerBlockType( 'bsx-blocks/section', {
             attributes: {
                 templateName,
 	            belowNavbar,
+                touchFooter,
 	            id,
 	            marginBefore,
 	            marginAfter,
@@ -262,6 +258,7 @@ registerBlockType( 'bsx-blocks/section', {
 
         const containerClassName = addClassNames( { 
             belowNavbar, 
+            touchFooter,
             marginBefore, 
             marginAfter, 
         } );

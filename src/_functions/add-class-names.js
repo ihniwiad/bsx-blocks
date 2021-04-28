@@ -4,6 +4,7 @@ export function addClassNames( attributes, classNamesString ) {
 
     const {
         belowNavbar, 
+        touchFooter,
         display,
         marginBefore, 
         marginAfter, 
@@ -34,6 +35,9 @@ export function addClassNames( attributes, classNamesString ) {
 
     if ( !! belowNavbar ) {
         classNames.push( 'below-navbar-content' );
+    }
+    if ( !! touchFooter ) {
+        classNames.push( 'mb-n-footer-space' );
     }
 
     if ( !! display ) {

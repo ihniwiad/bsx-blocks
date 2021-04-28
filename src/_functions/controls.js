@@ -76,7 +76,18 @@ export const belowNavbarToggle = ( value, onChangeFunction ) => {
             label={ __( 'Below navbar', 'bsx-blocks' ) }
             checked={ !! value }
             onChange={ onChangeFunction }
-            help={ __( 'Enable if container starts below navbar. If enabled container has spacer top to avoid overlapping its contents by navbar.', 'bsx-blocks' ) }
+            help={ __( 'Enable if element is overlayed by navbar and needs a spacer top.', 'bsx-blocks' ) }
+        />
+    )
+}
+
+export const touchFooterToggle = ( value, onChangeFunction ) => {
+    return (
+        <ToggleControl
+            label={ __( 'Touch footer', 'bsx-blocks' ) }
+            checked={ !! value }
+            onChange={ onChangeFunction }
+            help={ __( 'Enable if element touch footer without spacing.', 'bsx-blocks' ) }
         />
     )
 }
