@@ -170,6 +170,67 @@ const templates = [
         ],
         templateLock: false,
     },
+    {
+        name: 'headline-text-banner',
+        title: __( 'Headline Text Banner', 'bsx-blocks' ),
+        icon: svgIcon( 'headline-text-row' ),
+        attributes: {
+            marginAfter: '5',
+            bannerType: '',
+            bannerSize: '1',
+            belowNavbar: true,
+        },
+        template: [  
+            [ 
+                'bsx-blocks/container', 
+                {},
+                [
+                    [ 
+                        'bsx-blocks/wrapper', 
+                        {
+                            textShadow: 'darker',
+                            fontWeight: 'normal',
+                            headingInheritTextColor: true,
+                            headingInheritFontWeight: true,
+                            textColor: 'white',
+                            textAlign: 'center',
+                            marginAfter: '4',
+                        },
+                        [
+                            [
+                                'core/heading',
+                                { 
+                                    placeholder: 'Add heading text, configure heading level...',
+                                    textSize: 'display-1',
+                                }
+                            ],
+                        ],
+                    ], 
+                    [ 
+                        'bsx-blocks/wrapper', 
+                        {
+                            textSize: 'h2',
+                            textShadow: 'darker',
+                            fontWeight: 'bold',
+                            textColor: 'white',
+                            headingInheritTextColor: true,
+                            headingInheritFontWeight: true,
+                            textAlign: 'center',
+                        },
+                        [
+                            [
+                                'core/paragraph',
+                                { 
+                                    placeholder: 'Add text...',
+                                }
+                            ],
+                        ],
+                    ], 
+                ],
+            ],
+        ],
+        templateLock: false,
+    },
 ];
 
 export default templates;
