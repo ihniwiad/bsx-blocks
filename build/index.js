@@ -3003,6 +3003,7 @@ var templates = [{
     textAlign: 'center',
     marginAfter: '4'
   }, [['core/heading', {
+    level: 1,
     placeholder: 'Add heading text, configure heading level...',
     textSize: 'display-1'
   }]]], ['bsx-blocks/wrapper', {

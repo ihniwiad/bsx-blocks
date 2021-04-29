@@ -200,6 +200,7 @@ const templates = [
                             [
                                 'core/heading',
                                 { 
+                                    level: 1,
                                     placeholder: 'Add heading text, configure heading level...',
                                     textSize: 'display-1',
                                 }
