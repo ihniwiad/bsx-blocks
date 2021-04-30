@@ -644,7 +644,7 @@ function makeSaveAttributes(attributes) {
 /*!************************************!*\
   !*** ./src/_functions/controls.js ***!
   \************************************/
-/*! exports provided: ignoreMailtoSpamProtectionToggle, targetToggle, belowNavbarToggle, touchFooterToggle, inverseTextColorToggle, headingInheritTextColorToggle, headingInheritFontWeightToggle, linkUrlInput, bgAttachmentFixedLimitedToggle, relInput, dataFnInput, stateSelect, stateTypeSelect, sizeSelect, marginLeftSelect, marginRightSelect, marginBeforeSelect, marginAfterSelect, displaySelect, alignItemsSelect, paddingBeforeSelect, paddingAfterSelect, paddingLeftSelect, paddingRightSelect, nodeNameSelect, bgPositionSelect, bgSizeSelect, bannerTypeSelect, bannerSizeSelect, bgAttachmentSelect, textShadowSelect, fontWeightSelect, imgUploadClickableImg, imgUploadButton, inlineTemplateSelect, uiTemplateSelect */
+/*! exports provided: ignoreMailtoSpamProtectionToggle, targetToggle, belowNavbarToggle, touchFooterToggle, inverseTextColorToggle, headingInheritTextColorToggle, headingInheritFontWeightToggle, linkUrlInput, bgAttachmentFixedLimitedToggle, relInput, dataFnInput, stateSelect, bgColorSelect, stateTypeSelect, sizeSelect, marginLeftSelect, marginRightSelect, marginBeforeSelect, marginAfterSelect, displaySelect, alignItemsSelect, paddingBeforeSelect, paddingAfterSelect, paddingLeftSelect, paddingRightSelect, nodeNameSelect, bgPositionSelect, bgSizeSelect, bannerTypeSelect, bannerSizeSelect, bgAttachmentSelect, textShadowSelect, fontWeightSelect, imgUploadClickableImg, imgUploadButton, inlineTemplateSelect, uiTemplateSelect */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -661,6 +661,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "relInput", function() { return relInput; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dataFnInput", function() { return dataFnInput; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "stateSelect", function() { return stateSelect; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "bgColorSelect", function() { return bgColorSelect; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "stateTypeSelect", function() { return stateTypeSelect; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sizeSelect", function() { return sizeSelect; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "marginLeftSelect", function() { return marginLeftSelect; });
@@ -760,6 +761,103 @@ var states = [{
 }, {
   value: 'text-link',
   label: __('Text link', 'bsx-blocks')
+}];
+var bgStates = [{
+  value: '',
+  label: __('– unset –', 'bsx-blocks')
+}, {
+  value: 'white',
+  label: __('White', 'bsx-blocks')
+}, {
+  value: 'white-opaque',
+  label: __('White opaque', 'bsx-blocks')
+}, {
+  value: 'white-transparent',
+  label: __('White transparent', 'bsx-blocks')
+}, {
+  value: 'black',
+  label: __('Black', 'bsx-blocks')
+}, {
+  value: 'black-opaque',
+  label: __('Black opaque', 'bsx-blocks')
+}, {
+  value: 'black-transparent',
+  label: __('Black transparent', 'bsx-blocks')
+}, {
+  value: 'primary',
+  label: __('Primary', 'bsx-blocks')
+}, {
+  value: 'primary-opaque',
+  label: __('Primary opaque', 'bsx-blocks')
+}, {
+  value: 'primary-transparent',
+  label: __('Primary transparent', 'bsx-blocks')
+}, {
+  value: 'secondary',
+  label: __('Secondary', 'bsx-blocks')
+}, {
+  value: 'secondary-opaque',
+  label: __('Secondary opaque', 'bsx-blocks')
+}, {
+  value: 'secondary-transparent',
+  label: __('Secondary transparent', 'bsx-blocks')
+}, {
+  value: 'success',
+  label: __('Success', 'bsx-blocks')
+}, {
+  value: 'success-opaque',
+  label: __('Success opaque', 'bsx-blocks')
+}, {
+  value: 'success-transparent',
+  label: __('Success transparent', 'bsx-blocks')
+}, {
+  value: 'danger',
+  label: __('Danger', 'bsx-blocks')
+}, {
+  value: 'danger-opaque',
+  label: __('Danger opaque', 'bsx-blocks')
+}, {
+  value: 'danger-transparent',
+  label: __('Danger transparent', 'bsx-blocks')
+}, {
+  value: 'warning',
+  label: __('Warning', 'bsx-blocks')
+}, {
+  value: 'warning-opaque',
+  label: __('Warning opaque', 'bsx-blocks')
+}, {
+  value: 'warning-transparent',
+  label: __('Warning transparent', 'bsx-blocks')
+}, {
+  value: 'info',
+  label: __('Info', 'bsx-blocks')
+}, {
+  value: 'info-opaque',
+  label: __('Info opaque', 'bsx-blocks')
+}, {
+  value: 'info-transparent',
+  label: __('Info transparent', 'bsx-blocks')
+}, {
+  value: 'light',
+  label: __('Light', 'bsx-blocks')
+}, {
+  value: 'light-opaque',
+  label: __('Light opaque', 'bsx-blocks')
+}, {
+  value: 'light-transparent',
+  label: __('Light transparent', 'bsx-blocks')
+}, {
+  value: 'dark',
+  label: __('Dark', 'bsx-blocks')
+}, {
+  value: 'dark-opaque',
+  label: __('Dark opaque', 'bsx-blocks')
+}, {
+  value: 'dark-transparent',
+  label: __('Dark transparent', 'bsx-blocks')
+}, {
+  value: 'transparent',
+  label: __('Transparent', 'bsx-blocks')
 }]; // toggles
 
 var ignoreMailtoSpamProtectionToggle = function ignoreMailtoSpamProtectionToggle(value, onChangeFunction) {
@@ -846,12 +944,22 @@ var dataFnInput = function dataFnInput(value, onChangeFunction) {
   });
 }; // selects
 
-var stateSelect = function stateSelect(value, onChangeFunction) {
+var stateSelect = function stateSelect(value, onChangeFunction, allowedValues) {
+  var defaultValues = states;
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
     label: __('State', 'bsx-blocks'),
     value: value,
     onChange: onChangeFunction,
-    options: states
+    options: Object(_utilities_js__WEBPACK_IMPORTED_MODULE_1__["filterByAllowedValueKeys"])(defaultValues, allowedValues)
+  });
+};
+var bgColorSelect = function bgColorSelect(value, onChangeFunction, allowedValues) {
+  var defaultValues = bgStates;
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+    label: __('Background Color', 'bsx-blocks'),
+    value: value,
+    onChange: onChangeFunction,
+    options: Object(_utilities_js__WEBPACK_IMPORTED_MODULE_1__["filterByAllowedValueKeys"])(defaultValues, allowedValues)
   });
 };
 var stateTypeSelect = function stateTypeSelect(value, onChangeFunction) {
@@ -1130,6 +1238,9 @@ var bannerSizeSelect = function bannerSizeSelect(value, onChangeFunction, allowe
 };
 var bgAttachmentSelect = function bgAttachmentSelect(value, onChangeFunction, allowedValues) {
   var defaultValues = [{
+    value: '',
+    label: __('– unset –', 'bsx-blocks')
+  }, {
     value: 'static',
     label: __('static', 'bsx-blocks')
   }, {
@@ -2366,6 +2477,9 @@ registerBlockType('bsx-blocks/banner', {
       type: 'boolean',
       default: false
     },
+    bgColor: {
+      type: 'string'
+    },
     imgId: {
       type: 'number'
     },
@@ -2453,6 +2567,7 @@ registerBlockType('bsx-blocks/banner', {
         templateName = _props$attributes.templateName,
         belowNavbar = _props$attributes.belowNavbar,
         touchFooter = _props$attributes.touchFooter,
+        bgColor = _props$attributes.bgColor,
         imgId = _props$attributes.imgId,
         imgSizes = _props$attributes.imgSizes,
         imgSizeIndex = _props$attributes.imgSizeIndex,
@@ -2511,6 +2626,12 @@ registerBlockType('bsx-blocks/banner', {
     var onChangeTouchFooter = function onChangeTouchFooter(value) {
       setAttributes({
         touchFooter: value
+      });
+    };
+
+    var onChangeBgColor = function onChangeBgColor(value) {
+      setAttributes({
+        bgColor: value
       });
     };
 
@@ -2724,6 +2845,7 @@ registerBlockType('bsx-blocks/banner', {
     bannerClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_6__["addClassNames"])({
       belowNavbar: belowNavbar,
       touchFooter: touchFooter,
+      bgColor: bgColor,
       marginBefore: marginBefore,
       marginAfter: marginAfter,
       paddingBefore: paddingBefore,
@@ -2783,7 +2905,9 @@ registerBlockType('bsx-blocks/banner', {
       target: "_blank"
     }, __('Preview selected portrait image', 'bsx-blocks')))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(PanelBody, {
       title: __('Banner dimensions', 'bsx-blocks')
-    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["bannerTypeSelect"])(bannerType, onChangeBannerType), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["bannerSizeSelect"])(bannerSize, onChangeBannerSize), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["bgAttachmentSelect"])(bgAttachment, onChangeBgAttachment), bgAttachment === 'fixed' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(Fragment, null, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["bgAttachmentFixedLimitedToggle"])(bgAttachmentFixedLimited, onChangeBgAttachmentFixedLimited)), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["alignItemsSelect"])(alignItems, onChangeAlignItems, ['center', 'end'])), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(PanelBody, {
+    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["bannerTypeSelect"])(bannerType, onChangeBannerType), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["bannerSizeSelect"])(bannerSize, onChangeBannerSize), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["bgAttachmentSelect"])(bgAttachment, onChangeBgAttachment), bgAttachment === 'fixed' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(Fragment, null, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["bgAttachmentFixedLimitedToggle"])(bgAttachmentFixedLimited, onChangeBgAttachmentFixedLimited)), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["alignItemsSelect"])(alignItems, onChangeAlignItems, ['', 'center', 'end'])), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(PanelBody, {
+      title: __('Background', 'bsx-blocks')
+    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["bgColorSelect"])(bgColor, onChangeBgColor)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(PanelBody, {
       title: __('Margin', 'bsx-blocks')
     }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["marginBeforeSelect"])(marginBefore, onChangeMarginBefore), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["marginAfterSelect"])(marginAfter, onChangeMarginAfter))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(InspectorAdvancedControls, null, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["belowNavbarToggle"])(belowNavbar, onChangeBelowNavbar), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["touchFooterToggle"])(touchFooter, onChangeTouchFooter), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["nodeNameSelect"])(nodeName, onChangeNodeName, ['div', 'section']), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["bgPositionSelect"])(bgPosition, onChangeBgPosition), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["bgSizeSelect"])(bgSize, onChangeBgSize), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["paddingBeforeSelect"])(paddingBefore, onChangePaddingBefore), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["paddingAfterSelect"])(paddingAfter, onChangePaddingAfter)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(Fragment, null, !templateName ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
       class: "bsxui-initial-inline-control"
@@ -2792,20 +2916,7 @@ registerBlockType('bsx-blocks/banner', {
     }, __('Please select Banner template', 'bsx-blocks')), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["inlineTemplateSelect"])(_templates__WEBPACK_IMPORTED_MODULE_11__["default"], onChangeTemplate)) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(TagName, {
       className: bannerClassName,
       style: bannerStyle
-    }, !imgId && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
-      className: "bsxui-in-widget-overlay-panel bsxui-top"
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(MediaUpload, {
-      onSelect: onSelectImage,
-      allowedTypes: "image",
-      value: imgId,
-      render: function render(_ref2) {
-        var open = _ref2.open;
-        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(Button, {
-          onClick: open,
-          isSecondary: true
-        }, __('Select / upload Image', 'bsx-blocks'));
-      }
-    })), noBannerInnerTemplateNames.indexOf(templateName) == -1 ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+    },  false && false, noBannerInnerTemplateNames.indexOf(templateName) == -1 ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
       className: bannerInnerClassName
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(InnerBlocks, {
       template: template,
@@ -2826,6 +2937,7 @@ registerBlockType('bsx-blocks/banner', {
         templateName = _props$attributes2.templateName,
         belowNavbar = _props$attributes2.belowNavbar,
         touchFooter = _props$attributes2.touchFooter,
+        bgColor = _props$attributes2.bgColor,
         imgId = _props$attributes2.imgId,
         imgSizes = _props$attributes2.imgSizes,
         imgSizeIndex = _props$attributes2.imgSizeIndex,
@@ -2858,6 +2970,7 @@ registerBlockType('bsx-blocks/banner', {
     bannerClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_6__["addClassNames"])({
       belowNavbar: belowNavbar,
       touchFooter: touchFooter,
+      bgColor: bgColor,
       marginBefore: marginBefore,
       marginAfter: marginAfter,
       paddingBefore: paddingBefore,
@@ -2871,15 +2984,16 @@ registerBlockType('bsx-blocks/banner', {
       imgSizeIndex: imgSizeIndex,
       portraitImgSizes: portraitImgSizes,
       portraitImgSizeIndex: portraitImgSizeIndex
-    });
+    }); // there might be no images at all, e.g. if background color banner
+
     var saveAttributes = Object(_functions_attributes_js__WEBPACK_IMPORTED_MODULE_9__["makeSaveAttributes"])({
-      'data-srcset': srcsetJson
+      'data-fn': imgId ? 'lazyload' : '',
+      'data-src': imgId ? url : '',
+      'data-srcset': imgId ? srcsetJson : ''
     });
     var TagName = nodeName;
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(TagName, _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
-      className: bannerClassName,
-      "data-fn": "lazyload",
-      "data-src": url
+      className: bannerClassName
     }, saveAttributes), noBannerInnerTemplateNames.indexOf(templateName) == -1 ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
       className: bannerInnerClassName
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(InnerBlocks.Content, null)) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(InnerBlocks.Content, null));
@@ -9625,6 +9739,9 @@ registerBlockType('bsx-blocks/wrapper', {
     dataTg: {
       type: 'string'
     },
+    belowNavbar: {
+      type: 'boolean'
+    },
     bgColor: {
       type: 'string'
     },
@@ -9685,8 +9802,7 @@ registerBlockType('bsx-blocks/wrapper', {
       default: ''
     },
     touchFooter: {
-      type: 'boolean',
-      default: false
+      type: 'boolean'
     }
   },
   getEditWrapperProps: function getEditWrapperProps(attributes) {
@@ -9706,6 +9822,7 @@ registerBlockType('bsx-blocks/wrapper', {
         id = _props$attributes.id,
         dataFn = _props$attributes.dataFn,
         dataTg = _props$attributes.dataTg,
+        belowNavbar = _props$attributes.belowNavbar,
         bgColor = _props$attributes.bgColor,
         textColor = _props$attributes.textColor,
         textSize = _props$attributes.textSize,
@@ -9729,6 +9846,12 @@ registerBlockType('bsx-blocks/wrapper', {
     var onChangeNodeName = function onChangeNodeName(value) {
       setAttributes({
         nodeName: value
+      });
+    };
+
+    var onChangeBelowNavbar = function onChangeBelowNavbar(value) {
+      setAttributes({
+        belowNavbar: value
       });
     };
 
@@ -9854,6 +9977,7 @@ registerBlockType('bsx-blocks/wrapper', {
       align: 'right'
     }];
     var wrapperClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__["addClassNames"])({
+      belowNavbar: belowNavbar,
       bgColor: bgColor,
       textColor: textColor,
       textSize: textSize,
@@ -9881,109 +10005,7 @@ registerBlockType('bsx-blocks/wrapper', {
       alignmentControls: alignmentControls
     })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
       title: __('Color & appearance', 'bsx-blocks')
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
-      label: __('Background color', 'bsx-blocks'),
-      value: bgColor,
-      onChange: onChangeBgColor,
-      options: [{
-        value: '',
-        label: __('– unset –', 'bsx-blocks')
-      }, {
-        value: 'white',
-        label: __('White', 'bsx-blocks')
-      }, {
-        value: 'white-opaque',
-        label: __('White opaque', 'bsx-blocks')
-      }, {
-        value: 'white-transparent',
-        label: __('White transparent', 'bsx-blocks')
-      }, {
-        value: 'black',
-        label: __('Black', 'bsx-blocks')
-      }, {
-        value: 'black-opaque',
-        label: __('Black opaque', 'bsx-blocks')
-      }, {
-        value: 'black-transparent',
-        label: __('Black transparent', 'bsx-blocks')
-      }, {
-        value: 'primary',
-        label: __('Primary', 'bsx-blocks')
-      }, {
-        value: 'primary-opaque',
-        label: __('Primary opaque', 'bsx-blocks')
-      }, {
-        value: 'primary-transparent',
-        label: __('Primary transparent', 'bsx-blocks')
-      }, {
-        value: 'secondary',
-        label: __('Secondary', 'bsx-blocks')
-      }, {
-        value: 'secondary-opaque',
-        label: __('Secondary opaque', 'bsx-blocks')
-      }, {
-        value: 'secondary-transparent',
-        label: __('Secondary transparent', 'bsx-blocks')
-      }, {
-        value: 'success',
-        label: __('Success', 'bsx-blocks')
-      }, {
-        value: 'success-opaque',
-        label: __('Success opaque', 'bsx-blocks')
-      }, {
-        value: 'success-transparent',
-        label: __('Success transparent', 'bsx-blocks')
-      }, {
-        value: 'danger',
-        label: __('Danger', 'bsx-blocks')
-      }, {
-        value: 'danger-opaque',
-        label: __('Danger opaque', 'bsx-blocks')
-      }, {
-        value: 'danger-transparent',
-        label: __('Danger transparent', 'bsx-blocks')
-      }, {
-        value: 'warning',
-        label: __('Warning', 'bsx-blocks')
-      }, {
-        value: 'warning-opaque',
-        label: __('Warning opaque', 'bsx-blocks')
-      }, {
-        value: 'warning-transparent',
-        label: __('Warning transparent', 'bsx-blocks')
-      }, {
-        value: 'info',
-        label: __('Info', 'bsx-blocks')
-      }, {
-        value: 'info-opaque',
-        label: __('Info opaque', 'bsx-blocks')
-      }, {
-        value: 'info-transparent',
-        label: __('Info transparent', 'bsx-blocks')
-      }, {
-        value: 'light',
-        label: __('Light', 'bsx-blocks')
-      }, {
-        value: 'light-opaque',
-        label: __('Light opaque', 'bsx-blocks')
-      }, {
-        value: 'light-transparent',
-        label: __('Light transparent', 'bsx-blocks')
-      }, {
-        value: 'dark',
-        label: __('Dark', 'bsx-blocks')
-      }, {
-        value: 'dark-opaque',
-        label: __('Dark opaque', 'bsx-blocks')
-      }, {
-        value: 'dark-transparent',
-        label: __('Dark transparent', 'bsx-blocks')
-      }, {
-        value: 'transparent',
-        label: __('Transparent', 'bsx-blocks')
-      }],
-      help: __('Spacer before element', 'bsx-blocks')
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["bgColorSelect"])(bgColor, onChangeBgColor), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
       label: __('Text color (optional)', 'bsx-blocks'),
       value: textColor,
       onChange: onChangeTextColor,
@@ -10098,7 +10120,7 @@ registerBlockType('bsx-blocks/wrapper', {
         value: '100',
         label: __('100 %', 'bsx-blocks')
       }]
-    }), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["touchFooterToggle"])(touchFooter, onChangeTouchFooter))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TagName, {
+    }), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["belowNavbarToggle"])(belowNavbar, onChangeBelowNavbar), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["touchFooterToggle"])(touchFooter, onChangeTouchFooter))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TagName, {
       className: wrapperClassName
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks, null))];
   },
@@ -10109,6 +10131,7 @@ registerBlockType('bsx-blocks/wrapper', {
         id = _props$attributes2.id,
         dataFn = _props$attributes2.dataFn,
         dataTg = _props$attributes2.dataTg,
+        belowNavbar = _props$attributes2.belowNavbar,
         bgColor = _props$attributes2.bgColor,
         textColor = _props$attributes2.textColor,
         textSize = _props$attributes2.textSize,
@@ -10129,6 +10152,7 @@ registerBlockType('bsx-blocks/wrapper', {
         touchFooter = _props$attributes2.touchFooter,
         setAttributes = props.setAttributes;
     var wrapperClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__["addClassNames"])({
+      belowNavbar: belowNavbar,
       bgColor: bgColor,
       textColor: textColor,
       textSize: textSize,

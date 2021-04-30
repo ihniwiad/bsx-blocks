@@ -59,6 +59,7 @@ import {
     uiTemplateSelect,
     imgUploadClickableImg,
     imgUploadButton,
+    bgColorSelect,
 } from './../_functions/controls.js';
 import { makeSaveAttributes } from './../_functions/attributes.js';
 import { getTemplate } from './../_functions/utilities.js';
@@ -219,6 +220,9 @@ registerBlockType( 'bsx-blocks/banner', {
             type: 'boolean',
             default: false,
         },
+        bgColor: {
+            type: 'string',
+        },
         imgId: {
             type: 'number',
         },
@@ -311,6 +315,7 @@ registerBlockType( 'bsx-blocks/banner', {
                 templateName,
                 belowNavbar,
                 touchFooter,
+                bgColor,
                 imgId,
                 imgSizes,
                 imgSizeIndex,
@@ -367,6 +372,10 @@ registerBlockType( 'bsx-blocks/banner', {
         };
         const onChangeTouchFooter = ( value ) => {
             setAttributes( { touchFooter: value } );
+        };
+
+        const onChangeBgColor = ( value ) => {
+            setAttributes( { bgColor: value } );
         };
 
         async function onSelectImage( img ) {
@@ -502,6 +511,7 @@ registerBlockType( 'bsx-blocks/banner', {
         bannerClassName = addClassNames( {
             belowNavbar,
             touchFooter,
+            bgColor,
             marginBefore, 
             marginAfter, 
             paddingBefore, 
@@ -630,7 +640,14 @@ registerBlockType( 'bsx-blocks/banner', {
                         </>
                     ) }
                     {
-                        alignItemsSelect( alignItems, onChangeAlignItems, [ 'center', 'end' ] )
+                        alignItemsSelect( alignItems, onChangeAlignItems, [ '', 'center', 'end' ] )
+                    }
+                </PanelBody>
+
+
+                <PanelBody title={ __( 'Background', 'bsx-blocks' ) }>
+                    {
+                        bgColorSelect( bgColor, onChangeBgColor )
                     }
                 </PanelBody>
 
@@ -685,7 +702,7 @@ registerBlockType( 'bsx-blocks/banner', {
                         (
                             <TagName className={ bannerClassName } style={ bannerStyle }>
                                 {
-                                    ! imgId && (
+                                    false && ! imgId && (
                                         <div className="bsxui-in-widget-overlay-panel bsxui-top">
                                             <MediaUpload
                                                 onSelect={ onSelectImage }
@@ -741,6 +758,7 @@ registerBlockType( 'bsx-blocks/banner', {
                 templateName,
                 belowNavbar,
                 touchFooter,
+                bgColor,
                 imgId,
                 imgSizes,
                 imgSizeIndex,
@@ -777,6 +795,7 @@ registerBlockType( 'bsx-blocks/banner', {
         bannerClassName = addClassNames( {
             belowNavbar, 
             touchFooter,
+            bgColor,
             marginBefore, 
             marginAfter, 
             paddingBefore, 
@@ -794,14 +813,17 @@ registerBlockType( 'bsx-blocks/banner', {
             portraitImgSizeIndex, 
         } );
 
+        // there might be no images at all, e.g. if background color banner
         const saveAttributes = makeSaveAttributes( {
-            'data-srcset': srcsetJson,
+            'data-fn': imgId ? 'lazyload' : '',
+            'data-src': imgId ? url : '',
+            'data-srcset': imgId ? srcsetJson : '',
         } );
 
         const TagName = nodeName;
 
         return (
-            <TagName className={ bannerClassName } data-fn="lazyload" data-src={ url } { ...saveAttributes }>
+            <TagName className={ bannerClassName } { ...saveAttributes }>
                 {
                     noBannerInnerTemplateNames.indexOf( templateName ) == -1 ? (
                         <div className={ bannerInnerClassName }>

@@ -46,6 +46,41 @@ const states = [
     { value: 'text-link', label: __( 'Text link', 'bsx-blocks' ) },
 ];
 
+const bgStates = [
+    { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+    { value: 'white', label: __( 'White', 'bsx-blocks' ) },
+    { value: 'white-opaque', label: __( 'White opaque', 'bsx-blocks' ) },
+    { value: 'white-transparent', label: __( 'White transparent', 'bsx-blocks' ) },
+    { value: 'black', label: __( 'Black', 'bsx-blocks' ) },
+    { value: 'black-opaque', label: __( 'Black opaque', 'bsx-blocks' ) },
+    { value: 'black-transparent', label: __( 'Black transparent', 'bsx-blocks' ) },
+    { value: 'primary', label: __( 'Primary', 'bsx-blocks' ) },
+    { value: 'primary-opaque', label: __( 'Primary opaque', 'bsx-blocks' ) },
+    { value: 'primary-transparent', label: __( 'Primary transparent', 'bsx-blocks' ) },
+    { value: 'secondary', label: __( 'Secondary', 'bsx-blocks' ) },
+    { value: 'secondary-opaque', label: __( 'Secondary opaque', 'bsx-blocks' ) },
+    { value: 'secondary-transparent', label: __( 'Secondary transparent', 'bsx-blocks' ) },
+    { value: 'success', label: __( 'Success', 'bsx-blocks' ) },
+    { value: 'success-opaque', label: __( 'Success opaque', 'bsx-blocks' ) },
+    { value: 'success-transparent', label: __( 'Success transparent', 'bsx-blocks' ) },
+    { value: 'danger', label: __( 'Danger', 'bsx-blocks' ) },
+    { value: 'danger-opaque', label: __( 'Danger opaque', 'bsx-blocks' ) },
+    { value: 'danger-transparent', label: __( 'Danger transparent', 'bsx-blocks' ) },
+    { value: 'warning', label: __( 'Warning', 'bsx-blocks' ) },
+    { value: 'warning-opaque', label: __( 'Warning opaque', 'bsx-blocks' ) },
+    { value: 'warning-transparent', label: __( 'Warning transparent', 'bsx-blocks' ) },
+    { value: 'info', label: __( 'Info', 'bsx-blocks' ) },
+    { value: 'info-opaque', label: __( 'Info opaque', 'bsx-blocks' ) },
+    { value: 'info-transparent', label: __( 'Info transparent', 'bsx-blocks' ) },
+    { value: 'light', label: __( 'Light', 'bsx-blocks' ) },
+    { value: 'light-opaque', label: __( 'Light opaque', 'bsx-blocks' ) },
+    { value: 'light-transparent', label: __( 'Light transparent', 'bsx-blocks' ) },
+    { value: 'dark', label: __( 'Dark', 'bsx-blocks' ) },
+    { value: 'dark-opaque', label: __( 'Dark opaque', 'bsx-blocks' ) },
+    { value: 'dark-transparent', label: __( 'Dark transparent', 'bsx-blocks' ) },
+    { value: 'transparent', label: __( 'Transparent', 'bsx-blocks' ) },
+];
+
 
 // toggles
 
@@ -172,13 +207,26 @@ export const dataFnInput = ( value, onChangeFunction ) => {
 
 // selects
 
-export const stateSelect = ( value, onChangeFunction ) => {
+export const stateSelect = ( value, onChangeFunction, allowedValues ) => {
+    const defaultValues = states;
     return (
         <SelectControl 
             label={ __( 'State', 'bsx-blocks' ) }
             value={ value }
             onChange={ onChangeFunction }
-            options={ states }
+            options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
+        />
+    )
+}
+
+export const bgColorSelect = ( value, onChangeFunction, allowedValues ) => {
+    const defaultValues = bgStates;
+    return (
+        <SelectControl 
+            label={ __( 'Background Color', 'bsx-blocks' ) }
+            value={ value }
+            onChange={ onChangeFunction }
+            options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
         />
     )
 }
@@ -434,6 +482,7 @@ export const bannerSizeSelect = ( value, onChangeFunction, allowedValues ) => {
 
 export const bgAttachmentSelect = ( value, onChangeFunction, allowedValues ) => {
     const defaultValues = [
+        { value: '', label: __( '– unset –', 'bsx-blocks' ) },
         { value: 'static', label: __( 'static', 'bsx-blocks' ) },
         { value: 'fixed', label: __( 'fixed', 'bsx-blocks' ) },
     ];

@@ -22,6 +22,7 @@ const {
 import { svgIcon } from './../_functions/wp-icons.js';
 import { addClassNames } from './../_functions/add-class-names.js';
 import { 
+    belowNavbarToggle,
     touchFooterToggle,
     textShadowSelect,
     fontWeightSelect,
@@ -36,6 +37,7 @@ import {
     paddingAfterSelect,
     paddingLeftSelect,
     paddingRightSelect,
+    bgColorSelect,
 } from './../_functions/controls.js';
 
 
@@ -56,6 +58,9 @@ registerBlockType( 'bsx-blocks/wrapper', {
         },
         dataTg: {
             type: 'string',
+        },
+        belowNavbar: {
+            type: 'boolean',
         },
         bgColor: {
             type: 'string',
@@ -118,7 +123,6 @@ registerBlockType( 'bsx-blocks/wrapper', {
         },
         touchFooter: {
             type: 'boolean',
-            default: false,
         },
     },
 
@@ -144,6 +148,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 id,
                 dataFn,
                 dataTg,
+                belowNavbar,
                 bgColor,
                 textColor,
                 textSize,
@@ -168,6 +173,10 @@ registerBlockType( 'bsx-blocks/wrapper', {
 
         const onChangeNodeName = ( value ) => {
             setAttributes( { nodeName: value } );
+        };
+
+        const onChangeBelowNavbar = ( value ) => {
+            setAttributes( { belowNavbar: value } );
         };
 
         const onChangeBgColor = ( value ) => {
@@ -249,6 +258,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
         ];
 
         const wrapperClassName = addClassNames( { 
+            belowNavbar,
             bgColor, 
             textColor, 
             textSize,
@@ -283,46 +293,9 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 </BlockControls>
                 <InspectorControls>
                     <PanelBody title={ __( 'Color & appearance', 'bsx-blocks' ) }>
-                        <SelectControl 
-                            label={ __( 'Background color', 'bsx-blocks' ) }
-                            value={ bgColor }
-                            onChange={ onChangeBgColor }
-                            options={ [
-                                { value: '', label: __( '– unset –', 'bsx-blocks' ) },
-                                { value: 'white', label: __( 'White', 'bsx-blocks' ) },
-                                { value: 'white-opaque', label: __( 'White opaque', 'bsx-blocks' ) },
-                                { value: 'white-transparent', label: __( 'White transparent', 'bsx-blocks' ) },
-                                { value: 'black', label: __( 'Black', 'bsx-blocks' ) },
-                                { value: 'black-opaque', label: __( 'Black opaque', 'bsx-blocks' ) },
-                                { value: 'black-transparent', label: __( 'Black transparent', 'bsx-blocks' ) },
-                                { value: 'primary', label: __( 'Primary', 'bsx-blocks' ) },
-                                { value: 'primary-opaque', label: __( 'Primary opaque', 'bsx-blocks' ) },
-                                { value: 'primary-transparent', label: __( 'Primary transparent', 'bsx-blocks' ) },
-                                { value: 'secondary', label: __( 'Secondary', 'bsx-blocks' ) },
-                                { value: 'secondary-opaque', label: __( 'Secondary opaque', 'bsx-blocks' ) },
-                                { value: 'secondary-transparent', label: __( 'Secondary transparent', 'bsx-blocks' ) },
-                                { value: 'success', label: __( 'Success', 'bsx-blocks' ) },
-                                { value: 'success-opaque', label: __( 'Success opaque', 'bsx-blocks' ) },
-                                { value: 'success-transparent', label: __( 'Success transparent', 'bsx-blocks' ) },
-                                { value: 'danger', label: __( 'Danger', 'bsx-blocks' ) },
-                                { value: 'danger-opaque', label: __( 'Danger opaque', 'bsx-blocks' ) },
-                                { value: 'danger-transparent', label: __( 'Danger transparent', 'bsx-blocks' ) },
-                                { value: 'warning', label: __( 'Warning', 'bsx-blocks' ) },
-                                { value: 'warning-opaque', label: __( 'Warning opaque', 'bsx-blocks' ) },
-                                { value: 'warning-transparent', label: __( 'Warning transparent', 'bsx-blocks' ) },
-                                { value: 'info', label: __( 'Info', 'bsx-blocks' ) },
-                                { value: 'info-opaque', label: __( 'Info opaque', 'bsx-blocks' ) },
-                                { value: 'info-transparent', label: __( 'Info transparent', 'bsx-blocks' ) },
-                                { value: 'light', label: __( 'Light', 'bsx-blocks' ) },
-                                { value: 'light-opaque', label: __( 'Light opaque', 'bsx-blocks' ) },
-                                { value: 'light-transparent', label: __( 'Light transparent', 'bsx-blocks' ) },
-                                { value: 'dark', label: __( 'Dark', 'bsx-blocks' ) },
-                                { value: 'dark-opaque', label: __( 'Dark opaque', 'bsx-blocks' ) },
-                                { value: 'dark-transparent', label: __( 'Dark transparent', 'bsx-blocks' ) },
-                                { value: 'transparent', label: __( 'Transparent', 'bsx-blocks' ) },
-                            ] }
-                            help={ __( 'Spacer before element', 'bsx-blocks' ) }
-                        />
+                        {
+                            bgColorSelect( bgColor, onChangeBgColor )
+                        }
                         <SelectControl 
                             label={ __( 'Text color (optional)', 'bsx-blocks' ) }
                             value={ textColor }
@@ -428,6 +401,9 @@ registerBlockType( 'bsx-blocks/wrapper', {
                         ] }
                     />
                     {
+                        belowNavbarToggle( belowNavbar, onChangeBelowNavbar )
+                    }
+                    {
                         touchFooterToggle( touchFooter, onChangeTouchFooter )
                     }
                 </InspectorAdvancedControls>
@@ -447,6 +423,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 id,
                 dataFn,
                 dataTg,
+                belowNavbar,
                 bgColor,
                 textColor,
                 textSize,
@@ -470,6 +447,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
         } = props;
 
         const wrapperClassName = addClassNames( { 
+            belowNavbar,
             bgColor, 
             textColor, 
             textSize,
