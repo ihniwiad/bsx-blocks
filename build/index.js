@@ -3099,12 +3099,11 @@ var templates = [{
   }]]]]]]]]]],
   templateLock: false
 }, {
-  name: 'headline-text-banner',
-  title: __('Headline Text Banner', 'bsx-blocks'),
-  icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_0__["svgIcon"])('headline-text-row'),
+  name: 'heading-text-banner',
+  title: __('Heading Text Banner', 'bsx-blocks'),
+  icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_0__["svgIcon"])('heading-text-banner'),
   attributes: {
     marginAfter: '5',
-    bannerType: '',
     bannerSize: '1',
     belowNavbar: true
   },
@@ -3130,6 +3129,42 @@ var templates = [{
     textAlign: 'center'
   }, [['core/paragraph', {
     placeholder: 'Add text...'
+  }]]]]]],
+  templateLock: false
+}, {
+  name: 'heading-text-button-color-banner',
+  title: __('Heading Text Button Color Banner', 'bsx-blocks'),
+  icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_0__["svgIcon"])('heading-text-button-color-banner'),
+  attributes: {
+    marginAfter: '5',
+    bannerType: 'st',
+    bgColor: 'primary',
+    bannerSize: '2',
+    nodeName: 'section'
+  },
+  template: [['bsx-blocks/container', {}, [['bsx-blocks/wrapper', {
+    inverseTextColor: true,
+    headingInheritTextColor: true,
+    textAlign: 'center'
+  }, [['core/heading', {
+    marginAfter: '0',
+    placeholder: 'Add heading text, configure heading level...'
+  }]]], ['bsx-blocks/wrapper', {
+    textSize: 'lead',
+    inverseTextColor: true,
+    headingInheritTextColor: true,
+    textAlign: 'center',
+    marginBefore: 4,
+    paddingAfter: 3
+  }, [['core/paragraph', {
+    placeholder: 'Add text...'
+  }]]], ['bsx-blocks/buttons', {
+    templateName: 'one-button',
+    textAlign: 'center'
+  }, [['bsx-blocks/button', {
+    state: 'light',
+    stateType: '',
+    size: 'lg'
   }]]]]]],
   templateLock: false
 }];
