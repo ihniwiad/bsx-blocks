@@ -3026,7 +3026,7 @@ var templates = [{
     marginAfter: '5'
   },
   template: [['core/paragraph', {
-    placeholder: 'Change paragraph text or delete...'
+    placeholder: __('Change paragraph text or delete...', 'bsx-blocks')
   }]],
   templateLock: false
 }, {
@@ -3037,7 +3037,7 @@ var templates = [{
     marginAfter: '5'
   },
   template: [['bsx-blocks/container', {}, [['core/heading', {
-    placeholder: 'Add heading text, configure heading level...',
+    placeholder: __('Add heading text, configure heading level...', 'bsx-blocks'),
     textSize: 'display-1',
     textColor: 'white',
     textShadow: 'darker',
@@ -3054,7 +3054,7 @@ var templates = [{
     marginAfter: '5'
   },
   template: [['bsx-blocks/container', {}, [['core/heading', {
-    placeholder: 'Add heading text, configure heading level...',
+    placeholder: __('Add heading text, configure heading level...', 'bsx-blocks'),
     textSize: 'display-1',
     textColor: 'white',
     textShadow: 'darker',
@@ -3080,7 +3080,7 @@ var templates = [{
   }, [['bsx-blocks/wrapper', {
     width: '100'
   }, [['bsx-blocks/container', {}, [['core/heading', {
-    placeholder: 'Add heading text, configure heading level...',
+    placeholder: __('Add heading text, configure heading level...', 'bsx-blocks'),
     textSize: 'display-1',
     textColor: 'white',
     textShadow: 'darker',
@@ -3092,7 +3092,7 @@ var templates = [{
     paddingBefore: '3',
     paddingAfter: '3'
   }, [['bsx-blocks/container', {}, [['core/paragraph', {
-    placeholder: 'Add text...',
+    placeholder: __('Add text...', 'bsx-blocks'),
     textSize: 'lead',
     textColor: 'white',
     marginAfter: '0'
@@ -3117,7 +3117,7 @@ var templates = [{
     marginAfter: '4'
   }, [['core/heading', {
     level: 1,
-    placeholder: 'Add heading text, configure heading level...',
+    placeholder: __('Add heading text, configure heading level...', 'bsx-blocks'),
     textSize: 'display-1'
   }]]], ['bsx-blocks/wrapper', {
     textSize: 'h2',
@@ -3128,7 +3128,7 @@ var templates = [{
     headingInheritFontWeight: true,
     textAlign: 'center'
   }, [['core/paragraph', {
-    placeholder: 'Add text...'
+    placeholder: __('Add text...', 'bsx-blocks')
   }]]]]]],
   templateLock: false
 }, {
@@ -3148,7 +3148,7 @@ var templates = [{
     textAlign: 'center'
   }, [['core/heading', {
     marginAfter: '0',
-    placeholder: 'Add heading text, configure heading level...'
+    placeholder: __('Add heading text, configure heading level...', 'bsx-blocks')
   }]]], ['bsx-blocks/wrapper', {
     textSize: 'lead',
     inverseTextColor: true,
@@ -3157,7 +3157,7 @@ var templates = [{
     marginBefore: 4,
     paddingAfter: 3
   }, [['core/paragraph', {
-    placeholder: 'Add text...'
+    placeholder: __('Add text...', 'bsx-blocks')
   }]]], ['bsx-blocks/buttons', {
     templateName: 'one-button',
     textAlign: 'center'
@@ -8795,7 +8795,7 @@ var templates = [{
     marginAfter: '5'
   },
   template: [['bsx-blocks/container', {}, [['core/heading', {
-    placeholder: 'Add heading, configure heading level...'
+    placeholder: __('Add heading, configure heading level...', 'bsx-blocks')
   }]]]],
   templateLock: false
 }, {
@@ -8806,9 +8806,9 @@ var templates = [{
     marginAfter: '5'
   },
   template: [['bsx-blocks/container', {}, [['core/heading', {
-    placeholder: 'Add heading, configure heading level...'
+    placeholder: __('Add heading, configure heading level...', 'bsx-blocks')
   }], ['core/paragraph', {
-    placeholder: 'Add text...'
+    placeholder: __('Add text...', 'bsx-blocks')
   }], ['bsx-blocks/img-gallery', {
     galleryType: 'floating',
     rounded: true,
@@ -8833,11 +8833,11 @@ var templates = [{
     paddingLeft: '3',
     paddingRight: '3'
   }, [['core/heading', {
-    placeholder: 'Add heading, configure heading level...',
+    placeholder: __('Add heading, configure heading level...', 'bsx-blocks'),
     textColor: 'dark',
     marginAfter: '3'
   }], ['core/paragraph', {
-    placeholder: 'Add text...',
+    placeholder: __('Add text...', 'bsx-blocks'),
     textSize: 'lead'
   }], ['bsx-blocks/buttons', {
     templateName: 'one-button'
@@ -8848,6 +8848,95 @@ var templates = [{
     marginLeft: '1',
     marginRight: '1'
   }]]]]]]]],
+  templateLock: false
+}, {
+  name: 'img-badge-heading-text-button-columns',
+  title: __('Image Badge Heading Button Columns', 'bsx-blocks'),
+  icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_0__["svgIcon"])('img-badge-heading-text-button-columns'),
+  attributes: {
+    marginAfter: '5'
+  },
+  template: [['bsx-blocks/container', {}, [['bsx-blocks/row-with-cols', {
+    templateName: '1-2',
+    alignItems: 'center',
+    justifyContent: 'center'
+  }, [['bsx-blocks/col', {
+    colType: 'default',
+    sizeXs: '8',
+    sizeMd: '5',
+    sizeLg: '6'
+  }, [['bsx-blocks/row-with-cols', {
+    templateName: '1-1',
+    justifyContent: 'center'
+  }, [['bsx-blocks/col', {
+    colType: 'default',
+    sizeXs: '12',
+    sizeLg: '10',
+    marginAfter: ''
+  }, [['bsx-blocks/lazy-img', {
+    rounded: 'circle',
+    marginAfter: ''
+  }]]]]]]], ['bsx-blocks/col', {
+    colType: 'default',
+    sizeMd: '7',
+    sizeLg: '6'
+  }, [['bsx-blocks/wrapper', {
+    textSize: 'lead',
+    marginAfter: '2'
+  }, [['bsx-blocks/badge', {
+    state: 'secondary'
+  }]]], ['core/heading', {}], ['core/paragraph', {}], ['bsx-blocks/buttons', {
+    templateName: 'one-button'
+  }, [['bsx-blocks/button', {
+    state: 'primary',
+    stateType: '',
+    size: 'lg'
+  }]]]]]]]]]],
+  templateLock: false
+}, {
+  name: 'badge-heading-text-button-img-columns',
+  title: __('Badge Heading Button Image Columns', 'bsx-blocks'),
+  icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_0__["svgIcon"])('badge-heading-text-button-img-columns'),
+  attributes: {
+    marginAfter: '5'
+  },
+  template: [['bsx-blocks/container', {}, [['bsx-blocks/row-with-cols', {
+    templateName: '1-2',
+    alignItems: 'center',
+    justifyContent: 'center',
+    rowReverse: 'md'
+  }, [['bsx-blocks/col', {
+    colType: 'default',
+    sizeXs: '8',
+    sizeMd: '5',
+    sizeLg: '6'
+  }, [['bsx-blocks/row-with-cols', {
+    templateName: '1-1',
+    justifyContent: 'center'
+  }, [['bsx-blocks/col', {
+    colType: 'default',
+    sizeXs: '12',
+    sizeLg: '10',
+    marginAfter: ''
+  }, [['bsx-blocks/lazy-img', {
+    rounded: 'circle',
+    marginAfter: ''
+  }]]]]]]], ['bsx-blocks/col', {
+    colType: 'default',
+    sizeMd: '7',
+    sizeLg: '6'
+  }, [['bsx-blocks/wrapper', {
+    textSize: 'lead',
+    marginAfter: '2'
+  }, [['bsx-blocks/badge', {
+    state: 'secondary'
+  }]]], ['core/heading', {}], ['core/paragraph', {}], ['bsx-blocks/buttons', {
+    templateName: 'one-button'
+  }, [['bsx-blocks/button', {
+    state: 'primary',
+    stateType: '',
+    size: 'lg'
+  }]]]]]]]]]],
   templateLock: false
 }];
 /* harmony default export */ __webpack_exports__["default"] = (templates);

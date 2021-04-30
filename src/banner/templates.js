@@ -17,7 +17,7 @@ const templates = [
             [
                 'core/paragraph',
                 { 
-                    placeholder: 'Change paragraph text or delete...',
+                    placeholder: __( 'Change paragraph text or delete...', 'bsx-blocks' ),
                 }
             ]
         ],
@@ -39,7 +39,7 @@ const templates = [
                     [
                         'core/heading',
                         { 
-                            placeholder: 'Add heading text, configure heading level...',
+                            placeholder: __( 'Add heading text, configure heading level...', 'bsx-blocks' ),
                             textSize: 'display-1',
                             textColor: 'white',
                             textShadow: 'darker',
@@ -69,7 +69,7 @@ const templates = [
                     [
                         'core/heading',
                         { 
-                            placeholder: 'Add heading text, configure heading level...',
+                            placeholder: __( 'Add heading text, configure heading level...', 'bsx-blocks' ),
                             textSize: 'display-1',
                             textColor: 'white',
                             textShadow: 'darker',
@@ -119,7 +119,7 @@ const templates = [
                                             [
                                                 'core/heading',
                                                 { 
-                                                    placeholder: 'Add heading text, configure heading level...',
+                                                    placeholder: __( 'Add heading text, configure heading level...', 'bsx-blocks' ),
                                                     textSize: 'display-1',
                                                     textColor: 'white',
                                                     textShadow: 'darker', 
@@ -153,7 +153,7 @@ const templates = [
                                             [
                                                 'core/paragraph',
                                                 { 
-                                                    placeholder: 'Add text...',
+                                                    placeholder: __( 'Add text...', 'bsx-blocks' ),
                                                     textSize: 'lead',
                                                     textColor: 'white',
                                                     marginAfter: '0',
@@ -200,7 +200,7 @@ const templates = [
                                 'core/heading',
                                 { 
                                     level: 1,
-                                    placeholder: 'Add heading text, configure heading level...',
+                                    placeholder: __( 'Add heading text, configure heading level...', 'bsx-blocks' ),
                                     textSize: 'display-1',
                                 }
                             ],
@@ -221,7 +221,7 @@ const templates = [
                             [
                                 'core/paragraph',
                                 { 
-                                    placeholder: 'Add text...',
+                                    placeholder: __( 'Add text...', 'bsx-blocks' ),
                                 }
                             ],
                         ],
@@ -259,7 +259,7 @@ const templates = [
                                 'core/heading',
                                 { 
                                     marginAfter: '0',
-                                    placeholder: 'Add heading text, configure heading level...',
+                                    placeholder: __( 'Add heading text, configure heading level...', 'bsx-blocks' ),
                                 }
                             ],
                         ],
@@ -278,7 +278,7 @@ const templates = [
                             [
                                 'core/paragraph',
                                 { 
-                                    placeholder: 'Add text...',
+                                    placeholder: __( 'Add text...', 'bsx-blocks' ),
                                 }
                             ],
                         ],

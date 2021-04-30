@@ -31,7 +31,7 @@ const templates = [
                     [
                         'core/heading',
                         { 
-                            placeholder: 'Add heading, configure heading level...', 
+                            placeholder: __( 'Add heading, configure heading level...', 'bsx-blocks' ), 
                         },
                     ],
                 ],
@@ -54,13 +54,13 @@ const templates = [
                     [
                         'core/heading',
                         { 
-                            placeholder: 'Add heading, configure heading level...',
+                            placeholder: __( 'Add heading, configure heading level...', 'bsx-blocks' ),
                         },
                     ],
                     [
                         'core/paragraph',
                         { 
-                            placeholder: 'Add text...', 
+                            placeholder: __( 'Add text...', 'bsx-blocks' ), 
                         },
                     ],
                     [
@@ -105,7 +105,7 @@ const templates = [
                             [
                                 'core/heading',
                                 { 
-                                    placeholder: 'Add heading, configure heading level...',
+                                    placeholder: __( 'Add heading, configure heading level...', 'bsx-blocks' ),
                                     textColor: 'dark',
                                     marginAfter: '3',
                                 },
@@ -113,7 +113,7 @@ const templates = [
                             [
                                 'core/paragraph',
                                 { 
-                                    placeholder: 'Add text...', 
+                                    placeholder: __( 'Add text...', 'bsx-blocks' ), 
                                     textSize: 'lead',
                                 },
                             ],
@@ -132,6 +132,235 @@ const templates = [
                                             marginLeft: '1',
                                             marginRight: '1',
                                         },
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ], 
+                ],
+            ], 
+        ],
+        templateLock: false,
+    },
+    {
+        name: 'img-badge-heading-text-button-columns',
+        title: __( 'Image Badge Heading Button Columns', 'bsx-blocks' ),
+        icon: svgIcon( 'img-badge-heading-text-button-columns' ),
+        attributes: {
+            marginAfter: '5',
+        },
+        template: [ 
+            [ 
+                'bsx-blocks/container', 
+                {},
+                [
+                    [  
+                        'bsx-blocks/row-with-cols', 
+                        {
+                            templateName: '1-2',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                        },
+                        [
+                            [
+                                'bsx-blocks/col',
+                                { 
+                                    colType: 'default',
+                                    sizeXs: '8',
+                                    sizeMd: '5',
+                                    sizeLg: '6',
+                                },
+                                [
+                                    [
+                                        'bsx-blocks/row-with-cols',
+                                        {
+                                            templateName: '1-1',
+                                            justifyContent: 'center',
+                                        },
+                                        [
+                                            [
+                                                'bsx-blocks/col',
+                                                {
+                                                    colType: 'default',
+                                                    sizeXs: '12',
+                                                    sizeLg: '10',
+                                                    marginAfter: '',
+                                                },
+                                                [
+                                                    [
+                                                        'bsx-blocks/lazy-img',
+                                                        {
+                                                            rounded: 'circle',
+                                                            marginAfter: '',
+                                                        }
+                                                    ],
+                                                ],
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                            [
+                                'bsx-blocks/col',
+                                { 
+                                    colType: 'default', 
+                                    sizeMd: '7',
+                                    sizeLg: '6',
+                                },
+                                [
+                                    [
+                                        'bsx-blocks/wrapper',
+                                        {
+                                            textSize: 'lead',
+                                            marginAfter: '2',
+                                        },
+                                        [
+                                            [
+                                                'bsx-blocks/badge',
+                                                {
+                                                    state: 'secondary',
+                                                },
+                                            ],
+                                        ],
+                                    ],
+                                    [
+                                        'core/heading',
+                                        {},
+                                    ],
+                                    [
+                                        'core/paragraph',
+                                        {},
+                                    ],
+                                    [
+                                        'bsx-blocks/buttons',
+                                        {
+                                            templateName: 'one-button',
+                                        },
+                                        [
+                                            [
+                                                'bsx-blocks/button',
+                                                {
+                                                    state: 'primary',
+                                                    stateType: '',
+                                                    size: 'lg',
+                                                },
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ], 
+                ],
+            ], 
+        ],
+        templateLock: false,
+    },
+    {
+        name: 'badge-heading-text-button-img-columns',
+        title: __( 'Badge Heading Button Image Columns', 'bsx-blocks' ),
+        icon: svgIcon( 'badge-heading-text-button-img-columns' ),
+        attributes: {
+            marginAfter: '5',
+        },
+        template: [ 
+            [ 
+                'bsx-blocks/container', 
+                {},
+                [
+                    [  
+                        'bsx-blocks/row-with-cols', 
+                        {
+                            templateName: '1-2',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            rowReverse: 'md',
+                        },
+                        [
+                            [
+                                'bsx-blocks/col',
+                                { 
+                                    colType: 'default',
+                                    sizeXs: '8',
+                                    sizeMd: '5',
+                                    sizeLg: '6',
+                                },
+                                [
+                                    [
+                                        'bsx-blocks/row-with-cols',
+                                        {
+                                            templateName: '1-1',
+                                            justifyContent: 'center',
+                                        },
+                                        [
+                                            [
+                                                'bsx-blocks/col',
+                                                {
+                                                    colType: 'default',
+                                                    sizeXs: '12',
+                                                    sizeLg: '10',
+                                                    marginAfter: '',
+                                                },
+                                                [
+                                                    [
+                                                        'bsx-blocks/lazy-img',
+                                                        {
+                                                            rounded: 'circle',
+                                                            marginAfter: '',
+                                                        }
+                                                    ],
+                                                ],
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                            [
+                                'bsx-blocks/col',
+                                { 
+                                    colType: 'default', 
+                                    sizeMd: '7',
+                                    sizeLg: '6',
+                                },
+                                [
+                                    [
+                                        'bsx-blocks/wrapper',
+                                        {
+                                            textSize: 'lead',
+                                            marginAfter: '2',
+                                        },
+                                        [
+                                            [
+                                                'bsx-blocks/badge',
+                                                {
+                                                    state: 'secondary',
+                                                },
+                                            ],
+                                        ],
+                                    ],
+                                    [
+                                        'core/heading',
+                                        {},
+                                    ],
+                                    [
+                                        'core/paragraph',
+                                        {},
+                                    ],
+                                    [
+                                        'bsx-blocks/buttons',
+                                        {
+                                            templateName: 'one-button',
+                                        },
+                                        [
+                                            [
+                                                'bsx-blocks/button',
+                                                {
+                                                    state: 'primary',
+                                                    stateType: '',
+                                                    size: 'lg',
+                                                },
+                                            ],
+                                        ],
                                     ],
                                 ],
                             ],
