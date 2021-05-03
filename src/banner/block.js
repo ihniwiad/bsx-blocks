@@ -60,6 +60,7 @@ import {
     imgUploadClickableImg,
     imgUploadButton,
     bgColorSelect,
+    roundedToggle,
 } from './../_functions/controls.js';
 import { makeSaveAttributes } from './../_functions/attributes.js';
 import { getTemplate } from './../_functions/utilities.js';
@@ -81,6 +82,7 @@ const makeBannerClassNames = ( attributes ) => {
         bgPosition, 
         alignItems, 
         templateName,
+        rounded,
     } = attributes;
 
     const classNames = [];
@@ -117,6 +119,10 @@ const makeBannerClassNames = ( attributes ) => {
     
     if ( !! templateName == 'column-row-banner' && classNames.indexOf( 'd-flex' ) == -1 ) {
         classNames.push( 'd-flex' );
+    }
+
+    if ( rounded === true ) {
+        classNames.push( 'of-hidden' );
     }
 
     return classNames.join( ' ' );
@@ -275,6 +281,9 @@ registerBlockType( 'bsx-blocks/banner', {
             type: 'string',
             default: 'center',
         },
+        rounded: {
+            type: 'boolean',
+        },
         marginBefore: {
             type: 'string',
             default: '',
@@ -330,6 +339,7 @@ registerBlockType( 'bsx-blocks/banner', {
                 bgSize,
                 bgPosition,
                 alignItems,
+                rounded,
                 marginBefore,
                 marginAfter,
                 paddingBefore,
@@ -457,6 +467,10 @@ registerBlockType( 'bsx-blocks/banner', {
             setAttributes( { alignItems: value } );
         };
 
+        const onChangeRounded = ( value ) => {
+            setAttributes( { rounded: value } );
+        };
+
         const onChangeMarginBefore = ( value ) => {
             setAttributes( { marginBefore: value } );
         };
@@ -507,11 +521,13 @@ registerBlockType( 'bsx-blocks/banner', {
             bgPosition, 
             alignItems, 
             templateName,
+            rounded,
         } );
         bannerClassName = addClassNames( {
             belowNavbar,
             touchFooter,
             bgColor,
+            rounded,
             marginBefore, 
             marginAfter, 
             paddingBefore, 
@@ -641,6 +657,9 @@ registerBlockType( 'bsx-blocks/banner', {
                     ) }
                     {
                         alignItemsSelect( alignItems, onChangeAlignItems, [ '', 'center', 'end' ] )
+                    }
+                    {
+                        roundedToggle( rounded, onChangeRounded )
                     }
                 </PanelBody>
 
@@ -773,6 +792,7 @@ registerBlockType( 'bsx-blocks/banner', {
                 bgSize,
                 bgPosition,
                 alignItems,
+                rounded,
                 marginBefore,
                 marginAfter,
                 paddingBefore,
@@ -791,11 +811,13 @@ registerBlockType( 'bsx-blocks/banner', {
             bgPosition, 
             alignItems, 
             templateName,
+            rounded,
         } );
         bannerClassName = addClassNames( {
             belowNavbar, 
             touchFooter,
             bgColor,
+            rounded,
             marginBefore, 
             marginAfter, 
             paddingBefore, 

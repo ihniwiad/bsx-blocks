@@ -644,7 +644,7 @@ function makeSaveAttributes(attributes) {
 /*!************************************!*\
   !*** ./src/_functions/controls.js ***!
   \************************************/
-/*! exports provided: ignoreMailtoSpamProtectionToggle, targetToggle, belowNavbarToggle, touchFooterToggle, inverseTextColorToggle, headingInheritTextColorToggle, headingInheritFontWeightToggle, linkUrlInput, bgAttachmentFixedLimitedToggle, relInput, dataFnInput, stateSelect, bgColorSelect, stateTypeSelect, sizeSelect, marginLeftSelect, marginRightSelect, marginBeforeSelect, marginAfterSelect, displaySelect, alignItemsSelect, paddingBeforeSelect, paddingAfterSelect, paddingLeftSelect, paddingRightSelect, nodeNameSelect, bgPositionSelect, bgSizeSelect, bannerTypeSelect, bannerSizeSelect, bgAttachmentSelect, textShadowSelect, fontWeightSelect, imgUploadClickableImg, imgUploadButton, inlineTemplateSelect, uiTemplateSelect */
+/*! exports provided: ignoreMailtoSpamProtectionToggle, targetToggle, belowNavbarToggle, touchFooterToggle, inverseTextColorToggle, headingInheritTextColorToggle, headingInheritFontWeightToggle, roundedToggle, linkUrlInput, bgAttachmentFixedLimitedToggle, relInput, dataFnInput, stateSelect, bgColorSelect, stateTypeSelect, sizeSelect, marginLeftSelect, marginRightSelect, marginBeforeSelect, marginAfterSelect, displaySelect, alignItemsSelect, paddingBeforeSelect, paddingAfterSelect, paddingLeftSelect, paddingRightSelect, nodeNameSelect, bgPositionSelect, bgSizeSelect, bannerTypeSelect, bannerSizeSelect, bgAttachmentSelect, textShadowSelect, fontWeightSelect, imgUploadClickableImg, imgUploadButton, inlineTemplateSelect, uiTemplateSelect */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -656,6 +656,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "inverseTextColorToggle", function() { return inverseTextColorToggle; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "headingInheritTextColorToggle", function() { return headingInheritTextColorToggle; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "headingInheritFontWeightToggle", function() { return headingInheritFontWeightToggle; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "roundedToggle", function() { return roundedToggle; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "linkUrlInput", function() { return linkUrlInput; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "bgAttachmentFixedLimitedToggle", function() { return bgAttachmentFixedLimitedToggle; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "relInput", function() { return relInput; });
@@ -908,6 +909,13 @@ var headingInheritTextColorToggle = function headingInheritTextColorToggle(value
 var headingInheritFontWeightToggle = function headingInheritFontWeightToggle(value, onChangeFunction) {
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
     label: __('Inherit font weight to headings', 'bsx-blocks'),
+    checked: !!value,
+    onChange: onChangeFunction
+  });
+};
+var roundedToggle = function roundedToggle(value, onChangeFunction) {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
+    label: __('Rounded', 'bsx-blocks'),
     checked: !!value,
     onChange: onChangeFunction
   });
@@ -2352,7 +2360,8 @@ var makeBannerClassNames = function makeBannerClassNames(attributes) {
       bgSize = attributes.bgSize,
       bgPosition = attributes.bgPosition,
       alignItems = attributes.alignItems,
-      templateName = attributes.templateName;
+      templateName = attributes.templateName,
+      rounded = attributes.rounded;
   var classNames = [];
 
   if (!!bannerType) {
@@ -2388,6 +2397,10 @@ var makeBannerClassNames = function makeBannerClassNames(attributes) {
 
   if (!!templateName == 'column-row-banner' && classNames.indexOf('d-flex') == -1) {
     classNames.push('d-flex');
+  }
+
+  if (rounded === true) {
+    classNames.push('of-hidden');
   }
 
   return classNames.join(' ');
@@ -2532,6 +2545,9 @@ registerBlockType('bsx-blocks/banner', {
       type: 'string',
       default: 'center'
     },
+    rounded: {
+      type: 'boolean'
+    },
     marginBefore: {
       type: 'string',
       default: ''
@@ -2582,6 +2598,7 @@ registerBlockType('bsx-blocks/banner', {
         bgSize = _props$attributes.bgSize,
         bgPosition = _props$attributes.bgPosition,
         alignItems = _props$attributes.alignItems,
+        rounded = _props$attributes.rounded,
         marginBefore = _props$attributes.marginBefore,
         marginAfter = _props$attributes.marginAfter,
         paddingBefore = _props$attributes.paddingBefore,
@@ -2780,6 +2797,12 @@ registerBlockType('bsx-blocks/banner', {
       });
     };
 
+    var onChangeRounded = function onChangeRounded(value) {
+      setAttributes({
+        rounded: value
+      });
+    };
+
     var onChangeMarginBefore = function onChangeMarginBefore(value) {
       setAttributes({
         marginBefore: value
@@ -2840,12 +2863,14 @@ registerBlockType('bsx-blocks/banner', {
       bgSize: bgSize,
       bgPosition: bgPosition,
       alignItems: alignItems,
-      templateName: templateName
+      templateName: templateName,
+      rounded: rounded
     });
     bannerClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_6__["addClassNames"])({
       belowNavbar: belowNavbar,
       touchFooter: touchFooter,
       bgColor: bgColor,
+      rounded: rounded,
       marginBefore: marginBefore,
       marginAfter: marginAfter,
       paddingBefore: paddingBefore,
@@ -2905,7 +2930,7 @@ registerBlockType('bsx-blocks/banner', {
       target: "_blank"
     }, __('Preview selected portrait image', 'bsx-blocks')))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(PanelBody, {
       title: __('Banner dimensions', 'bsx-blocks')
-    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["bannerTypeSelect"])(bannerType, onChangeBannerType), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["bannerSizeSelect"])(bannerSize, onChangeBannerSize), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["bgAttachmentSelect"])(bgAttachment, onChangeBgAttachment), bgAttachment === 'fixed' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(Fragment, null, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["bgAttachmentFixedLimitedToggle"])(bgAttachmentFixedLimited, onChangeBgAttachmentFixedLimited)), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["alignItemsSelect"])(alignItems, onChangeAlignItems, ['', 'center', 'end'])), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(PanelBody, {
+    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["bannerTypeSelect"])(bannerType, onChangeBannerType), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["bannerSizeSelect"])(bannerSize, onChangeBannerSize), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["bgAttachmentSelect"])(bgAttachment, onChangeBgAttachment), bgAttachment === 'fixed' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(Fragment, null, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["bgAttachmentFixedLimitedToggle"])(bgAttachmentFixedLimited, onChangeBgAttachmentFixedLimited)), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["alignItemsSelect"])(alignItems, onChangeAlignItems, ['', 'center', 'end']), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["roundedToggle"])(rounded, onChangeRounded)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(PanelBody, {
       title: __('Background', 'bsx-blocks')
     }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["bgColorSelect"])(bgColor, onChangeBgColor)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(PanelBody, {
       title: __('Margin', 'bsx-blocks')
@@ -2952,6 +2977,7 @@ registerBlockType('bsx-blocks/banner', {
         bgSize = _props$attributes2.bgSize,
         bgPosition = _props$attributes2.bgPosition,
         alignItems = _props$attributes2.alignItems,
+        rounded = _props$attributes2.rounded,
         marginBefore = _props$attributes2.marginBefore,
         marginAfter = _props$attributes2.marginAfter,
         paddingBefore = _props$attributes2.paddingBefore,
@@ -2965,12 +2991,14 @@ registerBlockType('bsx-blocks/banner', {
       bgSize: bgSize,
       bgPosition: bgPosition,
       alignItems: alignItems,
-      templateName: templateName
+      templateName: templateName,
+      rounded: rounded
     });
     bannerClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_6__["addClassNames"])({
       belowNavbar: belowNavbar,
       touchFooter: touchFooter,
       bgColor: bgColor,
+      rounded: rounded,
       marginBefore: marginBefore,
       marginAfter: marginAfter,
       paddingBefore: paddingBefore,
@@ -10214,11 +10242,7 @@ registerBlockType('bsx-blocks/wrapper', {
         value: 'display-1',
         label: __('Large 1 (biggest)', 'bsx-blocks')
       }]
-    }), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["textShadowSelect"])(textShadow, onChangeTextShadow), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["fontWeightSelect"])(fontWeight, onChangeFontWeight), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["inverseTextColorToggle"])(inverseTextColor, onChangeInverseTextColor), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["headingInheritTextColorToggle"])(headingInheritTextColor, onChangeHeadingInheritTextColor), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["headingInheritFontWeightToggle"])(headingInheritFontWeight, onChangeHeadingInheritFontWeight), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
-      label: __('Rounded', 'bsx-blocks'),
-      checked: !!rounded,
-      onChange: onChangeRounded
-    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
+    }), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["textShadowSelect"])(textShadow, onChangeTextShadow), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["fontWeightSelect"])(fontWeight, onChangeFontWeight), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["inverseTextColorToggle"])(inverseTextColor, onChangeInverseTextColor), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["headingInheritTextColorToggle"])(headingInheritTextColor, onChangeHeadingInheritTextColor), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["headingInheritFontWeightToggle"])(headingInheritFontWeight, onChangeHeadingInheritFontWeight), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["roundedToggle"])(rounded, onChangeRounded)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
       title: __('Margin', 'bsx-blocks')
     }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["marginBeforeSelect"])(marginBefore, onChangeMarginBefore), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["marginAfterSelect"])(marginAfter, onChangeMarginAfter)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
       title: __('Padding', 'bsx-blocks')

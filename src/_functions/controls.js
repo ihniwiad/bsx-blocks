@@ -157,6 +157,16 @@ export const headingInheritFontWeightToggle = ( value, onChangeFunction ) => {
     )
 }
 
+export const roundedToggle = ( value, onChangeFunction ) => {
+    return (
+        <ToggleControl
+            label={ __( 'Rounded', 'bsx-blocks' ) }
+            checked={ !! value }
+            onChange={ onChangeFunction }
+        />
+    )
+}
+
 
 // url inputs
 

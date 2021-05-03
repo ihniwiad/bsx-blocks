@@ -38,6 +38,7 @@ import {
     paddingLeftSelect,
     paddingRightSelect,
     bgColorSelect,
+    roundedToggle,
 } from './../_functions/controls.js';
 
 
@@ -350,11 +351,9 @@ registerBlockType( 'bsx-blocks/wrapper', {
                         {
                             headingInheritFontWeightToggle( headingInheritFontWeight, onChangeHeadingInheritFontWeight )
                         }
-                        <ToggleControl
-                            label={ __( 'Rounded', 'bsx-blocks' ) }
-                            checked={ !! rounded }
-                            onChange={ onChangeRounded }
-                        />
+                        {
+                            roundedToggle( rounded, onChangeRounded )
+                        }
                     </PanelBody>
 
                     <PanelBody title={ __( 'Margin', 'bsx-blocks' ) }>
