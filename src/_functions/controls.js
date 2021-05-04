@@ -180,9 +180,6 @@ export const linkUrlInput = ( value, onChangeFunction ) => {
     )
 }
 
-
-// text inputs
-
 export const bgAttachmentFixedLimitedToggle = ( value, onChangeFunction ) => {
     return (
         <ToggleControl
@@ -193,6 +190,9 @@ export const bgAttachmentFixedLimitedToggle = ( value, onChangeFunction ) => {
         />
     )
 }
+
+
+// text inputs
 
 export const relInput = ( value, onChangeFunction ) => {
     return (

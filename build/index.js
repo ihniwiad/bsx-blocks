@@ -927,8 +927,7 @@ var linkUrlInput = function linkUrlInput(value, onChangeFunction) {
     value: value,
     onChange: onChangeFunction
   });
-}; // text inputs
-
+};
 var bgAttachmentFixedLimitedToggle = function bgAttachmentFixedLimitedToggle(value, onChangeFunction) {
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
     label: __('Limit fixed background', 'bsx-blocks'),
@@ -936,7 +935,8 @@ var bgAttachmentFixedLimitedToggle = function bgAttachmentFixedLimitedToggle(val
     onChange: onChangeFunction,
     help: __('If enabled large displays (>=2.000px) will have static background attachement.', 'bsx-blocks')
   });
-};
+}; // text inputs
+
 var relInput = function relInput(value, onChangeFunction) {
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
     label: __('Rel (optional)', 'bsx-blocks'),
@@ -9826,6 +9826,299 @@ registerBlockType('bsx-blocks/badge', {
 
 /***/ }),
 
+/***/ "./src/text-elements/icon/block.js":
+/*!*****************************************!*\
+  !*** ./src/text-elements/icon/block.js ***!
+  \*****************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js");
+/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../_functions/wp-icons.js */ "./src/_functions/wp-icons.js");
+/* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
+/* harmony import */ var _functions_attributes_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../_functions/attributes.js */ "./src/_functions/attributes.js");
+/* harmony import */ var _functions_controls_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../_functions/controls.js */ "./src/_functions/controls.js");
+
+
+// TODO: add title (to be used if link)
+var _wp$i18n = wp.i18n,
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData;
+var registerBlockType = wp.blocks.registerBlockType;
+var _wp$blockEditor = wp.blockEditor,
+    InspectorControls = _wp$blockEditor.InspectorControls,
+    RichText = _wp$blockEditor.RichText;
+var _wp$components = wp.components,
+    PanelBody = _wp$components.PanelBody,
+    SVG = _wp$components.SVG,
+    Path = _wp$components.Path,
+    SelectControl = _wp$components.SelectControl,
+    TextControl = _wp$components.TextControl; // functions imports
+
+
+
+
+ // functions
+
+var makeBadgeClassNames = function makeBadgeClassNames(attributes) {
+  var state = attributes.state,
+      iconSize = attributes.iconSize;
+  var classNames = [];
+
+  if (!!state) {
+    classNames.push('text-' + state);
+  } // if ( !! iconType ) {
+  //     classNames.push( 'fa-' + iconType );
+  // }
+
+
+  if (!!iconSize) {
+    classNames.push('fa-' + iconSize);
+  }
+
+  return classNames.join(' ');
+};
+
+registerBlockType('bsx-blocks/icon', {
+  title: __('BSX Icon', 'bsx-blocks'),
+  icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_2__["svgIcon"])('icon'),
+  category: 'layout',
+  attributes: {
+    iconKey: {
+      type: 'string'
+    },
+    href: {
+      type: 'string',
+      default: ''
+    },
+    state: {
+      type: 'string',
+      default: 'primary'
+    },
+    iconType: {
+      type: 'string'
+    },
+    iconSize: {
+      type: 'string'
+    },
+    marginLeft: {
+      type: 'string'
+    },
+    marginRight: {
+      type: 'string'
+    },
+    marginBefore: {
+      type: 'string'
+    },
+    marginAfter: {
+      type: 'string'
+    }
+  },
+  edit: function edit(props) {
+    var className = props.className,
+        _props$attributes = props.attributes,
+        iconKey = _props$attributes.iconKey,
+        href = _props$attributes.href,
+        state = _props$attributes.state,
+        iconType = _props$attributes.iconType,
+        iconSize = _props$attributes.iconSize,
+        marginLeft = _props$attributes.marginLeft,
+        marginRight = _props$attributes.marginRight,
+        marginBefore = _props$attributes.marginBefore,
+        marginAfter = _props$attributes.marginAfter,
+        setAttributes = props.setAttributes,
+        isSelected = props.isSelected;
+
+    var onChangeIconKey = function onChangeIconKey(value) {
+      setAttributes({
+        iconKey: value
+      });
+    };
+
+    var onChangeHref = function onChangeHref(value) {
+      setAttributes({
+        href: value
+      });
+    }; // const onChangeTarget = ( value ) => {
+    //     setAttributes( { target: !! value ? '_blank' : '' } );
+    // };
+    // const onChangeRel = ( value ) => {
+    //     setAttributes( { rel: value } );
+    // };
+
+
+    var onChangeState = function onChangeState(value) {
+      setAttributes({
+        state: value
+      });
+    };
+
+    var onChangeIconType = function onChangeIconType(value) {
+      setAttributes({
+        iconType: value
+      });
+    };
+
+    var onChangeIconSize = function onChangeIconSize(value) {
+      setAttributes({
+        iconSize: value
+      });
+    };
+
+    var onChangeMarginLeft = function onChangeMarginLeft(value) {
+      setAttributes({
+        marginLeft: value
+      });
+    };
+
+    var onChangeMarginRight = function onChangeMarginRight(value) {
+      setAttributes({
+        marginRight: value
+      });
+    };
+
+    var onChangeMarginBefore = function onChangeMarginBefore(value) {
+      setAttributes({
+        marginBefore: value
+      });
+    };
+
+    var onChangeMarginAfter = function onChangeMarginAfter(value) {
+      setAttributes({
+        marginAfter: value
+      });
+    };
+
+    var iconClassNames = makeBadgeClassNames({
+      state: state,
+      iconType: iconType,
+      iconSize: iconSize
+    });
+    iconClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_3__["addClassNames"])({
+      marginLeft: marginLeft,
+      marginRight: marginRight,
+      marginBefore: marginBefore,
+      marginAfter: marginAfter
+    }, iconClassNames);
+    var saveAttributes = Object(_functions_attributes_js__WEBPACK_IMPORTED_MODULE_4__["makeSaveAttributes"])({
+      href: href // target: target, 
+      // rel: href ? ( rel ? rel + ' noopener noreferrer' : 'noopener noreferrer' ) : '',
+
+    });
+    var mergedIconClassName = iconType == 'circle' ? 'fa-stack ' + iconClassNames : 'fa fa-' + iconKey + ' ' + iconClassNames;
+    var iconInnerClassName = iconType == 'circle' ? 'fa fa-' + iconKey + ' fa-stack-1x fa-inverse' : '';
+    var TagName = !!href ? 'a' : 'span';
+    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
+      title: __('Appearance', 'bsx-blocks')
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(TextControl, {
+      label: __('Icon key', 'bsx-blocks'),
+      value: iconKey,
+      onChange: onChangeIconKey
+    }), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_5__["stateSelect"])(state, onChangeState), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(SelectControl, {
+      label: __('Icon type', 'bsx-blocks'),
+      value: iconType,
+      onChange: onChangeIconType,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: 'circle',
+        label: __('Circle', 'bsx-blocks')
+      }, {
+        value: 'border',
+        label: __('Border', 'bsx-blocks')
+      }]
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(SelectControl, {
+      label: __('Icon size', 'bsx-blocks'),
+      value: iconSize,
+      onChange: onChangeIconSize,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: 'lg',
+        label: __('Lg', 'bsx-blocks')
+      }, {
+        value: '2x',
+        label: __('2x', 'bsx-blocks')
+      }, {
+        value: '3x',
+        label: __('3x', 'bsx-blocks')
+      }, {
+        value: '4x',
+        label: __('4x', 'bsx-blocks')
+      }, {
+        value: '5x',
+        label: __('5x', 'bsx-blocks')
+      }]
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
+      title: __('Margin', 'bsx-blocks')
+    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_5__["marginLeftSelect"])(marginLeft, onChangeMarginLeft, ['', '0', '1', '2', '3']), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_5__["marginRightSelect"])(marginRight, onChangeMarginRight, ['', '0', '1', '2', '3']), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_5__["marginBeforeSelect"])(marginBefore, onChangeMarginBefore), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_5__["marginAfterSelect"])(marginAfter, onChangeMarginAfter)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
+      title: __('Link', 'bsx-blocks')
+    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_5__["linkUrlInput"])(href, onChangeHref))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, iconType == 'circle' ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(TagName, _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+      class: mergedIconClassName,
+      "aria-hidden": "true"
+    }, saveAttributes), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("i", {
+      class: "fa fa-circle fa-stack-2x"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("i", {
+      class: iconInnerClassName
+    })) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(TagName, _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+      class: mergedIconClassName,
+      "aria-hidden": "true"
+    }, saveAttributes)))];
+  },
+  save: function save(props) {
+    var className = props.className,
+        _props$attributes2 = props.attributes,
+        iconKey = _props$attributes2.iconKey,
+        href = _props$attributes2.href,
+        state = _props$attributes2.state,
+        iconType = _props$attributes2.iconType,
+        iconSize = _props$attributes2.iconSize,
+        marginLeft = _props$attributes2.marginLeft,
+        marginRight = _props$attributes2.marginRight,
+        marginBefore = _props$attributes2.marginBefore,
+        marginAfter = _props$attributes2.marginAfter;
+    var iconClassNames = makeBadgeClassNames({
+      state: state,
+      iconType: iconType,
+      iconSize: iconSize
+    });
+    iconClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_3__["addClassNames"])({
+      marginLeft: marginLeft,
+      marginRight: marginRight,
+      marginBefore: marginBefore,
+      marginAfter: marginAfter
+    }, iconClassNames);
+    var saveAttributes = Object(_functions_attributes_js__WEBPACK_IMPORTED_MODULE_4__["makeSaveAttributes"])({
+      href: href // target: target, 
+      // rel: href ? ( rel ? rel + ' noopener noreferrer' : 'noopener noreferrer' ) : '',
+
+    });
+    var mergedIconClassName = iconType == 'circle' ? 'fa-stack ' + iconClassNames : 'fa fa-' + iconKey + ' ' + iconClassNames;
+    var iconInnerClassName = iconType == 'circle' ? 'fa fa-' + iconKey + ' fa-stack-1x fa-inverse' : '';
+    var TagName = !!href ? 'a' : 'span';
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, iconType == 'circle' ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(TagName, _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+      class: mergedIconClassName,
+      "aria-hidden": "true"
+    }, saveAttributes), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("i", {
+      class: "fa fa-circle fa-stack-2x"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("i", {
+      class: iconInnerClassName
+    })) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(TagName, _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+      class: mergedIconClassName,
+      "aria-hidden": "true"
+    }, saveAttributes)));
+  }
+});
+
+/***/ }),
+
 /***/ "./src/text-elements/index.js":
 /*!************************************!*\
   !*** ./src/text-elements/index.js ***!
@@ -9836,6 +10129,8 @@ registerBlockType('bsx-blocks/badge', {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _badge_block_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./badge/block.js */ "./src/text-elements/badge/block.js");
+/* harmony import */ var _icon_block_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./icon/block.js */ "./src/text-elements/icon/block.js");
+
 
 
 /***/ }),

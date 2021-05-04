@@ -4,7 +4,7 @@
 
 // badge selectors
 
-$bsxui-badge-block-selector:                   '[data-type="bsx-blocks/badge"]' !default;
+$bsxui-badge-block-selector:                   '[data-type="bsx-blocks/badge"], [data-type="bsx-blocks/icon"]' !default;
 
 
 // make badge inline

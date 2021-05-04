@@ -21,13 +21,9 @@ import { addClassNames } from './../../_functions/add-class-names.js';
 import { makeSaveAttributes } from './../../_functions/attributes.js';
 import { 
     stateSelect,
-    stateTypeSelect,
-    sizeSelect,
     linkUrlInput,
-    ignoreMailtoSpamProtectionToggle,
     targetToggle,
     relInput,
-    dataFnInput,
     marginLeftSelect,
     marginRightSelect,
     marginBeforeSelect,
