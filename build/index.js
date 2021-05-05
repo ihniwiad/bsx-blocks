@@ -8858,9 +8858,9 @@ var templates = [{
   attributes: {
     marginAfter: '5'
   },
-  template: [['bsx-blocks/container', {}, [['core/heading', {
+  template: [['bsx-blocks/container', {}, [['bsx-blocks/wrapper', {}, [['core/heading', {
     placeholder: __('Add heading, configure heading level...', 'bsx-blocks')
-  }]]]],
+  }]]]]]],
   templateLock: false
 }, {
   name: 'container-heading-text-gallery',
@@ -8869,9 +8869,9 @@ var templates = [{
   attributes: {
     marginAfter: '5'
   },
-  template: [['bsx-blocks/container', {}, [['core/heading', {
+  template: [['bsx-blocks/container', {}, [['bsx-blocks/wrapper', {}, [['core/heading', {
     placeholder: __('Add heading, configure heading level...', 'bsx-blocks')
-  }], ['core/paragraph', {
+  }]]], ['core/paragraph', {
     placeholder: __('Add text...', 'bsx-blocks')
   }], ['bsx-blocks/img-gallery', {
     galleryType: 'floating',
@@ -9001,6 +9001,47 @@ var templates = [{
     stateType: '',
     size: 'lg'
   }]]]]]]]]]],
+  templateLock: false
+}, {
+  name: 'heading-list-columns',
+  title: __('Heading List Columns', 'bsx-blocks'),
+  icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_0__["svgIcon"])('heading-list-columns'),
+  attributes: {
+    marginAfter: '5'
+  },
+  template: [['bsx-blocks/container', {}, [['bsx-blocks/wrapper', {
+    paddingBefore: '4',
+    marginAfter: '5',
+    textAlign: 'center'
+  }, [['core/heading', {
+    placeholder: __('Add heading, configure heading level...', 'bsx-blocks')
+  }]]], ['bsx-blocks/row-with-cols', {
+    templateName: '1-1-1'
+  }, [['bsx-blocks/col', {
+    colType: 'default'
+  }, [['bsx-blocks/wrapper', {
+    border: 'bottom',
+    marginAfter: '3'
+  }, [['core/heading', {
+    level: '3',
+    placeholder: __('Add heading, configure heading level...', 'bsx-blocks')
+  }]]], ['bsx-blocks/check-list', {}]]], ['bsx-blocks/col', {
+    colType: 'default'
+  }, [['bsx-blocks/wrapper', {
+    border: 'bottom',
+    marginAfter: '3'
+  }, [['core/heading', {
+    level: '3',
+    placeholder: __('Add heading, configure heading level...', 'bsx-blocks')
+  }]]], ['bsx-blocks/check-list', {}]]], ['bsx-blocks/col', {
+    colType: 'default'
+  }, [['bsx-blocks/wrapper', {
+    border: 'bottom',
+    marginAfter: '3'
+  }, [['core/heading', {
+    level: '3',
+    placeholder: __('Add heading, configure heading level...', 'bsx-blocks')
+  }]]], ['bsx-blocks/check-list', {}]]]]]]]],
   templateLock: false
 }];
 /* harmony default export */ __webpack_exports__["default"] = (templates);

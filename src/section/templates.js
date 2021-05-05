@@ -29,10 +29,16 @@ const templates = [
                 {},
                 [
                     [
-                        'core/heading',
-                        { 
-                            placeholder: __( 'Add heading, configure heading level...', 'bsx-blocks' ), 
-                        },
+                        'bsx-blocks/wrapper',
+                        {},
+                        [
+                            [
+                                'core/heading',
+                                {
+                                    placeholder: __( 'Add heading, configure heading level...', 'bsx-blocks' ),
+                                },
+                            ],
+                        ],
                     ],
                 ],
             ], 
@@ -52,10 +58,16 @@ const templates = [
                 {},
                 [
                     [
-                        'core/heading',
-                        { 
-                            placeholder: __( 'Add heading, configure heading level...', 'bsx-blocks' ),
-                        },
+                        'bsx-blocks/wrapper',
+                        {},
+                        [
+                            [
+                                'core/heading',
+                                {
+                                    placeholder: __( 'Add heading, configure heading level...', 'bsx-blocks' ),
+                                },
+                            ],
+                        ],
                     ],
                     [
                         'core/paragraph',
@@ -361,6 +373,131 @@ const templates = [
                                                 },
                                             ],
                                         ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ], 
+                ],
+            ], 
+        ],
+        templateLock: false,
+    },
+    {
+        name: 'heading-list-columns',
+        title: __( 'Heading List Columns', 'bsx-blocks' ),
+        icon: svgIcon( 'heading-list-columns' ),
+        attributes: {
+            marginAfter: '5',
+        },
+        template: [ 
+            [ 
+                'bsx-blocks/container', 
+                {},
+                [
+                    [  
+                        'bsx-blocks/wrapper', 
+                        {
+                            paddingBefore: '4',
+                            marginAfter: '5',
+                            textAlign: 'center',
+                        },
+                        [
+                            [
+                                'core/heading',
+                                {
+                                    placeholder: __( 'Add heading, configure heading level...', 'bsx-blocks' ),
+                                },
+                            ],
+                        ],
+                    ],
+                    [  
+                        'bsx-blocks/row-with-cols', 
+                        {
+                            templateName: '1-1-1',
+                        },
+                        [
+                            [
+                                'bsx-blocks/col',
+                                { 
+                                    colType: 'default',
+                                },
+                                [
+                                    [
+                                        'bsx-blocks/wrapper',
+                                        {
+                                            border: 'bottom',
+                                            marginAfter: '3',
+                                        },
+                                        [
+                                            [
+                                                'core/heading',
+                                                {
+                                                    level: '3',
+                                                    placeholder: __( 'Add heading, configure heading level...', 'bsx-blocks' ),
+                                                },
+                                            ],
+                                        ],
+                                    ],
+                                    [
+                                        'bsx-blocks/check-list',
+                                        {},
+                                    ],
+                                ],
+                            ],
+                            [
+                                'bsx-blocks/col',
+                                { 
+                                    colType: 'default',
+                                },
+                                [
+                                    [
+                                        'bsx-blocks/wrapper',
+                                        {
+                                            border: 'bottom',
+                                            marginAfter: '3',
+                                        },
+                                        [
+                                            [
+                                                'core/heading',
+                                                {
+                                                    level: '3',
+                                                    placeholder: __( 'Add heading, configure heading level...', 'bsx-blocks' ),
+                                                },
+                                            ],
+                                        ],
+                                    ],
+                                    [
+                                        'bsx-blocks/check-list',
+                                        {},
+                                    ],
+                                ],
+                            ],
+                            [
+                                'bsx-blocks/col',
+                                { 
+                                    colType: 'default',
+                                },
+                                [
+                                    [
+                                        'bsx-blocks/wrapper',
+                                        {
+                                            border: 'bottom',
+                                            marginAfter: '3',
+                                        },
+                                        [
+                                            [
+                                                'core/heading',
+                                                {
+                                                    level: '3',
+                                                    placeholder: __( 'Add heading, configure heading level...', 'bsx-blocks' ),
+                                                },
+                                            ],
+                                        ],
+                                    ],
+                                    [
+                                        'bsx-blocks/check-list',
+                                        {},
                                     ],
                                 ],
                             ],
