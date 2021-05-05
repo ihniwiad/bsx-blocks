@@ -1,0 +1,9 @@
+// this file will be processed by gulpfile using `.env` varibles
+// the result will be saved as `build/.envscss` and included in `index.scss`
+
+
+@import "../bsx-wordpress/src/scss/variables";
+
+@import "../bsx-wordpress/node_modules/bootstrap/scss/mixins/breakpoints";
+@import "../bsx-wordpress/node_modules/bootstrap/scss/mixins/grid-framework";
+@import "../bsx-wordpress/node_modules/bootstrap/scss/mixins/grid";

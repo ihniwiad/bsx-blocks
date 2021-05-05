@@ -564,7 +564,7 @@ registerBlockType( 'bsx-blocks/slider', {
             marginAfter, 
         }, sliderWrapperClassName );
 
-        const sliderClassName = 'owl-carousel owl-theme outer-nav nav-lg';
+        const sliderClassName = 'owl-carousel owl-theme outer-nav nav-lg bsx-slider-fadeout';
 
         let imgClassName = 'img-fluid';
         imgClassName = addClassNames( {
