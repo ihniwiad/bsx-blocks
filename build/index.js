@@ -9862,6 +9862,159 @@ registerBlockType('bsx-blocks/badge', {
 
 /***/ }),
 
+/***/ "./src/text-elements/check-list/block.js":
+/*!***********************************************!*\
+  !*** ./src/text-elements/check-list/block.js ***!
+  \***********************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../_functions/wp-icons.js */ "./src/_functions/wp-icons.js");
+/* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
+/* harmony import */ var _functions_attributes_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../_functions/attributes.js */ "./src/_functions/attributes.js");
+/* harmony import */ var _functions_controls_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../_functions/controls.js */ "./src/_functions/controls.js");
+
+var _wp$i18n = wp.i18n,
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData;
+var registerBlockType = wp.blocks.registerBlockType;
+var _wp$blockEditor = wp.blockEditor,
+    InspectorControls = _wp$blockEditor.InspectorControls,
+    RichText = _wp$blockEditor.RichText;
+var _wp$components = wp.components,
+    PanelBody = _wp$components.PanelBody,
+    SVG = _wp$components.SVG,
+    Path = _wp$components.Path,
+    SelectControl = _wp$components.SelectControl; // functions imports
+
+
+
+
+ // functions
+
+registerBlockType('bsx-blocks/check-list', {
+  title: __('BSX Check List', 'bsx-blocks'),
+  icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_1__["svgIcon"])('check-list'),
+  category: 'layout',
+  attributes: {
+    content: {
+      type: 'array',
+      source: 'children',
+      selector: '.checklist'
+    },
+    state: {
+      type: 'string',
+      default: 'primary'
+    },
+    marginLeft: {
+      type: 'string'
+    },
+    marginRight: {
+      type: 'string'
+    },
+    marginBefore: {
+      type: 'string'
+    },
+    marginAfter: {
+      type: 'string'
+    }
+  },
+  edit: function edit(props) {
+    var className = props.className,
+        _props$attributes = props.attributes,
+        content = _props$attributes.content,
+        state = _props$attributes.state,
+        marginLeft = _props$attributes.marginLeft,
+        marginRight = _props$attributes.marginRight,
+        marginBefore = _props$attributes.marginBefore,
+        marginAfter = _props$attributes.marginAfter,
+        setAttributes = props.setAttributes,
+        isSelected = props.isSelected;
+
+    var onChangeContent = function onChangeContent(value) {
+      setAttributes({
+        content: value
+      });
+    };
+
+    var onChangeState = function onChangeState(value) {
+      setAttributes({
+        state: value
+      });
+    };
+
+    var onChangeMarginLeft = function onChangeMarginLeft(value) {
+      setAttributes({
+        marginLeft: value
+      });
+    };
+
+    var onChangeMarginRight = function onChangeMarginRight(value) {
+      setAttributes({
+        marginRight: value
+      });
+    };
+
+    var onChangeMarginBefore = function onChangeMarginBefore(value) {
+      setAttributes({
+        marginBefore: value
+      });
+    };
+
+    var onChangeMarginAfter = function onChangeMarginAfter(value) {
+      setAttributes({
+        marginAfter: value
+      });
+    };
+
+    var checklistClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__["addClassNames"])({
+      marginLeft: marginLeft,
+      marginRight: marginRight,
+      marginBefore: marginBefore,
+      marginAfter: marginAfter
+    }, 'checklist');
+    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
+      title: __('Appearance', 'bsx-blocks')
+    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_4__["stateSelect"])(state, onChangeState)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
+      title: __('Margin', 'bsx-blocks')
+    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_4__["marginLeftSelect"])(marginLeft, onChangeMarginLeft, ['', '0', '1', '2', '3']), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_4__["marginRightSelect"])(marginRight, onChangeMarginRight, ['', '0', '1', '2', '3']), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_4__["marginBeforeSelect"])(marginBefore, onChangeMarginBefore), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_4__["marginAfterSelect"])(marginAfter, onChangeMarginAfter))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText, {
+      tagName: "ul",
+      multiline: "li",
+      placeholder: __('Add list items...', 'bsx-blocks'),
+      value: content,
+      onChange: onChangeContent,
+      className: "checklist"
+    })];
+  },
+  save: function save(props) {
+    var className = props.className,
+        _props$attributes2 = props.attributes,
+        content = _props$attributes2.content,
+        state = _props$attributes2.state,
+        marginLeft = _props$attributes2.marginLeft,
+        marginRight = _props$attributes2.marginRight,
+        marginBefore = _props$attributes2.marginBefore,
+        marginAfter = _props$attributes2.marginAfter;
+    var checklistClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__["addClassNames"])({
+      marginLeft: marginLeft,
+      marginRight: marginRight,
+      marginBefore: marginBefore,
+      marginAfter: marginAfter
+    }, 'checklist');
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, content && !RichText.isEmpty(content) && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText.Content, {
+      tagName: "ul",
+      value: content,
+      className: checklistClassNames
+    }));
+  }
+});
+
+/***/ }),
+
 /***/ "./src/text-elements/icon/block.js":
 /*!*****************************************!*\
   !*** ./src/text-elements/icon/block.js ***!
@@ -10166,6 +10319,8 @@ registerBlockType('bsx-blocks/icon', {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _badge_block_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./badge/block.js */ "./src/text-elements/badge/block.js");
 /* harmony import */ var _icon_block_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./icon/block.js */ "./src/text-elements/icon/block.js");
+/* harmony import */ var _check_list_block_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./check-list/block.js */ "./src/text-elements/check-list/block.js");
+
 
 
 
