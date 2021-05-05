@@ -48,7 +48,6 @@ export const addGlobalBlockSettings = createHigherOrderComponent( ( BlockEdit ) 
             belowNavbar,
             marginBefore,
             marginAfter,
-            dataTest,
         } = attributes;
 
         const onChangeId = ( value ) => {
@@ -63,10 +62,6 @@ export const addGlobalBlockSettings = createHigherOrderComponent( ( BlockEdit ) 
         };
         const onChangeTextShadow = ( value ) => {
             setAttributes( { textShadow: value } );
-        };
-
-        const onChangeDataTest = ( value ) => {
-            setAttributes( { dataTest: value } );
         };
 
         const onChangeBelowNavbar = ( value ) => {
@@ -143,12 +138,6 @@ export const addGlobalBlockSettings = createHigherOrderComponent( ( BlockEdit ) 
                                     { value: 'darker', label: __( 'Darker', 'bsx-blocks' ) },
                                     { value: 'darkest', label: __( 'Darkest', 'bsx-blocks' ) },
                                 ] }
-                            />
-                            <TextControl
-                                label={ __( 'data-test attribute (optional)' ) }
-                                value={ dataTest }
-                                onChange={ onChangeDataTest }
-                                help={ __( 'This is only a test.' ) }
                             />
                         </PanelBody>
                     </InspectorControls>
