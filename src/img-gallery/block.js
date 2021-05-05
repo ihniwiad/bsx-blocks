@@ -32,6 +32,7 @@ import { addClassNames } from './../_functions/add-class-names.js';
 import { 
     marginBeforeSelect,
     marginAfterSelect,
+    borderStateSelect,
 } from './../_functions/controls.js';
 
 
@@ -460,23 +461,9 @@ registerBlockType( 'bsx-blocks/img-gallery', {
                         checked={ !! imgThumbnail }
                         onChange={ onChangeImgThumbnail }
                     />
-                    <SelectControl 
-                        label={ __( 'Border color', 'bsx-blocks' ) }
-                        value={ borderState }
-                        onChange={ onChangeBorderState }
-                        options={ [
-                            { value: '', label: __( '– unset –', 'bsx-blocks' ) },
-                            { value: 'white', label: __( 'White', 'bsx-blocks' ) },
-                            { value: 'primary', label: __( 'Primary', 'bsx-blocks' ) },
-                            { value: 'secondary', label: __( 'Secondary', 'bsx-blocks' ) },
-                            { value: 'success', label: __( 'Success', 'bsx-blocks' ) },
-                            { value: 'danger', label: __( 'Danger', 'bsx-blocks' ) },
-                            { value: 'warning', label: __( 'Warning', 'bsx-blocks' ) },
-                            { value: 'info', label: __( 'Info', 'bsx-blocks' ) },
-                            { value: 'light', label: __( 'Light', 'bsx-blocks' ) },
-                            { value: 'dark', label: __( 'Dark', 'bsx-blocks' ) },
-                        ] }
-                    />
+                    {
+                        borderStateSelect( borderState, onChangeBorderState )
+                    }
                     <ToggleControl
                         label={ __( 'Mouseover shadow', 'bsx-blocks' ) }
                         checked={ !! hoverShadow }

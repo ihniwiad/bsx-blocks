@@ -34,6 +34,20 @@ const marginPaddingSizes = [
 ];
 
 const states = [
+    { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+    { value: 'white', label: __( 'White', 'bsx-blocks' ) },
+    { value: 'primary', label: __( 'Primary', 'bsx-blocks' ) },
+    { value: 'secondary', label: __( 'Secondary', 'bsx-blocks' ) },
+    { value: 'success', label: __( 'Success', 'bsx-blocks' ) },
+    { value: 'danger', label: __( 'Danger', 'bsx-blocks' ) },
+    { value: 'warning', label: __( 'Warning', 'bsx-blocks' ) },
+    { value: 'info', label: __( 'Info', 'bsx-blocks' ) },
+    { value: 'light', label: __( 'Light', 'bsx-blocks' ) },
+    { value: 'dark', label: __( 'Dark', 'bsx-blocks' ) },
+];
+
+// doesn’t have '', has additional 'text-link'
+const btnStates = [
     { value: 'primary', label: __( 'Primary', 'bsx-blocks' ) },
     { value: 'secondary', label: __( 'Secondary', 'bsx-blocks' ) },
     { value: 'success', label: __( 'Success', 'bsx-blocks' ) },
@@ -218,7 +232,7 @@ export const dataFnInput = ( value, onChangeFunction ) => {
 // selects
 
 export const stateSelect = ( value, onChangeFunction, allowedValues ) => {
-    const defaultValues = states;
+    const defaultValues = btnStates;
     return (
         <SelectControl 
             label={ __( 'State', 'bsx-blocks' ) }
@@ -531,6 +545,32 @@ export const fontWeightSelect = ( value, onChangeFunction, allowedValues ) => {
     ];
     return (
         <SelectControl label={ __( 'Font weight', 'bsx-blocks' ) }
+            value={ value }
+            onChange={ onChangeFunction }
+            options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
+        />
+    )
+}
+
+export const borderSelect = ( value, onChangeFunction, allowedValues ) => {
+    const defaultValues = [
+        { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+        { value: 'true', label: __( 'Around', 'bsx-blocks' ) },
+        { value: 'bottom', label: __( 'Bottom', 'bsx-blocks' ) },
+    ];
+    return (
+        <SelectControl label={ __( 'Border', 'bsx-blocks' ) }
+            value={ value }
+            onChange={ onChangeFunction }
+            options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
+        />
+    )
+}
+
+export const borderStateSelect = ( value, onChangeFunction, allowedValues ) => {
+    const defaultValues = states;
+    return (
+        <SelectControl label={ __( 'Border color', 'bsx-blocks' ) }
             value={ value }
             onChange={ onChangeFunction }
             options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }

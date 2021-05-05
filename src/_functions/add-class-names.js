@@ -27,6 +27,7 @@ export function addClassNames( attributes, classNamesString ) {
         width,
         imgThumbnail,
         borderState,
+        border,
         hoverShadow,
         hoverMove,
     } = attributes;
@@ -167,6 +168,16 @@ export function addClassNames( attributes, classNamesString ) {
 
     if ( !! imgThumbnail ) {
         classNames.push( 'img-thumbnail' );
+    }
+
+    if ( !! border ) {
+        if ( border == 'true' ) {
+            classNames.push( 'border' );
+        }
+        else {
+            // TODO: what about multipla values, e.g. top and bottom?
+            classNames.push( 'border-' + border );
+        }
     }
 
     if ( !! borderState ) {

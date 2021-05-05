@@ -39,6 +39,8 @@ import {
     paddingRightSelect,
     bgColorSelect,
     roundedToggle,
+    borderSelect,
+    borderStateSelect,
 } from './../_functions/controls.js';
 
 
@@ -94,6 +96,12 @@ registerBlockType( 'bsx-blocks/wrapper', {
         textAlign: {
             type: 'string',
             default: '',
+        },
+        border: {
+            type: 'string',
+        },
+        borderState: {
+            type: 'string',
         },
         width: {
             type: 'string',
@@ -161,6 +169,8 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 headingInheritFontWeight,
                 width,
                 rounded,
+                border,
+                borderState,
                 marginBefore,
                 marginAfter,
                 paddingBefore,
@@ -216,6 +226,12 @@ registerBlockType( 'bsx-blocks/wrapper', {
         const onChangeRounded = ( value ) => {
             setAttributes( { rounded: value } );
         };
+        const onChangeBorder = ( value ) => {
+            setAttributes( { border: value } );
+        };
+        const onChangeBorderState = ( value ) => {
+            setAttributes( { borderState: value } );
+        };
 
         const onChangeMarginBefore = ( value ) => {
             setAttributes( { marginBefore: value } );
@@ -264,6 +280,8 @@ registerBlockType( 'bsx-blocks/wrapper', {
             textColor, 
             textSize,
             rounded, 
+            border,
+            borderState,
             textAlign,
             textShadow,
             fontWeight,
@@ -293,12 +311,9 @@ registerBlockType( 'bsx-blocks/wrapper', {
                     />
                 </BlockControls>
                 <InspectorControls>
-                    <PanelBody title={ __( 'Color & appearance', 'bsx-blocks' ) }>
-                        {
-                            bgColorSelect( bgColor, onChangeBgColor )
-                        }
+                    <PanelBody title={ __( 'Texte', 'bsx-blocks' ) }>
                         <SelectControl 
-                            label={ __( 'Text color (optional)', 'bsx-blocks' ) }
+                            label={ __( 'Text color', 'bsx-blocks' ) }
                             value={ textColor }
                             onChange={ onChangeTextColor }
                             options={ [
@@ -317,7 +332,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
                             ] }
                         />
                         <SelectControl 
-                            label={ __( 'Text size (optional)', 'bsx-blocks' ) }
+                            label={ __( 'Text size', 'bsx-blocks' ) }
                             value={ textSize }
                             onChange={ onChangeTextSize }
                             options={ [
@@ -351,8 +366,19 @@ registerBlockType( 'bsx-blocks/wrapper', {
                         {
                             headingInheritFontWeightToggle( headingInheritFontWeight, onChangeHeadingInheritFontWeight )
                         }
+                    </PanelBody>
+                    <PanelBody title={ __( 'Appearance', 'bsx-blocks' ) }>
+                        {
+                            bgColorSelect( bgColor, onChangeBgColor )
+                        }
                         {
                             roundedToggle( rounded, onChangeRounded )
+                        }
+                        {
+                            borderSelect( border, onChangeBorder )
+                        }
+                        {
+                            borderStateSelect( borderState, onChangeBorderState )
                         }
                     </PanelBody>
 
@@ -434,6 +460,8 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 headingInheritFontWeight,
                 width,
                 rounded,
+                border,
+                borderState,
                 marginBefore,
                 marginAfter,
                 paddingBefore,
@@ -451,6 +479,8 @@ registerBlockType( 'bsx-blocks/wrapper', {
             textColor, 
             textSize,
             rounded, 
+            border,
+            borderState,
             textAlign,
             textShadow,
             fontWeight,
