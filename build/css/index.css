@@ -255,6 +255,9 @@ a.bsxui-link {
     outline: none;
     background: transparent; }
 
+[data-type="bsx-blocks/check-list"] > ul {
+  list-style: none !important; }
+
 [data-type="bsx-blocks/column-rows"] {
   display: -webkit-box;
   display: -ms-flexbox;

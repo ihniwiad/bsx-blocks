@@ -32,3 +32,11 @@ $bsxui-badge-block-selector:                   '[data-type="bsx-blocks/badge"], 
         background: transparent;
     }
 }
+
+
+
+// checklist
+
+[data-type="bsx-blocks/check-list"] > ul {
+    list-style: none !important;
+}
