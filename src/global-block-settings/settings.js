@@ -1,3 +1,6 @@
+// TODO: refactor, use external controls, use addClassName()
+
+
 const { __ } = wp.i18n;
 const { Fragment } = wp.element;
 const { addFilter } = wp.hooks;
@@ -12,6 +15,28 @@ const {
     InspectorControls, 
     InspectorAdvancedControls,
 } = wp.blockEditor;
+
+import { 
+    // belowNavbarToggle,
+    // touchFooterToggle,
+    // textShadowSelect,
+    fontWeightSelect,
+    // inverseTextColorToggle,
+    // headingInheritTextColorToggle,
+    // headingInheritFontWeightToggle,
+    // marginLeftSelect,
+    // marginRightSelect,
+    // marginBeforeSelect,
+    // marginAfterSelect,
+    // paddingBeforeSelect,
+    // paddingAfterSelect,
+    // paddingLeftSelect,
+    // paddingRightSelect,
+    // bgColorSelect,
+    // roundedToggle,
+    // borderSelect,
+    // borderStateSelect,
+} from './../_functions/controls.js';
 
 
 //restrict to specific block names
@@ -44,6 +69,7 @@ export const addGlobalBlockSettings = createHigherOrderComponent( ( BlockEdit ) 
             id,
             textSize,
             textColor,
+            fontWeight,
             textShadow,
             belowNavbar,
             marginBefore,
@@ -59,6 +85,9 @@ export const addGlobalBlockSettings = createHigherOrderComponent( ( BlockEdit ) 
         };
         const onChangeTextColor = ( value ) => {
             setAttributes( { textColor: value } );
+        };
+        const onChangeFontWeight = ( value ) => {
+            setAttributes( { fontWeight: value } );
         };
         const onChangeTextShadow = ( value ) => {
             setAttributes( { textShadow: value } );
@@ -128,6 +157,9 @@ export const addGlobalBlockSettings = createHigherOrderComponent( ( BlockEdit ) 
                                     { value: 'black-50', label: __( 'Black transparent', 'bsx-blocks' ) },
                                 ] }
                             />
+                            {
+                                fontWeightSelect( fontWeight, onChangeFontWeight )
+                            }
                             <SelectControl 
                                 label={ __( 'Text shadow (optional)', 'bsx-blocks' ) }
                                 value={ textShadow }
@@ -253,6 +285,14 @@ export function addAttribute( settings ) {
             } );
         }
     
+        if ( typeof settings.attributes.fontWeight === 'undefined' ) {
+            settings.attributes = Object.assign( settings.attributes, {
+                fontWeight: {
+                    type: 'string',
+                },
+            } );
+        }
+    
         if ( typeof settings.attributes.textShadow === 'undefined' ) {
             settings.attributes = Object.assign( settings.attributes, {
                 textShadow: {
@@ -331,6 +371,7 @@ export function addSaveProps( extraProps, blockType, attributes ) {
         id,
         textSize,
         textColor,
+        fontWeight,
         textShadow,
         belowNavbar,
         marginBefore,
@@ -363,6 +404,14 @@ export function addSaveProps( extraProps, blockType, attributes ) {
             if ( ! classNames.includes( 'text-' + textColor ) ) {
                 // add (if not already set)
                 classNames.push( 'text-' + textColor );
+            }
+        }
+
+        if ( typeof fontWeight !== 'undefined' && !! fontWeight ) {
+            
+            if ( ! classNames.includes( 'font-weight-' + fontWeight ) ) {
+                // add (if not already set)
+                classNames.push( 'font-weight-' + fontWeight );
             }
         }
 
