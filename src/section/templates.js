@@ -508,6 +508,165 @@ const templates = [
         ],
         templateLock: false,
     },
+    {
+        name: 'bg-heading-icon-heading-text-columns',
+        title: __( 'Background Heading Icon Heading Text Columns', 'bsx-blocks' ),
+        icon: svgIcon( 'bg-heading-icon-heading-text-columns' ),
+        attributes: {
+            marginAfter: '5',
+        },
+        template: [ 
+            [
+                'bsx-blocks/wrapper', 
+                {
+                    bgColor: 'light',
+                    paddingBefore: '5',
+                    paddingAfter: '4',
+                },
+                [
+                    [ 
+                        'bsx-blocks/container', 
+                        {},
+                        [
+                            [  
+                                'bsx-blocks/wrapper', 
+                                {
+                                    marginBefore: '3',
+                                    marginAfter: '5',
+                                    textAlign: 'center',
+                                },
+                                [
+                                    [
+                                        'core/heading',
+                                        {
+                                            placeholder: __( 'Add heading, configure heading level...', 'bsx-blocks' ),
+                                        },
+                                    ],
+                                ],
+                            ],
+                            [  
+                                'bsx-blocks/row-with-cols', 
+                                {
+                                    templateName: '1-1-1',
+                                },
+                                [
+                                    [
+                                        'bsx-blocks/col',
+                                        { 
+                                            colType: 'default',
+                                        },
+                                        [
+                                            [
+                                                'bsx-blocks/wrapper',
+                                                {
+                                                    textAlign: 'center',
+                                                    marginAfter: '3',
+                                                },
+                                                [
+                                                    [
+                                                        'bsx-blocks/icon',
+                                                        {
+                                                            iconKey: 'heart',
+                                                            iconSize: '5x',
+                                                            marginAfter: '2',
+                                                        },
+                                                    ],
+                                                    [
+                                                        'core/heading',
+                                                        {
+                                                            level: '3',
+                                                            placeholder: __( 'Add heading, configure heading level...', 'bsx-blocks' ),
+                                                        },
+                                                    ],
+                                                ],
+                                            ],
+                                            [
+                                                'core/paragraph',
+                                                {},
+                                            ],
+                                        ],
+                                    ],
+                                    [
+                                        'bsx-blocks/col',
+                                        { 
+                                            colType: 'default',
+                                        },
+                                        [
+                                            [
+                                                'bsx-blocks/wrapper',
+                                                {
+                                                    textAlign: 'center',
+                                                    marginAfter: '3',
+                                                },
+                                                [
+                                                    [
+                                                        'bsx-blocks/icon',
+                                                        {
+                                                            iconKey: 'heart',
+                                                            iconSize: '5x',
+                                                            marginAfter: '2',
+                                                        },
+                                                    ],
+                                                    [
+                                                        'core/heading',
+                                                        {
+                                                            level: '3',
+                                                            placeholder: __( 'Add heading, configure heading level...', 'bsx-blocks' ),
+                                                        },
+                                                    ],
+                                                ],
+                                            ],
+                                            [
+                                                'core/paragraph',
+                                                {},
+                                            ],
+                                        ],
+                                    ],
+                                    [
+                                        'bsx-blocks/col',
+                                        { 
+                                            colType: 'default',
+                                        },
+                                        [
+                                            [
+                                                'bsx-blocks/wrapper',
+                                                {
+                                                    textAlign: 'center',
+                                                    marginAfter: '3',
+                                                },
+                                                [
+                                                    [
+                                                        'bsx-blocks/icon',
+                                                        {
+                                                            iconKey: 'heart',
+                                                            iconSize: '5x',
+                                                            marginAfter: '2',
+                                                        },
+                                                    ],
+                                                    [
+                                                        'core/heading',
+                                                        {
+                                                            level: '3',
+                                                            placeholder: __( 'Add heading, configure heading level...', 'bsx-blocks' ),
+                                                        },
+                                                    ],
+                                                ],
+                                            ],
+                                            [
+                                                'core/paragraph',
+                                                {},
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ], 
+                        ],
+                    ], 
+                ],
+            ],
+        ],
+        templateLock: false,
+    },
 ];
 
 export default templates;
