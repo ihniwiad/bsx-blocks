@@ -491,7 +491,10 @@ export const bannerSizeSelect = ( value, onChangeFunction, allowedValues ) => {
     const defaultValues = [
         { value: '1', label: __( '1 (biggest)', 'bsx-blocks' ) },
         { value: '2', label: __( '2', 'bsx-blocks' ) },
-        { value: '3', label: __( '3 (smallest)', 'bsx-blocks' ) },
+        { value: '3', label: __( '3', 'bsx-blocks' ) },
+        { value: '4', label: __( '4', 'bsx-blocks' ) },
+        { value: '5', label: __( '5', 'bsx-blocks' ) },
+        { value: '6', label: __( '6 (smallest)', 'bsx-blocks' ) },
     ];
     return (
         <SelectControl 
