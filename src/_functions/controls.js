@@ -232,10 +232,22 @@ export const dataFnInput = ( value, onChangeFunction ) => {
 // selects
 
 export const stateSelect = ( value, onChangeFunction, allowedValues ) => {
+    const defaultValues = states;
+    return (
+        <SelectControl 
+            label={ __( 'Color', 'bsx-blocks' ) }
+            value={ value }
+            onChange={ onChangeFunction }
+            options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
+        />
+    )
+}
+
+export const buttonStateSelect = ( value, onChangeFunction, allowedValues ) => {
     const defaultValues = btnStates;
     return (
         <SelectControl 
-            label={ __( 'State', 'bsx-blocks' ) }
+            label={ __( 'Color / Appearance', 'bsx-blocks' ) }
             value={ value }
             onChange={ onChangeFunction }
             options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
@@ -257,7 +269,7 @@ export const bgColorSelect = ( value, onChangeFunction, allowedValues ) => {
 
 export const stateTypeSelect = ( value, onChangeFunction ) => {
     return (
-        <SelectControl label={ __( 'State Type', 'bsx-blocks' ) }
+        <SelectControl label={ __( 'Button Type', 'bsx-blocks' ) }
             value={ value }
             onChange={ onChangeFunction }
             options={ [

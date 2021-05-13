@@ -21,7 +21,7 @@ import { svgIcon } from './../../_functions/wp-icons.js';
 import { addClassNames } from './../../_functions/add-class-names.js';
 import { makeSaveAttributes } from './../../_functions/attributes.js';
 import { 
-    stateSelect,
+    buttonStateSelect,
     stateTypeSelect,
     sizeSelect,
     linkUrlInput,
@@ -286,7 +286,7 @@ registerBlockType( 'bsx-blocks/button', {
 
                 <PanelBody title={ __( 'Button appearance', 'bsx-blocks' ) }>
                     {
-                        stateSelect( state, onChangeState )
+                        buttonStateSelect( state, onChangeState )
                     }
                     {
                         stateTypeSelect( stateType, onChangeStateType )

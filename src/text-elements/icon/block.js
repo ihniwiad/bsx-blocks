@@ -36,15 +36,20 @@ import {
 
 // functions
 
-const makeBadgeClassNames = ( attributes ) => {
+const makeIconClassNames = ( attributes ) => {
 
     const {
         state,
+        hoverState,
         // iconType,
         iconSize,
     } = attributes;
 
     const classNames = [];
+
+    if ( !! hoverState ) {
+        classNames.push( 'hover-text-' + hoverState );
+    }
 
     if ( !! state ) {
         classNames.push( 'text-' + state );
@@ -68,14 +73,23 @@ registerBlockType( 'bsx-blocks/icon', {
     attributes: {
         iconKey: {
             type: 'string',
+            default: 'heart',
         },
         href: {
             type: 'string',
-            default: '',
+        },
+        target: {
+            type: 'string',
+        },
+        rel: {
+            type: 'string',
         },
         state: {
             type: 'string',
             default: 'primary',
+        },
+        hoverState: {
+            type: 'string',
         },
         iconType: {
             type: 'string',
@@ -104,7 +118,10 @@ registerBlockType( 'bsx-blocks/icon', {
             attributes: {
                 iconKey,
                 href,
+                target,
+                rel,
                 state,
+                hoverState,
                 iconType,
                 iconSize,
                 marginLeft,
@@ -122,14 +139,17 @@ registerBlockType( 'bsx-blocks/icon', {
         const onChangeHref = ( value ) => {
             setAttributes( { href: value } );
         };
-        // const onChangeTarget = ( value ) => {
-        //     setAttributes( { target: !! value ? '_blank' : '' } );
-        // };
-        // const onChangeRel = ( value ) => {
-        //     setAttributes( { rel: value } );
-        // };
+        const onChangeTarget = ( value ) => {
+            setAttributes( { target: !! value ? '_blank' : '' } );
+        };
+        const onChangeRel = ( value ) => {
+            setAttributes( { rel: value } );
+        };
         const onChangeState = ( value ) => {
             setAttributes( { state: value } );
+        };
+        const onChangeHoverState = ( value ) => {
+            setAttributes( { hoverState: value } );
         };
         const onChangeIconType = ( value ) => {
             setAttributes( { iconType: value } );
@@ -154,8 +174,9 @@ registerBlockType( 'bsx-blocks/icon', {
             setAttributes( { marginAfter: value } );
         };
 
-        let iconClassNames = makeBadgeClassNames( { 
+        let iconClassNames = makeIconClassNames( { 
             state, 
+            hoverState,
             iconType,
             iconSize,
         } );
@@ -167,7 +188,7 @@ registerBlockType( 'bsx-blocks/icon', {
         }, iconClassNames );
 
         const saveAttributes = makeSaveAttributes( {
-            href: href, 
+            href: 'javascript:void( 0 );',
             // target: target, 
             // rel: href ? ( rel ? rel + ' noopener noreferrer' : 'noopener noreferrer' ) : '',
         } );
@@ -196,6 +217,11 @@ registerBlockType( 'bsx-blocks/icon', {
                     {
                         stateSelect( state, onChangeState )
                     }
+                    <TextControl 
+                        label={ __( 'Hover color', 'bsx-blocks' ) }
+                        value={ hoverState } 
+                        onChange={ onChangeHoverState }
+                    />
                     <SelectControl label={ __( 'Icon type', 'bsx-blocks' ) }
                         value={ iconType }
                         onChange={ onChangeIconType }
@@ -238,10 +264,10 @@ registerBlockType( 'bsx-blocks/icon', {
                         linkUrlInput( href, onChangeHref )
                     }
                     {
-                        // targetToggle( target, onChangeTarget )
+                        targetToggle( target, onChangeTarget )
                     }
                     {
-                        // relInput( rel, onChangeRel )
+                        relInput( rel, onChangeRel )
                     }
                 </PanelBody>
             </InspectorControls>,
@@ -269,7 +295,10 @@ registerBlockType( 'bsx-blocks/icon', {
             attributes: {
                 iconKey,
                 href,
+                target,
+                rel,
                 state,
+                hoverState,
                 iconType,
                 iconSize,
                 marginLeft,
@@ -279,8 +308,9 @@ registerBlockType( 'bsx-blocks/icon', {
             },
         } = props;
         
-        let iconClassNames = makeBadgeClassNames( { 
+        let iconClassNames = makeIconClassNames( { 
             state, 
+            hoverState, 
             iconType,
             iconSize,
         } );
@@ -293,8 +323,8 @@ registerBlockType( 'bsx-blocks/icon', {
 
         const saveAttributes = makeSaveAttributes( {
             href: href, 
-            // target: target, 
-            // rel: href ? ( rel ? rel + ' noopener noreferrer' : 'noopener noreferrer' ) : '',
+            target: target, 
+            rel: href ? ( rel ? rel + ' noopener noreferrer' : 'noopener noreferrer' ) : '',
         } );
 
         const mergedIconClassName = iconType == 'circle'
@@ -314,14 +344,14 @@ registerBlockType( 'bsx-blocks/icon', {
             <>
                 {
                     iconType == 'circle' ? (
-                        <TagName class={ mergedIconClassName } aria-hidden="true" { ...saveAttributes }>
+                        <TagName className={ mergedIconClassName } aria-hidden="true" { ...saveAttributes }>
                             <i class="fa fa-circle fa-stack-2x"></i>
                             <i class={ iconInnerClassName }></i>
                         </TagName>
                     )
                     :
                     (
-                        <TagName class={ mergedIconClassName } aria-hidden="true" { ...saveAttributes }></TagName>
+                        <TagName className={ mergedIconClassName } aria-hidden="true" { ...saveAttributes }></TagName>
                     )
                 }
             </>
