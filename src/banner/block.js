@@ -61,6 +61,11 @@ import {
     imgUploadButton,
     bgColorSelect,
     roundedToggle,
+    linkUrlInput,
+    // ignoreMailtoSpamProtectionToggle,
+    targetToggle,
+    relInput,
+    dataFnInput,
 } from './../_functions/controls.js';
 import { makeSaveAttributes } from './../_functions/attributes.js';
 import { getTemplate } from './../_functions/utilities.js';
@@ -83,6 +88,7 @@ const makeBannerClassNames = ( attributes ) => {
         alignItems, 
         templateName,
         rounded,
+        href,
     } = attributes;
 
     const classNames = [];
@@ -123,6 +129,11 @@ const makeBannerClassNames = ( attributes ) => {
 
     if ( rounded === true ) {
         classNames.push( 'of-hidden' );
+    }
+
+    if ( !! href ) {
+        classNames.push( 'd-block' );
+        classNames.push( 'no-underline' );
     }
 
     return classNames.join( ' ' );
@@ -300,6 +311,18 @@ registerBlockType( 'bsx-blocks/banner', {
             type: 'string',
             default: '',
         },
+        href: {
+            type: 'string',
+        },
+        target: {
+            type: 'string',
+        },
+        rel: {
+            type: 'string',
+        },
+        dataFn: {
+            type: 'string',
+        },
     },
 
     edit: withSelect( ( select, { clientId } ) => {
@@ -344,6 +367,10 @@ registerBlockType( 'bsx-blocks/banner', {
                 marginAfter,
                 paddingBefore,
                 paddingAfter,
+                href,
+                target,
+                rel,
+                dataFn,
             },
             setAttributes,
             isSelected,
@@ -436,6 +463,14 @@ registerBlockType( 'bsx-blocks/banner', {
             }
         };
 
+        const onDeleteImage = () => {
+            setAttributes( {
+                imgId: '',
+                imgSizes: [],
+                url: '',
+            } );
+        };
+
         const onDeletePortraitImage = () => {
             setAttributes( {
                 portraitImgId: '',
@@ -487,6 +522,19 @@ registerBlockType( 'bsx-blocks/banner', {
             setAttributes( { paddingAfter: value } );
         };
 
+        const onChangeHref = ( value ) => {
+            setAttributes( { href: value } );
+        };
+        const onChangeTarget = ( value ) => {
+            setAttributes( { target: !! value ? '_blank' : '' } );
+        };
+        const onChangeRel = ( value ) => {
+            setAttributes( { rel: value } );
+        };
+        const onChangeDataFn = ( value ) => {
+            setAttributes( { dataFn: value } );
+        };
+
         const onChangeImgSizeIndex = ( value ) => {
             setAttributes( { 
                 imgSizeIndex: value.toString(),
@@ -522,6 +570,7 @@ registerBlockType( 'bsx-blocks/banner', {
             alignItems, 
             templateName,
             rounded,
+            href,
         } );
         bannerClassName = addClassNames( {
             belowNavbar,
@@ -573,6 +622,18 @@ registerBlockType( 'bsx-blocks/banner', {
                             }
                         </>
                     </div>
+                    {
+                        imgId && (
+                            <div class="bsxui-config-panel-row">
+                                <Button 
+                                    onClick={ onDeleteImage }
+                                    isDestructive={ true }
+                                >
+                                    { __( 'Remove image', 'bsx-blocks' ) }
+                                </Button>
+                            </div>
+                        )
+                    }
                     <RadioControl
                         label={ __( 'Image size and format', 'bsx-blocks' ) }
                         selected={ imgSizeIndex.toString() }
@@ -676,6 +737,21 @@ registerBlockType( 'bsx-blocks/banner', {
                     }
                     {
                         marginAfterSelect( marginAfter, onChangeMarginAfter )
+                    }
+                </PanelBody>
+
+                <PanelBody title={ __( 'Link', 'bsx-blocks' ) }>
+                    {
+                        linkUrlInput( href, onChangeHref )
+                    }
+                    {
+                        targetToggle( target, onChangeTarget )
+                    }
+                    {
+                        relInput( rel, onChangeRel )
+                    }
+                    {
+                        dataFnInput( dataFn, onChangeDataFn )
                     }
                 </PanelBody>
             </InspectorControls>,
@@ -797,6 +873,10 @@ registerBlockType( 'bsx-blocks/banner', {
                 marginAfter,
                 paddingBefore,
                 paddingAfter,
+                href,
+                target,
+                rel,
+                dataFn,
             },
         } = props;
 
@@ -812,6 +892,7 @@ registerBlockType( 'bsx-blocks/banner', {
             alignItems, 
             templateName,
             rounded,
+            href,
         } );
         bannerClassName = addClassNames( {
             belowNavbar, 
@@ -837,12 +918,15 @@ registerBlockType( 'bsx-blocks/banner', {
 
         // there might be no images at all, e.g. if background color banner
         const saveAttributes = makeSaveAttributes( {
-            'data-fn': imgId ? 'lazyload' : '',
+            'data-fn': imgId ? 'lazyload' : dataFn,
             'data-src': imgId ? url : '',
             'data-srcset': imgId ? srcsetJson : '',
+            href: href, 
+            target: target, 
+            rel: href ? ( rel ? rel + ' noopener noreferrer' : 'noopener noreferrer' ) : '',
         } );
 
-        const TagName = nodeName;
+        const TagName = href ? 'a' : nodeName;
 
         return (
             <TagName className={ bannerClassName } { ...saveAttributes }>

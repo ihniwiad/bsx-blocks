@@ -26,9 +26,7 @@ const paths = {
         dest: 'build/css/',
         fileName: 'index.scss',
         watchSrc: [
-            "./build/**/*.css",
-            "!./build/css/*.min.css",
-            "!./build/css/*.css.map"
+            "src/**/*.scss",
         ],
     },
     js: {
@@ -38,7 +36,7 @@ const paths = {
         ],
     },
     publish: {
-        watchSrc: [ 'build/index.js', 'index.php', 'src/**/*.php' ],
+        watchSrc: [ 'build/*.js', 'index.php', 'src/**/*.php' ],
     },
 };
 

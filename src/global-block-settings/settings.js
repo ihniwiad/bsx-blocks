@@ -16,10 +16,12 @@ const {
     InspectorAdvancedControls,
 } = wp.blockEditor;
 
+
+import { addClassNames } from './../_functions/add-class-names.js';
 import { 
-    // belowNavbarToggle,
+    belowNavbarToggle,
     // touchFooterToggle,
-    // textShadowSelect,
+    textShadowSelect,
     fontWeightSelect,
     // inverseTextColorToggle,
     // headingInheritTextColorToggle,
@@ -74,7 +76,51 @@ export const addGlobalBlockSettings = createHigherOrderComponent( ( BlockEdit ) 
             belowNavbar,
             marginBefore,
             marginAfter,
+            // additionaClassNames,
+            className,
         } = attributes;
+
+
+        // TEST – force editor to add class names to core blocks created by custom attributes
+        // const addClassName = ( value ) => {
+        //     // already existing class name(s) – might be undefined
+
+        //     // const classNamesArr = typeof className !== 'undefined' ? className.split( ' ' ) : [];
+
+        //     // ignore exiting class names to be able to reset once added class names (use custom setting for additional class names)
+        //     const classNamesArr = typeof className !== 'undefined' ? className.split( ' ' ) : [];
+        //     // class name value(s) to add (one or multiple space separated)
+        //     const valuesArr = value.split( ' ' );
+        //     valuesArr.forEach( ( value ) => {
+        //         if ( classNamesArr.indexOf( value ) == -1 ) {
+        //             // add class name if not already set (avoid infinite adding of equal class name)
+        //             classNamesArr.push( value );
+        //             setAttributes( { className: classNamesArr.join( ' ' ) } );
+        //         }
+        //     } );
+        // }
+        const toAddClassNames = addClassNames( {
+            textSize,
+            textColor,
+            fontWeight,
+            textShadow,
+            belowNavbar,
+            marginBefore,
+            marginAfter,
+        }, 'bsxui-core-block-wrapper' );
+        // if ( allowedBlocks.includes( props.name ) ) {
+        //     addClassName( toAddClassNames );
+        //     // console.log( 'props: ' + JSON.stringify( props, null, 2 ) );
+        // }
+        // /TEST
+
+
+        // TEST 2
+        // props.setAttributes( {
+        //     className: 'TEST',
+        // } );
+        // /TEST 2
+
 
         const onChangeId = ( value ) => {
             setAttributes( { id: value } );
@@ -105,11 +151,36 @@ export const addGlobalBlockSettings = createHigherOrderComponent( ( BlockEdit ) 
             setAttributes( { marginAfter: value } );
         };
 
+        // const onChangeAdditionaClassNames = ( value ) => {
+        //     setAttributes( { additionaClassNames: value } );
+        // };
+
+
+        const wrappedBlockEdit = (
+            <>
+                {
+                    allowedBlocks.includes( props.name ) && typeof toAddClassNames !== 'undefiend' && toAddClassNames ?
+                    (
+                        <div className={ toAddClassNames }>
+                            <BlockEdit { ...props } />
+                        </div>
+                    )
+                    :
+                    (
+                        <BlockEdit { ...props } />
+                    )
+                }
+            </>
+        );
+
+
         // If this block supports custom property and is currently selected, add our UI
         if ( allowedBlocks.includes( props.name ) && props.isSelected ) {
             return (
                 <Fragment>
-                    <BlockEdit { ...props } />
+                    {
+                        wrappedBlockEdit
+                    }
                     <InspectorControls>
                         <PanelBody title={ __( 'BSX global settings', 'bsx-blocks' ) }>
                             <TextControl 
@@ -160,68 +231,60 @@ export const addGlobalBlockSettings = createHigherOrderComponent( ( BlockEdit ) 
                             {
                                 fontWeightSelect( fontWeight, onChangeFontWeight )
                             }
+                            {
+                                textShadowSelect( textShadow, onChangeTextShadow )
+                            }
                             <SelectControl 
-                                label={ __( 'Text shadow (optional)', 'bsx-blocks' ) }
-                                value={ textShadow }
-                                onChange={ onChangeTextShadow }
+                                label={ __( 'Margin before', 'bsx-blocks' ) }
+                                value={ marginBefore }
+                                onChange={ onChangeMarginBefore }
                                 options={ [
                                     { value: '', label: __( '– unset –', 'bsx-blocks' ) },
-                                    { value: 'dark', label: __( 'Dark', 'bsx-blocks' ) },
-                                    { value: 'darker', label: __( 'Darker', 'bsx-blocks' ) },
-                                    { value: 'darkest', label: __( 'Darkest', 'bsx-blocks' ) },
+                                    { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
+                                    { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
+                                    { value: '2', label: __( 'small', 'bsx-blocks' ) },
+                                    { value: '3', label: __( 'medium', 'bsx-blocks' ) },
+                                    { value: '4', label: __( 'large', 'bsx-blocks' ) },
+                                    { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
                                 ] }
+                                help={ __( 'Spacer before element', 'bsx-blocks' ) }
+                            />
+                            <SelectControl 
+                                label={ __( 'Margin after', 'bsx-blocks' ) }
+                                value={ marginAfter }
+                                onChange={ onChangeMarginAfter }
+                                options={ [
+                                    { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+                                    { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
+                                    { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
+                                    { value: '2', label: __( 'small', 'bsx-blocks' ) },
+                                    { value: '3', label: __( 'medium', 'bsx-blocks' ) },
+                                    { value: '4', label: __( 'large', 'bsx-blocks' ) },
+                                    { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
+                                ] }
+                                help={ __( 'Spacer after element', 'bsx-blocks' ) }
                             />
                         </PanelBody>
                     </InspectorControls>
                     <InspectorAdvancedControls>
-                        <TextControl 
-                            label={ __( 'ID', 'bsx-blocks' ) }
-                            value={ id } 
-                            onChange={ onChangeId }
-                            help={ __( 'Add ID if necessary (optional).', 'bsx-blocks' ) }
-                        />
-                        <ToggleControl
-                            label={ __( 'Below navbar', 'bsx-blocks' ) }
-                            checked={ !! belowNavbar }
-                            onChange={ onChangeBelowNavbar }
-                            help={ __( 'Enable if container starts below navbar. If enabled container has spacer top to avoid overlapping its contents by navbar.', 'bsx-blocks' ) }
-                        />
-                        <SelectControl 
-                            label={ __( 'Margin before', 'bsx-blocks' ) }
-                            value={ marginBefore }
-                            onChange={ onChangeMarginBefore }
-                            options={ [
-                                { value: '', label: __( '– unset –', 'bsx-blocks' ) },
-                                { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
-                                { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
-                                { value: '2', label: __( 'small', 'bsx-blocks' ) },
-                                { value: '3', label: __( 'medium', 'bsx-blocks' ) },
-                                { value: '4', label: __( 'large', 'bsx-blocks' ) },
-                                { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
-                            ] }
-                            help={ __( 'Spacer before element', 'bsx-blocks' ) }
-                        />
-                        <SelectControl 
-                            label={ __( 'Margin after', 'bsx-blocks' ) }
-                            value={ marginAfter }
-                            onChange={ onChangeMarginAfter }
-                            options={ [
-                                { value: '', label: __( '– unset –', 'bsx-blocks' ) },
-                                { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
-                                { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
-                                { value: '2', label: __( 'small', 'bsx-blocks' ) },
-                                { value: '3', label: __( 'medium', 'bsx-blocks' ) },
-                                { value: '4', label: __( 'large', 'bsx-blocks' ) },
-                                { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
-                            ] }
-                            help={ __( 'Spacer after element', 'bsx-blocks' ) }
-                        />
+                        {
+                            belowNavbarToggle( belowNavbar, onChangeBelowNavbar )
+                        }
                     </InspectorAdvancedControls>
                 </Fragment>
             );
         }
 
-        return <BlockEdit { ...props } />;
+        /*
+                            <TextControl 
+                                label={ __( 'Additional class(es)', 'bsx-blocks' ) }
+                                value={ additionaClassNames } 
+                                onChange={ onChangeAdditionaClassNames }
+                                help={ __( 'Use this field instead of WordPress native additional class(es)', 'bsx-blocks' ) }
+                            />
+        */
+
+        return wrappedBlockEdit;
     };
 }, 'addGlobalBlockSettings' );
 
@@ -264,7 +327,6 @@ export function addAttribute( settings ) {
             settings.attributes = Object.assign( settings.attributes, {
                 belowNavbar: { 
                     type: 'boolean',
-                    default: false,
                 }
             } );
         }
@@ -332,6 +394,14 @@ export function addAttribute( settings ) {
                 },
             } );
         }
+    
+        // if ( typeof settings.attributes.additionaClassNames === 'undefined' ) {
+        //     settings.attributes = Object.assign( settings.attributes, {
+        //         additionaClassNames: {
+        //             type: 'string',
+        //         },
+        //     } );
+        // }
 
         // add custom props in case of several wp props
         /*
@@ -377,6 +447,7 @@ export function addSaveProps( extraProps, blockType, attributes ) {
         marginBefore,
         marginAfter,
         dataTest,
+        // additionaClassNames,
     } = attributes;
 
     // If the current block is valid, add our prop.
@@ -420,6 +491,14 @@ export function addSaveProps( extraProps, blockType, attributes ) {
             if ( ! classNames.includes( 'text-shadow-' + textShadow ) ) {
                 // add (if not already set)
                 classNames.push( 'text-shadow-' + textShadow );
+            }
+        }
+
+        if ( typeof belowNavbar !== 'undefined' && belowNavbar ) {
+            
+            if ( ! classNames.includes( 'below-navbar-content' ) ) {
+                // add (if not already set)
+                classNames.push( 'below-navbar-content' );
             }
         }
 
@@ -475,6 +554,17 @@ export function addSaveProps( extraProps, blockType, attributes ) {
             }
         }
 
+        // if ( typeof additionaClassNames !== 'undefined' && additionaClassNames ) {
+
+        //     const additionaClassNamesArr = additionaClassNames.split( ' ' );
+        //     additionaClassNamesArr.forEach( ( additionaClassName ) => {
+        //         if ( ! classNames.includes( additionaClassName ) ) {
+        //             // add (if not already set)
+        //             classNames.push( additionaClassName );
+        //         }
+        //     } );
+        // }
+
         extraProps.className = classNames.join( ' ' );
 
         // extraProps.className = classnames( extraProps.className, 'mobile-hidden' );
@@ -484,16 +574,41 @@ export function addSaveProps( extraProps, blockType, attributes ) {
 
 }// end addSaveProps()
 
-addFilter( 
-    'editor.BlockEdit', 
-    'bsx-blocks/add-global-block-settings', 
-    addGlobalBlockSettings 
-);
+// on register
 addFilter( 
     'blocks.registerBlockType', 
     'bsx-blocks/custom-attributes', 
     addAttribute 
 );
+
+
+
+// on get editor class name
+// Our filter function
+// function setBlockCustomClassName( className, blockName ) {
+//     console.log( 'setBlockCustomClassName() – blockName: ' + blockName + ', className: ' + className )
+//     return blockName === 'core/paragraph' ? className + ' TEST-3' : className;
+// }
+ 
+// // Adding the filter
+// addFilter(
+//     'blocks.getBlockDefaultClassName',
+//     'bsx-blocks/set-block-custom-class-name-2',
+//     setBlockCustomClassName
+// );
+
+
+
+// on edit
+addFilter( 
+    'editor.BlockEdit', 
+    'bsx-blocks/add-global-block-settings', 
+    addGlobalBlockSettings 
+);
+
+// blocks.getSaveElement
+
+// on save
 addFilter( 
     'blocks.getSaveContent.extraProps', 
     'bsx-blocks/apply-extra-attributes', 

@@ -1,0 +1,34 @@
+.editor-styles-wrapper {
+
+  // inherit font size to heading
+
+  .bsxui-core-block-wrapper.lead,
+  .bsxui-core-block-wrapper.small,
+  .bsxui-core-block-wrapper.h1,
+  .bsxui-core-block-wrapper.h2,
+  .bsxui-core-block-wrapper.h3,
+  .bsxui-core-block-wrapper.h4,
+  .bsxui-core-block-wrapper.h5,
+  .bsxui-core-block-wrapper.h6,
+  .bsxui-core-block-wrapper.display-1,
+  .bsxui-core-block-wrapper.display-2,
+  .bsxui-core-block-wrapper.display-3,
+  .bsxui-core-block-wrapper.display-4 {
+    > h1,
+    > h2,
+    > h3,
+    > h4,
+    > h5,
+    > h6,
+    > .h1,
+    > .h2,
+    > .h3,
+    > .h4,
+    > .h5,
+    > .h6 {
+      font-size: inherit;
+      font-weight: inherit;
+    }
+  }
+  
+}

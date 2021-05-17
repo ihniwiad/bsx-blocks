@@ -2451,7 +2451,8 @@ var makeBannerClassNames = function makeBannerClassNames(attributes) {
       bgPosition = attributes.bgPosition,
       alignItems = attributes.alignItems,
       templateName = attributes.templateName,
-      rounded = attributes.rounded;
+      rounded = attributes.rounded,
+      href = attributes.href;
   var classNames = [];
 
   if (!!bannerType) {
@@ -2491,6 +2492,11 @@ var makeBannerClassNames = function makeBannerClassNames(attributes) {
 
   if (rounded === true) {
     classNames.push('of-hidden');
+  }
+
+  if (!!href) {
+    classNames.push('d-block');
+    classNames.push('no-underline');
   }
 
   return classNames.join(' ');
@@ -2653,6 +2659,18 @@ registerBlockType('bsx-blocks/banner', {
     paddingAfter: {
       type: 'string',
       default: ''
+    },
+    href: {
+      type: 'string'
+    },
+    target: {
+      type: 'string'
+    },
+    rel: {
+      type: 'string'
+    },
+    dataFn: {
+      type: 'string'
     }
   },
   edit: withSelect(function (select, _ref) {
@@ -2693,6 +2711,10 @@ registerBlockType('bsx-blocks/banner', {
         marginAfter = _props$attributes.marginAfter,
         paddingBefore = _props$attributes.paddingBefore,
         paddingAfter = _props$attributes.paddingAfter,
+        href = _props$attributes.href,
+        target = _props$attributes.target,
+        rel = _props$attributes.rel,
+        dataFn = _props$attributes.dataFn,
         setAttributes = props.setAttributes,
         isSelected = props.isSelected,
         children = props.children;
@@ -2838,6 +2860,14 @@ registerBlockType('bsx-blocks/banner', {
 
     ;
 
+    var onDeleteImage = function onDeleteImage() {
+      setAttributes({
+        imgId: '',
+        imgSizes: [],
+        url: ''
+      });
+    };
+
     var onDeletePortraitImage = function onDeletePortraitImage() {
       setAttributes({
         portraitImgId: '',
@@ -2917,6 +2947,30 @@ registerBlockType('bsx-blocks/banner', {
       });
     };
 
+    var onChangeHref = function onChangeHref(value) {
+      setAttributes({
+        href: value
+      });
+    };
+
+    var onChangeTarget = function onChangeTarget(value) {
+      setAttributes({
+        target: !!value ? '_blank' : ''
+      });
+    };
+
+    var onChangeRel = function onChangeRel(value) {
+      setAttributes({
+        rel: value
+      });
+    };
+
+    var onChangeDataFn = function onChangeDataFn(value) {
+      setAttributes({
+        dataFn: value
+      });
+    };
+
     var onChangeImgSizeIndex = function onChangeImgSizeIndex(value) {
       setAttributes({
         imgSizeIndex: value.toString(),
@@ -2954,7 +3008,8 @@ registerBlockType('bsx-blocks/banner', {
       bgPosition: bgPosition,
       alignItems: alignItems,
       templateName: templateName,
-      rounded: rounded
+      rounded: rounded,
+      href: href
     });
     bannerClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_6__["addClassNames"])({
       belowNavbar: belowNavbar,
@@ -2983,7 +3038,12 @@ registerBlockType('bsx-blocks/banner', {
       class: "bsxui-config-panel-text"
     }, __('– No image selected yet –', 'bsx-blocks'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
       class: "bsxui-config-panel-row"
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(Fragment, null, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["imgUploadButton"])(imgId, onSelectImage))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(RadioControl, {
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(Fragment, null, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["imgUploadButton"])(imgId, onSelectImage))), imgId && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+      class: "bsxui-config-panel-row"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(Button, {
+      onClick: onDeleteImage,
+      isDestructive: true
+    }, __('Remove image', 'bsx-blocks'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(RadioControl, {
       label: __('Image size and format', 'bsx-blocks'),
       selected: imgSizeIndex.toString(),
       options: imgSizeRadioControlOptions,
@@ -3024,7 +3084,9 @@ registerBlockType('bsx-blocks/banner', {
       title: __('Background', 'bsx-blocks')
     }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["bgColorSelect"])(bgColor, onChangeBgColor)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(PanelBody, {
       title: __('Margin', 'bsx-blocks')
-    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["marginBeforeSelect"])(marginBefore, onChangeMarginBefore), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["marginAfterSelect"])(marginAfter, onChangeMarginAfter))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(InspectorAdvancedControls, null, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["belowNavbarToggle"])(belowNavbar, onChangeBelowNavbar), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["touchFooterToggle"])(touchFooter, onChangeTouchFooter), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["nodeNameSelect"])(nodeName, onChangeNodeName, ['div', 'section']), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["bgPositionSelect"])(bgPosition, onChangeBgPosition), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["bgSizeSelect"])(bgSize, onChangeBgSize), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["paddingBeforeSelect"])(paddingBefore, onChangePaddingBefore), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["paddingAfterSelect"])(paddingAfter, onChangePaddingAfter)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(Fragment, null, !templateName ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["marginBeforeSelect"])(marginBefore, onChangeMarginBefore), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["marginAfterSelect"])(marginAfter, onChangeMarginAfter)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(PanelBody, {
+      title: __('Link', 'bsx-blocks')
+    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["linkUrlInput"])(href, onChangeHref), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["targetToggle"])(target, onChangeTarget), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["relInput"])(rel, onChangeRel), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["dataFnInput"])(dataFn, onChangeDataFn))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(InspectorAdvancedControls, null, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["belowNavbarToggle"])(belowNavbar, onChangeBelowNavbar), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["touchFooterToggle"])(touchFooter, onChangeTouchFooter), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["nodeNameSelect"])(nodeName, onChangeNodeName, ['div', 'section']), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["bgPositionSelect"])(bgPosition, onChangeBgPosition), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["bgSizeSelect"])(bgSize, onChangeBgSize), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["paddingBeforeSelect"])(paddingBefore, onChangePaddingBefore), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["paddingAfterSelect"])(paddingAfter, onChangePaddingAfter)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(Fragment, null, !templateName ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
       class: "bsxui-initial-inline-control"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
       class: "bsxui-initial-inline-control-heading"
@@ -3071,7 +3133,11 @@ registerBlockType('bsx-blocks/banner', {
         marginBefore = _props$attributes2.marginBefore,
         marginAfter = _props$attributes2.marginAfter,
         paddingBefore = _props$attributes2.paddingBefore,
-        paddingAfter = _props$attributes2.paddingAfter; // class names
+        paddingAfter = _props$attributes2.paddingAfter,
+        href = _props$attributes2.href,
+        target = _props$attributes2.target,
+        rel = _props$attributes2.rel,
+        dataFn = _props$attributes2.dataFn; // class names
 
     var bannerClassName = makeBannerClassNames({
       bannerType: bannerType,
@@ -3082,7 +3148,8 @@ registerBlockType('bsx-blocks/banner', {
       bgPosition: bgPosition,
       alignItems: alignItems,
       templateName: templateName,
-      rounded: rounded
+      rounded: rounded,
+      href: href
     });
     bannerClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_6__["addClassNames"])({
       belowNavbar: belowNavbar,
@@ -3105,11 +3172,14 @@ registerBlockType('bsx-blocks/banner', {
     }); // there might be no images at all, e.g. if background color banner
 
     var saveAttributes = Object(_functions_attributes_js__WEBPACK_IMPORTED_MODULE_9__["makeSaveAttributes"])({
-      'data-fn': imgId ? 'lazyload' : '',
+      'data-fn': imgId ? 'lazyload' : dataFn,
       'data-src': imgId ? url : '',
-      'data-srcset': imgId ? srcsetJson : ''
+      'data-srcset': imgId ? srcsetJson : '',
+      href: href,
+      target: target,
+      rel: href ? rel ? rel + ' noopener noreferrer' : 'noopener noreferrer' : ''
     });
-    var TagName = nodeName;
+    var TagName = href ? 'a' : nodeName;
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(TagName, _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
       className: bannerClassName
     }, saveAttributes), noBannerInnerTemplateNames.indexOf(templateName) == -1 ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
