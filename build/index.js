@@ -9257,7 +9257,7 @@ registerBlockType('bsx-blocks/slider', {
   attributes: {
     sliderType: {
       type: 'string',
-      default: 'columns'
+      default: 'citation'
     },
     // imgList: { // TODO: maybe do later?
     //     type: 'array',
@@ -9269,7 +9269,7 @@ registerBlockType('bsx-blocks/slider', {
       selector: '.item',
       query: {
         imgId: {
-          type: 'string',
+          type: 'number',
           source: 'attribute',
           selector: 'figure',
           attribute: 'data-id'
@@ -9298,6 +9298,16 @@ registerBlockType('bsx-blocks/slider', {
           selector: 'figure',
           attribute: 'data-alt'
         },
+        heading: {
+          type: 'array',
+          source: 'children',
+          selector: '[data-slide-heading]'
+        },
+        subline: {
+          type: 'array',
+          source: 'children',
+          selector: '[data-slide-subline]'
+        },
         text: {
           type: 'array',
           source: 'children',
@@ -9312,16 +9322,28 @@ registerBlockType('bsx-blocks/slider', {
           type: 'array',
           source: 'children',
           selector: '[data-slide-footer-2]'
-        } // url: {
+        },
+        url: {
+          type: 'string',
+          selector: 'a',
+          source: 'attribute',
+          attribute: 'href'
+        },
+        target: {
+          type: 'string',
+          selector: 'a',
+          source: 'attribute',
+          attribute: 'target'
+        },
+        rel: {
+          type: 'string',
+          selector: 'a',
+          source: 'attribute',
+          attribute: 'rel'
+        } // size: {
         //     type: 'string',
-        //     source: 'attribute',
         //     selector: 'a',
-        //     attribute: 'href',
-        // },
-        // size: {
-        //     type: 'string',
         //     source: 'attribute',
-        //     selector: 'a',
         //     attribute: 'data-size',
         // },
 
@@ -9421,14 +9443,32 @@ registerBlockType('bsx-blocks/slider', {
       setAttributes({
         sliderType: value
       });
+
+      if (value === 'product-gallery') {
+        setAttributes({
+          rounded: ''
+        });
+      }
     };
 
     var onChangeImg = function onChangeImg(index, img) {
+      var newImg = {};
+
+      if (sliderType === 'product-gallery') {
+        newImg.url = img.sizes.medium.url;
+        newImg.width = img.sizes.medium.width;
+        newImg.height = img.sizes.medium.height;
+      } else {
+        newImg.url = img.sizes.thumbnail.url;
+        newImg.width = img.sizes.thumbnail.width;
+        newImg.height = img.sizes.thumbnail.height;
+      }
+
       updateItemDataItem(index, {
         imgId: img.id,
-        imgUrl: img.sizes.thumbnail.url,
-        imgWidth: img.sizes.thumbnail.width,
-        imgHeight: img.sizes.thumbnail.height,
+        imgUrl: newImg.url,
+        imgWidth: newImg.width,
+        imgHeight: newImg.height,
         imgAlt: img.alt,
         text: itemData[index].text,
         footerText_1: itemData[index].footerText_1,
@@ -9450,12 +9490,32 @@ registerBlockType('bsx-blocks/slider', {
       updateItemDataValue(index, 'text', value);
     };
 
+    var onChangeHeading = function onChangeHeading(index, value) {
+      updateItemDataValue(index, 'heading', value);
+    };
+
+    var onChangeSubline = function onChangeSubline(index, value) {
+      updateItemDataValue(index, 'subline', value);
+    };
+
     var onChangeFooterText_1 = function onChangeFooterText_1(index, value) {
       updateItemDataValue(index, 'footerText_1', value);
     };
 
     var onChangeFooterText_2 = function onChangeFooterText_2(index, value) {
       updateItemDataValue(index, 'footerText_2', value);
+    };
+
+    var onChangeUrl = function onChangeUrl(index, value) {
+      updateItemDataValue(index, 'url', value);
+    };
+
+    var onChangeTarget = function onChangeTarget(index, value) {
+      updateItemDataValue(index, 'target', value);
+    };
+
+    var onChangeRel = function onChangeRel(index, value) {
+      updateItemDataValue(index, 'rel', value);
     };
 
     var onAddItem = function onAddItem() {
@@ -9555,8 +9615,10 @@ registerBlockType('bsx-blocks/slider', {
       imgThumbnail: imgThumbnail,
       borderState: borderState
     }, imgClassName);
-    var itemClassName = 'item d-block text-center';
+    var itemClassName = sliderType === 'citation' ? 'item d-block text-center' : 'item row';
     var textClassName = 'h4 font-weight-normal font-italic mb-4';
+    var headingClassName = 'test-1';
+    var sublineClassName = 'test-2';
     var footer1ClassName = 'font-weight-bold text-uppercase';
     var footer2ClassName = '';
     var TagName = 'div';
@@ -9569,6 +9631,9 @@ registerBlockType('bsx-blocks/slider', {
       options: [{
         value: 'citation',
         label: __('Citation', 'bsx-blocks')
+      }, {
+        value: 'product-gallery',
+        label: __('Product Gallery', 'bsx-blocks')
       }]
     }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(TextControl, {
       label: __('Prev button text', 'bsx-blocks'),
@@ -9588,42 +9653,7 @@ registerBlockType('bsx-blocks/slider', {
       label: __('Border', 'bsx-blocks'),
       checked: !!imgThumbnail,
       onChange: onChangeImgThumbnail
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(SelectControl, {
-      label: __('Border color', 'bsx-blocks'),
-      value: borderState,
-      onChange: onChangeBorderState,
-      options: [{
-        value: '',
-        label: __('– unset –', 'bsx-blocks')
-      }, {
-        value: 'white',
-        label: __('White', 'bsx-blocks')
-      }, {
-        value: 'primary',
-        label: __('Primary', 'bsx-blocks')
-      }, {
-        value: 'secondary',
-        label: __('Secondary', 'bsx-blocks')
-      }, {
-        value: 'success',
-        label: __('Success', 'bsx-blocks')
-      }, {
-        value: 'danger',
-        label: __('Danger', 'bsx-blocks')
-      }, {
-        value: 'warning',
-        label: __('Warning', 'bsx-blocks')
-      }, {
-        value: 'info',
-        label: __('Info', 'bsx-blocks')
-      }, {
-        value: 'light',
-        label: __('Light', 'bsx-blocks')
-      }, {
-        value: 'dark',
-        label: __('Dark', 'bsx-blocks')
-      }]
-    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
+    }), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_5__["borderStateSelect"])(borderState, onChangeBorderState)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
       title: __('Margin', 'bsx-blocks')
     }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_5__["marginBeforeSelect"])(marginBefore, onChangeMarginBefore), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_5__["marginAfterSelect"])(marginAfter, onChangeMarginAfter))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(TagName, {
       className: sliderWrapperClassName
@@ -9632,7 +9662,7 @@ registerBlockType('bsx-blocks/slider', {
     }, itemData.map(function (item, index) {
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
         class: itemClassName
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      }, sliderType === 'citation' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
         class: "row"
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
         class: "col-4 col-sm-3 col-lg-2 mx-auto"
@@ -9642,7 +9672,7 @@ registerBlockType('bsx-blocks/slider', {
           return onChangeImg(index, value);
         },
         allowedTypes: "image",
-        value: item.id,
+        value: item.imgId,
         render: function render(_ref) {
           var open = _ref.open;
           return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, item.imgUrl ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
@@ -9694,7 +9724,84 @@ registerBlockType('bsx-blocks/slider', {
         onChange: function onChange(value) {
           onChangeFooterText_2(index, value);
         }
+      }))), sliderType === 'product-gallery' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+        class: "col-12 col-sm-6 col-md-4 col-lg-4"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+        class: ""
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("figure", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(MediaUpload, {
+        key: index,
+        onSelect: function onSelect(value) {
+          return onChangeImg(index, value);
+        },
+        allowedTypes: "image",
+        value: item.imgId,
+        render: function render(_ref2) {
+          var open = _ref2.open;
+          return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, item.imgUrl ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
+            className: "bsxui-h-auto bsxui-w-100 bsxui-p-0 bsxui-va-middle",
+            onClick: open
+          }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("img", {
+            className: imgClassName,
+            src: item.imgUrl,
+            alt: __('Change/upload Image', 'bsx-blocks')
+          })) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
+            className: "button button-large bsxui-w-100",
+            onClick: open
+          }, __('Add Image', 'bsx-blocks')));
+        }
       })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+        class: "bsxui-inline-control"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(TextControl, {
+        label: __('Alt text', 'bsx-blocks'),
+        value: item.imgAlt,
+        onChange: function onChange(value) {
+          onChangeAlt(index, value);
+        }
+      }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+        class: "px-3 px-md-5"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RichText, {
+        tagName: "div",
+        className: headingClassName,
+        multiline: false,
+        placeholder: __('Add heading here...', 'bsx-blocks'),
+        value: item.heading,
+        onChange: function onChange(value) {
+          onChangeHeading(index, value);
+        }
+      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RichText, {
+        tagName: "div",
+        className: sublineClassName,
+        multiline: false,
+        placeholder: __('Add subline here...', 'bsx-blocks'),
+        value: item.subline,
+        onChange: function onChange(value) {
+          onChangeSubline(index, value);
+        }
+      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+        class: "row"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+        class: "col"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RichText, {
+        tagName: "div",
+        className: footer1ClassName,
+        multiline: false,
+        placeholder: __('Footer left...', 'bsx-blocks'),
+        value: item.footerText_1,
+        onChange: function onChange(value) {
+          onChangeFooterText_1(index, value);
+        }
+      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+        class: "col"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RichText, {
+        tagName: "div",
+        className: footer2ClassName,
+        multiline: false,
+        placeholder: __('Footer right...', 'bsx-blocks'),
+        value: item.footerText_2,
+        onChange: function onChange(value) {
+          onChangeFooterText_2(index, value);
+        }
+      }))))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
         class: "bsxui-inline-control bsxui-mb-3"
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
         className: "bsxui-d-flex"
@@ -9745,7 +9852,7 @@ registerBlockType('bsx-blocks/slider', {
       marginAfter: marginAfter
     }, sliderWrapperClassName);
     var sliderClassName = 'owl-carousel owl-theme outer-nav nav-lg bsx-slider-fadeout';
-    var imgClassName = 'img-fluid';
+    var imgClassName = 'img-fluid' + (sliderType === 'product-gallery' ? ' owl-lazy' : '');
     imgClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_4__["addClassNames"])({
       rounded: rounded,
       imgThumbnail: imgThumbnail,
@@ -9753,14 +9860,18 @@ registerBlockType('bsx-blocks/slider', {
     }, imgClassName);
     var itemClassName = 'item d-block text-center';
     var textClassName = 'h4 font-weight-normal font-italic mb-4';
+    var headingClassName = 'test-1';
+    var sublineClassName = 'test-2';
     var footer1ClassName = 'font-weight-bold text-uppercase';
     var footer2ClassName = '';
     var TagName = 'div';
     var prevLabel = !!prevText ? prevText : __('Prev', 'bsx-blocks');
     var nextLabel = !!nextText ? nextText : __('Next', 'bsx-blocks');
     var prevHtml = '<i class="fa fa-chevron-left" aria-label="' + prevLabel + '"></i>';
-    var nextHtml = '<i class="fa fa-chevron-right" aria-label="' + nextLabel + '"></i>';
-    var options = "{ lazyLoad: false, multiLazyload: true, responsive: { 0: { items: 1 } }, margin: 0, encodeUriNavText: [ '" + encodeURI(prevHtml) + "', '" + encodeURI(nextHtml) + "' ], navClass: [ 'btn btn-link is-prev', 'btn btn-link is-next' ] }"; // makeBase64PreloadImgSrc( item.imgWidth, item.imgHeight )
+    var nextHtml = '<i class="fa fa-chevron-right" aria-label="' + nextLabel + '"></i>'; // if lazyLoad: true use data-src="..." data-g-fn="lazyload"
+    // if lazyLoad: false, multiLazyload: true use class="... owl-lazy" data-g-src="..." loading="lazy"
+
+    var options = sliderType === 'citation' ? "{ lazyLoad: false, multiLazyload: true, responsive: { 0: { items: 1 } }, margin: 0, encodeUriNavText: [ '" + encodeURI(prevHtml) + "', '" + encodeURI(nextHtml) + "' ], navClass: [ 'btn btn-link is-prev', 'btn btn-link is-next' ] }" : "{ lazyLoad: true, responsive: { 0: { items: 1 }, 480: { items: 2 }, 768: { items: 3 }, 992: { items: 4 } }, encodeUriNavText: [ '" + encodeURI(prevHtml) + "', '" + encodeURI(nextHtml) + "' ], navClass: [ 'btn btn-primary is-prev', 'btn btn-primary is-next' ] }"; // makeBase64PreloadImgSrc( item.imgWidth, item.imgHeight )
 
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(TagName, {
       className: sliderWrapperClassName
@@ -9771,7 +9882,7 @@ registerBlockType('bsx-blocks/slider', {
     }, itemData.map(function (item, index) {
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
         class: itemClassName
-      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      }, sliderType === 'citation' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
         class: "row"
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
         class: "col-4 col-sm-3 col-lg-2 mx-auto"
@@ -9812,7 +9923,57 @@ registerBlockType('bsx-blocks/slider', {
         className: footer2ClassName,
         "data-slide-footer-2": true,
         value: item.footerText_2
-      })));
+      }))), sliderType === 'product-gallery' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+        class: ""
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("figure", {
+        "data-id": item.imgId,
+        "data-url": item.imgUrl,
+        "data-width": item.imgWidth,
+        "data-height": item.imgHeight,
+        "data-alt": item.imgAlt
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("script", null, "document.write( '", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("img", {
+        className: imgClassName,
+        src: Object(_functions_img_js__WEBPACK_IMPORTED_MODULE_2__["makeBase64PreloadImgSrc"])(item.imgWidth, item.imgHeight),
+        alt: item.imgAlt,
+        width: item.imgWidth,
+        height: item.imgHeight,
+        "data-src": item.imgUrl,
+        loading: "lazy"
+      }), "' );"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("noscript", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("img", {
+        className: imgClassName,
+        src: item.imgUrl,
+        alt: item.imgAlt,
+        width: item.imgWidth,
+        height: item.imgHeight
+      })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+        class: ""
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RichText.Content, {
+        tagName: "div",
+        className: headingClassName,
+        "data-slide-heading": true,
+        value: item.heading
+      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RichText.Content, {
+        tagName: "div",
+        className: sublineClassName,
+        "data-slide-subline": true,
+        value: item.subline
+      }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+        class: "row"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+        class: "col"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RichText.Content, {
+        tagName: "div",
+        className: footer1ClassName,
+        "data-slide-footer-1": true,
+        value: item.footerText_1
+      })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+        class: "col"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RichText.Content, {
+        tagName: "div",
+        className: footer2ClassName,
+        "data-slide-footer-2": true,
+        value: item.footerText_2
+      }))))));
     })));
   }
 });
