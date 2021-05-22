@@ -6209,6 +6209,12 @@ registerBlockType('bsx-blocks/lazy-img', {
     },
     marginAfter: {
       type: 'string'
+    },
+    pictureAdditionalClassName: {
+      type: 'string'
+    },
+    imgAdditionalClassName: {
+      type: 'string'
     }
   },
   edit: function edit(props) {
@@ -6235,6 +6241,8 @@ registerBlockType('bsx-blocks/lazy-img', {
         disableResponsiveDownsizing = _props$attributes.disableResponsiveDownsizing,
         textAlign = _props$attributes.textAlign,
         marginAfter = _props$attributes.marginAfter,
+        pictureAdditionalClassName = _props$attributes.pictureAdditionalClassName,
+        imgAdditionalClassName = _props$attributes.imgAdditionalClassName,
         setAttributes = props.setAttributes,
         isSelected = props.isSelected,
         setState = props.setState;
@@ -6449,6 +6457,18 @@ registerBlockType('bsx-blocks/lazy-img', {
       });
     };
 
+    var onChangePictureAdditionalClassName = function onChangePictureAdditionalClassName(value) {
+      setAttributes({
+        pictureAdditionalClassName: value
+      });
+    };
+
+    var onChangeImgAdditionalClassName = function onChangeImgAdditionalClassName(value) {
+      setAttributes({
+        imgAdditionalClassName: value
+      });
+    };
+
     var alignmentControls = [{
       icon: 'editor-alignleft',
       title: __('Align left', 'bsx-blocks'),
@@ -6522,9 +6542,11 @@ registerBlockType('bsx-blocks/lazy-img', {
       rounded: rounded,
       imgThumbnail: imgThumbnail,
       borderState: borderState
-    }, 'img-fluid'); // image
+    }, 'img-fluid' + (imgAdditionalClassName ? ' ' + imgAdditionalClassName : '')); // image
 
-    var image = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("picture", null, sourcesAttributesList.map(function (sourceAttributes, index) {
+    var image = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("picture", {
+      className: pictureAdditionalClassName
+    }, sourcesAttributesList.map(function (sourceAttributes, index) {
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("source", sourceAttributes);
     }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("img", {
       className: imgClassName,
@@ -6756,6 +6778,14 @@ registerBlockType('bsx-blocks/lazy-img', {
       checked: !!disableResponsiveDownsizing,
       onChange: onChangeDisableResponsiveDownsizing,
       help: __('Enable if you don’t want smaller responsive image sizes, since small devices display image in large dimensions.', 'bsx-blocks')
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(TextControl, {
+      label: __('Picture element additional class(es)', 'bsx-blocks'),
+      value: pictureAdditionalClassName,
+      onChange: onChangePictureAdditionalClassName
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(TextControl, {
+      label: __('Image element additional class(es)', 'bsx-blocks'),
+      value: imgAdditionalClassName,
+      onChange: onChangeImgAdditionalClassName
     })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("figure", {
       className: classNames
     }, imgId ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["Fragment"], null, !zoomable ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["Fragment"], null, image) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("a", {
@@ -6815,7 +6845,9 @@ registerBlockType('bsx-blocks/lazy-img', {
         zoomImgSizeIndex = _props$attributes2.zoomImgSizeIndex,
         disableResponsiveDownsizing = _props$attributes2.disableResponsiveDownsizing,
         textAlign = _props$attributes2.textAlign,
-        marginAfter = _props$attributes2.marginAfter; // prepare img sources attributes
+        marginAfter = _props$attributes2.marginAfter,
+        pictureAdditionalClassName = _props$attributes2.pictureAdditionalClassName,
+        imgAdditionalClassName = _props$attributes2.imgAdditionalClassName; // prepare img sources attributes
 
     var sourcesAttributesList = makeSourcesAttributesList({
       imgSizes: imgSizes,
@@ -6836,7 +6868,7 @@ registerBlockType('bsx-blocks/lazy-img', {
       rounded: rounded,
       imgThumbnail: imgThumbnail,
       borderState: borderState
-    }, 'img-fluid'); // allow zoomable img
+    }, 'img-fluid' + (imgAdditionalClassName ? ' ' + imgAdditionalClassName : '')); // allow zoomable img
 
     /*
     <div class="float-md-right grid-float-md-6" data-fn="photoswipe">
@@ -6861,7 +6893,9 @@ registerBlockType('bsx-blocks/lazy-img', {
       'href': imgSizes[zoomImgSizeIndex].url,
       'data-size': imgSizes[zoomImgSizeIndex].width + 'x' + imgSizes[zoomImgSizeIndex].height
     }) : {};
-    var image = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("script", null, "document.write( '", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("picture", null, sourcesAttributesList.map(function (sourceAttributes, index) {
+    var image = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("script", null, "document.write( '", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("picture", {
+      className: pictureAdditionalClassName
+    }, sourcesAttributesList.map(function (sourceAttributes, index) {
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("source", sourceAttributes);
     }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("img", {
       className: imgClassName,

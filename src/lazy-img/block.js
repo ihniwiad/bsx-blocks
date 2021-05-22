@@ -217,6 +217,12 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         marginAfter: {
             type: 'string',
         },
+        pictureAdditionalClassName: {
+            type: 'string',
+        },
+        imgAdditionalClassName: {
+            type: 'string',
+        },
     },
     edit: ( props ) => {
         const {
@@ -243,6 +249,8 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 disableResponsiveDownsizing,
                 textAlign,
                 marginAfter,
+                pictureAdditionalClassName,
+                imgAdditionalClassName,
             },
             setAttributes,
             isSelected,
@@ -385,6 +393,14 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             setAttributes( { marginAfter: value } );
         };
 
+        const onChangePictureAdditionalClassName = ( value ) => {
+            setAttributes( { pictureAdditionalClassName: value } );
+        };
+        const onChangeImgAdditionalClassName = ( value ) => {
+            setAttributes( { imgAdditionalClassName: value } );
+        };
+        
+
         const alignmentControls = [
             {
                 icon: 'editor-alignleft',
@@ -464,12 +480,12 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             rounded,
             imgThumbnail,
             borderState,
-        }, 'img-fluid' );
+        }, 'img-fluid' + ( imgAdditionalClassName ? ' ' + imgAdditionalClassName : '' )  );
 
         // image
 
         const image = (
-            <picture>
+            <picture className={ pictureAdditionalClassName }>
                 {
                     sourcesAttributesList.map( ( sourceAttributes, index ) => (
                         <source { ...sourceAttributes } />
@@ -735,6 +751,16 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                     onChange={ onChangeDisableResponsiveDownsizing }
                     help={ __( 'Enable if you don’t want smaller responsive image sizes, since small devices display image in large dimensions.', 'bsx-blocks' ) }
                 />
+                <TextControl 
+                    label={ __( 'Picture element additional class(es)', 'bsx-blocks' ) }
+                    value={ pictureAdditionalClassName } 
+                    onChange={ onChangePictureAdditionalClassName }
+                />
+                <TextControl 
+                    label={ __( 'Image element additional class(es)', 'bsx-blocks' ) }
+                    value={ imgAdditionalClassName } 
+                    onChange={ onChangeImgAdditionalClassName }
+                />
             </InspectorAdvancedControls>,
             (
                 <figure className={ classNames }>
@@ -824,6 +850,8 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 disableResponsiveDownsizing,
                 textAlign,
                 marginAfter,
+                pictureAdditionalClassName,
+                imgAdditionalClassName,
             },
         } = props;
 
@@ -851,7 +879,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             rounded,
             imgThumbnail,
             borderState,
-        }, 'img-fluid' );
+        }, 'img-fluid' + ( imgAdditionalClassName ? ' ' + imgAdditionalClassName : '' ) );
 
         // allow zoomable img
 
@@ -892,7 +920,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         const image = (
             <>
                 <script>document.write( '
-                    <picture>
+                    <picture className={ pictureAdditionalClassName }>
                         {
                             sourcesAttributesList.map( ( sourceAttributes, index ) => (
                                 <source { ...sourceAttributes } />
