@@ -223,3 +223,11 @@ a.bsxui-link {
 		}
 	}
 }
+
+
+// force RichText inline & auto width
+
+.bsxui-inline-editor {
+	display: inline-block;
+	width: auto;
+}

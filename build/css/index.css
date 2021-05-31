@@ -209,6 +209,10 @@ a.bsxui-link {
 .bsxui-initial-inline-control .bsxui-icon-text-button-list .bsxui-icon-text-button-list-item {
   width: 7.5rem; }
 
+.bsxui-inline-editor {
+  display: inline-block;
+  width: auto; }
+
 [data-type="bsx-blocks/banner"] > [class|="banner"].d-flex > .block-editor-inner-blocks {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -972,5 +976,18 @@ a.bsxui-link {
 .editor-styles-wrapper .bsxui-core-block-wrapper.display-4 > .h6 {
   font-size: inherit;
   font-weight: inherit; }
+
+.bsxui-owl-slide-1-2-3-4 {
+  display: inline-block;
+  width: 100%; }
+  @media (min-width: 576px) {
+    .bsxui-owl-slide-1-2-3-4 {
+      width: 50%; } }
+  @media (min-width: 768px) {
+    .bsxui-owl-slide-1-2-3-4 {
+      width: 33.3333%; } }
+  @media (min-width: 992px) {
+    .bsxui-owl-slide-1-2-3-4 {
+      width: 25%; } }
 
 /*# sourceMappingURL=index.css.map */

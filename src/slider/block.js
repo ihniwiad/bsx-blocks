@@ -154,6 +154,9 @@ registerBlockType( 'bsx-blocks/slider', {
             },
             default: [],
         },
+        hint: {
+            type: 'string',
+        },
         prevText: {
             type: 'string',
         },
@@ -185,6 +188,7 @@ registerBlockType( 'bsx-blocks/slider', {
             attributes: {
                 sliderType,
                 itemData,
+                hint,
                 prevText,
                 nextText,
                 rounded,
@@ -217,6 +221,13 @@ registerBlockType( 'bsx-blocks/slider', {
         //         console.log( '----- key: "' + key + '", val: "' + value + '"' );
         //     }
         // } );
+
+        // initial overwrites
+        itemData.forEach( ( item, index ) => {
+            if ( item.subline === '&nbsp;' ) {
+                item.subline = '';
+            }
+        } );
 
         // update itemData all `item` at position `index`
         const updateItemDataItem = ( index, newItem ) => {
@@ -277,6 +288,8 @@ registerBlockType( 'bsx-blocks/slider', {
                 imgWidth: newImg.width,
                 imgHeight: newImg.height,
                 imgAlt: img.alt,
+                heading: itemData[ index ].heading,
+                subline: itemData[ index ].subline,
                 text: itemData[ index ].text,
                 footerText_1: itemData[ index ].footerText_1,
                 footerText_2: itemData[ index ].footerText_2,
@@ -363,6 +376,9 @@ registerBlockType( 'bsx-blocks/slider', {
             itemDataItemMoveTo( index, newIndex );
         };
 
+        const onChangeHint = ( value ) => {
+            setAttributes( { hint: value } );
+        };
         const onChangePrevText = ( value ) => {
             setAttributes( { prevText: value } );
         };
@@ -406,16 +422,24 @@ registerBlockType( 'bsx-blocks/slider', {
             borderState,
         }, imgClassName );
 
+        // must contain .item to get attributes from html
         const itemClassName = sliderType === 'citation'
             ? 'item d-block text-center'
-            : 'item row'
+            : 'item bsxui-owl-slide-1-2-3-4'
         ;
 
+        // const textClassName = 'h4 font-weight-normal font-italic mb-4';
+        // const headingClassName = 'test-1';
+        // const sublineClassName = 'test-2';
+        // const footer1ClassName = 'font-weight-bold text-uppercase';
+        // const footer2ClassName = '';
+
         const textClassName = 'h4 font-weight-normal font-italic mb-4';
-        const headingClassName = 'test-1';
-        const sublineClassName = 'test-2';
-        const footer1ClassName = 'font-weight-bold text-uppercase';
-        const footer2ClassName = '';
+        const headingClassName = 'lead text-center';
+        const sublineClassName = 'small text-center';
+        const footer1ClassName = sliderType === 'product-gallery' ? '' : 'font-weight-bold text-uppercase';
+        const footer2ClassName = sliderType === 'product-gallery' ? 'lead text-danger font-weight-bold' : '';
+        const hintClassName = sliderType === 'product-gallery' ? 'text-danger font-weight-bold' : '';
 
         const TagName = 'div';
 
@@ -431,6 +455,11 @@ registerBlockType( 'bsx-blocks/slider', {
                             { value: 'citation', label: __( 'Citation', 'bsx-blocks' ) },
                             { value: 'product-gallery', label: __( 'Product Gallery', 'bsx-blocks' ) },
                         ] }
+                    />
+                    <TextControl 
+                        label={ __( 'Hint', 'bsx-blocks' ) }
+                        value={ hint } 
+                        onChange={ onChangeHint }
                     />
                     <TextControl 
                         label={ __( 'Prev button text', 'bsx-blocks' ) }
@@ -475,11 +504,11 @@ registerBlockType( 'bsx-blocks/slider', {
 
                         {
                             itemData.map( ( item, index ) => 
-                                <div class={ itemClassName }>
+                                <>
 
                                     {
                                         sliderType === 'citation' && (
-                                            <>
+                                            <div class={ itemClassName }>
                                                 <div class="row">
                                                     <div class="col-4 col-sm-3 col-lg-2 mx-auto">
                                                         <figure>
@@ -543,12 +572,12 @@ registerBlockType( 'bsx-blocks/slider', {
                                                         onChange={ ( value ) => { onChangeFooterText_2( index, value ) } }
                                                     />
                                                 </div>
-                                            </>
+                                            </div>
                                         )
                                     }
                                     {
                                         sliderType === 'product-gallery' && (
-                                            <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                                            <div class={ itemClassName }>
                                                 <div class="">
                                                     <figure>
                                                         <MediaUpload
@@ -584,7 +613,7 @@ registerBlockType( 'bsx-blocks/slider', {
                                                     </div>
                                                 </div>
 
-                                                <div class="px-3 px-md-5">
+                                                <div class="px-3">
                                                     <RichText
                                                         tagName="div"
                                                         className={ headingClassName }
@@ -602,60 +631,62 @@ registerBlockType( 'bsx-blocks/slider', {
                                                         onChange={ ( value ) => { onChangeSubline( index, value ) } }
                                                     />
 
-                                                    <div class="row">
-                                                        <div class="col">
+                                                    <div class="row no-gutters align-items-end">
+                                                        <div class="col-auto">
                                                             <RichText
                                                                 tagName="div"
                                                                 className={ footer1ClassName }
                                                                 multiline={ false }
-                                                                placeholder={ __( 'Footer left...', 'bsx-blocks' ) }
+                                                                placeholder={ __( 'Original price...', 'bsx-blocks' ) }
                                                                 value={ item.footerText_1 }
                                                                 onChange={ ( value ) => { onChangeFooterText_1( index, value ) } }
                                                             />
                                                         </div>
-                                                        <div class="col">
+                                                        <div class="col text-right">
+                                                            <small class={ hintClassName }>{ hint }</small>&nbsp;
                                                             <RichText
                                                                 tagName="div"
-                                                                className={ footer2ClassName }
+                                                                className={ footer2ClassName + ' bsxui-inline-editor' }
                                                                 multiline={ false }
-                                                                placeholder={ __( 'Footer right...', 'bsx-blocks' ) }
+                                                                placeholder={ __( 'Current price...', 'bsx-blocks' ) }
                                                                 value={ item.footerText_2 }
                                                                 onChange={ ( value ) => { onChangeFooterText_2( index, value ) } }
                                                             />
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                                <div class="bsxui-inline-control bsxui-mb-3">
+                                                    <div className="bsxui-d-flex">
+                                                        <Button 
+                                                            className="button bsxui-icon-button" 
+                                                            onClick={ () => { onClickMoveUp( index ) } }
+                                                            label={ __( 'Move backward', 'bsx-blocks' ) }
+                                                        >
+                                                            { svgIcon( 'carret-left' ) }
+                                                        </Button>
+                                                        <Button 
+                                                            className="button bsxui-icon-button" 
+                                                            onClick={ () => { onClickMoveDown( index ) } }
+                                                            label={ __( 'Move forward', 'bsx-blocks' ) }
+                                                        >
+                                                            { svgIcon( 'carret-right' ) }
+                                                        </Button>
+                                                        <Button 
+                                                            className="button bsxui-icon-button bsxui-text-danger bsxui-border-danger bsxui-ml-auto"
+                                                            onClick={ () => { onClickDelete( index ) } }
+                                                            label={ __( 'Remove Item', 'bsx-blocks' ) }
+                                                        >
+                                                            { svgIcon( 'trash' ) }
+                                                        </Button>
+                                                    </div>
+                                                </div>
+
                                             </div>
                                         )
                                     }
 
-                                    <div class="bsxui-inline-control bsxui-mb-3">
-                                        <div className="bsxui-d-flex">
-                                            <Button 
-                                                className="button bsxui-icon-button" 
-                                                onClick={ () => { onClickMoveUp( index ) } }
-                                                label={ __( 'Move backward', 'bsx-blocks' ) }
-                                            >
-                                                { svgIcon( 'carret-left' ) }
-                                            </Button>
-                                            <Button 
-                                                className="button bsxui-icon-button" 
-                                                onClick={ () => { onClickMoveDown( index ) } }
-                                                label={ __( 'Move forward', 'bsx-blocks' ) }
-                                            >
-                                                { svgIcon( 'carret-right' ) }
-                                            </Button>
-                                            <Button 
-                                                className="button bsxui-icon-button bsxui-text-danger bsxui-border-danger bsxui-ml-auto"
-                                                onClick={ () => { onClickDelete( index ) } }
-                                                label={ __( 'Remove Item', 'bsx-blocks' ) }
-                                            >
-                                                { svgIcon( 'trash' ) }
-                                            </Button>
-                                        </div>
-                                    </div>
-
-                                </div>
+                                </>
                             )
                         }
 
@@ -676,6 +707,7 @@ registerBlockType( 'bsx-blocks/slider', {
             attributes: {
                 sliderType,
                 itemData,
+                hint,
                 prevText,
                 nextText,
                 rounded,
@@ -696,7 +728,7 @@ registerBlockType( 'bsx-blocks/slider', {
             marginAfter, 
         }, sliderWrapperClassName );
 
-        const sliderClassName = 'owl-carousel owl-theme outer-nav nav-lg bsx-slider-fadeout';
+        const sliderClassName = 'owl-carousel owl-theme outer-nav nav-lg' + ( sliderType === 'citation' ? ' bsx-slider-fadeout' : '' );
 
         let imgClassName = 'img-fluid' + ( sliderType === 'product-gallery' ? ' owl-lazy' : '' );
         imgClassName = addClassNames( {
@@ -708,10 +740,11 @@ registerBlockType( 'bsx-blocks/slider', {
         const itemClassName = 'item d-block text-center';
 
         const textClassName = 'h4 font-weight-normal font-italic mb-4';
-        const headingClassName = 'test-1';
-        const sublineClassName = 'test-2';
-        const footer1ClassName = 'font-weight-bold text-uppercase';
-        const footer2ClassName = '';
+        const headingClassName = 'lead text-center';
+        const sublineClassName = 'small text-center';
+        const footer1ClassName = sliderType === 'product-gallery' ? '' : 'font-weight-bold text-uppercase';
+        const footer2ClassName = sliderType === 'product-gallery' ? 'lead text-danger font-weight-bold' : '';
+        const hintClassName = sliderType === 'product-gallery' ? 'text-danger font-weight-bold' : '';
 
         const TagName = 'div';
 
@@ -724,7 +757,7 @@ registerBlockType( 'bsx-blocks/slider', {
         // if lazyLoad: false, multiLazyload: true use class="... owl-lazy" data-g-src="..." loading="lazy"
         const options = sliderType === 'citation' 
             ? "{ lazyLoad: false, multiLazyload: true, responsive: { 0: { items: 1 } }, margin: 0, encodeUriNavText: [ '" + encodeURI( prevHtml ) + "', '" + encodeURI( nextHtml ) + "' ], navClass: [ 'btn btn-link is-prev', 'btn btn-link is-next' ] }"
-            : "{ lazyLoad: true, responsive: { 0: { items: 1 }, 480: { items: 2 }, 768: { items: 3 }, 992: { items: 4 } }, encodeUriNavText: [ '" + encodeURI( prevHtml ) + "', '" + encodeURI( nextHtml ) + "' ], navClass: [ 'btn btn-primary is-prev', 'btn btn-primary is-next' ] }"
+            : "{ lazyLoad: true, responsive: { 0: { items: 1 }, 480: { items: 2 }, 768: { items: 3 }, 992: { items: 4 } }, encodeUriNavText: [ '" + encodeURI( prevHtml ) + "', '" + encodeURI( nextHtml ) + "' ], navClass: [ 'btn btn-primary is-prev', 'btn btn-primary is-next' ], navSpeed: 300, autoplaySpeed: 400, dotsSpeed: 400, smartSpeed: 300, fluidSpeed: 400, dragEndSpeed: 200 }"
         ;
         // makeBase64PreloadImgSrc( item.imgWidth, item.imgHeight )
 
@@ -786,14 +819,15 @@ registerBlockType( 'bsx-blocks/slider', {
 
                                                 <RichText.Content tagName="div" className={ headingClassName } data-slide-heading value={ item.heading } />
                                                 
-                                                <RichText.Content tagName="div" className={ sublineClassName } data-slide-subline value={ item.subline } />
+                                                <RichText.Content tagName="div" className={ sublineClassName } data-slide-subline value={ item.subline == '' ? '&nbsp;' : item.subline } />
 
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <RichText.Content tagName="div" className={ footer1ClassName } data-slide-footer-1 value={ item.footerText_1 } />
+                                                <div class="row no-gutters align-items-end">
+                                                    <div class="col-auto">
+                                                        <RichText.Content tagName="strike" className={ footer1ClassName } data-slide-footer-1 value={ item.footerText_1 } />
                                                     </div>
-                                                    <div class="col">
-                                                        <RichText.Content tagName="div" className={ footer2ClassName } data-slide-footer-2 value={ item.footerText_2 } />
+                                                    <div class="col text-right">
+                                                        <small class={ hintClassName }>{ hint }</small>&nbsp;
+                                                        <RichText.Content tagName="strong" className={ footer2ClassName } data-slide-footer-2 value={ item.footerText_2 } />
                                                     </div>
                                                 </div>
 
