@@ -114,7 +114,7 @@ a.bsxui-link {
   padding-right: 0.25rem; }
 
 .bsxui-img-upload-placeholder {
-  background: #eeeeee;
+  background: rgba(238, 238, 238, 0.5);
   padding: 0.5rem; }
 
 .bsxui-upload-btn-wrapper {
@@ -167,7 +167,7 @@ a.bsxui-link {
     bottom: 0; }
 
 .bsxui-initial-inline-control {
-  background-color: #eeeeee;
+  background-color: rgba(238, 238, 238, 0.5);
   width: 100%; }
 
 .bsxui-initial-inline-control-heading {
@@ -175,6 +175,7 @@ a.bsxui-link {
   padding: 16px; }
 
 .bsxui-inline-control {
+  background-color: rgba(238, 238, 238, 0.5);
   width: 100%;
   border: 1px dashed var(--wp-admin-theme-color);
   padding: .25rem;

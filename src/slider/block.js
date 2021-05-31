@@ -30,6 +30,7 @@ import {
 import { svgIcon } from './../_functions/wp-icons.js';
 import { addClassNames } from './../_functions/add-class-names.js';
 import { 
+    bgColorSelect,
     borderStateSelect,
     marginBeforeSelect,
     marginAfterSelect,
@@ -170,6 +171,9 @@ registerBlockType( 'bsx-blocks/slider', {
         imgThumbnail: {
             type: 'boolean',
         },
+        bgColor: {
+            type: 'string',
+        },
         borderState: {
             type: 'string',
         },
@@ -194,6 +198,7 @@ registerBlockType( 'bsx-blocks/slider', {
                 rounded,
                 imgThumbnail,
                 borderState,
+                bgColor,
                 marginBefore,
                 marginAfter,
             },
@@ -332,6 +337,9 @@ registerBlockType( 'bsx-blocks/slider', {
         const onChangeRel = ( index, value ) => {
             updateItemDataValue( index, 'rel', value );
         }
+        const onChangeBgColor = ( value ) => {
+            setAttributes( { bgColor: value } );
+        };
 
         const onAddItem = () => { 
             setAttributes( { itemData: [ ...itemData, {} ] } );
@@ -425,7 +433,7 @@ registerBlockType( 'bsx-blocks/slider', {
         // must contain .item to get attributes from html
         const itemClassName = sliderType === 'citation'
             ? 'item d-block text-center'
-            : 'item bsxui-owl-slide-1-2-3-4'
+            : 'item px-3 py-2 text-center' + ( typeof bgColor !== 'undefined' && !! bgColor ? ' bg-' + bgColor : '' )
         ;
 
         // const textClassName = 'h4 font-weight-normal font-italic mb-4';
@@ -435,8 +443,8 @@ registerBlockType( 'bsx-blocks/slider', {
         // const footer2ClassName = '';
 
         const textClassName = 'h4 font-weight-normal font-italic mb-4';
-        const headingClassName = 'lead text-center';
-        const sublineClassName = 'small text-center';
+        const headingClassName = 'h4 text-center';
+        const sublineClassName = 'small text-center mb-2';
         const footer1ClassName = sliderType === 'product-gallery' ? '' : 'font-weight-bold text-uppercase';
         const footer2ClassName = sliderType === 'product-gallery' ? 'lead text-danger font-weight-bold' : '';
         const hintClassName = sliderType === 'product-gallery' ? 'text-danger font-weight-bold' : '';
@@ -471,6 +479,9 @@ registerBlockType( 'bsx-blocks/slider', {
                         value={ nextText } 
                         onChange={ onChangeNextText }
                     />
+                    {
+                        bgColorSelect( bgColor, onChangeBgColor )
+                    }
                 </PanelBody>
 
                 <PanelBody title={ __( 'Image appearance', 'bsx-blocks' ) }>
@@ -577,84 +588,88 @@ registerBlockType( 'bsx-blocks/slider', {
                                     }
                                     {
                                         sliderType === 'product-gallery' && (
-                                            <div class={ itemClassName }>
-                                                <div class="">
-                                                    <figure>
-                                                        <MediaUpload
-                                                            key={ index }
-                                                            onSelect={ ( value ) => onChangeImg( index, value ) }
-                                                            allowedTypes="image"
-                                                            value={ item.imgId }
-                                                            render={ ( { open } ) => (
-                                                                <>
-                                                                    {
-                                                                        item.imgUrl ? (
-                                                                            <Button className="bsxui-h-auto bsxui-w-100 bsxui-p-0 bsxui-va-middle" onClick={ open }>
-                                                                                <img className={ imgClassName } src={ item.imgUrl } alt={ __( 'Change/upload Image', 'bsx-blocks' ) } />
-                                                                            </Button>
-                                                                        )
-                                                                        :
-                                                                        (
-                                                                            <Button className="button button-large bsxui-w-100" onClick={ open }>
-                                                                                { __( 'Add Image', 'bsx-blocks' ) }
-                                                                            </Button>
-                                                                        )
-                                                                    }
-                                                                </>
-                                                            ) }
-                                                        />
-                                                    </figure>
-                                                    <div class="bsxui-inline-control">
-                                                        <TextControl 
-                                                            label={ __( 'Alt text', 'bsx-blocks' ) }
-                                                            value={ item.imgAlt } 
-                                                            onChange={ ( value ) => { onChangeAlt( index, value ) } }
-                                                        />
-                                                    </div>
-                                                </div>
-
-                                                <div class="px-3">
-                                                    <RichText
-                                                        tagName="div"
-                                                        className={ headingClassName }
-                                                        multiline={ false }
-                                                        placeholder={ __( 'Add heading here...', 'bsx-blocks' ) }
-                                                        value={ item.heading }
-                                                        onChange={ ( value ) => { onChangeHeading( index, value ) } }
-                                                    />
-                                                    <RichText
-                                                        tagName="div"
-                                                        className={ sublineClassName }
-                                                        multiline={ false }
-                                                        placeholder={ __( 'Add subline here...', 'bsx-blocks' ) }
-                                                        value={ item.subline }
-                                                        onChange={ ( value ) => { onChangeSubline( index, value ) } }
-                                                    />
-
-                                                    <div class="row no-gutters align-items-end">
-                                                        <div class="col-auto">
-                                                            <RichText
-                                                                tagName="div"
-                                                                className={ footer1ClassName }
-                                                                multiline={ false }
-                                                                placeholder={ __( 'Original price...', 'bsx-blocks' ) }
-                                                                value={ item.footerText_1 }
-                                                                onChange={ ( value ) => { onChangeFooterText_1( index, value ) } }
+                                            <div class="bsxui-owl-slide-1-2-3-4 p-2">
+                                                <div class={ itemClassName }>
+                                                    <div class="">
+                                                        <figure>
+                                                            <MediaUpload
+                                                                key={ index }
+                                                                onSelect={ ( value ) => onChangeImg( index, value ) }
+                                                                allowedTypes="image"
+                                                                value={ item.imgId }
+                                                                render={ ( { open } ) => (
+                                                                    <>
+                                                                        {
+                                                                            item.imgUrl ? (
+                                                                                <Button className="bsxui-h-auto bsxui-w-100 bsxui-p-0 bsxui-va-middle" onClick={ open }>
+                                                                                    <img className={ imgClassName } src={ item.imgUrl } alt={ __( 'Change/upload Image', 'bsx-blocks' ) } />
+                                                                                </Button>
+                                                                            )
+                                                                            :
+                                                                            (
+                                                                                <Button className="button button-large bsxui-w-100" onClick={ open }>
+                                                                                    { __( 'Add Image', 'bsx-blocks' ) }
+                                                                                </Button>
+                                                                            )
+                                                                        }
+                                                                    </>
+                                                                ) }
                                                             />
-                                                        </div>
-                                                        <div class="col text-right">
-                                                            <small class={ hintClassName }>{ hint }</small>&nbsp;
-                                                            <RichText
-                                                                tagName="div"
-                                                                className={ footer2ClassName + ' bsxui-inline-editor' }
-                                                                multiline={ false }
-                                                                placeholder={ __( 'Current price...', 'bsx-blocks' ) }
-                                                                value={ item.footerText_2 }
-                                                                onChange={ ( value ) => { onChangeFooterText_2( index, value ) } }
+                                                        </figure>
+                                                        <div class="bsxui-inline-control">
+                                                            <TextControl 
+                                                                label={ __( 'Alt text', 'bsx-blocks' ) }
+                                                                value={ item.imgAlt } 
+                                                                onChange={ ( value ) => { onChangeAlt( index, value ) } }
                                                             />
                                                         </div>
                                                     </div>
+
+                                                    <div class="px-3">
+                                                        <RichText
+                                                            tagName="div"
+                                                            className={ headingClassName }
+                                                            multiline={ false }
+                                                            placeholder={ __( 'Add heading here...', 'bsx-blocks' ) }
+                                                            value={ item.heading }
+                                                            onChange={ ( value ) => { onChangeHeading( index, value ) } }
+                                                        />
+                                                        <RichText
+                                                            tagName="div"
+                                                            className={ sublineClassName }
+                                                            multiline={ false }
+                                                            placeholder={ __( 'Add subline here...', 'bsx-blocks' ) }
+                                                            value={ item.subline }
+                                                            onChange={ ( value ) => { onChangeSubline( index, value ) } }
+                                                        />
+
+                                                        <div class="row no-gutters align-items-end">
+                                                            <div class="col-auto">
+                                                                <RichText
+                                                                    tagName="div"
+                                                                    className={ footer1ClassName }
+                                                                    multiline={ false }
+                                                                    placeholder={ __( 'Original price...', 'bsx-blocks' ) }
+                                                                    value={ item.footerText_1 }
+                                                                    onChange={ ( value ) => { onChangeFooterText_1( index, value ) } }
+                                                                />
+                                                            </div>
+                                                            <div class="col text-right">
+                                                                <small class={ hintClassName }>{ hint }</small>&nbsp;
+                                                                <RichText
+                                                                    tagName="div"
+                                                                    className={ footer2ClassName + ' bsxui-inline-editor' }
+                                                                    multiline={ false }
+                                                                    placeholder={ __( 'Current price...', 'bsx-blocks' ) }
+                                                                    value={ item.footerText_2 }
+                                                                    onChange={ ( value ) => { onChangeFooterText_2( index, value ) } }
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
                                                 </div>
+
 
                                                 <div class="bsxui-inline-control bsxui-mb-3">
                                                     <div className="bsxui-d-flex">
@@ -713,6 +728,7 @@ registerBlockType( 'bsx-blocks/slider', {
                 rounded,
                 imgThumbnail,
                 borderState,
+                bgColor,
                 marginBefore,
                 marginAfter,
             },
@@ -737,11 +753,15 @@ registerBlockType( 'bsx-blocks/slider', {
             borderState,
         }, imgClassName );
 
-        const itemClassName = 'item d-block text-center';
+        // must contain .item to get attributes from html
+        const itemClassName = sliderType === 'citation'
+            ? 'item d-block text-center'
+            : 'item d-block px-3 py-2 text-center' + ( typeof bgColor !== 'undefined' && !! bgColor ? ' bg-' + bgColor : '' )
+        ;
 
         const textClassName = 'h4 font-weight-normal font-italic mb-4';
-        const headingClassName = 'lead text-center';
-        const sublineClassName = 'small text-center';
+        const headingClassName = 'h4 text-center';
+        const sublineClassName = 'small text-center mb-2';
         const footer1ClassName = sliderType === 'product-gallery' ? '' : 'font-weight-bold text-uppercase';
         const footer2ClassName = sliderType === 'product-gallery' ? 'lead text-danger font-weight-bold' : '';
         const hintClassName = sliderType === 'product-gallery' ? 'text-danger font-weight-bold' : '';
