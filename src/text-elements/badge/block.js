@@ -33,7 +33,7 @@ import {
 
 // functions
 
-const makeBadgeClassNames = ( attributes ) => {
+const makeBadgeClassNames = ( attributes, className ) => {
 
     const {
         state,
@@ -48,6 +48,10 @@ const makeBadgeClassNames = ( attributes ) => {
 
     if ( !! badgeType ) {
         classNames.push( 'badge-' + badgeType );
+    }
+
+    if ( !! className ) {
+        classNames.push( className );
     }
 
     return classNames.join( ' ' );
@@ -91,8 +95,9 @@ registerBlockType( 'bsx-blocks/badge', {
     edit: ( props ) => {
 
         const {
-            className,
+            // className,
             attributes: {
+                className,
                 href,
                 content,
                 state,
@@ -144,7 +149,7 @@ registerBlockType( 'bsx-blocks/badge', {
         let badgeClassNames = makeBadgeClassNames( { 
             state, 
             badgeType,
-        } );
+        }, className );
         badgeClassNames = addClassNames( {
             marginLeft, 
             marginRight, 
@@ -214,8 +219,9 @@ registerBlockType( 'bsx-blocks/badge', {
     },
     save: ( props ) => {
         const {
-            className,
+            // className,
             attributes: {
+                className,
                 href,
                 content,
                 state,
@@ -230,7 +236,7 @@ registerBlockType( 'bsx-blocks/badge', {
         let badgeClassNames = makeBadgeClassNames( { 
             state, 
             badgeType,
-        } );
+        }, className );
         badgeClassNames = addClassNames( {
             marginLeft, 
             marginRight, 

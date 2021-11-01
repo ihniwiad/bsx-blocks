@@ -4,6 +4,8 @@ const {
 } = wp.blocks;
 const {
     InspectorControls,
+    BlockControls,
+    AlignmentToolbar,
     RichText,
 } = wp.blockEditor;
 const { 
@@ -28,6 +30,7 @@ import {
     marginRightSelect,
     marginBeforeSelect,
     marginAfterSelect,
+    displaySelect,
 } from './../../_functions/controls.js';
 
 
@@ -59,19 +62,29 @@ registerBlockType( 'bsx-blocks/check-list', {
         marginAfter: {
             type: 'string',
         },
+        display: {
+            type: 'string',
+        },
+        textAlign: {
+            type: 'string',
+            default: '',
+        },
     },
 
     edit: ( props ) => {
 
         const {
-            className,
+            // className,
             attributes: {
+                className,
                 content,
                 state,
                 marginLeft,
                 marginRight,
                 marginBefore,
                 marginAfter,
+                display,
+                textAlign,
             },
             setAttributes,
             isSelected,
@@ -96,37 +109,76 @@ registerBlockType( 'bsx-blocks/check-list', {
         const onChangeMarginAfter = ( value ) => {
             setAttributes( { marginAfter: value } );
         };
+        const onChangeDisplay = ( value ) => {
+            setAttributes( { display: value } );
+        };
+        const onChangeTextAlign = ( value ) => {
+            setAttributes( { textAlign: value } );
+        };
+
+        const alignmentControls = [
+            {
+                icon: 'editor-alignleft',
+                title: __( 'Align left', 'bsx-blocks' ),
+                align: 'left',
+            },
+            {
+                icon: 'editor-aligncenter',
+                title: __( 'Align center', 'bsx-blocks' ),
+                align: 'center',
+            },
+            {
+                icon: 'editor-alignright',
+                title: __( 'Align right', 'bsx-blocks' ),
+                align: 'right',
+            },
+        ];
 
         const checklistClassNames = addClassNames( {
             marginLeft, 
             marginRight, 
             marginBefore,
             marginAfter,
-        }, 'checklist' );
+            display,
+            textAlign,
+        }, !! className ? 'checklist ' + className : 'checklist' );
 
         return [
-            <InspectorControls>
-                <PanelBody title={ __( 'Appearance', 'bsx-blocks' ) }>
-                    {
-                        stateSelect( state, onChangeState )
-                    }
-                </PanelBody>
+            <>
+                <BlockControls>
+                    <AlignmentToolbar
+                        label={ __( 'Alignment', 'bsx-blocks' ) }
+                        value={ textAlign }
+                        onChange={ onChangeTextAlign }
+                        alignmentControls={ alignmentControls }
+                    />
+                </BlockControls>
+                <InspectorControls>
+                    <PanelBody title={ __( 'Appearance', 'bsx-blocks' ) }>
+                        {
+                            stateSelect( state, onChangeState )
+                        }
+                        {
+                            displaySelect( display, onChangeDisplay )
+                        }
+                    </PanelBody>
 
-                <PanelBody title={ __( 'Margin', 'bsx-blocks' ) }>
-                    {
-                        marginLeftSelect( marginLeft, onChangeMarginLeft, [ '', '0', '1', '2', '3' ] )
-                    }
-                    {
-                        marginRightSelect( marginRight, onChangeMarginRight, [ '', '0', '1', '2', '3' ] )
-                    }
-                    {
-                        marginBeforeSelect( marginBefore, onChangeMarginBefore )
-                    }
-                    {
-                        marginAfterSelect( marginAfter, onChangeMarginAfter )
-                    }
-                </PanelBody>
-            </InspectorControls>,
+                    <PanelBody title={ __( 'Margin', 'bsx-blocks' ) }>
+                        {
+                            marginLeftSelect( marginLeft, onChangeMarginLeft, [ '', '0', '1', '2', '3' ] )
+                        }
+                        {
+                            marginRightSelect( marginRight, onChangeMarginRight, [ '', '0', '1', '2', '3' ] )
+                        }
+                        {
+                            marginBeforeSelect( marginBefore, onChangeMarginBefore )
+                        }
+                        {
+                            marginAfterSelect( marginAfter, onChangeMarginAfter )
+                        }
+                    </PanelBody>
+                </InspectorControls>
+            </>,
             (
                 <RichText
                     tagName="ul"
@@ -141,14 +193,17 @@ registerBlockType( 'bsx-blocks/check-list', {
     },
     save: ( props ) => {
         const {
-            className,
+            // className,
             attributes: {
+                className,
                 content,
                 state,
                 marginLeft,
                 marginRight,
                 marginBefore,
                 marginAfter,
+                display,
+                textAlign,
             },
         } = props;
         const checklistClassNames = addClassNames( {
@@ -156,7 +211,9 @@ registerBlockType( 'bsx-blocks/check-list', {
             marginRight, 
             marginBefore,
             marginAfter,
-        }, 'checklist' );
+            display,
+            textAlign,
+        }, !! className ? 'checklist ' + className : 'checklist' );
 
         return (
             <>

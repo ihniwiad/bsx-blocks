@@ -63,8 +63,9 @@ registerBlockType( 'bsx-blocks/button-label', {
     edit: ( props ) => {
 
         const {
-            className,
+            // className,
             attributes: {
+                className,
                 content,
                 display,
                 marginLeft,
@@ -110,7 +111,7 @@ registerBlockType( 'bsx-blocks/button-label', {
             marginRight, 
             marginBefore,
             marginAfter,
-        } );
+        }, className );
 
         return [
             <InspectorControls>
@@ -153,8 +154,9 @@ registerBlockType( 'bsx-blocks/button-label', {
     },
     save: ( props ) => {
         const {
-            className,
+            // className,
             attributes: {
+                className,
                 content,
                 display,
                 marginLeft,
@@ -170,7 +172,7 @@ registerBlockType( 'bsx-blocks/button-label', {
             marginRight, 
             marginBefore,
             marginAfter,
-        } );
+        }, className );
 
         return (
             <>

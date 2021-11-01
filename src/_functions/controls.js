@@ -119,6 +119,16 @@ export const targetToggle = ( value, onChangeFunction ) => {
     )
 }
 
+export const disabledToggle = ( value, onChangeFunction ) => {
+    return (
+        <ToggleControl
+            label={ __( 'Disabled', 'bsx-blocks' ) }
+            checked={ !! value }
+            onChange={ onChangeFunction }
+        />
+    )
+}
+
 export const belowNavbarToggle = ( value, onChangeFunction ) => {
     return (
         <ToggleControl

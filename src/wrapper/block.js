@@ -41,6 +41,7 @@ import {
     roundedToggle,
     borderSelect,
     borderStateSelect,
+    displaySelect,
 } from './../_functions/controls.js';
 
 
@@ -133,6 +134,9 @@ registerBlockType( 'bsx-blocks/wrapper', {
         touchFooter: {
             type: 'boolean',
         },
+        display: {
+            type: 'string',
+        },
     },
 
     getEditWrapperProps( attributes ) {
@@ -178,6 +182,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 paddingLeft,
                 paddingRight,
                 touchFooter,
+                display,
             },
             setAttributes,
         } = props;
@@ -255,6 +260,9 @@ registerBlockType( 'bsx-blocks/wrapper', {
         const onChangeTouchFooter = ( value ) => {
             setAttributes( { touchFooter: value } );
         };
+        const onChangeDisplay = ( value ) => {
+            setAttributes( { display: value } );
+        };
 
         const alignmentControls = [
             {
@@ -296,6 +304,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
             paddingLeft, 
             paddingRight,
             touchFooter,
+            display,
         } );
 
         const TagName = nodeName;
@@ -416,6 +425,9 @@ registerBlockType( 'bsx-blocks/wrapper', {
                             { value: 'section', label: __( 'section', 'bsx-blocks' ) },
                         ] }
                     />
+                    {
+                        displaySelect( display, onChangeDisplay )
+                    }
                     <SelectControl 
                         label={ __( 'Width', 'bsx-blocks' ) }
                         value={ width }
@@ -469,6 +481,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 paddingLeft,
                 paddingRight,
                 touchFooter,
+                display,
             },
             setAttributes,
         } = props;
@@ -495,6 +508,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
             paddingLeft, 
             paddingRight,
             touchFooter,
+            display,
         } );
 
         const TagName = nodeName;

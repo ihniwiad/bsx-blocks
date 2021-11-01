@@ -30,6 +30,7 @@ export function addClassNames( attributes, classNamesString ) {
         border,
         hoverShadow,
         hoverMove,
+        disabled,
     } = attributes;
 
     const classNames = ( typeof classNamesString != 'undefined' ) ? classNamesString.split( ' ' ) : [];
@@ -190,6 +191,10 @@ export function addClassNames( attributes, classNamesString ) {
 
     if ( !! hoverMove ) {
         classNames.push( 'hover-move' );
+    }
+
+    if ( !! disabled ) {
+        classNames.push( 'disabled' );
     }
 
     return classNames.join( ' ' );

@@ -27,6 +27,7 @@ import {
     linkUrlInput,
     ignoreMailtoSpamProtectionToggle,
     targetToggle,
+    disabledToggle,
     relInput,
     dataFnInput,
     marginLeftSelect,
@@ -38,7 +39,7 @@ import {
 
 // functions
 
-const makeButtonClassNames = ( attributes ) => {
+const makeButtonClassNames = ( attributes, className ) => {
 
     const {
         state,
@@ -73,6 +74,10 @@ const makeButtonClassNames = ( attributes ) => {
 
     if ( ! ignoreMailtoSpamProtection && hrefIsEmailIsContent ) {
         classNames.push( 'create-mt' );
+    }
+
+    if ( !! className ) {
+        classNames.push( className );
     }
 
     return classNames.join( ' ' );
@@ -165,13 +170,19 @@ registerBlockType( 'bsx-blocks/button', {
         ignoreMailtoSpamProtection: {
             type: 'boolean',
         },
+        disabled: {
+            type: 'boolean',
+            default: '',
+        },
     },
 
     edit: ( props ) => {
 
         const {
-            className,
+            // className,
             attributes: {
+                // get className from attributes and add manually to buttonClassNames
+                className,
                 href,
                 content,
                 target,
@@ -185,15 +196,25 @@ registerBlockType( 'bsx-blocks/button', {
                 marginBefore,
                 marginAfter,
                 ignoreMailtoSpamProtection,
+                disabled,
             },
             setAttributes,
             isSelected,
         } = props;
 
+        const checkEmail = isEmailFormat( href );
+        const hrefIsEmail = checkEmail.valid
+        // const hrefIsEmailIsContent = checkEmail.valid && href == 'mailto:' + content;
+        let hrefIsEmailIsContent = hrefIsEmail && ( href == 'mailto:' + content || ( typeof content == 'object' && content.length == 0 ) );
+
         const onChangeContent = ( value ) => {
             setAttributes( { content: value } );
         };
         const onChangeHref = ( value ) => {
+            // TODO: check hrefIsEmailIsContent
+            const checkEmail = isEmailFormat( href );
+            const hrefIsEmail = checkEmail.valid
+            hrefIsEmailIsContent = hrefIsEmail && ( href == 'mailto:' + content || ( typeof content == 'object' && content.length == 0 ) );
             setAttributes( { href: value } );
         };
         const onChangeTarget = ( value ) => {
@@ -235,22 +256,22 @@ registerBlockType( 'bsx-blocks/button', {
             setAttributes( { ignoreMailtoSpamProtection: ! value } );
         };
 
-        const checkEmail = isEmailFormat( href );
-        const hrefIsEmail = checkEmail.valid
-        // const hrefIsEmailIsContent = checkEmail.valid && href == 'mailto:' + content;
-        const hrefIsEmailIsContent = hrefIsEmail && ( href == 'mailto:' + content || ( typeof content == 'object' && content.length == 0 ) );
+        const onChangeDisabled = ( value ) => {
+            setAttributes( { disabled: value } );
+        };
 
         // exclude hrefIsEmailIsContent here to keep correct button title shown
         let buttonClassNames = makeButtonClassNames( { 
             state, 
             stateType, 
             size,
-        } );
+        }, className );
         buttonClassNames = addClassNames( {
             marginLeft, 
             marginRight, 
             marginBefore,
             marginAfter,
+            disabled,
         }, buttonClassNames );
 
         // get content if is empty since content is spam protected email, get content from href instead of from html
@@ -275,6 +296,9 @@ registerBlockType( 'bsx-blocks/button', {
                     }
                     {
                         targetToggle( target, onChangeTarget )
+                    }
+                    {
+                        disabledToggle( disabled, onChangeDisabled )
                     }
                     {
                         relInput( rel, onChangeRel )
@@ -330,8 +354,10 @@ registerBlockType( 'bsx-blocks/button', {
     },
     save: ( props ) => {
         const {
-            className,
+            // className,
             attributes: {
+                // get className from attributes and add manually to buttonClassNames
+                className,
                 href,
                 content,
                 target,
@@ -345,6 +371,7 @@ registerBlockType( 'bsx-blocks/button', {
                 marginBefore,
                 marginAfter,
                 ignoreMailtoSpamProtection,
+                disabled,
             },
         } = props;
 
@@ -373,12 +400,13 @@ registerBlockType( 'bsx-blocks/button', {
             size,
             hrefIsEmailIsContent,
             ignoreMailtoSpamProtection,
-        } );
+        }, className );
         buttonClassNames = addClassNames( {
             marginLeft, 
             marginRight, 
             marginBefore,
             marginAfter,
+            disabled,
         }, buttonClassNames );
 
         // save spam-protected mailto link format (no href-attribute, no content – both will be set via css / js):
@@ -392,6 +420,7 @@ registerBlockType( 'bsx-blocks/button', {
             'data-mt-s': ! ignoreMailtoSpamProtection && hrefIsEmail ? checkEmail.suffix : '',
             target: target, 
             rel: href ? ( rel ? rel + ' noopener noreferrer' : 'noopener noreferrer' ) : '',
+            'disabled': ! href && disabled
         } );
 
         return (
