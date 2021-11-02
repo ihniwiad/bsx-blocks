@@ -822,6 +822,9 @@ a.bsxui-link {
   padding-left: 0;
   max-width: unset; }
 
+[data-col-type].d-flex > .block-editor-inner-blocks {
+  width: 100%; }
+
 [data-type="bsx-blocks/col"] p.wp-block > [data-rich-text-placeholder] {
   max-width: 150px;
   display: block; }

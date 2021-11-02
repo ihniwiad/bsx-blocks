@@ -205,6 +205,12 @@ $bsxui-justify-content-values: (
     }
 }
 
+// reset col inner width if display flex
+
+[data-col-type].d-flex > .block-editor-inner-blocks { 
+  width: 100%;
+}
+
 
 // limitate empty p placeholder breacking layout (needed only for column width auto?) 
 [data-type="bsx-blocks/col"] p.wp-block > [data-rich-text-placeholder] {
