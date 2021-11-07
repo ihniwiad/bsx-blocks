@@ -4,6 +4,7 @@ const {
     URLInput,
     RichText,
     MediaUpload,
+    AlignmentToolbar,
 } = wp.blockEditor;
 const { 
     TextControl,
@@ -93,6 +94,29 @@ const bgStates = [
     { value: 'dark-opaque', label: __( 'Dark opaque', 'bsx-blocks' ) },
     { value: 'dark-transparent', label: __( 'Dark transparent', 'bsx-blocks' ) },
     { value: 'transparent', label: __( 'Transparent', 'bsx-blocks' ) },
+];
+
+const alignmentControls = [
+    {
+        icon: 'editor-alignleft',
+        title: __( 'Align left', 'bsx-blocks' ),
+        align: 'left',
+    },
+    {
+        icon: 'editor-aligncenter',
+        title: __( 'Align center', 'bsx-blocks' ),
+        align: 'center',
+    },
+    {
+        icon: 'editor-alignright',
+        title: __( 'Align right', 'bsx-blocks' ),
+        align: 'right',
+    },
+    {
+        icon: 'editor-alignleft',
+        title: __( '– unset –', 'bsx-blocks' ),
+        align: '',
+    },
 ];
 
 
@@ -602,6 +626,26 @@ export const borderStateSelect = ( value, onChangeFunction, allowedValues ) => {
         />
     )
 }
+
+
+// toolbar
+
+export const textAlignToolbar = ( value, onChangeFunction ) => {
+    const defaultValues = states;
+    return (
+        <AlignmentToolbar
+            label={ __( 'Alignment', 'bsx-blocks' ) }
+            value={ value }
+            onChange={ onChangeFunction }
+            alignmentControls={ alignmentControls }
+        />
+    )
+}
+
+
+
+
+                
 
 
 // uploads

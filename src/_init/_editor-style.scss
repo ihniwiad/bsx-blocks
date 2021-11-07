@@ -101,9 +101,19 @@ a.bsxui-link {
 
 // wp-looking button (currently not in use)
 
-.bsxui-btn {
-	background: $bsxui-area-button-bg-color;
-	border: $bsxui-interact-border;
+//.bsxui-btn {
+//	background: $bsxui-area-button-bg-color;
+//	border: $bsxui-interact-border;
+//}
+
+
+// banner button
+
+.bsxui-banner-button {
+    height: auto;
+    padding: 0 !important;
+    border: 0;
+    color: rgba(0, 0, 0, 0.5) !important;
 }
 
 
@@ -137,6 +147,11 @@ a.bsxui-link {
     padding: 0;
     border: 0;
     border-radius: 0;
+    color: rgba(0, 0, 0, .1);
+
+    background-image: repeating-linear-gradient(45deg, currentColor 25%, transparent 25%, transparent 75%, currentColor 75%, currentColor), repeating-linear-gradient(45deg, currentColor 25%, transparent 25%, transparent 75%, currentColor 75%, currentColor);
+	background-position: 0 0, 5px 5px;
+	background-size: calc(2 * 5px) calc(2 * 5px);
 
     &.has-margin-bottom {
     	margin-bottom: $bsxui-small-margin-bottom;

@@ -257,6 +257,17 @@ export function svgIcon( iconKey ) {
             );
             break;
 
+        case 'img-placeholder':
+            icon = (
+                <svg xmlns="http://www.w3.org/2000/svg" width="360" height="240" viewBox="0 0 360 240" aria-hidden="true" role="img" focusable="false">
+                    <path fill-rule="evenodd" d="M0,0v240h360V0H0z M129.9,40c16.51,0,29.89,13.39,29.89,29.9c0,16.51-13.38,29.89-29.89,29.89
+                      c-16.52,0-29.9-13.38-29.9-29.89C100,53.39,113.38,40,129.9,40z M340,220H20v-40l80-40l80,20l80-60l80,40V220z"/>
+                </svg>
+            );
+            break;
+
+
+
 
         // row with columns
 
@@ -334,13 +345,26 @@ export function svgIcon( iconKey ) {
             break;
 
 
+        // video
+
+        case 'video-placeholder':
+            icon = (
+                <svg xmlns="http://www.w3.org/2000/svg" width="360" height="240" viewBox="0 0 360 240" aria-hidden="true" role="img" focusable="false">
+                    <path fill-rule="evenodd" d="M0,0v240h360V0H0z M160,160V80l69.28,40L160,160z"/>
+                </svg>
+            );
+            break;
+
+
         // wrapper
 
         case 'wrapper':
             icon = (
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" role="img" focusable="false"><path d="M2,17c-0.26,0-0.52-0.11-0.71-0.29l0,0C1.11,16.52,1,16.26,1,16l0,0V4c0-0.26,0.11-0.52,0.29-0.71l0,0
-                    C1.48,3.11,1.74,3,2,3l0,0h16c0.27,0,0.52,0.1,0.71,0.29l0,0C18.89,3.48,19,3.73,19,4l0,0v12c0,0.27-0.1,0.52-0.29,0.71l0,0
-                    C18.52,16.9,18.27,17,18,17l0,0H2L2,17z M18,16v-1V16L18,16z M3,15h14V5H3V15L3,15z"/>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" role="img" focusable="false">
+                    <path d="M11,5h3V3h-3V5z M3,9H1v3h2V9z M6,5h3V3H6V5z M6,17h3v-2H6V17z M18.71,3.29C18.52,3.1,18.27,3,18,3h-2v2h1v1h2V4
+                      C19,3.73,18.9,3.48,18.71,3.29z M17,11h2V8h-2V11z M3,14H1v2c0,0.26,0.11,0.52,0.29,0.71C1.48,16.89,1.74,17,2,17h2v-2H3V14z M17,15
+                      h-1v2h2c0.27,0,0.52-0.1,0.71-0.29C18.9,16.52,19,16.27,19,16v-3h-2V15z M11,17h3v-2h-3V17z M1.29,3.29C1.11,3.48,1,3.74,1,4v3h2V5
+                      h1V3H2C1.74,3,1.48,3.11,1.29,3.29z"/>
                 </svg>
             );
             break;

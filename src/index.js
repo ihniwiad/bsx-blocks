@@ -9,5 +9,6 @@ import './row-with-cols/index.js';
 import './section/block.js';
 import './slider/block.js';
 import './text-elements/index.js';
+import './video/block.js';
 import './wrapper/block.js';
 

@@ -186,7 +186,7 @@ registerBlockType( 'bsx-blocks/check-list', {
                     placeholder={ __( 'Add list items...', 'bsx-blocks' ) }
                     value={ content }
                     onChange={ onChangeContent }
-                    className="checklist"
+                    className={ checklistClassNames }
                 />
             )
         ];
