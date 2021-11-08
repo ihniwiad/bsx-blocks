@@ -305,8 +305,6 @@ registerBlockType( 'bsx-blocks/video', {
             <video className={ videoClassNames } src={ videoUrl } { ...videoSaveAttributes }></video>
         );
 
-        console.log( '\n\n' + video );
-
         return [
             <BlockControls>
                 { ! notHasFigure && textAlignToolbar( textAlign, onChangeTextAlign ) }

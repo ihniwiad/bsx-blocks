@@ -11279,7 +11279,6 @@ registerBlockType('bsx-blocks/video', {
       className: videoClassNames,
       src: videoUrl
     }, videoSaveAttributes));
-    console.log('\n\n' + video);
     return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(BlockControls, null, !notHasFigure && Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_2__["textAlignToolbar"])(textAlign, onChangeTextAlign)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
       title: __('Video', 'bsx-blocks')
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
