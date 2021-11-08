@@ -303,7 +303,7 @@ registerBlockType( 'bsx-blocks/video', {
         // video html
 
         // get file extension from url
-        const videoType = !! videoUrl ? 'video/' + videoUrl.slice( - ( videoUrl.length - videoUrl.indexOf( "." ) - 1 ) ) : '';
+        const videoType = !! videoUrl ? 'video/' + videoUrl.slice( - ( videoUrl.length - videoUrl.lastIndexOf( "." ) - 1 ) ) : '';
 
         const video = (
             <video className={ videoClassNames } { ...videoSaveAttributes }>
@@ -551,7 +551,7 @@ registerBlockType( 'bsx-blocks/video', {
         // video html
 
         // get file extension from url
-        const videoType = !! videoUrl ? 'video/' + videoUrl.slice( - ( videoUrl.length - videoUrl.indexOf( "." ) - 1 ) ) : '';
+        const videoType = !! videoUrl ? 'video/' + videoUrl.slice( - ( videoUrl.length - videoUrl.lastIndexOf( "." ) - 1 ) ) : '';
 
         const video = (
             <video className={ videoClassNames } { ...videoSaveAttributes }>
