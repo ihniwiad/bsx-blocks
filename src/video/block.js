@@ -67,7 +67,7 @@ registerBlockType( 'bsx-blocks/video', {
         },
         videoUrl: {
             type: 'string',
-            selector: "source",
+            selector: "video",
             source: "attribute",
             attribute: "src",
         },
@@ -189,10 +189,6 @@ registerBlockType( 'bsx-blocks/video', {
 
         const onSelectVideo = ( video ) => {
 
-            // console.log( 'onSelectVideo() BEGIN' );
-
-            // console.log( video );
-
             if ( typeof video.url !== 'undefined' ) {
 
                 setAttributes( { 
@@ -200,13 +196,11 @@ registerBlockType( 'bsx-blocks/video', {
                     videoUrl: video.url,
                     videoWidth: parseFloat( video.width ),
                     videoHeight: parseFloat( video.height ),
-                    displayedWidth: parseFloat( video.width ),
-                    displayedHeight: parseFloat( video.height ),
+                    displayedWidth: !! scale ? scale * parseFloat( video.width ) : parseFloat( video.width ),
+                    displayedHeight: !! scale ? scale * parseFloat( video.height ) : parseFloat( video.height ),
                 } );
 
             }
-
-            // console.log( 'onSelectVideo() END' );
         }
 
         const onSelectPosterImage = ( img ) => {
@@ -289,8 +283,9 @@ registerBlockType( 'bsx-blocks/video', {
 
         // video attributes
 
+        // set controls always true within editor
         const videoSaveAttributes = makeSaveAttributes( {
-            'controls': controls,
+            'controls': true,
             'autoplay': autoplay,
             'loop': loop,
             'playsinline': playsinline,
@@ -303,14 +298,14 @@ registerBlockType( 'bsx-blocks/video', {
         // video html
 
         // get file extension from url
-        const videoType = !! videoUrl ? 'video/' + videoUrl.slice( - ( videoUrl.length - videoUrl.lastIndexOf( "." ) - 1 ) ) : '';
+        // const videoType = !! videoUrl ? 'video/' + videoUrl.slice( - ( videoUrl.length - videoUrl.lastIndexOf( "." ) - 1 ) ) : '';
 
+        // editor semms not to like source tag, but accepts src attribute
         const video = (
-            <video className={ videoClassNames } { ...videoSaveAttributes }>
-                <source src={ videoUrl } type={ videoType }/>
-                Your browser does not support HTML video.
-            </video>
+            <video className={ videoClassNames } src={ videoUrl } { ...videoSaveAttributes }></video>
         );
+
+        console.log( '\n\n' + video );
 
         return [
             <BlockControls>
@@ -319,6 +314,29 @@ registerBlockType( 'bsx-blocks/video', {
             <InspectorControls>
                 <PanelBody title={ __( 'Video', 'bsx-blocks' ) }>
                     <div class="bsxui-config-panel-row">
+                        {
+                            videoId ? (
+                                <MediaUpload
+                                    onSelect={ onSelectVideo }
+                                    allowedTypes="video"
+                                    value={ videoId }
+                                    render={ ( { open } ) => (
+                                        <Button
+                                            className="bsxui-config-panel-img-button has-margin-bottom"
+                                            onClick={ open }
+                                        >
+                                            { video }
+                                        </Button>
+                                    ) }
+                                />
+                            )
+                            : 
+                            (
+                                <div class="bsxui-config-panel-row">
+                                    <div class="bsxui-config-panel-text">{ __( '– No video selected yet –', 'bsx-blocks' ) }</div>
+                                </div>
+                            )
+                        }
                         <MediaUpload
                             onSelect={ onSelectVideo }
                             allowedTypes="video"
@@ -333,29 +351,9 @@ registerBlockType( 'bsx-blocks/video', {
                             ) }
                         />
                     </div>
+                </PanelBody>
                      
-                    <TextControl 
-                        label={ __( 'Displayed width', 'bsx-blocks' ) }
-                        value={ displayedWidth + '' } 
-                        onChange={ onChangeDisplayedWidth }
-                    />
-                    <TextControl 
-                        label={ __( 'Displayed height', 'bsx-blocks' ) }
-                        value={ displayedHeight + '' } 
-                        onChange={ onChangeDisplayedHeight }
-                    />
-
-                    <RadioControl
-                        label={ __( 'Scale', 'bsx-blocks' ) }
-                        selected={ scale + '' }
-                        options={ [
-                            { value: '1', label: __( '100%', 'bsx-blocks' ) },
-                            { value: '0.75', label: __( '75%', 'bsx-blocks' ) },
-                            { value: '0.5', label: __( '50%', 'bsx-blocks' ) },
-                            { value: '0.25', label: __( '25%', 'bsx-blocks' ) },
-                        ] }
-                        onChange={ onChangeScale }
-                    />
+                <PanelBody title={ __( 'Video settings', 'bsx-blocks' ) }>
 
                     <ToggleControl
                         label={ __( 'Controls', 'bsx-blocks' ) }
@@ -435,6 +433,31 @@ registerBlockType( 'bsx-blocks/video', {
                             </div>
                         )
                     }
+                </PanelBody>
+                     
+                <PanelBody title={ __( 'Dimensions', 'bsx-blocks' ) }>
+                    <TextControl 
+                        label={ __( 'Displayed width', 'bsx-blocks' ) }
+                        value={ displayedWidth + '' } 
+                        onChange={ onChangeDisplayedWidth }
+                    />
+                    <TextControl 
+                        label={ __( 'Displayed height', 'bsx-blocks' ) }
+                        value={ displayedHeight + '' } 
+                        onChange={ onChangeDisplayedHeight }
+                    />
+
+                    <RadioControl
+                        label={ __( 'Scale', 'bsx-blocks' ) }
+                        selected={ scale + '' }
+                        options={ [
+                            { value: '1', label: __( '100%', 'bsx-blocks' ) },
+                            { value: '0.75', label: __( '75%', 'bsx-blocks' ) },
+                            { value: '0.5', label: __( '50%', 'bsx-blocks' ) },
+                            { value: '0.25', label: __( '25%', 'bsx-blocks' ) },
+                        ] }
+                        onChange={ onChangeScale }
+                    />
                 </PanelBody>
 
                 <PanelBody title={ __( 'Margin (optional)', 'bsx-blocks' ) }>
@@ -551,11 +574,10 @@ registerBlockType( 'bsx-blocks/video', {
         // video html
 
         // get file extension from url
-        const videoType = !! videoUrl ? 'video/' + videoUrl.slice( - ( videoUrl.length - videoUrl.lastIndexOf( "." ) - 1 ) ) : '';
+        // const videoType = !! videoUrl ? 'video/' + videoUrl.slice( - ( videoUrl.length - videoUrl.lastIndexOf( "." ) - 1 ) ) : '';
 
         const video = (
-            <video className={ videoClassNames } { ...videoSaveAttributes }>
-                <source src={ videoUrl } type={ videoType }/>
+            <video className={ videoClassNames } src={ videoUrl } { ...videoSaveAttributes }>
                 Your browser does not support HTML video.
             </video>
         );

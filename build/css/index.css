@@ -156,9 +156,9 @@ a.bsxui-link {
   border: 0;
   border-radius: 0;
   color: #dddddd !important;
-  background-image: -webkit-repeating-linear-gradient(45deg, currentColor 25%, transparent 25%, transparent 75%, currentColor 75%, currentColor), -webkit-repeating-linear-gradient(45deg, currentColor 25%, transparent 25%, transparent 75%, currentColor 75%, currentColor);
-  background-image: -o-repeating-linear-gradient(45deg, currentColor 25%, transparent 25%, transparent 75%, currentColor 75%, currentColor), -o-repeating-linear-gradient(45deg, currentColor 25%, transparent 25%, transparent 75%, currentColor 75%, currentColor);
-  background-image: repeating-linear-gradient(45deg, currentColor 25%, transparent 25%, transparent 75%, currentColor 75%, currentColor), repeating-linear-gradient(45deg, currentColor 25%, transparent 25%, transparent 75%, currentColor 75%, currentColor);
+  background-image: -webkit-repeating-linear-gradient(135deg, currentColor 25%, transparent 25%, transparent 75%, currentColor 75%, currentColor), -webkit-repeating-linear-gradient(135deg, currentColor 25%, transparent 25%, transparent 75%, currentColor 75%, currentColor);
+  background-image: -o-repeating-linear-gradient(135deg, currentColor 25%, transparent 25%, transparent 75%, currentColor 75%, currentColor), -o-repeating-linear-gradient(135deg, currentColor 25%, transparent 25%, transparent 75%, currentColor 75%, currentColor);
+  background-image: repeating-linear-gradient(-45deg, currentColor 25%, transparent 25%, transparent 75%, currentColor 75%, currentColor), repeating-linear-gradient(-45deg, currentColor 25%, transparent 25%, transparent 75%, currentColor 75%, currentColor);
   background-position: 0 0, 10px 10px;
   -webkit-background-size: calc(2 * 10px) calc(2 * 10px);
   background-size: calc(2 * 10px) calc(2 * 10px); }
