@@ -68,6 +68,9 @@ registerBlockType( 'bsx-blocks/slider', {
         //     type: 'array',
         //     default: [],
         // },
+        imgSize: {
+            type: 'string',
+        },
         itemData: {
             type: 'array',
             source: 'query',
@@ -191,6 +194,7 @@ registerBlockType( 'bsx-blocks/slider', {
             className,
             attributes: {
                 sliderType,
+                imgSize,
                 itemData,
                 hint,
                 prevText,
@@ -269,13 +273,35 @@ registerBlockType( 'bsx-blocks/slider', {
         // }
 
         const onChangeSliderType = ( value ) => {
-            setAttributes( { sliderType: value } );
             if ( value === 'product-gallery' ) {
-                setAttributes( { rounded: '' } );
+                setAttributes( { 
+                    sliderType: value,
+                    rounded: '',
+                } );
+            }
+            else {
+                setAttributes( { 
+                    sliderType: value,
+                } );
             }
         }
 
+        const onChangeImgSize = ( value ) => {
+            setAttributes( { imgSize: value } );
+
+            // TODO: change all img urls & sizes
+
+            itemData.forEach( ( item, index ) => {
+                console.log( 'imgId: ' + item.imgId )
+            } );
+        }
+
+        
+
         const onChangeImg = ( index, img ) => {
+
+            // TODO: make img url configurable
+
             const newImg = {};
             if ( sliderType === 'product-gallery' ) {
                 newImg.url = img.sizes.medium.url;
@@ -498,6 +524,15 @@ registerBlockType( 'bsx-blocks/slider', {
                     {
                         borderStateSelect( borderState, onChangeBorderState )
                     }
+                    <SelectControl 
+                        label={ __( 'Image size', 'bsx-blocks' ) }
+                        value={ imgSize }
+                        onChange={ onChangeImgSize }
+                        options={ [
+                            { value: 'thumbnail', label: __( 'Thumbnail (square format)', 'bsx-blocks' ) },
+                            { value: 'medium', label: __( 'Medium', 'bsx-blocks' ) },
+                        ] }
+                    />
                 </PanelBody>
 
                 <PanelBody title={ __( 'Margin', 'bsx-blocks' ) }>
@@ -721,6 +756,7 @@ registerBlockType( 'bsx-blocks/slider', {
             className,
             attributes: {
                 sliderType,
+                imgSize,
                 itemData,
                 hint,
                 prevText,

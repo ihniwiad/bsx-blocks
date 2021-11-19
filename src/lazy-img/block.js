@@ -1,3 +1,4 @@
+// TODO: add link (href, target, rel), disable zoomable if link, disable link if zoomable
 // TODO: advanced setting: allow zoomable img without `data-fn="photoswipe"` attr for making gallery with external attr (e.g. container or wrapper)
 
 
@@ -25,6 +26,22 @@ const {
 } = wp.components;
 
 
+// functions imports
+
+import { svgIcon } from './../_functions/wp-icons.js';
+import { addClassNames } from './../_functions/add-class-names.js';
+import { makeSaveAttributes } from './../_functions/attributes.js';
+import { 
+    linkUrlInput,
+    // ignoreMailtoSpamProtectionToggle,
+    targetToggle,
+    relInput,
+    // dataFnInput,
+    // marginLeftSelect,
+    // marginRightSelect,
+    // marginBeforeSelect,
+    // marginAfterSelect,
+} from './../_functions/controls.js';
 import { 
     getUrlTruncAndExtension,
     fullImgIsScaled,
@@ -36,13 +53,6 @@ import {
     getImgSizesData,
     makeBase64PreloadImgSrc,
 } from './../_functions/img.js';
-
-
-import { svgIcon } from './../_functions/wp-icons.js';
-
-import { addClassNames } from './../_functions/add-class-names.js';
-
-import { makeSaveAttributes } from './../_functions/attributes.js';
 
 
 const responsivePortraitMediaIndexList = [
@@ -223,6 +233,15 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         imgAdditionalClassName: {
             type: 'string',
         },
+        href: {
+            type: 'string',
+        },
+        target: {
+            type: 'string',
+        },
+        rel: {
+            type: 'string',
+        },
     },
     edit: ( props ) => {
         const {
@@ -251,6 +270,9 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 marginAfter,
                 pictureAdditionalClassName,
                 imgAdditionalClassName,
+                href,
+                target,
+                rel,
             },
             setAttributes,
             isSelected,
@@ -399,6 +421,19 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         const onChangeImgAdditionalClassName = ( value ) => {
             setAttributes( { imgAdditionalClassName: value } );
         };
+
+        const onChangeHref = ( value ) => {
+            setAttributes( { href: value } );
+        };
+        const onChangeTarget = ( value ) => {
+            setAttributes( { target: !! value ? '_blank' : '' } );
+        };
+        const onChangeRel = ( value ) => {
+            setAttributes( { rel: value } );
+        };
+        // const onChangeDataFn = ( value ) => {
+        //     setAttributes( { dataFn: value } );
+        // };
         
 
         const alignmentControls = [
@@ -725,6 +760,21 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                     }
                 </PanelBody>
 
+                <PanelBody title={ __( 'Link (optional)', 'bsx-blocks' ) }>
+                    {
+                        linkUrlInput( href, onChangeHref )
+                    }
+                    {
+                        targetToggle( target, onChangeTarget )
+                    }
+                    {
+                        relInput( rel, onChangeRel )
+                    }
+                    {
+                        // dataFnInput( dataFn, onChangeDataFn )
+                    }
+                </PanelBody>
+
                 <PanelBody title={ __( 'Margin (optional)', 'bsx-blocks' ) }>
                     <SelectControl 
                         label={ __( 'Margin after', 'bsx-blocks' ) }
@@ -852,6 +902,9 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 marginAfter,
                 pictureAdditionalClassName,
                 imgAdditionalClassName,
+                href,
+                target,
+                rel,
             },
         } = props;
 
