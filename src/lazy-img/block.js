@@ -1,3 +1,13 @@
+// TODO: save img urls in shorter way (e.g. trunc + suffixes/sizes, or only id?)
+/*
+    "imgUrlTrunc":"http://localhost/wordpress-testing/wp-content/uploads/2021/04/sergio-jara-yX9WbPbz8J8-unsplash-3000x1000-1-"
+    "imgUrlExt":".jpg"
+    "imgTruncSizes":[
+        {"u":"150x150","s":"[150,150]"},
+        {"u":"300x100","s":"[300,100]"},
+        ...
+    ]
+*/
 // TODO: advanced setting: allow zoomable img without `data-fn="photoswipe"` attr for making gallery with external attr (e.g. container or wrapper)
 
 
@@ -460,7 +470,16 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         };
 
         const onChangeHref = ( value ) => {
-            setAttributes( { href: value } );
+            if ( href == '' ) {
+                // reset aAdditionalClassName
+                setAttributes( { 
+                    href: value,
+                    aAdditionalClassName: '',
+                } );
+            }
+            else {
+                setAttributes( { href: value } );
+            }
         };
         const onChangeTarget = ( value ) => {
             setAttributes( { target: !! value ? '_blank' : '' } );
