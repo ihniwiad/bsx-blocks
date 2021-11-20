@@ -1,4 +1,3 @@
-// TODO: add link (href, target, rel), disable zoomable if link, disable link if zoomable
 // TODO: advanced setting: allow zoomable img without `data-fn="photoswipe"` attr for making gallery with external attr (e.g. container or wrapper)
 
 
@@ -41,6 +40,7 @@ import {
     // marginRightSelect,
     // marginBeforeSelect,
     // marginAfterSelect,
+    scaleSelect,
 } from './../_functions/controls.js';
 import { 
     getUrlTruncAndExtension,
@@ -227,6 +227,9 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         marginAfter: {
             type: 'string',
         },
+        aAdditionalClassName: {
+            type: 'string',
+        },
         pictureAdditionalClassName: {
             type: 'string',
         },
@@ -241,6 +244,15 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         },
         rel: {
             type: 'string',
+        },
+        scale: {
+            type: 'number',
+        },
+        displayedWidth: {
+            type: 'text',
+        },
+        displayedHeight: {
+            type: 'text',
         },
     },
     edit: ( props ) => {
@@ -268,11 +280,15 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 disableResponsiveDownsizing,
                 textAlign,
                 marginAfter,
+                aAdditionalClassName,
                 pictureAdditionalClassName,
                 imgAdditionalClassName,
                 href,
                 target,
                 rel,
+                scale,
+                displayedWidth,
+                displayedHeight,
             },
             setAttributes,
             isSelected,
@@ -328,6 +344,8 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                     origHeight: originalHeight,
                     alt: img.alt,
                     zoomImgSizeIndex: newZoomImgSizeIndex,
+                    // displayedWidth: !! scale ? scale * parseFloat( newImgSizes[ newImgSizeIndex ].width ) : parseFloat( newImgSizes[ newImgSizeIndex ].width ),
+                    // displayedHeight: !! scale ? scale * parseInt( newImgSizes[ newImgSizeIndex ].height ) : parseInt( newImgSizes[ newImgSizeIndex ].height ),
                 } );
 
                 // TEST – TODO: remove
@@ -372,13 +390,29 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         const onChangeFigcaption = ( value ) => {
             setAttributes( { figcaption: value } );
         };
-        
-        const onChangeImgWidth = ( value ) => {
-            setAttributes( { width: parseInt( value ) } );
+
+        const onChangeScale = ( value ) => {
+            setAttributes( { 
+                scale: parseFloat( value ),
+                displayedWidth: !! value && value != width ? Math.round( width * parseFloat( value ) ) : '',
+                displayedHeight: !! value && value != height ? Math.round( height * parseFloat( value ) ) : '',
+            } );
         };
-        const onChangeImgHeight = ( value ) => {
-            setAttributes( { height: parseInt( value ) } );
+        const onChangeDisplayedWidth = ( value ) => {
+            setAttributes( { 
+                displayedWidth: value != width ? parseFloat( value ) : '',
+                displayedHeight: value != height ? Math.round( value / width * height ) : '',
+                scale: parseFloat( value / width ),
+            } );
         };
+        const onChangeDisplayedHeight = ( value ) => {
+            setAttributes( { 
+                displayedHeight: value != width ? parseFloat( value ) : width,
+                displayedWidth: value != height ? Math.round( value / height * width ) : '',
+                scale: parseFloat( value / height ),
+            } );
+        };
+
         const onChangeRounded = ( value ) => {
             setAttributes( { rounded: value } );
         };
@@ -415,6 +449,9 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             setAttributes( { marginAfter: value } );
         };
 
+        const onChangeAAdditionalClassName = ( value ) => {
+            setAttributes( { aAdditionalClassName: value } );
+        };
         const onChangePictureAdditionalClassName = ( value ) => {
             setAttributes( { pictureAdditionalClassName: value } );
         };
@@ -526,7 +563,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                         <source { ...sourceAttributes } />
                     ) )
                 }
-                <img className={ imgClassName } src={ url } alt={ alt } />
+                <img className={ imgClassName } src={ url } alt={ alt } width={ !! displayedWidth ? displayedWidth : width } height={ !! displayedHeight ? displayedHeight : height } />
             </picture>
         );
 
@@ -601,15 +638,18 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                     }
                      
                     <TextControl 
-                        label={ __( 'Displayed image width', 'bsx-blocks' ) }
-                        value={ width } 
-                        onChange={ onChangeImgWidth }
+                        label={ __( 'Displayed width', 'bsx-blocks' ) }
+                        value={ !! displayedWidth ? displayedWidth : width  } 
+                        onChange={ onChangeDisplayedWidth }
                     />
                     <TextControl 
-                        label={ __( 'Displayed image height', 'bsx-blocks' ) }
-                        value={ height } 
-                        onChange={ onChangeImgHeight }
+                        label={ __( 'Displayed height', 'bsx-blocks' ) }
+                        value={ !! displayedHeight ? displayedHeight : height } 
+                        onChange={ onChangeDisplayedHeight }
                     />
+                    {
+                        scaleSelect( scale, onChangeScale )
+                    }
                     <SelectControl 
                         label={ __( 'Rounded', 'bsx-blocks' ) }
                         value={ rounded }
@@ -646,113 +686,125 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
                 <PanelBody title={ __( 'Portrait image (optional)', 'bsx-blocks' ) }>
                     {
-                        portraitImgId && typeof portraitImgSizes[ portraitImgSizeIndex ] != 'undefined' && typeof portraitImgSizes[ portraitImgSizeIndex ].url != 'undefined' ? (
-                            <MediaUpload
-                                onSelect={ onSelectPortraitImage }
-                                allowedTypes="image"
-                                value={ portraitImgId }
-                                render={ ( { open } ) => (
-                                    <Button
-                                        className="bsxui-config-panel-img-button has-margin-bottom"
-                                        onClick={ open }
-                                    >
-                                        <img class="bsxui-config-panel-img" src={ portraitImgSizes[ portraitImgSizeIndex ].url } alt={ __( 'Change / upload portrait image', 'bsx-blocks' ) } />
-                                    </Button>
-                                ) }
-                            />
+                        !! zoomable ? (
+                            <div class="bsxui-config-panel-row">
+                                <div class="bsxui-alert">
+                                    Portrait image is deactivated since zoomable image is set. 
+                                </div>
+                            </div>
                         )
-                        : 
+                        :
                         (
                             <>
                                 {
-                                    !! zoomable && (
+                                    portraitImgId && typeof portraitImgSizes[ portraitImgSizeIndex ] != 'undefined' && typeof portraitImgSizes[ portraitImgSizeIndex ].url != 'undefined' ? (
+                                        <MediaUpload
+                                            onSelect={ onSelectPortraitImage }
+                                            allowedTypes="image"
+                                            value={ portraitImgId }
+                                            render={ ( { open } ) => (
+                                                <Button
+                                                    className="bsxui-config-panel-img-button has-margin-bottom"
+                                                    onClick={ open }
+                                                >
+                                                    <img class="bsxui-config-panel-img" src={ portraitImgSizes[ portraitImgSizeIndex ].url } alt={ __( 'Change / upload portrait image', 'bsx-blocks' ) } />
+                                                </Button>
+                                            ) }
+                                        />
+                                    )
+                                    : 
+                                    (
                                         <div class="bsxui-config-panel-row">
-                                            <div class="bsxui-alert">
-                                                Portrait image is deactivated since zoomable image is set. 
-                                            </div>
+                                            <div class="bsxui-config-panel-text">{ __( '– No portrait image selected yet –', 'bsx-blocks' ) }</div>
                                         </div>
                                     )
                                 }
                                 <div class="bsxui-config-panel-row">
-                                    <div class="bsxui-config-panel-text">{ __( '– No portrait image selected yet –', 'bsx-blocks' ) }</div>
+                                    <MediaUpload
+                                        onSelect={ onSelectPortraitImage }
+                                        allowedTypes="image"
+                                        value={ portraitImgId }
+                                        render={ ( { open } ) => (
+                                            <Button 
+                                                onClick={ open }
+                                                isSecondary
+                                            >
+                                                { __( 'Change / upload portrait image', 'bsx-blocks' ) }
+                                            </Button>
+                                        ) }
+                                    />
                                 </div>
+                                {
+                                    portraitImgId && typeof portraitImgSizes[ portraitImgSizeIndex ] != 'undefined' && typeof portraitImgSizes[ portraitImgSizeIndex ].url != 'undefined' && (
+                                        <div class="bsxui-config-panel-row">
+                                            <Button 
+                                                onClick={ onDeletePortraitImage }
+                                                isDestructive={ true }
+                                            >
+                                                { __( 'Remove portrait image', 'bsx-blocks' ) }
+                                            </Button>
+                                        </div>
+                                    )
+                                }
+                                <RadioControl
+                                    label={ __( 'Image size and format', 'bsx-blocks' ) }
+                                    selected={ portraitImgSizeIndex.toString() }
+                                    options={ portraitImgSizeRadioControlOptions }
+                                    onChange={ onChangePortraitImgSizeIndex }
+                                />
+                                {
+                                    typeof portraitImgSizes[ portraitImgSizeIndex ] != 'undefined' && typeof portraitImgSizes[ portraitImgSizeIndex ].url != 'undefined' && (
+                                        <div class="bsxui-config-panel-text">
+                                            <a class="bsxui-link" href={ portraitImgSizes[ portraitImgSizeIndex ].url } target="_blank">{ __( 'Preview selected portrait image', 'bsx-blocks' ) }</a>
+                                        </div>
+                                    )
+                                }
                             </>
-                        )
-                    }
-                    <div class="bsxui-config-panel-row">
-                        <MediaUpload
-                            onSelect={ onSelectPortraitImage }
-                            allowedTypes="image"
-                            value={ portraitImgId }
-                            render={ ( { open } ) => (
-                                <Button 
-                                    disabled={ !! zoomable }
-                                    onClick={ open }
-                                    isSecondary
-                                >
-                                    { __( 'Change / upload portrait image', 'bsx-blocks' ) }
-                                </Button>
-                            ) }
-                        />
-                    </div>
-                    {
-                        portraitImgId && typeof portraitImgSizes[ portraitImgSizeIndex ] != 'undefined' && typeof portraitImgSizes[ portraitImgSizeIndex ].url != 'undefined' && (
-                            <div class="bsxui-config-panel-row">
-                                <Button 
-                                    onClick={ onDeletePortraitImage }
-                                    isDestructive={ true }
-                                >
-                                    { __( 'Remove portrait image', 'bsx-blocks' ) }
-                                </Button>
-                            </div>
-                        )
-                    }
-                    <RadioControl
-                        label={ __( 'Image size and format', 'bsx-blocks' ) }
-                        selected={ portraitImgSizeIndex.toString() }
-                        options={ portraitImgSizeRadioControlOptions }
-                        onChange={ onChangePortraitImgSizeIndex }
-                    />
-                    {
-                        typeof portraitImgSizes[ portraitImgSizeIndex ] != 'undefined' && typeof portraitImgSizes[ portraitImgSizeIndex ].url != 'undefined' && (
-                            <div class="bsxui-config-panel-text">
-                                <a class="bsxui-link" href={ portraitImgSizes[ portraitImgSizeIndex ].url } target="_blank">{ __( 'Preview selected portrait image', 'bsx-blocks' ) }</a>
-                            </div>
                         )
                     }
                 </PanelBody>
 
                 <PanelBody title={ __( 'Zoomable (optional)', 'bsx-blocks' ) }>
                     {
-                        portraitImgSizes.length > 0 && (
+                        portraitImgSizes.length > 0 || !! href ? (
                             <div class="bsxui-config-panel-row">
                                 <div class="bsxui-alert">
-                                    Zoomable image is deactivated since portrait image is set. 
+                                    { 
+                                        !! href ? 
+                                            __( 'Zoomable image is deactivated since href is set.', 'bsx-blocks' ) 
+                                        :
+                                            __( 'Zoomable image is deactivated since portrait link is set.', 'bsx-blocks' ) 
+                                    }
                                 </div>
                             </div>
                         )
-                    }
-                    <ToggleControl
-                        className={ portraitImgSizes.length > 0 ? 'bsxui-disabled' : '' }
-                        label={ __( 'Zoomable image', 'bsx-blocks' ) }
-                        checked={ !! zoomable }
-                        onChange={ onChangeZoomable }
-                        help={ __( 'If enabled click on image will open shadowbox with large image.', 'bsx-blocks' ) }
-                    />
-                    {
-                        zoomable && (
+                        :
+                        (
                             <>
-                                <RadioControl
-                                    label={ __( 'Zoom image size', 'bsx-blocks' ) }
-                                    selected={ zoomImgSizeIndex }
-                                    options={ zoomImgSizeRadioControlOptions }
-                                    onChange={ onChangeZoomImgSizeIndex }
+                                <ToggleControl
+                                    className={ portraitImgSizes.length > 0 ? 'bsxui-disabled' : '' }
+                                    label={ __( 'Zoomable image', 'bsx-blocks' ) }
+                                    checked={ !! zoomable }
+                                    onChange={ onChangeZoomable }
+                                    help={ __( 'If enabled click on image will open shadowbox with large image.', 'bsx-blocks' ) }
                                 />
                                 {
-                                    imgSizeIndex == zoomImgSizeIndex && (
-                                        <div class="bsxui-config-panel-text">
-                                            { __( 'Currently your zoom image is not larger than your original image.', 'bsx-blocks' ) }
-                                        </div>
+                                    zoomable && (
+                                        <>
+                                            <RadioControl
+                                                label={ __( 'Zoom image size', 'bsx-blocks' ) }
+                                                selected={ zoomImgSizeIndex }
+                                                options={ zoomImgSizeRadioControlOptions }
+                                                onChange={ onChangeZoomImgSizeIndex }
+                                            />
+                                            {
+                                                imgSizeIndex == zoomImgSizeIndex && (
+                                                    <div class="bsxui-config-panel-text">
+                                                        { __( 'Currently your zoom image is not larger than your original image.', 'bsx-blocks' ) }
+                                                    </div>
+                                                )
+                                            }
+                                        </>
                                     )
                                 }
                             </>
@@ -762,16 +814,30 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
                 <PanelBody title={ __( 'Link (optional)', 'bsx-blocks' ) }>
                     {
-                        linkUrlInput( href, onChangeHref )
-                    }
-                    {
-                        targetToggle( target, onChangeTarget )
-                    }
-                    {
-                        relInput( rel, onChangeRel )
-                    }
-                    {
-                        // dataFnInput( dataFn, onChangeDataFn )
+                        !! zoomable ? (
+                            <div class="bsxui-config-panel-row">
+                                <div class="bsxui-alert">
+                                    Link is deactivated since zoomable image is set. 
+                                </div>
+                            </div>
+                        )
+                        :
+                        (
+                            <>
+                                {
+                                    linkUrlInput( href, onChangeHref )
+                                }
+                                {
+                                    targetToggle( target, onChangeTarget )
+                                }
+                                {
+                                    relInput( rel, onChangeRel )
+                                }
+                                {
+                                    // dataFnInput( dataFn, onChangeDataFn )
+                                }
+                            </>
+                        )
                     }
                 </PanelBody>
 
@@ -801,6 +867,15 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                     onChange={ onChangeDisableResponsiveDownsizing }
                     help={ __( 'Enable if you don’t want smaller responsive image sizes, since small devices display image in large dimensions.', 'bsx-blocks' ) }
                 />
+                {
+                    !! href && (
+                        <TextControl 
+                            label={ __( 'A element additional class(es)', 'bsx-blocks' ) }
+                            value={ aAdditionalClassName } 
+                            onChange={ onChangeAAdditionalClassName }
+                        />
+                    )
+                }
                 <TextControl 
                     label={ __( 'Picture element additional class(es)', 'bsx-blocks' ) }
                     value={ pictureAdditionalClassName } 
@@ -900,11 +975,15 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 disableResponsiveDownsizing,
                 textAlign,
                 marginAfter,
+                aAdditionalClassName,
                 pictureAdditionalClassName,
                 imgAdditionalClassName,
                 href,
                 target,
                 rel,
+                scale,
+                displayedWidth,
+                displayedHeight,
             },
         } = props;
 
@@ -928,29 +1007,17 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             marginAfter,
         } );
 
+        const aClassName = isZoomable ? 'zoomable-img' : ( !! href && !! aAdditionalClassName ? aAdditionalClassName : '' );
+
         const imgClassName = addClassNames( {
             rounded,
             imgThumbnail,
             borderState,
         }, 'img-fluid' + ( imgAdditionalClassName ? ' ' + imgAdditionalClassName : '' ) );
 
-        // allow zoomable img
-
-/*
-<div class="float-md-right grid-float-md-6" data-fn="photoswipe">
-    <figure>
-        <a class="d-inline-block zoomable-img" href="example-img-006-1440x720.jpg" data-size="1440x720">
-            <script>document.write('<img class="img-fluid" src="" width="760" height="380" data-fn="lazyload" data-src="example-img-006-1440x720-thumb.jpg" alt="Image 6">');</script>
-            <noscript><img class="img-fluid" src="example-img-006-1440x720-thumb.jpg" alt="Image 6"></noscript>
-        </a>
-        <figcaption>
-            Donec pede justo, fringilla vel
-        </figcaption>
-    </figure>
-</div>
-*/
         // attributes
 
+        // allow zoomable img
         const saveAttributes = ! zoomable ? 
             {}
             : 
@@ -959,15 +1026,25 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             } )
         ;
 
-        // TODO: manage zoomImgSizeIndex
+        const isZoomable = zoomable && typeof imgSizes[ zoomImgSizeIndex ] != 'undefined';
 
-        const aSaveAttributes = zoomable && typeof imgSizes[ zoomImgSizeIndex ] != 'undefined' ? 
+        // manage zoomImgSizeIndex & href, target, rel
+        const aSaveAttributes = isZoomable ? 
             makeSaveAttributes( {
                 'href': imgSizes[ zoomImgSizeIndex ].url,
                 'data-size': imgSizes[ zoomImgSizeIndex ].width + 'x' + imgSizes[ zoomImgSizeIndex ].height,
             } )
             : 
-            {}
+            (
+                !! href ? 
+                {
+                    'href': href,
+                    'target': target,
+                    rel: href ? ( rel ? rel + ' noopener noreferrer' : 'noopener noreferrer' ) : '',
+                } 
+                : 
+                {}
+            )
         ;
 
         const image = (
@@ -979,10 +1056,10 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                                 <source { ...sourceAttributes } />
                             ) )
                         }
-                        <img className={ imgClassName } src={ makeBase64PreloadImgSrc( width, height ) } alt={ alt } data-src={ url } width={ width } height={ height } data-fn="lazyload" />
+                        <img className={ imgClassName } src={ makeBase64PreloadImgSrc( width, height ) } alt={ alt } data-src={ url } width={ !! displayedWidth ? displayedWidth : width } height={ !! displayedHeight ? displayedHeight : height } data-fn="lazyload" />
                     </picture>
                 ' );</script>
-                <noscript><img className={ imgClassName } src={ url } alt={ alt } width={ width } height={ height } /></noscript>
+                <noscript><img className={ imgClassName } src={ url } alt={ alt } width={ !! displayedWidth ? displayedWidth : width } height={ !! displayedHeight ? displayedHeight : height } /></noscript>
             </>
         );
 
@@ -993,8 +1070,8 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                     url && (
                         <>
                             { 
-                                zoomable ? (
-                                    <a className={ 'zoomable-img' } { ...aSaveAttributes }>
+                                zoomable || href ? (
+                                    <a className={ aClassName } { ...aSaveAttributes }>
                                         { image }
                                     </a>
                                 )
