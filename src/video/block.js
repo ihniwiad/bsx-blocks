@@ -30,6 +30,7 @@ import {
     // targetToggle,
     // relInput,
     // dataFnInput,
+    scaleSelect,
 } from './../_functions/controls.js';
 
 import { svgIcon } from './../_functions/wp-icons.js';
@@ -444,18 +445,9 @@ registerBlockType( 'bsx-blocks/video', {
                         value={ displayedHeight + '' } 
                         onChange={ onChangeDisplayedHeight }
                     />
-
-                    <RadioControl
-                        label={ __( 'Scale', 'bsx-blocks' ) }
-                        selected={ scale + '' }
-                        options={ [
-                            { value: '1', label: __( '100%', 'bsx-blocks' ) },
-                            { value: '0.75', label: __( '75%', 'bsx-blocks' ) },
-                            { value: '0.5', label: __( '50%', 'bsx-blocks' ) },
-                            { value: '0.25', label: __( '25%', 'bsx-blocks' ) },
-                        ] }
-                        onChange={ onChangeScale }
-                    />
+                    {
+                        scaleSelect( scale, onChangeScale )
+                    }
                 </PanelBody>
 
                 <PanelBody title={ __( 'Margin (optional)', 'bsx-blocks' ) }>

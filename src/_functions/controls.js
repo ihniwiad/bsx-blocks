@@ -11,6 +11,7 @@ const {
     PanelBody,
     ToggleControl,
     SelectControl,
+    RadioControl,
     SVG, 
     Path,
     Button,
@@ -577,7 +578,8 @@ export const textShadowSelect = ( value, onChangeFunction, allowedValues ) => {
         { value: 'darkest', label: __( 'Darkest', 'bsx-blocks' ) },
     ];
     return (
-        <SelectControl label={ __( 'Text shadow', 'bsx-blocks' ) }
+        <SelectControl 
+            label={ __( 'Text shadow', 'bsx-blocks' ) }
             value={ value }
             onChange={ onChangeFunction }
             options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
@@ -593,7 +595,8 @@ export const fontWeightSelect = ( value, onChangeFunction, allowedValues ) => {
         { value: 'bold', label: __( 'Bold', 'bsx-blocks' ) },
     ];
     return (
-        <SelectControl label={ __( 'Font weight', 'bsx-blocks' ) }
+        <SelectControl 
+            label={ __( 'Font weight', 'bsx-blocks' ) }
             value={ value }
             onChange={ onChangeFunction }
             options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
@@ -608,7 +611,8 @@ export const borderSelect = ( value, onChangeFunction, allowedValues ) => {
         { value: 'bottom', label: __( 'Bottom', 'bsx-blocks' ) },
     ];
     return (
-        <SelectControl label={ __( 'Border', 'bsx-blocks' ) }
+        <SelectControl 
+            label={ __( 'Border', 'bsx-blocks' ) }
             value={ value }
             onChange={ onChangeFunction }
             options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
@@ -619,13 +623,38 @@ export const borderSelect = ( value, onChangeFunction, allowedValues ) => {
 export const borderStateSelect = ( value, onChangeFunction, allowedValues ) => {
     const defaultValues = states;
     return (
-        <SelectControl label={ __( 'Border color', 'bsx-blocks' ) }
+        <SelectControl 
+            label={ __( 'Border color', 'bsx-blocks' ) }
             value={ value }
             onChange={ onChangeFunction }
             options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
         />
     )
 }
+
+
+
+
+// radio
+
+export const scaleSelect = ( value, onChangeFunction, allowedValues ) => {
+    const defaultValues = [
+        { value: '1', label: __( '100%', 'bsx-blocks' ) },
+        { value: '0.75', label: __( '75%', 'bsx-blocks' ) },
+        { value: '0.5', label: __( '50%', 'bsx-blocks' ) },
+        { value: '0.25', label: __( '25%', 'bsx-blocks' ) },
+    ];
+    return (
+        <RadioControl
+            label={ __( 'Scale', 'bsx-blocks' ) }
+            selected={ value + '' }
+            options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
+            onChange={ onChangeFunction }
+        />
+    )
+}
+
+
 
 
 // toolbar
