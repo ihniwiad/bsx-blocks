@@ -21,6 +21,7 @@ const {
 
 import { svgIcon } from './../_functions/wp-icons.js';
 import { addClassNames } from './../_functions/add-class-names.js';
+import { makeSaveAttributes } from './../_functions/attributes.js';
 import { 
     belowNavbarToggle,
     touchFooterToggle,
@@ -42,6 +43,13 @@ import {
     borderSelect,
     borderStateSelect,
     displaySelect,
+    dataFnInput,
+    dataTgInput,
+    dataFnOptionsInput,
+    dataFnTargetInput,
+    // linkUrlInput,
+    // targetToggle,
+    // relInput,
 } from './../_functions/controls.js';
 
 
@@ -59,9 +67,23 @@ registerBlockType( 'bsx-blocks/wrapper', {
         },
         dataFn: {
             type: 'string',
+            // source: "attribute",
+            // attribute: "data-fn",
+        },
+        dataFnOptions: {
+            type: 'string',
+            // source: "attribute",
+            // attribute: "data-fn-options",
+        },
+        dataFnTarget: {
+            type: 'string',
+            // source: "attribute",
+            // attribute: "data-fn-target",
         },
         dataTg: {
             type: 'string',
+            // source: "attribute",
+            // attribute: "data-tg",
         },
         belowNavbar: {
             type: 'boolean',
@@ -137,6 +159,19 @@ registerBlockType( 'bsx-blocks/wrapper', {
         display: {
             type: 'string',
         },
+        // href: {
+        //     type: 'string',
+        //     source: "attribute",
+        //     attribute: "href",
+        // },
+        // target: {
+        //     type: 'string',
+        //     source: "attribute",
+        //     attribute: "target",
+        // },
+        // rel: {
+        //     type: 'string',
+        // },
     },
 
     getEditWrapperProps( attributes ) {
@@ -160,6 +195,8 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 nodeName,
                 id,
                 dataFn,
+                dataFnOptions,
+                dataFnTarget,
                 dataTg,
                 belowNavbar,
                 bgColor,
@@ -183,6 +220,9 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 paddingRight,
                 touchFooter,
                 display,
+                // href,
+                // target,
+                // rel,
             },
             setAttributes,
         } = props;
@@ -262,6 +302,18 @@ registerBlockType( 'bsx-blocks/wrapper', {
         };
         const onChangeDisplay = ( value ) => {
             setAttributes( { display: value } );
+        };
+        const onChangeDataFn = ( value ) => {
+            setAttributes( { dataFn: value } );
+        };
+        const onChangeDataFnOptions = ( value ) => {
+            setAttributes( { dataFnOptions: value } );
+        };
+        const onChangeDataFnTarget = ( value ) => {
+            setAttributes( { dataFnTarget: value } );
+        };
+        const onChangeDataTg = ( value ) => {
+            setAttributes( { dataTg: value } );
         };
 
         const alignmentControls = [
@@ -443,6 +495,18 @@ registerBlockType( 'bsx-blocks/wrapper', {
                     {
                         touchFooterToggle( touchFooter, onChangeTouchFooter )
                     }
+                    {
+                        dataFnInput( dataFn, onChangeDataFn )
+                    }
+                    {
+                        dataFnOptionsInput( dataFnOptions, onChangeDataFnOptions )
+                    }
+                    {
+                        dataFnTargetInput( dataFnTarget, onChangeDataFnTarget )
+                    }
+                    {
+                        dataTgInput( dataTg, onChangeDataTg )
+                    }
                 </InspectorAdvancedControls>
             </Fragment>,
             (
@@ -459,6 +523,8 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 nodeName,
                 id,
                 dataFn,
+                dataFnOptions,
+                dataFnTarget,
                 dataTg,
                 belowNavbar,
                 bgColor,
@@ -482,6 +548,9 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 paddingRight,
                 touchFooter,
                 display,
+                // href,
+                // target,
+                // rel,
             },
             setAttributes,
         } = props;
@@ -511,10 +580,20 @@ registerBlockType( 'bsx-blocks/wrapper', {
             display,
         } );
 
+        const saveAttributes = makeSaveAttributes( {
+            // href: href, 
+            // target: ref ? target : '', 
+            // rel: href ? ( rel ? rel + ' noopener noreferrer' : 'noopener noreferrer' ) : '',
+            'data-fn': dataFn,
+            'data-fn-options': dataFnOptions,
+            'data-fn-target': dataFnTarget,
+            'data-tg': dataTg,
+        } );
+
         const TagName = nodeName;
 
         return (
-            <TagName className={ wrapperClassName }>
+            <TagName className={ wrapperClassName }{ ...saveAttributes }>
                 <InnerBlocks.Content />
             </TagName>
         );
