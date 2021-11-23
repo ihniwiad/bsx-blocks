@@ -263,6 +263,36 @@ export const dataFnInput = ( value, onChangeFunction ) => {
     )
 }
 
+export const dataFnOptionsInput = ( value, onChangeFunction ) => {
+    return (
+        <TextControl 
+            label={ __( 'data-fn-options (optional)', 'bsx-blocks' ) }
+            value={ value } 
+            onChange={ onChangeFunction }
+        />
+    )
+}
+
+export const dataFnTargetInput = ( value, onChangeFunction ) => {
+    return (
+        <TextControl 
+            label={ __( 'data-fn-target (optional)', 'bsx-blocks' ) }
+            value={ value } 
+            onChange={ onChangeFunction }
+        />
+    )
+}
+
+export const dataTgInput = ( value, onChangeFunction ) => {
+    return (
+        <TextControl 
+            label={ __( 'data-tg (optional)', 'bsx-blocks' ) }
+            value={ value } 
+            onChange={ onChangeFunction }
+        />
+    )
+}
+
 
 // selects
 
