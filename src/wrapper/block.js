@@ -47,6 +47,7 @@ import {
     dataTgInput,
     dataFnOptionsInput,
     dataFnTargetInput,
+    additionalAttributesInput,
     // linkUrlInput,
     // targetToggle,
     // relInput,
@@ -159,6 +160,9 @@ registerBlockType( 'bsx-blocks/wrapper', {
         display: {
             type: 'string',
         },
+        additionalAttributes: {
+            type: 'string',
+        },
         // href: {
         //     type: 'string',
         //     source: "attribute",
@@ -220,6 +224,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 paddingRight,
                 touchFooter,
                 display,
+                additionalAttributes,
                 // href,
                 // target,
                 // rel,
@@ -314,6 +319,10 @@ registerBlockType( 'bsx-blocks/wrapper', {
         };
         const onChangeDataTg = ( value ) => {
             setAttributes( { dataTg: value } );
+        };
+
+        const onChangeAdditionalAttributes = ( value ) => {
+            setAttributes( { additionalAttributes: value } );
         };
 
         const alignmentControls = [
@@ -507,6 +516,9 @@ registerBlockType( 'bsx-blocks/wrapper', {
                     {
                         dataTgInput( dataTg, onChangeDataTg )
                     }
+                    {
+                        additionalAttributesInput( additionalAttributes, onChangeAdditionalAttributes )
+                    }
                 </InspectorAdvancedControls>
             </Fragment>,
             (
@@ -548,6 +560,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 paddingRight,
                 touchFooter,
                 display,
+                additionalAttributes,
                 // href,
                 // target,
                 // rel,
@@ -588,7 +601,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
             'data-fn-options': dataFnOptions,
             'data-fn-target': dataFnTarget,
             'data-tg': dataTg,
-        } );
+        }, additionalAttributes );
 
         const TagName = nodeName;
 

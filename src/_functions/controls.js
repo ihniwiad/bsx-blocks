@@ -293,6 +293,18 @@ export const dataTgInput = ( value, onChangeFunction ) => {
     )
 }
 
+export const additionalAttributesInput = ( value, onChangeFunction ) => {
+    return (
+        <TextControl 
+            label={ __( 'Additional attributes (optional)', 'bsx-blocks' ) }
+            value={ value } 
+            onChange={ onChangeFunction }
+        />
+    )
+}
+
+
+
 
 // selects
 

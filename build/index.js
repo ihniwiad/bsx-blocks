@@ -656,9 +656,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/slicedToArray.js");
 /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__);
 
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 // attribute functions 
-// returns list of non empty attributes to add to html element
-function makeSaveAttributes(attributes) {
+// returns list of non empty attributes to add to html element, use value null for attributes without value
+function makeSaveAttributes(attributes, additionalAttributesString) {
   var nonEmptyAttributes = {};
 
   for (var _i = 0, _Object$entries = Object.entries(attributes); _i < _Object$entries.length; _i++) {
@@ -667,9 +674,64 @@ function makeSaveAttributes(attributes) {
         value = _Object$entries$_i[1];
 
     //console.log( 'key: "' + key + '", val: "' + value + '"' );
-    if (value) {
+    if (value === null) {
+      nonEmptyAttributes[key] = '';
+    } else if (value) {
       nonEmptyAttributes[key] = value;
     }
+  } // add additional attributes (need to be parsed from string to object, can have value or only attribute)
+
+
+  if (!!additionalAttributesString) {
+    // console.log( 'additionalAttributesString: ' + additionalAttributesString );
+    var currentAttr = '';
+    var currentVal = '';
+    var collectingVal = false;
+
+    var _iterator = _createForOfIteratorHelper(additionalAttributesString),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var char = _step.value;
+
+        // console.log( char );
+        if (!collectingVal && char == ' ' || char == '=' || char == '"') {
+          // switch form attr to val or to next attr or skip
+          if (char == ' ' && currentVal === '' && currentAttr != '') {
+            // switch to next attr
+            // console.log( 'save attr: ' + currentAttr );
+            nonEmptyAttributes[currentAttr] = '';
+            currentAttr = '';
+          } else if (char == '=' && !collectingVal) {
+            // switch to collect val chars
+            collectingVal = true;
+          } else if (char == '"' && collectingVal && currentVal != '') {
+            // switch to collect attr chars
+            // console.log( 'save attr / val: ' + currentAttr + ' / ' + currentVal );
+            nonEmptyAttributes[currentAttr] = currentVal;
+            currentAttr = '';
+            currentVal = '';
+            collectingVal = false;
+          }
+        } else {
+          if (!collectingVal) {
+            // collect attr chars
+            currentAttr += char;
+          } else {
+            // collect val chars
+            currentVal += char;
+          }
+        }
+      } // console.log( 'save last attr: ' + currentAttr + ' / ' + currentVal );
+
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    nonEmptyAttributes[currentAttr] = currentVal;
   }
 
   return nonEmptyAttributes;
@@ -681,7 +743,7 @@ function makeSaveAttributes(attributes) {
 /*!************************************!*\
   !*** ./src/_functions/controls.js ***!
   \************************************/
-/*! exports provided: ignoreMailtoSpamProtectionToggle, targetToggle, disabledToggle, belowNavbarToggle, touchFooterToggle, inverseTextColorToggle, headingInheritTextColorToggle, headingInheritFontWeightToggle, roundedToggle, linkUrlInput, bgAttachmentFixedLimitedToggle, relInput, dataFnInput, dataFnOptionsInput, dataFnTargetInput, dataTgInput, stateSelect, buttonStateSelect, bgColorSelect, stateTypeSelect, sizeSelect, marginLeftSelect, marginRightSelect, marginBeforeSelect, marginAfterSelect, displaySelect, alignItemsSelect, paddingBeforeSelect, paddingAfterSelect, paddingLeftSelect, paddingRightSelect, nodeNameSelect, bgPositionSelect, bgSizeSelect, bannerTypeSelect, bannerSizeSelect, bgAttachmentSelect, textShadowSelect, fontWeightSelect, borderSelect, borderStateSelect, scaleSelect, textAlignToolbar, imgUploadClickableImg, imgUploadButton, inlineTemplateSelect, uiTemplateSelect */
+/*! exports provided: ignoreMailtoSpamProtectionToggle, targetToggle, disabledToggle, belowNavbarToggle, touchFooterToggle, inverseTextColorToggle, headingInheritTextColorToggle, headingInheritFontWeightToggle, roundedToggle, linkUrlInput, bgAttachmentFixedLimitedToggle, relInput, dataFnInput, dataFnOptionsInput, dataFnTargetInput, dataTgInput, additionalAttributesInput, stateSelect, buttonStateSelect, bgColorSelect, stateTypeSelect, sizeSelect, marginLeftSelect, marginRightSelect, marginBeforeSelect, marginAfterSelect, displaySelect, alignItemsSelect, paddingBeforeSelect, paddingAfterSelect, paddingLeftSelect, paddingRightSelect, nodeNameSelect, bgPositionSelect, bgSizeSelect, bannerTypeSelect, bannerSizeSelect, bgAttachmentSelect, textShadowSelect, fontWeightSelect, borderSelect, borderStateSelect, scaleSelect, textAlignToolbar, imgUploadClickableImg, imgUploadButton, inlineTemplateSelect, uiTemplateSelect */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -702,6 +764,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dataFnOptionsInput", function() { return dataFnOptionsInput; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dataFnTargetInput", function() { return dataFnTargetInput; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dataTgInput", function() { return dataTgInput; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "additionalAttributesInput", function() { return additionalAttributesInput; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "stateSelect", function() { return stateSelect; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "buttonStateSelect", function() { return buttonStateSelect; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "bgColorSelect", function() { return bgColorSelect; });
@@ -1072,6 +1135,13 @@ var dataFnTargetInput = function dataFnTargetInput(value, onChangeFunction) {
 var dataTgInput = function dataTgInput(value, onChangeFunction) {
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
     label: __('data-tg (optional)', 'bsx-blocks'),
+    value: value,
+    onChange: onChangeFunction
+  });
+};
+var additionalAttributesInput = function additionalAttributesInput(value, onChangeFunction) {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
+    label: __('Additional attributes (optional)', 'bsx-blocks'),
     value: value,
     onChange: onChangeFunction
   });
@@ -11822,6 +11892,9 @@ registerBlockType('bsx-blocks/wrapper', {
     },
     display: {
       type: 'string'
+    },
+    additionalAttributes: {
+      type: 'string'
     } // href: {
     //     type: 'string',
     //     source: "attribute",
@@ -11878,6 +11951,7 @@ registerBlockType('bsx-blocks/wrapper', {
         paddingRight = _props$attributes.paddingRight,
         touchFooter = _props$attributes.touchFooter,
         display = _props$attributes.display,
+        additionalAttributes = _props$attributes.additionalAttributes,
         setAttributes = props.setAttributes;
 
     var onChangeNodeName = function onChangeNodeName(value) {
@@ -12042,6 +12116,12 @@ registerBlockType('bsx-blocks/wrapper', {
       });
     };
 
+    var onChangeAdditionalAttributes = function onChangeAdditionalAttributes(value) {
+      setAttributes({
+        additionalAttributes: value
+      });
+    };
+
     var alignmentControls = [{
       icon: 'editor-alignleft',
       title: __('Align left', 'bsx-blocks'),
@@ -12200,7 +12280,7 @@ registerBlockType('bsx-blocks/wrapper', {
         value: '100',
         label: __('100 %', 'bsx-blocks')
       }]
-    }), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_5__["belowNavbarToggle"])(belowNavbar, onChangeBelowNavbar), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_5__["touchFooterToggle"])(touchFooter, onChangeTouchFooter), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_5__["dataFnInput"])(dataFn, onChangeDataFn), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_5__["dataFnOptionsInput"])(dataFnOptions, onChangeDataFnOptions), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_5__["dataFnTargetInput"])(dataFnTarget, onChangeDataFnTarget), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_5__["dataTgInput"])(dataTg, onChangeDataTg))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(TagName, {
+    }), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_5__["belowNavbarToggle"])(belowNavbar, onChangeBelowNavbar), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_5__["touchFooterToggle"])(touchFooter, onChangeTouchFooter), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_5__["dataFnInput"])(dataFn, onChangeDataFn), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_5__["dataFnOptionsInput"])(dataFnOptions, onChangeDataFnOptions), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_5__["dataFnTargetInput"])(dataFnTarget, onChangeDataFnTarget), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_5__["dataTgInput"])(dataTg, onChangeDataTg), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_5__["additionalAttributesInput"])(additionalAttributes, onChangeAdditionalAttributes))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(TagName, {
       className: wrapperClassName
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerBlocks, null))];
   },
@@ -12235,6 +12315,7 @@ registerBlockType('bsx-blocks/wrapper', {
         paddingRight = _props$attributes2.paddingRight,
         touchFooter = _props$attributes2.touchFooter,
         display = _props$attributes2.display,
+        additionalAttributes = _props$attributes2.additionalAttributes,
         setAttributes = props.setAttributes;
     var wrapperClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_3__["addClassNames"])({
       belowNavbar: belowNavbar,
@@ -12268,7 +12349,7 @@ registerBlockType('bsx-blocks/wrapper', {
       'data-fn-options': dataFnOptions,
       'data-fn-target': dataFnTarget,
       'data-tg': dataTg
-    });
+    }, additionalAttributes);
     var TagName = nodeName;
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(TagName, _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
       className: wrapperClassName

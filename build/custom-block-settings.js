@@ -292,7 +292,7 @@ function addClassNames(attributes, classNamesString) {
 /*!************************************!*\
   !*** ./src/_functions/controls.js ***!
   \************************************/
-/*! exports provided: ignoreMailtoSpamProtectionToggle, targetToggle, disabledToggle, belowNavbarToggle, touchFooterToggle, inverseTextColorToggle, headingInheritTextColorToggle, headingInheritFontWeightToggle, roundedToggle, linkUrlInput, bgAttachmentFixedLimitedToggle, relInput, dataFnInput, dataFnOptionsInput, dataFnTargetInput, dataTgInput, stateSelect, buttonStateSelect, bgColorSelect, stateTypeSelect, sizeSelect, marginLeftSelect, marginRightSelect, marginBeforeSelect, marginAfterSelect, displaySelect, alignItemsSelect, paddingBeforeSelect, paddingAfterSelect, paddingLeftSelect, paddingRightSelect, nodeNameSelect, bgPositionSelect, bgSizeSelect, bannerTypeSelect, bannerSizeSelect, bgAttachmentSelect, textShadowSelect, fontWeightSelect, borderSelect, borderStateSelect, scaleSelect, textAlignToolbar, imgUploadClickableImg, imgUploadButton, inlineTemplateSelect, uiTemplateSelect */
+/*! exports provided: ignoreMailtoSpamProtectionToggle, targetToggle, disabledToggle, belowNavbarToggle, touchFooterToggle, inverseTextColorToggle, headingInheritTextColorToggle, headingInheritFontWeightToggle, roundedToggle, linkUrlInput, bgAttachmentFixedLimitedToggle, relInput, dataFnInput, dataFnOptionsInput, dataFnTargetInput, dataTgInput, additionalAttributesInput, stateSelect, buttonStateSelect, bgColorSelect, stateTypeSelect, sizeSelect, marginLeftSelect, marginRightSelect, marginBeforeSelect, marginAfterSelect, displaySelect, alignItemsSelect, paddingBeforeSelect, paddingAfterSelect, paddingLeftSelect, paddingRightSelect, nodeNameSelect, bgPositionSelect, bgSizeSelect, bannerTypeSelect, bannerSizeSelect, bgAttachmentSelect, textShadowSelect, fontWeightSelect, borderSelect, borderStateSelect, scaleSelect, textAlignToolbar, imgUploadClickableImg, imgUploadButton, inlineTemplateSelect, uiTemplateSelect */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -313,6 +313,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dataFnOptionsInput", function() { return dataFnOptionsInput; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dataFnTargetInput", function() { return dataFnTargetInput; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dataTgInput", function() { return dataTgInput; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "additionalAttributesInput", function() { return additionalAttributesInput; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "stateSelect", function() { return stateSelect; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "buttonStateSelect", function() { return buttonStateSelect; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "bgColorSelect", function() { return bgColorSelect; });
@@ -683,6 +684,13 @@ var dataFnTargetInput = function dataFnTargetInput(value, onChangeFunction) {
 var dataTgInput = function dataTgInput(value, onChangeFunction) {
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
     label: __('data-tg (optional)', 'bsx-blocks'),
+    value: value,
+    onChange: onChangeFunction
+  });
+};
+var additionalAttributesInput = function additionalAttributesInput(value, onChangeFunction) {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(TextControl, {
+    label: __('Additional attributes (optional)', 'bsx-blocks'),
     value: value,
     onChange: onChangeFunction
   });
