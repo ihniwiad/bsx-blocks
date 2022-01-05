@@ -75,6 +75,9 @@ registerBlockType( 'bsx-blocks/icon', {
             type: 'string',
             default: 'heart',
         },
+        iconFamily: {
+            type: 'string',
+        },
         href: {
             type: 'string',
         },
@@ -117,6 +120,7 @@ registerBlockType( 'bsx-blocks/icon', {
             className,
             attributes: {
                 iconKey,
+                iconFamily,
                 href,
                 target,
                 rel,
@@ -135,6 +139,9 @@ registerBlockType( 'bsx-blocks/icon', {
 
         const onChangeIconKey = ( value ) => {
             setAttributes( { iconKey: value } );
+        };
+        const onChangeIconFamily = ( value ) => {
+            setAttributes( { iconFamily: value } );
         };
         const onChangeHref = ( value ) => {
             setAttributes( { href: value } );
@@ -193,12 +200,14 @@ registerBlockType( 'bsx-blocks/icon', {
             // rel: href ? ( rel ? rel + ' noopener noreferrer' : 'noopener noreferrer' ) : '',
         } );
 
+        const familyClassName = ( !! iconFamily ) ? 'fa' + iconFamily : 'fa';
+
         const mergedIconClassName = iconType == 'circle'
             ? 'fa-stack ' + iconClassNames
-            : 'fa fa-' + iconKey + ' ' + iconClassNames
+            : familyClassName + ' fa-' + iconKey + ' ' + iconClassNames
         ;
         const iconInnerClassName = iconType == 'circle'
-            ? 'fa fa-' + iconKey + ' fa-stack-1x fa-inverse'
+            ? familyClassName + ' fa-' + iconKey + ' fa-stack-1x fa-inverse'
             : ''
         ; 
         const TagName = !! href
@@ -213,6 +222,15 @@ registerBlockType( 'bsx-blocks/icon', {
                         label={ __( 'Icon key', 'bsx-blocks' ) }
                         value={ iconKey } 
                         onChange={ onChangeIconKey }
+                    />
+                    <SelectControl label={ __( 'Icon family', 'bsx-blocks' ) }
+                        value={ iconFamily }
+                        onChange={ onChangeIconFamily }
+                        options={ [
+                            { value: '', label: __( '– Default –', 'bsx-blocks' ) },
+                            { value: 's', label: __( 'Solid', 'bsx-blocks' ) },
+                            { value: 'b', label: __( 'Brand', 'bsx-blocks' ) },
+                        ] }
                     />
                     {
                         stateSelect( state, onChangeState )
@@ -294,6 +312,7 @@ registerBlockType( 'bsx-blocks/icon', {
             className,
             attributes: {
                 iconKey,
+                iconFamily,
                 href,
                 target,
                 rel,
@@ -327,12 +346,14 @@ registerBlockType( 'bsx-blocks/icon', {
             rel: href ? ( rel ? rel + ' noopener noreferrer' : 'noopener noreferrer' ) : '',
         } );
 
+        const familyClassName = ( !! iconFamily ) ? 'fa' + iconFamily : 'fa';
+
         const mergedIconClassName = iconType == 'circle'
             ? 'fa-stack ' + iconClassNames
-            : 'fa fa-' + iconKey + ' ' + iconClassNames
+            : familyClassName + ' fa-' + iconKey + ' ' + iconClassNames
         ;
         const iconInnerClassName = iconType == 'circle'
-            ? 'fa fa-' + iconKey + ' fa-stack-1x fa-inverse'
+            ? familyClassName + ' fa-' + iconKey + ' fa-stack-1x fa-inverse'
             : ''
         ; 
         const TagName = !! href
