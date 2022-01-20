@@ -43,6 +43,7 @@ import {
     borderSelect,
     borderStateSelect,
     displaySelect,
+    verticalAlignSelect,
     dataFnInput,
     dataTgInput,
     dataFnOptionsInput,
@@ -159,6 +160,9 @@ registerBlockType( 'bsx-blocks/wrapper', {
         display: {
             type: 'string',
         },
+        verticalAlign: {
+            type: 'string',
+        },
         // href: {
         //     type: 'string',
         //     source: "attribute",
@@ -179,12 +183,16 @@ registerBlockType( 'bsx-blocks/wrapper', {
             textAlign,
             marginBefore,
             marginAfter,
+            display,
+            verticalAlign,
         } = attributes;
 
         return {
             'data-text-align': textAlign,
             'data-margin-before': marginBefore,
             'data-margin-after': marginAfter,
+            'data-display': display,
+            'data-vertical-align': verticalAlign,
         };
     },
 
@@ -220,6 +228,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 paddingRight,
                 touchFooter,
                 display,
+                verticalAlign,
                 // href,
                 // target,
                 // rel,
@@ -303,6 +312,9 @@ registerBlockType( 'bsx-blocks/wrapper', {
         const onChangeDisplay = ( value ) => {
             setAttributes( { display: value } );
         };
+        const onChangeVerticalAlign = ( value ) => {
+            setAttributes( { verticalAlign: value } );
+        };
         const onChangeDataFn = ( value ) => {
             setAttributes( { dataFn: value } );
         };
@@ -357,6 +369,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
             paddingRight,
             touchFooter,
             display,
+            verticalAlign,
         } );
 
         const TagName = nodeName;
@@ -480,6 +493,9 @@ registerBlockType( 'bsx-blocks/wrapper', {
                     {
                         displaySelect( display, onChangeDisplay )
                     }
+                    {
+                        verticalAlignSelect( verticalAlign, onChangeVerticalAlign )
+                    }
                     <SelectControl 
                         label={ __( 'Width', 'bsx-blocks' ) }
                         value={ width }
@@ -548,6 +564,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 paddingRight,
                 touchFooter,
                 display,
+                verticalAlign,
                 // href,
                 // target,
                 // rel,
@@ -578,6 +595,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
             paddingRight,
             touchFooter,
             display,
+            verticalAlign,
         } );
 
         const saveAttributes = makeSaveAttributes( {

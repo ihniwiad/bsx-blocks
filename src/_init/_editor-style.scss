@@ -247,3 +247,17 @@ a.bsxui-link {
 	display: inline-block;
 	width: auto;
 }
+
+
+// display
+
+.wp-block[data-display="inline-block"] {
+  display: inline-block;
+}
+
+
+// vertical-align
+
+.wp-block[data-vertical-align="middle"] {
+  vertical-align: middle;
+}

@@ -423,6 +423,25 @@ export const displaySelect = ( value, onChangeFunction, allowedValues ) => {
     )
 }
 
+export const verticalAlignSelect = ( value, onChangeFunction, allowedValues ) => {
+    const defaultValues = [
+        { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+        { value: 'middle', label: __( 'Middle', 'bsx-blocks' ) },
+        { value: 'baseline', label: __( 'Baseline', 'bsx-blocks' ) },
+        { value: 'top', label: __( 'Top', 'bsx-blocks' ) },
+        { value: 'bottom', label: __( 'Bottom', 'bsx-blocks' ) },
+        { value: 'text-bottom', label: __( 'Text ottom', 'bsx-blocks' ) },
+        { value: 'text-top', label: __( 'Text top', 'bsx-blocks' ) },
+    ];
+    return (
+        <SelectControl label={ __( 'Vertical align', 'bsx-blocks' ) }
+            value={ value }
+            onChange={ onChangeFunction }
+            options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
+        />
+    )
+}
+
 export const alignItemsSelect = ( value, onChangeFunction, allowedValues ) => {
     const defaultValues = [
         { value: '', label: __( '– unset –', 'bsx-blocks' ) },

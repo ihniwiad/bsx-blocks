@@ -223,6 +223,12 @@ a.bsxui-link {
   display: inline-block;
   width: auto; }
 
+.wp-block[data-display="inline-block"] {
+  display: inline-block; }
+
+.wp-block[data-vertical-align="middle"] {
+  vertical-align: middle; }
+
 [data-type="bsx-blocks/banner"] > [class|="banner"].d-flex > .block-editor-inner-blocks {
   display: -webkit-box;
   display: -ms-flexbox;
