@@ -32,6 +32,7 @@ export function addClassNames( attributes, classNamesString ) {
         hoverMove,
         disabled,
         verticalAlign,
+        speechBubble,
     } = attributes;
 
     const classNames = ( typeof classNamesString != 'undefined' ) ? classNamesString.split( ' ' ) : [];
@@ -201,6 +202,14 @@ export function addClassNames( attributes, classNamesString ) {
     if ( !! verticalAlign ) {
         classNames.push( 'align-' + verticalAlign );
     }
+
+    if ( !! speechBubble ) {
+        classNames.push( 'speech-bubble' );
+        if ( speechBubble != 'md' ) {
+            classNames.push( 'speech-bubble-' + speechBubble );
+        }
+    }
+
 
     return classNames.join( ' ' );
 }

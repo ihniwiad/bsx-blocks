@@ -163,6 +163,9 @@ registerBlockType( 'bsx-blocks/wrapper', {
         verticalAlign: {
             type: 'string',
         },
+        speechBubble: {
+            type: 'string',
+        },
         // href: {
         //     type: 'string',
         //     source: "attribute",
@@ -229,6 +232,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 touchFooter,
                 display,
                 verticalAlign,
+                speechBubble,
                 // href,
                 // target,
                 // rel,
@@ -315,6 +319,9 @@ registerBlockType( 'bsx-blocks/wrapper', {
         const onChangeVerticalAlign = ( value ) => {
             setAttributes( { verticalAlign: value } );
         };
+        const onChangeSpeechBubble = ( value ) => {
+            setAttributes( { speechBubble: value } );
+        };
         const onChangeDataFn = ( value ) => {
             setAttributes( { dataFn: value } );
         };
@@ -370,6 +377,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
             touchFooter,
             display,
             verticalAlign,
+            speechBubble,
         } );
 
         const TagName = nodeName;
@@ -505,6 +513,17 @@ registerBlockType( 'bsx-blocks/wrapper', {
                             { value: '100', label: __( '100 %', 'bsx-blocks' ) },
                         ] }
                     />
+                    <SelectControl 
+                        label={ __( 'Speech bubble', 'bsx-blocks' ) }
+                        value={ speechBubble }
+                        onChange={ onChangeSpeechBubble }
+                        options={ [
+                            { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+                            { value: 'sm', label: __( 'Small', 'bsx-blocks' ) },
+                            { value: 'md', label: __( 'Medium', 'bsx-blocks' ) },
+                            { value: 'lg', label: __( 'Large', 'bsx-blocks' ) },
+                        ] }
+                    />
                     {
                         belowNavbarToggle( belowNavbar, onChangeBelowNavbar )
                     }
@@ -565,6 +584,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 touchFooter,
                 display,
                 verticalAlign,
+                speechBubble,
                 // href,
                 // target,
                 // rel,
@@ -596,6 +616,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
             touchFooter,
             display,
             verticalAlign,
+            speechBubble,
         } );
 
         const saveAttributes = makeSaveAttributes( {
