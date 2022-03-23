@@ -625,6 +625,8 @@ export const textShadowSelect = ( value, onChangeFunction, allowedValues ) => {
         { value: 'dark', label: __( 'Dark', 'bsx-blocks' ) },
         { value: 'darker', label: __( 'Darker', 'bsx-blocks' ) },
         { value: 'darkest', label: __( 'Darkest', 'bsx-blocks' ) },
+        { value: 'light', label: __( 'Light', 'bsx-blocks' ) },
+        { value: 'primary', label: __( 'Primary', 'bsx-blocks' ) },
     ];
     return (
         <SelectControl 

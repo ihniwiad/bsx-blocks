@@ -110,11 +110,11 @@ export function addClassNames( attributes, classNamesString ) {
         else {
             // left
             if ( !! paddingLeft ) {
-                classNames.push( 'pt-' + paddingLeft );
+                classNames.push( 'pl-' + paddingLeft );
             }
             // right
             if ( !! paddingRight ) {
-                classNames.push( 'pb-' + paddingRight );
+                classNames.push( 'pr-' + paddingRight );
             }
         }
 

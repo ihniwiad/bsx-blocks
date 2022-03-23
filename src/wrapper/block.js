@@ -132,27 +132,27 @@ registerBlockType( 'bsx-blocks/wrapper', {
         },
         marginBefore: {
             type: 'string',
-            default: '',
         },
         marginAfter: {
             type: 'string',
-            default: '',
         },
         paddingBefore: {
             type: 'string',
-            default: '',
         },
-        paddingAfter: {
+        marginLeft: {
             type: 'string',
-            default: '',
-        },
-        paddingLeft: {
-            type: 'string',
-            default: '',
         },
         paddingRight: {
             type: 'string',
-            default: '',
+        },
+        paddingAfter: {
+            type: 'string',
+        },
+        paddingLeft: {
+            type: 'string',
+        },
+        paddingRight: {
+            type: 'string',
         },
         touchFooter: {
             type: 'boolean',
@@ -186,6 +186,8 @@ registerBlockType( 'bsx-blocks/wrapper', {
             textAlign,
             marginBefore,
             marginAfter,
+            marginLeft,
+            marginRight,
             display,
             verticalAlign,
         } = attributes;
@@ -194,6 +196,8 @@ registerBlockType( 'bsx-blocks/wrapper', {
             'data-text-align': textAlign,
             'data-margin-before': marginBefore,
             'data-margin-after': marginAfter,
+            'data-margin-left': marginLeft,
+            'data-margin-right': marginRight,
             'data-display': display,
             'data-vertical-align': verticalAlign,
         };
@@ -225,6 +229,8 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 borderState,
                 marginBefore,
                 marginAfter,
+                marginLeft,
+                marginRight,
                 paddingBefore,
                 paddingAfter,
                 paddingLeft,
@@ -296,6 +302,12 @@ registerBlockType( 'bsx-blocks/wrapper', {
         };
         const onChangeMarginAfter = ( value ) => {
             setAttributes( { marginAfter: value } );
+        };
+        const onChangeMarginLeft = ( value ) => {
+            setAttributes( { marginLeft: value } );
+        };
+        const onChangeMarginRight = ( value ) => {
+            setAttributes( { marginRight: value } );
         };
 
         const onChangePaddingBefore = ( value ) => {
@@ -471,6 +483,12 @@ registerBlockType( 'bsx-blocks/wrapper', {
                         {
                             marginAfterSelect( marginAfter, onChangeMarginAfter )
                         }
+                        {
+                            marginLeftSelect( marginLeft, onChangeMarginLeft )
+                        }
+                        {
+                            marginRightSelect( marginRight, onChangeMarginRight )
+                        }
                     </PanelBody>
 
                     <PanelBody title={ __( 'Padding', 'bsx-blocks' ) }>
@@ -577,6 +595,8 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 borderState,
                 marginBefore,
                 marginAfter,
+                marginLeft,
+                marginRight,
                 paddingBefore,
                 paddingAfter,
                 paddingLeft,
@@ -609,6 +629,8 @@ registerBlockType( 'bsx-blocks/wrapper', {
             width,
             marginBefore, 
             marginAfter, 
+            marginLeft,
+            marginRight,
             paddingBefore, 
             paddingAfter, 
             paddingLeft, 
