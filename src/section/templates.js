@@ -29,16 +29,10 @@ const templates = [
                 {},
                 [
                     [
-                        'bsx-blocks/wrapper',
-                        {},
-                        [
-                            [
-                                'core/heading',
-                                {
-                                    placeholder: __( 'Add heading, configure heading level...', 'bsx-blocks' ),
-                                },
-                            ],
-                        ],
+                        'core/heading',
+                        {
+                            placeholder: __( 'Add heading, configure heading level...', 'bsx-blocks' ),
+                        },
                     ],
                 ],
             ], 
@@ -58,16 +52,10 @@ const templates = [
                 {},
                 [
                     [
-                        'bsx-blocks/wrapper',
-                        {},
-                        [
-                            [
-                                'core/heading',
-                                {
-                                    placeholder: __( 'Add heading, configure heading level...', 'bsx-blocks' ),
-                                },
-                            ],
-                        ],
+                        'core/heading',
+                        {
+                            placeholder: __( 'Add heading, configure heading level...', 'bsx-blocks' ),
+                        },
                     ],
                     [
                         'core/paragraph',
