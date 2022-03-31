@@ -717,7 +717,7 @@ registerBlockType( 'bsx-blocks/banner', {
                         </>
                     ) }
                     {
-                        alignItemsSelect( alignItems, onChangeAlignItems, [ '', 'center', 'end' ] )
+                        alignItemsSelect( alignItems, onChangeAlignItems, [ '', 'center', 'end' ], ( templateName == 'column-row-banner' ) )
                     }
                     {
                         roundedToggle( rounded, onChangeRounded )

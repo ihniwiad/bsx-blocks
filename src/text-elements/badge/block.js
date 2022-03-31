@@ -28,6 +28,10 @@ import {
     marginRightSelect,
     marginBeforeSelect,
     marginAfterSelect,
+    textColorSelect,
+    bgColorSelect,
+    iconFamilySelect,
+    iconKeyInput,
 } from './../../_functions/controls.js';
 
 
@@ -69,7 +73,7 @@ registerBlockType( 'bsx-blocks/badge', {
         content: {
             type: 'array',
             source: 'children',
-            selector: '.badge',
+            selector: '.badge-content',
         },
         state: {
             type: 'string',
@@ -90,6 +94,18 @@ registerBlockType( 'bsx-blocks/badge', {
         marginAfter: {
             type: 'string',
         },
+        textColor: {
+            type: 'string',
+        },
+        bgColor: {
+            type: 'string',
+        },
+        iconKey: {
+            type: 'string',
+        },
+        iconFamily: {
+            type: 'string',
+        },
     },
 
     edit: ( props ) => {
@@ -106,6 +122,10 @@ registerBlockType( 'bsx-blocks/badge', {
                 marginRight,
                 marginBefore,
                 marginAfter,
+                textColor,
+                bgColor,
+                iconKey,
+                iconFamily,
             },
             setAttributes,
             isSelected,
@@ -146,6 +166,20 @@ registerBlockType( 'bsx-blocks/badge', {
             setAttributes( { marginAfter: value } );
         };
 
+        const onChangeTextColor = ( value ) => {
+            setAttributes( { textColor: value } );
+        };
+        const onChangeBgColor = ( value ) => {
+            setAttributes( { bgColor: value } );
+        };
+
+        const onChangeIconKey = ( value ) => {
+            setAttributes( { iconKey: value } );
+        };
+        const onChangeIconFamily = ( value ) => {
+            setAttributes( { iconFamily: value } );
+        };
+
         let badgeClassNames = makeBadgeClassNames( { 
             state, 
             badgeType,
@@ -155,7 +189,17 @@ registerBlockType( 'bsx-blocks/badge', {
             marginRight, 
             marginBefore,
             marginAfter,
+            textColor,
+            bgColor,
         }, badgeClassNames );
+
+        if ( ! iconKey ) {
+            badgeClassNames += ' badge-content';
+        }
+
+        const TagName = href ? 'a' : 'span';
+        const iconFamilyClassName = ( !! iconFamily ) ? 'fa' + iconFamily : 'fa';
+        const iconClassNames = iconFamilyClassName + ' ' + ( iconKey ? 'fa-' + iconKey : '' ) + ' pr-1';
 
         return [
             <InspectorControls>
@@ -183,6 +227,21 @@ registerBlockType( 'bsx-blocks/badge', {
                             { value: 'pill', label: __( 'Pill', 'bsx-blocks' ) },
                         ] }
                     />
+                    {
+                        textColorSelect( textColor, onChangeTextColor )
+                    }
+                    {
+                        bgColorSelect( bgColor, onChangeBgColor )
+                    }
+                </PanelBody>
+
+                <PanelBody title={ __( 'Icon', 'bsx-blocks' ) }>
+                    {
+                        iconKeyInput( iconKey, onChangeIconKey )
+                    }
+                    {
+                        iconFamilySelect( iconFamily, onChangeIconFamily )
+                    }
                 </PanelBody>
 
                 <PanelBody title={ __( 'Margin', 'bsx-blocks' ) }>
@@ -202,17 +261,39 @@ registerBlockType( 'bsx-blocks/badge', {
             </InspectorControls>,
             (
                 <>
-                    <RichText
-                        tagName={ href ? 'a' : 'span' }
-                        className={ badgeClassNames }
-                        multiline={ false }
-                        placeholder={ __( 'Add Text...', 'bsx-blocks' ) }
-                        value={ content }
-                        onChange={ onChangeContent }
-                        allowedFormats={ [] }
-                        keepPlaceholderOnFocus
-                        href={ 'javascript:void( 0 );' }
-                    />
+                    {
+                        iconKey ? (
+                            <TagName className={ badgeClassNames }>
+                                <span className={ iconClassNames } aria-hidden="true"></span>
+                                <RichText
+                                    tagName={ 'span' }
+                                    multiline={ false }
+                                    placeholder={ __( 'Add Text...', 'bsx-blocks' ) }
+                                    value={ content }
+                                    onChange={ onChangeContent }
+                                    allowedFormats={ [] }
+                                    keepPlaceholderOnFocus
+                                    href={ 'javascript:void( 0 );' }
+                                />
+                            </TagName>
+                        )
+                        :
+                        (
+                            <>
+                                <RichText
+                                    tagName={ TagName }
+                                    className={ badgeClassNames }
+                                    multiline={ false }
+                                    placeholder={ __( 'Add Text...', 'bsx-blocks' ) }
+                                    value={ content }
+                                    onChange={ onChangeContent }
+                                    allowedFormats={ [] }
+                                    keepPlaceholderOnFocus
+                                    href={ 'javascript:void( 0 );' }
+                                />
+                            </>
+                        )
+                    }
                 </>
             )
         ];
@@ -230,6 +311,10 @@ registerBlockType( 'bsx-blocks/badge', {
                 marginRight,
                 marginBefore,
                 marginAfter,
+                textColor,
+                bgColor,
+                iconKey,
+                iconFamily,
             },
         } = props;
         
@@ -242,7 +327,13 @@ registerBlockType( 'bsx-blocks/badge', {
             marginRight, 
             marginBefore,
             marginAfter,
+            textColor,
+            bgColor,
         }, badgeClassNames );
+
+        if ( ! iconKey ) {
+            badgeClassNames += ' badge-content';
+        }
 
         const saveAttributes = makeSaveAttributes( {
             href: href, 
@@ -250,16 +341,41 @@ registerBlockType( 'bsx-blocks/badge', {
             // rel: href ? ( rel ? rel + ' noopener noreferrer' : 'noopener noreferrer' ) : '',
         } );
 
+        const TagName = href ? 'a' : 'span';
+        const iconFamilyClassName = ( !! iconFamily ) ? 'fa' + iconFamily : 'fa';
+        const iconClassNames = iconFamilyClassName + ' ' + ( iconKey ? 'fa-' + iconKey : '' ) + ' pr-1';
+
         return (
             <>
                 {
-                    ( content && ! RichText.isEmpty( content ) ) && (
-                        <RichText.Content 
-                            tagName={ href ? 'a' : 'span' } 
-                            value={ content } 
-                            className={ badgeClassNames }
-                            { ...saveAttributes }
-                        />
+                    iconKey ? (
+                        <TagName className={ badgeClassNames }{ ...saveAttributes }>
+                            <span className={ iconClassNames } aria-hidden="true"></span>
+                            {
+                                ( content && ! RichText.isEmpty( content ) ) && (
+                                    <RichText.Content 
+                                        tagName={ 'span' } 
+                                        value={ content } 
+                                        className={ 'badge-content' }
+                                    />
+                                )
+                            }
+                        </TagName>
+                    )
+                    :
+                    (
+                        <>
+                            {
+                                ( content && ! RichText.isEmpty( content ) ) && (
+                                    <RichText.Content 
+                                        tagName={ TagName } 
+                                        value={ content } 
+                                        className={ badgeClassNames }
+                                        { ...saveAttributes }
+                                    />
+                                )
+                            }
+                        </>
                     )
                 }
             </>

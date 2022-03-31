@@ -31,6 +31,8 @@ import {
     marginRightSelect,
     marginBeforeSelect,
     marginAfterSelect,
+    iconFamilySelect,
+    iconKeyInput,
 } from './../../_functions/controls.js';
 
 
@@ -218,20 +220,12 @@ registerBlockType( 'bsx-blocks/icon', {
         return [
             <InspectorControls>
                 <PanelBody title={ __( 'Appearance', 'bsx-blocks' ) }>
-                    <TextControl 
-                        label={ __( 'Icon key', 'bsx-blocks' ) }
-                        value={ iconKey } 
-                        onChange={ onChangeIconKey }
-                    />
-                    <SelectControl label={ __( 'Icon family', 'bsx-blocks' ) }
-                        value={ iconFamily }
-                        onChange={ onChangeIconFamily }
-                        options={ [
-                            { value: '', label: __( '– Default –', 'bsx-blocks' ) },
-                            { value: 's', label: __( 'Solid', 'bsx-blocks' ) },
-                            { value: 'b', label: __( 'Brand', 'bsx-blocks' ) },
-                        ] }
-                    />
+                    {
+                        iconKeyInput( iconKey, onChangeIconKey )
+                    }
+                    {
+                        iconFamilySelect( iconFamily, onChangeIconFamily )
+                    }
                     {
                         stateSelect( state, onChangeState )
                     }

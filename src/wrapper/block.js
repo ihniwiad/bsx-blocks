@@ -38,6 +38,7 @@ import {
     paddingAfterSelect,
     paddingLeftSelect,
     paddingRightSelect,
+    stateSelect,
     bgColorSelect,
     roundedToggle,
     borderSelect,
@@ -406,25 +407,9 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 </BlockControls>
                 <InspectorControls>
                     <PanelBody title={ __( 'Texte', 'bsx-blocks' ) }>
-                        <SelectControl 
-                            label={ __( 'Text color', 'bsx-blocks' ) }
-                            value={ textColor }
-                            onChange={ onChangeTextColor }
-                            options={ [
-                                { value: '', label: __( '– unset –', 'bsx-blocks' ) },
-                                { value: 'white', label: __( 'White', 'bsx-blocks' ) },
-                                { value: 'primary', label: __( 'Primary', 'bsx-blocks' ) },
-                                { value: 'secondary', label: __( 'Secondary', 'bsx-blocks' ) },
-                                { value: 'success', label: __( 'Success', 'bsx-blocks' ) },
-                                { value: 'danger', label: __( 'Danger', 'bsx-blocks' ) },
-                                { value: 'warning', label: __( 'Warning', 'bsx-blocks' ) },
-                                { value: 'info', label: __( 'Info', 'bsx-blocks' ) },
-                                { value: 'light', label: __( 'Light', 'bsx-blocks' ) },
-                                { value: 'dark', label: __( 'Dark', 'bsx-blocks' ) },
-                                { value: 'white-50', label: __( 'White transparent', 'bsx-blocks' ) },
-                                { value: 'black-50', label: __( 'Black transparent', 'bsx-blocks' ) },
-                            ] }
-                        />
+                        {
+                            stateSelect( textColor, onChangeTextColor )
+                        }
                         <SelectControl 
                             label={ __( 'Text size', 'bsx-blocks' ) }
                             value={ textSize }

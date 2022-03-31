@@ -48,6 +48,21 @@ const states = [
     { value: 'dark', label: __( 'Dark', 'bsx-blocks' ) },
 ];
 
+const textColorStates = [
+    { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+    { value: 'white', label: __( 'White', 'bsx-blocks' ) },
+    { value: 'primary', label: __( 'Primary', 'bsx-blocks' ) },
+    { value: 'secondary', label: __( 'Secondary', 'bsx-blocks' ) },
+    { value: 'success', label: __( 'Success', 'bsx-blocks' ) },
+    { value: 'danger', label: __( 'Danger', 'bsx-blocks' ) },
+    { value: 'warning', label: __( 'Warning', 'bsx-blocks' ) },
+    { value: 'info', label: __( 'Info', 'bsx-blocks' ) },
+    { value: 'light', label: __( 'Light', 'bsx-blocks' ) },
+    { value: 'dark', label: __( 'Dark', 'bsx-blocks' ) },
+    { value: 'white-50', label: __( 'White transparent', 'bsx-blocks' ) },
+    { value: 'black-50', label: __( 'Black transparent', 'bsx-blocks' ) },
+];
+
 // doesn’t have '', has additional 'text-link'
 const btnStates = [
     { value: 'primary', label: __( 'Primary', 'bsx-blocks' ) },
@@ -293,6 +308,16 @@ export const dataTgInput = ( value, onChangeFunction ) => {
     )
 }
 
+export const iconKeyInput = ( value, onChangeFunction ) => {
+    return (
+        <TextControl 
+            label={ __( 'Icon key', 'bsx-blocks' ) }
+            value={ value } 
+            onChange={ onChangeFunction }
+        />
+    )
+}
+
 
 // selects
 
@@ -301,6 +326,30 @@ export const stateSelect = ( value, onChangeFunction, allowedValues ) => {
     return (
         <SelectControl 
             label={ __( 'Color', 'bsx-blocks' ) }
+            value={ value }
+            onChange={ onChangeFunction }
+            options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
+        />
+    )
+}
+
+export const bgColorSelect = ( value, onChangeFunction, allowedValues ) => {
+    const defaultValues = bgStates;
+    return (
+        <SelectControl 
+            label={ __( 'Background Color', 'bsx-blocks' ) }
+            value={ value }
+            onChange={ onChangeFunction }
+            options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
+        />
+    )
+}
+
+export const textColorSelect = ( value, onChangeFunction, allowedValues ) => {
+    const defaultValues = textColorStates;
+    return (
+        <SelectControl 
+            label={ __( 'Text Color', 'bsx-blocks' ) }
             value={ value }
             onChange={ onChangeFunction }
             options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
@@ -320,11 +369,11 @@ export const buttonStateSelect = ( value, onChangeFunction, allowedValues ) => {
     )
 }
 
-export const bgColorSelect = ( value, onChangeFunction, allowedValues ) => {
-    const defaultValues = bgStates;
+export const colorSelect = ( value, onChangeFunction, allowedValues ) => {
+    const defaultValues = states;
     return (
         <SelectControl 
-            label={ __( 'Background Color', 'bsx-blocks' ) }
+            label={ __( 'Text Color', 'bsx-blocks' ) }
             value={ value }
             onChange={ onChangeFunction }
             options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
@@ -442,7 +491,7 @@ export const verticalAlignSelect = ( value, onChangeFunction, allowedValues ) =>
     )
 }
 
-export const alignItemsSelect = ( value, onChangeFunction, allowedValues ) => {
+export const alignItemsSelect = ( value, onChangeFunction, allowedValues, disabled ) => {
     const defaultValues = [
         { value: '', label: __( '– unset –', 'bsx-blocks' ) },
         { value: 'start', label: __( 'Start', 'bsx-blocks' ) },
@@ -455,6 +504,7 @@ export const alignItemsSelect = ( value, onChangeFunction, allowedValues ) => {
             value={ value }
             onChange={ onChangeFunction }
             options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
+            disabled={ disabled }
         />
     )
 }
@@ -673,6 +723,22 @@ export const borderSelect = ( value, onChangeFunction, allowedValues ) => {
 
 export const borderStateSelect = ( value, onChangeFunction, allowedValues ) => {
     const defaultValues = states;
+    return (
+        <SelectControl 
+            label={ __( 'Border color', 'bsx-blocks' ) }
+            value={ value }
+            onChange={ onChangeFunction }
+            options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
+        />
+    )
+}
+
+export const iconFamilySelect = ( value, onChangeFunction, allowedValues ) => {
+    const defaultValues = [
+        { value: '', label: __( '– Default –', 'bsx-blocks' ) },
+        { value: 's', label: __( 'Solid', 'bsx-blocks' ) },
+        { value: 'b', label: __( 'Brand', 'bsx-blocks' ) },
+    ];
     return (
         <SelectControl 
             label={ __( 'Border color', 'bsx-blocks' ) }
