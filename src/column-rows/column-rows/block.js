@@ -28,6 +28,9 @@ import {
     inlineTemplateSelect,
     uiTemplateSelect,
     displaySelect,
+    widthSelect,
+    justifyContentSelect,
+    flexDirectionSelect,
 } from './../../_functions/controls.js';
 // import { getTemplate } from './../../_functions/utilities.js';
 
@@ -40,9 +43,11 @@ import templates from './templates';
 const makeColumnRowsClassNames = ( attributes ) => {
 
     const {
+        templateName,
         display,
         flexDirection,
         width,
+        justifyContent,
     } = attributes;
 
     const classNames = [];
@@ -55,6 +60,13 @@ const makeColumnRowsClassNames = ( attributes ) => {
     }
     if ( !! width ) {
         classNames.push( 'w-' + width );
+    }
+    if ( !! justifyContent ) {
+        classNames.push( 'justify-content-' + justifyContent );
+    }
+    else if ( templateName == 'space-between-columns' ) {
+        // fallback
+        classNames.push( 'justify-content-between' );
     }
 
     // console.log( 'classNames.join( \' \' ): "' + classNames.join( ' ' ) + '"' );
@@ -82,7 +94,10 @@ registerBlockType( 'bsx-blocks/column-rows', {
         width: {
             type: 'string',
             default: '100',
-        }
+        },
+        justifyContent: {
+            type: 'string',
+        },
     },
 
     getEditWrapperProps( attributes ) {
@@ -90,12 +105,14 @@ registerBlockType( 'bsx-blocks/column-rows', {
             display,
             flexDirection,
             width,
+            justifyContent,
         } = attributes;
 
         return {
             'data-display': display,
             'data-flexDirection': flexDirection,
             'data-width': width,
+            'data-justify-content': justifyContent,
         };
     },
 
@@ -107,6 +124,7 @@ registerBlockType( 'bsx-blocks/column-rows', {
                 display,
                 flexDirection,
                 width,
+                justifyContent,
             },
             setAttributes,
             isSelected
@@ -223,21 +241,21 @@ registerBlockType( 'bsx-blocks/column-rows', {
         const onChangeWidth = ( value ) => {
             setAttributes( { width: value } );
         };
+        const onChangeJustifyContent = ( value ) => {
+            setAttributes( { justifyContent: value } );
+        };
 
         const columnsRowsClassNames = makeColumnRowsClassNames( {
+            templateName,
             display,
             flexDirection,
             width,
+            justifyContent,
         } );
 
         return [
             <InspectorControls>
-                <PanelBody
-                    title={ __( 'Column Rows layout', 'bsx-blocks' ) }
-                >
-                    {
-
-                    }
+                <PanelBody title={ __( 'Column Rows layout', 'bsx-blocks' ) }>
                     <div className="bsxui-icon-text-button-list">
                         { templates.map( ( template, index ) => (
                             <Button
@@ -263,24 +281,15 @@ registerBlockType( 'bsx-blocks/column-rows', {
                 {
                     displaySelect( display, onChangeDisplay, [ '', 'flex' ] )
                 }
-                <SelectControl 
-                    label={ __( 'Flex direction', 'bsx-blocks' ) }
-                    value={ flexDirection }
-                    onChange={ onChangeFlexDirection }
-                    options={ [
-                        { value: '', label: __( '– unset –', 'bsx-blocks' ) },
-                        { value: 'column', label: __( 'Column', 'bsx-blocks' ) },
-                    ] }
-                />
-                <SelectControl 
-                    label={ __( 'Width', 'bsx-blocks' ) }
-                    value={ width }
-                    onChange={ onChangeWidth }
-                    options={ [
-                        { value: '', label: __( '– unset –', 'bsx-blocks' ) },
-                        { value: '100', label: __( '100 %', 'bsx-blocks' ) },
-                    ] }
-                />
+                {
+                    flexDirectionSelect( flexDirection, onChangeFlexDirection )
+                }
+                {
+                    widthSelect( width, onChangeWidth )
+                }
+                {
+                    justifyContentSelect( justifyContent, onChangeJustifyContent )
+                }
             </InspectorAdvancedControls>,
 
             <>
@@ -336,6 +345,7 @@ registerBlockType( 'bsx-blocks/column-rows', {
         } = props;
 
         const columnsRowsClassNames = makeColumnRowsClassNames( {
+            templateName,
             display,
             flexDirection,
             width,

@@ -491,7 +491,7 @@ export const verticalAlignSelect = ( value, onChangeFunction, allowedValues ) =>
     )
 }
 
-export const alignItemsSelect = ( value, onChangeFunction, allowedValues, disabled ) => {
+export const alignItemsSelect = ( value, onChangeFunction, allowedValues, disabled, sizeString ) => {
     const defaultValues = [
         { value: '', label: __( '– unset –', 'bsx-blocks' ) },
         { value: 'start', label: __( 'Start', 'bsx-blocks' ) },
@@ -500,7 +500,7 @@ export const alignItemsSelect = ( value, onChangeFunction, allowedValues, disabl
     ];
     return (
         <SelectControl 
-            label={ __( 'Align items', 'bsx-blocks' ) }
+            label={ __( 'Align items', 'bsx-blocks' ) + ( !! sizeString ? ' ' + sizeString : '' ) }
             value={ value }
             onChange={ onChangeFunction }
             options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
@@ -742,6 +742,51 @@ export const iconFamilySelect = ( value, onChangeFunction, allowedValues ) => {
     return (
         <SelectControl 
             label={ __( 'Border color', 'bsx-blocks' ) }
+            value={ value }
+            onChange={ onChangeFunction }
+            options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
+        />
+    )
+}
+
+export const widthSelect = ( value, onChangeFunction, allowedValues ) => {
+    const defaultValues = [
+        { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+        { value: '100', label: __( '100 %', 'bsx-blocks' ) },
+    ];
+    return (
+        <SelectControl 
+            label={ __( 'Width', 'bsx-blocks' ) }
+            value={ value }
+            onChange={ onChangeFunction }
+            options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
+        />
+    )
+}
+
+export const justifyContentSelect = ( value, onChangeFunction, allowedValues ) => {
+    const defaultValues = [
+        { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+        { value: 'space-between', label: __( 'Space between', 'bsx-blocks' ) },
+    ];
+    return (
+        <SelectControl 
+            label={ __( 'Justify content', 'bsx-blocks' ) }
+            value={ value }
+            onChange={ onChangeFunction }
+            options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
+        />
+    )
+}
+
+export const flexDirectionSelect = ( value, onChangeFunction, allowedValues ) => {
+    const defaultValues = [
+        { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+        { value: 'column', label: __( 'Column', 'bsx-blocks' ) },
+    ];
+    return (
+        <SelectControl 
+            label={ __( 'Flex direction', 'bsx-blocks' ) }
             value={ value }
             onChange={ onChangeFunction }
             options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }

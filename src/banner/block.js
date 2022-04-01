@@ -86,6 +86,8 @@ const makeBannerClassNames = ( attributes ) => {
         bgSize, 
         bgPosition, 
         alignItems, 
+        smAlignItems,
+        mdAlignItems,
         templateName,
         rounded,
         href,
@@ -116,15 +118,33 @@ const makeBannerClassNames = ( attributes ) => {
         classNames.push( 'bg-' + bgPosition );
     }
     
-    if ( !! alignItems ) {
+    if ( !! templateName == 'column-row-banner' && classNames.indexOf( 'd-flex' ) == -1 ) {
         classNames.push( 'd-flex' );
+    }
+    
+    if ( !! alignItems ) {
+        if ( classNames.indexOf( 'd-flex' ) == -1 ) {
+            classNames.push( 'd-flex' );
+        }
         if ( templateName !== 'column-row-banner' ) {
             classNames.push( 'align-items-' + alignItems );
         }
     }
-    
-    if ( !! templateName == 'column-row-banner' && classNames.indexOf( 'd-flex' ) == -1 ) {
-        classNames.push( 'd-flex' );
+    if ( !! smAlignItems ) {
+        if ( classNames.indexOf( 'd-flex' ) == -1 ) {
+            classNames.push( 'd-flex' );
+        }
+        if ( templateName !== 'column-row-banner' ) {
+            classNames.push( 'align-items-sm-' + smAlignItems );
+        }
+    }
+    if ( !! mdAlignItems ) {
+        if ( classNames.indexOf( 'd-flex' ) == -1 ) {
+            classNames.push( 'd-flex' );
+        }
+        if ( templateName !== 'column-row-banner' ) {
+            classNames.push( 'align-items-md-' + mdAlignItems );
+        }
     }
 
     if ( rounded === true ) {
@@ -362,6 +382,8 @@ registerBlockType( 'bsx-blocks/banner', {
                 bgSize,
                 bgPosition,
                 alignItems,
+                smAlignItems,
+                mdAlignItems,
                 rounded,
                 marginBefore,
                 marginAfter,
@@ -501,6 +523,12 @@ registerBlockType( 'bsx-blocks/banner', {
         const onChangeAlignItems = ( value ) => {
             setAttributes( { alignItems: value } );
         };
+        const onChangeSmAlignItems = ( value ) => {
+            setAttributes( { smAlignItems: value } );
+        };
+        const onChangeMdAlignItems = ( value ) => {
+            setAttributes( { mdAlignItems: value } );
+        };
 
         const onChangeRounded = ( value ) => {
             setAttributes( { rounded: value } );
@@ -568,6 +596,8 @@ registerBlockType( 'bsx-blocks/banner', {
             bgSize, 
             bgPosition, 
             alignItems, 
+            smAlignItems,
+            mdAlignItems,
             templateName,
             rounded,
             href,
@@ -720,6 +750,12 @@ registerBlockType( 'bsx-blocks/banner', {
                         alignItemsSelect( alignItems, onChangeAlignItems, [ '', 'center', 'end' ], ( templateName == 'column-row-banner' ) )
                     }
                     {
+                        alignItemsSelect( smAlignItems, onChangeSmAlignItems, [ '', 'center', 'end' ], ( templateName == 'column-row-banner' ), 'SM' )
+                    }
+                    {
+                        alignItemsSelect( mdAlignItems, onChangeMdAlignItems, [ '', 'center', 'end' ], ( templateName == 'column-row-banner' ), 'MD' )
+                    }
+                    {
                         roundedToggle( rounded, onChangeRounded )
                     }
                 </PanelBody>
@@ -868,6 +904,8 @@ registerBlockType( 'bsx-blocks/banner', {
                 bgSize,
                 bgPosition,
                 alignItems,
+                smAlignItems,
+                mdAlignItems,
                 rounded,
                 marginBefore,
                 marginAfter,
@@ -890,6 +928,8 @@ registerBlockType( 'bsx-blocks/banner', {
             bgSize, 
             bgPosition, 
             alignItems, 
+            smAlignItems,
+            mdAlignItems,
             templateName,
             rounded,
             href,

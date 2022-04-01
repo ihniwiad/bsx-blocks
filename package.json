@@ -25,6 +25,6 @@
     "wp-start-all": "wp-scripts start src/index.js src/custom-block-settings.js src/custom-class-names.js --output-path=build",
     "build": "npm run wp-build-all && gulp build",
     "publish": "gulp publish",
-    "watch": "gulp publish"
+    "watch": "gulp watch"
   }
 }

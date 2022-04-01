@@ -33,12 +33,14 @@ const makeColumnRowClassNames = ( attributes ) => {
 
     const classNames = [];
 
-    if ( !! columnRowType ) {
-        classNames.push( 'column-row-' + columnRowType );
-    }
-    else {
-        // default class name
-        classNames.push( 'column-row' );
+    if ( columnRowType != 'unset' ) {
+        if ( !! columnRowType ) {
+            classNames.push( 'column-row-' + columnRowType );
+        }
+        else {
+            // default class name
+            classNames.push( 'column-row' );
+        }
     }
 
     if ( !! alignItems ) {
@@ -136,6 +138,7 @@ registerBlockType( 'bsx-blocks/column-row', {
                         value={ columnRowType }
                         onChange={ onChangeColumnRowType }
                         options={ [
+                            { value: 'unset', label: __( '– unset – (unstyled)', 'bsx-blocks' ) },
                             { value: '', label: __( '– Default – (flexible height)', 'bsx-blocks' ) },
                             { value: 'auto', label: __( 'Auto (static height)', 'bsx-blocks' ) },
                         ] }

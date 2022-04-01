@@ -82,6 +82,42 @@ const templates = [
         ],
         templateLock: false,
     },
+    {
+        name: 'space-between-columns',
+        title: __( 'Space between columns', 'bsx-blocks' ),
+        icon: svgIcon( 'none' ),
+        template: [ 
+            [ 
+                'bsx-blocks/column-row', 
+                {
+                    columnRowType: 'unset',
+                },
+                [
+                    [
+                        'core/paragraph',
+                        { 
+                            placeholder: 'Edit or insert other content and delete paragraph...',
+                        }
+                    ]
+                ],
+            ], 
+            [ 
+                'bsx-blocks/column-row', 
+                {
+                    columnRowType: 'unset',
+                },
+                [
+                    [
+                        'core/paragraph',
+                        { 
+                            placeholder: 'Edit or insert other content and delete paragraph...',
+                        }
+                    ]
+                ],
+            ], 
+        ],
+        templateLock: false,
+    },
 ];
 
 export default templates;
