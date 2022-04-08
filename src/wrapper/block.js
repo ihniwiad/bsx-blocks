@@ -56,6 +56,7 @@ import {
     alertToggle,
     widthSelect,
     nodeNameSelect,
+    isGalleryParentToggle,
     // linkUrlInput,
     // targetToggle,
     // relInput,
@@ -198,6 +199,9 @@ registerBlockType( 'bsx-blocks/wrapper', {
         state: {
             type: 'string',
         },
+        isGalleryParent: {
+            type: 'boolean',
+        },
         // href: {
         //     type: 'string',
         //     source: "attribute",
@@ -293,6 +297,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 speechBubble,
                 isAlert,
                 state,
+                isGalleryParent,
                 // href,
                 // target,
                 // rel,
@@ -425,6 +430,9 @@ registerBlockType( 'bsx-blocks/wrapper', {
         };
         const onChangeDataTg = ( value ) => {
             setAttributes( { dataTg: value } );
+        };
+        const onChangeIsGalleryParent = ( value ) => {
+            setAttributes( { isGalleryParent: value } );
         };
 
         const alignmentControls = [
@@ -635,7 +643,27 @@ registerBlockType( 'bsx-blocks/wrapper', {
                         resMarginSizeSelect( resMargin2Size, onChangeResMargin2Size, [], '2' )
                     }
                     {
-                        dataFnInput( dataFn, onChangeDataFn )
+                        isGalleryParentToggle( isGalleryParent, onChangeIsGalleryParent )
+                    }
+                    {
+                        ! isGalleryParent ? 
+                        (
+                            <>
+                                {
+                                    dataFnInput( dataFn, onChangeDataFn )
+                                }
+                            </>
+                        )
+                        :
+                        (
+                            <div class="bsxui-config-panel-row">
+                                <div class="bsxui-alert">
+                                    {
+                                        __( 'dataFn is deactivated since element is image gallery parent.', 'bsx-blocks' ) 
+                                    }
+                                </div>
+                            </div>
+                        )
                     }
                     {
                         dataFnOptionsInput( dataFnOptions, onChangeDataFnOptions )
@@ -699,6 +727,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 speechBubble,
                 isAlert,
                 state,
+                isGalleryParent,
                 // href,
                 // target,
                 // rel,
@@ -747,7 +776,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
             // href: href, 
             // target: ref ? target : '', 
             // rel: href ? ( rel ? rel + ' noopener noreferrer' : 'noopener noreferrer' ) : '',
-            'data-fn': dataFn,
+            'data-fn': ( isGalleryParent ) ? 'photoswipe' : dataFn,
             'data-fn-options': dataFnOptions,
             'data-fn-target': dataFnTarget,
             'data-tg': dataTg,

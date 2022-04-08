@@ -224,6 +224,9 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         zoomable: {
             type: 'boolean',
         },
+        externalGalleryParent: {
+            type: 'boolean',
+        },
         zoomImgSizeIndex: {
             type: 'string',
         },
@@ -286,6 +289,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 imgThumbnail,
                 borderState,
                 zoomable,
+                externalGalleryParent,
                 zoomImgSizeIndex,
                 disableResponsiveDownsizing,
                 textAlign,
@@ -443,6 +447,9 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             else {
                 setAttributes( { zoomable: value } );
             }
+        };
+        const onChangeExternalGalleryParent = ( value ) => {
+            setAttributes( { externalGalleryParent: value } );
         };
         const onChangeZoomImgSizeIndex = ( value ) => {
             setAttributes( { zoomImgSizeIndex: value.toString() } );
@@ -805,7 +812,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                                     label={ __( 'Zoomable image', 'bsx-blocks' ) }
                                     checked={ !! zoomable }
                                     onChange={ onChangeZoomable }
-                                    help={ __( 'If enabled click on image will open shadowbox with large image.', 'bsx-blocks' ) }
+                                    help={ __( 'If enabled click on image will open shadowbox gallery with large image.', 'bsx-blocks' ) }
                                 />
                                 {
                                     zoomable && (
@@ -823,6 +830,12 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                                                     </div>
                                                 )
                                             }
+                                            <ToggleControl
+                                                label={ __( 'External gallery parent', 'bsx-blocks' ) }
+                                                checked={ !! externalGalleryParent }
+                                                onChange={ onChangeExternalGalleryParent }
+                                                help={ __( 'Enabled if using custom external shadowbox gallery element (e.g. configured BSX Wrapper) wrapping this image.', 'bsx-blocks' ) }
+                                            />
                                         </>
                                     )
                                 }
@@ -990,6 +1003,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 imgThumbnail,
                 borderState,
                 zoomable,
+                externalGalleryParent,
                 zoomImgSizeIndex,
                 disableResponsiveDownsizing,
                 textAlign,
@@ -1026,7 +1040,14 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             marginAfter,
         } );
 
-        const aClassName = isZoomable ? 'zoomable-img' : ( !! href && !! aAdditionalClassName ? aAdditionalClassName : '' );
+        const aClassName = zoomable ? 'zoomable-img' : ( !! href && !! aAdditionalClassName ? aAdditionalClassName : '' );
+        // let aClassName = '';
+        // if ( zoomable ) {
+        //     aClassName += 'zoomable-img';
+        // }
+        // if ( !! href && !! aAdditionalClassName ) {
+        //     aClassName += ' ' + aAdditionalClassName.trim();
+        // }
 
         const imgClassName = addClassNames( {
             rounded,
@@ -1037,18 +1058,16 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         // attributes
 
         // allow zoomable img
-        const saveAttributes = ! zoomable ? 
-            {}
-            : 
+        const saveAttributes = ( zoomable && ! externalGalleryParent ) ? 
             makeSaveAttributes( {
                 'data-fn': 'photoswipe',
             } )
+            :
+            {}
         ;
 
-        const isZoomable = zoomable && typeof imgSizes[ zoomImgSizeIndex ] != 'undefined';
-
         // manage zoomImgSizeIndex & href, target, rel
-        const aSaveAttributes = isZoomable ? 
+        const aSaveAttributes = ( zoomable && typeof imgSizes[ zoomImgSizeIndex ] != 'undefined' ) ? 
             makeSaveAttributes( {
                 'href': imgSizes[ zoomImgSizeIndex ].url,
                 'data-size': imgSizes[ zoomImgSizeIndex ].width + 'x' + imgSizes[ zoomImgSizeIndex ].height,

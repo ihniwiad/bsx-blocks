@@ -260,6 +260,16 @@ export const alertToggle = ( value, onChangeFunction ) => {
     )
 }
 
+export const isGalleryParentToggle = ( value, onChangeFunction ) => {
+    return (
+        <ToggleControl
+            label={ __( 'Is image gallery parent', 'bsx-blocks' ) }
+            checked={ !! value }
+            onChange={ onChangeFunction }
+        />
+    )
+}
+
 
 // url inputs
 
