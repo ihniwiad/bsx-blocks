@@ -253,6 +253,11 @@ registerBlockType( 'bsx-blocks/icon', {
                             { value: '3x', label: __( '3x', 'bsx-blocks' ) },
                             { value: '4x', label: __( '4x', 'bsx-blocks' ) },
                             { value: '5x', label: __( '5x', 'bsx-blocks' ) },
+                            { value: '6x', label: __( '6x', 'bsx-blocks' ) },
+                            { value: '7x', label: __( '7x', 'bsx-blocks' ) },
+                            { value: '8x', label: __( '8x', 'bsx-blocks' ) },
+                            { value: '9x', label: __( '9x', 'bsx-blocks' ) },
+                            { value: '10x', label: __( '10x', 'bsx-blocks' ) },
                         ] }
                     />
                 </PanelBody>

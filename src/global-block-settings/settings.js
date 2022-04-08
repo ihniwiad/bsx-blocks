@@ -38,6 +38,7 @@ import {
     // roundedToggle,
     // borderSelect,
     // borderStateSelect,
+    textColorSelect,
 } from './../_functions/controls.js';
 
 
@@ -209,25 +210,9 @@ export const addGlobalBlockSettings = createHigherOrderComponent( ( BlockEdit ) 
                                     { value: 'display-1', label: __( 'Large 1 (biggest)', 'bsx-blocks' ) },
                                 ] }
                             />
-                            <SelectControl 
-                                label={ __( 'Text color (optional)', 'bsx-blocks' ) }
-                                value={ textColor }
-                                onChange={ onChangeTextColor }
-                                options={ [
-                                    { value: '', label: __( '– unset –', 'bsx-blocks' ) },
-                                    { value: 'white', label: __( 'White', 'bsx-blocks' ) },
-                                    { value: 'primary', label: __( 'Primary', 'bsx-blocks' ) },
-                                    { value: 'secondary', label: __( 'Secondary', 'bsx-blocks' ) },
-                                    { value: 'success', label: __( 'Success', 'bsx-blocks' ) },
-                                    { value: 'danger', label: __( 'Danger', 'bsx-blocks' ) },
-                                    { value: 'warning', label: __( 'Warning', 'bsx-blocks' ) },
-                                    { value: 'info', label: __( 'Info', 'bsx-blocks' ) },
-                                    { value: 'light', label: __( 'Light', 'bsx-blocks' ) },
-                                    { value: 'dark', label: __( 'Dark', 'bsx-blocks' ) },
-                                    { value: 'white-50', label: __( 'White transparent', 'bsx-blocks' ) },
-                                    { value: 'black-50', label: __( 'Black transparent', 'bsx-blocks' ) },
-                                ] }
-                            />
+                            {
+                                textColorSelect( textColor, onChangeTextColor )
+                            }
                             {
                                 fontWeightSelect( fontWeight, onChangeFontWeight )
                             }

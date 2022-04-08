@@ -34,11 +34,15 @@ import {
     marginRightSelect,
     marginBeforeSelect,
     marginAfterSelect,
+    resMarginBreakpointsSelect,
+    resMarginPositionSelect,
+    resMarginSizeSelect,
     paddingBeforeSelect,
     paddingAfterSelect,
     paddingLeftSelect,
     paddingRightSelect,
     stateSelect,
+    textColorSelect,
     bgColorSelect,
     roundedToggle,
     borderSelect,
@@ -49,6 +53,9 @@ import {
     dataTgInput,
     dataFnOptionsInput,
     dataFnTargetInput,
+    alertToggle,
+    widthSelect,
+    nodeNameSelect,
     // linkUrlInput,
     // targetToggle,
     // relInput,
@@ -137,6 +144,24 @@ registerBlockType( 'bsx-blocks/wrapper', {
         marginAfter: {
             type: 'string',
         },
+        resMargin1Breakpoint: {
+            type: 'string',
+        },
+        resMargin1Position: {
+            type: 'string',
+        },
+        resMargin1Size: {
+            type: 'string',
+        },
+        resMargin2Breakpoint: {
+            type: 'string',
+        },
+        resMargin2Position: {
+            type: 'string',
+        },
+        resMargin2Size: {
+            type: 'string',
+        },
         paddingBefore: {
             type: 'string',
         },
@@ -167,6 +192,12 @@ registerBlockType( 'bsx-blocks/wrapper', {
         speechBubble: {
             type: 'string',
         },
+        isAlert: {
+            type: 'boolean',
+        },
+        state: {
+            type: 'string',
+        },
         // href: {
         //     type: 'string',
         //     source: "attribute",
@@ -189,8 +220,20 @@ registerBlockType( 'bsx-blocks/wrapper', {
             marginAfter,
             marginLeft,
             marginRight,
+            resMargin1Breakpoint,
+            resMargin1Position,
+            resMargin1Size,
+            resMargin2Breakpoint,
+            resMargin2Position,
+            resMargin2Size,
+            paddingBefore,
+            paddingAfter,
+            paddingLeft,
+            paddingRight,
             display,
             verticalAlign,
+            isAlert,
+            state,
         } = attributes;
 
         return {
@@ -201,6 +244,8 @@ registerBlockType( 'bsx-blocks/wrapper', {
             'data-margin-right': marginRight,
             'data-display': display,
             'data-vertical-align': verticalAlign,
+            'data-is-alert': ( !! isAlert ? 'true' : 'false' ),
+            'data-state': state,
         };
     },
 
@@ -232,6 +277,12 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 marginAfter,
                 marginLeft,
                 marginRight,
+                resMargin1Breakpoint,
+                resMargin1Position,
+                resMargin1Size,
+                resMargin2Breakpoint,
+                resMargin2Position,
+                resMargin2Size,
                 paddingBefore,
                 paddingAfter,
                 paddingLeft,
@@ -240,6 +291,8 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 display,
                 verticalAlign,
                 speechBubble,
+                isAlert,
+                state,
                 // href,
                 // target,
                 // rel,
@@ -260,6 +313,9 @@ registerBlockType( 'bsx-blocks/wrapper', {
         };
         const onChangeTextColor = ( value ) => {
             setAttributes( { textColor: value } );
+        };
+        const onChangeState = ( value ) => {
+            setAttributes( { state: value } );
         };
         const onChangeTextSize = ( value ) => {
             setAttributes( { textSize: value } );
@@ -298,6 +354,10 @@ registerBlockType( 'bsx-blocks/wrapper', {
             setAttributes( { borderState: value } );
         };
 
+        const onChangeIsAlert = ( value ) => {
+            setAttributes( { isAlert: value } );
+        };
+
         const onChangeMarginBefore = ( value ) => {
             setAttributes( { marginBefore: value } );
         };
@@ -309,6 +369,25 @@ registerBlockType( 'bsx-blocks/wrapper', {
         };
         const onChangeMarginRight = ( value ) => {
             setAttributes( { marginRight: value } );
+        };
+
+        const onChangeResMargin1Breakpoint = ( value ) => {
+            setAttributes( { resMargin1Breakpoint: value } );
+        };
+        const onChangeResMargin1Position = ( value ) => {
+            setAttributes( { resMargin1Position: value } );
+        };
+        const onChangeResMargin1Size = ( value ) => {
+            setAttributes( { resMargin1Size: value } );
+        };
+        const onChangeResMargin2Breakpoint = ( value ) => {
+            setAttributes( { resMargin2Breakpoint: value } );
+        };
+        const onChangeResMargin2Position = ( value ) => {
+            setAttributes( { resMargin2Position: value } );
+        };
+        const onChangeResMargin2Size = ( value ) => {
+            setAttributes( { resMargin2Size: value } );
         };
 
         const onChangePaddingBefore = ( value ) => {
@@ -381,8 +460,16 @@ registerBlockType( 'bsx-blocks/wrapper', {
             headingInheritTextColor,
             headingInheritFontWeight,
             width,
-            marginBefore, 
-            marginAfter, 
+            marginBefore,
+            marginAfter,
+            marginLeft,
+            marginRight,
+            resMargin1Breakpoint,
+            resMargin1Position,
+            resMargin1Size,
+            resMargin2Breakpoint,
+            resMargin2Position,
+            resMargin2Size,
             paddingBefore, 
             paddingAfter, 
             paddingLeft, 
@@ -391,6 +478,8 @@ registerBlockType( 'bsx-blocks/wrapper', {
             display,
             verticalAlign,
             speechBubble,
+            isAlert,
+            state,
         } );
 
         const TagName = nodeName;
@@ -408,7 +497,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 <InspectorControls>
                     <PanelBody title={ __( 'Texte', 'bsx-blocks' ) }>
                         {
-                            stateSelect( textColor, onChangeTextColor )
+                            textColorSelect( textColor, onChangeTextColor )
                         }
                         <SelectControl 
                             label={ __( 'Text size', 'bsx-blocks' ) }
@@ -459,6 +548,12 @@ registerBlockType( 'bsx-blocks/wrapper', {
                         {
                             borderStateSelect( borderState, onChangeBorderState )
                         }
+                        {
+                            alertToggle( isAlert, onChangeIsAlert )
+                        }
+                        {
+                            stateSelect( state, onChangeState )
+                        }
                     </PanelBody>
 
                     <PanelBody title={ __( 'Margin', 'bsx-blocks' ) }>
@@ -492,30 +587,18 @@ registerBlockType( 'bsx-blocks/wrapper', {
                     </PanelBody>
                 </InspectorControls>
                 <InspectorAdvancedControls>
-                    <SelectControl 
-                        label={ __( 'Node name', 'bsx-blocks' ) }
-                        value={ nodeName }
-                        onChange={ onChangeNodeName }
-                        options={ [
-                            { value: 'div', label: __( 'div', 'bsx-blocks' ) },
-                            { value: 'section', label: __( 'section', 'bsx-blocks' ) },
-                        ] }
-                    />
+                    {
+                        nodeNameSelect( nodeName, onChangeNodeName, [ 'div', 'section' ] )
+                    }
                     {
                         displaySelect( display, onChangeDisplay )
                     }
                     {
                         verticalAlignSelect( verticalAlign, onChangeVerticalAlign )
                     }
-                    <SelectControl 
-                        label={ __( 'Width', 'bsx-blocks' ) }
-                        value={ width }
-                        onChange={ onChangeWidth }
-                        options={ [
-                            { value: '', label: __( '– unset –', 'bsx-blocks' ) },
-                            { value: '100', label: __( '100 %', 'bsx-blocks' ) },
-                        ] }
-                    />
+                    {
+                        widthSelect( width, onChangeWidth )
+                    }
                     <SelectControl 
                         label={ __( 'Speech bubble', 'bsx-blocks' ) }
                         value={ speechBubble }
@@ -532,6 +615,24 @@ registerBlockType( 'bsx-blocks/wrapper', {
                     }
                     {
                         touchFooterToggle( touchFooter, onChangeTouchFooter )
+                    }
+                    {
+                        resMarginBreakpointsSelect( resMargin1Breakpoint, onChangeResMargin1Breakpoint, [], '1' )
+                    }
+                    {
+                        resMarginPositionSelect( resMargin1Position, onChangeResMargin1Position, [], '1' )
+                    }
+                    {
+                        resMarginSizeSelect( resMargin1Size, onChangeResMargin1Size, [], '1' )
+                    }
+                    {
+                        resMarginBreakpointsSelect( resMargin2Breakpoint, onChangeResMargin2Breakpoint, [], '2' )
+                    }
+                    {
+                        resMarginPositionSelect( resMargin2Position, onChangeResMargin2Position, [], '2' )
+                    }
+                    {
+                        resMarginSizeSelect( resMargin2Size, onChangeResMargin2Size, [], '2' )
                     }
                     {
                         dataFnInput( dataFn, onChangeDataFn )
@@ -582,6 +683,12 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 marginAfter,
                 marginLeft,
                 marginRight,
+                resMargin1Breakpoint,
+                resMargin1Position,
+                resMargin1Size,
+                resMargin2Breakpoint,
+                resMargin2Position,
+                resMargin2Size,
                 paddingBefore,
                 paddingAfter,
                 paddingLeft,
@@ -590,6 +697,8 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 display,
                 verticalAlign,
                 speechBubble,
+                isAlert,
+                state,
                 // href,
                 // target,
                 // rel,
@@ -612,10 +721,16 @@ registerBlockType( 'bsx-blocks/wrapper', {
             headingInheritTextColor,
             headingInheritFontWeight,
             width,
-            marginBefore, 
-            marginAfter, 
+            marginBefore,
+            marginAfter,
             marginLeft,
             marginRight,
+            resMargin1Breakpoint,
+            resMargin1Position,
+            resMargin1Size,
+            resMargin2Breakpoint,
+            resMargin2Position,
+            resMargin2Size,
             paddingBefore, 
             paddingAfter, 
             paddingLeft, 
@@ -624,6 +739,8 @@ registerBlockType( 'bsx-blocks/wrapper', {
             display,
             verticalAlign,
             speechBubble,
+            isAlert,
+            state,
         } );
 
         const saveAttributes = makeSaveAttributes( {

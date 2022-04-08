@@ -34,6 +34,24 @@ const marginPaddingSizes = [
     { value: '4', label: __( 'large', 'bsx-blocks' ) },
     { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
 ];
+const marginPaddingBreakpoints = [
+    { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+    { value: 'xs', label: __( 'Default (XS up)', 'bsx-blocks' ) },
+    { value: 'sm', label: __( 'SM up', 'bsx-blocks' ) },
+    { value: 'md', label: __( 'MD up', 'bsx-blocks' ) },
+    { value: 'lg', label: __( 'LG up', 'bsx-blocks' ) },
+    { value: 'xl', label: __( 'XL up', 'bsx-blocks' ) },
+];
+const marginPaddingPositions = [
+    { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+    { value: 'all', label: __( 'All', 'bsx-blocks' ) },
+    { value: 't', label: __( 'Before', 'bsx-blocks' ) },
+    { value: 'b', label: __( 'After', 'bsx-blocks' ) },
+    { value: '2', label: __( 'Y (before & after)', 'bsx-blocks' ) },
+    { value: '3', label: __( 'Left', 'bsx-blocks' ) },
+    { value: '4', label: __( 'Right', 'bsx-blocks' ) },
+    { value: '5', label: __( 'X (left & right)', 'bsx-blocks' ) },
+];
 
 const states = [
     { value: '', label: __( '– unset –', 'bsx-blocks' ) },
@@ -61,6 +79,7 @@ const textColorStates = [
     { value: 'dark', label: __( 'Dark', 'bsx-blocks' ) },
     { value: 'white-50', label: __( 'White transparent', 'bsx-blocks' ) },
     { value: 'black-50', label: __( 'Black transparent', 'bsx-blocks' ) },
+    { value: 'inherit', label: __( 'Inherit', 'bsx-blocks' ) },
 ];
 
 // doesn’t have '', has additional 'text-link'
@@ -231,6 +250,16 @@ export const roundedToggle = ( value, onChangeFunction ) => {
     )
 }
 
+export const alertToggle = ( value, onChangeFunction ) => {
+    return (
+        <ToggleControl
+            label={ __( 'Alert', 'bsx-blocks' ) }
+            checked={ !! value }
+            onChange={ onChangeFunction }
+        />
+    )
+}
+
 
 // url inputs
 
@@ -325,7 +354,7 @@ export const stateSelect = ( value, onChangeFunction, allowedValues ) => {
     const defaultValues = states;
     return (
         <SelectControl 
-            label={ __( 'Color', 'bsx-blocks' ) }
+            label={ __( 'State', 'bsx-blocks' ) }
             value={ value }
             onChange={ onChangeFunction }
             options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
@@ -451,6 +480,40 @@ export const marginAfterSelect = ( value, onChangeFunction, allowedValues ) => {
             onChange={ onChangeFunction }
             options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
             help={ __( 'Spacer after element', 'bsx-blocks' ) }
+        />
+    )
+}
+
+export const resMarginBreakpointsSelect = ( value, onChangeFunction, allowedValues, sizeString ) => {
+    const defaultValues = marginPaddingBreakpoints;
+    return (
+        <SelectControl 
+            label={ __( 'Responsive margin breakpoint', 'bsx-blocks' ) + ( !! sizeString ? ' ' + sizeString : '' ) }
+            value={ value }
+            onChange={ onChangeFunction }
+            options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
+        />
+    )
+}
+export const resMarginPositionSelect = ( value, onChangeFunction, allowedValues, sizeString ) => {
+    const defaultValues = marginPaddingPositions;
+    return (
+        <SelectControl 
+            label={ __( 'Responsive margin position', 'bsx-blocks' ) + ( !! sizeString ? ' ' + sizeString : '' ) }
+            value={ value }
+            onChange={ onChangeFunction }
+            options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
+        />
+    )
+}
+export const resMarginSizeSelect = ( value, onChangeFunction, allowedValues, sizeString ) => {
+    const defaultValues = marginPaddingSizes;
+    return (
+        <SelectControl 
+            label={ __( 'Responsive margin size', 'bsx-blocks' ) + ( !! sizeString ? ' ' + sizeString : '' ) }
+            value={ value }
+            onChange={ onChangeFunction }
+            options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
         />
     )
 }

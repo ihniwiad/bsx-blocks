@@ -10,6 +10,12 @@ export function addClassNames( attributes, classNamesString ) {
         marginAfter, 
         marginLeft,
         marginRight,
+        resMargin1Breakpoint,
+        resMargin1Position,
+        resMargin1Size,
+        resMargin2Breakpoint,
+        resMargin2Position,
+        resMargin2Size,
         paddingBefore, 
         paddingAfter, 
         paddingLeft, 
@@ -33,6 +39,8 @@ export function addClassNames( attributes, classNamesString ) {
         disabled,
         verticalAlign,
         speechBubble,
+        isAlert,
+        state,
     } = attributes;
 
     const classNames = ( typeof classNamesString != 'undefined' ) ? classNamesString.split( ' ' ) : [];
@@ -80,6 +88,15 @@ export function addClassNames( attributes, classNamesString ) {
             }
         }
 
+    }
+
+    if ( !! resMargin1Breakpoint && !! resMargin1Position && !! resMargin1Size ) {
+        // examples: `my-sm-3`, `my-0
+        classNames.push( 'm' + ( ( resMargin1Position === 'all' ) ? '' : resMargin1Position ) + '-' + ( ( resMargin1Breakpoint === 'xs' ) ? '' : resMargin1Breakpoint + '-' ) + resMargin1Size );
+    }
+    if ( !! resMargin2Breakpoint && !! resMargin2Position && !! resMargin2Size ) {
+        // examples: `my-sm-3`, `my-0
+        classNames.push( 'm' + ( ( resMargin2Position === 'all' ) ? '' : resMargin2Position ) + '-' + ( ( resMargin2Breakpoint === 'xs' ) ? '' : resMargin2Breakpoint + '-' ) + resMargin2Size );
     }
 
     if ( !! paddingBefore && paddingBefore === paddingAfter && paddingBefore === paddingLeft && paddingBefore === paddingRight ) {
@@ -207,6 +224,13 @@ export function addClassNames( attributes, classNamesString ) {
         classNames.push( 'speech-bubble' );
         if ( speechBubble != 'md' ) {
             classNames.push( 'speech-bubble-' + speechBubble );
+        }
+    }
+
+    if ( !! isAlert ) {
+        classNames.push( 'alert' );
+        if ( !! state ) {
+            classNames.push( 'alert-' + state );
         }
     }
 
