@@ -166,13 +166,13 @@ registerBlockType( 'bsx-blocks/wrapper', {
         paddingBefore: {
             type: 'string',
         },
+        paddingAfter: {
+            type: 'string',
+        },
         marginLeft: {
             type: 'string',
         },
         paddingRight: {
-            type: 'string',
-        },
-        paddingAfter: {
             type: 'string',
         },
         paddingLeft: {
@@ -596,7 +596,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 </InspectorControls>
                 <InspectorAdvancedControls>
                     {
-                        nodeNameSelect( nodeName, onChangeNodeName, [ 'div', 'section' ] )
+                        nodeNameSelect( nodeName, onChangeNodeName, [ 'div', 'section', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ] )
                     }
                     {
                         displaySelect( display, onChangeDisplay )

@@ -638,6 +638,12 @@ export const nodeNameSelect = ( value, onChangeFunction, allowedValues ) => {
         { value: 'ul', label: __( 'ul', 'bsx-blocks' ) },
         { value: 'ol', label: __( 'ol', 'bsx-blocks' ) },
         { value: 'li', label: __( 'li', 'bsx-blocks' ) },
+        { value: 'h1', label: __( 'h1', 'bsx-blocks' ) },
+        { value: 'h2', label: __( 'h2', 'bsx-blocks' ) },
+        { value: 'h3', label: __( 'h3', 'bsx-blocks' ) },
+        { value: 'h4', label: __( 'h4', 'bsx-blocks' ) },
+        { value: 'h5', label: __( 'h5', 'bsx-blocks' ) },
+        { value: 'h6', label: __( 'h6', 'bsx-blocks' ) },
     ];
     return (
         <SelectControl 

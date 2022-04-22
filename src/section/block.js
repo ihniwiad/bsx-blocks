@@ -34,6 +34,9 @@ import {
     touchFooterToggle,
     marginBeforeSelect,
     marginAfterSelect,
+    bgColorSelect,
+    paddingBeforeSelect,
+    paddingAfterSelect,
 } from './../_functions/controls.js';
 
 
@@ -69,6 +72,15 @@ registerBlockType( 'bsx-blocks/section', {
             type: 'string',
             default: '',
         },
+        bgColor: {
+            type: 'string',
+        },
+        paddingBefore: {
+            type: 'string',
+        },
+        paddingAfter: {
+            type: 'string',
+        },
     },
 
     edit: withSelect( ( select, { clientId } ) => {
@@ -94,6 +106,9 @@ registerBlockType( 'bsx-blocks/section', {
 	            id,
 	            marginBefore,
 	            marginAfter,
+                bgColor,
+                paddingBefore,
+                paddingAfter,
             },
             setAttributes,
             children,
@@ -136,9 +151,19 @@ registerBlockType( 'bsx-blocks/section', {
         const onChangeMarginBefore = ( value ) => {
             setAttributes( { marginBefore: value } );
         };
-
         const onChangeMarginAfter = ( value ) => {
             setAttributes( { marginAfter: value } );
+        };
+
+        const onChangeBgColor = ( value ) => {
+            setAttributes( { bgColor: value } );
+        };
+
+        const onChangePaddingBefore = ( value ) => {
+            setAttributes( { paddingBefore: value } );
+        };
+        const onChangePaddingAfter = ( value ) => {
+            setAttributes( { paddingAfter: value } );
         };
 
         // class name
@@ -148,6 +173,9 @@ registerBlockType( 'bsx-blocks/section', {
             touchFooter,
             marginBefore, 
             marginAfter, 
+            bgColor,
+            paddingBefore,
+            paddingAfter,
         } );
 
         return [
@@ -194,6 +222,15 @@ registerBlockType( 'bsx-blocks/section', {
                     }
                     {
                         touchFooterToggle( touchFooter, onChangeTouchFooter )
+                    }
+                    {
+                        bgColorSelect( bgColor, onChangeBgColor )
+                    }
+                    {
+                        paddingBeforeSelect( paddingBefore, onChangePaddingBefore )
+                    }
+                    {
+                        paddingAfterSelect( paddingAfter, onChangePaddingAfter )
                     }
                 </InspectorAdvancedControls>
             </Fragment>,
@@ -253,6 +290,9 @@ registerBlockType( 'bsx-blocks/section', {
 	            id,
 	            marginBefore,
 	            marginAfter,
+                bgColor,
+                paddingBefore,
+                paddingAfter,
             },
         } = props;
 
@@ -261,6 +301,9 @@ registerBlockType( 'bsx-blocks/section', {
             touchFooter,
             marginBefore, 
             marginAfter, 
+            bgColor,
+            paddingBefore,
+            paddingAfter,
         } );
 
         const saveAttributes = makeSaveAttributes( {
