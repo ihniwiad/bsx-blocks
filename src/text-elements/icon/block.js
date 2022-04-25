@@ -6,6 +6,7 @@ const {
 } = wp.blocks;
 const {
     InspectorControls,
+    InspectorAdvancedControls,
     RichText,
 } = wp.blockEditor;
 const { 
@@ -33,6 +34,7 @@ import {
     marginAfterSelect,
     iconFamilySelect,
     iconKeyInput,
+    verticalAlignSelect,
 } from './../../_functions/controls.js';
 
 
@@ -114,6 +116,9 @@ registerBlockType( 'bsx-blocks/icon', {
         marginAfter: {
             type: 'string',
         },
+        verticalAlign: {
+            type: 'string',
+        },
     },
 
     edit: ( props ) => {
@@ -134,6 +139,7 @@ registerBlockType( 'bsx-blocks/icon', {
                 marginRight,
                 marginBefore,
                 marginAfter,
+                verticalAlign,
             },
             setAttributes,
             isSelected,
@@ -183,6 +189,10 @@ registerBlockType( 'bsx-blocks/icon', {
             setAttributes( { marginAfter: value } );
         };
 
+        const onChangeVerticalAlign = ( value ) => {
+            setAttributes( { verticalAlign: value } );
+        };
+
         let iconClassNames = makeIconClassNames( { 
             state, 
             hoverState,
@@ -194,6 +204,7 @@ registerBlockType( 'bsx-blocks/icon', {
             marginRight, 
             marginBefore,
             marginAfter,
+            verticalAlign,
         }, iconClassNames );
 
         const saveAttributes = makeSaveAttributes( {
@@ -288,6 +299,11 @@ registerBlockType( 'bsx-blocks/icon', {
                     }
                 </PanelBody>
             </InspectorControls>,
+            <InspectorAdvancedControls>
+                {
+                    verticalAlignSelect( verticalAlign, onChangeVerticalAlign )
+                }
+            </InspectorAdvancedControls>,
             (
                 <>
                     {
@@ -323,6 +339,7 @@ registerBlockType( 'bsx-blocks/icon', {
                 marginRight,
                 marginBefore,
                 marginAfter,
+                verticalAlign,
             },
         } = props;
         
@@ -337,6 +354,7 @@ registerBlockType( 'bsx-blocks/icon', {
             marginRight, 
             marginBefore,
             marginAfter,
+            verticalAlign,
         }, iconClassNames );
 
         const saveAttributes = makeSaveAttributes( {
