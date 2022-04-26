@@ -5443,6 +5443,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../_functions/wp-icons.js */ "./src/_functions/wp-icons.js");
 /* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
+/* harmony import */ var _functions_controls_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../_functions/controls.js */ "./src/_functions/controls.js");
 
 // TODO: add default marginAfter: '5'?
 var _wp$i18n = wp.i18n,
@@ -5463,7 +5464,8 @@ var withSelect = wp.data.withSelect;
 
 
 
-var makeContainerClassNames = function makeContainerClassNames(isFluid, containerBreakpoint) {
+
+var makeContainerClassNames = function makeContainerClassNames(isFluid, containerBreakpoint, sized) {
   var prefix = 'container';
   var classNames = [];
 
@@ -5473,6 +5475,9 @@ var makeContainerClassNames = function makeContainerClassNames(isFluid, containe
     } else {
       classNames.push(prefix + '-' + containerBreakpoint);
     }
+  } else if (!!sized) {
+    // e.g. .sized-container-xl
+    classNames.push('sized-' + prefix + '-' + sized);
   } else {
     classNames.push(prefix);
   }
@@ -5512,6 +5517,15 @@ registerBlockType('bsx-blocks/container', {
     paddingAfter: {
       type: 'string',
       default: ''
+    },
+    marginLeft: {
+      type: 'string'
+    },
+    paddingRight: {
+      type: 'string'
+    },
+    sized: {
+      type: 'string'
     }
   },
   edit: withSelect(function (select, _ref) {
@@ -5535,6 +5549,9 @@ registerBlockType('bsx-blocks/container', {
         marginAfter = _props$attributes.marginAfter,
         paddingBefore = _props$attributes.paddingBefore,
         paddingAfter = _props$attributes.paddingAfter,
+        paddingLeft = _props$attributes.paddingLeft,
+        paddingRight = _props$attributes.paddingRight,
+        sized = _props$attributes.sized,
         setAttributes = props.setAttributes,
         children = props.children;
 
@@ -5591,13 +5608,33 @@ registerBlockType('bsx-blocks/container', {
       });
     };
 
-    var containerClassName = makeContainerClassNames(isFluid, containerBreakpoint);
+    var onChangePaddingLeft = function onChangePaddingLeft(value) {
+      setAttributes({
+        paddingLeft: value
+      });
+    };
+
+    var onChangePaddingRight = function onChangePaddingRight(value) {
+      setAttributes({
+        paddingRight: value
+      });
+    };
+
+    var onChangeSized = function onChangeSized(value) {
+      setAttributes({
+        sized: value
+      });
+    };
+
+    var containerClassName = makeContainerClassNames(isFluid, containerBreakpoint, sized);
     containerClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__["addClassNames"])({
       belowNavbar: belowNavbar,
       marginBefore: marginBefore,
       marginAfter: marginAfter,
       paddingBefore: paddingBefore,
-      paddingAfter: paddingAfter
+      paddingAfter: paddingAfter,
+      paddingLeft: paddingLeft,
+      paddingRight: paddingRight
     }, containerClassName);
     return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
       title: __('Container Settings', 'bsx-blocks')
@@ -5605,6 +5642,7 @@ registerBlockType('bsx-blocks/container', {
       label: __('Fluid container', 'bsx-blocks'),
       checked: !!isFluid,
       onChange: onChangeIsFluid,
+      disabled: !!sized,
       help: __('Fluid width from XS up', 'bsx-blocks')
     }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
       label: __('Non fluid Breakpoint', 'bsx-blocks'),
@@ -5628,122 +5666,25 @@ registerBlockType('bsx-blocks/container', {
       }],
       disabled: !isFluid,
       help: __('Has (non fluid) Container width from this breakpoint up', 'bsx-blocks')
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+      label: __('Sized container', 'bsx-blocks'),
+      value: sized,
+      onChange: onChangeSized,
+      options: [{
+        value: '',
+        label: __('– unset –', 'bsx-blocks')
+      }, {
+        value: 'lg',
+        label: __('LG', 'bsx-blocks')
+      }, {
+        value: 'xl',
+        label: __('XL', 'bsx-blocks')
+      }],
+      disabled: isFluid,
+      help: __('Has (non fluid) Container width from this breakpoint up', 'bsx-blocks')
     })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
       title: __('Margin', 'bsx-blocks')
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
-      label: __('Margin before', 'bsx-blocks'),
-      value: marginBefore,
-      onChange: onChangeMarginBefore,
-      options: [{
-        value: '',
-        label: __('– unset –', 'bsx-blocks')
-      }, {
-        value: '0',
-        label: __('none (0)', 'bsx-blocks')
-      }, {
-        value: '1',
-        label: __('extra small', 'bsx-blocks')
-      }, {
-        value: '2',
-        label: __('small', 'bsx-blocks')
-      }, {
-        value: '3',
-        label: __('medium', 'bsx-blocks')
-      }, {
-        value: '4',
-        label: __('large', 'bsx-blocks')
-      }, {
-        value: '5',
-        label: __('extra large', 'bsx-blocks')
-      }],
-      help: __('Spacer before element', 'bsx-blocks')
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
-      label: __('Margin after', 'bsx-blocks'),
-      value: marginAfter,
-      onChange: onChangeMarginAfter,
-      options: [{
-        value: '',
-        label: __('– unset –', 'bsx-blocks')
-      }, {
-        value: '0',
-        label: __('none (0)', 'bsx-blocks')
-      }, {
-        value: '1',
-        label: __('extra small', 'bsx-blocks')
-      }, {
-        value: '2',
-        label: __('small', 'bsx-blocks')
-      }, {
-        value: '3',
-        label: __('medium', 'bsx-blocks')
-      }, {
-        value: '4',
-        label: __('large', 'bsx-blocks')
-      }, {
-        value: '5',
-        label: __('extra large', 'bsx-blocks')
-      }],
-      help: __('Spacer after element', 'bsx-blocks')
-    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorAdvancedControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
-      label: __('Below navbar', 'bsx-blocks'),
-      checked: !!belowNavbar,
-      onChange: onChangeBelowNavbar,
-      help: __('Enable if container starts below navbar. If enabled container has spacer top to avoid overlapping its contents by navbar.', 'bsx-blocks')
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
-      label: __('Padding before', 'bsx-blocks'),
-      value: paddingBefore,
-      onChange: onChangePaddingBefore,
-      options: [{
-        value: '',
-        label: __('– unset –', 'bsx-blocks')
-      }, {
-        value: '0',
-        label: __('none (0)', 'bsx-blocks')
-      }, {
-        value: '1',
-        label: __('extra small', 'bsx-blocks')
-      }, {
-        value: '2',
-        label: __('small', 'bsx-blocks')
-      }, {
-        value: '3',
-        label: __('medium', 'bsx-blocks')
-      }, {
-        value: '4',
-        label: __('large', 'bsx-blocks')
-      }, {
-        value: '5',
-        label: __('extra large', 'bsx-blocks')
-      }],
-      help: __('Inner spacer before', 'bsx-blocks')
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
-      label: __('Padding after', 'bsx-blocks'),
-      value: paddingAfter,
-      onChange: onChangePaddingAfter,
-      options: [{
-        value: '',
-        label: __('– unset –', 'bsx-blocks')
-      }, {
-        value: '0',
-        label: __('none (0)', 'bsx-blocks')
-      }, {
-        value: '1',
-        label: __('extra small', 'bsx-blocks')
-      }, {
-        value: '2',
-        label: __('small', 'bsx-blocks')
-      }, {
-        value: '3',
-        label: __('medium', 'bsx-blocks')
-      }, {
-        value: '4',
-        label: __('large', 'bsx-blocks')
-      }, {
-        value: '5',
-        label: __('extra large', 'bsx-blocks')
-      }],
-      help: __('Inner spacer after', 'bsx-blocks')
-    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["marginBeforeSelect"])(marginBefore, onChangeMarginBefore), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["marginAfterSelect"])(marginAfter, onChangeMarginAfter))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorAdvancedControls, null, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["belowNavbarToggle"])(belowNavbar, onChangeBelowNavbar), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["paddingBeforeSelect"])(paddingBefore, onChangePaddingBefore), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["paddingAfterSelect"])(paddingAfter, onChangePaddingAfter), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["paddingLeftSelect"])(paddingLeft, onChangePaddingLeft), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["paddingRightSelect"])(paddingRight, onChangePaddingRight)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: containerClassName
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks, {
       renderAppender: hasInnerBlocks ? undefined : function () {
@@ -5760,14 +5701,19 @@ registerBlockType('bsx-blocks/container', {
         marginBefore = _props$attributes2.marginBefore,
         marginAfter = _props$attributes2.marginAfter,
         paddingBefore = _props$attributes2.paddingBefore,
-        paddingAfter = _props$attributes2.paddingAfter;
-    var containerClassName = makeContainerClassNames(isFluid, containerBreakpoint);
+        paddingAfter = _props$attributes2.paddingAfter,
+        paddingLeft = _props$attributes2.paddingLeft,
+        paddingRight = _props$attributes2.paddingRight,
+        sized = _props$attributes2.sized;
+    var containerClassName = makeContainerClassNames(isFluid, containerBreakpoint, sized);
     containerClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__["addClassNames"])({
       belowNavbar: belowNavbar,
       marginBefore: marginBefore,
       marginAfter: marginAfter,
       paddingBefore: paddingBefore,
-      paddingAfter: paddingAfter
+      paddingAfter: paddingAfter,
+      paddingLeft: paddingLeft,
+      paddingRight: paddingRight
     }, containerClassName);
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: containerClassName

@@ -25,9 +25,20 @@ const {
 import { svgIcon } from './../_functions/wp-icons.js';
 
 import { addClassNames } from './../_functions/add-class-names.js';
+import { 
+    belowNavbarToggle,
+    marginLeftSelect,
+    marginRightSelect,
+    marginBeforeSelect,
+    marginAfterSelect,
+    paddingBeforeSelect,
+    paddingAfterSelect,
+    paddingLeftSelect,
+    paddingRightSelect,
+} from './../_functions/controls.js';
 
 
-const makeContainerClassNames = ( isFluid, containerBreakpoint ) => {
+const makeContainerClassNames = ( isFluid, containerBreakpoint, sized ) => {
 
     const prefix = 'container';
 
@@ -40,6 +51,10 @@ const makeContainerClassNames = ( isFluid, containerBreakpoint ) => {
     	else {
     		classNames.push( prefix + '-' + containerBreakpoint );
     	}
+    }
+    else if ( !! sized ) {
+        // e.g. .sized-container-xl
+        classNames.push( 'sized-' + prefix + '-' + sized );
     }
     else {
     	classNames.push( prefix );
@@ -82,6 +97,15 @@ registerBlockType( 'bsx-blocks/container', {
             type: 'string',
             default: '',
         },
+        marginLeft: {
+            type: 'string',
+        },
+        paddingRight: {
+            type: 'string',
+        },
+        sized: {
+            type: 'string',
+        },
     },
 
     edit: withSelect( ( select, { clientId } ) => {
@@ -109,6 +133,9 @@ registerBlockType( 'bsx-blocks/container', {
 	            marginAfter,
                 paddingBefore,
                 paddingAfter,
+                paddingLeft,
+                paddingRight,
+                sized,
             },
             setAttributes,
             children,
@@ -137,7 +164,6 @@ registerBlockType( 'bsx-blocks/container', {
         const onChangeMarginBefore = ( value ) => {
             setAttributes( { marginBefore: value } );
         };
-
         const onChangeMarginAfter = ( value ) => {
             setAttributes( { marginAfter: value } );
         };
@@ -145,12 +171,25 @@ registerBlockType( 'bsx-blocks/container', {
         const onChangePaddingBefore = ( value ) => {
             setAttributes( { paddingBefore: value } );
         };
-
         const onChangePaddingAfter = ( value ) => {
             setAttributes( { paddingAfter: value } );
         };
+        const onChangePaddingLeft = ( value ) => {
+            setAttributes( { paddingLeft: value } );
+        };
+        const onChangePaddingRight = ( value ) => {
+            setAttributes( { paddingRight: value } );
+        };
 
-        let containerClassName = makeContainerClassNames( isFluid, containerBreakpoint );
+        const onChangeSized = ( value ) => {
+            setAttributes( { sized: value } );
+        };
+
+        let containerClassName = makeContainerClassNames( 
+            isFluid, 
+            containerBreakpoint, 
+            sized, 
+        );
         
         containerClassName = addClassNames( {
             belowNavbar, 
@@ -158,6 +197,8 @@ registerBlockType( 'bsx-blocks/container', {
             marginAfter, 
             paddingBefore, 
             paddingAfter,
+            paddingLeft,
+            paddingRight,
         }, containerClassName );
 
         return [
@@ -167,6 +208,7 @@ registerBlockType( 'bsx-blocks/container', {
                         label={ __( 'Fluid container', 'bsx-blocks' ) }
                         checked={ !! isFluid }
                         onChange={ onChangeIsFluid }
+                        disabled={ !! sized }
                         help={ __( 'Fluid width from XS up', 'bsx-blocks' ) }
                     />
                     <SelectControl 
@@ -183,79 +225,45 @@ registerBlockType( 'bsx-blocks/container', {
                         disabled={ ! isFluid }
                         help={ __( 'Has (non fluid) Container width from this breakpoint up', 'bsx-blocks' ) }
                     />
+                    <SelectControl 
+                        label={ __( 'Sized container', 'bsx-blocks' ) }
+                        value={ sized }
+                        onChange={ onChangeSized }
+                        options={ [
+                            { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+                            { value: 'lg', label: __( 'LG', 'bsx-blocks' ) },
+                            { value: 'xl', label: __( 'XL', 'bsx-blocks' ) },
+                        ] }
+                        disabled={ isFluid }
+                        help={ __( 'Has (non fluid) Container width from this breakpoint up', 'bsx-blocks' ) }
+                    />
                 </PanelBody>
 
                 <PanelBody title={ __( 'Margin', 'bsx-blocks' ) }>
-                    <SelectControl 
-                        label={ __( 'Margin before', 'bsx-blocks' ) }
-                        value={ marginBefore }
-                        onChange={ onChangeMarginBefore }
-                        options={ [
-                            { value: '', label: __( '– unset –', 'bsx-blocks' ) },
-                            { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
-                            { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
-                            { value: '2', label: __( 'small', 'bsx-blocks' ) },
-                            { value: '3', label: __( 'medium', 'bsx-blocks' ) },
-                            { value: '4', label: __( 'large', 'bsx-blocks' ) },
-                            { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
-                        ] }
-                        help={ __( 'Spacer before element', 'bsx-blocks' ) }
-                    />
-                    <SelectControl 
-                        label={ __( 'Margin after', 'bsx-blocks' ) }
-                        value={ marginAfter }
-                        onChange={ onChangeMarginAfter }
-                        options={ [
-                            { value: '', label: __( '– unset –', 'bsx-blocks' ) },
-                            { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
-                            { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
-                            { value: '2', label: __( 'small', 'bsx-blocks' ) },
-                            { value: '3', label: __( 'medium', 'bsx-blocks' ) },
-                            { value: '4', label: __( 'large', 'bsx-blocks' ) },
-                            { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
-                        ] }
-                        help={ __( 'Spacer after element', 'bsx-blocks' ) }
-                    />
+                    {
+                        marginBeforeSelect( marginBefore, onChangeMarginBefore )
+                    }
+                    {
+                        marginAfterSelect( marginAfter, onChangeMarginAfter )
+                    }
                 </PanelBody>
             </InspectorControls>,
             <InspectorAdvancedControls>
-                <ToggleControl
-                    label={ __( 'Below navbar', 'bsx-blocks' ) }
-                    checked={ !! belowNavbar }
-                    onChange={ onChangeBelowNavbar }
-                    help={ __( 'Enable if container starts below navbar. If enabled container has spacer top to avoid overlapping its contents by navbar.', 'bsx-blocks' ) }
-                />
-
-                <SelectControl 
-                    label={ __( 'Padding before', 'bsx-blocks' ) }
-                    value={ paddingBefore }
-                    onChange={ onChangePaddingBefore }
-                    options={ [
-                        { value: '', label: __( '– unset –', 'bsx-blocks' ) },
-                        { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
-                        { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
-                        { value: '2', label: __( 'small', 'bsx-blocks' ) },
-                        { value: '3', label: __( 'medium', 'bsx-blocks' ) },
-                        { value: '4', label: __( 'large', 'bsx-blocks' ) },
-                        { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
-                    ] }
-                    help={ __( 'Inner spacer before', 'bsx-blocks' ) }
-                />
-                <SelectControl 
-                    label={ __( 'Padding after', 'bsx-blocks' ) }
-                    value={ paddingAfter }
-                    onChange={ onChangePaddingAfter }
-                    options={ [
-                        { value: '', label: __( '– unset –', 'bsx-blocks' ) },
-                        { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
-                        { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
-                        { value: '2', label: __( 'small', 'bsx-blocks' ) },
-                        { value: '3', label: __( 'medium', 'bsx-blocks' ) },
-                        { value: '4', label: __( 'large', 'bsx-blocks' ) },
-                        { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
-                    ] }
-                    help={ __( 'Inner spacer after', 'bsx-blocks' ) }
-                />
+                {
+                    belowNavbarToggle( belowNavbar, onChangeBelowNavbar )
+                }
+                {
+                    paddingBeforeSelect( paddingBefore, onChangePaddingBefore )
+                }
+                {
+                    paddingAfterSelect( paddingAfter, onChangePaddingAfter )
+                }
+                {
+                    paddingLeftSelect( paddingLeft, onChangePaddingLeft )
+                }
+                {
+                    paddingRightSelect( paddingRight, onChangePaddingRight )
+                }
             </InspectorAdvancedControls>,
             (
             	<div className={ containerClassName }>
@@ -281,10 +289,17 @@ registerBlockType( 'bsx-blocks/container', {
 	            marginAfter,
                 paddingBefore,
                 paddingAfter,
+                paddingLeft,
+                paddingRight,
+                sized,
             },
         } = props;
 
-        let containerClassName = makeContainerClassNames( isFluid, containerBreakpoint );
+        let containerClassName = makeContainerClassNames( 
+            isFluid, 
+            containerBreakpoint, 
+            sized, 
+        );
         
         containerClassName = addClassNames( {
             belowNavbar, 
@@ -292,6 +307,8 @@ registerBlockType( 'bsx-blocks/container', {
             marginAfter, 
             paddingBefore, 
             paddingAfter,
+            paddingLeft,
+            paddingRight,
         }, containerClassName );
 
         return (
