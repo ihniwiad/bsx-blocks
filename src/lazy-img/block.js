@@ -51,6 +51,7 @@ import {
     // marginBeforeSelect,
     // marginAfterSelect,
     scaleSelect,
+    disableResponsiveDownsizingToggle,
 } from './../_functions/controls.js';
 import { 
     getUrlTruncAndExtension,
@@ -893,12 +894,9 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
             </InspectorControls>,
             <InspectorAdvancedControls>
-                <ToggleControl
-                    label={ __( 'Disable responsive image downsizing', 'bsx-blocks' ) }
-                    checked={ !! disableResponsiveDownsizing }
-                    onChange={ onChangeDisableResponsiveDownsizing }
-                    help={ __( 'Enable if you don’t want smaller responsive image sizes, since small devices display image in large dimensions.', 'bsx-blocks' ) }
-                />
+                {
+                    disableResponsiveDownsizingToggle( disableResponsiveDownsizing, onChangeDisableResponsiveDownsizing )
+                }
                 {
                     !! href && (
                         <TextControl 

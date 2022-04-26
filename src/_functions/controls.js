@@ -294,6 +294,18 @@ export const bgAttachmentFixedLimitedToggle = ( value, onChangeFunction ) => {
     )
 }
 
+export const disableResponsiveDownsizingToggle = ( value, onChangeFunction ) => {
+    return (
+        <ToggleControl
+            label={ __( 'Disable responsive image downsizing', 'bsx-blocks' ) }
+            checked={ !! value }
+            onChange={ onChangeFunction }
+            help={ __( 'Enable if you don’t want smaller responsive image sizes, since small devices display image in large dimensions.', 'bsx-blocks' ) }
+        />
+    )
+}
+
+
 
 // text inputs
 
@@ -663,11 +675,12 @@ export const bgPositionSelect = ( value, onChangeFunction, allowedValues ) => {
         { value: 'c66', label: __( 'Center 66%', 'bsx-blocks' ) },
         { value: 'c75', label: __( 'Center 75%', 'bsx-blocks' ) },
         { value: 'ct', label: __( 'Center top', 'bsx-blocks' ) },
+        { value: 'lc', label: __( 'Left center', 'bsx-blocks' ) },
         { value: 'rc', label: __( 'Right center', 'bsx-blocks' ) },
         { value: '33c', label: __( '33% center', 'bsx-blocks' ) },
+        { value: '66c', label: __( '66% center', 'bsx-blocks' ) },
         { value: '80c', label: __( '80% center', 'bsx-blocks' ) },
         { value: '66t', label: __( '66% top', 'bsx-blocks' ) },
-        { value: '66c', label: __( '66% center', 'bsx-blocks' ) },
     ];
     return (
         <SelectControl 

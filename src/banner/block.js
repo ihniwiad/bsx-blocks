@@ -66,6 +66,7 @@ import {
     targetToggle,
     relInput,
     dataFnInput,
+    disableResponsiveDownsizingToggle,
 } from './../_functions/controls.js';
 import { makeSaveAttributes } from './../_functions/attributes.js';
 import { getTemplate } from './../_functions/utilities.js';
@@ -205,24 +206,30 @@ const makeSrcsetJson = ( attributes ) => {
         imgSizeIndex, 
         portraitImgSizes, 
         portraitImgSizeIndex, 
+        disableResponsiveDownsizing,
     } = attributes;
 
     // srcsetJson = "[ { media: '" + mobileMediaQuery + "', src: '" + url + "' }, { media: '" + smallMobileMediaQuery + "', src: '" + imgSizes[ ( imgSizeIndex - mobileSizeStep > 0 ? imgSizeIndex - mobileSizeStep : 0 ) ].url + "' }, { media: '', src: '" + imgSizes[ ( imgSizeIndex - smallMobileSizeStep > 0 ? imgSizeIndex - smallMobileSizeStep : 0 ) ].url + "' } ]";
     let srcsetJson = '[ ';
     responsivePortraitMediaIndexList.forEach( ( item, index ) => {
         // add item if img resulting indes > skipIndex (no square format)
-        const currentPortraitImgSizeIndex = ( parseInt( portraitImgSizeIndex ) + parseInt( item.imgSizeIndexShift ) );
-        if ( currentPortraitImgSizeIndex > skipIndex && currentPortraitImgSizeIndex < portraitImgSizes.length ) {
-            srcsetJson += '{ media: \'' + item.media + '\', src: \'' + portraitImgSizes[ currentPortraitImgSizeIndex ].url + '\' }, ';
+        if ( ! disableResponsiveDownsizing || index == 0 ) {
+            // always add 1st item, others only if downsizing is enabled
+            const currentPortraitImgSizeIndex = ( parseInt( portraitImgSizeIndex ) + parseInt( item.imgSizeIndexShift ) );
+            if ( currentPortraitImgSizeIndex > skipIndex && currentPortraitImgSizeIndex < portraitImgSizes.length ) {
+                srcsetJson += '{ media: \'' + item.media + '\', src: \'' + portraitImgSizes[ currentPortraitImgSizeIndex ].url + '\' }, ';
+            }
         }
     } );
-    responsiveMediaIndexList.forEach( ( item, index ) => {
-        // add item if img resulting indes > skipIndex (no square format)
-        const currentImgSizeIndex = ( parseInt( imgSizeIndex ) + parseInt( item.imgSizeIndexShift ) );
-        if ( currentImgSizeIndex > skipIndex && currentImgSizeIndex < imgSizes.length ) {
-            srcsetJson += '{ media: \'' + item.media + '\', src: \'' + imgSizes[ currentImgSizeIndex ].url + '\' }, ';
-        }
-    } );
+    if ( ! disableResponsiveDownsizing ) {
+        responsiveMediaIndexList.forEach( ( item, index ) => {
+            // add item if img resulting indes > skipIndex (no square format)
+            const currentImgSizeIndex = ( parseInt( imgSizeIndex ) + parseInt( item.imgSizeIndexShift ) );
+            if ( currentImgSizeIndex > skipIndex && currentImgSizeIndex < imgSizes.length ) {
+                srcsetJson += '{ media: \'' + item.media + '\', src: \'' + imgSizes[ currentImgSizeIndex ].url + '\' }, ';
+            }
+        } );
+    }
     if ( srcsetJson.lastIndexOf( ', ' ) == srcsetJson.length - 2 ) {
         srcsetJson = srcsetJson.substring( 0, srcsetJson.length - 2 );
     }
@@ -343,6 +350,9 @@ registerBlockType( 'bsx-blocks/banner', {
         dataFn: {
             type: 'string',
         },
+        disableResponsiveDownsizing: {
+            type: 'boolean',
+        },
     },
 
     edit: withSelect( ( select, { clientId } ) => {
@@ -393,6 +403,7 @@ registerBlockType( 'bsx-blocks/banner', {
                 target,
                 rel,
                 dataFn,
+                disableResponsiveDownsizing,
             },
             setAttributes,
             isSelected,
@@ -561,6 +572,10 @@ registerBlockType( 'bsx-blocks/banner', {
         };
         const onChangeDataFn = ( value ) => {
             setAttributes( { dataFn: value } );
+        };
+
+        const onChangeDisableResponsiveDownsizing = ( value ) => {
+            setAttributes( { disableResponsiveDownsizing: value } );
         };
 
         const onChangeImgSizeIndex = ( value ) => {
@@ -814,6 +829,9 @@ registerBlockType( 'bsx-blocks/banner', {
                 {
                     paddingAfterSelect( paddingAfter, onChangePaddingAfter )
                 }
+                {
+                    disableResponsiveDownsizingToggle( disableResponsiveDownsizing, onChangeDisableResponsiveDownsizing )
+                }
             </InspectorAdvancedControls>,
 
             (
@@ -915,6 +933,7 @@ registerBlockType( 'bsx-blocks/banner', {
                 target,
                 rel,
                 dataFn,
+                disableResponsiveDownsizing,
             },
         } = props;
 
@@ -954,6 +973,7 @@ registerBlockType( 'bsx-blocks/banner', {
             imgSizeIndex, 
             portraitImgSizes, 
             portraitImgSizeIndex, 
+            disableResponsiveDownsizing,
         } );
 
         // there might be no images at all, e.g. if background color banner
