@@ -1756,7 +1756,7 @@ var iconFamilySelect = function iconFamilySelect(value, onChangeFunction, allowe
     label: __('Brand', 'bsx-blocks')
   }];
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
-    label: __('Border color', 'bsx-blocks'),
+    label: __('Icon family', 'bsx-blocks'),
     value: value,
     onChange: onChangeFunction,
     options: Object(_utilities_js__WEBPACK_IMPORTED_MODULE_1__["filterByAllowedValueKeys"])(defaultValues, allowedValues)

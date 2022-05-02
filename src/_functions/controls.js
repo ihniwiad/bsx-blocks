@@ -833,7 +833,7 @@ export const iconFamilySelect = ( value, onChangeFunction, allowedValues ) => {
     ];
     return (
         <SelectControl 
-            label={ __( 'Border color', 'bsx-blocks' ) }
+            label={ __( 'Icon family', 'bsx-blocks' ) }
             value={ value }
             onChange={ onChangeFunction }
             options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
