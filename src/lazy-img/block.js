@@ -268,6 +268,9 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         displayedHeight: {
             type: 'text',
         },
+        noFigureTag: {
+            type: 'boolean',
+        }
     },
     edit: ( props ) => {
         const {
@@ -304,6 +307,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 scale,
                 displayedWidth,
                 displayedHeight,
+                noFigureTag,
             },
             setAttributes,
             isSelected,
@@ -498,6 +502,15 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         // const onChangeDataFn = ( value ) => {
         //     setAttributes( { dataFn: value } );
         // };
+
+        const onChangeNoFigureTag = ( value ) => {
+            setAttributes( { 
+                noFigureTag: value,
+                zoomable: false,
+                figcaption: [],
+            } );
+        };
+
         
 
         const alignmentControls = [
@@ -716,7 +729,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                         !! zoomable ? (
                             <div class="bsxui-config-panel-row">
                                 <div class="bsxui-alert">
-                                    Portrait image is deactivated since zoomable image is set. 
+                                    { __( 'Portrait image is deactivated since Zoomable image is set.', 'bsx-blocks' ) }
                                 </div>
                             </div>
                         )
@@ -800,7 +813,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                                         !! href ? 
                                             __( 'Zoomable image is deactivated since href is set.', 'bsx-blocks' ) 
                                         :
-                                            __( 'Zoomable image is deactivated since portrait link is set.', 'bsx-blocks' ) 
+                                            __( 'Zoomable image is deactivated since Portrait image is set.', 'bsx-blocks' ) 
                                     }
                                 </div>
                             </div>
@@ -809,14 +822,14 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                         (
                             <>
                                 <ToggleControl
-                                    className={ portraitImgSizes.length > 0 ? 'bsxui-disabled' : '' }
+                                    className={ portraitImgSizes.length > 0 || !! noFigureTag ? 'bsxui-disabled' : '' }
                                     label={ __( 'Zoomable image', 'bsx-blocks' ) }
                                     checked={ !! zoomable }
                                     onChange={ onChangeZoomable }
                                     help={ __( 'If enabled click on image will open shadowbox gallery with large image.', 'bsx-blocks' ) }
                                 />
                                 {
-                                    zoomable && (
+                                    zoomable ? (
                                         <>
                                             <RadioControl
                                                 label={ __( 'Zoom image size', 'bsx-blocks' ) }
@@ -839,6 +852,14 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                                             />
                                         </>
                                     )
+                                    :
+                                    (
+                                        <div class="bsxui-config-panel-row">
+                                            <div class="bsxui-alert">
+                                                { __( 'Zoomable image is deactivated since No figure Tag is set.', 'bsx-blocks' ) }
+                                            </div>
+                                        </div>
+                                    )
                                 }
                             </>
                         )
@@ -850,7 +871,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                         !! zoomable ? (
                             <div class="bsxui-config-panel-row">
                                 <div class="bsxui-alert">
-                                    Link is deactivated since zoomable image is set. 
+                                    { __( 'Link is deactivated since <i>Zoomable image</i> is set.', 'bsx-blocks' ) }
                                 </div>
                             </div>
                         )
@@ -897,6 +918,21 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 {
                     disableResponsiveDownsizingToggle( disableResponsiveDownsizing, onChangeDisableResponsiveDownsizing )
                 }
+                <ToggleControl
+                    className={ !! zoomable ? 'bsxui-disabled' : '' }
+                    label={ __( 'No figure tag', 'bsx-blocks' ) }
+                    checked={ !! noFigureTag }
+                    onChange={ onChangeNoFigureTag }
+                />
+                {
+                    !! zoomable && (
+                        <div class="bsxui-config-panel-row">
+                            <div class="bsxui-alert">
+                                { __( 'Figure tag must exist since Zoomable image is set.', 'bsx-blocks' ) }
+                            </div>
+                        </div>
+                    )
+                }
                 {
                     !! href && (
                         <TextControl 
@@ -906,11 +942,24 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                         />
                     )
                 }
-                <TextControl 
-                    label={ __( 'Picture element additional class(es)', 'bsx-blocks' ) }
-                    value={ pictureAdditionalClassName } 
-                    onChange={ onChangePictureAdditionalClassName }
-                />
+                {
+                    ! noFigureTag ? (
+                        <TextControl 
+                            label={ __( 'Picture element additional class(es)', 'bsx-blocks' ) }
+                            value={ pictureAdditionalClassName } 
+                            onChange={ onChangePictureAdditionalClassName }
+                        />
+                    )
+                    :
+                    (
+                        <div class="bsxui-config-panel-row">
+                            <div class="bsxui-alert">
+                                { __( 'Picture element additional class(es) is deactivated since No figure tag is set. Use Additional class(es) instead.', 'bsx-blocks' ) }
+                                . 
+                            </div>
+                        </div>
+                    )
+                }
                 <TextControl 
                     label={ __( 'Image element additional class(es)', 'bsx-blocks' ) }
                     value={ imgAdditionalClassName } 
@@ -983,8 +1032,9 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
     save: ( props ) => {
         const {
-            className,
+            // className,
             attributes: {
+                className,
                 imgSizeIndex,
                 imgSizes,
                 url,
@@ -1015,6 +1065,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 scale,
                 displayedWidth,
                 displayedHeight,
+                noFigureTag,
             },
         } = props;
 
@@ -1036,7 +1087,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         const classNames = addClassNames( {
             textAlign,
             marginAfter,
-        } );
+        }, className );
 
         const aClassName = zoomable ? 'zoomable-img' : ( !! href && !! aAdditionalClassName ? aAdditionalClassName : '' );
         // let aClassName = '';
@@ -1086,7 +1137,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         const image = (
             <>
                 <script>document.write( '
-                    <picture className={ pictureAdditionalClassName }>
+                    <picture className={ ! noFigureTag ? pictureAdditionalClassName : classNames }>
                         {
                             sourcesAttributesList.map( ( sourceAttributes, index ) => (
                                 <source { ...sourceAttributes } />
@@ -1099,35 +1150,62 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             </>
         );
 
-        return (
-            <figure className={ classNames } { ...saveAttributes }>
+        const aOrImage = (
+            <>
+                { 
+                    zoomable || href ? (
+                        <a className={ aClassName } { ...aSaveAttributes }>
+                            { image }
+                        </a>
+                    )
+                    :
+                    (
+                        <>
+                            { image }
+                        </>
+                    ) 
+                }
+            </>
+        );
 
+        return (
+            <>
                 {
-                    url && (
+                    ! noFigureTag ?
+                    (
+                        <figure className={ classNames } { ...saveAttributes }>
+                            {
+                                url && (
+                                    <>
+                                        { 
+                                            aOrImage
+                                        }
+                                        {
+                                            figcaption && ! RichText.isEmpty( figcaption ) && (
+                                                <RichText.Content tagName="figcaption" className="font-italic" value={ figcaption } />
+                                            )
+                                        }
+                                    </>
+                                )
+                            }
+                        </figure>
+                    )
+                    :
+                    (
                         <>
                             { 
-                                zoomable || href ? (
-                                    <a className={ aClassName } { ...aSaveAttributes }>
-                                        { image }
-                                    </a>
-                                )
-                                :
-                                (
+                                url && (
                                     <>
-                                        { image }
+                                        {
+                                            aOrImage
+                                        }
                                     </>
-                                ) 
-                            }
-                            {
-                                figcaption && ! RichText.isEmpty( figcaption ) && (
-                                    <RichText.Content tagName="figcaption" className="font-italic" value={ figcaption } />
                                 )
                             }
                         </>
                     )
                 }
-                
-            </figure>
+            </>
         );
     },
 } );
