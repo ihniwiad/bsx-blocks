@@ -34,6 +34,7 @@ import { addClassNames } from './../../_functions/add-class-names.js';
 import { 
     marginBeforeSelect,
     marginAfterSelect,
+    textAlignToolbar,
 } from './../../_functions/controls.js';
 import { getTemplate } from './../../_functions/utilities.js';
 
@@ -144,24 +145,6 @@ registerBlockType( 'bsx-blocks/buttons', {
             setAttributes( { marginAfter: value } );
         };
 
-        const alignmentControls = [
-            {
-                icon: 'editor-alignleft',
-                title: __( 'Align left', 'bsx-blocks' ),
-                align: 'left',
-            },
-            {
-                icon: 'editor-aligncenter',
-                title: __( 'Align center', 'bsx-blocks' ),
-                align: 'center',
-            },
-            {
-                icon: 'editor-alignright',
-                title: __( 'Align right', 'bsx-blocks' ),
-                align: 'right',
-            },
-        ];
-
         const wrapperClassNames = addClassNames( { 
             textAlign, 
             marginBefore, 
@@ -171,12 +154,9 @@ registerBlockType( 'bsx-blocks/buttons', {
         return [
             <Fragment>
                 <BlockControls>
-                    <AlignmentToolbar
-                        label={ __( 'Alignment', 'bsx-blocks' ) }
-                        value={ textAlign }
-                        onChange={ onChangeTextAlign }
-                        alignmentControls={ alignmentControls }
-                    />
+                    {
+                        textAlignToolbar( textAlign, onChangeTextAlign )
+                    }
                 </BlockControls>
 
                 <InspectorControls>

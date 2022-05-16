@@ -31,6 +31,7 @@ import {
     marginBeforeSelect,
     marginAfterSelect,
     displaySelect,
+    textAlignToolbar,
 } from './../../_functions/controls.js';
 
 
@@ -116,24 +117,6 @@ registerBlockType( 'bsx-blocks/check-list', {
             setAttributes( { textAlign: value } );
         };
 
-        const alignmentControls = [
-            {
-                icon: 'editor-alignleft',
-                title: __( 'Align left', 'bsx-blocks' ),
-                align: 'left',
-            },
-            {
-                icon: 'editor-aligncenter',
-                title: __( 'Align center', 'bsx-blocks' ),
-                align: 'center',
-            },
-            {
-                icon: 'editor-alignright',
-                title: __( 'Align right', 'bsx-blocks' ),
-                align: 'right',
-            },
-        ];
-
         const checklistClassNames = addClassNames( {
             marginLeft, 
             marginRight, 
@@ -146,12 +129,9 @@ registerBlockType( 'bsx-blocks/check-list', {
         return [
             <>
                 <BlockControls>
-                    <AlignmentToolbar
-                        label={ __( 'Alignment', 'bsx-blocks' ) }
-                        value={ textAlign }
-                        onChange={ onChangeTextAlign }
-                        alignmentControls={ alignmentControls }
-                    />
+                    {
+                        textAlignToolbar( textAlign, onChangeTextAlign )
+                    }
                 </BlockControls>
                 <InspectorControls>
                     <PanelBody title={ __( 'Appearance', 'bsx-blocks' ) }>

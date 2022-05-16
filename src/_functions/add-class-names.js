@@ -25,6 +25,8 @@ export function addClassNames( attributes, classNamesString ) {
         textSize, 
         rounded, 
         textAlign,
+        resTextAlignBreakpoint,
+        resTextAlign,
         textShadow,
         fontWeight,
         inverseTextColor,
@@ -181,6 +183,11 @@ export function addClassNames( attributes, classNamesString ) {
     if ( !! textAlign ) {
         classNames.push( 'text-' + textAlign );
     }
+    if ( !! resTextAlignBreakpoint && !! resTextAlign ) {
+        classNames.push( 'text-' + resTextAlignBreakpoint + '-' + resTextAlign );
+    }
+
+
 
     if ( !! width ) {
         classNames.push( 'w-' + width );

@@ -34,7 +34,7 @@ const marginPaddingSizes = [
     { value: '4', label: __( 'large', 'bsx-blocks' ) },
     { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
 ];
-const marginPaddingBreakpoints = [
+const breakpointsWithUnset = [
     { value: '', label: __( '– unset –', 'bsx-blocks' ) },
     { value: 'xs', label: __( 'Default (XS up)', 'bsx-blocks' ) },
     { value: 'sm', label: __( 'SM up', 'bsx-blocks' ) },
@@ -129,6 +129,13 @@ const bgStates = [
     { value: 'dark-opaque', label: __( 'Dark opaque', 'bsx-blocks' ) },
     { value: 'dark-transparent', label: __( 'Dark transparent', 'bsx-blocks' ) },
     { value: 'transparent', label: __( 'Transparent', 'bsx-blocks' ) },
+];
+
+const textAlignValues = [
+    { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+    { value: 'left', label: __( 'left', 'bsx-blocks' ) },
+    { value: 'center', label: __( 'Center', 'bsx-blocks' ) },
+    { value: 'right', label: __( 'Right', 'bsx-blocks' ) },
 ];
 
 const alignmentControls = [
@@ -507,7 +514,7 @@ export const marginAfterSelect = ( value, onChangeFunction, allowedValues ) => {
 }
 
 export const resMarginBreakpointsSelect = ( value, onChangeFunction, allowedValues, sizeString ) => {
-    const defaultValues = marginPaddingBreakpoints;
+    const defaultValues = breakpointsWithUnset;
     return (
         <SelectControl 
             label={ __( 'Responsive margin breakpoint', 'bsx-blocks' ) + ( !! sizeString ? ' ' + sizeString : '' ) }
@@ -879,6 +886,30 @@ export const flexDirectionSelect = ( value, onChangeFunction, allowedValues ) =>
     return (
         <SelectControl 
             label={ __( 'Flex direction', 'bsx-blocks' ) }
+            value={ value }
+            onChange={ onChangeFunction }
+            options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
+        />
+    )
+}
+
+export const breakpointsSelect = ( value, onChangeFunction, allowedValues, labelString ) => {
+    const defaultValues = breakpointsWithUnset;
+    return (
+        <SelectControl 
+            label={ ( !! labelString ? ' ' + labelString : __( 'Breakpoint', 'bsx-blocks' ) ) }
+            value={ value }
+            onChange={ onChangeFunction }
+            options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
+        />
+    )
+}
+
+export const textAlignSelect = ( value, onChangeFunction, allowedValues, labelString ) => {
+    const defaultValues = textAlignValues;
+    return (
+        <SelectControl 
+            label={ ( !! labelString ? ' ' + labelString : __( 'Text align', 'bsx-blocks' ) ) }
             value={ value }
             onChange={ onChangeFunction }
             options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }

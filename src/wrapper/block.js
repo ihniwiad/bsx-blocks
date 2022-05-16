@@ -57,6 +57,9 @@ import {
     widthSelect,
     nodeNameSelect,
     isGalleryParentToggle,
+    textAlignToolbar,
+    breakpointsSelect,
+    textAlignSelect,
     // linkUrlInput,
     // targetToggle,
     // relInput,
@@ -128,7 +131,12 @@ registerBlockType( 'bsx-blocks/wrapper', {
         },
         textAlign: {
             type: 'string',
-            default: '',
+        },
+        resTextAlignBreakpoint: {
+            type: 'string',
+        },
+        resTextAlign: {
+            type: 'string',
         },
         border: {
             type: 'string',
@@ -220,6 +228,8 @@ registerBlockType( 'bsx-blocks/wrapper', {
     getEditWrapperProps( attributes ) {
         const {
             textAlign,
+            resTextAlignBreakpoint,
+            resTextAlign,
             marginBefore,
             marginAfter,
             marginLeft,
@@ -242,6 +252,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
 
         return {
             'data-text-align': textAlign,
+            'data-res-text-align': resTextAlignBreakpoint + '-' + resTextAlign,
             'data-margin-before': marginBefore,
             'data-margin-after': marginAfter,
             'data-margin-left': marginLeft,
@@ -268,6 +279,8 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 textColor,
                 textSize,
                 textAlign,
+                resTextAlignBreakpoint,
+                resTextAlign,
                 textShadow,
                 fontWeight,
                 inverseTextColor,
@@ -330,6 +343,12 @@ registerBlockType( 'bsx-blocks/wrapper', {
         };
         const onChangeTextAlign = ( value ) => {
             setAttributes( { textAlign: value } );
+        };
+        const onChangeResTextAlignBreakpoint = ( value ) => {
+            setAttributes( { resTextAlignBreakpoint: value } );
+        };
+        const onChangeResTextAlign = ( value ) => {
+            setAttributes( { resTextAlign: value } );
         };
         const onChangeFontWeight = ( value ) => {
             setAttributes( { fontWeight: value } );
@@ -435,24 +454,6 @@ registerBlockType( 'bsx-blocks/wrapper', {
             setAttributes( { isGalleryParent: value } );
         };
 
-        const alignmentControls = [
-            {
-                icon: 'editor-alignleft',
-                title: __( 'Align left', 'bsx-blocks' ),
-                align: 'left',
-            },
-            {
-                icon: 'editor-aligncenter',
-                title: __( 'Align center', 'bsx-blocks' ),
-                align: 'center',
-            },
-            {
-                icon: 'editor-alignright',
-                title: __( 'Align right', 'bsx-blocks' ),
-                align: 'right',
-            },
-        ];
-
         const wrapperClassName = addClassNames( { 
             belowNavbar,
             bgColor, 
@@ -462,6 +463,8 @@ registerBlockType( 'bsx-blocks/wrapper', {
             border,
             borderState,
             textAlign,
+            resTextAlignBreakpoint,
+            resTextAlign,
             textShadow,
             fontWeight,
             inverseTextColor,
@@ -495,12 +498,9 @@ registerBlockType( 'bsx-blocks/wrapper', {
         return [
             <Fragment>
                 <BlockControls>
-                    <AlignmentToolbar
-                        label={ __( 'Alignment', 'bsx-blocks' ) }
-                        value={ textAlign }
-                        onChange={ onChangeTextAlign }
-                        alignmentControls={ alignmentControls }
-                    />
+                    {
+                        textAlignToolbar( textAlign, onChangeTextAlign )
+                    }
                 </BlockControls>
                 <InspectorControls>
                     <PanelBody title={ __( 'Texte', 'bsx-blocks' ) }>
@@ -591,6 +591,18 @@ registerBlockType( 'bsx-blocks/wrapper', {
                         }
                         {
                             paddingRightSelect( paddingRight, onChangePaddingRight )
+                        }
+                    </PanelBody>
+
+                    <PanelBody title={ __( 'Responsive text align', 'bsx-blocks' ) }>
+                        <div class="bsxui-config-panel-row">
+                            <div class="bsxui-config-panel-text">{ __( 'Use in addition to Alignment toolbar.', 'bsx-blocks' ) }</div>
+                        </div>
+                        {
+                            breakpointsSelect( resTextAlignBreakpoint, onChangeResTextAlignBreakpoint )
+                        }
+                        {
+                            textAlignSelect( resTextAlign, onChangeResTextAlign )
                         }
                     </PanelBody>
                 </InspectorControls>
@@ -698,6 +710,8 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 textColor,
                 textSize,
                 textAlign,
+                resTextAlignBreakpoint,
+                resTextAlign,
                 textShadow,
                 fontWeight,
                 inverseTextColor,
@@ -744,6 +758,8 @@ registerBlockType( 'bsx-blocks/wrapper', {
             border,
             borderState,
             textAlign,
+            resTextAlignBreakpoint,
+            resTextAlign,
             textShadow,
             fontWeight,
             inverseTextColor,

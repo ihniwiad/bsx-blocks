@@ -52,6 +52,7 @@ import {
     // marginAfterSelect,
     scaleSelect,
     disableResponsiveDownsizingToggle,
+    textAlignToolbar,
 } from './../_functions/controls.js';
 import { 
     getUrlTruncAndExtension,
@@ -511,26 +512,6 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             } );
         };
 
-        
-
-        const alignmentControls = [
-            {
-                icon: 'editor-alignleft',
-                title: __( 'Align left', 'bsx-blocks' ),
-                align: 'left',
-            },
-            {
-                icon: 'editor-aligncenter',
-                title: __( 'Align center', 'bsx-blocks' ),
-                align: 'center',
-            },
-            {
-                icon: 'editor-alignright',
-                title: __( 'Align right', 'bsx-blocks' ),
-                align: 'right',
-            },
-        ];
-
 
         const onChangeImgSizeIndex = ( value ) => {
             setAttributes( { 
@@ -609,12 +590,9 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
         return [
             <BlockControls>
-                <AlignmentToolbar
-                    label={ __( 'Alignment', 'bsx-blocks' ) }
-                    value={ textAlign }
-                    onChange={ onChangeTextAlign }
-                    alignmentControls={ alignmentControls }
-                />
+                {
+                    textAlignToolbar( textAlign, onChangeTextAlign )
+                }
             </BlockControls>,
             <InspectorControls>
                 <PanelBody title={ __( 'Image', 'bsx-blocks' ) }>
