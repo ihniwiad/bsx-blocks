@@ -168,16 +168,16 @@ registerBlockType( 'bsx-blocks/svg-img', {
             display,
         }, 'svg-wrap' );
 
-        const saveAttributes = makeSaveAttributes( {
-            href: href, 
-            target: target, 
-            rel: href ? ( rel ? rel + ' noopener noreferrer' : 'noopener noreferrer' ) : '',
-        } );
+        // const saveAttributes = makeSaveAttributes( {
+        //     href: href, 
+        //     target: target, 
+        //     rel: href ? ( rel ? rel + ' noopener noreferrer' : 'noopener noreferrer' ) : '',
+        // } );
 
-        const TagName = !! href
-            ? 'a'
-            : 'div'
-        ; 
+        let TagName = !! nodeName ? nodeName : '';
+        if ( !! href ) {
+            TagName = 'a';
+        }
 
         return [
             <BlockControls>
@@ -236,7 +236,20 @@ registerBlockType( 'bsx-blocks/svg-img', {
                     )
                     :
                     (
-                        <RawHTML>{ content }</RawHTML>
+                        <>
+                            {
+                                TagName ? 
+                                (
+                                    <TagName className={ wrapperClassNames }>
+                                        <RawHTML>{ unwrappedContent }</RawHTML>
+                                    </TagName>
+                                )
+                                : 
+                                (
+                                    <RawHTML>{ unwrappedContent }</RawHTML>
+                                )
+                            }
+                        </>
                     )
                 }
             </>
