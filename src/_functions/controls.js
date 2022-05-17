@@ -652,8 +652,11 @@ export const paddingRightSelect = ( value, onChangeFunction, allowedValues ) => 
 
 export const nodeNameSelect = ( value, onChangeFunction, allowedValues ) => {
     const defaultValues = [
+        { value: '', label: __( '– unset –', 'bsx-blocks' ) },
         { value: 'div', label: __( 'div', 'bsx-blocks' ) },
+        { value: 'span', label: __( 'span', 'bsx-blocks' ) },
         { value: 'section', label: __( 'section', 'bsx-blocks' ) },
+        { value: 'figure', label: __( 'figure', 'bsx-blocks' ) },
         { value: 'ul', label: __( 'ul', 'bsx-blocks' ) },
         { value: 'ol', label: __( 'ol', 'bsx-blocks' ) },
         { value: 'li', label: __( 'li', 'bsx-blocks' ) },

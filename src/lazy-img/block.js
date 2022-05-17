@@ -237,7 +237,6 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         },
         textAlign: {
             type: 'string',
-            default: '',
         },
         marginAfter: {
             type: 'string',
