@@ -36,11 +36,12 @@ import {
     verticalAlignSelect,
     nodeNameSelect,
     textAlignToolbar,
+    displaySelect,
 } from './../../_functions/controls.js';
 
 
 const unwrapContent = ( content ) => {
-    if ( content.indexOf( 'svg-wrap' ) != -1 ) {
+    if ( !! content && content.indexOf( 'svg-wrap' ) != -1 ) {
         const unwrappedContentArray = content.split( '><' );
         unwrappedContentArray.shift();
         unwrappedContentArray.pop();
@@ -91,6 +92,9 @@ registerBlockType( 'bsx-blocks/svg-img', {
         textAlign: {
             type: 'string',
         },
+        display: {
+            type: 'string',
+        },
     },
 
     edit: ( props ) => {
@@ -108,6 +112,7 @@ registerBlockType( 'bsx-blocks/svg-img', {
                 marginAfter,
                 verticalAlign,
                 textAlign,
+                display,
             },
             setAttributes,
             isSelected,
@@ -149,6 +154,9 @@ registerBlockType( 'bsx-blocks/svg-img', {
         const onChangeTextAlign = ( value ) => {
             setAttributes( { textAlign: value } );
         };
+        const onChangeDisplay = ( value ) => {
+            setAttributes( { display: value } );
+        };
 
 
         const wrapperClassNames = addClassNames( {
@@ -157,6 +165,7 @@ registerBlockType( 'bsx-blocks/svg-img', {
             marginAfter,
             verticalAlign,
             textAlign,
+            display,
         }, 'svg-wrap' );
 
         const saveAttributes = makeSaveAttributes( {
@@ -211,12 +220,26 @@ registerBlockType( 'bsx-blocks/svg-img', {
                     verticalAlignSelect( verticalAlign, onChangeVerticalAlign )
                 }
                 {
+                    displaySelect( display, onChangeDisplay )
+                }
+                {
                     nodeNameSelect( nodeName, onChangeNodeName, [ '' , 'figure', 'div', 'span' ] )
                 }
             </InspectorAdvancedControls>,
-            (
-                <RawHTML>{ content }</RawHTML>
-            )
+            <>
+                {
+                    ! content ?
+                    (
+                        <div className={ 'bsxui-img-upload-placeholder' }>
+                            { __( 'Add SVG code (right column)', 'bsx-blocks' ) }
+                        </div>
+                    )
+                    :
+                    (
+                        <RawHTML>{ content }</RawHTML>
+                    )
+                }
+            </>
         ];
     },
     save: ( props ) => {
@@ -233,6 +256,7 @@ registerBlockType( 'bsx-blocks/svg-img', {
                 marginAfter,
                 verticalAlign,
                 textAlign,
+                display,
             },
         } = props;
 
@@ -246,6 +270,7 @@ registerBlockType( 'bsx-blocks/svg-img', {
             marginAfter,
             verticalAlign,
             textAlign,
+            display,
         }, 'svg-wrap' );
 
         const saveAttributes = makeSaveAttributes( {
