@@ -21,19 +21,19 @@ function bsx_blocks_include_style_and_script() {
     $asset_file = include( BSX_BLOCKS_PLUGIN_DIR_PATH . 'build/index.asset.php');
 
     wp_register_style(
-        'bsx-blocks-theme-atf-style',
+        'bsx-blocks-editor-atf-style',
         get_template_directory_uri() . '/assets/css/atf.css',
         array( 'wp-edit-blocks' ),
         filemtime( get_template_directory() . '/assets/css/atf.css' ),
     );
     wp_register_style(
-        'bsx-blocks-theme-style',
+        'bsx-blocks-editor-style',
         get_template_directory_uri() . '/assets/css/style.css',
         array( 'wp-edit-blocks' ),
         filemtime( get_template_directory() . '/assets/css/style.css' ),
     );
     wp_register_style(
-        'bsx-blocks-editor-style',
+        'bsx-blocks-ui-editor-style',
         BSX_BLOCKS_PLUGINS_URL . 'build/css/index.css',
         array( 'wp-edit-blocks' ),
         filemtime( BSX_BLOCKS_PLUGIN_DIR_PATH . 'build/css/index.css' )

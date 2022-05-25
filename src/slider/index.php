@@ -18,8 +18,7 @@ function bsx_blocks_slider_register_block() {
     register_block_type( 'bsx-blocks/slider', array(
         'editor_script' => 'bsx-blocks-script',
         'editor_style' => 'bsx-blocks-editor-style',
-        'style' => 'bsx-blocks-theme-atf-style',
-        // missing 2nd style `'style' => 'bsx-blocks-theme-style',` which is included as dirty hack in `banner/index.php`
+        // missing 2 styles `'style' => 'bsx-blocks-theme-style',` which are included as dirty hack in `text-elements/index.php`
     ) );
 
 }
