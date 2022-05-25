@@ -18,9 +18,8 @@ function bsx_blocks_wrapper_register_block() {
 
     register_block_type( 'bsx-blocks/wrapper', array(
         'editor_script' => 'bsx-blocks-script',
-        'editor_style' => 'bsx-blocks-editor-style',
-        'style' => 'bsx-blocks-theme-atf-style',
-        // missing 2nd style `'style' => 'bsx-blocks-theme-style',` which is included as dirty hack in `banner/index.php`
+        'editor_style' => 'bsx-blocks-ui-editor-style',
+        // missing 2 styles which are included as dirty hack in `text-elements/index.php`
     ) );
 
 }
