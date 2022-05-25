@@ -14,23 +14,31 @@ function bsx_blocks_text_elements_register_block() {
     }
 
     register_block_type( 'bsx-blocks/badge', array(
-        'editor_style' => array( 'bsx-blocks-editor-atf-style', 'bsx-blocks-editor-style' ),
         'editor_script' => 'bsx-blocks-script',
+        'editor_style' => 'bsx-blocks-editor-style',
+        'style' => 'bsx-blocks-theme-atf-style',
+        // missing 2nd style `'style' => 'bsx-blocks-theme-style',` which is included as dirty hack in `banner/index.php`
     ) );
 
     register_block_type( 'bsx-blocks/icon', array(
-        'editor_style' => array( 'bsx-blocks-editor-atf-style', 'bsx-blocks-editor-style' ),
         'editor_script' => 'bsx-blocks-script',
+        'editor_style' => 'bsx-blocks-editor-style',
+        'style' => 'bsx-blocks-theme-atf-style',
+        // missing 2nd style `'style' => 'bsx-blocks-theme-style',` which is included as dirty hack in `banner/index.php`
     ) );
 
     register_block_type( 'bsx-blocks/check-list', array(
-        'editor_style' => array( 'bsx-blocks-editor-atf-style', 'bsx-blocks-editor-style' ),
         'editor_script' => 'bsx-blocks-script',
+        'editor_style' => 'bsx-blocks-editor-style',
+        'style' => 'bsx-blocks-theme-atf-style',
+        // missing 2nd style `'style' => 'bsx-blocks-theme-style',` which is included as dirty hack in `banner/index.php`
     ) );
 
     register_block_type( 'bsx-blocks/svg-img', array(
-        'editor_style' => array( 'bsx-blocks-editor-atf-style', 'bsx-blocks-editor-style' ),
         'editor_script' => 'bsx-blocks-script',
+        'editor_style' => 'bsx-blocks-editor-style',
+        'style' => 'bsx-blocks-theme-atf-style',
+        // missing 2nd style `'style' => 'bsx-blocks-theme-style',` which is included as dirty hack in `banner/index.php`
     ) );
 }
 add_action( 'init', 'bsx_blocks_text_elements_register_block' );
