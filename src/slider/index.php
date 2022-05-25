@@ -16,8 +16,10 @@ function bsx_blocks_slider_register_block() {
         return;
     }
     register_block_type( 'bsx-blocks/slider', array(
-        'editor_style' => array( 'bsx-blocks-editor-atf-style', 'bsx-blocks-editor-style', 'bsx-blocks-ui-editor-style' ),
         'editor_script' => 'bsx-blocks-script',
+        'editor_style' => 'bsx-blocks-editor-style',
+        'style' => 'bsx-blocks-theme-atf-style',
+        // missing 2nd style `'style' => 'bsx-blocks-theme-style',` which is included as dirty hack in `banner/index.php`
     ) );
 
 }

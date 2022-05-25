@@ -15,27 +15,25 @@ defined( 'ABSPATH' ) || exit;
 
 /**
  * include stylesheet from theme `assets/css/atf.css` and `assets/css/style.css`
- *
- * use `'editor_style' => array( 'bsx-blocks-editor-atf-style', 'bsx-blocks-editor-style' ),` within `register_block_type()` to include styles into your block or plugin
  */
 function bsx_blocks_include_style_and_script() {
 
     $asset_file = include( BSX_BLOCKS_PLUGIN_DIR_PATH . 'build/index.asset.php');
 
     wp_register_style(
-        'bsx-blocks-editor-atf-style',
+        'bsx-blocks-theme-atf-style',
         get_template_directory_uri() . '/assets/css/atf.css',
         array( 'wp-edit-blocks' ),
         filemtime( get_template_directory() . '/assets/css/atf.css' ),
     );
     wp_register_style(
-        'bsx-blocks-editor-style',
+        'bsx-blocks-theme-style',
         get_template_directory_uri() . '/assets/css/style.css',
         array( 'wp-edit-blocks' ),
         filemtime( get_template_directory() . '/assets/css/style.css' ),
     );
     wp_register_style(
-        'bsx-blocks-ui-editor-style',
+        'bsx-blocks-editor-style',
         BSX_BLOCKS_PLUGINS_URL . 'build/css/index.css',
         array( 'wp-edit-blocks' ),
         filemtime( BSX_BLOCKS_PLUGIN_DIR_PATH . 'build/css/index.css' )
