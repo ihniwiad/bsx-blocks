@@ -241,12 +241,12 @@ registerBlockType( 'bsx-blocks/svg-img', {
                                 TagName ? 
                                 (
                                     <TagName className={ wrapperClassNames }>
-                                        <RawHTML>{ unwrappedContent }</RawHTML>
+                                        <RawHTML>{ content }</RawHTML>
                                     </TagName>
                                 )
                                 : 
                                 (
-                                    <RawHTML>{ unwrappedContent }</RawHTML>
+                                    <RawHTML>{ content }</RawHTML>
                                 )
                             }
                         </>
