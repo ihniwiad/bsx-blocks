@@ -376,6 +376,17 @@ export const iconKeyInput = ( value, onChangeFunction ) => {
     )
 }
 
+export const portraitImgMaxWidthBreakpointInput = ( value, onChangeFunction ) => {
+    return (
+        <TextControl 
+            label={ __( 'Portrait image max width breakpoint (numeric in px)', 'bsx-blocks' ) }
+            value={ value } 
+            onChange={ onChangeFunction }
+            help={ __( 'Portrait image will be shown up to this width.', 'bsx-blocks' ) }
+        />
+    )
+}
+
 
 // selects
 
