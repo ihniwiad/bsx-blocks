@@ -53,6 +53,7 @@ import {
     scaleSelect,
     disableResponsiveDownsizingToggle,
     textAlignToolbar,
+    portraitImgMaxWidthBreakpointInput,
 } from './../_functions/controls.js';
 import { 
     getUrlTruncAndExtension,
@@ -67,69 +68,89 @@ import {
 } from './../_functions/img.js';
 
 
-const responsivePortraitMediaIndexList = [
-    {
-        media: '(orientation: portrait) and (max-width: 499.98px)',
-        imgSizeIndexShift: '-1',
-        minImgSizeIndex: '1',
-    },
-    {
-        media: '(orientation: portrait)',
-        imgSizeIndexShift: '0',
-        minImgSizeIndex: '2',
-    },
-];
-const responsiveMediaIndexList = [
-    {
-        media: '(max-width: 459.98px)',
-        imgSizeIndexShift: '-2',
-        minImgSizeIndex: '1',
-    },
-    {
-        media: '(max-width: 767.98px)',
-        imgSizeIndexShift: '-1',
-        minImgSizeIndex: '2',
-    },
-];
-const skipIndex = 0;
 
 const makeSourcesAttributesList = ( attributes ) => {
 
     const {
         imgSizes,
         imgSizeIndex,
-        responsiveMediaIndexList,
         portraitImgSizes,
         portraitImgSizeIndex,
-        responsivePortraitMediaIndexList,
-        skipIndex,
+        portraitImgMaxWidthBreakpoint,
         disableResponsiveDownsizing,
     } = attributes;
+
+    const responsivePortraitMediaIndexList = [
+        {
+            breakpoint: 460,
+            imgSizeIndexShift: '-1',
+            minImgSizeIndex: '1',
+        },
+        {
+            breakpoint: 576,
+            imgSizeIndexShift: '0',
+            minImgSizeIndex: '2',
+        },
+    ];
+    const responsiveMediaIndexList = [
+        {
+            breakpoint: 460,
+            imgSizeIndexShift: '-2',
+            minImgSizeIndex: '1',
+        },
+        {
+            breakpoint: 768,
+            imgSizeIndexShift: '-1',
+            minImgSizeIndex: '2',
+        },
+    ];
+    const skipIndex = 0;
 
     const sourcesAttributesList = [];
 
     // portrait img
-    responsivePortraitMediaIndexList.forEach( ( item, index ) => {
 
-        const currentPortraitImgIndex = parseInt( portraitImgSizeIndex ) + parseInt( item.imgSizeIndexShift );
+    if ( ! disableResponsiveDownsizing ) {
+        // downsize, iterate list
 
-        const adaptedCurrentPortraitImgIndex = currentPortraitImgIndex < parseInt( item.minImgSizeIndex ) ? parseInt( item.minImgSizeIndex ) : currentPortraitImgIndex;
+        responsivePortraitMediaIndexList.forEach( ( item, index ) => {
 
+            const currentPortraitImgIndex = parseInt( portraitImgSizeIndex ) + parseInt( item.imgSizeIndexShift );
+
+            const adaptedCurrentPortraitImgIndex = currentPortraitImgIndex < parseInt( item.minImgSizeIndex ) ? parseInt( item.minImgSizeIndex ) : currentPortraitImgIndex;
+
+            if ( 
+                adaptedCurrentPortraitImgIndex <= parseInt( portraitImgSizeIndex ) 
+                && adaptedCurrentPortraitImgIndex > skipIndex
+                && typeof portraitImgSizes[ adaptedCurrentPortraitImgIndex ] != 'undefined' 
+                && typeof portraitImgSizes[ adaptedCurrentPortraitImgIndex ].url != 'undefined' 
+            ) {
+                sourcesAttributesList.push( {
+                    media: '(orientation: portrait) and (max-width: ' + ( parseInt( ( index == responsivePortraitMediaIndexList.length - 1 && !! portraitImgMaxWidthBreakpoint ) ? portraitImgMaxWidthBreakpoint : item.breakpoint ) - 0.02 ) + 'px)',
+                    srcset: makeBase64PreloadImgSrc( portraitImgSizes[ adaptedCurrentPortraitImgIndex ].width, portraitImgSizes[ adaptedCurrentPortraitImgIndex ].height ),
+                    'data-srcset': portraitImgSizes[ adaptedCurrentPortraitImgIndex ].url,
+                    'data-width': portraitImgSizes[ adaptedCurrentPortraitImgIndex ].width,
+                    'data-height': portraitImgSizes[ adaptedCurrentPortraitImgIndex ].height,
+                } );
+            }
+        } );
+    }
+    else {
+        // use largest portrait img size
         if ( 
-            adaptedCurrentPortraitImgIndex < parseInt( portraitImgSizeIndex ) 
-            && adaptedCurrentPortraitImgIndex > skipIndex
-            && typeof portraitImgSizes[ adaptedCurrentPortraitImgIndex ] != 'undefined' 
-            && typeof portraitImgSizes[ adaptedCurrentPortraitImgIndex ].url != 'undefined' 
+            !! portraitImgSizeIndex
+            && typeof portraitImgSizes[ portraitImgSizeIndex ] != 'undefined' 
+            && typeof portraitImgSizes[ portraitImgSizeIndex ].url != 'undefined' 
         ) {
             sourcesAttributesList.push( {
-                media: item.media,
-                srcset: makeBase64PreloadImgSrc( portraitImgSizes[ adaptedCurrentPortraitImgIndex ].width, portraitImgSizes[ adaptedCurrentPortraitImgIndex ].height ),
-                'data-srcset': portraitImgSizes[ adaptedCurrentPortraitImgIndex ].url,
-                'data-width': portraitImgSizes[ adaptedCurrentPortraitImgIndex ].width,
-                'data-height': portraitImgSizes[ adaptedCurrentPortraitImgIndex ].height,
+                media: '(orientation: portrait) and (max-width: ' + ( parseInt( ( !! portraitImgMaxWidthBreakpoint ) ? portraitImgMaxWidthBreakpoint : responsivePortraitMediaIndexList[ responsivePortraitMediaIndexList.length - 1 ].breakpoint ) - 0.02 ) + 'px)',
+                srcset: makeBase64PreloadImgSrc( portraitImgSizes[ portraitImgSizeIndex ].width, portraitImgSizes[ portraitImgSizeIndex ].height ),
+                'data-srcset': portraitImgSizes[ portraitImgSizeIndex ].url,
+                'data-width': portraitImgSizes[ portraitImgSizeIndex ].width,
+                'data-height': portraitImgSizes[ portraitImgSizeIndex ].height,
             } );
         }
-    } );
+    }
 
     // default img
     responsiveMediaIndexList.forEach( ( item, index ) => {
@@ -146,7 +167,7 @@ const makeSourcesAttributesList = ( attributes ) => {
             && typeof imgSizes[ adaptedCurrentImgIndex ].url != 'undefined' 
         ) {
             sourcesAttributesList.push( {
-                media: item.media,
+                media: '(max-width: ' + ( parseInt( item.breakpoint ) - 0.02 ) + 'px)',
                 srcset: makeBase64PreloadImgSrc( imgSizes[ adaptedCurrentImgIndex ].width, imgSizes[ adaptedCurrentImgIndex ].height ),
                 'data-srcset': imgSizes[ adaptedCurrentImgIndex ].url,
                 'data-width': imgSizes[ adaptedCurrentImgIndex ].width,
@@ -205,6 +226,9 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         portraitImgSizeIndex: {
             type: 'string',
             default: '3',
+        },
+        portraitImgMaxWidthBreakpoint: {
+            type: 'string',
         },
         alt: {
             type: 'string',
@@ -287,6 +311,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 portraitImgId,
                 portraitImgSizes,
                 portraitImgSizeIndex,
+                portraitImgMaxWidthBreakpoint,
                 alt,
                 figcaption,
                 rounded,
@@ -548,16 +573,20 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             }
         } );
 
+        const onChangePortraitImgMaxWidthBreakpoint = ( value ) => {
+            setAttributes( { 
+                portraitImgMaxWidthBreakpoint: value.toString(),
+            } );
+        };
+
         // prepare img sources attributes
 
         const sourcesAttributesList = makeSourcesAttributesList( {
             imgSizes,
             imgSizeIndex,
-            responsiveMediaIndexList,
             portraitImgSizes,
             portraitImgSizeIndex,
-            responsivePortraitMediaIndexList,
-            skipIndex,
+            portraitImgMaxWidthBreakpoint,
             disableResponsiveDownsizing,
         } );
 
@@ -895,6 +924,9 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 {
                     disableResponsiveDownsizingToggle( disableResponsiveDownsizing, onChangeDisableResponsiveDownsizing )
                 }
+                {
+                    portraitImgMaxWidthBreakpointInput( portraitImgMaxWidthBreakpoint, onChangePortraitImgMaxWidthBreakpoint )
+                }
                 <ToggleControl
                     className={ !! zoomable ? 'bsxui-disabled' : '' }
                     label={ __( 'No figure tag', 'bsx-blocks' ) }
@@ -1022,6 +1054,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 portraitImgId,
                 portraitImgSizes,
                 portraitImgSizeIndex,
+                portraitImgMaxWidthBreakpoint,
                 alt,
                 figcaption,
                 rounded,
@@ -1051,11 +1084,9 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         const sourcesAttributesList = makeSourcesAttributesList( {
             imgSizes,
             imgSizeIndex,
-            responsiveMediaIndexList,
             portraitImgSizes,
             portraitImgSizeIndex,
-            responsivePortraitMediaIndexList,
-            skipIndex,
+            portraitImgMaxWidthBreakpoint,
             disableResponsiveDownsizing,
         } );
 
