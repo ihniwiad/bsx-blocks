@@ -2280,13 +2280,15 @@ var makeBase64PreloadImgSrc = function makeBase64PreloadImgSrc(imgWidth, imgHeig
 /*!*************************************!*\
   !*** ./src/_functions/utilities.js ***!
   \*************************************/
-/*! exports provided: filterByAllowedValueKeys, getTemplate */
+/*! exports provided: filterByAllowedValueKeys, getTemplate, getFileSuffix, getFileName */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "filterByAllowedValueKeys", function() { return filterByAllowedValueKeys; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTemplate", function() { return getTemplate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getFileSuffix", function() { return getFileSuffix; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getFileName", function() { return getFileName; });
 var filterByAllowedValueKeys = function filterByAllowedValueKeys(mapArray, allowedValues) {
   var filteredValues = [];
 
@@ -2309,6 +2311,22 @@ var getTemplate = function getTemplate(templates, currentTemplateName) {
     return item.name === currentTemplateName;
   });
   return currentTemplate ? currentTemplate : {};
+};
+var getFileSuffix = function getFileSuffix(filePath) {
+  if (!!filePath && filePath.indexOf('.') != -1) {
+    var explode = filePath.split('.');
+    return explode[explode.length - 1];
+  } else {
+    return '';
+  }
+};
+var getFileName = function getFileName(filePath) {
+  if (!!filePath && filePath.indexOf('/') != -1) {
+    var explode = filePath.split('/');
+    return explode[explode.length - 1];
+  } else {
+    return '';
+  }
 };
 
 /***/ }),
@@ -12051,6 +12069,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../_functions/wp-icons.js */ "./src/_functions/wp-icons.js");
 /* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
 /* harmony import */ var _functions_attributes_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../_functions/attributes.js */ "./src/_functions/attributes.js");
+/* harmony import */ var _functions_utilities_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../_functions/utilities.js */ "./src/_functions/utilities.js");
 
 
 var _wp$i18n = wp.i18n,
@@ -12076,10 +12095,12 @@ var _wp$components = wp.components,
 
 
 
+
 /*
 
-<video class="img-fluid align-middle" autoplay="" loop="" playsinline="" muted="" poster="/wp-content/uploads/2021/10/linku-scan-card-animation-005-ae-poster.png" width="555" height="480">
-    <source src="/wp-content/uploads/2021/10/linku-scan-card-animation-005-ae.webm" type="video/webm">
+<video class="img-fluid align-middle" autoplay="" loop="" playsinline="" muted="" poster="https://linku.digital/wp-content/uploads/2021/10/linku-scan-card-animation-005-ae-poster.png" width="555" height="480">
+    <source src="https://linku.digital/wp-content/uploads/2022/01/linku-scan-card-animation-006a.mov" type="video/mp4; codecs=hvc1">
+    <source src="https://linku.digital/wp-content/uploads/2022/01/linku-scan-card-animation-006a.webm" type="video/webm">
     Your browser does not support HTML video.
 </video>
 
@@ -12103,7 +12124,19 @@ registerBlockType('bsx-blocks/video', {
     },
     videoUrl: {
       type: 'string',
-      selector: "video",
+      selector: "source:first-of-type",
+      source: "attribute",
+      attribute: "src"
+    },
+    videoIsHvc1: {
+      type: 'boolean'
+    },
+    video2Id: {
+      type: 'number'
+    },
+    video2Url: {
+      type: 'string',
+      selector: "source:last-of-type",
       source: "attribute",
       attribute: "src"
     },
@@ -12185,6 +12218,9 @@ registerBlockType('bsx-blocks/video', {
         figcaption = _props$attributes.figcaption,
         videoId = _props$attributes.videoId,
         videoUrl = _props$attributes.videoUrl,
+        videoIsHvc1 = _props$attributes.videoIsHvc1,
+        video2Id = _props$attributes.video2Id,
+        video2Url = _props$attributes.video2Url,
         videoWidth = _props$attributes.videoWidth,
         videoHeight = _props$attributes.videoHeight,
         posterId = _props$attributes.posterId,
@@ -12232,6 +12268,28 @@ registerBlockType('bsx-blocks/video', {
           displayedHeight: !!scale ? scale * parseFloat(video.height) : parseFloat(video.height)
         });
       }
+    };
+
+    var onChangeVideoIsHvc1 = function onChangeVideoIsHvc1(value) {
+      setAttributes({
+        videoIsHvc1: value
+      });
+    };
+
+    var onSelectVideo2 = function onSelectVideo2(video) {
+      if (typeof video.url !== 'undefined') {
+        setAttributes({
+          video2Id: video.id,
+          video2Url: video.url
+        });
+      }
+    };
+
+    var onDeleteVideo2 = function onDeleteVideo2() {
+      setAttributes({
+        video2Id: '',
+        video2Url: ''
+      });
     };
 
     var onSelectPosterImage = function onSelectPosterImage(img) {
@@ -12339,19 +12397,40 @@ registerBlockType('bsx-blocks/video', {
       'width': !!displayedWidth ? displayedWidth : !!scale ? scale * videoWidth : videoWidth,
       'height': !!displayedHeight ? displayedHeight : !!scale ? scale * videoHeight : videoHeight
     }); // video html
-    // get file extension from url
-    // const videoType = !! videoUrl ? 'video/' + videoUrl.slice( - ( videoUrl.length - videoUrl.lastIndexOf( "." ) - 1 ) ) : '';
-    // editor semms not to like source tag, but accepts src attribute
 
+    var videoFileSuffix = Object(_functions_utilities_js__WEBPACK_IMPORTED_MODULE_6__["getFileSuffix"])(videoUrl);
+    var videoType = videoFileSuffix == 'mov' && videoIsHvc1 ? 'video/mp4; codecs=hvc1' : 'video/' + videoFileSuffix;
+    var video2Type = 'video/' + Object(_functions_utilities_js__WEBPACK_IMPORTED_MODULE_6__["getFileSuffix"])(video2Url);
     var video = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("video", _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
-      className: videoClassNames,
-      src: videoUrl
-    }, videoSaveAttributes));
+      className: videoClassNames
+    }, videoSaveAttributes), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("source", {
+      src: videoUrl,
+      type: videoType
+    }), video2Url && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("source", {
+      src: video2Url,
+      type: video2Type
+    }), "Your browser does not support HTML video.");
+    var video1Only = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("video", _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+      className: videoClassNames
+    }, videoSaveAttributes), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("source", {
+      src: videoUrl,
+      type: videoType
+    }), "Your browser does not support HTML video.");
+    var video2Only = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("video", _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+      className: videoClassNames
+    }, videoSaveAttributes), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("source", {
+      src: video2Url,
+      type: video2Type
+    }), "Your browser does not support HTML video.");
     return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(BlockControls, null, !notHasFigure && Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_2__["textAlignToolbar"])(textAlign, onChangeTextAlign)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
       title: __('Video', 'bsx-blocks')
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
       class: "bsxui-config-panel-row"
-    }, videoId ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(MediaUpload, {
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      class: "bsxui-alert"
+    }, __('If using transparency (alpha) put 1st mov file with HVC1 Codec active and 2nd webm file.', 'bsx-blocks'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      class: "bsxui-config-panel-row"
+    }, videoId ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(MediaUpload, {
       onSelect: onSelectVideo,
       allowedTypes: "video",
       value: videoId,
@@ -12360,9 +12439,13 @@ registerBlockType('bsx-blocks/video', {
         return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
           className: "bsxui-config-panel-img-button has-margin-bottom",
           onClick: open
-        }, video);
+        }, video1Only);
       }
-    }) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      class: "bsxui-config-panel-row"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      class: "bsxui-config-panel-text"
+    }, Object(_functions_utilities_js__WEBPACK_IMPORTED_MODULE_6__["getFileName"])(videoUrl)))) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
       class: "bsxui-config-panel-row"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
       class: "bsxui-config-panel-text"
@@ -12377,7 +12460,48 @@ registerBlockType('bsx-blocks/video', {
           isSecondary: true
         }, __('Change / upload video', 'bsx-blocks'));
       }
-    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
+    })), videoId && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ToggleControl, {
+      label: __('Video is HVC1 Codec (mov file with alpha)', 'bsx-blocks'),
+      checked: !!videoIsHvc1,
+      onChange: onChangeVideoIsHvc1
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      class: "bsxui-config-panel-row"
+    }, video2Id ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(MediaUpload, {
+      onSelect: onSelectVideo2,
+      allowedTypes: "video",
+      value: video2Id,
+      render: function render(_ref3) {
+        var open = _ref3.open;
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
+          className: "bsxui-config-panel-img-button has-margin-bottom",
+          onClick: open
+        }, video2Only);
+      }
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      class: "bsxui-config-panel-row"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      class: "bsxui-config-panel-text"
+    }, Object(_functions_utilities_js__WEBPACK_IMPORTED_MODULE_6__["getFileName"])(video2Url)))) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      class: "bsxui-config-panel-row"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      class: "bsxui-config-panel-text"
+    }, __('– No video 2 selected yet –', 'bsx-blocks'))), videoId && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(MediaUpload, {
+      onSelect: onSelectVideo2,
+      allowedTypes: "video",
+      value: video2Id,
+      render: function render(_ref4) {
+        var open = _ref4.open;
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
+          onClick: open,
+          isSecondary: true
+        }, __('Change / upload video 2', 'bsx-blocks'));
+      }
+    })), video2Id && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      class: "bsxui-config-panel-row"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
+      onClick: onDeleteVideo2,
+      isDestructive: true
+    }, __('Remove video 2', 'bsx-blocks')))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
       title: __('Video settings', 'bsx-blocks')
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ToggleControl, {
       label: __('Controls', 'bsx-blocks'),
@@ -12405,8 +12529,8 @@ registerBlockType('bsx-blocks/video', {
       onSelect: onSelectPosterImage,
       allowedTypes: "image",
       value: posterId,
-      render: function render(_ref3) {
-        var open = _ref3.open;
+      render: function render(_ref5) {
+        var open = _ref5.open;
         return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
           className: "bsxui-config-panel-img-button has-margin-bottom",
           onClick: open
@@ -12426,8 +12550,8 @@ registerBlockType('bsx-blocks/video', {
       onSelect: onSelectPosterImage,
       allowedTypes: "image",
       value: posterId,
-      render: function render(_ref4) {
-        var open = _ref4.open;
+      render: function render(_ref6) {
+        var open = _ref6.open;
         return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
           onClick: open,
           isSecondary: true
@@ -12462,8 +12586,8 @@ registerBlockType('bsx-blocks/video', {
       onSelect: onSelectVideo,
       allowedTypes: "video",
       value: videoId,
-      render: function render(_ref5) {
-        var open = _ref5.open;
+      render: function render(_ref7) {
+        var open = _ref7.open;
         return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
           onClick: open,
           isSecondary: true,
@@ -12486,6 +12610,9 @@ registerBlockType('bsx-blocks/video', {
         figcaption = _props$attributes2.figcaption,
         videoId = _props$attributes2.videoId,
         videoUrl = _props$attributes2.videoUrl,
+        videoIsHvc1 = _props$attributes2.videoIsHvc1,
+        video2Id = _props$attributes2.video2Id,
+        video2Url = _props$attributes2.video2Url,
         videoWidth = _props$attributes2.videoWidth,
         videoHeight = _props$attributes2.videoHeight,
         posterId = _props$attributes2.posterId,
@@ -12521,14 +12648,20 @@ registerBlockType('bsx-blocks/video', {
       'poster': posterUrl,
       'width': !!displayedWidth ? displayedWidth : !!scale ? scale * videoWidth : videoWidth,
       'height': !!displayedHeight ? displayedHeight : !!scale ? scale * videoHeight : videoHeight
-    }); // video html
-    // get file extension from url
-    // const videoType = !! videoUrl ? 'video/' + videoUrl.slice( - ( videoUrl.length - videoUrl.lastIndexOf( "." ) - 1 ) ) : '';
+    });
+    var videoFileSuffix = Object(_functions_utilities_js__WEBPACK_IMPORTED_MODULE_6__["getFileSuffix"])(videoUrl);
+    var videoType = videoFileSuffix == 'mov' && videoIsHvc1 ? 'video/mp4; codecs=hvc1' : 'video/' + videoFileSuffix;
+    var video2Type = 'video/' + Object(_functions_utilities_js__WEBPACK_IMPORTED_MODULE_6__["getFileSuffix"])(video2Url); // video html
 
     var video = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("video", _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
-      className: videoClassNames,
-      src: videoUrl
-    }, videoSaveAttributes), "Your browser does not support HTML video.");
+      className: videoClassNames
+    }, videoSaveAttributes), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("source", {
+      src: videoUrl,
+      type: videoType
+    }), video2Url && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("source", {
+      src: video2Url,
+      type: video2Type
+    }), "Your browser does not support HTML video.");
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, !notHasFigure ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("figure", {
       className: outerClassNames
     }, !!videoUrl && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, video, figcaption && !RichText.isEmpty(figcaption) && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RichText.Content, {

@@ -39,11 +39,17 @@ import { addClassNames } from './../_functions/add-class-names.js';
 
 import { makeSaveAttributes } from './../_functions/attributes.js';
 
+import {
+    getFileSuffix,
+    getFileName,
+} from './../_functions/utilities.js';
+
 
 /*
 
-<video class="img-fluid align-middle" autoplay="" loop="" playsinline="" muted="" poster="/wp-content/uploads/2021/10/linku-scan-card-animation-005-ae-poster.png" width="555" height="480">
-    <source src="/wp-content/uploads/2021/10/linku-scan-card-animation-005-ae.webm" type="video/webm">
+<video class="img-fluid align-middle" autoplay="" loop="" playsinline="" muted="" poster="https://linku.digital/wp-content/uploads/2021/10/linku-scan-card-animation-005-ae-poster.png" width="555" height="480">
+    <source src="https://linku.digital/wp-content/uploads/2022/01/linku-scan-card-animation-006a.mov" type="video/mp4; codecs=hvc1">
+    <source src="https://linku.digital/wp-content/uploads/2022/01/linku-scan-card-animation-006a.webm" type="video/webm">
     Your browser does not support HTML video.
 </video>
 
@@ -68,7 +74,19 @@ registerBlockType( 'bsx-blocks/video', {
         },
         videoUrl: {
             type: 'string',
-            selector: "video",
+            selector: "source:first-of-type",
+            source: "attribute",
+            attribute: "src",
+        },
+        videoIsHvc1: {
+            type: 'boolean',
+        },
+        video2Id: {
+            type: 'number',
+        },
+        video2Url: {
+            type: 'string',
+            selector: "source:last-of-type",
             source: "attribute",
             attribute: "src",
         },
@@ -152,6 +170,9 @@ registerBlockType( 'bsx-blocks/video', {
                 figcaption,
                 videoId,
                 videoUrl,
+                videoIsHvc1,
+                video2Id,
+                video2Url,
                 videoWidth,
                 videoHeight,
                 posterId,
@@ -202,6 +223,29 @@ registerBlockType( 'bsx-blocks/video', {
                 } );
 
             }
+        }
+
+        const onChangeVideoIsHvc1 = ( value ) => {
+            setAttributes( { videoIsHvc1: value } );
+        };
+
+        const onSelectVideo2 = ( video ) => {
+
+            if ( typeof video.url !== 'undefined' ) {
+
+                setAttributes( { 
+                    video2Id: video.id,
+                    video2Url: video.url,
+                } );
+
+            }
+        }
+
+        const onDeleteVideo2 = () => {
+            setAttributes( { 
+                video2Id: '',
+                video2Url: '',
+            } );
         }
 
         const onSelectPosterImage = ( img ) => {
@@ -298,12 +342,33 @@ registerBlockType( 'bsx-blocks/video', {
 
         // video html
 
-        // get file extension from url
-        // const videoType = !! videoUrl ? 'video/' + videoUrl.slice( - ( videoUrl.length - videoUrl.lastIndexOf( "." ) - 1 ) ) : '';
+        const videoFileSuffix = getFileSuffix( videoUrl );
+        const videoType = ( videoFileSuffix == 'mov' && videoIsHvc1 ) ? 'video/mp4; codecs=hvc1' : 'video/' + videoFileSuffix;
+        const video2Type = 'video/' + getFileSuffix( video2Url );
 
-        // editor semms not to like source tag, but accepts src attribute
         const video = (
-            <video className={ videoClassNames } src={ videoUrl } { ...videoSaveAttributes }></video>
+            <video className={ videoClassNames } { ...videoSaveAttributes }>
+                <source src={ videoUrl } type={ videoType }/>
+                {
+                    video2Url && (
+                        <source src={ video2Url } type={ video2Type }/>
+                    )
+                }
+                Your browser does not support HTML video.
+            </video>
+        );
+
+        const video1Only = (
+            <video className={ videoClassNames } { ...videoSaveAttributes }>
+                <source src={ videoUrl } type={ videoType }/>
+                Your browser does not support HTML video.
+            </video>
+        );
+        const video2Only = (
+            <video className={ videoClassNames } { ...videoSaveAttributes }>
+                <source src={ video2Url } type={ video2Type }/>
+                Your browser does not support HTML video.
+            </video>
         );
 
         return [
@@ -313,21 +378,31 @@ registerBlockType( 'bsx-blocks/video', {
             <InspectorControls>
                 <PanelBody title={ __( 'Video', 'bsx-blocks' ) }>
                     <div class="bsxui-config-panel-row">
+                        <div class="bsxui-alert">
+                            { __( 'If using transparency (alpha) put 1st mov file with HVC1 Codec active and 2nd webm file.', 'bsx-blocks' ) }
+                        </div>
+                    </div>
+                    <div class="bsxui-config-panel-row">
                         {
                             videoId ? (
-                                <MediaUpload
-                                    onSelect={ onSelectVideo }
-                                    allowedTypes="video"
-                                    value={ videoId }
-                                    render={ ( { open } ) => (
-                                        <Button
-                                            className="bsxui-config-panel-img-button has-margin-bottom"
-                                            onClick={ open }
-                                        >
-                                            { video }
-                                        </Button>
-                                    ) }
-                                />
+                                <>
+                                    <MediaUpload
+                                        onSelect={ onSelectVideo }
+                                        allowedTypes="video"
+                                        value={ videoId }
+                                        render={ ( { open } ) => (
+                                            <Button
+                                                className="bsxui-config-panel-img-button has-margin-bottom"
+                                                onClick={ open }
+                                            >
+                                                { video1Only }
+                                            </Button>
+                                        ) }
+                                    />
+                                    <div class="bsxui-config-panel-row">
+                                        <div class="bsxui-config-panel-text">{ getFileName( videoUrl ) }</div>
+                                    </div>
+                                </>
                             )
                             : 
                             (
@@ -350,6 +425,74 @@ registerBlockType( 'bsx-blocks/video', {
                             ) }
                         />
                     </div>
+                    {
+                        videoId && (
+                            <ToggleControl
+                                label={ __( 'Video is HVC1 Codec (mov file with alpha)', 'bsx-blocks' ) }
+                                checked={ !! videoIsHvc1 }
+                                onChange={ onChangeVideoIsHvc1 }
+                            />
+                        )
+                    }
+                    <div class="bsxui-config-panel-row">
+                        {
+                            video2Id ? (
+                                <>
+                                    <MediaUpload
+                                        onSelect={ onSelectVideo2 }
+                                        allowedTypes="video"
+                                        value={ video2Id }
+                                        render={ ( { open } ) => (
+                                            <Button
+                                                className="bsxui-config-panel-img-button has-margin-bottom"
+                                                onClick={ open }
+                                            >
+                                                { video2Only }
+                                            </Button>
+                                        ) }
+                                    />
+                                    <div class="bsxui-config-panel-row">
+                                        <div class="bsxui-config-panel-text">{ getFileName( video2Url ) }</div>
+                                    </div>
+                                </>
+                            )
+                            : 
+                            (
+                                <div class="bsxui-config-panel-row">
+                                    <div class="bsxui-config-panel-text">{ __( '– No video 2 selected yet –', 'bsx-blocks' ) }</div>
+                                </div>
+                            )
+                        }
+                        {
+                            videoId && (
+                                <MediaUpload
+                                    onSelect={ onSelectVideo2 }
+                                    allowedTypes="video"
+                                    value={ video2Id }
+                                    render={ ( { open } ) => (
+                                        <Button 
+                                            onClick={ open }
+                                            isSecondary
+                                        >
+                                            { __( 'Change / upload video 2', 'bsx-blocks' ) }
+                                        </Button>
+                                    ) }
+                                />
+                            )
+                        }
+                    </div>
+                    {
+                        video2Id && (
+                            <div class="bsxui-config-panel-row">
+                                <Button 
+                                    onClick={ onDeleteVideo2 }
+                                    isDestructive={ true }
+                                >
+                                    { __( 'Remove video 2', 'bsx-blocks' ) }
+                                </Button>
+                            </div>
+                        )
+                    }
                 </PanelBody>
                      
                 <PanelBody title={ __( 'Video settings', 'bsx-blocks' ) }>
@@ -518,6 +661,9 @@ registerBlockType( 'bsx-blocks/video', {
                 figcaption,
                 videoId,
                 videoUrl,
+                videoIsHvc1,
+                video2Id,
+                video2Url,
                 videoWidth,
                 videoHeight,
                 posterId,
@@ -561,13 +707,20 @@ registerBlockType( 'bsx-blocks/video', {
             'height': !! displayedHeight ? displayedHeight : !! scale ? scale * videoHeight : videoHeight,
         } );
 
+        const videoFileSuffix = getFileSuffix( videoUrl );
+        const videoType = ( videoFileSuffix == 'mov' && videoIsHvc1 ) ? 'video/mp4; codecs=hvc1' : 'video/' + videoFileSuffix;
+        const video2Type = 'video/' + getFileSuffix( video2Url );
+
         // video html
 
-        // get file extension from url
-        // const videoType = !! videoUrl ? 'video/' + videoUrl.slice( - ( videoUrl.length - videoUrl.lastIndexOf( "." ) - 1 ) ) : '';
-
         const video = (
-            <video className={ videoClassNames } src={ videoUrl } { ...videoSaveAttributes }>
+            <video className={ videoClassNames } { ...videoSaveAttributes }>
+                <source src={ videoUrl } type={ videoType }/>
+                {
+                    video2Url && (
+                        <source src={ video2Url } type={ video2Type }/>
+                    )
+                }
                 Your browser does not support HTML video.
             </video>
         );
