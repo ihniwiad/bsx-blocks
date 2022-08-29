@@ -949,6 +949,9 @@ var textColorStates = [{
   value: 'dark',
   label: __('Dark', 'bsx-blocks')
 }, {
+  value: 'muted',
+  label: __('Muted', 'bsx-blocks')
+}, {
   value: 'white-50',
   label: __('White transparent', 'bsx-blocks')
 }, {
@@ -1292,10 +1295,10 @@ var bgColorSelect = function bgColorSelect(value, onChangeFunction, allowedValue
     options: Object(_utilities_js__WEBPACK_IMPORTED_MODULE_1__["filterByAllowedValueKeys"])(defaultValues, allowedValues)
   });
 };
-var textColorSelect = function textColorSelect(value, onChangeFunction, allowedValues) {
+var textColorSelect = function textColorSelect(value, onChangeFunction, allowedValues, label) {
   var defaultValues = textColorStates;
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
-    label: __('Text Color', 'bsx-blocks'),
+    label: !!label ? label : __('Text Color', 'bsx-blocks'),
     value: value,
     onChange: onChangeFunction,
     options: Object(_utilities_js__WEBPACK_IMPORTED_MODULE_1__["filterByAllowedValueKeys"])(defaultValues, allowedValues)
@@ -2292,7 +2295,7 @@ __webpack_require__.r(__webpack_exports__);
 var filterByAllowedValueKeys = function filterByAllowedValueKeys(mapArray, allowedValues) {
   var filteredValues = [];
 
-  if (typeof allowedValues !== 'undefined' && allowedValues.length > 0) {
+  if (typeof allowedValues !== 'undefined' && allowedValues != null && Array.isArray(allowedValues) && allowedValues.length > 0) {
     mapArray.forEach(function (item) {
       if (typeof allowedValues.find(function (key) {
         return key === item.value;
@@ -5976,6 +5979,388 @@ var templates = [{
 
 /***/ }),
 
+/***/ "./src/icon-list/icon-list-item/block.js":
+/*!***********************************************!*\
+  !*** ./src/icon-list/icon-list-item/block.js ***!
+  \***********************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../_functions/wp-icons.js */ "./src/_functions/wp-icons.js");
+/* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
+/* harmony import */ var _functions_attributes_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../_functions/attributes.js */ "./src/_functions/attributes.js");
+/* harmony import */ var _functions_controls_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../_functions/controls.js */ "./src/_functions/controls.js");
+
+// TODO: add state classes for text-link button
+var _wp$i18n = wp.i18n,
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData;
+var registerBlockType = wp.blocks.registerBlockType;
+var _wp$blockEditor = wp.blockEditor,
+    InspectorControls = _wp$blockEditor.InspectorControls,
+    RichText = _wp$blockEditor.RichText;
+var _wp$components = wp.components,
+    PanelBody = _wp$components.PanelBody,
+    SVG = _wp$components.SVG,
+    Path = _wp$components.Path;
+var withSelect = wp.data.withSelect; // functions imports
+
+
+
+
+
+registerBlockType('bsx-blocks/icon-list-item', {
+  title: __('BSX Icon List Item', 'bsx-blocks'),
+  icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_1__["svgIcon"])('icon-list-item'),
+  category: 'layout',
+  parent: ['bsx-blocks/icon-list'],
+  attributes: {
+    content: {
+      type: 'array',
+      source: 'children',
+      selector: '.content'
+    },
+    iconKey: {
+      type: 'string',
+      default: 'check'
+    },
+    iconFamily: {
+      type: 'string'
+    },
+    calcIconFamily: {
+      type: 'string'
+    },
+    itemTextColor: {
+      type: 'string'
+    },
+    iconTextColor: {
+      type: 'string'
+    },
+    calcIconTextColor: {
+      type: 'string'
+    }
+  },
+  edit: withSelect(function (select, _ref) {
+    var clientId = _ref.clientId;
+
+    var _select = select('core/block-editor'),
+        getBlockParentsByBlockName = _select.getBlockParentsByBlockName,
+        getBlockAttributes = _select.getBlockAttributes;
+
+    var ancestorClientIds = getBlockParentsByBlockName(clientId, 'bsx-blocks/icon-list'); // get last item which is parent
+
+    var parentClientId = ancestorClientIds[ancestorClientIds.length - 1];
+    var parentAttributes = getBlockAttributes(parentClientId);
+    return {
+      parentAttributes: parentAttributes
+    };
+  })(function (props) {
+    var _props$attributes = props.attributes,
+        className = _props$attributes.className,
+        content = _props$attributes.content,
+        iconKey = _props$attributes.iconKey,
+        iconFamily = _props$attributes.iconFamily,
+        calcIconFamily = _props$attributes.calcIconFamily,
+        itemTextColor = _props$attributes.itemTextColor,
+        iconTextColor = _props$attributes.iconTextColor,
+        calcIconTextColor = _props$attributes.calcIconTextColor,
+        setAttributes = props.setAttributes,
+        isSelected = props.isSelected,
+        parentAttributes = props.parentAttributes; // console.log( JSON.stringify( parentAttributes, null, 2 ) );
+    // console.log( JSON.stringify( props.attributes, null, 2 ) );
+    // initial settings
+
+    if (!calcIconFamily) {
+      setAttributes({
+        calcIconFamily: !iconFamily && typeof parentAttributes.globalIconFamily != 'undefined' ? parentAttributes.globalIconFamily : ''
+      });
+    }
+
+    if (!calcIconTextColor && !itemTextColor) {
+      // do not set icon color if item color is set, inherit icon color instead
+      setAttributes({
+        calcIconTextColor: !iconTextColor && typeof parentAttributes.globalIconTextColor != 'undefined' ? parentAttributes.globalIconTextColor : ''
+      });
+    }
+
+    var onChangeContent = function onChangeContent(value) {
+      setAttributes({
+        content: value
+      });
+    };
+
+    var onChangeIconKey = function onChangeIconKey(value) {
+      setAttributes({
+        iconKey: value
+      });
+    };
+
+    var onChangeIconFamily = function onChangeIconFamily(value) {
+      // get icon family from item config or from parent config
+      setAttributes({
+        iconFamily: value,
+        calcIconFamily: !value && typeof parentAttributes.globalIconFamily != 'undefined' ? parentAttributes.globalIconFamily : value
+      });
+    };
+
+    var onChangeIconTextColor = function onChangeIconTextColor(value) {
+      setAttributes({
+        iconTextColor: value,
+        calcIconTextColor: !value && typeof parentAttributes.globalIconTextColor != 'undefined' ? parentAttributes.globalIconTextColor : value
+      });
+    };
+
+    var onChangeItemTextColor = function onChangeItemTextColor(value) {
+      // reset icon color if all item has text color
+      setAttributes({
+        itemTextColor: value,
+        iconTextColor: '',
+        calcIconTextColor: ''
+      });
+    };
+
+    var itemClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__["addClassNames"])({
+      textColor: itemTextColor
+    }, className);
+    var iconClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__["addClassNames"])({
+      textColor: calcIconTextColor
+    }, 'fa-li ' + 'fa' + calcIconFamily + ' fa-' + iconKey);
+    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
+      title: __('Icon Appearance', 'bsx-blocks')
+    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_4__["iconKeyInput"])(iconKey, onChangeIconKey), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_4__["iconFamilySelect"])(iconFamily, onChangeIconFamily), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_4__["textColorSelect"])(iconTextColor, onChangeIconTextColor, [], __('Icon Color', 'bsx-blocks'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
+      title: __('Item Appearance', 'bsx-blocks')
+    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_4__["textColorSelect"])(itemTextColor, onChangeItemTextColor, [], __('Item Color', 'bsx-blocks')))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("li", {
+      class: itemClassNames
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("i", {
+      class: iconClassNames,
+      "aria-hidden": "true"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText, {
+      tagName: "span",
+      multiline: false,
+      placeholder: __('Add text...', 'bsx-blocks'),
+      value: content,
+      onChange: onChangeContent,
+      allowedFormats: []
+    }))];
+  }),
+  save: function save(props) {
+    var _props$attributes2 = props.attributes,
+        className = _props$attributes2.className,
+        content = _props$attributes2.content,
+        iconKey = _props$attributes2.iconKey,
+        iconFamily = _props$attributes2.iconFamily,
+        calcIconFamily = _props$attributes2.calcIconFamily,
+        itemTextColor = _props$attributes2.itemTextColor,
+        iconTextColor = _props$attributes2.iconTextColor,
+        calcIconTextColor = _props$attributes2.calcIconTextColor;
+    var itemClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__["addClassNames"])({
+      textColor: itemTextColor
+    }, className);
+    var iconClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__["addClassNames"])({
+      textColor: calcIconTextColor
+    }, 'fa-li ' + 'fa' + calcIconFamily + ' fa-' + iconKey);
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("li", {
+      class: itemClassNames
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("span", {
+      class: iconClassNames,
+      "aria-hidden": "true"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, content && !RichText.isEmpty(content) && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText.Content, {
+      tagName: "span",
+      value: content,
+      className: "content"
+    })));
+  }
+});
+
+/***/ }),
+
+/***/ "./src/icon-list/icon-list/block.js":
+/*!******************************************!*\
+  !*** ./src/icon-list/icon-list/block.js ***!
+  \******************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../_functions/wp-icons.js */ "./src/_functions/wp-icons.js");
+/* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
+/* harmony import */ var _functions_controls_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../_functions/controls.js */ "./src/_functions/controls.js");
+
+// TODO: enable inheritance of default attribute values to allow precomposed blocks of equal buttons ?
+var _wp$i18n = wp.i18n,
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData;
+var registerBlockType = wp.blocks.registerBlockType;
+var _wp$blockEditor = wp.blockEditor,
+    InnerBlocks = _wp$blockEditor.InnerBlocks,
+    InspectorControls = _wp$blockEditor.InspectorControls,
+    BlockControls = _wp$blockEditor.BlockControls,
+    AlignmentToolbar = _wp$blockEditor.AlignmentToolbar;
+var _wp$components = wp.components,
+    TextControl = _wp$components.TextControl,
+    PanelBody = _wp$components.PanelBody,
+    SelectControl = _wp$components.SelectControl,
+    Button = _wp$components.Button,
+    SVG = _wp$components.SVG,
+    Path = _wp$components.Path;
+var Fragment = wp.element.Fragment;
+var withSelect = wp.data.withSelect; // functions imports
+
+
+
+
+registerBlockType('bsx-blocks/icon-list', {
+  title: __('BSX Icon List', 'bsx-blocks'),
+  icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_1__["svgIcon"])('icon-list'),
+  category: 'layout',
+  attributes: {
+    globalIconFamily: {
+      type: 'string'
+    },
+    globalIconTextColor: {
+      type: 'string',
+      default: 'primary'
+    },
+    textAlign: {
+      type: 'string'
+    },
+    marginBefore: {
+      type: 'string'
+    },
+    marginAfter: {
+      type: 'string'
+    }
+  },
+  // getEditWrapperProps( attributes ) {
+  //     const {
+  //         templateName,
+  //         textAlign,
+  //         marginBefore,
+  //         marginAfter,
+  //     } = attributes;
+  //     return {
+  //         'data-template-name': templateName,
+  //         'data-text-align': textAlign,
+  //         'data-margin-before': marginBefore,
+  //         'data-margin-after': marginAfter,
+  //     };
+  // },
+  // TODO: remove?
+  edit: withSelect(function (select, _ref) {
+    var clientId = _ref.clientId;
+
+    var _select = select('core/block-editor'),
+        getBlocksByClientId = _select.getBlocksByClientId;
+
+    var children = getBlocksByClientId(clientId)[0] ? getBlocksByClientId(clientId)[0].innerBlocks : [];
+    return {
+      children: children
+    };
+  })(function (props) {
+    var _props$attributes = props.attributes,
+        className = _props$attributes.className,
+        globalIconFamily = _props$attributes.globalIconFamily,
+        globalIconTextColor = _props$attributes.globalIconTextColor,
+        textAlign = _props$attributes.textAlign,
+        marginBefore = _props$attributes.marginBefore,
+        marginAfter = _props$attributes.marginAfter,
+        setAttributes = props.setAttributes;
+
+    var hasInnerBlocks = function hasInnerBlocks(children) {
+      return children.length > 0;
+    };
+
+    var allowedBlocks = ['icon-list-item'];
+
+    var onChangeGlobalIconFamily = function onChangeGlobalIconFamily(value) {
+      setAttributes({
+        globalIconFamily: value
+      });
+    };
+
+    var onChangeGlobalIconTextColor = function onChangeGlobalIconTextColor(value) {
+      setAttributes({
+        globalIconTextColor: value
+      });
+    };
+
+    var onChangeTextAlign = function onChangeTextAlign(value) {
+      setAttributes({
+        textAlign: value
+      });
+    };
+
+    var onChangeMarginBefore = function onChangeMarginBefore(value) {
+      setAttributes({
+        marginBefore: value
+      });
+    };
+
+    var onChangeMarginAfter = function onChangeMarginAfter(value) {
+      setAttributes({
+        marginAfter: value
+      });
+    };
+
+    var ulClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__["addClassNames"])({
+      textAlign: textAlign,
+      marginBefore: marginBefore,
+      marginAfter: marginAfter
+    }, 'fa-ul');
+    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Fragment, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(BlockControls, null, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["textAlignToolbar"])(textAlign, onChangeTextAlign)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
+      title: __('Settings', 'bsx-blocks')
+    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["iconFamilySelect"])(globalIconFamily, onChangeGlobalIconFamily), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["textColorSelect"])(globalIconTextColor, onChangeGlobalIconTextColor, [], __('List Icon Color', 'bsx-blocks'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
+      title: __('Margin', 'bsx-blocks')
+    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["marginBeforeSelect"])(marginBefore, onChangeMarginBefore), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["marginAfterSelect"])(marginAfter, onChangeMarginAfter)))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Fragment, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("ul", {
+      className: ulClassNames
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks, {
+      allowedBlocks: allowedBlocks
+    })))];
+  }),
+  save: function save(props) {
+    var _props$attributes2 = props.attributes,
+        className = _props$attributes2.className,
+        globalIconFamily = _props$attributes2.globalIconFamily,
+        globalIconTextColor = _props$attributes2.globalIconTextColor,
+        textAlign = _props$attributes2.textAlign,
+        marginBefore = _props$attributes2.marginBefore,
+        marginAfter = _props$attributes2.marginAfter;
+    var ulClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__["addClassNames"])({
+      textAlign: textAlign,
+      marginBefore: marginBefore,
+      marginAfter: marginAfter
+    }, 'fa-ul');
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("ul", {
+      className: ulClassNames
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks.Content, null));
+  }
+});
+
+/***/ }),
+
+/***/ "./src/icon-list/index.js":
+/*!********************************!*\
+  !*** ./src/icon-list/index.js ***!
+  \********************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _icon_list_block_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./icon-list/block.js */ "./src/icon-list/icon-list/block.js");
+/* harmony import */ var _icon_list_item_block_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./icon-list-item/block.js */ "./src/icon-list/icon-list-item/block.js");
+
+
+
+/***/ }),
+
 /***/ "./src/img-gallery/block.js":
 /*!**********************************!*\
   !*** ./src/img-gallery/block.js ***!
@@ -6611,14 +6996,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _column_rows_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./column-rows/index.js */ "./src/column-rows/index.js");
 /* harmony import */ var _container_block_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./container/block.js */ "./src/container/block.js");
 /* harmony import */ var _groups_block_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./groups/block.js */ "./src/groups/block.js");
-/* harmony import */ var _img_gallery_block_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./img-gallery/block.js */ "./src/img-gallery/block.js");
-/* harmony import */ var _lazy_img_block_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./lazy-img/block.js */ "./src/lazy-img/block.js");
-/* harmony import */ var _row_with_cols_index_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./row-with-cols/index.js */ "./src/row-with-cols/index.js");
-/* harmony import */ var _section_block_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./section/block.js */ "./src/section/block.js");
-/* harmony import */ var _slider_block_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./slider/block.js */ "./src/slider/block.js");
-/* harmony import */ var _text_elements_index_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./text-elements/index.js */ "./src/text-elements/index.js");
-/* harmony import */ var _video_block_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./video/block.js */ "./src/video/block.js");
-/* harmony import */ var _wrapper_block_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./wrapper/block.js */ "./src/wrapper/block.js");
+/* harmony import */ var _icon_list_index_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./icon-list/index.js */ "./src/icon-list/index.js");
+/* harmony import */ var _img_gallery_block_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./img-gallery/block.js */ "./src/img-gallery/block.js");
+/* harmony import */ var _lazy_img_block_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./lazy-img/block.js */ "./src/lazy-img/block.js");
+/* harmony import */ var _row_with_cols_index_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./row-with-cols/index.js */ "./src/row-with-cols/index.js");
+/* harmony import */ var _section_block_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./section/block.js */ "./src/section/block.js");
+/* harmony import */ var _slider_block_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./slider/block.js */ "./src/slider/block.js");
+/* harmony import */ var _text_elements_index_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./text-elements/index.js */ "./src/text-elements/index.js");
+/* harmony import */ var _video_block_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./video/block.js */ "./src/video/block.js");
+/* harmony import */ var _wrapper_block_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./wrapper/block.js */ "./src/wrapper/block.js");
+
 
 
 
@@ -11644,7 +12031,7 @@ registerBlockType('bsx-blocks/icon', {
     var TagName = !!href ? 'a' : 'span';
     return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
       title: __('Appearance', 'bsx-blocks')
-    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_5__["iconKeyInput"])(iconKey, onChangeIconKey), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_5__["iconFamilySelect"])(iconFamily, onChangeIconFamily), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_5__["stateSelect"])(state, onChangeState), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(TextControl, {
+    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_5__["iconKeyInput"])(iconKey, onChangeIconKey), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_5__["iconFamilySelect"])(iconFamily, onChangeIconFamily), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_5__["textColorSelect"])(state, onChangeState), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(TextControl, {
       label: __('Hover color', 'bsx-blocks'),
       value: hoverState,
       onChange: onChangeHoverState

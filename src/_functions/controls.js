@@ -77,6 +77,7 @@ const textColorStates = [
     { value: 'info', label: __( 'Info', 'bsx-blocks' ) },
     { value: 'light', label: __( 'Light', 'bsx-blocks' ) },
     { value: 'dark', label: __( 'Dark', 'bsx-blocks' ) },
+    { value: 'muted', label: __( 'Muted', 'bsx-blocks' ) },
     { value: 'white-50', label: __( 'White transparent', 'bsx-blocks' ) },
     { value: 'black-50', label: __( 'Black transparent', 'bsx-blocks' ) },
     { value: 'inherit', label: __( 'Inherit', 'bsx-blocks' ) },
@@ -414,11 +415,11 @@ export const bgColorSelect = ( value, onChangeFunction, allowedValues ) => {
     )
 }
 
-export const textColorSelect = ( value, onChangeFunction, allowedValues ) => {
+export const textColorSelect = ( value, onChangeFunction, allowedValues, label ) => {
     const defaultValues = textColorStates;
     return (
         <SelectControl 
-            label={ __( 'Text Color', 'bsx-blocks' ) }
+            label={ !! label ? label : __( 'Text Color', 'bsx-blocks' ) }
             value={ value }
             onChange={ onChangeFunction }
             options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
