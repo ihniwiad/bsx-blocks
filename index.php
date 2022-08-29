@@ -6,6 +6,8 @@
  * Description: BSX WordPress blocks.
  * Version: 1.0.6
  * Author: ihniwiad
+ * Text Domain: bsx-blocks
+ * Domain Path: /languages
  *
  * @package bsx-blocks
  */

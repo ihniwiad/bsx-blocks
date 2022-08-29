@@ -16,4 +16,24 @@ export const filterByAllowedValueKeys = ( mapArray, allowedValues ) => {
 export const getTemplate = ( templates, currentTemplateName ) => {
     const currentTemplate = templates.find( ( item ) => item.name === currentTemplateName );
     return currentTemplate ? currentTemplate : {};
-}; 
+};
+
+export const getFileSuffix = ( filePath ) => {
+    if ( !! filePath && filePath.indexOf( '.' ) != -1 ) {
+        const explode = filePath.split( '.' );
+        return explode[ explode.length - 1 ];
+    }
+    else {
+        return '';
+    }
+};
+
+export const getFileName = ( filePath ) => {
+    if ( !! filePath && filePath.indexOf( '/' ) != -1 ) {
+        const explode = filePath.split( '/' );
+        return explode[ explode.length - 1 ];
+    }
+    else {
+        return '';
+    }
+};
