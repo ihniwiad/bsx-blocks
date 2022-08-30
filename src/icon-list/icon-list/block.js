@@ -24,6 +24,7 @@ const {
 
 const { 
     withSelect,
+    withDispatch,
 } = wp.data;
 
 
@@ -34,6 +35,9 @@ import { addClassNames } from './../../_functions/add-class-names.js';
 import { 
     iconFamilySelect,
     textColorSelect,
+    displaySelect,
+    marginLeftSelect,
+    marginRightSelect,
     marginBeforeSelect,
     marginAfterSelect,
     textAlignToolbar,
@@ -53,6 +57,15 @@ registerBlockType( 'bsx-blocks/icon-list', {
             default: 'primary',
         },
         textAlign: {
+            type: 'string',
+        },
+        display: {
+            type: 'string',
+        },
+        marginLeft: {
+            type: 'string',
+        },
+        marginRight: {
             type: 'string',
         },
         marginBefore: {
@@ -83,6 +96,7 @@ registerBlockType( 'bsx-blocks/icon-list', {
     edit: withSelect( ( select, { clientId } ) => {
         const { 
             getBlocksByClientId,
+            getBlockAttributes,
         } = select( 'core/block-editor' );
 
         const children = getBlocksByClientId( clientId )[ 0 ]
@@ -91,7 +105,15 @@ registerBlockType( 'bsx-blocks/icon-list', {
 
         return {
             children,
+            getBlockAttributes,
         };
+    } )( withDispatch( ( dispatch ) => {
+
+            const { updateBlockAttributes } = dispatch( 'core/block-editor' );
+
+            return {
+                updateBlockAttributes,
+            };
     } )( ( props ) => {
         const {
             // className,
@@ -100,10 +122,16 @@ registerBlockType( 'bsx-blocks/icon-list', {
                 globalIconFamily,
                 globalIconTextColor,
                 textAlign,
+                display,
+                marginLeft,
+                marginRight,
                 marginBefore,
                 marginAfter,
             },
             setAttributes,
+            children,
+            getBlockAttributes,
+            updateBlockAttributes,
         } = props;
 
         const hasInnerBlocks = ( children ) => {
@@ -118,23 +146,51 @@ registerBlockType( 'bsx-blocks/icon-list', {
             setAttributes( { globalIconFamily: value } );
         };
         const onChangeGlobalIconTextColor = ( value ) => {
+            // change childrens calcIconTextColor
             setAttributes( { globalIconTextColor: value } );
+
+            children.forEach( ( child, index ) => {
+                const childAttributes = getBlockAttributes( child.clientId );
+
+                // console.log( 'child[ ' + index + ' ] attributes: \n' );
+                // console.log( JSON.stringify( childAttributes, null, 2 ) );
+
+                if ( ! childAttributes.iconTextColor && ! childAttributes.itemTextColor ) {
+                    // change only if no icon color and no item color is set
+                    const newAttributes = { 
+                        calcIconTextColor: value, 
+                    };
+                    updateBlockAttributes( child.clientId, newAttributes );
+                }
+            } );
         };
 
         const onChangeTextAlign = ( value ) => {
             setAttributes( { textAlign: value } );
         };
 
+        const onChangeDisplay = ( value ) => {
+            setAttributes( { display: value } );
+        };
+
+        const onChangeMarginLeft = ( value ) => {
+            setAttributes( { marginLeft: value } );
+        };
+        const onChangeMarginRight = ( value ) => {
+            setAttributes( { marginRight: value } );
+        };
         const onChangeMarginBefore = ( value ) => {
             setAttributes( { marginBefore: value } );
         };
-
         const onChangeMarginAfter = ( value ) => {
             setAttributes( { marginAfter: value } );
         };
 
         const ulClassNames = addClassNames( { 
             textAlign, 
+            display,
+            marginLeft,
+            marginRight,
             marginBefore, 
             marginAfter,
         }, 'fa-ul' );
@@ -155,8 +211,17 @@ registerBlockType( 'bsx-blocks/icon-list', {
                         {
                             textColorSelect( globalIconTextColor, onChangeGlobalIconTextColor, [], __( 'List Icon Color', 'bsx-blocks' ) )
                         }
+                        {
+                            displaySelect( display, onChangeDisplay )
+                        }
                     </PanelBody>
                     <PanelBody title={ __( 'Margin', 'bsx-blocks' ) }>
+                        {
+                            marginLeftSelect( marginLeft, onChangeMarginLeft )
+                        }
+                        {
+                            marginRightSelect( marginRight, onChangeMarginRight )
+                        }
                         {
                             marginBeforeSelect( marginBefore, onChangeMarginBefore )
                         }
@@ -178,7 +243,7 @@ registerBlockType( 'bsx-blocks/icon-list', {
                 }
             </Fragment>
         ];
-    } ),
+    } ) ),
     save: ( props ) => {
         const {
             // className,
@@ -187,6 +252,9 @@ registerBlockType( 'bsx-blocks/icon-list', {
                 globalIconFamily,
                 globalIconTextColor,
                 textAlign,
+                display,
+                marginLeft,
+                marginRight,
                 marginBefore,
                 marginAfter,
             },
@@ -194,6 +262,9 @@ registerBlockType( 'bsx-blocks/icon-list', {
 
         const ulClassNames = addClassNames( { 
             textAlign, 
+            display,
+            marginLeft,
+            marginRight,
             marginBefore, 
             marginAfter,
         }, 'fa-ul' );

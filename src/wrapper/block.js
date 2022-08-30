@@ -566,31 +566,31 @@ registerBlockType( 'bsx-blocks/wrapper', {
 
                     <PanelBody title={ __( 'Margin', 'bsx-blocks' ) }>
                         {
-                            marginBeforeSelect( marginBefore, onChangeMarginBefore )
-                        }
-                        {
-                            marginAfterSelect( marginAfter, onChangeMarginAfter )
-                        }
-                        {
                             marginLeftSelect( marginLeft, onChangeMarginLeft )
                         }
                         {
                             marginRightSelect( marginRight, onChangeMarginRight )
                         }
+                        {
+                            marginBeforeSelect( marginBefore, onChangeMarginBefore )
+                        }
+                        {
+                            marginAfterSelect( marginAfter, onChangeMarginAfter )
+                        }
                     </PanelBody>
 
                     <PanelBody title={ __( 'Padding', 'bsx-blocks' ) }>
-                        {
-                            paddingBeforeSelect( paddingBefore, onChangePaddingBefore )
-                        }
-                        {
-                            paddingAfterSelect( paddingAfter, onChangePaddingAfter )
-                        }
                         {
                             paddingLeftSelect( paddingLeft, onChangePaddingLeft )
                         }
                         {
                             paddingRightSelect( paddingRight, onChangePaddingRight )
+                        }
+                        {
+                            paddingBeforeSelect( paddingBefore, onChangePaddingBefore )
+                        }
+                        {
+                            paddingAfterSelect( paddingAfter, onChangePaddingAfter )
                         }
                     </PanelBody>
 

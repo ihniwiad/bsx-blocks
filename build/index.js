@@ -2701,6 +2701,20 @@ function svgIcon(iconKey) {
         d: "M10,3v3h8V3H10z M4.75,1.88L3.9,3.61L2,3.88l1.37,1.34L3.05,7.12l1.7-0.89l1.7,0.89L6.13,5.22L7.5,3.88L5.6,3.61L4.75,1.88z M10,12h8V9h-8V12z M5.79,8.79L4,10.58l-0.29-0.29c-0.39-0.39-1.02-0.39-1.41,0c-0.39,0.39-0.39,1.02,0,1.41l1,1 C3.48,12.89,3.73,13,4,13c0.27,0,0.52-0.1,0.71-0.29l2.5-2.5c0.39-0.39,0.39-1.02,0-1.41C6.82,8.4,6.18,8.4,5.79,8.79z M10,18h8v-3 h-8V18z M6.71,14.54c-0.39-0.39-1.02-0.39-1.41,0l-0.54,0.54l-0.54-0.54c-0.39-0.39-1.02-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.42 l0.54,0.54l-0.54,0.54c-0.39,0.39-0.39,1.02,0,1.41c0.2,0.2,0.45,0.29,0.71,0.29c0.26,0,0.51-0.1,0.71-0.29l0.54-0.54l0.54,0.54 c0.19,0.2,0.45,0.29,0.71,0.29s0.51-0.1,0.71-0.29c0.39-0.39,0.39-1.02,0-1.41L6.16,16.5l0.54-0.54C7.1,15.57,7.1,14.93,6.71,14.54z "
       }));
       break;
+
+    case 'icon-list-item':
+      icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "20",
+        height: "20",
+        viewBox: "0 0 20 20",
+        "aria-hidden": "true",
+        role: "img",
+        focusable: "false"
+      }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("path", {
+        d: "M10,9v3h8V9H10z M4.8,7.9L3.9,9.6L2,9.9l1.4,1.3L3,13.1l1.7-0.9l1.7,0.9l-0.3-1.9l1.4-1.3L5.6,9.6L4.8,7.9z"
+      }));
+      break;
     // slider
 
     case 'slider':
@@ -6211,7 +6225,9 @@ var _wp$components = wp.components,
     SVG = _wp$components.SVG,
     Path = _wp$components.Path;
 var Fragment = wp.element.Fragment;
-var withSelect = wp.data.withSelect; // functions imports
+var _wp$data = wp.data,
+    withSelect = _wp$data.withSelect,
+    withDispatch = _wp$data.withDispatch; // functions imports
 
 
 
@@ -6229,6 +6245,15 @@ registerBlockType('bsx-blocks/icon-list', {
       default: 'primary'
     },
     textAlign: {
+      type: 'string'
+    },
+    display: {
+      type: 'string'
+    },
+    marginLeft: {
+      type: 'string'
+    },
+    marginRight: {
       type: 'string'
     },
     marginBefore: {
@@ -6257,11 +6282,20 @@ registerBlockType('bsx-blocks/icon-list', {
     var clientId = _ref.clientId;
 
     var _select = select('core/block-editor'),
-        getBlocksByClientId = _select.getBlocksByClientId;
+        getBlocksByClientId = _select.getBlocksByClientId,
+        getBlockAttributes = _select.getBlockAttributes;
 
     var children = getBlocksByClientId(clientId)[0] ? getBlocksByClientId(clientId)[0].innerBlocks : [];
     return {
-      children: children
+      children: children,
+      getBlockAttributes: getBlockAttributes
+    };
+  })(withDispatch(function (dispatch) {
+    var _dispatch = dispatch('core/block-editor'),
+        updateBlockAttributes = _dispatch.updateBlockAttributes;
+
+    return {
+      updateBlockAttributes: updateBlockAttributes
     };
   })(function (props) {
     var _props$attributes = props.attributes,
@@ -6269,9 +6303,15 @@ registerBlockType('bsx-blocks/icon-list', {
         globalIconFamily = _props$attributes.globalIconFamily,
         globalIconTextColor = _props$attributes.globalIconTextColor,
         textAlign = _props$attributes.textAlign,
+        display = _props$attributes.display,
+        marginLeft = _props$attributes.marginLeft,
+        marginRight = _props$attributes.marginRight,
         marginBefore = _props$attributes.marginBefore,
         marginAfter = _props$attributes.marginAfter,
-        setAttributes = props.setAttributes;
+        setAttributes = props.setAttributes,
+        children = props.children,
+        getBlockAttributes = props.getBlockAttributes,
+        updateBlockAttributes = props.updateBlockAttributes;
 
     var hasInnerBlocks = function hasInnerBlocks(children) {
       return children.length > 0;
@@ -6286,14 +6326,45 @@ registerBlockType('bsx-blocks/icon-list', {
     };
 
     var onChangeGlobalIconTextColor = function onChangeGlobalIconTextColor(value) {
+      // change childrens calcIconTextColor
       setAttributes({
         globalIconTextColor: value
+      });
+      children.forEach(function (child, index) {
+        var childAttributes = getBlockAttributes(child.clientId); // console.log( 'child[ ' + index + ' ] attributes: \n' );
+        // console.log( JSON.stringify( childAttributes, null, 2 ) );
+
+        if (!childAttributes.iconTextColor && !childAttributes.itemTextColor) {
+          // change only if no icon color and no item color is set
+          var newAttributes = {
+            calcIconTextColor: value
+          };
+          updateBlockAttributes(child.clientId, newAttributes);
+        }
       });
     };
 
     var onChangeTextAlign = function onChangeTextAlign(value) {
       setAttributes({
         textAlign: value
+      });
+    };
+
+    var onChangeDisplay = function onChangeDisplay(value) {
+      setAttributes({
+        display: value
+      });
+    };
+
+    var onChangeMarginLeft = function onChangeMarginLeft(value) {
+      setAttributes({
+        marginLeft: value
+      });
+    };
+
+    var onChangeMarginRight = function onChangeMarginRight(value) {
+      setAttributes({
+        marginRight: value
       });
     };
 
@@ -6311,29 +6382,38 @@ registerBlockType('bsx-blocks/icon-list', {
 
     var ulClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__["addClassNames"])({
       textAlign: textAlign,
+      display: display,
+      marginLeft: marginLeft,
+      marginRight: marginRight,
       marginBefore: marginBefore,
       marginAfter: marginAfter
     }, 'fa-ul');
     return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Fragment, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(BlockControls, null, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["textAlignToolbar"])(textAlign, onChangeTextAlign)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
       title: __('Settings', 'bsx-blocks')
-    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["iconFamilySelect"])(globalIconFamily, onChangeGlobalIconFamily), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["textColorSelect"])(globalIconTextColor, onChangeGlobalIconTextColor, [], __('List Icon Color', 'bsx-blocks'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
+    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["iconFamilySelect"])(globalIconFamily, onChangeGlobalIconFamily), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["textColorSelect"])(globalIconTextColor, onChangeGlobalIconTextColor, [], __('List Icon Color', 'bsx-blocks')), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["displaySelect"])(display, onChangeDisplay)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
       title: __('Margin', 'bsx-blocks')
-    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["marginBeforeSelect"])(marginBefore, onChangeMarginBefore), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["marginAfterSelect"])(marginAfter, onChangeMarginAfter)))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Fragment, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("ul", {
+    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["marginLeftSelect"])(marginLeft, onChangeMarginLeft), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["marginRightSelect"])(marginRight, onChangeMarginRight), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["marginBeforeSelect"])(marginBefore, onChangeMarginBefore), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_3__["marginAfterSelect"])(marginAfter, onChangeMarginAfter)))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Fragment, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("ul", {
       className: ulClassNames
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks, {
       allowedBlocks: allowedBlocks
     })))];
-  }),
+  })),
   save: function save(props) {
     var _props$attributes2 = props.attributes,
         className = _props$attributes2.className,
         globalIconFamily = _props$attributes2.globalIconFamily,
         globalIconTextColor = _props$attributes2.globalIconTextColor,
         textAlign = _props$attributes2.textAlign,
+        display = _props$attributes2.display,
+        marginLeft = _props$attributes2.marginLeft,
+        marginRight = _props$attributes2.marginRight,
         marginBefore = _props$attributes2.marginBefore,
         marginAfter = _props$attributes2.marginAfter;
     var ulClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__["addClassNames"])({
       textAlign: textAlign,
+      display: display,
+      marginLeft: marginLeft,
+      marginRight: marginRight,
       marginBefore: marginBefore,
       marginAfter: marginAfter
     }, 'fa-ul');
@@ -13666,9 +13746,9 @@ registerBlockType('bsx-blocks/wrapper', {
       title: __('Appearance', 'bsx-blocks')
     }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["bgColorSelect"])(bgColor, onChangeBgColor), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["roundedToggle"])(rounded, onChangeRounded), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["borderSelect"])(border, onChangeBorder), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["borderStateSelect"])(borderState, onChangeBorderState), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["alertToggle"])(isAlert, onChangeIsAlert), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["stateSelect"])(state, onChangeState)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(PanelBody, {
       title: __('Margin', 'bsx-blocks')
-    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["marginBeforeSelect"])(marginBefore, onChangeMarginBefore), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["marginAfterSelect"])(marginAfter, onChangeMarginAfter), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["marginLeftSelect"])(marginLeft, onChangeMarginLeft), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["marginRightSelect"])(marginRight, onChangeMarginRight)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(PanelBody, {
+    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["marginLeftSelect"])(marginLeft, onChangeMarginLeft), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["marginRightSelect"])(marginRight, onChangeMarginRight), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["marginBeforeSelect"])(marginBefore, onChangeMarginBefore), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["marginAfterSelect"])(marginAfter, onChangeMarginAfter)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(PanelBody, {
       title: __('Padding', 'bsx-blocks')
-    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["paddingBeforeSelect"])(paddingBefore, onChangePaddingBefore), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["paddingAfterSelect"])(paddingAfter, onChangePaddingAfter), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["paddingLeftSelect"])(paddingLeft, onChangePaddingLeft), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["paddingRightSelect"])(paddingRight, onChangePaddingRight)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(PanelBody, {
+    }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["paddingLeftSelect"])(paddingLeft, onChangePaddingLeft), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["paddingRightSelect"])(paddingRight, onChangePaddingRight), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["paddingBeforeSelect"])(paddingBefore, onChangePaddingBefore), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["paddingAfterSelect"])(paddingAfter, onChangePaddingAfter)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(PanelBody, {
       title: __('Responsive text align', 'bsx-blocks')
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
       class: "bsxui-config-panel-row"

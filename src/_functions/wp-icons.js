@@ -242,6 +242,14 @@ export function svgIcon( iconKey ) {
             );
             break;
 
+        case 'icon-list-item':
+            icon = (
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" role="img" focusable="false">
+                  <path d="M10,9v3h8V9H10z M4.8,7.9L3.9,9.6L2,9.9l1.4,1.3L3,13.1l1.7-0.9l1.7,0.9l-0.3-1.9l1.4-1.3L5.6,9.6L4.8,7.9z"/>
+                </svg>
+            );
+            break;
+
 
         // slider
 
