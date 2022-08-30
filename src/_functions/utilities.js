@@ -1,6 +1,6 @@
 export const filterByAllowedValueKeys = ( mapArray, allowedValues ) => {
     let filteredValues = [];
-    if ( typeof allowedValues !== 'undefined' && allowedValues.length > 0 ) {
+    if ( typeof allowedValues !== 'undefined' && allowedValues != null && Array.isArray( allowedValues ) && allowedValues.length > 0 ) {
         mapArray.forEach( ( item ) => {
             if ( typeof allowedValues.find( key => key === item.value ) !== 'undefined' ) {
                 filteredValues.push( item );

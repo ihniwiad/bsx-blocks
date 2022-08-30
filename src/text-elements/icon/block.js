@@ -24,7 +24,7 @@ import { svgIcon } from './../../_functions/wp-icons.js';
 import { addClassNames } from './../../_functions/add-class-names.js';
 import { makeSaveAttributes } from './../../_functions/attributes.js';
 import { 
-    stateSelect,
+    textColorSelect,
     linkUrlInput,
     targetToggle,
     relInput,
@@ -238,7 +238,7 @@ registerBlockType( 'bsx-blocks/icon', {
                         iconFamilySelect( iconFamily, onChangeIconFamily )
                     }
                     {
-                        stateSelect( state, onChangeState )
+                        textColorSelect( state, onChangeState )
                     }
                     <TextControl 
                         label={ __( 'Hover color', 'bsx-blocks' ) }

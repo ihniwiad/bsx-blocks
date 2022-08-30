@@ -65,6 +65,7 @@ include 'src/banner/index.php';
 include 'src/buttons/index.php';
 include 'src/column-rows/index.php';
 include 'src/container/index.php';
+include 'src/icon-list/index.php';
 include 'src/img-gallery/index.php';
 include 'src/lazy-img/index.php';
 include 'src/row-with-cols/index.php';
