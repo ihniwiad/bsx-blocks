@@ -478,12 +478,12 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
                 // check if current zoom img size index fits to new img (might be too large) or is unset
                 let newZoomImgSizeIndex = zoomImgSizeIndex;
-                if ( ! zoomImgSizeIndex || parseInt( zoomImgSizeIndex ) < parseInt( newImgSizeIndex ) || parseInt( zoomImgSizeIndex ) >= parseInt( newImgAllData.imgs.length ) ) {
+                if ( ( zoomable && ! zoomImgSizeIndex ) || parseInt( zoomImgSizeIndex ) < parseInt( newImgSizeIndex ) || parseInt( zoomImgSizeIndex ) >= parseInt( newImgAllData.imgs.length ) ) {
                     newZoomImgSizeIndex = ( newImgAllData.imgs.length - 1 ).toString();
                 }
 
                 // avoid creating deprecated (empty) attr 'imgSizes'
-                if ( imgSizes ) {
+                if ( imgSizes && imgSizes.length > 0 ) {
                     // delete value of 'imgSizes'
                     setAttributes( {
                         imgId: img.id,
