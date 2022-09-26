@@ -84,13 +84,13 @@ exports.replace = series(
 
 
 // NOTE: take care at this path since you’re deleting files outside your project
-const publishFullPath = envConfig.PUBLISH_PATH + '/' + publishConfig.folderName;
+const publishFullPath = envConfig.PUBLISH_PATH + ( envConfig.PUBLISH_PATH.substr( envConfig.PUBLISH_PATH.length - 1 ) == '/' ? '' : '/' ) + publishConfig.folderName;
 
 
 const publishFolderDelete = ( cb ) => {
 
     if ( !! envConfig.PUBLISH_PATH && !! publishConfig.folderName ) {
-        // console.log( 'delete: ' + publishFullPath );
+        console.log( 'delete: ' + publishFullPath );
         return gulp.src( publishFullPath, { read: false, allowEmpty: true } )
             .pipe( clean( { force: true } ) ) // NOTE: take care at this command since you’re deleting files outside your project
         ;
@@ -105,7 +105,7 @@ const publishFolderDelete = ( cb ) => {
 const publishFolderCreate = ( cb ) => {
 
     if ( !! envConfig.PUBLISH_PATH && !! publishConfig.folderName ) {
-        // console.log( 'create: ' + publishFullPath + ' (src: ' + publishConfig.src + ', base: ' + publishConfig.base + ')' );
+        console.log( 'create: ' + publishFullPath + ' (src: ' + publishConfig.src + ', base: ' + publishConfig.base + ')' );
         return gulp.src( publishConfig.src, { base: publishConfig.base } )
             .pipe( gulp.dest( publishFullPath ) )
         ;
