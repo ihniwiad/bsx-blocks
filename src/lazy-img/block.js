@@ -211,15 +211,15 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         imgId: {
             type: 'number',
         },
-        // TODO: remove
+        // deprecated, do not set anymore, keep alive for existing blocks (replaced by imgData)
         url: {
             type: 'string',
         },
-        // TODO: remove
+        // deprecated, do not set anymore, keep alive for existing blocks (replaced by imgData)
         width: {
             type: 'number',
         },
-        // TODO: remove
+        // deprecated, do not set anymore, keep alive for existing blocks (replaced by imgData)
         height: {
             type: 'number',
         },
@@ -542,7 +542,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 //     ext: newPortraitImgAllData.fileExt,
                 // } ];
 
-                // prepare attr 'imgData' to save in block (replacing old attr 'imgSizes')
+                // prepare attr 'imgData' to save in block (replacing old attr 'portraitImgSizes')
                 const newPortraitImgData = makeImgData( newPortraitImgAllData.imgs, newPortraitImgAllData.truncWithoutSizeSlug, newPortraitImgAllData.fileExt );
 
                 // check if current img size index fits to new img (might be too large)
@@ -552,7 +552,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 }
 
                 // avoid creating deprecated (empty) attr 'portraitImgSizes'
-                if ( portraitImgSizes ) {
+                if ( portraitImgSizes && portraitImgSizes.length > 0 ) {
                     // delete value of 'portraitImgSizes'
                     setAttributes( {
                         portraitImgId: portraitImg.id,
@@ -575,7 +575,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
         const onDeletePortraitImage = () => {
             // avoid creating deprecated attr 'portraitImgSizes'
-            if ( portraitImgSizes ) {
+            if ( portraitImgSizes && portraitImgSizes.length > 0 ) {
                 // delete value of 'portraitImgSizes'
                 setAttributes( {
                     portraitImgId: '',

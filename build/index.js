@@ -3269,11 +3269,11 @@ var responsiveMediaIndexList = [{
 var skipIndex = 0;
 
 var makeSrcsetJson = function makeSrcsetJson(attributes) {
-  var imgSizes = attributes.imgSizes,
+  var calcImgSizes = attributes.calcImgSizes,
       imgSizeIndex = attributes.imgSizeIndex,
-      portraitImgSizes = attributes.portraitImgSizes,
+      calcPortraitImgSizes = attributes.calcPortraitImgSizes,
       portraitImgSizeIndex = attributes.portraitImgSizeIndex,
-      disableResponsiveDownsizing = attributes.disableResponsiveDownsizing; // srcsetJson = "[ { media: '" + mobileMediaQuery + "', src: '" + url + "' }, { media: '" + smallMobileMediaQuery + "', src: '" + imgSizes[ ( imgSizeIndex - mobileSizeStep > 0 ? imgSizeIndex - mobileSizeStep : 0 ) ].url + "' }, { media: '', src: '" + imgSizes[ ( imgSizeIndex - smallMobileSizeStep > 0 ? imgSizeIndex - smallMobileSizeStep : 0 ) ].url + "' } ]";
+      disableResponsiveDownsizing = attributes.disableResponsiveDownsizing; // srcsetJson = "[ { media: '" + mobileMediaQuery + "', src: '" + url + "' }, { media: '" + smallMobileMediaQuery + "', src: '" + calcImgSizes[ ( imgSizeIndex - mobileSizeStep > 0 ? imgSizeIndex - mobileSizeStep : 0 ) ].url + "' }, { media: '', src: '" + calcImgSizes[ ( imgSizeIndex - smallMobileSizeStep > 0 ? imgSizeIndex - smallMobileSizeStep : 0 ) ].url + "' } ]";
 
   var srcsetJson = '[ ';
   responsivePortraitMediaIndexList.forEach(function (item, index) {
@@ -3282,8 +3282,8 @@ var makeSrcsetJson = function makeSrcsetJson(attributes) {
       // always add 1st item, others only if downsizing is enabled
       var currentPortraitImgSizeIndex = parseInt(portraitImgSizeIndex) + parseInt(item.imgSizeIndexShift);
 
-      if (currentPortraitImgSizeIndex > skipIndex && currentPortraitImgSizeIndex < portraitImgSizes.length) {
-        srcsetJson += '{ media: \'' + item.media + '\', src: \'' + portraitImgSizes[currentPortraitImgSizeIndex].url + '\' }, ';
+      if (typeof calcPortraitImgSizes !== 'undefined' && currentPortraitImgSizeIndex > skipIndex && currentPortraitImgSizeIndex < calcPortraitImgSizes.length) {
+        srcsetJson += '{ media: \'' + item.media + '\', src: \'' + calcPortraitImgSizes[currentPortraitImgSizeIndex].url + '\' }, ';
       }
     }
   });
@@ -3293,8 +3293,8 @@ var makeSrcsetJson = function makeSrcsetJson(attributes) {
       // add item if img resulting indes > skipIndex (no square format)
       var currentImgSizeIndex = parseInt(imgSizeIndex) + parseInt(item.imgSizeIndexShift);
 
-      if (currentImgSizeIndex > skipIndex && currentImgSizeIndex < imgSizes.length) {
-        srcsetJson += '{ media: \'' + item.media + '\', src: \'' + imgSizes[currentImgSizeIndex].url + '\' }, ';
+      if (currentImgSizeIndex > skipIndex && currentImgSizeIndex < calcImgSizes.length) {
+        srcsetJson += '{ media: \'' + item.media + '\', src: \'' + calcImgSizes[currentImgSizeIndex].url + '\' }, ';
       }
     });
   }
@@ -3335,7 +3335,12 @@ registerBlockType('bsx-blocks/banner', {
     imgId: {
       type: 'number'
     },
+    // deprecated, do not set anymore, keep alive for existing blocks (replaced by imgData)
     imgSizes: {
+      type: 'array',
+      default: []
+    },
+    imgData: {
       type: 'array',
       default: []
     },
@@ -3343,13 +3348,19 @@ registerBlockType('bsx-blocks/banner', {
       type: 'string',
       default: '6'
     },
+    // deprecated, do not set anymore, keep alive for existing blocks (replaced by imgData)
     url: {
       type: 'string'
     },
     portraitImgId: {
       type: 'number'
     },
+    // deprecated, do not set anymore, keep alive for existing blocks (replaced by imgData)
     portraitImgSizes: {
+      type: 'array',
+      default: []
+    },
+    portraitImgData: {
       type: 'array',
       default: []
     },
@@ -3440,10 +3451,12 @@ registerBlockType('bsx-blocks/banner', {
         bgColor = _props$attributes.bgColor,
         imgId = _props$attributes.imgId,
         imgSizes = _props$attributes.imgSizes,
+        imgData = _props$attributes.imgData,
         imgSizeIndex = _props$attributes.imgSizeIndex,
         url = _props$attributes.url,
         portraitImgId = _props$attributes.portraitImgId,
         portraitImgSizes = _props$attributes.portraitImgSizes,
+        portraitImgData = _props$attributes.portraitImgData,
         portraitImgSizeIndex = _props$attributes.portraitImgSizeIndex,
         bannerType = _props$attributes.bannerType,
         bannerSize = _props$attributes.bannerSize,
@@ -3466,7 +3479,15 @@ registerBlockType('bsx-blocks/banner', {
         disableResponsiveDownsizing = _props$attributes.disableResponsiveDownsizing,
         setAttributes = props.setAttributes,
         isSelected = props.isSelected,
-        children = props.children;
+        children = props.children; // initial set, replaces old attr 'imgSizes'
+
+    var hasOldAttrImgSizes = typeof imgSizes !== 'undefined' && Array.isArray(imgSizes) && imgSizes.length > 0;
+    var hasOldAttrPortraitImgSizes = typeof portraitImgSizes !== 'undefined' && Array.isArray(portraitImgSizes) && portraitImgSizes.length > 0;
+    var calcImgSizes = hasOldAttrImgSizes ? imgSizes : Object(_functions_img_js__WEBPACK_IMPORTED_MODULE_7__["makeImgSizesFromImgData"])(imgData);
+    var calcPortraitImgSizes = hasOldAttrPortraitImgSizes ? portraitImgSizes : Object(_functions_img_js__WEBPACK_IMPORTED_MODULE_7__["makeImgSizesFromImgData"])(portraitImgData); // TEST
+    // console.log( 'props.attributes: ' + JSON.stringify( props.attributes, null, 2 ) );
+    // console.log( 'calcImgSizes: ' + JSON.stringify( calcImgSizes, null, 2 ) );
+    // console.log( 'calcPortraitImgSizes: ' + JSON.stringify( calcPortraitImgSizes, null, 2 ) + '\n\n' );
 
     var hasInnerBlocks = function hasInnerBlocks(children) {
       return children.length > 0;
@@ -3519,7 +3540,7 @@ registerBlockType('bsx-blocks/banner', {
 
     function _onSelectImage() {
       _onSelectImage = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee(img) {
-        var newImgSizesData, newImgSizes, newImgSizeIndex;
+        var newImgAllData, newImgSizeIndex, newImgData;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -3533,21 +3554,37 @@ registerBlockType('bsx-blocks/banner', {
                 return Object(_functions_img_js__WEBPACK_IMPORTED_MODULE_7__["getImgSizesData"])(img);
 
               case 3:
-                newImgSizesData = _context.sent;
-                newImgSizes = newImgSizesData.imgs; // check if current img size index fits to new img (might be too large)
-
+                newImgAllData = _context.sent;
+                // check if current img size index fits to new img (might be too large)
                 newImgSizeIndex = parseInt(imgSizeIndex);
 
-                if (parseInt(imgSizeIndex) >= newImgSizes.length) {
-                  newImgSizeIndex = newImgSizes.length - 1;
-                }
+                if (parseInt(imgSizeIndex) >= newImgAllData.imgs.length) {
+                  newImgSizeIndex = newImgAllData.imgs.length - 1;
+                } // prepare attr 'imgData' to save in block (replacing old attr 'imgSizes')
 
-                setAttributes({
-                  imgId: img.id,
-                  imgSizes: newImgSizes,
-                  imgSizeIndex: newImgSizeIndex.toString(),
-                  url: newImgSizes[newImgSizeIndex].url
-                }); // console.log( 'url: ' + newImgSizes[ newImgSizeIndex ].url );
+
+                newImgData = Object(_functions_img_js__WEBPACK_IMPORTED_MODULE_7__["makeImgData"])(newImgAllData.imgs, newImgAllData.truncWithoutSizeSlug, newImgAllData.fileExt); // avoid creating deprecated (empty) attr 'imgSizes'
+
+                if (imgSizes && imgSizes.length > 0) {
+                  // delete value of 'imgSizes'
+                  setAttributes({
+                    imgId: img.id,
+                    imgSizes: '',
+                    // save empty, replaced by imgData
+                    imgData: newImgData,
+                    imgSizeIndex: newImgSizeIndex.toString(),
+                    url: '' // save empty, replaced by imgData
+
+                  });
+                } else {
+                  // skip 'imgSizes'
+                  setAttributes({
+                    imgId: img.id,
+                    imgData: newImgData,
+                    imgSizeIndex: newImgSizeIndex.toString()
+                  });
+                } // console.log( 'url: ' + newImgAllData.imgs[ newImgSizeIndex ].url );
+
 
               case 8:
               case "end":
@@ -3567,7 +3604,7 @@ registerBlockType('bsx-blocks/banner', {
 
     function _onSelectPortraitImage() {
       _onSelectPortraitImage = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee2(portraitImg) {
-        var newPortraitImgSizesData, newPortraitImgSizes, newPortraitImgSizeIndex;
+        var newPortraitImgAllData, newPortraitImgSizeIndex, newPortraitImgData;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
@@ -3581,21 +3618,36 @@ registerBlockType('bsx-blocks/banner', {
                 return Object(_functions_img_js__WEBPACK_IMPORTED_MODULE_7__["getImgSizesData"])(portraitImg);
 
               case 3:
-                newPortraitImgSizesData = _context2.sent;
-                newPortraitImgSizes = newPortraitImgSizesData.imgs; // check if current img size index fits to new img (might be too large)
-
+                newPortraitImgAllData = _context2.sent;
+                // check if current img size index fits to new img (might be too large)
                 newPortraitImgSizeIndex = parseInt(portraitImgSizeIndex);
 
-                if (parseInt(portraitImgSizeIndex) >= newPortraitImgSizes.length) {
-                  newPortraitImgSizeIndex = newPortraitImgSizes.length - 1;
+                if (parseInt(portraitImgSizeIndex) >= newPortraitImgAllData.imgs.length) {
+                  newPortraitImgSizeIndex = newPortraitImgAllData.imgs.length - 1;
                 } // console.log( 'newPortraitImgSizeIndex: ' + newPortraitImgSizeIndex );
+                // prepare attr 'imgData' to save in block (replacing old attr 'portraitImgSizes')
 
 
-                setAttributes({
-                  portraitImgId: portraitImg.id,
-                  portraitImgSizes: newPortraitImgSizes,
-                  portraitImgSizeIndex: newPortraitImgSizeIndex.toString()
-                }); // console.log( 'portraitImgSizes[ portraitImgSizeIndex ].url: ' + newPortraitImgSizes[ newPortraitImgSizeIndex ].url );
+                newPortraitImgData = Object(_functions_img_js__WEBPACK_IMPORTED_MODULE_7__["makeImgData"])(newPortraitImgAllData.imgs, newPortraitImgAllData.truncWithoutSizeSlug, newPortraitImgAllData.fileExt); // avoid creating deprecated (empty) attr 'portraitImgSizes'
+
+                if (portraitImgSizes && portraitImgSizes.length > 0) {
+                  // delete value of 'portraitImgSizes'
+                  setAttributes({
+                    portraitImgId: portraitImg.id,
+                    portraitImgSizes: '',
+                    // save empty, replaced by portraitImgData
+                    portraitImgData: newPortraitImgData,
+                    portraitImgSizeIndex: newPortraitImgSizeIndex.toString()
+                  });
+                } else {
+                  // skip 'portraitImgSizes'
+                  setAttributes({
+                    portraitImgId: portraitImg.id,
+                    portraitImgData: newPortraitImgData,
+                    portraitImgSizeIndex: newPortraitImgSizeIndex.toString()
+                  });
+                } // console.log( 'portraitImgSizes[ portraitImgSizeIndex ].url: ' + newPortraitImgAllData.imgs[ newPortraitImgSizeIndex ].url );
+
 
               case 8:
               case "end":
@@ -3610,18 +3662,39 @@ registerBlockType('bsx-blocks/banner', {
     ;
 
     var onDeleteImage = function onDeleteImage() {
-      setAttributes({
-        imgId: '',
-        imgSizes: [],
-        url: ''
-      });
+      // avoid creating deprecated attr 'imgSizes'
+      if (imgSizes && imgSizes.length > 0) {
+        // delete value of 'imgSizes'
+        setAttributes({
+          imgId: '',
+          imgSizes: '',
+          imgData: ''
+        });
+      } else {
+        // skip 'imgSizes'
+        setAttributes({
+          imgId: '',
+          imgData: ''
+        });
+      }
     };
 
     var onDeletePortraitImage = function onDeletePortraitImage() {
-      setAttributes({
-        portraitImgId: '',
-        portraitImgSizes: []
-      });
+      // avoid creating deprecated attr 'portraitImgSizes'
+      if (portraitImgSizes && portraitImgSizes.length > 0) {
+        // delete value of 'portraitImgSizes'
+        setAttributes({
+          portraitImgId: '',
+          portraitImgSizes: '',
+          portraitImgData: ''
+        });
+      } else {
+        // skip 'portraitImgSizes'
+        setAttributes({
+          portraitImgId: '',
+          portraitImgData: ''
+        });
+      }
     };
 
     var onChangeBannerType = function onChangeBannerType(value) {
@@ -3740,13 +3813,12 @@ registerBlockType('bsx-blocks/banner', {
 
     var onChangeImgSizeIndex = function onChangeImgSizeIndex(value) {
       setAttributes({
-        imgSizeIndex: value.toString(),
-        url: imgSizes[value].url
+        imgSizeIndex: value.toString()
       });
     };
 
     var imgSizeRadioControlOptions = [];
-    imgSizes.forEach(function (imgSize, index) {
+    calcImgSizes.forEach(function (imgSize, index) {
       imgSizeRadioControlOptions.push({
         value: index.toString(),
         label: imgSize.width + 'x' + imgSize.height + (imgSize.width === imgSize.height ? ' ' + __('(Square format)', 'bsx-blocks') : '')
@@ -3760,7 +3832,7 @@ registerBlockType('bsx-blocks/banner', {
     };
 
     var portraitImgSizeRadioControlOptions = [];
-    portraitImgSizes.forEach(function (portraitImgSize, index) {
+    calcPortraitImgSizes.forEach(function (portraitImgSize, index) {
       portraitImgSizeRadioControlOptions.push({
         value: index.toString(),
         label: portraitImgSize.width + 'x' + portraitImgSize.height + (portraitImgSize.width === portraitImgSize.height ? ' ' + __('(Square format)', 'bsx-blocks') : '')
@@ -3794,14 +3866,14 @@ registerBlockType('bsx-blocks/banner', {
       templateName: templateName
     });
     var TagName = nodeName;
-    var bannerStyle = {
-      backgroundImage: "url(".concat(url, ")")
-    };
+    var bannerStyle = typeof calcImgSizes[imgSizeIndex] !== 'undefined' ? {
+      backgroundImage: "url(".concat(calcImgSizes[imgSizeIndex].url, ")")
+    } : {};
     return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(PanelBody, {
       title: __('Banner template', 'bsx-blocks')
     }, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["uiTemplateSelect"])(_templates__WEBPACK_IMPORTED_MODULE_11__["default"], templateName, onChangeTemplate)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(PanelBody, {
       title: __('Banner image', 'bsx-blocks')
-    }, imgId ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(Fragment, null, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["imgUploadClickableImg"])(imgId, url, onSelectImage)) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+    }, imgId ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(Fragment, null, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["imgUploadClickableImg"])(imgId, calcImgSizes[imgSizeIndex].url, onSelectImage)) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
       class: "bsxui-config-panel-row"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
       class: "bsxui-config-panel-text"
@@ -3817,15 +3889,15 @@ registerBlockType('bsx-blocks/banner', {
       selected: imgSizeIndex.toString(),
       options: imgSizeRadioControlOptions,
       onChange: onChangeImgSizeIndex
-    }), imgSizes[imgSizeIndex] != undefined && imgSizes[imgSizeIndex].url != undefined && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+    }), calcImgSizes[imgSizeIndex] != undefined && calcImgSizes[imgSizeIndex].url != undefined && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
       class: "bsxui-config-panel-text"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("a", {
       class: "bsxui-link",
-      href: imgSizes[imgSizeIndex].url,
+      href: calcImgSizes[imgSizeIndex].url,
       target: "_blank"
     }, __('Preview selected image', 'bsx-blocks')))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(PanelBody, {
       title: __('Banner portrait image (optional)', 'bsx-blocks')
-    }, portraitImgId && typeof portraitImgSizes[portraitImgSizeIndex] != 'undefined' && typeof portraitImgSizes[portraitImgSizeIndex].url != 'undefined' ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(Fragment, null, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["imgUploadClickableImg"])(portraitImgId, portraitImgSizes[portraitImgSizeIndex].url, onSelectPortraitImage, 'p')) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+    }, portraitImgId && typeof calcPortraitImgSizes[portraitImgSizeIndex] != 'undefined' && typeof calcPortraitImgSizes[portraitImgSizeIndex].url != 'undefined' ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(Fragment, null, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_8__["imgUploadClickableImg"])(portraitImgId, calcPortraitImgSizes[portraitImgSizeIndex].url, onSelectPortraitImage, 'p')) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
       class: "bsxui-config-panel-row"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
       class: "bsxui-config-panel-text"
@@ -3841,11 +3913,11 @@ registerBlockType('bsx-blocks/banner', {
       selected: portraitImgSizeIndex.toString(),
       options: portraitImgSizeRadioControlOptions,
       onChange: onChangePortraitImgSizeIndex
-    }), typeof portraitImgSizes[portraitImgSizeIndex] != 'undefined' && typeof portraitImgSizes[portraitImgSizeIndex].url != 'undefined' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
+    }), typeof calcPortraitImgSizes[portraitImgSizeIndex] != 'undefined' && typeof calcPortraitImgSizes[portraitImgSizeIndex].url != 'undefined' && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
       class: "bsxui-config-panel-text"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("a", {
       class: "bsxui-link",
-      href: portraitImgSizes[portraitImgSizeIndex].url,
+      href: calcPortraitImgSizes[portraitImgSizeIndex].url,
       target: "_blank"
     }, __('Preview selected portrait image', 'bsx-blocks')))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(PanelBody, {
       title: __('Banner dimensions', 'bsx-blocks')
@@ -3886,10 +3958,12 @@ registerBlockType('bsx-blocks/banner', {
         bgColor = _props$attributes2.bgColor,
         imgId = _props$attributes2.imgId,
         imgSizes = _props$attributes2.imgSizes,
+        imgData = _props$attributes2.imgData,
         imgSizeIndex = _props$attributes2.imgSizeIndex,
         url = _props$attributes2.url,
         portraitImgId = _props$attributes2.portraitImgId,
         portraitImgSizes = _props$attributes2.portraitImgSizes,
+        portraitImgData = _props$attributes2.portraitImgData,
         portraitImgSizeIndex = _props$attributes2.portraitImgSizeIndex,
         bannerType = _props$attributes2.bannerType,
         bannerSize = _props$attributes2.bannerSize,
@@ -3909,7 +3983,16 @@ registerBlockType('bsx-blocks/banner', {
         target = _props$attributes2.target,
         rel = _props$attributes2.rel,
         dataFn = _props$attributes2.dataFn,
-        disableResponsiveDownsizing = _props$attributes2.disableResponsiveDownsizing; // class names
+        disableResponsiveDownsizing = _props$attributes2.disableResponsiveDownsizing; // initial set, replaces old attr 'imgSizes'
+
+    var hasOldAttrImgSizes = typeof imgSizes !== 'undefined' && Array.isArray(imgSizes) && imgSizes.length > 0;
+    var hasOldAttrPortraitImgSizes = typeof portraitImgSizes !== 'undefined' && Array.isArray(portraitImgSizes) && portraitImgSizes.length > 0;
+    var calcImgSizes = hasOldAttrImgSizes ? imgSizes : Object(_functions_img_js__WEBPACK_IMPORTED_MODULE_7__["makeImgSizesFromImgData"])(imgData);
+    var calcPortraitImgSizes = hasOldAttrPortraitImgSizes ? portraitImgSizes : Object(_functions_img_js__WEBPACK_IMPORTED_MODULE_7__["makeImgSizesFromImgData"])(portraitImgData); // TEST
+    // console.log( 'props.attributes: ' + JSON.stringify( props.attributes, null, 2 ) );
+    // console.log( 'calcImgSizes: ' + JSON.stringify( calcImgSizes, null, 2 ) );
+    // console.log( 'calcPortraitImgSizes: ' + JSON.stringify( calcPortraitImgSizes, null, 2 ) + '\n\n' );
+    // class names
 
     var bannerClassName = makeBannerClassNames({
       bannerType: bannerType,
@@ -3939,16 +4022,16 @@ registerBlockType('bsx-blocks/banner', {
       templateName: templateName
     });
     var srcsetJson = makeSrcsetJson({
-      imgSizes: imgSizes,
+      calcImgSizes: calcImgSizes,
       imgSizeIndex: imgSizeIndex,
-      portraitImgSizes: portraitImgSizes,
+      calcPortraitImgSizes: calcPortraitImgSizes,
       portraitImgSizeIndex: portraitImgSizeIndex,
       disableResponsiveDownsizing: disableResponsiveDownsizing
     }); // there might be no images at all, e.g. if background color banner
 
     var saveAttributes = Object(_functions_attributes_js__WEBPACK_IMPORTED_MODULE_9__["makeSaveAttributes"])({
       'data-fn': imgId ? 'lazyload' : dataFn,
-      'data-src': imgId ? url : '',
+      'data-src': imgId ? calcImgSizes[imgSizeIndex].url : '',
       'data-srcset': imgId ? srcsetJson : '',
       href: href,
       target: target,
@@ -7362,15 +7445,15 @@ registerBlockType('bsx-blocks/lazy-img', {
     imgId: {
       type: 'number'
     },
-    // TODO: remove
+    // deprecated, do not set anymore, keep alive for existing blocks (replaced by imgData)
     url: {
       type: 'string'
     },
-    // TODO: remove
+    // deprecated, do not set anymore, keep alive for existing blocks (replaced by imgData)
     width: {
       type: 'number'
     },
-    // TODO: remove
+    // deprecated, do not set anymore, keep alive for existing blocks (replaced by imgData)
     height: {
       type: 'number'
     },
@@ -7688,7 +7771,7 @@ registerBlockType('bsx-blocks/lazy-img', {
                 //     trunc: newPortraitImgAllData.truncWithoutSizeSlug,
                 //     ext: newPortraitImgAllData.fileExt,
                 // } ];
-                // prepare attr 'imgData' to save in block (replacing old attr 'imgSizes')
+                // prepare attr 'imgData' to save in block (replacing old attr 'portraitImgSizes')
                 newPortraitImgData = Object(_functions_img_js__WEBPACK_IMPORTED_MODULE_8__["makeImgData"])(newPortraitImgAllData.imgs, newPortraitImgAllData.truncWithoutSizeSlug, newPortraitImgAllData.fileExt); // check if current img size index fits to new img (might be too large)
 
                 newPortraitImgSizeIndex = parseInt(portraitImgSizeIndex);
@@ -7698,7 +7781,7 @@ registerBlockType('bsx-blocks/lazy-img', {
                 } // avoid creating deprecated (empty) attr 'portraitImgSizes'
 
 
-                if (portraitImgSizes) {
+                if (portraitImgSizes && portraitImgSizes.length > 0) {
                   // delete value of 'portraitImgSizes'
                   setAttributes({
                     portraitImgId: portraitImg.id,
@@ -7730,7 +7813,7 @@ registerBlockType('bsx-blocks/lazy-img', {
 
     var onDeletePortraitImage = function onDeletePortraitImage() {
       // avoid creating deprecated attr 'portraitImgSizes'
-      if (portraitImgSizes) {
+      if (portraitImgSizes && portraitImgSizes.length > 0) {
         // delete value of 'portraitImgSizes'
         setAttributes({
           portraitImgId: '',
