@@ -65,6 +65,8 @@ import {
     imgExists,
     getImgSizesData,
     makeBase64PreloadImgSrc,
+    makeImgSizesFromImgData,
+    makeImgData,
 } from './../_functions/img.js';
 
 
@@ -72,9 +74,9 @@ import {
 const makeSourcesAttributesList = ( attributes ) => {
 
     const {
-        imgSizes,
+        calcImgSizes,
         imgSizeIndex,
-        portraitImgSizes,
+        calcPortraitImgSizes,
         portraitImgSizeIndex,
         portraitImgMaxWidthBreakpoint,
         disableResponsiveDownsizing,
@@ -122,15 +124,16 @@ const makeSourcesAttributesList = ( attributes ) => {
             if ( 
                 adaptedCurrentPortraitImgIndex <= parseInt( portraitImgSizeIndex ) 
                 && adaptedCurrentPortraitImgIndex > skipIndex
-                && typeof portraitImgSizes[ adaptedCurrentPortraitImgIndex ] != 'undefined' 
-                && typeof portraitImgSizes[ adaptedCurrentPortraitImgIndex ].url != 'undefined' 
+                && typeof calcPortraitImgSizes !== 'undefined'
+                && typeof calcPortraitImgSizes[ adaptedCurrentPortraitImgIndex ] != 'undefined' 
+                && typeof calcPortraitImgSizes[ adaptedCurrentPortraitImgIndex ].url != 'undefined' 
             ) {
                 sourcesAttributesList.push( {
                     media: '(orientation: portrait) and (max-width: ' + ( parseInt( ( index == responsivePortraitMediaIndexList.length - 1 && !! portraitImgMaxWidthBreakpoint ) ? portraitImgMaxWidthBreakpoint : item.breakpoint ) - 0.02 ) + 'px)',
-                    srcset: makeBase64PreloadImgSrc( portraitImgSizes[ adaptedCurrentPortraitImgIndex ].width, portraitImgSizes[ adaptedCurrentPortraitImgIndex ].height ),
-                    'data-srcset': portraitImgSizes[ adaptedCurrentPortraitImgIndex ].url,
-                    'data-width': portraitImgSizes[ adaptedCurrentPortraitImgIndex ].width,
-                    'data-height': portraitImgSizes[ adaptedCurrentPortraitImgIndex ].height,
+                    srcset: makeBase64PreloadImgSrc( calcPortraitImgSizes[ adaptedCurrentPortraitImgIndex ].width, calcPortraitImgSizes[ adaptedCurrentPortraitImgIndex ].height ),
+                    'data-srcset': calcPortraitImgSizes[ adaptedCurrentPortraitImgIndex ].url,
+                    'data-width': calcPortraitImgSizes[ adaptedCurrentPortraitImgIndex ].width,
+                    'data-height': calcPortraitImgSizes[ adaptedCurrentPortraitImgIndex ].height,
                 } );
             }
         } );
@@ -139,15 +142,16 @@ const makeSourcesAttributesList = ( attributes ) => {
         // use largest portrait img size
         if ( 
             !! portraitImgSizeIndex
-            && typeof portraitImgSizes[ portraitImgSizeIndex ] != 'undefined' 
-            && typeof portraitImgSizes[ portraitImgSizeIndex ].url != 'undefined' 
+            && typeof calcPortraitImgSizes !== 'undefined'
+            && typeof calcPortraitImgSizes[ portraitImgSizeIndex ] != 'undefined' 
+            && typeof calcPortraitImgSizes[ portraitImgSizeIndex ].url != 'undefined' 
         ) {
             sourcesAttributesList.push( {
                 media: '(orientation: portrait) and (max-width: ' + ( parseInt( ( !! portraitImgMaxWidthBreakpoint ) ? portraitImgMaxWidthBreakpoint : responsivePortraitMediaIndexList[ responsivePortraitMediaIndexList.length - 1 ].breakpoint ) - 0.02 ) + 'px)',
-                srcset: makeBase64PreloadImgSrc( portraitImgSizes[ portraitImgSizeIndex ].width, portraitImgSizes[ portraitImgSizeIndex ].height ),
-                'data-srcset': portraitImgSizes[ portraitImgSizeIndex ].url,
-                'data-width': portraitImgSizes[ portraitImgSizeIndex ].width,
-                'data-height': portraitImgSizes[ portraitImgSizeIndex ].height,
+                srcset: makeBase64PreloadImgSrc( calcPortraitImgSizes[ portraitImgSizeIndex ].width, calcPortraitImgSizes[ portraitImgSizeIndex ].height ),
+                'data-srcset': calcPortraitImgSizes[ portraitImgSizeIndex ].url,
+                'data-width': calcPortraitImgSizes[ portraitImgSizeIndex ].width,
+                'data-height': calcPortraitImgSizes[ portraitImgSizeIndex ].height,
             } );
         }
     }
@@ -163,15 +167,16 @@ const makeSourcesAttributesList = ( attributes ) => {
             ! disableResponsiveDownsizing
             && adaptedCurrentImgIndex < parseInt( imgSizeIndex ) 
             && adaptedCurrentImgIndex > skipIndex
-            && typeof imgSizes[ adaptedCurrentImgIndex ] != 'undefined' 
-            && typeof imgSizes[ adaptedCurrentImgIndex ].url != 'undefined' 
+            && typeof calcImgSizes != 'undefined' 
+            && typeof calcImgSizes[ adaptedCurrentImgIndex ] != 'undefined' 
+            && typeof calcImgSizes[ adaptedCurrentImgIndex ].url != 'undefined' 
         ) {
             sourcesAttributesList.push( {
                 media: '(max-width: ' + ( parseInt( item.breakpoint ) - 0.02 ) + 'px)',
-                srcset: makeBase64PreloadImgSrc( imgSizes[ adaptedCurrentImgIndex ].width, imgSizes[ adaptedCurrentImgIndex ].height ),
-                'data-srcset': imgSizes[ adaptedCurrentImgIndex ].url,
-                'data-width': imgSizes[ adaptedCurrentImgIndex ].width,
-                'data-height': imgSizes[ adaptedCurrentImgIndex ].height,
+                srcset: makeBase64PreloadImgSrc( calcImgSizes[ adaptedCurrentImgIndex ].width, calcImgSizes[ adaptedCurrentImgIndex ].height ),
+                'data-srcset': calcImgSizes[ adaptedCurrentImgIndex ].url,
+                'data-width': calcImgSizes[ adaptedCurrentImgIndex ].width,
+                'data-height': calcImgSizes[ adaptedCurrentImgIndex ].height,
             } );
         }
     } );
@@ -190,7 +195,12 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             boolean: 'string',
             default: true,
         },
+        // deprecated, do not set anymore, keep alive for existing blocks (replaced by imgData)
         imgSizes: {
+            type: 'array',
+            default: [],
+        },
+        imgData: {
             type: 'array',
             default: [],
         },
@@ -201,12 +211,15 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         imgId: {
             type: 'number',
         },
+        // deprecated, do not set anymore, keep alive for existing blocks (replaced by imgData)
         url: {
             type: 'string',
         },
+        // deprecated, do not set anymore, keep alive for existing blocks (replaced by imgData)
         width: {
             type: 'number',
         },
+        // deprecated, do not set anymore, keep alive for existing blocks (replaced by imgData)
         height: {
             type: 'number',
         },
@@ -219,7 +232,12 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         portraitImgId: {
             type: 'number',
         },
+        // deprecated, do not set anymore, keep alive for existing blocks (replaced by portraitImgData)
         portraitImgSizes: {
+            type: 'array',
+            default: [],
+        },
+        portraitImgData: {
             type: 'array',
             default: [],
         },
@@ -302,6 +320,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             attributes: {
                 imgId,
                 imgSizes,
+                imgData,
                 imgSizeIndex,
                 url,
                 width,
@@ -310,6 +329,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 origHeight,
                 portraitImgId,
                 portraitImgSizes,
+                portraitImgData,
                 portraitImgSizeIndex,
                 portraitImgMaxWidthBreakpoint,
                 alt,
@@ -339,14 +359,99 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             setState,
         } = props;
 
+        // TEST
+        // console.log( 'imgId: ' + imgId );
+        // console.log( 'imgData: ' + JSON.stringify( imgData, null, 2 ) );
+        // console.log( 'imgSizes (deprecated): ' + JSON.stringify( imgSizes, null, 2 ) + '\n' );
+        // console.log( 'portraitImgId: ' + portraitImgId );
+        // console.log( 'portraitImgData: ' + JSON.stringify( portraitImgData, null, 2 ) );
+        // console.log( 'portraitImgSizes (deprecated): ' + JSON.stringify( portraitImgSizes, null, 2 ) + '\n' );
+
+        // initial set, replaces old attr 'imgSizes'
+        const hasOldAttrImgSizes = typeof imgSizes !== 'undefined' && Array.isArray( imgSizes ) && imgSizes.length > 0;
+        const hasOldAttrPortraitImgSizes = typeof portraitImgSizes !== 'undefined' && Array.isArray( portraitImgSizes ) && portraitImgSizes.length > 0;
+
+        const calcImgSizes = hasOldAttrImgSizes ? imgSizes : makeImgSizesFromImgData( imgData );
+        const calcPortraitImgSizes = hasOldAttrPortraitImgSizes ? portraitImgSizes : makeImgSizesFromImgData( portraitImgData );
+
+        // TEST
+        // console.log( 'props.attributes: ' + JSON.stringify( props.attributes, null, 2 ) );
+        // console.log( 'calcImgSizes: ' + JSON.stringify( calcImgSizes, null, 2 ) );
+        // console.log( 'calcPortraitImgSizes: ' + JSON.stringify( calcPortraitImgSizes, null, 2 ) + '\n\n' );
+
+        // if ( typeof imgData !== 'undefined' ) {
+        //     console.log( '-----> INITIAL SET (create calcImgSizes from imgData):\n' );
+        // }
+        // else {
+        //     console.log( 'NO INITIAL SET (keep imgSizes):\n' );
+        // }
+        // console.log( 'calcImgSizes: ' + JSON.stringify( calcImgSizes, null, 2 ) );
+        // /TEST
+
         async function onSelectImage( img ) {
+
+            // console.log( 'onSelectImage()' );
 
             if ( typeof img.url !== 'undefined' ) {
 
-                const newImgSizesData = await getImgSizesData( img );
-                const newImgSizes = newImgSizesData.imgs;
-                const originalWidth = newImgSizesData.originalWidth;
-                const originalHeight = newImgSizesData.originalHeight;
+                // TEST
+
+                // const imgSizeKeys = [
+                //     'thumbnail',
+                //     'medium',
+                //     'medium_large', // not found
+                //     'large',
+                //     '1536x1536', // not found
+                //     '2048x2048', // not found
+                //     'full',
+                // ]; // does not contain original size imige since has no key
+
+                // imgSizeKeys.forEach( ( key, index ) => {
+                //     if ( typeof img.sizes[ key ] !== 'undefined' && typeof img.sizes[ key ].url !== 'undefined' && img.sizes[ key ].url ) {
+                //         console.log( key + ': ' + img.sizes[ key ].url );
+                //     }
+                //     else {
+                //         console.log( key + ': NOT FOUND' );
+                //     }
+                // } );
+
+                // /TEST
+
+                // get all data of new image
+                const newImgAllData = await getImgSizesData( img );
+                const originalWidth = newImgAllData.originalWidth;
+                const originalHeight = newImgAllData.originalHeight;
+
+                // TEST
+                // console.log( 'TEST:\n' );
+                // console.log( 'newImgAllData: ' + JSON.stringify( newImgAllData, null, 2 ) );
+                // /TEST
+
+                // TODO: replace by 'newImgAllData'
+                // const newImgSizes = newImgAllData.imgs;
+
+
+                // const sizes = [];
+                // newImgAllData.imgs.forEach( ( img, index ) => {
+                //     sizes.push( {
+                //         s: img.sizeSlug,
+                //         w: img.width,
+                //         h: img.height,
+                //     } );
+                // } );
+                // const newImgData = [ {
+                //     sizes: sizes,
+                //     trunc: newImgAllData.truncWithoutSizeSlug,
+                //     ext: newImgAllData.fileExt,
+                // } ];
+
+                // prepare attr 'imgData' to save in block (replacing old attr 'imgSizes')
+                const newImgData = makeImgData( newImgAllData.imgs, newImgAllData.truncWithoutSizeSlug, newImgAllData.fileExt );
+
+                // TEST
+                // console.log( 'TEST 2:\n' );
+                // console.log( 'newImgData: ' + JSON.stringify( newImgData, null, 2 ) );
+                // /TEST
 
                 // TEST
 
@@ -363,8 +468,8 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
                 // check if current img size index fits to new img (might be too large)
                 let newImgSizeIndex = parseInt( imgSizeIndex );
-                if ( parseInt( imgSizeIndex ) >= newImgSizes.length ) {
-                    newImgSizeIndex = newImgSizes.length - 1;
+                if ( parseInt( imgSizeIndex ) >= newImgAllData.imgs.length ) {
+                    newImgSizeIndex = newImgAllData.imgs.length - 1;
                     // console.log( 'reduce initial imgSizeIndex to: ' + newImgSizeIndex );
                 }
 
@@ -373,24 +478,39 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
                 // check if current zoom img size index fits to new img (might be too large) or is unset
                 let newZoomImgSizeIndex = zoomImgSizeIndex;
-                if ( ! zoomImgSizeIndex || parseInt( zoomImgSizeIndex ) < parseInt( newImgSizeIndex ) || parseInt( zoomImgSizeIndex ) >= parseInt( newImgSizes.length ) ) {
-                    newZoomImgSizeIndex = ( newImgSizes.length - 1 ).toString();
+                if ( ( zoomable && ! zoomImgSizeIndex ) || parseInt( zoomImgSizeIndex ) < parseInt( newImgSizeIndex ) || parseInt( zoomImgSizeIndex ) >= parseInt( newImgAllData.imgs.length ) ) {
+                    newZoomImgSizeIndex = ( newImgAllData.imgs.length - 1 ).toString();
                 }
 
-                setAttributes( {
-                    imgId: img.id,
-                    imgSizes: newImgSizes,
-                    imgSizeIndex: newImgSizeIndex.toString(),
-                    url: newImgSizes[ newImgSizeIndex ].url,
-                    width: parseInt( newImgSizes[ newImgSizeIndex ].width ),
-                    height: parseInt( newImgSizes[ newImgSizeIndex ].height ),
-                    origWidth: originalWidth,
-                    origHeight: originalHeight,
-                    alt: img.alt,
-                    zoomImgSizeIndex: newZoomImgSizeIndex,
-                    // displayedWidth: !! scale ? scale * parseFloat( newImgSizes[ newImgSizeIndex ].width ) : parseFloat( newImgSizes[ newImgSizeIndex ].width ),
-                    // displayedHeight: !! scale ? scale * parseInt( newImgSizes[ newImgSizeIndex ].height ) : parseInt( newImgSizes[ newImgSizeIndex ].height ),
-                } );
+                // avoid creating deprecated (empty) attr 'imgSizes'
+                if ( imgSizes && imgSizes.length > 0 ) {
+                    // delete value of 'imgSizes'
+                    setAttributes( {
+                        imgId: img.id,
+                        imgSizes: '', // save empty, replaced by imgData
+                        imgData: newImgData,
+                        imgSizeIndex: newImgSizeIndex.toString(),
+                        url: '', // save empty, replaced by imgData
+                        width: '', // save empty, replaced by imgDat
+                        height: '', // save empty, replaced by imgDat
+                        origWidth: originalWidth,
+                        origHeight: originalHeight,
+                        alt: img.alt,
+                        zoomImgSizeIndex: newZoomImgSizeIndex,
+                    } );
+                }
+                else {
+                    // skip 'imgSizes'
+                    setAttributes( {
+                        imgId: img.id,
+                        imgData: newImgData,
+                        imgSizeIndex: newImgSizeIndex.toString(),
+                        origWidth: originalWidth,
+                        origHeight: originalHeight,
+                        alt: img.alt,
+                        zoomImgSizeIndex: newZoomImgSizeIndex,
+                    } );
+                }
 
                 // TEST – TODO: remove
                 // for ( let [ key, value ] of Object.entries( img.sizes ) ) {
@@ -404,28 +524,72 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
             if ( typeof portraitImg.url !== 'undefined' ) {
 
-                const newPortraitImgSizesData = await getImgSizesData( portraitImg );
-                const newPortraitImgSizes = newPortraitImgSizesData.imgs;
+                const newPortraitImgAllData = await getImgSizesData( portraitImg );
+                // const newPortraitImgSizes = newPortraitImgAllData.imgs;
+
+                // prepare new attr 'imgData' (replacing old attr 'imgSizes')
+                // const sizes = [];
+                // newPortraitImgAllData.imgs.forEach( ( img, index ) => {
+                //     sizes.push( {
+                //         s: img.sizeSlug,
+                //         w: img.width,
+                //         h: img.height,
+                //     } );
+                // } );
+                // const newPortraitImgData = [ {
+                //     sizes: sizes,
+                //     trunc: newPortraitImgAllData.truncWithoutSizeSlug,
+                //     ext: newPortraitImgAllData.fileExt,
+                // } ];
+
+                // prepare attr 'imgData' to save in block (replacing old attr 'portraitImgSizes')
+                const newPortraitImgData = makeImgData( newPortraitImgAllData.imgs, newPortraitImgAllData.truncWithoutSizeSlug, newPortraitImgAllData.fileExt );
 
                 // check if current img size index fits to new img (might be too large)
                 let newPortraitImgSizeIndex = parseInt( portraitImgSizeIndex );
-                if ( parseInt( portraitImgSizeIndex ) >= newPortraitImgSizes.length ) {
-                    newPortraitImgSizeIndex = newPortraitImgSizes.length - 1;
+                if ( parseInt( portraitImgSizeIndex ) >= newPortraitImgAllData.imgs.length ) {
+                    newPortraitImgSizeIndex = newPortraitImgAllData.imgs.length - 1;
                 }
 
-                setAttributes( {
-                    portraitImgId: portraitImg.id,
-                    portraitImgSizes: newPortraitImgSizes,
-                    portraitImgSizeIndex: newPortraitImgSizeIndex.toString(),
-                } );
+                // avoid creating deprecated (empty) attr 'portraitImgSizes'
+                if ( portraitImgSizes && portraitImgSizes.length > 0 ) {
+                    // delete value of 'portraitImgSizes'
+                    setAttributes( {
+                        portraitImgId: portraitImg.id,
+                        portraitImgSizes: '', // save empty, replaced by portraitImgData
+                        portraitImgData: newPortraitImgData,
+                        portraitImgSizeIndex: newPortraitImgSizeIndex.toString(),
+                    } );
+                }
+                else {
+                    // skip 'portraitImgSizes'
+                    setAttributes( {
+                        portraitImgId: portraitImg.id,
+                        portraitImgData: newPortraitImgData,
+                        portraitImgSizeIndex: newPortraitImgSizeIndex.toString(),
+                    } );
+                }
+
             }
         };
 
         const onDeletePortraitImage = () => {
-            setAttributes( {
-                portraitImgId: '',
-                portraitImgSizes: [],
-            } );
+            // avoid creating deprecated attr 'portraitImgSizes'
+            if ( portraitImgSizes && portraitImgSizes.length > 0 ) {
+                // delete value of 'portraitImgSizes'
+                setAttributes( {
+                    portraitImgId: '',
+                    portraitImgSizes: '',
+                    portraitImgData: '',
+                } );
+            }
+            else {
+                // skip 'portraitImgSizes'
+                setAttributes( {
+                    portraitImgId: '',
+                    portraitImgData: '',
+                } );
+            }
         };
 
         const onChangeMediaAlt = ( value ) => {
@@ -438,22 +602,22 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         const onChangeScale = ( value ) => {
             setAttributes( { 
                 scale: parseFloat( value ),
-                displayedWidth: !! value && value != width ? Math.round( width * parseFloat( value ) ) : '',
-                displayedHeight: !! value && value != height ? Math.round( height * parseFloat( value ) ) : '',
+                displayedWidth: !! value && value != origWidth ? Math.round( origWidth * parseFloat( value ) ) : '',
+                displayedHeight: !! value && value != origHeight ? Math.round( origHight * parseFloat( value ) ) : '',
             } );
         };
         const onChangeDisplayedWidth = ( value ) => {
             setAttributes( { 
-                displayedWidth: value != width ? parseFloat( value ) : '',
-                displayedHeight: value != height ? Math.round( value / width * height ) : '',
-                scale: parseFloat( value / width ),
+                displayedWidth: value != origWidth ? parseFloat( value ) : '',
+                displayedHeight: value != origHeight ? Math.round( value / origWidth * origHeight ) : '',
+                scale: parseFloat( value / origWidth ),
             } );
         };
         const onChangeDisplayedHeight = ( value ) => {
             setAttributes( { 
-                displayedHeight: value != width ? parseFloat( value ) : width,
-                displayedWidth: value != height ? Math.round( value / height * width ) : '',
-                scale: parseFloat( value / height ),
+                displayedHeight: value != origWidth ? parseFloat( value ) : origWidth,
+                displayedWidth: value != origHeight ? Math.round( value / origHeight * origWidth ) : '',
+                scale: parseFloat( value / origHeight ),
             } );
         };
 
@@ -471,7 +635,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             if ( zoomImgSizeIndex == undefined ) {
                 setAttributes( { 
                     zoomable: value,
-                    zoomImgSizeIndex: ( imgSizes.length - 1 ).toString(),
+                    zoomImgSizeIndex: ( calcImgSizes.length - 1 ).toString(),
                 } );
             }
             else {
@@ -540,17 +704,19 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         const onChangeImgSizeIndex = ( value ) => {
             setAttributes( { 
                 imgSizeIndex: value.toString(),
-                url: imgSizes[ value ].url,
-                width: parseInt( imgSizes[ value ].width ),
-                height: parseInt( imgSizes[ value ].height ),
+                // url: calcImgSizes[ value ].url,
+                // width: parseInt( calcImgSizes[ value ].width ),
+                // height: parseInt( calcImgSizes[ value ].height ),
             } );
         };
         const imgSizeRadioControlOptions = [];
-        imgSizes.forEach( ( imgSize, index ) => {
-            imgSizeRadioControlOptions.push( 
-                { value: index.toString(), label: imgSize.width + 'x' + imgSize.height + ( imgSizes[ imgSizes.length - 1 ].width !== imgSizes[ imgSizes.length - 1 ].height && imgSize.width === imgSize.height ? ' ' + __( '(Square format)', 'bsx-blocks' ) : '' ) } 
-            );
-        } );
+        if ( typeof calcImgSizes !== 'undefined' ) {
+            calcImgSizes.forEach( ( imgSize, index ) => {
+                imgSizeRadioControlOptions.push( 
+                    { value: index.toString(), label: imgSize.width + 'x' + imgSize.height + ( calcImgSizes[ calcImgSizes.length - 1 ].width !== calcImgSizes[ calcImgSizes.length - 1 ].height && imgSize.width === imgSize.height ? ' ' + __( '(Square format)', 'bsx-blocks' ) : '' ) } 
+                );
+            } );
+        }
 
         const onChangePortraitImgSizeIndex = ( value ) => {
             setAttributes( { 
@@ -558,20 +724,24 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             } );
         };
         const portraitImgSizeRadioControlOptions = [];
-        portraitImgSizes.forEach( ( portraitImgSize, index ) => {
-            portraitImgSizeRadioControlOptions.push( 
-                { value: index.toString(), label: portraitImgSize.width + 'x' + portraitImgSize.height + ( portraitImgSizes[ portraitImgSizes.length - 1 ].width !== portraitImgSizes[ portraitImgSizes.length - 1 ].height && portraitImgSize.width === portraitImgSize.height ? ' ' + __( '(Square format)', 'bsx-blocks' ) : '' ) } 
-            );
-        } );
+        if ( typeof calcPortraitImgSizes !== 'undefined' ) {
+            calcPortraitImgSizes.forEach( ( portraitImgSize, index ) => {
+                portraitImgSizeRadioControlOptions.push( 
+                    { value: index.toString(), label: portraitImgSize.width + 'x' + portraitImgSize.height + ( calcPortraitImgSizes[ calcPortraitImgSizes.length - 1 ].width !== calcPortraitImgSizes[ calcPortraitImgSizes.length - 1 ].height && portraitImgSize.width === portraitImgSize.height ? ' ' + __( '(Square format)', 'bsx-blocks' ) : '' ) } 
+                );
+            } );
+        }
 
         const zoomImgSizeRadioControlOptions = [];
-        imgSizes.forEach( ( imgSize, index ) => {
-            if ( index >= imgSizeIndex ) {
-                zoomImgSizeRadioControlOptions.push( 
-                    { value: index.toString(), label: imgSize.width + 'x' + imgSize.height + ( imgSizes[ imgSizes.length - 1 ].width !== imgSizes[ imgSizes.length - 1 ].height && imgSize.width === imgSize.height ? ' ' + __( '(Square format)', 'bsx-blocks' ) : '' ) } 
-                );
-            }
-        } );
+        if ( typeof calcImgSizes !== 'undefined' ) {
+            calcImgSizes.forEach( ( imgSize, index ) => {
+                if ( index >= imgSizeIndex ) {
+                    zoomImgSizeRadioControlOptions.push( 
+                        { value: index.toString(), label: imgSize.width + 'x' + imgSize.height + ( calcImgSizes[ calcImgSizes.length - 1 ].width !== calcImgSizes[ calcImgSizes.length - 1 ].height && imgSize.width === imgSize.height ? ' ' + __( '(Square format)', 'bsx-blocks' ) : '' ) } 
+                    );
+                }
+            } );
+        }
 
         const onChangePortraitImgMaxWidthBreakpoint = ( value ) => {
             setAttributes( { 
@@ -582,9 +752,9 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         // prepare img sources attributes
 
         const sourcesAttributesList = makeSourcesAttributesList( {
-            imgSizes,
+            calcImgSizes,
             imgSizeIndex,
-            portraitImgSizes,
+            calcPortraitImgSizes,
             portraitImgSizeIndex,
             portraitImgMaxWidthBreakpoint,
             disableResponsiveDownsizing,
@@ -605,15 +775,19 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
         // image
 
-        const image = (
+        const image = imgId && typeof calcImgSizes !== 'undefined' && typeof calcImgSizes[ imgSizeIndex ] !== 'undefined' ? (
             <picture className={ pictureAdditionalClassName }>
                 {
                     sourcesAttributesList.map( ( sourceAttributes, index ) => (
                         <source { ...sourceAttributes } />
                     ) )
                 }
-                <img className={ imgClassName } src={ url } alt={ alt } width={ !! displayedWidth ? displayedWidth : width } height={ !! displayedHeight ? displayedHeight : height } />
+                <img className={ imgClassName } src={ calcImgSizes[ imgSizeIndex ].url } alt={ alt } width={ !! displayedWidth ? displayedWidth : calcImgSizes[ imgSizeIndex ].width } height={ !! displayedHeight ? displayedHeight : calcImgSizes[ imgSizeIndex ].height } />
             </picture>
+        )
+        :
+        (
+            <></>
         );
 
         return [
@@ -640,7 +814,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                                         className="bsxui-config-panel-img-button has-margin-bottom"
                                         onClick={ open }
                                     >
-                                        <img class="bsxui-config-panel-img" src={ url } alt={ __( 'Change / upload image', 'bsx-blocks' ) } />
+                                        <img class="bsxui-config-panel-img" src={ calcImgSizes[ imgSizeIndex ].url } alt={ __( 'Change / upload image', 'bsx-blocks' ) } />
                                     </Button>
                                 ) }
                             />
@@ -674,27 +848,32 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                         onChange={ onChangeImgSizeIndex }
                     />
                     {
-                        imgSizes[ imgSizeIndex ] != undefined && imgSizes[ imgSizeIndex ].url != undefined && (
+                        calcImgSizes[ imgSizeIndex ] != undefined && calcImgSizes[ imgSizeIndex ].url != undefined && (
                             <div class="bsxui-config-panel-row">
                                 <div class="bsxui-config-panel-text">
-                                    <a class="bsxui-link" href={ imgSizes[ imgSizeIndex ].url } target="_blank">{ __( 'Preview selected image', 'bsx-blocks' ) }</a>
+                                    <a class="bsxui-link" href={ calcImgSizes[ imgSizeIndex ].url } target="_blank">{ __( 'Preview selected image', 'bsx-blocks' ) }</a>
                                 </div>
                             </div>
                         )
                     }
-                     
-                    <TextControl 
-                        label={ __( 'Displayed width', 'bsx-blocks' ) }
-                        value={ !! displayedWidth ? displayedWidth : width  } 
-                        onChange={ onChangeDisplayedWidth }
-                    />
-                    <TextControl 
-                        label={ __( 'Displayed height', 'bsx-blocks' ) }
-                        value={ !! displayedHeight ? displayedHeight : height } 
-                        onChange={ onChangeDisplayedHeight }
-                    />
                     {
-                        scaleSelect( scale, onChangeScale )
+                        imgId && typeof calcImgSizes !== 'undefined' && typeof calcImgSizes[ imgSizeIndex ] !== 'undefined' && (
+                            <>
+                                <TextControl 
+                                    label={ __( 'Displayed width', 'bsx-blocks' ) }
+                                    value={ !! displayedWidth ? displayedWidth : calcImgSizes[ imgSizeIndex ].width  } 
+                                    onChange={ onChangeDisplayedWidth }
+                                />
+                                <TextControl 
+                                    label={ __( 'Displayed height', 'bsx-blocks' ) }
+                                    value={ !! displayedHeight ? displayedHeight : calcImgSizes[ imgSizeIndex ].height } 
+                                    onChange={ onChangeDisplayedHeight }
+                                />
+                                {
+                                    scaleSelect( scale, onChangeScale )
+                                }
+                            </>
+                        )
                     }
                     <SelectControl 
                         label={ __( 'Rounded', 'bsx-blocks' ) }
@@ -743,7 +922,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                         (
                             <>
                                 {
-                                    portraitImgId && typeof portraitImgSizes[ portraitImgSizeIndex ] != 'undefined' && typeof portraitImgSizes[ portraitImgSizeIndex ].url != 'undefined' ? (
+                                    portraitImgId && typeof calcPortraitImgSizes[ portraitImgSizeIndex ] != 'undefined' && typeof calcPortraitImgSizes[ portraitImgSizeIndex ].url != 'undefined' ? (
                                         <MediaUpload
                                             onSelect={ onSelectPortraitImage }
                                             allowedTypes="image"
@@ -753,7 +932,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                                                     className="bsxui-config-panel-img-button has-margin-bottom"
                                                     onClick={ open }
                                                 >
-                                                    <img class="bsxui-config-panel-img" src={ portraitImgSizes[ portraitImgSizeIndex ].url } alt={ __( 'Change / upload portrait image', 'bsx-blocks' ) } />
+                                                    <img class="bsxui-config-panel-img" src={ calcPortraitImgSizes[ portraitImgSizeIndex ].url } alt={ __( 'Change / upload portrait image', 'bsx-blocks' ) } />
                                                 </Button>
                                             ) }
                                         />
@@ -781,7 +960,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                                     />
                                 </div>
                                 {
-                                    portraitImgId && typeof portraitImgSizes[ portraitImgSizeIndex ] != 'undefined' && typeof portraitImgSizes[ portraitImgSizeIndex ].url != 'undefined' && (
+                                    portraitImgId && typeof calcPortraitImgSizes[ portraitImgSizeIndex ] != 'undefined' && typeof calcPortraitImgSizes[ portraitImgSizeIndex ].url != 'undefined' && (
                                         <div class="bsxui-config-panel-row">
                                             <Button 
                                                 onClick={ onDeletePortraitImage }
@@ -799,9 +978,9 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                                     onChange={ onChangePortraitImgSizeIndex }
                                 />
                                 {
-                                    typeof portraitImgSizes[ portraitImgSizeIndex ] != 'undefined' && typeof portraitImgSizes[ portraitImgSizeIndex ].url != 'undefined' && (
+                                    typeof calcPortraitImgSizes != 'undefined' && typeof calcPortraitImgSizes[ portraitImgSizeIndex ] != 'undefined' && typeof calcPortraitImgSizes[ portraitImgSizeIndex ].url != 'undefined' && (
                                         <div class="bsxui-config-panel-text">
-                                            <a class="bsxui-link" href={ portraitImgSizes[ portraitImgSizeIndex ].url } target="_blank">{ __( 'Preview selected portrait image', 'bsx-blocks' ) }</a>
+                                            <a class="bsxui-link" href={ calcPortraitImgSizes[ portraitImgSizeIndex ].url } target="_blank">{ __( 'Preview selected portrait image', 'bsx-blocks' ) }</a>
                                         </div>
                                     )
                                 }
@@ -812,7 +991,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
                 <PanelBody title={ __( 'Zoomable (optional)', 'bsx-blocks' ) }>
                     {
-                        portraitImgSizes.length > 0 || !! href ? (
+                        calcPortraitImgSizes.length > 0 || !! href ? (
                             <div class="bsxui-config-panel-row">
                                 <div class="bsxui-alert">
                                     { 
@@ -828,7 +1007,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                         (
                             <>
                                 <ToggleControl
-                                    className={ portraitImgSizes.length > 0 || !! noFigureTag ? 'bsxui-disabled' : '' }
+                                    className={ calcPortraitImgSizes.length > 0 || !! noFigureTag ? 'bsxui-disabled' : '' }
                                     label={ __( 'Zoomable image', 'bsx-blocks' ) }
                                     checked={ !! zoomable }
                                     onChange={ onChangeZoomable }
@@ -1046,6 +1225,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 className,
                 imgSizeIndex,
                 imgSizes,
+                imgData,
                 url,
                 width,
                 height,
@@ -1053,6 +1233,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 origHeight,
                 portraitImgId,
                 portraitImgSizes,
+                portraitImgData,
                 portraitImgSizeIndex,
                 portraitImgMaxWidthBreakpoint,
                 alt,
@@ -1079,12 +1260,26 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             },
         } = props;
 
+        // TEST
+        // console.log( 'imgData: ' + JSON.stringify( imgData, null, 2 ) );
+        // console.log( 'imgSizes: ' + JSON.stringify( imgSizes, null, 2 ) + '\n' );
+
+
+
+        // initial set, replaces old attr 'imgSizes'
+        const hasOldAttrImgSizes = typeof imgSizes !== 'undefined' && Array.isArray( imgSizes ) && imgSizes.length > 0;
+        const hasOldAttrPortraitImgSizes = typeof portraitImgSizes !== 'undefined' && Array.isArray( portraitImgSizes ) && portraitImgSizes.length > 0;
+
+        const calcImgSizes = hasOldAttrImgSizes ? imgSizes : makeImgSizesFromImgData( imgData );
+        const calcPortraitImgSizes = hasOldAttrPortraitImgSizes ? portraitImgSizes : makeImgSizesFromImgData( portraitImgData );
+
+
         // prepare img sources attributes
 
         const sourcesAttributesList = makeSourcesAttributesList( {
-            imgSizes,
+            calcImgSizes,
             imgSizeIndex,
-            portraitImgSizes,
+            calcPortraitImgSizes,
             portraitImgSizeIndex,
             portraitImgMaxWidthBreakpoint,
             disableResponsiveDownsizing,
@@ -1124,10 +1319,10 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         ;
 
         // manage zoomImgSizeIndex & href, target, rel
-        const aSaveAttributes = ( zoomable && typeof imgSizes[ zoomImgSizeIndex ] != 'undefined' ) ? 
+        const aSaveAttributes = ( zoomable && typeof calcImgSizes[ zoomImgSizeIndex ] != 'undefined' ) ? 
             makeSaveAttributes( {
-                'href': imgSizes[ zoomImgSizeIndex ].url,
-                'data-size': imgSizes[ zoomImgSizeIndex ].width + 'x' + imgSizes[ zoomImgSizeIndex ].height,
+                'href': calcImgSizes[ zoomImgSizeIndex ].url,
+                'data-size': calcImgSizes[ zoomImgSizeIndex ].width + 'x' + calcImgSizes[ zoomImgSizeIndex ].height,
             } )
             : 
             (
@@ -1142,7 +1337,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             )
         ;
 
-        const image = (
+        const image = typeof calcImgSizes !== 'undefined' && typeof calcImgSizes[ imgSizeIndex ] !== 'undefined' ? (
             <>
                 <script>document.write( '
                     <picture className={ ! noFigureTag ? pictureAdditionalClassName : classNames }>
@@ -1151,11 +1346,15 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                                 <source { ...sourceAttributes } />
                             ) )
                         }
-                        <img className={ imgClassName } src={ makeBase64PreloadImgSrc( width, height ) } alt={ alt } data-src={ url } width={ !! displayedWidth ? displayedWidth : width } height={ !! displayedHeight ? displayedHeight : height } data-fn="lazyload" />
+                        <img className={ imgClassName } src={ makeBase64PreloadImgSrc( calcImgSizes[ imgSizeIndex ].width, calcImgSizes[ imgSizeIndex ].height ) } alt={ alt } data-src={ calcImgSizes[ imgSizeIndex ].url } width={ !! displayedWidth ? displayedWidth : calcImgSizes[ imgSizeIndex ].width } height={ !! displayedHeight ? displayedHeight : calcImgSizes[ imgSizeIndex ].height } data-fn="lazyload" />
                     </picture>
                 ' );</script>
-                <noscript><img className={ imgClassName } src={ url } alt={ alt } width={ !! displayedWidth ? displayedWidth : width } height={ !! displayedHeight ? displayedHeight : height } /></noscript>
+                <noscript><img className={ imgClassName } src={ calcImgSizes[ imgSizeIndex ].url } alt={ alt } width={ !! displayedWidth ? displayedWidth : calcImgSizes[ imgSizeIndex ].width } height={ !! displayedHeight ? displayedHeight : calcImgSizes[ imgSizeIndex ].height } /></noscript>
             </>
+        )
+        :
+        (
+            <></>
         );
 
         const aOrImage = (
@@ -1183,7 +1382,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                     (
                         <figure className={ classNames } { ...saveAttributes }>
                             {
-                                url && (
+                                typeof calcImgSizes !== 'undefined' && typeof calcImgSizes[ imgSizeIndex ] !== 'undefined' && typeof calcImgSizes[ imgSizeIndex ].url !== 'undefined' && calcImgSizes[ imgSizeIndex ].url && (
                                     <>
                                         { 
                                             aOrImage
@@ -1202,7 +1401,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                     (
                         <>
                             { 
-                                url && (
+                                typeof calcImgSizes !== 'undefined' && typeof calcImgSizes[ imgSizeIndex ] !== 'undefined' && typeof calcImgSizes[ imgSizeIndex ].url !== 'undefined' && calcImgSizes[ imgSizeIndex ].url && (
                                     <>
                                         {
                                             aOrImage

@@ -39,6 +39,8 @@ import {
     getImgWithHeight,
     imgExists,
     getImgSizesData,
+    makeImgSizesFromImgData,
+    makeImgData,
 } from './../_functions/img.js';
 import { 
     alignItemsSelect,
@@ -202,22 +204,22 @@ const skipIndex = 0;
 const makeSrcsetJson = ( attributes ) => {
 
     const { 
-        imgSizes, 
+        calcImgSizes, 
         imgSizeIndex, 
-        portraitImgSizes, 
+        calcPortraitImgSizes, 
         portraitImgSizeIndex, 
         disableResponsiveDownsizing,
     } = attributes;
 
-    // srcsetJson = "[ { media: '" + mobileMediaQuery + "', src: '" + url + "' }, { media: '" + smallMobileMediaQuery + "', src: '" + imgSizes[ ( imgSizeIndex - mobileSizeStep > 0 ? imgSizeIndex - mobileSizeStep : 0 ) ].url + "' }, { media: '', src: '" + imgSizes[ ( imgSizeIndex - smallMobileSizeStep > 0 ? imgSizeIndex - smallMobileSizeStep : 0 ) ].url + "' } ]";
+    // srcsetJson = "[ { media: '" + mobileMediaQuery + "', src: '" + url + "' }, { media: '" + smallMobileMediaQuery + "', src: '" + calcImgSizes[ ( imgSizeIndex - mobileSizeStep > 0 ? imgSizeIndex - mobileSizeStep : 0 ) ].url + "' }, { media: '', src: '" + calcImgSizes[ ( imgSizeIndex - smallMobileSizeStep > 0 ? imgSizeIndex - smallMobileSizeStep : 0 ) ].url + "' } ]";
     let srcsetJson = '[ ';
     responsivePortraitMediaIndexList.forEach( ( item, index ) => {
         // add item if img resulting indes > skipIndex (no square format)
         if ( ! disableResponsiveDownsizing || index == 0 ) {
             // always add 1st item, others only if downsizing is enabled
             const currentPortraitImgSizeIndex = ( parseInt( portraitImgSizeIndex ) + parseInt( item.imgSizeIndexShift ) );
-            if ( currentPortraitImgSizeIndex > skipIndex && currentPortraitImgSizeIndex < portraitImgSizes.length ) {
-                srcsetJson += '{ media: \'' + item.media + '\', src: \'' + portraitImgSizes[ currentPortraitImgSizeIndex ].url + '\' }, ';
+            if ( typeof calcPortraitImgSizes !== 'undefined' && currentPortraitImgSizeIndex > skipIndex && currentPortraitImgSizeIndex < calcPortraitImgSizes.length ) {
+                srcsetJson += '{ media: \'' + item.media + '\', src: \'' + calcPortraitImgSizes[ currentPortraitImgSizeIndex ].url + '\' }, ';
             }
         }
     } );
@@ -225,8 +227,8 @@ const makeSrcsetJson = ( attributes ) => {
         responsiveMediaIndexList.forEach( ( item, index ) => {
             // add item if img resulting indes > skipIndex (no square format)
             const currentImgSizeIndex = ( parseInt( imgSizeIndex ) + parseInt( item.imgSizeIndexShift ) );
-            if ( currentImgSizeIndex > skipIndex && currentImgSizeIndex < imgSizes.length ) {
-                srcsetJson += '{ media: \'' + item.media + '\', src: \'' + imgSizes[ currentImgSizeIndex ].url + '\' }, ';
+            if ( currentImgSizeIndex > skipIndex && currentImgSizeIndex < calcImgSizes.length ) {
+                srcsetJson += '{ media: \'' + item.media + '\', src: \'' + calcImgSizes[ currentImgSizeIndex ].url + '\' }, ';
             }
         } );
     }
@@ -270,7 +272,12 @@ registerBlockType( 'bsx-blocks/banner', {
         imgId: {
             type: 'number',
         },
+        // deprecated, do not set anymore, keep alive for existing blocks (replaced by imgData)
         imgSizes: {
+            type: 'array',
+            default: [],
+        },
+        imgData: {
             type: 'array',
             default: [],
         },
@@ -278,13 +285,19 @@ registerBlockType( 'bsx-blocks/banner', {
             type: 'string',
             default: '6',
         },
+        // deprecated, do not set anymore, keep alive for existing blocks (replaced by imgData)
         url: {
             type: 'string',
         },
         portraitImgId: {
             type: 'number',
         },
+        // deprecated, do not set anymore, keep alive for existing blocks (replaced by imgData)
         portraitImgSizes: {
+            type: 'array',
+            default: [],
+        },
+        portraitImgData: {
             type: 'array',
             default: [],
         },
@@ -380,10 +393,12 @@ registerBlockType( 'bsx-blocks/banner', {
                 bgColor,
                 imgId,
                 imgSizes,
+                imgData,
                 imgSizeIndex,
                 url,
                 portraitImgId,
                 portraitImgSizes,
+                portraitImgData,
                 portraitImgSizeIndex,
                 bannerType,
                 bannerSize,
@@ -409,6 +424,19 @@ registerBlockType( 'bsx-blocks/banner', {
             isSelected,
             children,
         } = props;
+
+        // initial set, replaces old attr 'imgSizes'
+        const hasOldAttrImgSizes = typeof imgSizes !== 'undefined' && Array.isArray( imgSizes ) && imgSizes.length > 0;
+        const hasOldAttrPortraitImgSizes = typeof portraitImgSizes !== 'undefined' && Array.isArray( portraitImgSizes ) && portraitImgSizes.length > 0;
+
+        const calcImgSizes = hasOldAttrImgSizes ? imgSizes : makeImgSizesFromImgData( imgData );
+        const calcPortraitImgSizes = hasOldAttrPortraitImgSizes ? portraitImgSizes : makeImgSizesFromImgData( portraitImgData );
+
+        // TEST
+        // console.log( 'props.attributes: ' + JSON.stringify( props.attributes, null, 2 ) );
+        // console.log( 'calcImgSizes: ' + JSON.stringify( calcImgSizes, null, 2 ) );
+        // console.log( 'calcPortraitImgSizes: ' + JSON.stringify( calcPortraitImgSizes, null, 2 ) + '\n\n' );
+
 
         const hasInnerBlocks = ( children ) => {
             return children.length > 0;
@@ -452,23 +480,39 @@ registerBlockType( 'bsx-blocks/banner', {
 
             if ( typeof img.url !== 'undefined' ) {
 
-                const newImgSizesData = await getImgSizesData( img );
-                const newImgSizes = newImgSizesData.imgs;
+                const newImgAllData = await getImgSizesData( img );
 
                 // check if current img size index fits to new img (might be too large)
                 let newImgSizeIndex = parseInt( imgSizeIndex );
-                if ( parseInt( imgSizeIndex ) >= newImgSizes.length ) {
-                    newImgSizeIndex = newImgSizes.length - 1;
+                if ( parseInt( imgSizeIndex ) >= newImgAllData.imgs.length ) {
+                    newImgSizeIndex = newImgAllData.imgs.length - 1;
                 }
 
-                setAttributes( {
-                    imgId: img.id,
-                    imgSizes: newImgSizes,
-                    imgSizeIndex: newImgSizeIndex.toString(),
-                    url: newImgSizes[ newImgSizeIndex ].url,
-                } );
+                // prepare attr 'imgData' to save in block (replacing old attr 'imgSizes')
+                const newImgData = makeImgData( newImgAllData.imgs, newImgAllData.truncWithoutSizeSlug, newImgAllData.fileExt );
 
-                // console.log( 'url: ' + newImgSizes[ newImgSizeIndex ].url );
+                // avoid creating deprecated (empty) attr 'imgSizes'
+                if ( imgSizes && imgSizes.length > 0 ) {
+                    // delete value of 'imgSizes'
+                    setAttributes( {
+                        imgId: img.id,
+                        imgSizes: '', // save empty, replaced by imgData
+                        imgData: newImgData,
+                        imgSizeIndex: newImgSizeIndex.toString(),
+                        url: '', // save empty, replaced by imgData
+                    } );
+                }
+                else {
+                    // skip 'imgSizes'
+                    setAttributes( {
+                        imgId: img.id,
+                        imgData: newImgData,
+                        imgSizeIndex: newImgSizeIndex.toString(),
+                    } );
+                }
+
+
+                // console.log( 'url: ' + newImgAllData.imgs[ newImgSizeIndex ].url );
             }
         };
 
@@ -476,39 +520,77 @@ registerBlockType( 'bsx-blocks/banner', {
 
             if ( typeof portraitImg.url !== 'undefined' ) {
 
-                const newPortraitImgSizesData = await getImgSizesData( portraitImg );
-                const newPortraitImgSizes = newPortraitImgSizesData.imgs;
+                const newPortraitImgAllData = await getImgSizesData( portraitImg );
 
                 // check if current img size index fits to new img (might be too large)
                 let newPortraitImgSizeIndex = parseInt( portraitImgSizeIndex );
-                if ( parseInt( portraitImgSizeIndex ) >= newPortraitImgSizes.length ) {
-                    newPortraitImgSizeIndex = newPortraitImgSizes.length - 1;
+                if ( parseInt( portraitImgSizeIndex ) >= newPortraitImgAllData.imgs.length ) {
+                    newPortraitImgSizeIndex = newPortraitImgAllData.imgs.length - 1;
                 }
                 // console.log( 'newPortraitImgSizeIndex: ' + newPortraitImgSizeIndex );
 
-                setAttributes( {
-                    portraitImgId: portraitImg.id,
-                    portraitImgSizes: newPortraitImgSizes,
-                    portraitImgSizeIndex: newPortraitImgSizeIndex.toString(),
-                } );
+                // prepare attr 'imgData' to save in block (replacing old attr 'portraitImgSizes')
+                const newPortraitImgData = makeImgData( newPortraitImgAllData.imgs, newPortraitImgAllData.truncWithoutSizeSlug, newPortraitImgAllData.fileExt );
 
-                // console.log( 'portraitImgSizes[ portraitImgSizeIndex ].url: ' + newPortraitImgSizes[ newPortraitImgSizeIndex ].url );
+                // avoid creating deprecated (empty) attr 'portraitImgSizes'
+                if ( portraitImgSizes && portraitImgSizes.length > 0 ) {
+                    // delete value of 'portraitImgSizes'
+                    setAttributes( {
+                        portraitImgId: portraitImg.id,
+                        portraitImgSizes: '', // save empty, replaced by portraitImgData
+                        portraitImgData: newPortraitImgData,
+                        portraitImgSizeIndex: newPortraitImgSizeIndex.toString(),
+                    } );
+                }
+                else {
+                    // skip 'portraitImgSizes'
+                    setAttributes( {
+                        portraitImgId: portraitImg.id,
+                        portraitImgData: newPortraitImgData,
+                        portraitImgSizeIndex: newPortraitImgSizeIndex.toString(),
+                    } );
+                }
+
+                // console.log( 'portraitImgSizes[ portraitImgSizeIndex ].url: ' + newPortraitImgAllData.imgs[ newPortraitImgSizeIndex ].url );
             }
         };
 
         const onDeleteImage = () => {
-            setAttributes( {
-                imgId: '',
-                imgSizes: [],
-                url: '',
-            } );
+            // avoid creating deprecated attr 'imgSizes'
+            if ( imgSizes && imgSizes.length > 0 ) {
+                // delete value of 'imgSizes'
+                setAttributes( {
+                    imgId: '',
+                    imgSizes: '',
+                    imgData: '',
+                } );
+            }
+            else {
+                // skip 'imgSizes'
+                setAttributes( {
+                    imgId: '',
+                    imgData: '',
+                } );
+            }
         };
 
         const onDeletePortraitImage = () => {
-            setAttributes( {
-                portraitImgId: '',
-                portraitImgSizes: [],
-            } );
+            // avoid creating deprecated attr 'portraitImgSizes'
+            if ( portraitImgSizes && portraitImgSizes.length > 0 ) {
+                // delete value of 'portraitImgSizes'
+                setAttributes( {
+                    portraitImgId: '',
+                    portraitImgSizes: '',
+                    portraitImgData: '',
+                } );
+            }
+            else {
+                // skip 'portraitImgSizes'
+                setAttributes( {
+                    portraitImgId: '',
+                    portraitImgData: '',
+                } );
+            }
         };
 
         const onChangeBannerType = ( value ) => {
@@ -581,11 +663,10 @@ registerBlockType( 'bsx-blocks/banner', {
         const onChangeImgSizeIndex = ( value ) => {
             setAttributes( { 
                 imgSizeIndex: value.toString(),
-                url: imgSizes[ value ].url,
             } );
         };
         const imgSizeRadioControlOptions = [];
-        imgSizes.forEach( ( imgSize, index ) => {
+        calcImgSizes.forEach( ( imgSize, index ) => {
             imgSizeRadioControlOptions.push( 
                 { value: index.toString(), label: imgSize.width + 'x' + imgSize.height + ( imgSize.width === imgSize.height ? ' ' + __( '(Square format)', 'bsx-blocks' ) : '' ) } 
             );
@@ -597,7 +678,7 @@ registerBlockType( 'bsx-blocks/banner', {
             } );
         };
         const portraitImgSizeRadioControlOptions = [];
-        portraitImgSizes.forEach( ( portraitImgSize, index ) => {
+        calcPortraitImgSizes.forEach( ( portraitImgSize, index ) => {
             portraitImgSizeRadioControlOptions.push( 
                 { value: index.toString(), label: portraitImgSize.width + 'x' + portraitImgSize.height + ( portraitImgSize.width === portraitImgSize.height ? ' ' + __( '(Square format)', 'bsx-blocks' ) : '' ) } 
             );
@@ -634,7 +715,7 @@ registerBlockType( 'bsx-blocks/banner', {
 
         const TagName = nodeName;
 
-        const bannerStyle = { backgroundImage: `url(${ url })` };
+        const bannerStyle = typeof calcImgSizes[ imgSizeIndex ] !== 'undefined' ? { backgroundImage: `url(${ calcImgSizes[ imgSizeIndex ].url })` } : {};
 
         return [
             <InspectorControls>
@@ -649,7 +730,7 @@ registerBlockType( 'bsx-blocks/banner', {
                         imgId ? (
                             <>
                                 {
-                                    imgUploadClickableImg( imgId, url, onSelectImage )
+                                    imgUploadClickableImg( imgId, calcImgSizes[ imgSizeIndex ].url, onSelectImage )
                                 }
                             </>
                         )
@@ -686,9 +767,9 @@ registerBlockType( 'bsx-blocks/banner', {
                         onChange={ onChangeImgSizeIndex }
                     />
                     {
-                        imgSizes[ imgSizeIndex ] != undefined && imgSizes[ imgSizeIndex ].url != undefined && (
+                        calcImgSizes[ imgSizeIndex ] != undefined && calcImgSizes[ imgSizeIndex ].url != undefined && (
                             <div class="bsxui-config-panel-text">
-                                <a class="bsxui-link" href={ imgSizes[ imgSizeIndex ].url } target="_blank">{ __( 'Preview selected image', 'bsx-blocks' ) }</a>
+                                <a class="bsxui-link" href={ calcImgSizes[ imgSizeIndex ].url } target="_blank">{ __( 'Preview selected image', 'bsx-blocks' ) }</a>
                             </div>
                         )
                     }
@@ -696,10 +777,10 @@ registerBlockType( 'bsx-blocks/banner', {
 
                 <PanelBody title={ __( 'Banner portrait image (optional)', 'bsx-blocks' ) }>
                     {
-                        portraitImgId && typeof portraitImgSizes[ portraitImgSizeIndex ] != 'undefined' && typeof portraitImgSizes[ portraitImgSizeIndex ].url != 'undefined' ? (
+                        portraitImgId && typeof calcPortraitImgSizes[ portraitImgSizeIndex ] != 'undefined' && typeof calcPortraitImgSizes[ portraitImgSizeIndex ].url != 'undefined' ? (
                             <>
                                 {
-                                    imgUploadClickableImg( portraitImgId, portraitImgSizes[ portraitImgSizeIndex ].url, onSelectPortraitImage, 'p' )
+                                    imgUploadClickableImg( portraitImgId, calcPortraitImgSizes[ portraitImgSizeIndex ].url, onSelectPortraitImage, 'p' )
                                 }
                             </>
                         )
@@ -736,9 +817,9 @@ registerBlockType( 'bsx-blocks/banner', {
                         onChange={ onChangePortraitImgSizeIndex }
                     />
                     {
-                         typeof portraitImgSizes[ portraitImgSizeIndex ] != 'undefined' && typeof portraitImgSizes[ portraitImgSizeIndex ].url != 'undefined' && (
+                         typeof calcPortraitImgSizes[ portraitImgSizeIndex ] != 'undefined' && typeof calcPortraitImgSizes[ portraitImgSizeIndex ].url != 'undefined' && (
                             <div class="bsxui-config-panel-text">
-                                <a class="bsxui-link" href={ portraitImgSizes[ portraitImgSizeIndex ].url } target="_blank">{ __( 'Preview selected portrait image', 'bsx-blocks' ) }</a>
+                                <a class="bsxui-link" href={ calcPortraitImgSizes[ portraitImgSizeIndex ].url } target="_blank">{ __( 'Preview selected portrait image', 'bsx-blocks' ) }</a>
                             </div>
                         )
                     }
@@ -910,10 +991,12 @@ registerBlockType( 'bsx-blocks/banner', {
                 bgColor,
                 imgId,
                 imgSizes,
+                imgData,
                 imgSizeIndex,
                 url,
                 portraitImgId,
                 portraitImgSizes,
+                portraitImgData,
                 portraitImgSizeIndex,
                 bannerType,
                 bannerSize,
@@ -936,6 +1019,19 @@ registerBlockType( 'bsx-blocks/banner', {
                 disableResponsiveDownsizing,
             },
         } = props;
+
+        // initial set, replaces old attr 'imgSizes'
+        const hasOldAttrImgSizes = typeof imgSizes !== 'undefined' && Array.isArray( imgSizes ) && imgSizes.length > 0;
+        const hasOldAttrPortraitImgSizes = typeof portraitImgSizes !== 'undefined' && Array.isArray( portraitImgSizes ) && portraitImgSizes.length > 0;
+
+        const calcImgSizes = hasOldAttrImgSizes ? imgSizes : makeImgSizesFromImgData( imgData );
+        const calcPortraitImgSizes = hasOldAttrPortraitImgSizes ? portraitImgSizes : makeImgSizesFromImgData( portraitImgData );
+
+        // TEST
+        // console.log( 'props.attributes: ' + JSON.stringify( props.attributes, null, 2 ) );
+        // console.log( 'calcImgSizes: ' + JSON.stringify( calcImgSizes, null, 2 ) );
+        // console.log( 'calcPortraitImgSizes: ' + JSON.stringify( calcPortraitImgSizes, null, 2 ) + '\n\n' );
+
 
         // class names
 
@@ -969,9 +1065,9 @@ registerBlockType( 'bsx-blocks/banner', {
         } );
 
         const srcsetJson = makeSrcsetJson( { 
-            imgSizes, 
+            calcImgSizes, 
             imgSizeIndex, 
-            portraitImgSizes, 
+            calcPortraitImgSizes, 
             portraitImgSizeIndex, 
             disableResponsiveDownsizing,
         } );
@@ -979,7 +1075,7 @@ registerBlockType( 'bsx-blocks/banner', {
         // there might be no images at all, e.g. if background color banner
         const saveAttributes = makeSaveAttributes( {
             'data-fn': imgId ? 'lazyload' : dataFn,
-            'data-src': imgId ? url : '',
+            'data-src': imgId ? calcImgSizes[ imgSizeIndex ].url : '',
             'data-srcset': imgId ? srcsetJson : '',
             href: href, 
             target: target, 
