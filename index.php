@@ -4,7 +4,7 @@
  * Plugin Name: BSX Blocks
  * Plugin URI: https://github.com/ihniwiad/bsx-blocks
  * Description: BSX WordPress blocks.
- * Version: 1.0.7
+ * Version: 1.0.8
  * Author: ihniwiad
  * Text Domain: bsx-blocks
  * Domain Path: /languages
