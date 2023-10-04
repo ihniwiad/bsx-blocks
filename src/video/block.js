@@ -31,6 +31,9 @@ import {
     // relInput,
     // dataFnInput,
     scaleSelect,
+    widthSelect,
+    heightSelect,
+    objectFitSelect,
 } from './../_functions/controls.js';
 
 import { svgIcon } from './../_functions/wp-icons.js';
@@ -108,6 +111,12 @@ registerBlockType( 'bsx-blocks/video', {
         scale: {
             type: 'number',
         },
+        width: {
+            type: 'string',
+        },
+        height: {
+            type: 'string',
+        },
         displayedWidth: {
             type: 'text',
             selector: "video",
@@ -160,6 +169,9 @@ registerBlockType( 'bsx-blocks/video', {
         marginAfter: {
             type: 'string',
         },
+        objectFit: {
+            type: 'string',
+        },
     },
     edit: ( props ) => {
         const {
@@ -178,6 +190,8 @@ registerBlockType( 'bsx-blocks/video', {
                 posterId,
                 posterUrl,
                 scale,
+                width,
+                height,
                 displayedWidth,
                 displayedHeight,
                 controls,
@@ -187,6 +201,7 @@ registerBlockType( 'bsx-blocks/video', {
                 muted,
                 textAlign,
                 marginAfter,
+                objectFit,
             },
             setAttributes,
         } = props;
@@ -289,6 +304,13 @@ registerBlockType( 'bsx-blocks/video', {
             } );
         };
 
+        const onChangeWidth = ( value ) => {
+            setAttributes( { width: value } );
+        };
+        const onChangeHeight = ( value ) => {
+            setAttributes( { height: value } );
+        };
+
         const onChangeControls = ( value ) => {
             setAttributes( { controls: value } );
         };
@@ -311,6 +333,10 @@ registerBlockType( 'bsx-blocks/video', {
 
         const onChangeMarginAfter = ( value ) => {
             setAttributes( { marginAfter: value } );
+        };
+
+        const onChangeObjectFit = ( value ) => {
+            setAttributes( { objectFit: value } );
         };
 
 
@@ -606,6 +632,15 @@ registerBlockType( 'bsx-blocks/video', {
                     checked={ !! notHasFigure }
                     onChange={ onChangeNotHasFigure }
                 />
+                {
+                    widthSelect( width, onChangeWidth )
+                }
+                {
+                    widthSelect( height, onChangeHeight )
+                }
+                {
+                    objectFitSelect( objectFit, onChangeObjectFit )
+                }
             </InspectorAdvancedControls>,
             (
                 <figure className={ outerClassNames }>
@@ -669,6 +704,8 @@ registerBlockType( 'bsx-blocks/video', {
                 posterId,
                 posterUrl,
                 scale,
+                width,
+                height,
                 displayedWidth,
                 displayedHeight,
                 controls,
@@ -678,6 +715,7 @@ registerBlockType( 'bsx-blocks/video', {
                 muted,
                 textAlign,
                 marginAfter,
+                objectFit,
             },
         } = props;
 
@@ -687,6 +725,9 @@ registerBlockType( 'bsx-blocks/video', {
         const outerClassNames = addClassNames( {
             textAlign,
             marginAfter,
+            width,
+            height,
+            objectFit,
         }, className );
 
         let videoClassNames = 'img-fluid align-middle';

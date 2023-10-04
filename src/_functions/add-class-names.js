@@ -33,6 +33,7 @@ export function addClassNames( attributes, classNamesString ) {
         headingInheritTextColor,
         headingInheritFontWeight,
         width,
+        height,
         imgThumbnail,
         borderState,
         border,
@@ -43,6 +44,7 @@ export function addClassNames( attributes, classNamesString ) {
         speechBubble,
         isAlert,
         state,
+        objectFit,
     } = attributes;
 
     const classNames = ( typeof classNamesString != 'undefined' ) ? classNamesString.split( ' ' ) : [];
@@ -192,6 +194,9 @@ export function addClassNames( attributes, classNamesString ) {
     if ( !! width ) {
         classNames.push( 'w-' + width );
     }
+    if ( !! height ) {
+        classNames.push( 'h-' + height );
+    }
 
     if ( !! imgThumbnail ) {
         classNames.push( 'img-thumbnail' );
@@ -239,6 +244,10 @@ export function addClassNames( attributes, classNamesString ) {
         if ( !! state ) {
             classNames.push( 'alert-' + state );
         }
+    }
+
+    if ( !! objectFit ) {
+        classNames.push( 'object-fit-' + objectFit );
     }
 
 

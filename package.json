@@ -27,5 +27,6 @@
     "gulp-string-replace": "^1.1.2",
     "gulp-watch": "^4.3.11",
     "sass": "^1.67.0"
-  }
+  },
+  "dependencies": {}
 }

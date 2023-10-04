@@ -866,11 +866,48 @@ export const iconFamilySelect = ( value, onChangeFunction, allowedValues ) => {
 export const widthSelect = ( value, onChangeFunction, allowedValues ) => {
     const defaultValues = [
         { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+        { value: '25', label: __( '25 %', 'bsx-blocks' ) },
+        { value: '50', label: __( '50 %', 'bsx-blocks' ) },
+        { value: '75', label: __( '75 %', 'bsx-blocks' ) },
         { value: '100', label: __( '100 %', 'bsx-blocks' ) },
     ];
     return (
         <SelectControl 
             label={ __( 'Width', 'bsx-blocks' ) }
+            value={ value }
+            onChange={ onChangeFunction }
+            options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
+        />
+    )
+}
+
+export const heightSelect = ( value, onChangeFunction, allowedValues ) => {
+    const defaultValues = [
+        { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+        { value: '25', label: __( '25 %', 'bsx-blocks' ) },
+        { value: '50', label: __( '50 %', 'bsx-blocks' ) },
+        { value: '75', label: __( '75 %', 'bsx-blocks' ) },
+        { value: '100', label: __( '100 %', 'bsx-blocks' ) },
+    ];
+    return (
+        <SelectControl 
+            label={ __( 'Height', 'bsx-blocks' ) }
+            value={ value }
+            onChange={ onChangeFunction }
+            options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
+        />
+    )
+}
+
+export const objectFitSelect = ( value, onChangeFunction, allowedValues ) => {
+    const defaultValues = [
+        { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+        { value: 'cover', label: __( 'Cover', 'bsx-blocks' ) },
+        { value: 'contain', label: __( 'Contain', 'bsx-blocks' ) },
+    ];
+    return (
+        <SelectControl 
+            label={ __( 'Object-Fit', 'bsx-blocks' ) }
             value={ value }
             onChange={ onChangeFunction }
             options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
