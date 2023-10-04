@@ -2,6 +2,15 @@
   "name": "bsx-blocks",
   "version": "1.0.8",
   "description": "BSX Blocks",
+  "scripts": {
+    "wp-build": "wp-scripts build",
+    "wp-build-all": "wp-scripts build src/index.js src/custom-block-settings.js src/custom-class-names.js --output-path=build",
+    "wp-start": "wp-scripts start",
+    "wp-start-all": "wp-scripts start src/index.js src/custom-block-settings.js src/custom-class-names.js --output-path=build",
+    "build": "npm run wp-build-all && gulp build",
+    "publish": "gulp publish",
+    "watch": "gulp watch"
+  },
   "author": "ihniwiad",
   "license": "GPL-2.0-or-later",
   "main": "index.js",
@@ -16,15 +25,7 @@
     "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.6.0",
     "gulp-string-replace": "^1.1.2",
-    "gulp-watch": "^4.3.11"
-  },
-  "scripts": {
-    "wp-build": "wp-scripts build",
-    "wp-build-all": "wp-scripts build src/index.js src/custom-block-settings.js src/custom-class-names.js --output-path=build",
-    "wp-start": "wp-scripts start",
-    "wp-start-all": "wp-scripts start src/index.js src/custom-block-settings.js src/custom-class-names.js --output-path=build",
-    "build": "npm run wp-build-all && gulp build",
-    "publish": "gulp publish",
-    "watch": "gulp watch"
+    "gulp-watch": "^4.3.11",
+    "sass": "^1.67.0"
   }
 }

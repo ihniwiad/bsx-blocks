@@ -44,7 +44,7 @@ If you use a workspace outside your WordPress folder (as seen above) you will ne
 Example: 
 
 ```
-PUBLISH_PATH=../../../../../Applications/MAMP/htdocs/wordpress-testing/wp-content/plugins/
+PUBLISH_PATH=../../../../../../Applications/MAMP/htdocs/wordpress-testing/wp-content/plugins/
 ```
 
 All of your Plugin’s files but `node_modules` will be copied to this folder (as `bsx-blocks` folder) each time you build.
@@ -56,7 +56,7 @@ All of your Plugin’s files but `node_modules` will be copied to this folder (a
 
 * Run `npm install`
 * Run `npm run build`
-* Add `build/.envscss` to your `.gitignore`
+* Add `build/_env.scss` (since version 1.2.0) **or (if existing)** `build/.envscss` (up to version 1.1.X) to your `.gitignore`
 
 
 ## Develop
