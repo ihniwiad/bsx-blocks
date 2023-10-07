@@ -69,6 +69,7 @@ import {
     relInput,
     dataFnInput,
     disableResponsiveDownsizingToggle,
+    multilayerSelect,
 } from './../_functions/controls.js';
 import { makeSaveAttributes } from './../_functions/attributes.js';
 import { getTemplate } from './../_functions/utilities.js';
@@ -366,6 +367,19 @@ registerBlockType( 'bsx-blocks/banner', {
         disableResponsiveDownsizing: {
             type: 'boolean',
         },
+        multilayer: {
+            type: 'string',
+        },
+    },
+
+    getEditWrapperProps( attributes ) {
+        const {
+            multilayer,
+        } = attributes;
+
+        return {
+            'data-multilayer': multilayer,
+        };
     },
 
     edit: withSelect( ( select, { clientId } ) => {
@@ -419,6 +433,7 @@ registerBlockType( 'bsx-blocks/banner', {
                 rel,
                 dataFn,
                 disableResponsiveDownsizing,
+                multilayer,
             },
             setAttributes,
             isSelected,
@@ -660,6 +675,10 @@ registerBlockType( 'bsx-blocks/banner', {
             setAttributes( { disableResponsiveDownsizing: value } );
         };
 
+        const onChangeMultilayer = ( value ) => {
+            setAttributes( { multilayer: value } );
+        };
+
         const onChangeImgSizeIndex = ( value ) => {
             setAttributes( { 
                 imgSizeIndex: value.toString(),
@@ -707,6 +726,7 @@ registerBlockType( 'bsx-blocks/banner', {
             marginAfter, 
             paddingBefore, 
             paddingAfter,
+            multilayer,
         }, bannerClassName );
 
         const bannerInnerClassName = makeBannerInnerClassNames( {
@@ -913,6 +933,9 @@ registerBlockType( 'bsx-blocks/banner', {
                 {
                     disableResponsiveDownsizingToggle( disableResponsiveDownsizing, onChangeDisableResponsiveDownsizing )
                 }
+                {
+                    multilayerSelect( multilayer, onChangeMultilayer )
+                }
             </InspectorAdvancedControls>,
 
             (
@@ -1017,6 +1040,7 @@ registerBlockType( 'bsx-blocks/banner', {
                 rel,
                 dataFn,
                 disableResponsiveDownsizing,
+                multilayer,
             },
         } = props;
 
@@ -1058,6 +1082,7 @@ registerBlockType( 'bsx-blocks/banner', {
             marginAfter, 
             paddingBefore, 
             paddingAfter,
+            multilayer,
         }, bannerClassName );
 
         const bannerInnerClassName = makeBannerInnerClassNames( {

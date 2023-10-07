@@ -24,6 +24,8 @@ const {
 } = wp.data;
 
 // functions
+import { svgIcon } from './../../_functions/wp-icons.js';
+import { addClassNames } from './../../_functions/add-class-names.js';
 import { 
     inlineTemplateSelect,
     uiTemplateSelect,
@@ -31,10 +33,12 @@ import {
     widthSelect,
     justifyContentSelect,
     flexDirectionSelect,
+    multilayerSelect,
+    zIndexSelect,
+    bannerInnerToggle,
 } from './../../_functions/controls.js';
 // import { getTemplate } from './../../_functions/utilities.js';
 
-import { svgIcon } from './../../_functions/wp-icons.js';
 
 // data
 import templates from './templates';
@@ -98,6 +102,15 @@ registerBlockType( 'bsx-blocks/column-rows', {
         justifyContent: {
             type: 'string',
         },
+        multilayer: {
+            type: 'string',
+        },
+        zIndex: {
+            type: 'string',
+        },
+        isBannerInner: {
+            type: 'boolean',
+        },
     },
 
     getEditWrapperProps( attributes ) {
@@ -125,6 +138,9 @@ registerBlockType( 'bsx-blocks/column-rows', {
                 flexDirection,
                 width,
                 justifyContent,
+                multilayer,
+                zIndex,
+                isBannerInner,
             },
             setAttributes,
             isSelected
@@ -245,13 +261,28 @@ registerBlockType( 'bsx-blocks/column-rows', {
             setAttributes( { justifyContent: value } );
         };
 
-        const columnsRowsClassNames = makeColumnRowsClassNames( {
+        const onChangeMultilayer = ( value ) => {
+            setAttributes( { multilayer: value } );
+        };
+        const onChangeZIndex = ( value ) => {
+            setAttributes( { zIndex: value } );
+        };
+
+        const onChangeIsBannerInner = ( value ) => {
+            setAttributes( { isBannerInner: value } );
+        };
+
+        let columnsRowsClassNames = makeColumnRowsClassNames( {
             templateName,
             display,
             flexDirection,
             width,
-            justifyContent,
         } );
+        columnsRowsClassNames = addClassNames( {
+            multilayer,
+            zIndex,
+            isBannerInner,
+        }, columnsRowsClassNames );
 
         return [
             <InspectorControls>
@@ -289,6 +320,15 @@ registerBlockType( 'bsx-blocks/column-rows', {
                 }
                 {
                     justifyContentSelect( justifyContent, onChangeJustifyContent )
+                }
+                {
+                    multilayerSelect( multilayer, onChangeMultilayer )
+                }
+                {
+                    zIndexSelect( zIndex, onChangeZIndex )
+                }
+                {
+                    bannerInnerToggle( isBannerInner, onChangeIsBannerInner )
                 }
             </InspectorAdvancedControls>,
 
@@ -341,15 +381,23 @@ registerBlockType( 'bsx-blocks/column-rows', {
                 display,
                 flexDirection,
                 width,
+                multilayer,
+                zIndex,
+                isBannerInner,
             },
         } = props;
 
-        const columnsRowsClassNames = makeColumnRowsClassNames( {
+        let columnsRowsClassNames = makeColumnRowsClassNames( {
             templateName,
             display,
             flexDirection,
             width,
         } );
+        columnsRowsClassNames = addClassNames( {
+            multilayer,
+            zIndex,
+            isBannerInner,
+        }, columnsRowsClassNames );
 
         return (
             <div className={ columnsRowsClassNames }>

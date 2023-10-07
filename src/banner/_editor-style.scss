@@ -12,3 +12,17 @@
 		width: 100%;
 	}
 }
+
+
+
+
+[data-type="bsx-blocks/banner"][data-multilayer="parent"] {
+	& > [class*="banner-"].multilayer-parent {
+		padding-top: 0 !important;
+		overflow: hidden;
+
+		& > .block-editor-inner-blocks > .block-editor-block-list__layout {
+			position: relative;
+		}
+	}
+}

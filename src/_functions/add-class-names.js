@@ -45,6 +45,10 @@ export function addClassNames( attributes, classNamesString ) {
         isAlert,
         state,
         objectFit,
+        overflow,
+        multilayer,
+        zIndex,
+        isBannerInner,
     } = attributes;
 
     const classNames = ( typeof classNamesString != 'undefined' ) ? classNamesString.split( ' ' ) : [];
@@ -248,6 +252,21 @@ export function addClassNames( attributes, classNamesString ) {
 
     if ( !! objectFit ) {
         classNames.push( 'object-fit-' + objectFit );
+    }
+
+    if ( !! overflow ) {
+        classNames.push( 'overflow-' + overflow );
+    }
+
+    if ( !! multilayer ) {
+        classNames.push( 'multilayer-' + multilayer );
+    }
+    if ( !! zIndex ) {
+        classNames.push( 'z-' + zIndex );
+    }
+
+    if ( !! isBannerInner ) {
+        classNames.push( 'banner-inner' );
     }
 
 

@@ -60,6 +60,8 @@ import {
     textAlignToolbar,
     breakpointsSelect,
     textAlignSelect,
+    multilayerSelect,
+    zIndexSelect,
     // linkUrlInput,
     // targetToggle,
     // relInput,
@@ -210,6 +212,12 @@ registerBlockType( 'bsx-blocks/wrapper', {
         isGalleryParent: {
             type: 'boolean',
         },
+        multilayer: {
+            type: 'string',
+        },
+        zIndex: {
+            type: 'string',
+        },
         // href: {
         //     type: 'string',
         //     source: "attribute",
@@ -248,6 +256,8 @@ registerBlockType( 'bsx-blocks/wrapper', {
             verticalAlign,
             isAlert,
             state,
+            multilayer,
+            zIndex,
         } = attributes;
 
         return {
@@ -261,6 +271,8 @@ registerBlockType( 'bsx-blocks/wrapper', {
             'data-vertical-align': verticalAlign,
             'data-is-alert': ( !! isAlert ? 'true' : 'false' ),
             'data-state': state,
+            'data-multilayer': multilayer,
+            'data-z-index': zIndex,
         };
     },
 
@@ -311,6 +323,8 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 isAlert,
                 state,
                 isGalleryParent,
+                multilayer,
+                zIndex,
                 // href,
                 // target,
                 // rel,
@@ -453,6 +467,13 @@ registerBlockType( 'bsx-blocks/wrapper', {
         const onChangeIsGalleryParent = ( value ) => {
             setAttributes( { isGalleryParent: value } );
         };
+        const onChangeMultilayer = ( value ) => {
+            setAttributes( { multilayer: value } );
+        };
+        const onChangeZIndex = ( value ) => {
+            setAttributes( { zIndex: value } );
+        };
+
 
         const wrapperClassName = addClassNames( { 
             belowNavbar,
@@ -491,6 +512,8 @@ registerBlockType( 'bsx-blocks/wrapper', {
             speechBubble,
             isAlert,
             state,
+            multilayer,
+            zIndex,
         } );
 
         const TagName = nodeName;
@@ -678,6 +701,12 @@ registerBlockType( 'bsx-blocks/wrapper', {
                         )
                     }
                     {
+                        multilayerSelect( multilayer, onChangeMultilayer )
+                    }
+                    {
+                        zIndexSelect( zIndex, onChangeZIndex )
+                    }
+                    {
                         dataFnOptionsInput( dataFnOptions, onChangeDataFnOptions )
                     }
                     {
@@ -742,6 +771,8 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 isAlert,
                 state,
                 isGalleryParent,
+                multilayer,
+                zIndex,
                 // href,
                 // target,
                 // rel,
@@ -786,6 +817,8 @@ registerBlockType( 'bsx-blocks/wrapper', {
             speechBubble,
             isAlert,
             state,
+            multilayer,
+            zIndex,
         } );
 
         const saveAttributes = makeSaveAttributes( {

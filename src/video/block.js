@@ -34,6 +34,7 @@ import {
     widthSelect,
     heightSelect,
     objectFitSelect,
+    overflowSelect,
 } from './../_functions/controls.js';
 
 import { svgIcon } from './../_functions/wp-icons.js';
@@ -81,6 +82,12 @@ registerBlockType( 'bsx-blocks/video', {
             source: "attribute",
             attribute: "src",
         },
+        media: {
+            type: 'string',
+            selector: "source:first-of-type",
+            source: "attribute",
+            attribute: "media",
+        },
         videoIsHvc1: {
             type: 'boolean',
         },
@@ -89,9 +96,15 @@ registerBlockType( 'bsx-blocks/video', {
         },
         video2Url: {
             type: 'string',
-            selector: "source:last-of-type",
+            selector: "source:nth-of-type(2)",
             source: "attribute",
             attribute: "src",
+        },
+        media2: {
+            type: 'string',
+            selector: "source:nth-of-type(2)",
+            source: "attribute",
+            attribute: "media",
         },
         videoWidth: {
             type: 'number',
@@ -172,6 +185,9 @@ registerBlockType( 'bsx-blocks/video', {
         objectFit: {
             type: 'string',
         },
+        overflow: {
+            type: 'string',
+        },
     },
     edit: ( props ) => {
         const {
@@ -182,9 +198,11 @@ registerBlockType( 'bsx-blocks/video', {
                 figcaption,
                 videoId,
                 videoUrl,
+                media,
                 videoIsHvc1,
                 video2Id,
                 video2Url,
+                media2,
                 videoWidth,
                 videoHeight,
                 posterId,
@@ -202,6 +220,7 @@ registerBlockType( 'bsx-blocks/video', {
                 textAlign,
                 marginAfter,
                 objectFit,
+                overflow,
             },
             setAttributes,
         } = props;
@@ -239,6 +258,9 @@ registerBlockType( 'bsx-blocks/video', {
 
             }
         }
+        const onChangeMedia = ( value ) => {
+            setAttributes( { media: value } );
+        };
 
         const onChangeVideoIsHvc1 = ( value ) => {
             setAttributes( { videoIsHvc1: value } );
@@ -262,6 +284,9 @@ registerBlockType( 'bsx-blocks/video', {
                 video2Url: '',
             } );
         }
+        const onChangeMedia2 = ( value ) => {
+            setAttributes( { media2: value } );
+        };
 
         const onSelectPosterImage = ( img ) => {
 
@@ -339,12 +364,20 @@ registerBlockType( 'bsx-blocks/video', {
             setAttributes( { objectFit: value } );
         };
 
+        const onChangeOverflow = ( value ) => {
+            setAttributes( { overflow: value } );
+        };
+
 
         // class names
 
         const outerClassNames = addClassNames( {
             textAlign,
             marginAfter,
+            width,
+            height,
+            objectFit,
+            overflow,
         }, className );
 
         let videoClassNames = 'img-fluid align-middle';
@@ -641,6 +674,9 @@ registerBlockType( 'bsx-blocks/video', {
                 {
                     objectFitSelect( objectFit, onChangeObjectFit )
                 }
+                {
+                    overflowSelect( overflow, onChangeOverflow )
+                }
             </InspectorAdvancedControls>,
             (
                 <figure className={ outerClassNames }>
@@ -696,9 +732,11 @@ registerBlockType( 'bsx-blocks/video', {
                 figcaption,
                 videoId,
                 videoUrl,
+                media,
                 videoIsHvc1,
                 video2Id,
                 video2Url,
+                media2,
                 videoWidth,
                 videoHeight,
                 posterId,
@@ -716,6 +754,7 @@ registerBlockType( 'bsx-blocks/video', {
                 textAlign,
                 marginAfter,
                 objectFit,
+                overflow,
             },
         } = props;
 
@@ -728,6 +767,7 @@ registerBlockType( 'bsx-blocks/video', {
             width,
             height,
             objectFit,
+            overflow,
         }, className );
 
         let videoClassNames = 'img-fluid align-middle';

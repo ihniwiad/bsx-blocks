@@ -278,6 +278,17 @@ export const isGalleryParentToggle = ( value, onChangeFunction ) => {
     )
 }
 
+export const bannerInnerToggle = ( value, onChangeFunction ) => {
+    return (
+        <ToggleControl
+            label={ __( 'Is Banner Inner', 'bsx-blocks' ) }
+            checked={ !! value }
+            onChange={ onChangeFunction }
+        />
+    )
+}
+
+
 
 // url inputs
 
@@ -915,6 +926,22 @@ export const objectFitSelect = ( value, onChangeFunction, allowedValues ) => {
     )
 }
 
+export const overflowSelect = ( value, onChangeFunction, allowedValues ) => {
+    const defaultValues = [
+        { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+        { value: 'hidden', label: __( 'Hidden', 'bsx-blocks' ) },
+        { value: 'auto', label: __( 'Auto', 'bsx-blocks' ) },
+    ];
+    return (
+        <SelectControl 
+            label={ __( 'Overflow', 'bsx-blocks' ) }
+            value={ value }
+            onChange={ onChangeFunction }
+            options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
+        />
+    )
+}
+
 export const justifyContentSelect = ( value, onChangeFunction, allowedValues ) => {
     const defaultValues = [
         { value: '', label: __( '– unset –', 'bsx-blocks' ) },
@@ -962,6 +989,49 @@ export const textAlignSelect = ( value, onChangeFunction, allowedValues, labelSt
     return (
         <SelectControl 
             label={ ( !! labelString ? ' ' + labelString : __( 'Text align', 'bsx-blocks' ) ) }
+            value={ value }
+            onChange={ onChangeFunction }
+            options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
+        />
+    )
+}
+
+export const multilayerSelect = ( value, onChangeFunction, allowedValues ) => {
+    const defaultValues = [
+        { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+        { value: 'parent', label: __( 'Parent', 'bsx-blocks' ) },
+        { value: 'absolute', label: __( 'Absolute', 'bsx-blocks' ) },
+        { value: 'static', label: __( 'Static', 'bsx-blocks' ) },
+    ];
+    return (
+        <SelectControl 
+            label={ __( 'Multilayer', 'bsx-blocks' ) }
+            value={ value }
+            onChange={ onChangeFunction }
+            options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
+        />
+    )
+}
+
+export const zIndexSelect = ( value, onChangeFunction, allowedValues ) => {
+    const defaultValues = [
+        { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+        { value: '-1', label: __( '-1', 'bsx-blocks' ) },
+        { value: '0', label: __( '0', 'bsx-blocks' ) },
+        { value: '1', label: __( '1', 'bsx-blocks' ) },
+        { value: '2', label: __( '2', 'bsx-blocks' ) },
+        { value: '3', label: __( '3', 'bsx-blocks' ) },
+        { value: '4', label: __( '4', 'bsx-blocks' ) },
+        { value: '5', label: __( '5', 'bsx-blocks' ) },
+        { value: '6', label: __( '6', 'bsx-blocks' ) },
+        { value: '7', label: __( '7', 'bsx-blocks' ) },
+        { value: '8', label: __( '8', 'bsx-blocks' ) },
+        { value: '9', label: __( '9', 'bsx-blocks' ) },
+        { value: '10', label: __( '10', 'bsx-blocks' ) },
+    ];
+    return (
+        <SelectControl 
+            label={ __( 'Z-Index', 'bsx-blocks' ) }
             value={ value }
             onChange={ onChangeFunction }
             options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }

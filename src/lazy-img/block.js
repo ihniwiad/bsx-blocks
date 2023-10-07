@@ -46,10 +46,10 @@ import {
     targetToggle,
     relInput,
     // dataFnInput,
-    // marginLeftSelect,
-    // marginRightSelect,
-    // marginBeforeSelect,
-    // marginAfterSelect,
+    marginLeftSelect,
+    marginRightSelect,
+    marginBeforeSelect,
+    marginAfterSelect,
     scaleSelect,
     disableResponsiveDownsizingToggle,
     textAlignToolbar,
@@ -280,7 +280,16 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         textAlign: {
             type: 'string',
         },
+        marginBefore: {
+            type: 'string',
+        },
         marginAfter: {
+            type: 'string',
+        },
+        marginLeft: {
+            type: 'string',
+        },
+        marginRight: {
             type: 'string',
         },
         aAdditionalClassName: {
@@ -342,7 +351,10 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 zoomImgSizeIndex,
                 disableResponsiveDownsizing,
                 textAlign,
+                marginBefore,
                 marginAfter,
+                marginLeft,
+                marginRight,
                 aAdditionalClassName,
                 pictureAdditionalClassName,
                 imgAdditionalClassName,
@@ -656,8 +668,18 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         const onChangeTextAlign = ( value ) => {
             setAttributes( { textAlign: value } );
         };
+
+        const onChangeMarginBefore = ( value ) => {
+            setAttributes( { marginBefore: value } );
+        };
         const onChangeMarginAfter = ( value ) => {
             setAttributes( { marginAfter: value } );
+        };
+        const onChangeMarginLeft = ( value ) => {
+            setAttributes( { marginLeft: value } );
+        };
+        const onChangeMarginRight = ( value ) => {
+            setAttributes( { marginRight: value } );
         };
 
         const onChangeAAdditionalClassName = ( value ) => {
@@ -764,7 +786,10 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
         const classNames = addClassNames( {
             textAlign,
+            marginBefore,
             marginAfter,
+            marginLeft,
+            marginRight,
         } );
 
         const imgClassName = addClassNames( {
@@ -1079,23 +1104,20 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                         )
                     }
                 </PanelBody>
-
-                <PanelBody title={ __( 'Margin (optional)', 'bsx-blocks' ) }>
-                    <SelectControl 
-                        label={ __( 'Margin after', 'bsx-blocks' ) }
-                        value={ marginAfter }
-                        onChange={ onChangeMarginAfter }
-                        options={ [
-                            { value: '', label: __( '– unset –', 'bsx-blocks' ) },
-                            { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
-                            { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
-                            { value: '2', label: __( 'small', 'bsx-blocks' ) },
-                            { value: '3', label: __( 'medium', 'bsx-blocks' ) },
-                            { value: '4', label: __( 'large', 'bsx-blocks' ) },
-                            { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
-                        ] }
-                        help={ __( 'Spacer after element', 'bsx-blocks' ) }
-                    />
+                
+                <PanelBody title={ __( 'Margin', 'bsx-blocks' ) }>
+                    {
+                        marginLeftSelect( marginLeft, onChangeMarginLeft )
+                    }
+                    {
+                        marginRightSelect( marginRight, onChangeMarginRight )
+                    }
+                    {
+                        marginBeforeSelect( marginBefore, onChangeMarginBefore )
+                    }
+                    {
+                        marginAfterSelect( marginAfter, onChangeMarginAfter )
+                    }
                 </PanelBody>
 
             </InspectorControls>,
@@ -1246,7 +1268,10 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 zoomImgSizeIndex,
                 disableResponsiveDownsizing,
                 textAlign,
+                marginBefore,
                 marginAfter,
+                marginLeft,
+                marginRight,
                 aAdditionalClassName,
                 pictureAdditionalClassName,
                 imgAdditionalClassName,
@@ -1289,7 +1314,10 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
         const classNames = addClassNames( {
             textAlign,
+            marginBefore,
             marginAfter,
+            marginLeft,
+            marginRight,
         }, className );
 
         const aClassName = zoomable ? 'zoomable-img' : ( !! href && !! aAdditionalClassName ? aAdditionalClassName : '' );
