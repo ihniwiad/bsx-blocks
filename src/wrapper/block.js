@@ -55,6 +55,7 @@ import {
     dataFnTargetInput,
     alertToggle,
     widthSelect,
+    heightSelect,
     nodeNameSelect,
     isGalleryParentToggle,
     textAlignToolbar,
@@ -62,6 +63,12 @@ import {
     textAlignSelect,
     multilayerSelect,
     zIndexSelect,
+    bannerInnerToggle,
+    positionSelect,
+    top0Toggle,
+    bottom0Toggle,
+    left0Toggle,
+    right0Toggle,
     // linkUrlInput,
     // targetToggle,
     // relInput,
@@ -149,6 +156,9 @@ registerBlockType( 'bsx-blocks/wrapper', {
         width: {
             type: 'string',
         },
+        height: {
+            type: 'string',
+        },
         marginBefore: {
             type: 'string',
         },
@@ -217,6 +227,24 @@ registerBlockType( 'bsx-blocks/wrapper', {
         },
         zIndex: {
             type: 'string',
+        },
+        isBannerInner: {
+            type: 'boolean',
+        },
+        position: {
+            type: 'string',
+        },
+        isTop0: {
+            type: 'boolean',
+        },
+        isBottom0: {
+            type: 'boolean',
+        },
+        isLeft0: {
+            type: 'boolean',
+        },
+        isRight0: {
+            type: 'boolean',
         },
         // href: {
         //     type: 'string',
@@ -299,6 +327,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 headingInheritTextColor,
                 headingInheritFontWeight,
                 width,
+                height,
                 rounded,
                 border,
                 borderState,
@@ -325,6 +354,12 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 isGalleryParent,
                 multilayer,
                 zIndex,
+                isBannerInner,
+                position,
+                isTop0,
+                isBottom0,
+                isLeft0,
+                isRight0,
                 // href,
                 // target,
                 // rel,
@@ -380,6 +415,9 @@ registerBlockType( 'bsx-blocks/wrapper', {
 
         const onChangeWidth = ( value ) => {
             setAttributes( { width: value } );
+        };
+        const onChangeHeight = ( value ) => {
+            setAttributes( { height: value } );
         };
 
         const onChangeRounded = ( value ) => {
@@ -474,6 +512,25 @@ registerBlockType( 'bsx-blocks/wrapper', {
             setAttributes( { zIndex: value } );
         };
 
+        const onChangeIsBannerInner = ( value ) => {
+            setAttributes( { isBannerInner: value } );
+        };
+
+        const onChangePosition = ( value ) => {
+            setAttributes( { position: value } );
+        };
+        const onChangeIsTop0 = ( value ) => {
+            setAttributes( { isTop0: value } );
+        };
+        const onChangeIsBottom0 = ( value ) => {
+            setAttributes( { isBottom0: value } );
+        };
+        const onChangeIsLeft0 = ( value ) => {
+            setAttributes( { isLeft0: value } );
+        };
+        const onChangeIsRight0 = ( value ) => {
+            setAttributes( { isRight0: value } );
+        };
 
         const wrapperClassName = addClassNames( { 
             belowNavbar,
@@ -492,6 +549,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
             headingInheritTextColor,
             headingInheritFontWeight,
             width,
+            height,
             marginBefore,
             marginAfter,
             marginLeft,
@@ -514,6 +572,12 @@ registerBlockType( 'bsx-blocks/wrapper', {
             state,
             multilayer,
             zIndex,
+            isBannerInner,
+            position,
+            isTop0,
+            isBottom0,
+            isLeft0,
+            isRight0,
         } );
 
         const TagName = nodeName;
@@ -642,6 +706,24 @@ registerBlockType( 'bsx-blocks/wrapper', {
                     {
                         widthSelect( width, onChangeWidth )
                     }
+                    {
+                        heightSelect( height, onChangeHeight )
+                    }
+                    {
+                        positionSelect( position, onChangePosition )
+                    }
+                    {
+                        top0Toggle( isTop0, onChangeIsTop0 )
+                    }
+                    {
+                        bottom0Toggle( isBottom0, onChangeIsBottom0 )
+                    }
+                    {
+                        left0Toggle( isLeft0, onChangeIsLeft0 )
+                    }
+                    {
+                        right0Toggle( isRight0, onChangeIsRight0 )
+                    }
                     <SelectControl 
                         label={ __( 'Speech bubble', 'bsx-blocks' ) }
                         value={ speechBubble }
@@ -707,6 +789,9 @@ registerBlockType( 'bsx-blocks/wrapper', {
                         zIndexSelect( zIndex, onChangeZIndex )
                     }
                     {
+                        bannerInnerToggle( isBannerInner, onChangeIsBannerInner )
+                    }
+                    {
                         dataFnOptionsInput( dataFnOptions, onChangeDataFnOptions )
                     }
                     {
@@ -747,6 +832,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 headingInheritTextColor,
                 headingInheritFontWeight,
                 width,
+                height,
                 rounded,
                 border,
                 borderState,
@@ -773,6 +859,12 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 isGalleryParent,
                 multilayer,
                 zIndex,
+                isBannerInner,
+                position,
+                isTop0,
+                isBottom0,
+                isLeft0,
+                isRight0,
                 // href,
                 // target,
                 // rel,
@@ -797,6 +889,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
             headingInheritTextColor,
             headingInheritFontWeight,
             width,
+            height,
             marginBefore,
             marginAfter,
             marginLeft,
@@ -819,6 +912,12 @@ registerBlockType( 'bsx-blocks/wrapper', {
             state,
             multilayer,
             zIndex,
+            isBannerInner,
+            position,
+            isTop0,
+            isBottom0,
+            isLeft0,
+            isRight0,
         } );
 
         const saveAttributes = makeSaveAttributes( {

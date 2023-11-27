@@ -324,6 +324,43 @@ export const disableResponsiveDownsizingToggle = ( value, onChangeFunction ) => 
     )
 }
 
+export const top0Toggle = ( value, onChangeFunction ) => {
+    return (
+        <ToggleControl
+            label={ __( 'Top: 0', 'bsx-blocks' ) }
+            checked={ !! value }
+            onChange={ onChangeFunction }
+        />
+    )
+}
+export const bottom0Toggle = ( value, onChangeFunction ) => {
+    return (
+        <ToggleControl
+            label={ __( 'Bottom: 0', 'bsx-blocks' ) }
+            checked={ !! value }
+            onChange={ onChangeFunction }
+        />
+    )
+}
+export const left0Toggle = ( value, onChangeFunction ) => {
+    return (
+        <ToggleControl
+            label={ __( 'Left: 0', 'bsx-blocks' ) }
+            checked={ !! value }
+            onChange={ onChangeFunction }
+        />
+    )
+}
+export const right0Toggle = ( value, onChangeFunction ) => {
+    return (
+        <ToggleControl
+            label={ __( 'Right: 0', 'bsx-blocks' ) }
+            checked={ !! value }
+            onChange={ onChangeFunction }
+        />
+    )
+}
+
 
 
 // text inputs
@@ -1006,6 +1043,25 @@ export const multilayerSelect = ( value, onChangeFunction, allowedValues ) => {
     return (
         <SelectControl 
             label={ __( 'Multilayer', 'bsx-blocks' ) }
+            value={ value }
+            onChange={ onChangeFunction }
+            options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
+        />
+    )
+}
+
+export const positionSelect = ( value, onChangeFunction, allowedValues ) => {
+    const defaultValues = [
+        { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+        { value: 'relative', label: __( 'Relative', 'bsx-blocks' ) },
+        { value: 'absolute', label: __( 'Absolute', 'bsx-blocks' ) },
+        { value: 'static', label: __( 'Static', 'bsx-blocks' ) },
+        { value: 'fixed', label: __( 'Fixed', 'bsx-blocks' ) },
+        { value: 'sticky', label: __( 'Sticky', 'bsx-blocks' ) },
+    ];
+    return (
+        <SelectControl 
+            label={ __( 'Position', 'bsx-blocks' ) }
             value={ value }
             onChange={ onChangeFunction }
             options={ filterByAllowedValueKeys( defaultValues, allowedValues ) }
