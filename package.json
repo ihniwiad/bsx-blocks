@@ -6,7 +6,7 @@
   "license": "GPL-2.0-or-later",
   "main": "index.js",
   "devDependencies": {
-    "@wordpress/scripts": "^9.0.0",
+    "@wordpress/scripts": "^24.4.0",
     "dotenv": "^8.2.0",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^4.0.0",
