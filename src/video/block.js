@@ -623,7 +623,7 @@ registerBlockType( 'bsx-blocks/video', {
                     
                     <div class="bsxui-config-panel-row">
                         {
-                            video2Id ? (
+                            video3Id ? (
                                 <>
                                     <MediaUpload
                                         onSelect={ onSelectVideo3 }

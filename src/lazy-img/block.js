@@ -186,6 +186,35 @@ const makeSourcesAttributesList = ( attributes ) => {
 }
 
 
+const makeSrcset = ( attributes ) => {
+
+    const {
+        calcImgSizes,
+        imgSizeIndex,
+    } = attributes;
+
+    // console.log( 'calcImgSizes: ' + calcImgSizes );
+    // console.log( 'imgSizeIndex: ' + imgSizeIndex );
+
+    const srcsetList = [];
+    calcImgSizes.forEach( ( imgSize, index ) => {
+        if ( 
+            ( ( imgSizeIndex == 0 && index == 0 ) || ( imgSize.width == imgSize.height ) )
+            || ( imgSizeIndex > 0 && index > 0 )
+        ) {
+            // add square thumb img if is selected size (imgSizeIndex == 0) or original img has square format too, else skip
+            srcsetList.push( imgSize.url + ' ' + imgSize.width + 'w' );
+            if ( imgSizeIndex == 0 ) {
+                // skip other sizes but square
+                return; // do not use `break` since will cause error “Unsyntactic break.”
+            }
+        }
+    } );
+
+    return srcsetList.join( ', ' );
+}
+
+
 registerBlockType( 'bsx-blocks/lazy-img', {
     title: __( 'BSX Lazy Image', 'bsx-blocks' ),
     icon: svgIcon( 'lazy-img' ),
@@ -295,7 +324,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         aAdditionalClassName: {
             type: 'string',
         },
-        pictureAdditionalClassName: {
+        pictureAdditionalClassName: { // deprecated
             type: 'string',
         },
         imgAdditionalClassName: {
@@ -332,8 +361,8 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 imgData,
                 imgSizeIndex,
                 url,
-                width,
-                height,
+                // width,
+                // height,
                 origWidth,
                 origHeight,
                 portraitImgId,
@@ -385,6 +414,11 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
         const calcImgSizes = hasOldAttrImgSizes ? imgSizes : makeImgSizesFromImgData( imgData );
         const calcPortraitImgSizes = hasOldAttrPortraitImgSizes ? portraitImgSizes : makeImgSizesFromImgData( portraitImgData );
+
+        // remove deprecated attribute if set
+        if ( pictureAdditionalClassName ) {
+            setAttributes( { pictureAdditionalClassName: '' } );
+        }
 
         // TEST
         // console.log( 'props.attributes: ' + JSON.stringify( props.attributes, null, 2 ) );
@@ -773,14 +807,14 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
         // prepare img sources attributes
 
-        const sourcesAttributesList = makeSourcesAttributesList( {
-            calcImgSizes,
-            imgSizeIndex,
-            calcPortraitImgSizes,
-            portraitImgSizeIndex,
-            portraitImgMaxWidthBreakpoint,
-            disableResponsiveDownsizing,
-        } );
+        // const sourcesAttributesList = makeSourcesAttributesList( {
+        //     calcImgSizes,
+        //     imgSizeIndex,
+        //     calcPortraitImgSizes,
+        //     portraitImgSizeIndex,
+        //     portraitImgMaxWidthBreakpoint,
+        //     disableResponsiveDownsizing,
+        // } );
 
         // class names
 
@@ -800,20 +834,58 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
         // image
 
-        const image = imgId && typeof calcImgSizes !== 'undefined' && typeof calcImgSizes[ imgSizeIndex ] !== 'undefined' ? (
-            <picture className={ pictureAdditionalClassName }>
-                {
-                    sourcesAttributesList.map( ( sourceAttributes, index ) => (
-                        <source { ...sourceAttributes } />
-                    ) )
-                }
-                <img className={ imgClassName } src={ calcImgSizes[ imgSizeIndex ].url } alt={ alt } width={ !! displayedWidth ? displayedWidth : calcImgSizes[ imgSizeIndex ].width } height={ !! displayedHeight ? displayedHeight : calcImgSizes[ imgSizeIndex ].height } />
-            </picture>
+        const hasValidImg = ( imgId && typeof calcImgSizes !== 'undefined' && typeof calcImgSizes[ imgSizeIndex ] !== 'undefined' );
+
+        // const image = imgId && typeof calcImgSizes !== 'undefined' && typeof calcImgSizes[ imgSizeIndex ] !== 'undefined' ? (
+        //     <picture className={ pictureAdditionalClassName }>
+        //         {
+        //             sourcesAttributesList.map( ( sourceAttributes, index ) => (
+        //                 <source { ...sourceAttributes } />
+        //             ) )
+        //         }
+        //         <img className={ imgClassName } src={ calcImgSizes[ imgSizeIndex ].url } alt={ alt } width={ !! displayedWidth ? displayedWidth : calcImgSizes[ imgSizeIndex ].width } height={ !! displayedHeight ? displayedHeight : calcImgSizes[ imgSizeIndex ].height } />
+        //     </picture>
+        // )
+        // :
+        // (
+        //     <></>
+        // );
+
+
+        // const srcsetList = [];
+        // calcImgSizes.forEach( ( imgSize, index ) => {
+        //     if ( 
+        //         ( imgSizeIndex == 0 && index == 0 )
+        //         || ( imgSizeIndex > 0 && index > 0 )
+        //     ) {
+        //         // add square img if selected (imgSizeIndex == 0), else skip
+        //         srcsetList.push( imgSize.url + ' ' + imgSize.width + 'w' );
+        //         if ( imgSizeIndex == 0 ) {
+        //             // skip other sizes but square
+        //             return; // `break` will cause error “Unsyntactic break.”
+        //         }
+        //     }
+        // } );
+
+        const srcset = makeSrcset( {
+            calcImgSizes,
+            imgSizeIndex,
+        } );
+        const src = hasValidImg ? calcImgSizes[ imgSizeIndex ].url : '';
+        const width = ( hasValidImg && !! displayedWidth ) ? displayedWidth : calcImgSizes[ imgSizeIndex ].width;
+        const height = ( hasValidImg && !! displayedHeight ) ? displayedHeight : calcImgSizes[ imgSizeIndex ].height;
+        const sizes = '(max-width: ' + width + 'px) 100vw, ' + width + 'px';
+
+
+        const image = hasValidImg ? (
+            <img className={ imgClassName } src={ src } srcset={ srcset } sizes={ sizes } alt={ alt } width={ width } height={ height } loading="lazy" />
         )
         :
         (
             <></>
         );
+
+
 
         return [
             <BlockControls>
@@ -1155,7 +1227,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 {
                     ! noFigureTag ? (
                         <TextControl 
-                            label={ __( 'Picture element additional class(es)', 'bsx-blocks' ) }
+                            label={ __( 'Picture element additional class(es) – DEPRECATED', 'bsx-blocks' ) }
                             value={ pictureAdditionalClassName } 
                             onChange={ onChangePictureAdditionalClassName }
                         />
@@ -1249,8 +1321,8 @@ registerBlockType( 'bsx-blocks/lazy-img', {
                 imgSizes,
                 imgData,
                 url,
-                width,
-                height,
+                // width,
+                // height,
                 origWidth,
                 origHeight,
                 portraitImgId,
@@ -1301,14 +1373,14 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
         // prepare img sources attributes
 
-        const sourcesAttributesList = makeSourcesAttributesList( {
-            calcImgSizes,
-            imgSizeIndex,
-            calcPortraitImgSizes,
-            portraitImgSizeIndex,
-            portraitImgMaxWidthBreakpoint,
-            disableResponsiveDownsizing,
-        } );
+        // const sourcesAttributesList = makeSourcesAttributesList( {
+        //     calcImgSizes,
+        //     imgSizeIndex,
+        //     calcPortraitImgSizes,
+        //     portraitImgSizeIndex,
+        //     portraitImgMaxWidthBreakpoint,
+        //     disableResponsiveDownsizing,
+        // } );
 
         // class names
 
@@ -1365,19 +1437,66 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             )
         ;
 
-        const image = typeof calcImgSizes !== 'undefined' && typeof calcImgSizes[ imgSizeIndex ] !== 'undefined' ? (
+        // check if valid image(s)
+        const hasValidImg = ( typeof calcImgSizes !== 'undefined' && typeof calcImgSizes[ imgSizeIndex ] !== 'undefined' );
+        const hasValidPortraitImg = ( typeof calcPortraitImgSizes !== 'undefined' && typeof calcPortraitImgSizes[ portraitImgSizeIndex ] !== 'undefined' ) && !! portraitImgSizeIndex;
+
+               // const image = typeof calcImgSizes !== 'undefined' && typeof calcImgSizes[ imgSizeIndex ] !== 'undefined' ? (
+        //     <>
+        //         <script>document.write( '
+        //             <picture className={ ! noFigureTag ? pictureAdditionalClassName : classNames }>
+        //                 {
+        //                     sourcesAttributesList.map( ( sourceAttributes, index ) => (
+        //                         <source { ...sourceAttributes } />
+        //                     ) )
+        //                 }
+        //                 <img className={ imgClassName } src={ makeBase64PreloadImgSrc( calcImgSizes[ imgSizeIndex ].width, calcImgSizes[ imgSizeIndex ].height ) } alt={ alt } data-src={ calcImgSizes[ imgSizeIndex ].url } width={ !! displayedWidth ? displayedWidth : calcImgSizes[ imgSizeIndex ].width } height={ !! displayedHeight ? displayedHeight : calcImgSizes[ imgSizeIndex ].height } data-fn="lazyload" />
+        //             </picture>
+        //         ' );</script>
+        //         <noscript><img className={ imgClassName } src={ calcImgSizes[ imgSizeIndex ].url } alt={ alt } width={ !! displayedWidth ? displayedWidth : calcImgSizes[ imgSizeIndex ].width } height={ !! displayedHeight ? displayedHeight : calcImgSizes[ imgSizeIndex ].height } /></noscript>
+        //     </>
+        // )
+        // :
+        // (
+        //     <></>
+        // );
+
+
+        // const srcsetList = [];
+        // calcImgSizes.forEach( ( imgSize, index ) => {
+        //     if ( 
+        //         ( ( imgSizeIndex == 0 && index == 0 ) || ( imgSize.width == imgSize.height ) )
+        //         || ( imgSizeIndex > 0 && index > 0 )
+        //     ) {
+        //         // add square thumb img if selected (imgSizeIndex == 0) or original img is square format too, else skip
+        //         srcsetList.push( imgSize.url + ' ' + imgSize.width + 'w' );
+        //         if ( imgSizeIndex == 0 ) {
+        //             // skip other sizes but square
+        //             return; // `break` will cause error “Unsyntactic break.”
+        //         }
+        //     }
+        // } );
+
+        // const srcset = srcsetList.join( ', ' );
+
+        const srcset = makeSrcset( {
+            calcImgSizes,
+            imgSizeIndex,
+        } );
+        const src = hasValidImg ? calcImgSizes[ imgSizeIndex ].url : '';
+        const width = ( hasValidImg && !! displayedWidth ) ? displayedWidth : calcImgSizes[ imgSizeIndex ].width;
+        const height = ( hasValidImg && !! displayedHeight ) ? displayedHeight : calcImgSizes[ imgSizeIndex ].height;
+        const sizes = '(max-width: ' + width + 'px) 100vw, ' + width + 'px';
+        const landscapeImgClassName = hasValidPortraitImg ? imgClassName + ' d-portrait-none' : imgClassName;
+
+        // TODO: manage className (if is outer element)
+
+        const image = hasValidImg ? (
             <>
                 <script>document.write( '
-                    <picture className={ ! noFigureTag ? pictureAdditionalClassName : classNames }>
-                        {
-                            sourcesAttributesList.map( ( sourceAttributes, index ) => (
-                                <source { ...sourceAttributes } />
-                            ) )
-                        }
-                        <img className={ imgClassName } src={ makeBase64PreloadImgSrc( calcImgSizes[ imgSizeIndex ].width, calcImgSizes[ imgSizeIndex ].height ) } alt={ alt } data-src={ calcImgSizes[ imgSizeIndex ].url } width={ !! displayedWidth ? displayedWidth : calcImgSizes[ imgSizeIndex ].width } height={ !! displayedHeight ? displayedHeight : calcImgSizes[ imgSizeIndex ].height } data-fn="lazyload" />
-                    </picture>
+                    <img className={ landscapeImgClassName } src={ makeBase64PreloadImgSrc( width, height ) } data-src={ src } data-srcset={ srcset } sizes={ sizes } alt={ alt } width={ width } height={ height } data-fn="lazyload" />
                 ' );</script>
-                <noscript><img className={ imgClassName } src={ calcImgSizes[ imgSizeIndex ].url } alt={ alt } width={ !! displayedWidth ? displayedWidth : calcImgSizes[ imgSizeIndex ].width } height={ !! displayedHeight ? displayedHeight : calcImgSizes[ imgSizeIndex ].height } /></noscript>
+                <noscript><img className={ landscapeImgClassName } src={ src } srcset={ srcset } sizes={ sizes } alt={ alt } width={ width } height={ height } loading="lazy" /></noscript>
             </>
         )
         :
@@ -1385,18 +1504,47 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             <></>
         );
 
+        let portraitImage = (
+            <></>
+        );
+        if ( hasValidPortraitImg ) {
+
+            const portraitSrcset = makeSrcset( {
+                calcImgSizes: calcPortraitImgSizes,
+                imgSizeIndex: portraitImgSizeIndex,
+            } );
+            const portraitSrc = calcPortraitImgSizes[ portraitImgSizeIndex ].url;
+            const portraitWidth = calcPortraitImgSizes[ portraitImgSizeIndex ].width;
+            const portraitHeight = calcPortraitImgSizes[ portraitImgSizeIndex ].height;
+            const portaitSizes = '(max-width: ' + portraitWidth + 'px) 100vw, ' + portraitWidth + 'px';
+            const portraitImgClassName = imgClassName + ' d-landscape-none';
+
+            portraitImage = (
+                <>
+                    <script>document.write( '
+                        <img className={ portraitImgClassName } src={ makeBase64PreloadImgSrc( portraitWidth, portraitHeight ) } data-src={ portraitSrc } data-srcset={ portraitSrcset } sizes={ portaitSizes } alt={ alt } width={ portraitWidth } height={ portraitHeight } data-fn="lazyload" />
+                    ' );</script>
+                    <noscript><img className={ portraitImgClassName } src={ portraitSrc } srcset={ portraitSrcset } sizes={ portaitSizes } alt={ alt } width={ portraitWidth } height={ portraitHeight } loading="lazy" /></noscript>
+                </>
+            );
+
+        }
+
+
         const aOrImage = (
             <>
                 { 
                     zoomable || href ? (
                         <a className={ aClassName } { ...aSaveAttributes }>
                             { image }
+                            { portraitImage }
                         </a>
                     )
                     :
                     (
                         <>
                             { image }
+                            { portraitImage }
                         </>
                     ) 
                 }

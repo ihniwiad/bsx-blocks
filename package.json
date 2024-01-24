@@ -1,6 +1,6 @@
 {
   "name": "bsx-blocks",
-  "version": "1.0.8",
+  "version": "2.0.0",
   "description": "BSX Blocks",
   "scripts": {
     "wp-build": "wp-scripts build",
@@ -26,7 +26,6 @@
     "gulp-sourcemaps": "^2.6.0",
     "gulp-string-replace": "^1.1.2",
     "gulp-watch": "^4.3.11",
-    "sass": "^1.67.0"
-  },
-  "dependencies": {}
+    "sass": "^1.69.5"
+  }
 }

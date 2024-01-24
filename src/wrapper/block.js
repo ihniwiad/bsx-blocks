@@ -69,6 +69,9 @@ import {
     bottom0Toggle,
     left0Toggle,
     right0Toggle,
+    roleInput,
+    tabindexInput,
+    hiddenToggle,
     // linkUrlInput,
     // targetToggle,
     // relInput,
@@ -246,6 +249,15 @@ registerBlockType( 'bsx-blocks/wrapper', {
         isRight0: {
             type: 'boolean',
         },
+        role: {
+            type: 'string',
+        },
+        tabindex: {
+            type: 'string',
+        },
+        hidden: {
+            type: 'boolean',
+        },
         // href: {
         //     type: 'string',
         //     source: "attribute",
@@ -360,6 +372,9 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 isBottom0,
                 isLeft0,
                 isRight0,
+                role,
+                tabindex,
+                hidden,
                 // href,
                 // target,
                 // rel,
@@ -530,6 +545,16 @@ registerBlockType( 'bsx-blocks/wrapper', {
         };
         const onChangeIsRight0 = ( value ) => {
             setAttributes( { isRight0: value } );
+        };
+
+        const onChangeRole = ( value ) => {
+            setAttributes( { role: value } );
+        };
+        const onChangeTabindex = ( value ) => {
+            setAttributes( { tabindex: value } );
+        };
+        const onChangeHidden = ( value ) => {
+            setAttributes( { hidden: value } );
         };
 
         const wrapperClassName = addClassNames( { 
@@ -800,6 +825,16 @@ registerBlockType( 'bsx-blocks/wrapper', {
                     {
                         dataTgInput( dataTg, onChangeDataTg )
                     }
+
+                    {
+                        roleInput( role, onChangeRole )
+                    }
+                    {
+                        tabindexInput( tabindex, onChangeTabindex )
+                    }
+                    {
+                        hiddenToggle( hidden, onChangeHidden )
+                    }
                 </InspectorAdvancedControls>
             </Fragment>,
             (
@@ -865,6 +900,9 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 isBottom0,
                 isLeft0,
                 isRight0,
+                role,
+                tabindex,
+                hidden,
                 // href,
                 // target,
                 // rel,
@@ -928,6 +966,9 @@ registerBlockType( 'bsx-blocks/wrapper', {
             'data-fn-options': dataFnOptions,
             'data-fn-target': dataFnTarget,
             'data-tg': dataTg,
+            'role': role,
+            'tabindex': tabindex,
+            'hidden': hidden,
         } );
 
         const TagName = nodeName;

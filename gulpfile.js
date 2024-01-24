@@ -106,7 +106,8 @@ const publishFolderDelete = ( cb ) => {
 const publishFolderCreate = ( cb ) => {
 
     if ( !! envConfig.PUBLISH_PATH && !! publishConfig.folderName ) {
-        console.log( 'create: ' + publishFullPath + ' (src: ' + publishConfig.src + ', base: ' + publishConfig.base + ')' );
+        // console.log( 'create: ' + publishFullPath + ' (src: ' + publishConfig.src + ', base: ' + publishConfig.base + ')' );
+        console.log( 'create: ' + publishFullPath );
         return gulp.src( publishConfig.src, { base: publishConfig.base } )
             .pipe( gulp.dest( publishFullPath ) )
         ;

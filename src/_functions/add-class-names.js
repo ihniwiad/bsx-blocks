@@ -49,6 +49,11 @@ export function addClassNames( attributes, classNamesString ) {
         multilayer,
         zIndex,
         isBannerInner,
+        isTop0,
+        isBottom0,
+        isLeft0,
+        isRight0,
+        position,
     } = attributes;
 
     const classNames = ( typeof classNamesString != 'undefined' ) ? classNamesString.split( ' ' ) : [];
@@ -210,6 +215,24 @@ export function addClassNames( attributes, classNamesString ) {
         if ( border == 'true' ) {
             classNames.push( 'border' );
         }
+        else if ( border == 'x' ) {
+            classNames.push( 'border-left' );
+            classNames.push( 'border-right' );
+        }
+        else if ( border == 'y' ) {
+            classNames.push( 'border-top' );
+            classNames.push( 'border-bottom' );
+        }
+        else if ( border == 'u' ) {
+            classNames.push( 'border-left' );
+            classNames.push( 'border-right' );
+            classNames.push( 'border-bottom' );
+        }
+        else if ( border == 'inverted-u' ) {
+            classNames.push( 'border-left' );
+            classNames.push( 'border-right' );
+            classNames.push( 'border-top' );
+        }
         else {
             // TODO: what about multipla values, e.g. top and bottom?
             classNames.push( 'border-' + border );
@@ -268,6 +291,24 @@ export function addClassNames( attributes, classNamesString ) {
     if ( !! isBannerInner ) {
         classNames.push( 'banner-inner' );
     }
+
+    if ( !! isTop0 ) {
+        classNames.push( 'top-0' );
+    }
+    if ( !! isBottom0 ) {
+        classNames.push( 'bottom-0' );
+    }
+    if ( !! isLeft0 ) {
+        classNames.push( 'left-0' );
+    }
+    if ( !! isRight0 ) {
+        classNames.push( 'right-0' );
+    }
+
+    if ( !! position ) {
+        classNames.push( 'position-' + position );
+    }
+
 
 
     return classNames.join( ' ' );

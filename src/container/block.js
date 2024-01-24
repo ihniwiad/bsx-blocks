@@ -38,11 +38,17 @@ import {
 } from './../_functions/controls.js';
 
 
-const makeContainerClassNames = ( isFluid, containerBreakpoint, sized ) => {
+const makeContainerClassNames = ( attributes, classNamesString ) => {
+
+    const {
+        isFluid,
+        containerBreakpoint,
+        sized, 
+    } = attributes;
 
     const prefix = 'container';
 
-    const classNames = [];
+    const classNames = ( typeof classNamesString != 'undefined' && classNamesString != '' ) ? classNamesString.split( ' ' ) : [];
 
     if ( isFluid ) {
     	if ( containerBreakpoint === '' ) {
@@ -128,8 +134,9 @@ registerBlockType( 'bsx-blocks/container', {
     } )( ( props ) => {
 
         const {
-            className,
+            // className,
             attributes: {
+                className,
 	            isFluid,
 	            containerBreakpoint,
                 belowNavbar,
@@ -189,11 +196,11 @@ registerBlockType( 'bsx-blocks/container', {
             setAttributes( { sized: value } );
         };
 
-        let containerClassName = makeContainerClassNames( 
+        let containerClassName = makeContainerClassNames( {
             isFluid, 
             containerBreakpoint, 
             sized, 
-        );
+        }, className );
         
         containerClassName = addClassNames( {
             belowNavbar, 
@@ -285,8 +292,9 @@ registerBlockType( 'bsx-blocks/container', {
     } ),
     save: ( props ) => {
         const {
-            className,
+            // className,
             attributes: {
+                className,
 	            isFluid,
 	            containerBreakpoint,
                 belowNavbar,
@@ -300,11 +308,11 @@ registerBlockType( 'bsx-blocks/container', {
             },
         } = props;
 
-        let containerClassName = makeContainerClassNames( 
+        let containerClassName = makeContainerClassNames( {
             isFluid, 
             containerBreakpoint, 
             sized, 
-        );
+        }, className );
         
         containerClassName = addClassNames( {
             belowNavbar, 

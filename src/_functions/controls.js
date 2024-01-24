@@ -288,6 +288,16 @@ export const bannerInnerToggle = ( value, onChangeFunction ) => {
     )
 }
 
+export const hiddenToggle = ( value, onChangeFunction ) => {
+    return (
+        <ToggleControl
+            label={ __( 'Hidden (optional)', 'bsx-blocks' ) }
+            checked={ !! value }
+            onChange={ onChangeFunction }
+        />
+    )
+}
+
 
 
 // url inputs
@@ -432,6 +442,26 @@ export const portraitImgMaxWidthBreakpointInput = ( value, onChangeFunction ) =>
             value={ value } 
             onChange={ onChangeFunction }
             help={ __( 'Portrait image will be shown up to this width.', 'bsx-blocks' ) }
+        />
+    )
+}
+
+export const roleInput = ( value, onChangeFunction ) => {
+    return (
+        <TextControl 
+            label={ __( 'Role (optional)', 'bsx-blocks' ) }
+            value={ value } 
+            onChange={ onChangeFunction }
+        />
+    )
+}
+
+export const tabindexInput = ( value, onChangeFunction ) => {
+    return (
+        <TextControl 
+            label={ __( 'Tabindex (optional)', 'bsx-blocks' ) }
+            value={ value } 
+            onChange={ onChangeFunction }
         />
     )
 }
@@ -871,7 +901,14 @@ export const borderSelect = ( value, onChangeFunction, allowedValues ) => {
     const defaultValues = [
         { value: '', label: __( '– unset –', 'bsx-blocks' ) },
         { value: 'true', label: __( 'Around', 'bsx-blocks' ) },
+        { value: 'top', label: __( 'Top', 'bsx-blocks' ) },
         { value: 'bottom', label: __( 'Bottom', 'bsx-blocks' ) },
+        { value: 'left', label: __( 'Left', 'bsx-blocks' ) },
+        { value: 'right', label: __( 'Right', 'bsx-blocks' ) },
+        { value: 'x', label: __( 'X (left & right)', 'bsx-blocks' ) },
+        { value: 'y', label: __( 'Y (top & bottom)', 'bsx-blocks' ) },
+        { value: 'u', label: __( 'U (left, right & bottom)', 'bsx-blocks' ) },
+        { value: 'inverted-u', label: __( 'Inverted U (left, right & top)', 'bsx-blocks' ) },
     ];
     return (
         <SelectControl 
