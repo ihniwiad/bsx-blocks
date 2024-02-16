@@ -56,7 +56,7 @@ export function addClassNames( attributes, classNamesString ) {
         position,
     } = attributes;
 
-    const classNames = ( typeof classNamesString != 'undefined' ) ? classNamesString.split( ' ' ) : [];
+    const classNames = ( typeof classNamesString != 'undefined' && classNamesString.trim().length > 0 ) ? classNamesString.split( ' ' ) : [];
 
     if ( !! belowNavbar ) {
         classNames.push( 'below-navbar-content' );

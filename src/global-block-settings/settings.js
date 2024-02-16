@@ -26,14 +26,14 @@ import {
     // inverseTextColorToggle,
     // headingInheritTextColorToggle,
     // headingInheritFontWeightToggle,
-    // marginLeftSelect,
-    // marginRightSelect,
-    // marginBeforeSelect,
-    // marginAfterSelect,
-    // paddingBeforeSelect,
-    // paddingAfterSelect,
-    // paddingLeftSelect,
-    // paddingRightSelect,
+    marginLeftSelect,
+    marginRightSelect,
+    marginBeforeSelect,
+    marginAfterSelect,
+    paddingBeforeSelect,
+    paddingAfterSelect,
+    paddingLeftSelect,
+    paddingRightSelect,
     // bgColorSelect,
     // roundedToggle,
     // borderSelect,
@@ -77,6 +77,12 @@ export const addGlobalBlockSettings = createHigherOrderComponent( ( BlockEdit ) 
             belowNavbar,
             marginBefore,
             marginAfter,
+            marginLeft,
+            marginRight,
+            paddingBefore, 
+            paddingAfter, 
+            paddingLeft, 
+            paddingRight,
             // additionaClassNames,
             className,
         } = attributes;
@@ -108,6 +114,12 @@ export const addGlobalBlockSettings = createHigherOrderComponent( ( BlockEdit ) 
             belowNavbar,
             marginBefore,
             marginAfter,
+            marginLeft,
+            marginRight,
+            paddingBefore, 
+            paddingAfter, 
+            paddingLeft, 
+            paddingRight,
         }, 'bsxui-core-block-wrapper' );
         // if ( allowedBlocks.includes( props.name ) ) {
         //     addClassName( toAddClassNames );
@@ -147,9 +159,27 @@ export const addGlobalBlockSettings = createHigherOrderComponent( ( BlockEdit ) 
         const onChangeMarginBefore = ( value ) => {
             setAttributes( { marginBefore: value } );
         };
-
         const onChangeMarginAfter = ( value ) => {
             setAttributes( { marginAfter: value } );
+        };
+        const onChangeMarginLeft = ( value ) => {
+            setAttributes( { marginLeft: value } );
+        };
+        const onChangeMarginRight = ( value ) => {
+            setAttributes( { marginRight: value } );
+        };
+
+        const onChangePaddingBefore = ( value ) => {
+            setAttributes( { paddingBefore: value } );
+        };
+        const onChangePaddingAfter = ( value ) => {
+            setAttributes( { paddingAfter: value } );
+        };
+        const onChangePaddingLeft = ( value ) => {
+            setAttributes( { paddingLeft: value } );
+        };
+        const onChangePaddingRight = ( value ) => {
+            setAttributes( { paddingRight: value } );
         };
 
         // const onChangeAdditionaClassNames = ( value ) => {
@@ -219,39 +249,33 @@ export const addGlobalBlockSettings = createHigherOrderComponent( ( BlockEdit ) 
                             {
                                 textShadowSelect( textShadow, onChangeTextShadow )
                             }
-                            <SelectControl 
-                                label={ __( 'Margin before', 'bsx-blocks' ) }
-                                value={ marginBefore }
-                                onChange={ onChangeMarginBefore }
-                                options={ [
-                                    { value: '', label: __( '– unset –', 'bsx-blocks' ) },
-                                    { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
-                                    { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
-                                    { value: '2', label: __( 'small', 'bsx-blocks' ) },
-                                    { value: '3', label: __( 'medium', 'bsx-blocks' ) },
-                                    { value: '4', label: __( 'large', 'bsx-blocks' ) },
-                                    { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
-                                ] }
-                                help={ __( 'Spacer before element', 'bsx-blocks' ) }
-                            />
-                            <SelectControl 
-                                label={ __( 'Margin after', 'bsx-blocks' ) }
-                                value={ marginAfter }
-                                onChange={ onChangeMarginAfter }
-                                options={ [
-                                    { value: '', label: __( '– unset –', 'bsx-blocks' ) },
-                                    { value: '0', label: __( 'none (0)', 'bsx-blocks' ) },
-                                    { value: '1', label: __( 'extra small', 'bsx-blocks' ) },
-                                    { value: '2', label: __( 'small', 'bsx-blocks' ) },
-                                    { value: '3', label: __( 'medium', 'bsx-blocks' ) },
-                                    { value: '4', label: __( 'large', 'bsx-blocks' ) },
-                                    { value: '5', label: __( 'extra large', 'bsx-blocks' ) },
-                                ] }
-                                help={ __( 'Spacer after element', 'bsx-blocks' ) }
-                            />
+                            {
+                                marginBeforeSelect( marginBefore, onChangeMarginBefore )
+                            }
+                            {
+                                marginAfterSelect( marginAfter, onChangeMarginAfter )
+                            }
+                            {
+                                marginLeftSelect( marginLeft, onChangeMarginLeft )
+                            }
+                            {
+                                marginRightSelect( marginRight, onChangeMarginRight )
+                            }
                         </PanelBody>
                     </InspectorControls>
                     <InspectorAdvancedControls>
+                        {
+                            paddingLeftSelect( paddingLeft, onChangePaddingLeft )
+                        }
+                        {
+                            paddingRightSelect( paddingRight, onChangePaddingRight )
+                        }
+                        {
+                            paddingBeforeSelect( paddingBefore, onChangePaddingBefore )
+                        }
+                        {
+                            paddingAfterSelect( paddingAfter, onChangePaddingAfter )
+                        }
                         {
                             belowNavbarToggle( belowNavbar, onChangeBelowNavbar )
                         }
@@ -355,10 +379,52 @@ export function addAttribute( settings ) {
                 }
             } );
         }
-    
         if ( typeof settings.attributes.marginAfter === 'undefined' ) {
             settings.attributes = Object.assign( settings.attributes, {
                 marginAfter: { 
+                    type: 'string',
+                }
+            } );
+        }
+        if ( typeof settings.attributes.marginLeft === 'undefined' ) {
+            settings.attributes = Object.assign( settings.attributes, {
+                marginLeft: { 
+                    type: 'string',
+                }
+            } );
+        }
+        if ( typeof settings.attributes.marginRight === 'undefined' ) {
+            settings.attributes = Object.assign( settings.attributes, {
+                marginRight: { 
+                    type: 'string',
+                }
+            } );
+        }
+    
+        if ( typeof settings.attributes.paddingBefore === 'undefined' ) {
+            settings.attributes = Object.assign( settings.attributes, {
+                paddingBefore: { 
+                    type: 'string',
+                }
+            } );
+        }
+        if ( typeof settings.attributes.paddingAfter === 'undefined' ) {
+            settings.attributes = Object.assign( settings.attributes, {
+                paddingAfter: { 
+                    type: 'string',
+                }
+            } );
+        }
+        if ( typeof settings.attributes.paddingLeft === 'undefined' ) {
+            settings.attributes = Object.assign( settings.attributes, {
+                paddingLeft: { 
+                    type: 'string',
+                }
+            } );
+        }
+        if ( typeof settings.attributes.paddingRight === 'undefined' ) {
+            settings.attributes = Object.assign( settings.attributes, {
+                paddingRight: { 
                     type: 'string',
                 }
             } );
@@ -372,17 +438,9 @@ export function addAttribute( settings ) {
             } );
         }*/
     
-        if ( typeof settings.attributes.dataTest === 'undefined' ) {
-            settings.attributes = Object.assign( settings.attributes, {
-                dataTest: {
-                    type: 'string',
-                },
-            } );
-        }
-    
-        // if ( typeof settings.attributes.additionaClassNames === 'undefined' ) {
+        // if ( typeof settings.attributes.dataTest === 'undefined' ) {
         //     settings.attributes = Object.assign( settings.attributes, {
-        //         additionaClassNames: {
+        //         dataTest: {
         //             type: 'string',
         //         },
         //     } );
@@ -431,7 +489,13 @@ export function addSaveProps( extraProps, blockType, attributes ) {
         belowNavbar,
         marginBefore,
         marginAfter,
-        dataTest,
+        marginLeft,
+        marginRight,
+        paddingBefore, 
+        paddingAfter, 
+        paddingLeft, 
+        paddingRight,
+        // dataTest,
         // additionaClassNames,
     } = attributes;
 
@@ -441,51 +505,51 @@ export function addSaveProps( extraProps, blockType, attributes ) {
 
         if ( attributes.id ) extraProps.id = attributes.id;
 
-        if ( attributes.dataTest ) extraProps.dataTest = attributes.dataTest;
+        // if ( attributes.dataTest ) extraProps.dataTest = attributes.dataTest;
 
         // class names
 
         const classNames = typeof extraProps.className !== 'undefined' ? extraProps.className.split( ' ' ) : [];
 
-        if ( typeof textSize !== 'undefined' && !! textSize ) {
+        // if ( typeof textSize !== 'undefined' && !! textSize ) {
             
-            if ( ! classNames.includes( textSize ) ) {
-                // add (if not already set)
-                classNames.push( textSize );
-            }
-        }
+        //     if ( ! classNames.includes( textSize ) ) {
+        //         // add (if not already set)
+        //         classNames.push( textSize );
+        //     }
+        // }
 
-        if ( typeof textColor !== 'undefined' && !! textColor ) {
+        // if ( typeof textColor !== 'undefined' && !! textColor ) {
             
-            if ( ! classNames.includes( 'text-' + textColor ) ) {
-                // add (if not already set)
-                classNames.push( 'text-' + textColor );
-            }
-        }
+        //     if ( ! classNames.includes( 'text-' + textColor ) ) {
+        //         // add (if not already set)
+        //         classNames.push( 'text-' + textColor );
+        //     }
+        // }
 
-        if ( typeof fontWeight !== 'undefined' && !! fontWeight ) {
+        // if ( typeof fontWeight !== 'undefined' && !! fontWeight ) {
             
-            if ( ! classNames.includes( 'font-weight-' + fontWeight ) ) {
-                // add (if not already set)
-                classNames.push( 'font-weight-' + fontWeight );
-            }
-        }
+        //     if ( ! classNames.includes( 'font-weight-' + fontWeight ) ) {
+        //         // add (if not already set)
+        //         classNames.push( 'font-weight-' + fontWeight );
+        //     }
+        // }
 
-        if ( typeof textShadow !== 'undefined' && !! textShadow ) {
+        // if ( typeof textShadow !== 'undefined' && !! textShadow ) {
             
-            if ( ! classNames.includes( 'text-shadow-' + textShadow ) ) {
-                // add (if not already set)
-                classNames.push( 'text-shadow-' + textShadow );
-            }
-        }
+        //     if ( ! classNames.includes( 'text-shadow-' + textShadow ) ) {
+        //         // add (if not already set)
+        //         classNames.push( 'text-shadow-' + textShadow );
+        //     }
+        // }
 
-        if ( typeof belowNavbar !== 'undefined' && belowNavbar ) {
+        // if ( typeof belowNavbar !== 'undefined' && belowNavbar ) {
             
-            if ( ! classNames.includes( 'below-navbar-content' ) ) {
-                // add (if not already set)
-                classNames.push( 'below-navbar-content' );
-            }
-        }
+        //     if ( ! classNames.includes( 'below-navbar-content' ) ) {
+        //         // add (if not already set)
+        //         classNames.push( 'below-navbar-content' );
+        //     }
+        // }
 
         // check wp internal attributes, add custom class names for certain ones
         // NOTE: added class name will be updated but never removed (as WP currently does too)
@@ -514,30 +578,30 @@ export function addSaveProps( extraProps, blockType, attributes ) {
         };
 
 
-        if ( typeof marginBefore !== 'undefined' && !! marginBefore && marginBefore == marginAfter ) {
-            if ( ! ( classNames.includes( 'my-' + marginBefore ) ) ) {
-                // add (if not already set)
-                classNames.push( 'my-' + marginBefore );
-            }
-        }
-        else {
-            if ( typeof marginBefore !== 'undefined' && !! marginBefore ) {
+        // if ( typeof marginBefore !== 'undefined' && !! marginBefore && marginBefore == marginAfter ) {
+        //     if ( ! ( classNames.includes( 'my-' + marginBefore ) ) ) {
+        //         // add (if not already set)
+        //         classNames.push( 'my-' + marginBefore );
+        //     }
+        // }
+        // else {
+        //     if ( typeof marginBefore !== 'undefined' && !! marginBefore ) {
                 
-                if ( ! ( classNames.includes( 'mt-' + marginBefore ) || classNames.includes( 'my-' + marginBefore ) ) ) {
-                    // add (if not already set)
-                    classNames.push( 'mt-' + marginBefore );
-                }
+        //         if ( ! ( classNames.includes( 'mt-' + marginBefore ) || classNames.includes( 'my-' + marginBefore ) ) ) {
+        //             // add (if not already set)
+        //             classNames.push( 'mt-' + marginBefore );
+        //         }
 
-            }
-            if ( typeof marginAfter !== 'undefined' && !! marginAfter ) {
+        //     }
+        //     if ( typeof marginAfter !== 'undefined' && !! marginAfter ) {
                 
-                if ( ! ( classNames.includes( 'mb-' + marginAfter ) || classNames.includes( 'my-' + marginAfter ) ) ) {
-                    // add (if not already set)
-                    classNames.push( 'mb-' + marginAfter );
-                }
+        //         if ( ! ( classNames.includes( 'mb-' + marginAfter ) || classNames.includes( 'my-' + marginAfter ) ) ) {
+        //             // add (if not already set)
+        //             classNames.push( 'mb-' + marginAfter );
+        //         }
 
-            }
-        }
+        //     }
+        // }
 
         // if ( typeof additionaClassNames !== 'undefined' && additionaClassNames ) {
 
@@ -550,9 +614,25 @@ export function addSaveProps( extraProps, blockType, attributes ) {
         //     } );
         // }
 
-        extraProps.className = classNames.join( ' ' );
 
-        // extraProps.className = classnames( extraProps.className, 'mobile-hidden' );
+        // extraProps.className = classNames.join( ' ' );
+
+        extraProps.className = addClassNames( {
+            textSize,
+            textColor,
+            fontWeight,
+            textShadow,
+            belowNavbar,
+            marginBefore,
+            marginAfter,
+            marginLeft,
+            marginRight,
+            paddingBefore, 
+            paddingAfter, 
+            paddingLeft, 
+            paddingRight,
+        }, classNames.join( ' ' ) );
+
     }
 
     return extraProps;
