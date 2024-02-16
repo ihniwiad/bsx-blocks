@@ -39,4 +39,28 @@ $bsxui-badge-block-selector:                   '[data-type="bsx-blocks/badge"], 
 
 [data-type="bsx-blocks/check-list"] > ul {
     list-style: none !important;
+
+    // fix for WordPress >6.3 breaking checklist structure
+    > li.checklist {
+
+        &:before {
+          content: unquote("\"#{$bsx-checklist-icon-content}\"");
+          //position: absolute;
+          font-family: $bsx-checklist-icon-font-family;
+          display: inline-block;
+          width: $bsx-checklist-indent;
+          margin-left: -$bsx-checklist-indent;
+          color: $bsx-checklist-icon-color;
+          -moz-osx-font-smoothing: grayscale;
+          -webkit-font-smoothing: antialiased;
+          text-rendering: auto;
+          font-weight: $bsx-checklist-icon-font-weight;
+        }
+
+        & + li {
+          padding-top: $bsx-checklist-item-spacing;
+        }
+
+    }
 }
+

@@ -344,6 +344,21 @@ a.bsxui-link:hover, a.bsxui-link:focus {
 [data-type="bsx-blocks/check-list"] > ul {
   list-style: none !important;
 }
+[data-type="bsx-blocks/check-list"] > ul > li.checklist:before {
+  content: "\f00c";
+  font-family: "Font Awesome 6 Free";
+  display: inline-block;
+  width: 2em;
+  margin-left: -2em;
+  color: #0275D8;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: auto;
+  font-weight: normal;
+}
+[data-type="bsx-blocks/check-list"] > ul > li.checklist + li {
+  padding-top: 0.25em;
+}
 
 [data-type="bsx-blocks/column-rows"] {
   display: -webkit-box;

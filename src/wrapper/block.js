@@ -72,6 +72,7 @@ import {
     roleInput,
     tabindexInput,
     hiddenToggle,
+    overflowSelect,
     // linkUrlInput,
     // targetToggle,
     // relInput,
@@ -258,6 +259,9 @@ registerBlockType( 'bsx-blocks/wrapper', {
         hidden: {
             type: 'boolean',
         },
+        overflow: {
+            type: 'string',
+        },
         // href: {
         //     type: 'string',
         //     source: "attribute",
@@ -375,6 +379,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 role,
                 tabindex,
                 hidden,
+                overflow,
                 // href,
                 // target,
                 // rel,
@@ -557,6 +562,10 @@ registerBlockType( 'bsx-blocks/wrapper', {
             setAttributes( { hidden: value } );
         };
 
+        const onChangeOverflow = ( value ) => {
+            setAttributes( { overflow: value } );
+        };
+
         const wrapperClassName = addClassNames( { 
             belowNavbar,
             bgColor, 
@@ -603,6 +612,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
             isBottom0,
             isLeft0,
             isRight0,
+            overflow,
         } );
 
         const TagName = nodeName;
@@ -835,6 +845,9 @@ registerBlockType( 'bsx-blocks/wrapper', {
                     {
                         hiddenToggle( hidden, onChangeHidden )
                     }
+                    {
+                        overflowSelect( overflow, onChangeOverflow )
+                    }
                 </InspectorAdvancedControls>
             </Fragment>,
             (
@@ -903,6 +916,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 role,
                 tabindex,
                 hidden,
+                overflow,
                 // href,
                 // target,
                 // rel,
@@ -956,6 +970,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
             isBottom0,
             isLeft0,
             isRight0,
+            overflow,
         } );
 
         const saveAttributes = makeSaveAttributes( {
