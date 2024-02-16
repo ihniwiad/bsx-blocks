@@ -33,6 +33,7 @@ export function addClassNames( attributes, classNamesString ) {
         headingInheritTextColor,
         headingInheritFontWeight,
         width,
+        height,
         imgThumbnail,
         borderState,
         border,
@@ -43,6 +44,16 @@ export function addClassNames( attributes, classNamesString ) {
         speechBubble,
         isAlert,
         state,
+        objectFit,
+        overflow,
+        multilayer,
+        zIndex,
+        isBannerInner,
+        isTop0,
+        isBottom0,
+        isLeft0,
+        isRight0,
+        position,
     } = attributes;
 
     const classNames = ( typeof classNamesString != 'undefined' && classNamesString.trim().length > 0 ) ? classNamesString.split( ' ' ) : [];
@@ -192,6 +203,9 @@ export function addClassNames( attributes, classNamesString ) {
     if ( !! width ) {
         classNames.push( 'w-' + width );
     }
+    if ( !! height ) {
+        classNames.push( 'h-' + height );
+    }
 
     if ( !! imgThumbnail ) {
         classNames.push( 'img-thumbnail' );
@@ -200,6 +214,24 @@ export function addClassNames( attributes, classNamesString ) {
     if ( !! border ) {
         if ( border == 'true' ) {
             classNames.push( 'border' );
+        }
+        else if ( border == 'x' ) {
+            classNames.push( 'border-left' );
+            classNames.push( 'border-right' );
+        }
+        else if ( border == 'y' ) {
+            classNames.push( 'border-top' );
+            classNames.push( 'border-bottom' );
+        }
+        else if ( border == 'u' ) {
+            classNames.push( 'border-left' );
+            classNames.push( 'border-right' );
+            classNames.push( 'border-bottom' );
+        }
+        else if ( border == 'inverted-u' ) {
+            classNames.push( 'border-left' );
+            classNames.push( 'border-right' );
+            classNames.push( 'border-top' );
         }
         else {
             // TODO: what about multipla values, e.g. top and bottom?
@@ -240,6 +272,43 @@ export function addClassNames( attributes, classNamesString ) {
             classNames.push( 'alert-' + state );
         }
     }
+
+    if ( !! objectFit ) {
+        classNames.push( 'object-fit-' + objectFit );
+    }
+
+    if ( !! overflow ) {
+        classNames.push( 'overflow-' + overflow );
+    }
+
+    if ( !! multilayer ) {
+        classNames.push( 'multilayer-' + multilayer );
+    }
+    if ( !! zIndex ) {
+        classNames.push( 'z-' + zIndex );
+    }
+
+    if ( !! isBannerInner ) {
+        classNames.push( 'banner-inner' );
+    }
+
+    if ( !! isTop0 ) {
+        classNames.push( 'top-0' );
+    }
+    if ( !! isBottom0 ) {
+        classNames.push( 'bottom-0' );
+    }
+    if ( !! isLeft0 ) {
+        classNames.push( 'left-0' );
+    }
+    if ( !! isRight0 ) {
+        classNames.push( 'right-0' );
+    }
+
+    if ( !! position ) {
+        classNames.push( 'position-' + position );
+    }
+
 
 
     return classNames.join( ' ' );

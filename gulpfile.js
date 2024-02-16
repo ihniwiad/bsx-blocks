@@ -5,6 +5,7 @@ const gulp          = require( 'gulp' );
 const { series, parallel } = require( 'gulp' );
 const sourcemaps    = require( 'gulp-sourcemaps' );
 const sass          = require( 'gulp-sass' );
+sass.compiler = require( 'sass' );
 const autoprefixer  = require( 'gulp-autoprefixer' );
 const rename        = require( 'gulp-rename' );
 const cleanCSS      = require( 'gulp-clean-css' );
@@ -19,7 +20,7 @@ const paths = {
         src: 'src/',
         dest: 'build/',
         fileName: '_build-env.scss',
-        renamedFileName: '.envscss'
+        renamedFileName: '_env.scss'
     },
     css: {
         src: 'src/',
@@ -105,7 +106,8 @@ const publishFolderDelete = ( cb ) => {
 const publishFolderCreate = ( cb ) => {
 
     if ( !! envConfig.PUBLISH_PATH && !! publishConfig.folderName ) {
-        console.log( 'create: ' + publishFullPath + ' (src: ' + publishConfig.src + ', base: ' + publishConfig.base + ')' );
+        // console.log( 'create: ' + publishFullPath + ' (src: ' + publishConfig.src + ', base: ' + publishConfig.base + ')' );
+        console.log( 'create: ' + publishFullPath );
         return gulp.src( publishConfig.src, { base: publishConfig.base } )
             .pipe( gulp.dest( publishFullPath ) )
         ;

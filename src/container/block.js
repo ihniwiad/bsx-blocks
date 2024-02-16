@@ -38,11 +38,17 @@ import {
 } from './../_functions/controls.js';
 
 
-const makeContainerClassNames = ( isFluid, containerBreakpoint, sized ) => {
+const makeContainerClassNames = ( attributes, classNamesString ) => {
+
+    const {
+        isFluid,
+        containerBreakpoint,
+        sized, 
+    } = attributes;
 
     const prefix = 'container';
 
-    const classNames = [];
+    const classNames = ( typeof classNamesString != 'undefined' && classNamesString != '' ) ? classNamesString.split( ' ' ) : [];
 
     if ( isFluid ) {
     	if ( containerBreakpoint === '' ) {
@@ -53,8 +59,12 @@ const makeContainerClassNames = ( isFluid, containerBreakpoint, sized ) => {
     	}
     }
     else if ( !! sized ) {
-        // e.g. .sized-container-xl
-        classNames.push( 'sized-' + prefix + '-' + sized );
+        if ( sized == 'text-column' )
+            classNames.push( 'text-column' );
+        else {
+            // e.g. .sized-container-xl
+            classNames.push( 'sized-' + prefix + '-' + sized );
+        }
     }
     else {
     	classNames.push( prefix );
@@ -124,8 +134,9 @@ registerBlockType( 'bsx-blocks/container', {
     } )( ( props ) => {
 
         const {
-            className,
+            // className,
             attributes: {
+                className,
 	            isFluid,
 	            containerBreakpoint,
                 belowNavbar,
@@ -185,11 +196,11 @@ registerBlockType( 'bsx-blocks/container', {
             setAttributes( { sized: value } );
         };
 
-        let containerClassName = makeContainerClassNames( 
+        let containerClassName = makeContainerClassNames( {
             isFluid, 
             containerBreakpoint, 
             sized, 
-        );
+        }, className );
         
         containerClassName = addClassNames( {
             belowNavbar, 
@@ -231,6 +242,7 @@ registerBlockType( 'bsx-blocks/container', {
                         onChange={ onChangeSized }
                         options={ [
                             { value: '', label: __( '– unset –', 'bsx-blocks' ) },
+                            { value: 'text-column', label: __( 'Text Column', 'bsx-blocks' ) },
                             { value: 'lg', label: __( 'LG', 'bsx-blocks' ) },
                             { value: 'xl', label: __( 'XL', 'bsx-blocks' ) },
                         ] }
@@ -280,8 +292,9 @@ registerBlockType( 'bsx-blocks/container', {
     } ),
     save: ( props ) => {
         const {
-            className,
+            // className,
             attributes: {
+                className,
 	            isFluid,
 	            containerBreakpoint,
                 belowNavbar,
@@ -295,11 +308,11 @@ registerBlockType( 'bsx-blocks/container', {
             },
         } = props;
 
-        let containerClassName = makeContainerClassNames( 
+        let containerClassName = makeContainerClassNames( {
             isFluid, 
             containerBreakpoint, 
             sized, 
-        );
+        }, className );
         
         containerClassName = addClassNames( {
             belowNavbar, 

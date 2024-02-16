@@ -37,6 +37,7 @@ import {
     bgColorSelect,
     paddingBeforeSelect,
     paddingAfterSelect,
+    isGalleryParentToggle,
 } from './../_functions/controls.js';
 
 
@@ -81,6 +82,10 @@ registerBlockType( 'bsx-blocks/section', {
         paddingAfter: {
             type: 'string',
         },
+        isGalleryParent: {
+            type: 'boolean',
+            default: false,
+        },
     },
 
     edit: withSelect( ( select, { clientId } ) => {
@@ -109,6 +114,7 @@ registerBlockType( 'bsx-blocks/section', {
                 bgColor,
                 paddingBefore,
                 paddingAfter,
+                isGalleryParent,
             },
             setAttributes,
             children,
@@ -164,6 +170,10 @@ registerBlockType( 'bsx-blocks/section', {
         };
         const onChangePaddingAfter = ( value ) => {
             setAttributes( { paddingAfter: value } );
+        };
+
+        const onChangeIsGalleryParent = ( value ) => {
+            setAttributes( { isGalleryParent: value } );
         };
 
         // class name
@@ -232,6 +242,9 @@ registerBlockType( 'bsx-blocks/section', {
                     {
                         paddingAfterSelect( paddingAfter, onChangePaddingAfter )
                     }
+                    {
+                        isGalleryParentToggle( isGalleryParent, onChangeIsGalleryParent )
+                    }
                 </InspectorAdvancedControls>
             </Fragment>,
             (
@@ -293,6 +306,7 @@ registerBlockType( 'bsx-blocks/section', {
                 bgColor,
                 paddingBefore,
                 paddingAfter,
+                isGalleryParent,
             },
         } = props;
 
@@ -308,6 +322,7 @@ registerBlockType( 'bsx-blocks/section', {
 
         const saveAttributes = makeSaveAttributes( {
             id: id,
+            'data-fn': ( isGalleryParent ) ? 'photoswipe' : '',
         } );
 
         return (

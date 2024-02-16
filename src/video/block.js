@@ -31,6 +31,10 @@ import {
     // relInput,
     // dataFnInput,
     scaleSelect,
+    widthSelect,
+    heightSelect,
+    objectFitSelect,
+    overflowSelect,
 } from './../_functions/controls.js';
 
 import { svgIcon } from './../_functions/wp-icons.js';
@@ -78,6 +82,12 @@ registerBlockType( 'bsx-blocks/video', {
             source: "attribute",
             attribute: "src",
         },
+        // media: {
+        //     type: 'string',
+        //     selector: "source:first-of-type",
+        //     source: "attribute",
+        //     attribute: "media",
+        // },
         videoIsHvc1: {
             type: 'boolean',
         },
@@ -86,10 +96,31 @@ registerBlockType( 'bsx-blocks/video', {
         },
         video2Url: {
             type: 'string',
-            selector: "source:last-of-type",
+            selector: "source:nth-of-type(2)",
             source: "attribute",
             attribute: "src",
         },
+        // media2: {
+        //     type: 'string',
+        //     selector: "source:nth-of-type(2)",
+        //     source: "attribute",
+        //     attribute: "media",
+        // },
+        video3Id: {
+            type: 'number',
+        },
+        video3Url: {
+            type: 'string',
+            selector: "source:nth-of-type(3)",
+            source: "attribute",
+            attribute: "src",
+        },
+        // media3: {
+        //     type: 'string',
+        //     selector: "source:nth-of-type(3)",
+        //     source: "attribute",
+        //     attribute: "media",
+        // },
         videoWidth: {
             type: 'number',
         },
@@ -107,6 +138,12 @@ registerBlockType( 'bsx-blocks/video', {
         },
         scale: {
             type: 'number',
+        },
+        width: {
+            type: 'string',
+        },
+        height: {
+            type: 'string',
         },
         displayedWidth: {
             type: 'text',
@@ -160,6 +197,12 @@ registerBlockType( 'bsx-blocks/video', {
         marginAfter: {
             type: 'string',
         },
+        objectFit: {
+            type: 'string',
+        },
+        overflow: {
+            type: 'string',
+        },
     },
     edit: ( props ) => {
         const {
@@ -170,14 +213,21 @@ registerBlockType( 'bsx-blocks/video', {
                 figcaption,
                 videoId,
                 videoUrl,
+                // media,
                 videoIsHvc1,
                 video2Id,
                 video2Url,
+                // media2,
+                video3Id,
+                video3Url,
+                // media3,
                 videoWidth,
                 videoHeight,
                 posterId,
                 posterUrl,
                 scale,
+                width,
+                height,
                 displayedWidth,
                 displayedHeight,
                 controls,
@@ -187,6 +237,8 @@ registerBlockType( 'bsx-blocks/video', {
                 muted,
                 textAlign,
                 marginAfter,
+                objectFit,
+                overflow,
             },
             setAttributes,
         } = props;
@@ -210,9 +262,7 @@ registerBlockType( 'bsx-blocks/video', {
         };
 
         const onSelectVideo = ( video ) => {
-
             if ( typeof video.url !== 'undefined' ) {
-
                 setAttributes( { 
                     videoId: video.id,
                     videoUrl: video.url,
@@ -221,32 +271,53 @@ registerBlockType( 'bsx-blocks/video', {
                     displayedWidth: !! scale ? scale * parseFloat( video.width ) : parseFloat( video.width ),
                     displayedHeight: !! scale ? scale * parseFloat( video.height ) : parseFloat( video.height ),
                 } );
-
             }
         }
+        // const onChangeMedia = ( value ) => {
+        //     setAttributes( { media: value } );
+        // };
 
         const onChangeVideoIsHvc1 = ( value ) => {
             setAttributes( { videoIsHvc1: value } );
         };
 
         const onSelectVideo2 = ( video ) => {
-
             if ( typeof video.url !== 'undefined' ) {
-
                 setAttributes( { 
                     video2Id: video.id,
                     video2Url: video.url,
                 } );
-
             }
         }
-
         const onDeleteVideo2 = () => {
             setAttributes( { 
                 video2Id: '',
                 video2Url: '',
+                // media2: '',
             } );
         }
+        // const onChangeMedia2 = ( value ) => {
+        //     setAttributes( { media2: value } );
+        // };
+
+        const onSelectVideo3 = ( video ) => {
+            if ( typeof video.url !== 'undefined' ) {
+                setAttributes( { 
+                    video3Id: video.id,
+                    video3Url: video.url,
+                } );
+            }
+        }
+        const onDeleteVideo3 = () => {
+            setAttributes( { 
+                video3Id: '',
+                video3Url: '',
+                // media3: '',
+            } );
+        }
+        // const onChangeMedia3 = ( value ) => {
+        //     setAttributes( { media3: value } );
+        // };
 
         const onSelectPosterImage = ( img ) => {
 
@@ -289,6 +360,13 @@ registerBlockType( 'bsx-blocks/video', {
             } );
         };
 
+        const onChangeWidth = ( value ) => {
+            setAttributes( { width: value } );
+        };
+        const onChangeHeight = ( value ) => {
+            setAttributes( { height: value } );
+        };
+
         const onChangeControls = ( value ) => {
             setAttributes( { controls: value } );
         };
@@ -313,12 +391,24 @@ registerBlockType( 'bsx-blocks/video', {
             setAttributes( { marginAfter: value } );
         };
 
+        const onChangeObjectFit = ( value ) => {
+            setAttributes( { objectFit: value } );
+        };
+
+        const onChangeOverflow = ( value ) => {
+            setAttributes( { overflow: value } );
+        };
+
 
         // class names
 
         const outerClassNames = addClassNames( {
             textAlign,
             marginAfter,
+            width,
+            height,
+            objectFit,
+            overflow,
         }, className );
 
         let videoClassNames = 'img-fluid align-middle';
@@ -345,13 +435,30 @@ registerBlockType( 'bsx-blocks/video', {
         const videoFileSuffix = getFileSuffix( videoUrl );
         const videoType = ( videoFileSuffix == 'mov' && videoIsHvc1 ) ? 'video/mp4; codecs=hvc1' : 'video/' + videoFileSuffix;
         const video2Type = 'video/' + getFileSuffix( video2Url );
+        const video3Type = 'video/' + getFileSuffix( video3Url );
+
+        // save attributes
+        const sourceSaveAttributes = makeSaveAttributes( {
+            // 'media': media,
+        } );
+        const sourceSaveAttributes2 = makeSaveAttributes( {
+            // 'media': media2,
+        } );
+        const sourceSaveAttributes3 = makeSaveAttributes( {
+            // 'media': media3,
+        } );
 
         const video = (
             <video className={ videoClassNames } { ...videoSaveAttributes }>
-                <source src={ videoUrl } type={ videoType }/>
+                <source src={ videoUrl } type={ videoType } { ...sourceSaveAttributes }/>
                 {
                     video2Url && (
-                        <source src={ video2Url } type={ video2Type }/>
+                        <source src={ video2Url } type={ video2Type } { ...sourceSaveAttributes2 }/>
+                    )
+                }
+                {
+                    video3Url && (
+                        <source src={ video3Url } type={ video3Type } { ...sourceSaveAttributes3 }/>
                     )
                 }
                 Your browser does not support HTML video.
@@ -370,6 +477,20 @@ registerBlockType( 'bsx-blocks/video', {
                 Your browser does not support HTML video.
             </video>
         );
+        const video3Only = (
+            <video className={ videoClassNames } { ...videoSaveAttributes }>
+                <source src={ video3Url } type={ video3Type }/>
+                Your browser does not support HTML video.
+            </video>
+        );
+
+        /*
+                                <TextControl 
+                                    label={ __( 'Media (optional)', 'bsx-blocks' ) }
+                                    value={ media } 
+                                    onChange={ onChangeMedia }
+                                />
+        */
 
         return [
             <BlockControls>
@@ -427,13 +548,16 @@ registerBlockType( 'bsx-blocks/video', {
                     </div>
                     {
                         videoId && (
-                            <ToggleControl
-                                label={ __( 'Video is HVC1 Codec (mov file with alpha)', 'bsx-blocks' ) }
-                                checked={ !! videoIsHvc1 }
-                                onChange={ onChangeVideoIsHvc1 }
-                            />
+                            <>
+                                <ToggleControl
+                                    label={ __( 'Video is HVC1 Codec (mov file with alpha)', 'bsx-blocks' ) }
+                                    checked={ !! videoIsHvc1 }
+                                    onChange={ onChangeVideoIsHvc1 }
+                                />
+                            </>
                         )
                     }
+
                     <div class="bsxui-config-panel-row">
                         {
                             video2Id ? (
@@ -464,6 +588,7 @@ registerBlockType( 'bsx-blocks/video', {
                             )
                         }
                         {
+                            // show only if video 1 already set
                             videoId && (
                                 <MediaUpload
                                     onSelect={ onSelectVideo2 }
@@ -483,14 +608,79 @@ registerBlockType( 'bsx-blocks/video', {
                     </div>
                     {
                         video2Id && (
-                            <div class="bsxui-config-panel-row">
-                                <Button 
-                                    onClick={ onDeleteVideo2 }
-                                    isDestructive={ true }
-                                >
-                                    { __( 'Remove video 2', 'bsx-blocks' ) }
-                                </Button>
-                            </div>
+                            <>
+                                <div class="bsxui-config-panel-row">
+                                    <Button 
+                                        onClick={ onDeleteVideo2 }
+                                        isDestructive={ true }
+                                    >
+                                        { __( 'Remove video 2', 'bsx-blocks' ) }
+                                    </Button>
+                                </div>
+                            </>
+                        )
+                    }
+                    
+                    <div class="bsxui-config-panel-row">
+                        {
+                            video3Id ? (
+                                <>
+                                    <MediaUpload
+                                        onSelect={ onSelectVideo3 }
+                                        allowedTypes="video"
+                                        value={ video3Id }
+                                        render={ ( { open } ) => (
+                                            <Button
+                                                className="bsxui-config-panel-img-button has-margin-bottom"
+                                                onClick={ open }
+                                            >
+                                                { video3Only }
+                                            </Button>
+                                        ) }
+                                    />
+                                    <div class="bsxui-config-panel-row">
+                                        <div class="bsxui-config-panel-text">{ getFileName( video3Url ) }</div>
+                                    </div>
+                                </>
+                            )
+                            : 
+                            (
+                                <div class="bsxui-config-panel-row">
+                                    <div class="bsxui-config-panel-text">{ __( '– No video 3 selected yet –', 'bsx-blocks' ) }</div>
+                                </div>
+                            )
+                        }
+                        {
+                            // show only if video 2 already set
+                            video2Id && (
+                                <MediaUpload
+                                    onSelect={ onSelectVideo3 }
+                                    allowedTypes="video"
+                                    value={ video3Id }
+                                    render={ ( { open } ) => (
+                                        <Button 
+                                            onClick={ open }
+                                            isSecondary
+                                        >
+                                            { __( 'Change / upload video 3', 'bsx-blocks' ) }
+                                        </Button>
+                                    ) }
+                                />
+                            )
+                        }
+                    </div>
+                    {
+                        video3Id && (
+                            <>
+                                <div class="bsxui-config-panel-row">
+                                    <Button 
+                                        onClick={ onDeleteVideo3 }
+                                        isDestructive={ true }
+                                    >
+                                        { __( 'Remove video 3', 'bsx-blocks' ) }
+                                    </Button>
+                                </div>
+                            </>
                         )
                     }
                 </PanelBody>
@@ -606,6 +796,18 @@ registerBlockType( 'bsx-blocks/video', {
                     checked={ !! notHasFigure }
                     onChange={ onChangeNotHasFigure }
                 />
+                {
+                    widthSelect( width, onChangeWidth )
+                }
+                {
+                    widthSelect( height, onChangeHeight )
+                }
+                {
+                    objectFitSelect( objectFit, onChangeObjectFit )
+                }
+                {
+                    overflowSelect( overflow, onChangeOverflow )
+                }
             </InspectorAdvancedControls>,
             (
                 <figure className={ outerClassNames }>
@@ -661,14 +863,21 @@ registerBlockType( 'bsx-blocks/video', {
                 figcaption,
                 videoId,
                 videoUrl,
+                // media,
                 videoIsHvc1,
                 video2Id,
                 video2Url,
+                // media2,
+                video3Id,
+                video3Url,
+                // media3,
                 videoWidth,
                 videoHeight,
                 posterId,
                 posterUrl,
                 scale,
+                width,
+                height,
                 displayedWidth,
                 displayedHeight,
                 controls,
@@ -678,6 +887,8 @@ registerBlockType( 'bsx-blocks/video', {
                 muted,
                 textAlign,
                 marginAfter,
+                objectFit,
+                overflow,
             },
         } = props;
 
@@ -687,6 +898,10 @@ registerBlockType( 'bsx-blocks/video', {
         const outerClassNames = addClassNames( {
             textAlign,
             marginAfter,
+            width,
+            height,
+            objectFit,
+            overflow,
         }, className );
 
         let videoClassNames = 'img-fluid align-middle';
@@ -710,15 +925,32 @@ registerBlockType( 'bsx-blocks/video', {
         const videoFileSuffix = getFileSuffix( videoUrl );
         const videoType = ( videoFileSuffix == 'mov' && videoIsHvc1 ) ? 'video/mp4; codecs=hvc1' : 'video/' + videoFileSuffix;
         const video2Type = 'video/' + getFileSuffix( video2Url );
+        const video3Type = 'video/' + getFileSuffix( video3Url );
+
+        // save attributes
+        const sourceSaveAttributes = makeSaveAttributes( {
+            // 'media': media,
+        } );
+        const sourceSaveAttributes2 = makeSaveAttributes( {
+            // 'media': media2,
+        } );
+        const sourceSaveAttributes3 = makeSaveAttributes( {
+            // 'media': media3,
+        } );
 
         // video html
 
         const video = (
             <video className={ videoClassNames } { ...videoSaveAttributes }>
-                <source src={ videoUrl } type={ videoType }/>
+                <source src={ videoUrl } type={ videoType } { ...sourceSaveAttributes }/>
                 {
                     video2Url && (
-                        <source src={ video2Url } type={ video2Type }/>
+                        <source src={ video2Url } type={ video2Type } { ...sourceSaveAttributes2 }/>
+                    )
+                }
+                {
+                    video3Url && (
+                        <source src={ video3Url } type={ video3Type } { ...sourceSaveAttributes3 }/>
                     )
                 }
                 Your browser does not support HTML video.

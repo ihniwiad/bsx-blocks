@@ -124,7 +124,7 @@ registerBlockType( 'bsx-blocks/check-list', {
             marginAfter,
             display,
             textAlign,
-        }, !! className ? 'checklist ' + className : 'checklist' );
+        }, ( !! className ? 'checklist ' + className : 'checklist' ) );
 
         return [
             <>
