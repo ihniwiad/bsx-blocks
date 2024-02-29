@@ -28,7 +28,11 @@ export function getOriginalImgUrl( fullUrl ) {
     return truncAndExtension.trunc.substring( 0, truncAndExtension.trunc.length - 7 ) + '.' + truncAndExtension.extension;
 }
 
-export function getSizesAndWithoutSizesTruncFromUrlTrunc ( urlTrunc ) {
+export function getSizesAndWithoutSizesTruncFromUrlTrunc( urlTrunc ) {
+
+    // input may be
+    // http://my-domain.local/wp-content/uploads/2024/02/my-img-name-1024x768
+    // http://my-domain.local/wp-content/uploads/2024/02/my-img-name
 
     // remove file name after last '-'
     const urlWithoutFileExtensionExplode = urlTrunc.split( '-' );
@@ -67,17 +71,35 @@ export function makeSizedImgs( config ) {
         scaleList,
     } = config;
 
+    // need to separate if img size 'large' img is scaled down of a larger original img or is original size
+    const imgIs1024 = ( originalWidth == 1024 );
+
     const ratio = originalWidth / originalHeight;
 
     const urlTruncAndExtension = getUrlTruncAndExtension( url );
 
+    // console.log( 'urlTruncAndExtension: \n' + JSON.stringify( urlTruncAndExtension, null, 2 ) );
+
     const fileExtension = urlTruncAndExtension.extension;
     const urlWithoutFileExtension = urlTruncAndExtension.trunc;
 
-    const sizesAndWithoutSizeSlugTrunc = getSizesAndWithoutSizesTruncFromUrlTrunc( urlWithoutFileExtension );
+    const sizesAndWithoutSizeSlugTrunc = imgIs1024 ? 
+        {
+            width: originalWidth,
+            height: originalHeight,
+            withoutSizeSlugTrunc: urlWithoutFileExtension
+        }
+        : 
+        // split img name to get sizes
+        getSizesAndWithoutSizesTruncFromUrlTrunc( urlWithoutFileExtension )
+    ;
+    // console.log( 'sizesAndWithoutSizeSlugTrunc: \n' + JSON.stringify( sizesAndWithoutSizeSlugTrunc, null, 2 ) );
 
     const width = sizesAndWithoutSizeSlugTrunc.width;
     const urlWithoutSizeSlugAndFileExtension = sizesAndWithoutSizeSlugTrunc.withoutSizeSlugTrunc;
+
+    // console.log( 'width: ' + width )
+    // console.log( 'urlWithoutSizeSlugAndFileExtension: ' + urlWithoutSizeSlugAndFileExtension )
 
     const returnList = [];
 
@@ -152,6 +174,10 @@ export async function getImgSizesData( img ) {
 
     // console.log( 'getImgSizesData()' );
 
+
+    // console.log( 'img.sizes: \n' + JSON.stringify( img.sizes, null, 2 ) );
+    // console.log( 'img.media_details: \n' + JSON.stringify( img.media_details, null, 2 ) );
+
     // scaled (hidden) img settings
     const imgScaleList = [ 0.75, 1.5, 2 ];
     const imgBaseSize = 'large';
@@ -178,6 +204,7 @@ export async function getImgSizesData( img ) {
     let originalHeight = 0;
 
     const fullImgIsScaled = checkFullImgIsScaled( img.url );
+    const imgIs1024 = ( img.width == 1024 );
 
     if ( fullImgIsScaled ) {
         // get original, get sizes
@@ -207,19 +234,23 @@ export async function getImgSizesData( img ) {
     let scaledImgs = new Map();
     const returnImgs = [];
 
-    // make sizes only if large img exists
-    if ( img.sizes.large != undefined ) {
+    // console.log( 'img.width: ' + img.width )
+
+    // make sizes only if large img exists or original img has 1024px width
+    if ( img.sizes.large != undefined || imgIs1024 ) {
+    // if ( img.sizes.large != undefined ) {
 
         // config for making sizes (might change in newer WP versions)
         const sizedImgsConfig = {
-            url: img.sizes[ imgBaseSize ].url,
+            url: img.width == 1024 ? img.url : img.sizes[ imgBaseSize ].url,
             scaleList: imgScaleList,
             originalWidth: originalWidth,
             originalHeight: originalHeight,
         };
         const sizedImgs = makeSizedImgs( sizedImgsConfig );
 
-        // console.log( 'sizedImgs: ' + JSON.stringify( sizedImgs, null, 2 ) );
+        console.log( 'sizedImgsConfig: ' + JSON.stringify( sizedImgsConfig, null, 2 ) );
+        console.log( 'sizedImgs: ' + JSON.stringify( sizedImgs, null, 2 ) );
 
         // check all imgs if exist (since WordPress might change hidden img sizes one day);
         await Promise.all( sizedImgs.map( async ( sizedImg, index ) => {

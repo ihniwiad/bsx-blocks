@@ -834,7 +834,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
         // image
 
-        const hasValidImg = ( imgId && typeof calcImgSizes !== 'undefined' && typeof calcImgSizes[ imgSizeIndex ] !== 'undefined' );
+        const hasValidImg = ( imgId && typeof calcImgSizes !== 'undefined' && calcImgSizes.length > 0 && typeof calcImgSizes[ imgSizeIndex ] !== 'undefined' && imgSizeIndex < calcImgSizes.length );
 
         // const image = imgId && typeof calcImgSizes !== 'undefined' && typeof calcImgSizes[ imgSizeIndex ] !== 'undefined' ? (
         //     <picture className={ pictureAdditionalClassName }>
@@ -871,10 +871,11 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             calcImgSizes,
             imgSizeIndex,
         } );
+
         const src = hasValidImg ? calcImgSizes[ imgSizeIndex ].url : '';
-        const width = ( hasValidImg && !! displayedWidth ) ? displayedWidth : calcImgSizes[ imgSizeIndex ].width;
-        const height = ( hasValidImg && !! displayedHeight ) ? displayedHeight : calcImgSizes[ imgSizeIndex ].height;
-        const sizes = '(max-width: ' + width + 'px) 100vw, ' + width + 'px';
+        const width = ( hasValidImg && !! displayedWidth ) ? displayedWidth : hasValidImg ? calcImgSizes[ imgSizeIndex ].width : '';
+        const height = ( hasValidImg && !! displayedHeight ) ? displayedHeight : hasValidImg ? calcImgSizes[ imgSizeIndex ].height : '';
+        const sizes = ( width && height ) ? '(max-width: ' + width + 'px) 100vw, ' + width + 'px' : '';
 
 
         const image = hasValidImg ? (
@@ -884,7 +885,6 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         (
             <></>
         );
-
 
 
         return [
@@ -1438,7 +1438,7 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         ;
 
         // check if valid image(s)
-        const hasValidImg = ( typeof calcImgSizes !== 'undefined' && typeof calcImgSizes[ imgSizeIndex ] !== 'undefined' );
+        const hasValidImg = ( typeof calcImgSizes !== 'undefined' && calcImgSizes.length > 0 && typeof calcImgSizes[ imgSizeIndex ] !== 'undefined' && imgSizeIndex < calcImgSizes.length );
         const hasValidPortraitImg = ( typeof calcPortraitImgSizes !== 'undefined' && typeof calcPortraitImgSizes[ portraitImgSizeIndex ] !== 'undefined' ) && !! portraitImgSizeIndex;
 
                // const image = typeof calcImgSizes !== 'undefined' && typeof calcImgSizes[ imgSizeIndex ] !== 'undefined' ? (
@@ -1484,9 +1484,9 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             imgSizeIndex,
         } );
         const src = hasValidImg ? calcImgSizes[ imgSizeIndex ].url : '';
-        const width = ( hasValidImg && !! displayedWidth ) ? displayedWidth : calcImgSizes[ imgSizeIndex ].width;
-        const height = ( hasValidImg && !! displayedHeight ) ? displayedHeight : calcImgSizes[ imgSizeIndex ].height;
-        const sizes = '(max-width: ' + width + 'px) 100vw, ' + width + 'px';
+        const width = ( hasValidImg && !! displayedWidth ) ? displayedWidth : hasValidImg ? calcImgSizes[ imgSizeIndex ].width : '';
+        const height = ( hasValidImg && !! displayedHeight ) ? displayedHeight : hasValidImg ? calcImgSizes[ imgSizeIndex ].height : '';
+        const sizes = ( width && height ) ? '(max-width: ' + width + 'px) 100vw, ' + width + 'px' : '';
         const landscapeImgClassName = hasValidPortraitImg ? imgClassName + ' d-portrait-none' : imgClassName;
 
         // TODO: manage className (if is outer element)
