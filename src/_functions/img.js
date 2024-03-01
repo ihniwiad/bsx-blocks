@@ -72,7 +72,7 @@ export function makeSizedImgs( config ) {
     } = config;
 
     // need to separate if img size 'large' img is scaled down of a larger original img or is original size
-    const imgIs1024 = ( originalWidth == 1024 );
+    const imgIsBetween770And1024 = ( originalWidth <= 1024 && originalWidth >= 770 );
 
     const ratio = originalWidth / originalHeight;
 
@@ -83,7 +83,7 @@ export function makeSizedImgs( config ) {
     const fileExtension = urlTruncAndExtension.extension;
     const urlWithoutFileExtension = urlTruncAndExtension.trunc;
 
-    const sizesAndWithoutSizeSlugTrunc = imgIs1024 ? 
+    const sizesAndWithoutSizeSlugTrunc = imgIsBetween770And1024 ? 
         {
             width: originalWidth,
             height: originalHeight,
@@ -95,7 +95,8 @@ export function makeSizedImgs( config ) {
     ;
     // console.log( 'sizesAndWithoutSizeSlugTrunc: \n' + JSON.stringify( sizesAndWithoutSizeSlugTrunc, null, 2 ) );
 
-    const width = sizesAndWithoutSizeSlugTrunc.width;
+    // base width for scaling is still 1024 even for smaller images
+    // const width = imgIsBetween770And1024 ? 1024 : sizesAndWithoutSizeSlugTrunc.width;
     const urlWithoutSizeSlugAndFileExtension = sizesAndWithoutSizeSlugTrunc.withoutSizeSlugTrunc;
 
     // console.log( 'width: ' + width )
@@ -106,7 +107,7 @@ export function makeSizedImgs( config ) {
     scaleList.forEach( ( scale, index ) => {
 
         // calculate new size
-        const scaledWidth = Math.round( width * scale );
+        const scaledWidth = scale;
 
         // check if default size exists for current img (only if original img is larger)
         if ( scaledWidth <= originalWidth ) {
@@ -179,20 +180,20 @@ export async function getImgSizesData( img ) {
     // console.log( 'img.media_details: \n' + JSON.stringify( img.media_details, null, 2 ) );
 
     // scaled (hidden) img settings
-    const imgScaleList = [ 0.75, 1.5, 2 ];
-    const imgBaseSize = 'large';
+
+    const imgScaleList = [ 768, 1536, 2048 ];
 
     const defaultImgList = [ 
         'thumbnail', 
         'medium', 
-        imgBaseSize, 
+        'large', 
         'full', 
     ];
     const imgSizesOrder = [ 
         'thumbnail', 
         'medium', 
         imgScaleList[ 0 ] + '',
-        imgBaseSize, 
+        'large', 
         imgScaleList[ 1 ] + '',
         imgScaleList[ 2 ] + '',
         'full',
@@ -204,7 +205,7 @@ export async function getImgSizesData( img ) {
     let originalHeight = 0;
 
     const fullImgIsScaled = checkFullImgIsScaled( img.url );
-    const imgIs1024 = ( img.width == 1024 );
+    const imgIsBetween770And1024 = ( img.width <= 1024 && img.width >= 770 );
 
     if ( fullImgIsScaled ) {
         // get original, get sizes
@@ -237,20 +238,20 @@ export async function getImgSizesData( img ) {
     // console.log( 'img.width: ' + img.width )
 
     // make sizes only if large img exists or original img has 1024px width
-    if ( img.sizes.large != undefined || imgIs1024 ) {
+    if ( img.sizes.large != undefined || imgIsBetween770And1024 ) {
     // if ( img.sizes.large != undefined ) {
 
         // config for making sizes (might change in newer WP versions)
         const sizedImgsConfig = {
-            url: img.width == 1024 ? img.url : img.sizes[ imgBaseSize ].url,
+            url: imgIsBetween770And1024 ? img.url : img.sizes.large.url,
             scaleList: imgScaleList,
             originalWidth: originalWidth,
             originalHeight: originalHeight,
         };
         const sizedImgs = makeSizedImgs( sizedImgsConfig );
 
-        console.log( 'sizedImgsConfig: ' + JSON.stringify( sizedImgsConfig, null, 2 ) );
-        console.log( 'sizedImgs: ' + JSON.stringify( sizedImgs, null, 2 ) );
+        // console.log( 'sizedImgsConfig: ' + JSON.stringify( sizedImgsConfig, null, 2 ) );
+        // console.log( 'sizedImgs: ' + JSON.stringify( sizedImgs, null, 2 ) );
 
         // check all imgs if exist (since WordPress might change hidden img sizes one day);
         await Promise.all( sizedImgs.map( async ( sizedImg, index ) => {
