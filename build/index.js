@@ -7592,6 +7592,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions_attributes_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../_functions/attributes.js */ "./src/_functions/attributes.js");
 /* harmony import */ var _functions_controls_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../_functions/controls.js */ "./src/_functions/controls.js");
 /* harmony import */ var _functions_img_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./../_functions/img.js */ "./src/_functions/img.js");
+/* harmony import */ var _deprecated__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./deprecated */ "./src/lazy-img/deprecated.js");
 
 
 
@@ -7627,6 +7628,7 @@ var _wp$components = wp.components,
   ToggleControl = _wp$components.ToggleControl,
   SVG = _wp$components.SVG,
   Path = _wp$components.Path; // functions imports
+
 
 
 
@@ -8887,8 +8889,772 @@ registerBlockType('bsx-blocks/lazy-img', {
       className: "font-italic",
       value: figcaption
     }))) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["Fragment"], null, typeof calcImgSizes !== 'undefined' && typeof calcImgSizes[imgSizeIndex] !== 'undefined' && typeof calcImgSizes[imgSizeIndex].url !== 'undefined' && calcImgSizes[imgSizeIndex].url && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["Fragment"], null, aOrImage)));
-  }
+  },
+  deprecated: _deprecated__WEBPACK_IMPORTED_MODULE_9__["default"]
 });
+
+/***/ }),
+
+/***/ "./src/lazy-img/deprecated.js":
+/*!************************************!*\
+  !*** ./src/lazy-img/deprecated.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js");
+/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../_functions/wp-icons.js */ "./src/_functions/wp-icons.js");
+/* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
+/* harmony import */ var _functions_attributes_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../_functions/attributes.js */ "./src/_functions/attributes.js");
+/* harmony import */ var _deprecated_img_v1_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./deprecated/img_v1.js */ "./src/lazy-img/deprecated/img_v1.js");
+
+
+var _wp$i18n = wp.i18n,
+  __ = _wp$i18n.__,
+  setLocaleData = _wp$i18n.setLocaleData;
+var registerBlockType = wp.blocks.registerBlockType;
+var _wp$blockEditor = wp.blockEditor,
+  RichText = _wp$blockEditor.RichText,
+  MediaUpload = _wp$blockEditor.MediaUpload,
+  InspectorControls = _wp$blockEditor.InspectorControls,
+  InspectorAdvancedControls = _wp$blockEditor.InspectorAdvancedControls,
+  BlockControls = _wp$blockEditor.BlockControls,
+  AlignmentToolbar = _wp$blockEditor.AlignmentToolbar;
+var _wp$components = wp.components,
+  Button = _wp$components.Button,
+  TextControl = _wp$components.TextControl,
+  PanelBody = _wp$components.PanelBody,
+  RadioControl = _wp$components.RadioControl,
+  SelectControl = _wp$components.SelectControl,
+  ToggleControl = _wp$components.ToggleControl,
+  SVG = _wp$components.SVG,
+  Path = _wp$components.Path; // functions imports
+
+
+
+
+// v1 functions
+
+var makeSourcesAttributesList = function makeSourcesAttributesList(attributes) {
+  var calcImgSizes = attributes.calcImgSizes,
+    imgSizeIndex = attributes.imgSizeIndex,
+    calcPortraitImgSizes = attributes.calcPortraitImgSizes,
+    portraitImgSizeIndex = attributes.portraitImgSizeIndex,
+    portraitImgMaxWidthBreakpoint = attributes.portraitImgMaxWidthBreakpoint,
+    disableResponsiveDownsizing = attributes.disableResponsiveDownsizing;
+  var responsivePortraitMediaIndexList = [{
+    breakpoint: 460,
+    imgSizeIndexShift: '-1',
+    minImgSizeIndex: '1'
+  }, {
+    breakpoint: 576,
+    imgSizeIndexShift: '0',
+    minImgSizeIndex: '2'
+  }];
+  var responsiveMediaIndexList = [{
+    breakpoint: 460,
+    imgSizeIndexShift: '-2',
+    minImgSizeIndex: '1'
+  }, {
+    breakpoint: 768,
+    imgSizeIndexShift: '-1',
+    minImgSizeIndex: '2'
+  }];
+  var skipIndex = 0;
+  var sourcesAttributesList = [];
+
+  // portrait img
+
+  if (!disableResponsiveDownsizing) {
+    // downsize, iterate list
+
+    responsivePortraitMediaIndexList.forEach(function (item, index) {
+      var currentPortraitImgIndex = parseInt(portraitImgSizeIndex) + parseInt(item.imgSizeIndexShift);
+      var adaptedCurrentPortraitImgIndex = currentPortraitImgIndex < parseInt(item.minImgSizeIndex) ? parseInt(item.minImgSizeIndex) : currentPortraitImgIndex;
+      if (adaptedCurrentPortraitImgIndex <= parseInt(portraitImgSizeIndex) && adaptedCurrentPortraitImgIndex > skipIndex && typeof calcPortraitImgSizes !== 'undefined' && typeof calcPortraitImgSizes[adaptedCurrentPortraitImgIndex] != 'undefined' && typeof calcPortraitImgSizes[adaptedCurrentPortraitImgIndex].url != 'undefined') {
+        sourcesAttributesList.push({
+          media: '(orientation: portrait) and (max-width: ' + (parseInt(index == responsivePortraitMediaIndexList.length - 1 && !!portraitImgMaxWidthBreakpoint ? portraitImgMaxWidthBreakpoint : item.breakpoint) - 0.02) + 'px)',
+          srcset: Object(_deprecated_img_v1_js__WEBPACK_IMPORTED_MODULE_5__["makeBase64PreloadImgSrc"])(calcPortraitImgSizes[adaptedCurrentPortraitImgIndex].width, calcPortraitImgSizes[adaptedCurrentPortraitImgIndex].height),
+          'data-srcset': calcPortraitImgSizes[adaptedCurrentPortraitImgIndex].url,
+          'data-width': calcPortraitImgSizes[adaptedCurrentPortraitImgIndex].width,
+          'data-height': calcPortraitImgSizes[adaptedCurrentPortraitImgIndex].height
+        });
+      }
+    });
+  } else {
+    // use largest portrait img size
+    if (!!portraitImgSizeIndex && typeof calcPortraitImgSizes !== 'undefined' && typeof calcPortraitImgSizes[portraitImgSizeIndex] != 'undefined' && typeof calcPortraitImgSizes[portraitImgSizeIndex].url != 'undefined') {
+      sourcesAttributesList.push({
+        media: '(orientation: portrait) and (max-width: ' + (parseInt(!!portraitImgMaxWidthBreakpoint ? portraitImgMaxWidthBreakpoint : responsivePortraitMediaIndexList[responsivePortraitMediaIndexList.length - 1].breakpoint) - 0.02) + 'px)',
+        srcset: Object(_deprecated_img_v1_js__WEBPACK_IMPORTED_MODULE_5__["makeBase64PreloadImgSrc"])(calcPortraitImgSizes[portraitImgSizeIndex].width, calcPortraitImgSizes[portraitImgSizeIndex].height),
+        'data-srcset': calcPortraitImgSizes[portraitImgSizeIndex].url,
+        'data-width': calcPortraitImgSizes[portraitImgSizeIndex].width,
+        'data-height': calcPortraitImgSizes[portraitImgSizeIndex].height
+      });
+    }
+  }
+
+  // default img
+  responsiveMediaIndexList.forEach(function (item, index) {
+    var currentImgIndex = parseInt(imgSizeIndex) + parseInt(item.imgSizeIndexShift);
+    var adaptedCurrentImgIndex = currentImgIndex < parseInt(item.minImgSizeIndex) ? parseInt(item.minImgSizeIndex) : currentImgIndex;
+    if (!disableResponsiveDownsizing && adaptedCurrentImgIndex < parseInt(imgSizeIndex) && adaptedCurrentImgIndex > skipIndex && typeof calcImgSizes != 'undefined' && typeof calcImgSizes[adaptedCurrentImgIndex] != 'undefined' && typeof calcImgSizes[adaptedCurrentImgIndex].url != 'undefined') {
+      sourcesAttributesList.push({
+        media: '(max-width: ' + (parseInt(item.breakpoint) - 0.02) + 'px)',
+        srcset: Object(_deprecated_img_v1_js__WEBPACK_IMPORTED_MODULE_5__["makeBase64PreloadImgSrc"])(calcImgSizes[adaptedCurrentImgIndex].width, calcImgSizes[adaptedCurrentImgIndex].height),
+        'data-srcset': calcImgSizes[adaptedCurrentImgIndex].url,
+        'data-width': calcImgSizes[adaptedCurrentImgIndex].width,
+        'data-height': calcImgSizes[adaptedCurrentImgIndex].height
+      });
+    }
+  });
+  return sourcesAttributesList;
+};
+// /v1 functions
+
+var v1 = {
+  // get old attr
+  attributes: {
+    hasFigure: {
+      boolean: 'string',
+      default: true
+    },
+    // deprecated, do not set anymore, keep alive for existing blocks (replaced by imgData)
+    imgSizes: {
+      type: 'array',
+      default: []
+    },
+    imgData: {
+      type: 'array',
+      default: []
+    },
+    imgSizeIndex: {
+      type: 'string',
+      default: '3'
+    },
+    imgId: {
+      type: 'number'
+    },
+    // deprecated, do not set anymore, keep alive for existing blocks (replaced by imgData)
+    url: {
+      type: 'string'
+    },
+    // deprecated, do not set anymore, keep alive for existing blocks (replaced by imgData)
+    width: {
+      type: 'number'
+    },
+    // deprecated, do not set anymore, keep alive for existing blocks (replaced by imgData)
+    height: {
+      type: 'number'
+    },
+    origWidth: {
+      type: 'number'
+    },
+    origHeight: {
+      type: 'number'
+    },
+    portraitImgId: {
+      type: 'number'
+    },
+    // deprecated, do not set anymore, keep alive for existing blocks (replaced by portraitImgData)
+    portraitImgSizes: {
+      type: 'array',
+      default: []
+    },
+    portraitImgData: {
+      type: 'array',
+      default: []
+    },
+    portraitImgSizeIndex: {
+      type: 'string',
+      default: '3'
+    },
+    portraitImgMaxWidthBreakpoint: {
+      type: 'string'
+    },
+    alt: {
+      type: 'string'
+    },
+    figcaption: {
+      type: 'array',
+      source: 'children',
+      selector: 'figcaption'
+    },
+    rounded: {
+      type: 'string'
+    },
+    imgThumbnail: {
+      type: 'boolean'
+    },
+    borderState: {
+      type: 'string'
+    },
+    zoomable: {
+      type: 'boolean'
+    },
+    externalGalleryParent: {
+      type: 'boolean'
+    },
+    zoomImgSizeIndex: {
+      type: 'string'
+    },
+    disableResponsiveDownsizing: {
+      type: 'boolean'
+    },
+    textAlign: {
+      type: 'string'
+    },
+    marginAfter: {
+      type: 'string'
+    },
+    aAdditionalClassName: {
+      type: 'string'
+    },
+    pictureAdditionalClassName: {
+      type: 'string'
+    },
+    imgAdditionalClassName: {
+      type: 'string'
+    },
+    href: {
+      type: 'string'
+    },
+    target: {
+      type: 'string'
+    },
+    rel: {
+      type: 'string'
+    },
+    scale: {
+      type: 'number'
+    },
+    displayedWidth: {
+      type: 'text'
+    },
+    displayedHeight: {
+      type: 'text'
+    },
+    noFigureTag: {
+      type: 'boolean'
+    }
+  },
+  save: function save(props) {
+    var _props$attributes = props.attributes,
+      className = _props$attributes.className,
+      imgSizeIndex = _props$attributes.imgSizeIndex,
+      imgSizes = _props$attributes.imgSizes,
+      imgData = _props$attributes.imgData,
+      url = _props$attributes.url,
+      width = _props$attributes.width,
+      height = _props$attributes.height,
+      origWidth = _props$attributes.origWidth,
+      origHeight = _props$attributes.origHeight,
+      portraitImgId = _props$attributes.portraitImgId,
+      portraitImgSizes = _props$attributes.portraitImgSizes,
+      portraitImgData = _props$attributes.portraitImgData,
+      portraitImgSizeIndex = _props$attributes.portraitImgSizeIndex,
+      portraitImgMaxWidthBreakpoint = _props$attributes.portraitImgMaxWidthBreakpoint,
+      alt = _props$attributes.alt,
+      figcaption = _props$attributes.figcaption,
+      rounded = _props$attributes.rounded,
+      imgThumbnail = _props$attributes.imgThumbnail,
+      borderState = _props$attributes.borderState,
+      zoomable = _props$attributes.zoomable,
+      externalGalleryParent = _props$attributes.externalGalleryParent,
+      zoomImgSizeIndex = _props$attributes.zoomImgSizeIndex,
+      disableResponsiveDownsizing = _props$attributes.disableResponsiveDownsizing,
+      textAlign = _props$attributes.textAlign,
+      marginAfter = _props$attributes.marginAfter,
+      aAdditionalClassName = _props$attributes.aAdditionalClassName,
+      pictureAdditionalClassName = _props$attributes.pictureAdditionalClassName,
+      imgAdditionalClassName = _props$attributes.imgAdditionalClassName,
+      href = _props$attributes.href,
+      target = _props$attributes.target,
+      rel = _props$attributes.rel,
+      scale = _props$attributes.scale,
+      displayedWidth = _props$attributes.displayedWidth,
+      displayedHeight = _props$attributes.displayedHeight,
+      noFigureTag = _props$attributes.noFigureTag; // TEST
+    // console.log( 'imgData: ' + JSON.stringify( imgData, null, 2 ) );
+    // console.log( 'imgSizes: ' + JSON.stringify( imgSizes, null, 2 ) + '\n' );
+    // initial set, replaces old attr 'imgSizes'
+    var hasOldAttrImgSizes = typeof imgSizes !== 'undefined' && Array.isArray(imgSizes) && imgSizes.length > 0;
+    var hasOldAttrPortraitImgSizes = typeof portraitImgSizes !== 'undefined' && Array.isArray(portraitImgSizes) && portraitImgSizes.length > 0;
+    var calcImgSizes = hasOldAttrImgSizes ? imgSizes : Object(_deprecated_img_v1_js__WEBPACK_IMPORTED_MODULE_5__["makeImgSizesFromImgData"])(imgData);
+    var calcPortraitImgSizes = hasOldAttrPortraitImgSizes ? portraitImgSizes : Object(_deprecated_img_v1_js__WEBPACK_IMPORTED_MODULE_5__["makeImgSizesFromImgData"])(portraitImgData);
+
+    // prepare img sources attributes
+
+    var sourcesAttributesList = makeSourcesAttributesList({
+      calcImgSizes: calcImgSizes,
+      imgSizeIndex: imgSizeIndex,
+      calcPortraitImgSizes: calcPortraitImgSizes,
+      portraitImgSizeIndex: portraitImgSizeIndex,
+      portraitImgMaxWidthBreakpoint: portraitImgMaxWidthBreakpoint,
+      disableResponsiveDownsizing: disableResponsiveDownsizing
+    });
+
+    // class names
+
+    var classNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_3__["addClassNames"])({
+      textAlign: textAlign,
+      marginAfter: marginAfter
+    }, className);
+    var aClassName = zoomable ? 'zoomable-img' : !!href && !!aAdditionalClassName ? aAdditionalClassName : '';
+    // let aClassName = '';
+    // if ( zoomable ) {
+    //     aClassName += 'zoomable-img';
+    // }
+    // if ( !! href && !! aAdditionalClassName ) {
+    //     aClassName += ' ' + aAdditionalClassName.trim();
+    // }
+
+    var imgClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_3__["addClassNames"])({
+      rounded: rounded,
+      imgThumbnail: imgThumbnail,
+      borderState: borderState
+    }, 'img-fluid' + (imgAdditionalClassName ? ' ' + imgAdditionalClassName : ''));
+
+    // attributes
+
+    // allow zoomable img
+    var saveAttributes = zoomable && !externalGalleryParent ? Object(_functions_attributes_js__WEBPACK_IMPORTED_MODULE_4__["makeSaveAttributes"])({
+      'data-fn': 'photoswipe'
+    }) : {};
+
+    // manage zoomImgSizeIndex & href, target, rel
+    var aSaveAttributes = zoomable && typeof calcImgSizes[zoomImgSizeIndex] != 'undefined' ? Object(_functions_attributes_js__WEBPACK_IMPORTED_MODULE_4__["makeSaveAttributes"])({
+      'href': calcImgSizes[zoomImgSizeIndex].url,
+      'data-size': calcImgSizes[zoomImgSizeIndex].width + 'x' + calcImgSizes[zoomImgSizeIndex].height
+    }) : !!href ? {
+      'href': href,
+      'target': target,
+      rel: href ? rel ? rel + ' noopener noreferrer' : 'noopener noreferrer' : ''
+    } : {};
+    var image = typeof calcImgSizes !== 'undefined' && typeof calcImgSizes[imgSizeIndex] !== 'undefined' ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("script", null, "document.write( '", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("picture", {
+      className: !noFigureTag ? pictureAdditionalClassName : classNames
+    }, sourcesAttributesList.map(function (sourceAttributes, index) {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("source", sourceAttributes);
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("img", {
+      className: imgClassName,
+      src: Object(_deprecated_img_v1_js__WEBPACK_IMPORTED_MODULE_5__["makeBase64PreloadImgSrc"])(calcImgSizes[imgSizeIndex].width, calcImgSizes[imgSizeIndex].height),
+      alt: alt,
+      "data-src": calcImgSizes[imgSizeIndex].url,
+      width: !!displayedWidth ? displayedWidth : calcImgSizes[imgSizeIndex].width,
+      height: !!displayedHeight ? displayedHeight : calcImgSizes[imgSizeIndex].height,
+      "data-fn": "lazyload"
+    })), "' );"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("noscript", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("img", {
+      className: imgClassName,
+      src: calcImgSizes[imgSizeIndex].url,
+      alt: alt,
+      width: !!displayedWidth ? displayedWidth : calcImgSizes[imgSizeIndex].width,
+      height: !!displayedHeight ? displayedHeight : calcImgSizes[imgSizeIndex].height
+    }))) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null);
+    var aOrImage = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, zoomable || href ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("a", _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+      className: aClassName
+    }, aSaveAttributes), image) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, image));
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, !noFigureTag ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("figure", _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+      className: classNames
+    }, saveAttributes), typeof calcImgSizes !== 'undefined' && typeof calcImgSizes[imgSizeIndex] !== 'undefined' && typeof calcImgSizes[imgSizeIndex].url !== 'undefined' && calcImgSizes[imgSizeIndex].url && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, aOrImage, figcaption && !RichText.isEmpty(figcaption) && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(RichText.Content, {
+      tagName: "figcaption",
+      className: "font-italic",
+      value: figcaption
+    }))) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, typeof calcImgSizes !== 'undefined' && typeof calcImgSizes[imgSizeIndex] !== 'undefined' && typeof calcImgSizes[imgSizeIndex].url !== 'undefined' && calcImgSizes[imgSizeIndex].url && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, aOrImage)));
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = ([v1]);
+
+/***/ }),
+
+/***/ "./src/lazy-img/deprecated/img_v1.js":
+/*!*******************************************!*\
+  !*** ./src/lazy-img/deprecated/img_v1.js ***!
+  \*******************************************/
+/*! exports provided: getUrlTruncAndExtension, checkFullImgIsScaled, getOriginalImgUrl, getSizesAndWithoutSizesTruncFromUrlTrunc, removeFileExt, getSizeSlugFromUrl, makeSizedImgs, getImgWidthHeight, imgExists, getImgSizesData, makeBase64PreloadImgSrc, makeImgSizesFromImgData, makeImgData */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUrlTruncAndExtension", function() { return getUrlTruncAndExtension; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkFullImgIsScaled", function() { return checkFullImgIsScaled; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getOriginalImgUrl", function() { return getOriginalImgUrl; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getSizesAndWithoutSizesTruncFromUrlTrunc", function() { return getSizesAndWithoutSizesTruncFromUrlTrunc; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeFileExt", function() { return removeFileExt; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getSizeSlugFromUrl", function() { return getSizeSlugFromUrl; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "makeSizedImgs", function() { return makeSizedImgs; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getImgWidthHeight", function() { return getImgWidthHeight; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "imgExists", function() { return imgExists; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getImgSizesData", function() { return getImgSizesData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "makeBase64PreloadImgSrc", function() { return makeBase64PreloadImgSrc; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "makeImgSizesFromImgData", function() { return makeImgSizesFromImgData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "makeImgData", function() { return makeImgData; });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "@babel/runtime/regenerator");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "./node_modules/@babel/runtime/helpers/asyncToGenerator.js");
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__);
+
+
+// img functions
+
+function getUrlTruncAndExtension(url) {
+  var urlExplode = url.split('.');
+  var fileExtension = urlExplode[urlExplode.length - 1];
+  urlExplode.pop();
+  var urlWithoutFileExtension = urlExplode.join('.');
+  return {
+    trunc: urlWithoutFileExtension,
+    extension: fileExtension
+  };
+}
+function checkFullImgIsScaled(fullUrl) {
+  var urlWithoutFileExtension = getUrlTruncAndExtension(fullUrl).trunc;
+  return urlWithoutFileExtension.lastIndexOf('-scaled') === urlWithoutFileExtension.length - 7;
+}
+function getOriginalImgUrl(fullUrl) {
+  var truncAndExtension = getUrlTruncAndExtension(fullUrl);
+  return truncAndExtension.trunc.substring(0, truncAndExtension.trunc.length - 7) + '.' + truncAndExtension.extension;
+}
+function getSizesAndWithoutSizesTruncFromUrlTrunc(urlTrunc) {
+  // remove file name after last '-'
+  var urlWithoutFileExtensionExplode = urlTrunc.split('-');
+  var sizes = urlWithoutFileExtensionExplode[urlWithoutFileExtensionExplode.length - 1].split('x');
+  urlWithoutFileExtensionExplode.pop();
+  return {
+    width: sizes[0],
+    height: sizes[1],
+    withoutSizeSlugTrunc: urlWithoutFileExtensionExplode.join('-')
+  };
+}
+function removeFileExt(fullUrl) {
+  var urlExplode = fullUrl.split('.');
+  urlExplode.pop();
+  return urlExplode.join('.');
+}
+function getSizeSlugFromUrl(fullUrl, originalImgUrl) {
+  var sizeSlugWithFileExt = fullUrl.replace(removeFileExt(originalImgUrl), '');
+  return removeFileExt(sizeSlugWithFileExt);
+}
+function makeSizedImgs(config) {
+  var originalWidth = config.originalWidth,
+    originalHeight = config.originalHeight,
+    url = config.url,
+    scaleList = config.scaleList;
+  var ratio = originalWidth / originalHeight;
+  var urlTruncAndExtension = getUrlTruncAndExtension(url);
+  var fileExtension = urlTruncAndExtension.extension;
+  var urlWithoutFileExtension = urlTruncAndExtension.trunc;
+  var sizesAndWithoutSizeSlugTrunc = getSizesAndWithoutSizesTruncFromUrlTrunc(urlWithoutFileExtension);
+  var width = sizesAndWithoutSizeSlugTrunc.width;
+  var urlWithoutSizeSlugAndFileExtension = sizesAndWithoutSizeSlugTrunc.withoutSizeSlugTrunc;
+  var returnList = [];
+  scaleList.forEach(function (scale, index) {
+    // calculate new size
+    var scaledWidth = Math.round(width * scale);
+
+    // check if default size exists for current img (only if original img is larger)
+    if (scaledWidth <= originalWidth) {
+      var scaledHeight = Math.round(scaledWidth / ratio);
+      var sizeSlug = '-' + scaledWidth + 'x' + scaledHeight;
+      var scaledUrl = urlWithoutSizeSlugAndFileExtension + sizeSlug + '.' + fileExtension;
+      returnList.push({
+        url: scaledUrl,
+        // deprecated soon
+        sizeSlug: sizeSlug,
+        width: scaledWidth,
+        height: scaledHeight
+      });
+    }
+  });
+  return returnList;
+}
+function getImgWidthHeight(imgUrl) {
+  return new Promise(function (resolve, reject) {
+    var img = document.createElement('img');
+    img.onload = function () {
+      resolve({
+        width: img.width,
+        height: img.height
+      });
+      img.remove;
+    };
+    img.onerror = function (err) {
+      reject('Error on loading image "' + imgUrl + '"', err);
+    };
+    img.src = imgUrl;
+    document.body.appendChild(img);
+  });
+}
+function imgExists(url) {
+  return new Promise(function (resolve, reject) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('HEAD', url, true);
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4) {
+        if (xhr.status == 200) {
+          resolve(true);
+        } else {
+          resolve(false);
+        }
+      }
+    };
+    xhr.send(null);
+  });
+}
+
+// getting sorted list of all imgs (default and hidden scaled)
+function getImgSizesData(_x) {
+  return _getImgSizesData.apply(this, arguments);
+}
+function _getImgSizesData() {
+  _getImgSizesData = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(img) {
+    var imgScaleList, imgBaseSize, defaultImgList, imgSizesOrder, originalImgUrl, originalWidth, originalHeight, fullImgIsScaled, originalImgSizes, originalImgUrlTruncAndExt, truncWithoutSizeSlug, fileExt, scaledImgs, returnImgs, sizedImgsConfig, sizedImgs;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            // console.log( 'getImgSizesData()' );
+            // scaled (hidden) img settings
+            imgScaleList = [0.75, 1.5, 2];
+            imgBaseSize = 'large';
+            defaultImgList = ['thumbnail', 'medium', imgBaseSize, 'full'];
+            imgSizesOrder = ['thumbnail', 'medium', imgScaleList[0] + '', imgBaseSize, imgScaleList[1] + '', imgScaleList[2] + '', 'full', 'original'];
+            originalImgUrl = '';
+            originalWidth = 0;
+            originalHeight = 0;
+            fullImgIsScaled = checkFullImgIsScaled(img.url);
+            if (!fullImgIsScaled) {
+              _context2.next = 23;
+              break;
+            }
+            // get original, get sizes
+            originalImgUrl = getOriginalImgUrl(img.url);
+            _context2.prev = 10;
+            _context2.next = 13;
+            return getImgWidthHeight(originalImgUrl);
+          case 13:
+            originalImgSizes = _context2.sent;
+            _context2.next = 19;
+            break;
+          case 16:
+            _context2.prev = 16;
+            _context2.t0 = _context2["catch"](10);
+            console.error(_context2.t0);
+          case 19:
+            originalWidth = originalImgSizes.width;
+            originalHeight = originalImgSizes.height;
+            _context2.next = 26;
+            break;
+          case 23:
+            // get sizes from full img
+            originalImgUrl = img.sizes.full.url;
+            originalWidth = img.sizes.full.width;
+            originalHeight = img.sizes.full.height;
+          case 26:
+            originalImgUrlTruncAndExt = getUrlTruncAndExtension(originalImgUrl);
+            truncWithoutSizeSlug = originalImgUrlTruncAndExt.trunc;
+            fileExt = originalImgUrlTruncAndExt.extension;
+            scaledImgs = new Map();
+            returnImgs = []; // make sizes only if large img exists
+            if (!(img.sizes.large != undefined)) {
+              _context2.next = 36;
+              break;
+            }
+            // config for making sizes (might change in newer WP versions)
+            sizedImgsConfig = {
+              url: img.sizes[imgBaseSize].url,
+              scaleList: imgScaleList,
+              originalWidth: originalWidth,
+              originalHeight: originalHeight
+            };
+            sizedImgs = makeSizedImgs(sizedImgsConfig); // console.log( 'sizedImgs: ' + JSON.stringify( sizedImgs, null, 2 ) );
+            // check all imgs if exist (since WordPress might change hidden img sizes one day);
+            _context2.next = 36;
+            return Promise.all(sizedImgs.map( /*#__PURE__*/function () {
+              var _ref = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(sizedImg, index) {
+                var currentImageExists;
+                return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+                  while (1) {
+                    switch (_context.prev = _context.next) {
+                      case 0:
+                        _context.next = 2;
+                        return imgExists(sizedImg.url);
+                      case 2:
+                        currentImageExists = _context.sent;
+                        if (currentImageExists) {
+                          scaledImgs.set(imgScaleList[index] + '', sizedImg);
+                        }
+                      case 4:
+                      case "end":
+                        return _context.stop();
+                    }
+                  }
+                }, _callee);
+              }));
+              return function (_x2, _x3) {
+                return _ref.apply(this, arguments);
+              };
+            }()));
+          case 36:
+            // console.log( 'scaledImgs.length: ' + scaledImgs.length );
+
+            // // TEST – TODO: remove
+            // for ( let [ key, value ] of Object.entries( scaledImgs ) ) {
+            //     console.log( 'scaledImgs[ ' + key + ' ].url: ' + value.url );
+            //     console.log( 'scaledImgs[ ' + key + ' ].sizeSlug: ' + value.sizeSlug );
+            // }
+
+            // make ordered list of all existing default img sizes and scaled (hidden) img sizes
+            imgSizesOrder.forEach(function (imgSize, index) {
+              if (defaultImgList.indexOf(imgSize) != -1 && img.sizes[imgSize] != undefined) {
+                // get from default img list
+                returnImgs.push({
+                  url: img.sizes[imgSize].url,
+                  sizeSlug: getSizeSlugFromUrl(img.sizes[imgSize].url, originalImgUrl),
+                  width: img.sizes[imgSize].width,
+                  height: img.sizes[imgSize].height
+                });
+              } else if (imgScaleList.indexOf(parseFloat(imgSize)) != -1 && scaledImgs.get(imgSize) != undefined) {
+                // get from scaled imgs list
+                returnImgs.push(scaledImgs.get(imgSize));
+              } else if (imgSize == 'original' && fullImgIsScaled) {
+                // add unscaled original
+                returnImgs.push({
+                  url: originalImgUrl,
+                  sizeSlug: getSizeSlugFromUrl(originalImgUrl, originalImgUrl),
+                  width: originalWidth,
+                  height: originalHeight
+                });
+              }
+            });
+
+            // TEST – TODO: remove
+            // returnImgs.forEach( ( returnImg, index ) => {
+            //     console.log( 
+            //         index + ':\n' 
+            //         + returnImg.url + '\n'
+            //         + returnImg.width + '\n'
+            //         + returnImg.height + '\n'
+            //     );
+            // } );
+
+            // console.log( 'returnImgs: ' + JSON.stringify( returnImgs, null, 2 ) );
+            // console.log( 'truncWithoutSizeSlug: ' + truncWithoutSizeSlug );
+            // console.log( 'fileExt: ' + fileExt );
+            return _context2.abrupt("return", {
+              imgs: returnImgs,
+              originalWidth: originalWidth,
+              originalHeight: originalHeight,
+              truncWithoutSizeSlug: truncWithoutSizeSlug,
+              fileExt: fileExt
+            });
+          case 38:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2, null, [[10, 16]]);
+  }));
+  return _getImgSizesData.apply(this, arguments);
+}
+var makeBase64PreloadImgSrc = function makeBase64PreloadImgSrc(imgWidth, imgHeight) {
+  var img = '<svg xmlns="http://www.w3.org/2000/svg" width="' + imgWidth + 'px" height="' + imgHeight + 'px" viewBox="0 0 ' + imgWidth + ' ' + imgHeight + '"><rect fill="none" width="' + imgWidth + '" height="' + imgHeight + '"/></svg>';
+  var imgBase64 = btoa(img);
+  return 'data:image/svg+xml;base64,' + imgBase64;
+};
+
+/*
+example:
+
+// was saved in attibutes before
+imgSizes = [
+    {
+        url: '', // url was very large
+        width: '',
+        height: '',
+    },
+    // ... (1...n)
+];
+
+// is saved in attributes now, replaces imgSizes
+imgData = [
+    sizes: [
+        {
+            s: '', // size slug is short
+            w: '',
+            h: '',
+        },
+        // ... (1...n)
+    ],
+    trunc: '',
+    ext: '',
+];
+*/
+var makeImgSizesFromImgData = function makeImgSizesFromImgData(imgData) {
+  // console.log( 'makeImgSizesFromImgData()' );
+  // console.log( 'imgData: ' + JSON.stringify( imgData, null, 2 ) + '\n' );
+
+  var imgSizes = [];
+  if (typeof imgData[0] !== 'undefined' && typeof imgData[0].sizes !== 'undefined' && typeof imgData[0].trunc !== 'undefined' && typeof imgData[0].ext !== 'undefined') {
+    imgData[0].sizes.forEach(function (size, index) {
+      if (typeof size.s !== 'undefined' && typeof size.w !== 'undefined' && typeof size.h !== 'undefined') {
+        imgSizes.push({
+          url: imgData[0].trunc + size.s + '.' + imgData[0].ext,
+          width: size.w,
+          height: size.h
+        });
+      }
+    });
+  }
+  return imgSizes;
+};
+var makeImgData = function makeImgData(imgSizes, truncWithoutSizeSlug, fileExt) {
+  var sizes = [];
+  imgSizes.forEach(function (img, index) {
+    sizes.push({
+      s: img.sizeSlug,
+      w: img.width,
+      h: img.height
+    });
+  });
+  return [{
+    sizes: sizes,
+    trunc: truncWithoutSizeSlug,
+    ext: fileExt
+  }];
+};
+
+// export async function getOriginalImgSizes( img ) {
+
+//     if ( fullImgIsScaled( img.url ) ) {
+//         // find original img
+
+//         let originalImgSizes;
+
+//         try {
+//             originalImgSizes = await getImgWidthHeight( getOriginalImgUrl( img.url ) );
+//         } catch( err ) {
+//             console.error( err );
+//         }
+
+//         return {
+//             width: originalImgSizes.width,
+//             height: originalImgSizes.height,
+//         };
+
+//     }
+//     else {
+//         // get sizes from full img
+//         return {
+//             width: img.sizes.full.width,
+//             height: img.sizes.full.height,
+//         };
+//     }
+// }
 
 /***/ }),
 

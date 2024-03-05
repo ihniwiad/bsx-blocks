@@ -70,6 +70,8 @@ import {
 } from './../_functions/img.js';
 
 
+import deprecated from './deprecated';
+
 
 const makeSourcesAttributesList = ( attributes ) => {
 
@@ -1591,4 +1593,6 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             </>
         );
     },
+    
+    deprecated,
 } );
