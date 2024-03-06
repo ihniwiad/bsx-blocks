@@ -41,6 +41,7 @@ $bsxui-badge-block-selector:                   '[data-type="bsx-blocks/badge"], 
     list-style: none !important;
 
     // fix for WordPress >6.3 breaking checklist structure
+    /*
     > li.checklist {
 
         &:before {
@@ -62,5 +63,6 @@ $bsxui-badge-block-selector:                   '[data-type="bsx-blocks/badge"], 
         }
 
     }
+    */
 }
 
