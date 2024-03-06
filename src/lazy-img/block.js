@@ -1,4 +1,3 @@
-// TODO: save img urls in shorter way (e.g. trunc + suffixes/sizes, or only id?)
 /*
     "imgUrlTrunc":"http://localhost/wordpress-testing/wp-content/uploads/2021/04/sergio-jara-yX9WbPbz8J8-unsplash-3000x1000-1-"
     "imgUrlExt":".jpg"
@@ -8,7 +7,6 @@
         ...
     ]
 */
-// TODO: advanced setting: allow zoomable img without `data-fn="photoswipe"` attr for making gallery with external attr (e.g. container or wrapper)
 
 
 const { __, setLocaleData } = wp.i18n;
@@ -417,24 +415,24 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         const calcImgSizes = hasOldAttrImgSizes ? imgSizes : makeImgSizesFromImgData( imgData );
         const calcPortraitImgSizes = hasOldAttrPortraitImgSizes ? portraitImgSizes : makeImgSizesFromImgData( portraitImgData );
 
+        // if ( imgId ) console.log( 'imgId: ' + imgId )
+        // if ( imgSizeIndex ) console.log( 'imgSizeIndex: ' + imgSizeIndex )
+        // if ( calcImgSizes.length > 0 ) {
+        //     const largestSizeWidth = calcImgSizes[ calcImgSizes.length - 1 ].width;
+        //     const largestSizeHeight = calcImgSizes[ calcImgSizes.length - 1 ].height;
+        //     console.log( 'largest img largest size: ' + ( largestSizeWidth > largestSizeHeight ? largestSizeWidth : largestSizeHeight ) )
+
+        //     // check if has size 768
+        //     const exists768 = Object.keys( calcImgSizes ).some( ( key ) => {
+        //         return calcImgSizes[ key ].width === 768 || calcImgSizes[ key ].height === 768;
+        //     });
+        //     console.log( 'exists768: ' + exists768 )
+        // }
+
         // remove deprecated attribute if set
         if ( pictureAdditionalClassName ) {
             setAttributes( { pictureAdditionalClassName: '' } );
         }
-
-        // TEST
-        // console.log( 'props.attributes: ' + JSON.stringify( props.attributes, null, 2 ) );
-        // console.log( 'calcImgSizes: ' + JSON.stringify( calcImgSizes, null, 2 ) );
-        // console.log( 'calcPortraitImgSizes: ' + JSON.stringify( calcPortraitImgSizes, null, 2 ) + '\n\n' );
-
-        // if ( typeof imgData !== 'undefined' ) {
-        //     console.log( '-----> INITIAL SET (create calcImgSizes from imgData):\n' );
-        // }
-        // else {
-        //     console.log( 'NO INITIAL SET (keep imgSizes):\n' );
-        // }
-        // console.log( 'calcImgSizes: ' + JSON.stringify( calcImgSizes, null, 2 ) );
-        // /TEST
 
         async function onSelectImage( img ) {
 
@@ -442,38 +440,13 @@ registerBlockType( 'bsx-blocks/lazy-img', {
 
             if ( typeof img.url !== 'undefined' ) {
 
-                // TEST
-
-                // const imgSizeKeys = [
-                //     'thumbnail',
-                //     'medium',
-                //     'medium_large', // not found
-                //     'large',
-                //     '1536x1536', // not found
-                //     '2048x2048', // not found
-                //     'full',
-                // ]; // does not contain original size imige since has no key
-
-                // imgSizeKeys.forEach( ( key, index ) => {
-                //     if ( typeof img.sizes[ key ] !== 'undefined' && typeof img.sizes[ key ].url !== 'undefined' && img.sizes[ key ].url ) {
-                //         console.log( key + ': ' + img.sizes[ key ].url );
-                //     }
-                //     else {
-                //         console.log( key + ': NOT FOUND' );
-                //     }
-                // } );
-
-                // /TEST
-
                 // get all data of new image
                 const newImgAllData = await getImgSizesData( img );
                 const originalWidth = newImgAllData.originalWidth;
                 const originalHeight = newImgAllData.originalHeight;
 
-                // TEST
-                // console.log( 'TEST:\n' );
                 // console.log( 'newImgAllData: ' + JSON.stringify( newImgAllData, null, 2 ) );
-                // /TEST
+                // console.log( 'original size: ' + originalWidth + 'x' + originalHeight )
 
                 // TODO: replace by 'newImgAllData'
                 // const newImgSizes = newImgAllData.imgs;
@@ -650,8 +623,8 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         const onChangeScale = ( value ) => {
             setAttributes( { 
                 scale: parseFloat( value ),
-                displayedWidth: !! value && value != origWidth ? Math.round( origWidth * parseFloat( value ) ) : '',
-                displayedHeight: !! value && value != origHeight ? Math.round( origHight * parseFloat( value ) ) : '',
+                displayedWidth: ( !! value && value != origWidth ) ? Math.round( origWidth * parseFloat( value ) ) : '',
+                displayedHeight: ( !! value && value != origHeight ) ? Math.round( origHeight * parseFloat( value ) ) : '',
             } );
         };
         const onChangeDisplayedWidth = ( value ) => {
@@ -807,17 +780,6 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             } );
         };
 
-        // prepare img sources attributes
-
-        // const sourcesAttributesList = makeSourcesAttributesList( {
-        //     calcImgSizes,
-        //     imgSizeIndex,
-        //     calcPortraitImgSizes,
-        //     portraitImgSizeIndex,
-        //     portraitImgMaxWidthBreakpoint,
-        //     disableResponsiveDownsizing,
-        // } );
-
         // class names
 
         const classNames = addClassNames( {
@@ -837,37 +799,6 @@ registerBlockType( 'bsx-blocks/lazy-img', {
         // image
 
         const hasValidImg = ( imgId && typeof calcImgSizes !== 'undefined' && calcImgSizes.length > 0 && typeof calcImgSizes[ imgSizeIndex ] !== 'undefined' && imgSizeIndex < calcImgSizes.length );
-
-        // const image = imgId && typeof calcImgSizes !== 'undefined' && typeof calcImgSizes[ imgSizeIndex ] !== 'undefined' ? (
-        //     <picture className={ pictureAdditionalClassName }>
-        //         {
-        //             sourcesAttributesList.map( ( sourceAttributes, index ) => (
-        //                 <source { ...sourceAttributes } />
-        //             ) )
-        //         }
-        //         <img className={ imgClassName } src={ calcImgSizes[ imgSizeIndex ].url } alt={ alt } width={ !! displayedWidth ? displayedWidth : calcImgSizes[ imgSizeIndex ].width } height={ !! displayedHeight ? displayedHeight : calcImgSizes[ imgSizeIndex ].height } />
-        //     </picture>
-        // )
-        // :
-        // (
-        //     <></>
-        // );
-
-
-        // const srcsetList = [];
-        // calcImgSizes.forEach( ( imgSize, index ) => {
-        //     if ( 
-        //         ( imgSizeIndex == 0 && index == 0 )
-        //         || ( imgSizeIndex > 0 && index > 0 )
-        //     ) {
-        //         // add square img if selected (imgSizeIndex == 0), else skip
-        //         srcsetList.push( imgSize.url + ' ' + imgSize.width + 'w' );
-        //         if ( imgSizeIndex == 0 ) {
-        //             // skip other sizes but square
-        //             return; // `break` will cause error “Unsyntactic break.”
-        //         }
-        //     }
-        // } );
 
         const srcset = makeSrcset( {
             calcImgSizes,
@@ -1593,6 +1524,6 @@ registerBlockType( 'bsx-blocks/lazy-img', {
             </>
         );
     },
-    
+
     deprecated,
 } );

@@ -2326,6 +2326,7 @@ function getOriginalImgUrl(fullUrl) {
 function getSizesAndWithoutSizesTruncFromUrlTrunc(urlTrunc) {
   // input may be
   // http://my-domain.local/wp-content/uploads/2024/02/my-img-name-1024x768
+  // http://my-domain.local/wp-content/uploads/2024/02/my-img-name-768x1333
   // http://my-domain.local/wp-content/uploads/2024/02/my-img-name
 
   // remove file name after last '-'
@@ -2351,9 +2352,17 @@ function makeSizedImgs(config) {
   var originalWidth = config.originalWidth,
     originalHeight = config.originalHeight,
     url = config.url,
-    scaleList = config.scaleList; // need to separate if img size 'large' img is scaled down of a larger original img or is original size
-  var imgIsBetween770And1024 = originalWidth <= 1024 && originalWidth >= 770;
+    scaleList = config.scaleList;
   var ratio = originalWidth / originalHeight;
+
+  // need to separate if img size 'large' img is scaled down of a larger original img or is original size
+  // doesn’t depend on ratio but only on width (not height!)
+  var imgIsBetween770And1024 = originalWidth <= 1024 && originalWidth >= 770;
+
+  // console.log( 'ratio: ' + ratio )
+  // console.log( 'original size: ' + originalWidth + 'x' + originalHeight )
+  // console.log( 'imgIsBetween770And1024: ' + ( imgIsBetween770And1024 ? 'true' : 'false' ) )
+
   var urlTruncAndExtension = getUrlTruncAndExtension(url);
 
   // console.log( 'urlTruncAndExtension: \n' + JSON.stringify( urlTruncAndExtension, null, 2 ) );
@@ -2379,11 +2388,24 @@ function makeSizedImgs(config) {
   var returnList = [];
   scaleList.forEach(function (scale, index) {
     // calculate new size
-    var scaledWidth = scale;
+
+    var scaledWidth, scaledHeight;
+    if (ratio >= 1 || scale === 768) {
+      // is landscape or scale size is 768 (has a different calculation)
+
+      scaledWidth = scale;
+      scaledHeight = Math.round(scale / originalWidth * originalHeight);
+    } else {
+      // is portrait and not scale size 768
+
+      scaledWidth = Math.round(scale / originalHeight * originalWidth);
+      scaledHeight = scale;
+    }
+
+    // console.log( 'scaled size: ' + scaledWidth + 'x' + scaledHeight + ' (' + ( ratio >= 1 ? 'landscape' : 'portrait' ) + ')' )
 
     // check if default size exists for current img (only if original img is larger)
     if (scaledWidth <= originalWidth) {
-      var scaledHeight = Math.round(scaledWidth / ratio);
       var sizeSlug = '-' + scaledWidth + 'x' + scaledHeight;
       var scaledUrl = urlWithoutSizeSlugAndFileExtension + sizeSlug + '.' + fileExtension;
       returnList.push({
@@ -2532,26 +2554,20 @@ function _getImgSizesData() {
           case 36:
             // console.log( 'scaledImgs.length: ' + scaledImgs.length );
 
-            // // TEST – TODO: remove
-            // for ( let [ key, value ] of Object.entries( scaledImgs ) ) {
-            //     console.log( 'scaledImgs[ ' + key + ' ].url: ' + value.url );
-            //     console.log( 'scaledImgs[ ' + key + ' ].sizeSlug: ' + value.sizeSlug );
-            // }
-
             // make ordered list of all existing default img sizes and scaled (hidden) img sizes
-            imgSizesOrder.forEach(function (imgSize, index) {
-              if (defaultImgList.indexOf(imgSize) != -1 && img.sizes[imgSize] != undefined) {
+            imgSizesOrder.forEach(function (imgSizeKey, index) {
+              if (defaultImgList.indexOf(imgSizeKey) != -1 && img.sizes[imgSizeKey] != undefined) {
                 // get from default img list
                 returnImgs.push({
-                  url: img.sizes[imgSize].url,
-                  sizeSlug: getSizeSlugFromUrl(img.sizes[imgSize].url, originalImgUrl),
-                  width: img.sizes[imgSize].width,
-                  height: img.sizes[imgSize].height
+                  url: img.sizes[imgSizeKey].url,
+                  sizeSlug: getSizeSlugFromUrl(img.sizes[imgSizeKey].url, originalImgUrl),
+                  width: img.sizes[imgSizeKey].width,
+                  height: img.sizes[imgSizeKey].height
                 });
-              } else if (imgScaleList.indexOf(parseFloat(imgSize)) != -1 && scaledImgs.get(imgSize) != undefined) {
+              } else if (imgScaleList.indexOf(parseFloat(imgSizeKey)) != -1 && scaledImgs.get(imgSizeKey) != undefined) {
                 // get from scaled imgs list
-                returnImgs.push(scaledImgs.get(imgSize));
-              } else if (imgSize == 'original' && fullImgIsScaled) {
+                returnImgs.push(scaledImgs.get(imgSizeKey));
+              } else if (imgSizeKey == 'original' && fullImgIsScaled) {
                 // add unscaled original
                 returnImgs.push({
                   url: originalImgUrl,
@@ -2562,17 +2578,12 @@ function _getImgSizesData() {
               }
             });
 
-            // TEST – TODO: remove
-            // returnImgs.forEach( ( returnImg, index ) => {
-            //     console.log( 
-            //         index + ':\n' 
-            //         + returnImg.url + '\n'
-            //         + returnImg.width + '\n'
-            //         + returnImg.height + '\n'
-            //     );
-            // } );
+            // sort by width since current order might not correspond to sizes (e.g. portrait image at scale 768)
+            returnImgs.sort(function (a, b) {
+              return a.width - b.width;
+            });
 
-            // console.log( 'returnImgs: ' + JSON.stringify( returnImgs, null, 2 ) );
+            // console.log( 'returnImgs: \n' + JSON.stringify( returnImgs, null, 2 ) );
             // console.log( 'truncWithoutSizeSlug: ' + truncWithoutSizeSlug );
             // console.log( 'fileExt: ' + fileExt );
             return _context2.abrupt("return", {
@@ -2582,7 +2593,7 @@ function _getImgSizesData() {
               truncWithoutSizeSlug: truncWithoutSizeSlug,
               fileExt: fileExt
             });
-          case 38:
+          case 39:
           case "end":
             return _context2.stop();
         }
@@ -7597,7 +7608,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-// TODO: save img urls in shorter way (e.g. trunc + suffixes/sizes, or only id?)
 /*
     "imgUrlTrunc":"http://localhost/wordpress-testing/wp-content/uploads/2021/04/sergio-jara-yX9WbPbz8J8-unsplash-3000x1000-1-"
     "imgUrlExt":".jpg"
@@ -7607,7 +7617,6 @@ __webpack_require__.r(__webpack_exports__);
         ...
     ]
 */
-// TODO: advanced setting: allow zoomable img without `data-fn="photoswipe"` attr for making gallery with external attr (e.g. container or wrapper)
 var _wp$i18n = wp.i18n,
   __ = _wp$i18n.__,
   setLocaleData = _wp$i18n.setLocaleData;
@@ -7919,26 +7928,26 @@ registerBlockType('bsx-blocks/lazy-img', {
     var calcImgSizes = hasOldAttrImgSizes ? imgSizes : Object(_functions_img_js__WEBPACK_IMPORTED_MODULE_8__["makeImgSizesFromImgData"])(imgData);
     var calcPortraitImgSizes = hasOldAttrPortraitImgSizes ? portraitImgSizes : Object(_functions_img_js__WEBPACK_IMPORTED_MODULE_8__["makeImgSizesFromImgData"])(portraitImgData);
 
+    // if ( imgId ) console.log( 'imgId: ' + imgId )
+    // if ( imgSizeIndex ) console.log( 'imgSizeIndex: ' + imgSizeIndex )
+    // if ( calcImgSizes.length > 0 ) {
+    //     const largestSizeWidth = calcImgSizes[ calcImgSizes.length - 1 ].width;
+    //     const largestSizeHeight = calcImgSizes[ calcImgSizes.length - 1 ].height;
+    //     console.log( 'largest img largest size: ' + ( largestSizeWidth > largestSizeHeight ? largestSizeWidth : largestSizeHeight ) )
+
+    //     // check if has size 768
+    //     const exists768 = Object.keys( calcImgSizes ).some( ( key ) => {
+    //         return calcImgSizes[ key ].width === 768 || calcImgSizes[ key ].height === 768;
+    //     });
+    //     console.log( 'exists768: ' + exists768 )
+    // }
+
     // remove deprecated attribute if set
     if (pictureAdditionalClassName) {
       setAttributes({
         pictureAdditionalClassName: ''
       });
     }
-
-    // TEST
-    // console.log( 'props.attributes: ' + JSON.stringify( props.attributes, null, 2 ) );
-    // console.log( 'calcImgSizes: ' + JSON.stringify( calcImgSizes, null, 2 ) );
-    // console.log( 'calcPortraitImgSizes: ' + JSON.stringify( calcPortraitImgSizes, null, 2 ) + '\n\n' );
-
-    // if ( typeof imgData !== 'undefined' ) {
-    //     console.log( '-----> INITIAL SET (create calcImgSizes from imgData):\n' );
-    // }
-    // else {
-    //     console.log( 'NO INITIAL SET (keep imgSizes):\n' );
-    // }
-    // console.log( 'calcImgSizes: ' + JSON.stringify( calcImgSizes, null, 2 ) );
-    // /TEST
     function onSelectImage(_x) {
       return _onSelectImage.apply(this, arguments);
     }
@@ -7958,10 +7967,8 @@ registerBlockType('bsx-blocks/lazy-img', {
               case 3:
                 newImgAllData = _context.sent;
                 originalWidth = newImgAllData.originalWidth;
-                originalHeight = newImgAllData.originalHeight; // TEST
-                // console.log( 'TEST:\n' );
-                // console.log( 'newImgAllData: ' + JSON.stringify( newImgAllData, null, 2 ) );
-                // /TEST
+                originalHeight = newImgAllData.originalHeight; // console.log( 'newImgAllData: ' + JSON.stringify( newImgAllData, null, 2 ) );
+                // console.log( 'original size: ' + originalWidth + 'x' + originalHeight )
                 // TODO: replace by 'newImgAllData'
                 // const newImgSizes = newImgAllData.imgs;
                 // const sizes = [];
@@ -8151,7 +8158,7 @@ registerBlockType('bsx-blocks/lazy-img', {
       setAttributes({
         scale: parseFloat(value),
         displayedWidth: !!value && value != origWidth ? Math.round(origWidth * parseFloat(value)) : '',
-        displayedHeight: !!value && value != origHeight ? Math.round(origHight * parseFloat(value)) : ''
+        displayedHeight: !!value && value != origHeight ? Math.round(origHeight * parseFloat(value)) : ''
       });
     };
     var onChangeDisplayedWidth = function onChangeDisplayedWidth(value) {
@@ -8333,17 +8340,6 @@ registerBlockType('bsx-blocks/lazy-img', {
       });
     };
 
-    // prepare img sources attributes
-
-    // const sourcesAttributesList = makeSourcesAttributesList( {
-    //     calcImgSizes,
-    //     imgSizeIndex,
-    //     calcPortraitImgSizes,
-    //     portraitImgSizeIndex,
-    //     portraitImgMaxWidthBreakpoint,
-    //     disableResponsiveDownsizing,
-    // } );
-
     // class names
 
     var classNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_5__["addClassNames"])({
@@ -8362,37 +8358,6 @@ registerBlockType('bsx-blocks/lazy-img', {
     // image
 
     var hasValidImg = imgId && typeof calcImgSizes !== 'undefined' && calcImgSizes.length > 0 && typeof calcImgSizes[imgSizeIndex] !== 'undefined' && imgSizeIndex < calcImgSizes.length;
-
-    // const image = imgId && typeof calcImgSizes !== 'undefined' && typeof calcImgSizes[ imgSizeIndex ] !== 'undefined' ? (
-    //     <picture className={ pictureAdditionalClassName }>
-    //         {
-    //             sourcesAttributesList.map( ( sourceAttributes, index ) => (
-    //                 <source { ...sourceAttributes } />
-    //             ) )
-    //         }
-    //         <img className={ imgClassName } src={ calcImgSizes[ imgSizeIndex ].url } alt={ alt } width={ !! displayedWidth ? displayedWidth : calcImgSizes[ imgSizeIndex ].width } height={ !! displayedHeight ? displayedHeight : calcImgSizes[ imgSizeIndex ].height } />
-    //     </picture>
-    // )
-    // :
-    // (
-    //     <></>
-    // );
-
-    // const srcsetList = [];
-    // calcImgSizes.forEach( ( imgSize, index ) => {
-    //     if ( 
-    //         ( imgSizeIndex == 0 && index == 0 )
-    //         || ( imgSizeIndex > 0 && index > 0 )
-    //     ) {
-    //         // add square img if selected (imgSizeIndex == 0), else skip
-    //         srcsetList.push( imgSize.url + ' ' + imgSize.width + 'w' );
-    //         if ( imgSizeIndex == 0 ) {
-    //             // skip other sizes but square
-    //             return; // `break` will cause error “Unsyntactic break.”
-    //         }
-    //     }
-    // } );
-
     var srcset = makeSrcset({
       calcImgSizes: calcImgSizes,
       imgSizeIndex: imgSizeIndex

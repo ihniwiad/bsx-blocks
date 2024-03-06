@@ -32,6 +32,7 @@ export function getSizesAndWithoutSizesTruncFromUrlTrunc( urlTrunc ) {
 
     // input may be
     // http://my-domain.local/wp-content/uploads/2024/02/my-img-name-1024x768
+    // http://my-domain.local/wp-content/uploads/2024/02/my-img-name-768x1333
     // http://my-domain.local/wp-content/uploads/2024/02/my-img-name
 
     // remove file name after last '-'
@@ -71,10 +72,15 @@ export function makeSizedImgs( config ) {
         scaleList,
     } = config;
 
-    // need to separate if img size 'large' img is scaled down of a larger original img or is original size
-    const imgIsBetween770And1024 = ( originalWidth <= 1024 && originalWidth >= 770 );
-
     const ratio = originalWidth / originalHeight;
+
+    // need to separate if img size 'large' img is scaled down of a larger original img or is original size
+    // doesn’t depend on ratio but only on width (not height!)
+    const imgIsBetween770And1024 = originalWidth <= 1024 && originalWidth >= 770;
+
+    // console.log( 'ratio: ' + ratio )
+    // console.log( 'original size: ' + originalWidth + 'x' + originalHeight )
+    // console.log( 'imgIsBetween770And1024: ' + ( imgIsBetween770And1024 ? 'true' : 'false' ) )
 
     const urlTruncAndExtension = getUrlTruncAndExtension( url );
 
@@ -107,12 +113,27 @@ export function makeSizedImgs( config ) {
     scaleList.forEach( ( scale, index ) => {
 
         // calculate new size
-        const scaledWidth = scale;
+
+        let scaledWidth, scaledHeight;
+
+        if ( ratio >= 1 || scale === 768 ) {
+            // is landscape or scale size is 768 (has a different calculation)
+
+            scaledWidth = scale;
+            scaledHeight = Math.round( scale / originalWidth * originalHeight );
+        }
+        else {
+            // is portrait and not scale size 768
+
+            scaledWidth = Math.round( scale / originalHeight * originalWidth );
+            scaledHeight = scale;
+        }
+
+        // console.log( 'scaled size: ' + scaledWidth + 'x' + scaledHeight + ' (' + ( ratio >= 1 ? 'landscape' : 'portrait' ) + ')' )
 
         // check if default size exists for current img (only if original img is larger)
         if ( scaledWidth <= originalWidth ) {
 
-            const scaledHeight = Math.round( scaledWidth / ratio );
             const sizeSlug = '-' + scaledWidth + 'x' + scaledHeight;
             const scaledUrl = urlWithoutSizeSlugAndFileExtension + sizeSlug + '.' + fileExtension;
 
@@ -265,29 +286,23 @@ export async function getImgSizesData( img ) {
 
     // console.log( 'scaledImgs.length: ' + scaledImgs.length );
 
-    // // TEST – TODO: remove
-    // for ( let [ key, value ] of Object.entries( scaledImgs ) ) {
-    //     console.log( 'scaledImgs[ ' + key + ' ].url: ' + value.url );
-    //     console.log( 'scaledImgs[ ' + key + ' ].sizeSlug: ' + value.sizeSlug );
-    // }
-
     // make ordered list of all existing default img sizes and scaled (hidden) img sizes
-    imgSizesOrder.forEach( ( imgSize, index ) => {
+    imgSizesOrder.forEach( ( imgSizeKey, index ) => {
 
-        if ( defaultImgList.indexOf( imgSize ) != -1 && img.sizes[ imgSize ] != undefined ) {
+        if ( defaultImgList.indexOf( imgSizeKey ) != -1 && img.sizes[ imgSizeKey ] != undefined ) {
             // get from default img list
             returnImgs.push( {
-                url: img.sizes[ imgSize ].url,
-                sizeSlug: getSizeSlugFromUrl( img.sizes[ imgSize ].url, originalImgUrl ),
-                width: img.sizes[ imgSize ].width,
-                height: img.sizes[ imgSize ].height, 
+                url: img.sizes[ imgSizeKey ].url,
+                sizeSlug: getSizeSlugFromUrl( img.sizes[ imgSizeKey ].url, originalImgUrl ),
+                width: img.sizes[ imgSizeKey ].width,
+                height: img.sizes[ imgSizeKey ].height, 
             } );
         }
-        else if ( imgScaleList.indexOf( parseFloat( imgSize ) ) != -1 && scaledImgs.get( imgSize ) != undefined ) {
+        else if ( imgScaleList.indexOf( parseFloat( imgSizeKey ) ) != -1 && scaledImgs.get( imgSizeKey ) != undefined ) {
             // get from scaled imgs list
-            returnImgs.push( scaledImgs.get( imgSize ) );
+            returnImgs.push( scaledImgs.get( imgSizeKey ) );
         }
-        else if ( imgSize == 'original' && fullImgIsScaled ) {
+        else if ( imgSizeKey == 'original' && fullImgIsScaled ) {
             // add unscaled original
             returnImgs.push( {
                 url: originalImgUrl,
@@ -299,17 +314,10 @@ export async function getImgSizesData( img ) {
 
     } );
 
-    // TEST – TODO: remove
-    // returnImgs.forEach( ( returnImg, index ) => {
-    //     console.log( 
-    //         index + ':\n' 
-    //         + returnImg.url + '\n'
-    //         + returnImg.width + '\n'
-    //         + returnImg.height + '\n'
-    //     );
-    // } );
+    // sort by width since current order might not correspond to sizes (e.g. portrait image at scale 768)
+    returnImgs.sort( ( a, b ) => a.width - b.width );
 
-    // console.log( 'returnImgs: ' + JSON.stringify( returnImgs, null, 2 ) );
+    // console.log( 'returnImgs: \n' + JSON.stringify( returnImgs, null, 2 ) );
     // console.log( 'truncWithoutSizeSlug: ' + truncWithoutSizeSlug );
     // console.log( 'fileExt: ' + fileExt );
 
