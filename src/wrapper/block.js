@@ -13,6 +13,7 @@ const {
     PanelBody,
     SelectControl,
     ToggleControl,
+    TextControl,
 } = wp.components;
 const { 
     Fragment 
@@ -262,6 +263,10 @@ registerBlockType( 'bsx-blocks/wrapper', {
         overflow: {
             type: 'string',
         },
+        id: {
+            type: 'string',
+            default: '',
+        },
         // href: {
         //     type: 'string',
         //     source: "attribute",
@@ -386,6 +391,10 @@ registerBlockType( 'bsx-blocks/wrapper', {
             },
             setAttributes,
         } = props;
+
+        const onChangeId = ( value ) => {
+            setAttributes( { id: value } );
+        };
 
         const onChangeNodeName = ( value ) => {
             setAttributes( { nodeName: value } );
@@ -729,6 +738,11 @@ registerBlockType( 'bsx-blocks/wrapper', {
                     </PanelBody>
                 </InspectorControls>
                 <InspectorAdvancedControls>
+                    <TextControl 
+                        label={ __( 'ID', 'bsx-blocks' ) }
+                        value={ id } 
+                        onChange={ onChangeId }
+                    />
                     {
                         nodeNameSelect( nodeName, onChangeNodeName, [ 'div', 'section', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ] )
                     }
@@ -851,7 +865,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
                 </InspectorAdvancedControls>
             </Fragment>,
             (
-                <TagName className={ wrapperClassName }>
+                <TagName className={ wrapperClassName } id={ id }>
                     <InnerBlocks />
                 </TagName>
             )
@@ -977,6 +991,7 @@ registerBlockType( 'bsx-blocks/wrapper', {
             // href: href, 
             // target: ref ? target : '', 
             // rel: href ? ( rel ? rel + ' noopener noreferrer' : 'noopener noreferrer' ) : '',
+            id: id,
             'data-fn': ( isGalleryParent ) ? 'photoswipe' : dataFn,
             'data-fn-options': dataFnOptions,
             'data-fn-target': dataFnTarget,

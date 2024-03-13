@@ -14811,7 +14811,8 @@ var _wp$blockEditor = wp.blockEditor,
 var _wp$components = wp.components,
   PanelBody = _wp$components.PanelBody,
   SelectControl = _wp$components.SelectControl,
-  ToggleControl = _wp$components.ToggleControl;
+  ToggleControl = _wp$components.ToggleControl,
+  TextControl = _wp$components.TextControl;
 var Fragment = wp.element.Fragment;
 
 
@@ -14984,6 +14985,9 @@ registerBlockType('bsx-blocks/wrapper', {
     type: 'boolean'
   }), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(_attributes, "overflow", {
     type: 'string'
+  }), _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(_attributes, "id", {
+    type: 'string',
+    default: ''
   }), _attributes),
   getEditWrapperProps: function getEditWrapperProps(attributes) {
     var textAlign = attributes.textAlign,
@@ -15084,6 +15088,11 @@ registerBlockType('bsx-blocks/wrapper', {
       hidden = _props$attributes.hidden,
       overflow = _props$attributes.overflow,
       setAttributes = props.setAttributes;
+    var onChangeId = function onChangeId(value) {
+      setAttributes({
+        id: value
+      });
+    };
     var onChangeNodeName = function onChangeNodeName(value) {
       setAttributes({
         nodeName: value
@@ -15466,7 +15475,11 @@ registerBlockType('bsx-blocks/wrapper', {
       class: "bsxui-config-panel-row"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
       class: "bsxui-config-panel-text"
-    }, __('Use in addition to Alignment toolbar.', 'bsx-blocks'))), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["breakpointsSelect"])(resTextAlignBreakpoint, onChangeResTextAlignBreakpoint), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["textAlignSelect"])(resTextAlign, onChangeResTextAlign))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(InspectorAdvancedControls, null, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["nodeNameSelect"])(nodeName, onChangeNodeName, ['div', 'section', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6']), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["displaySelect"])(display, onChangeDisplay), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["verticalAlignSelect"])(verticalAlign, onChangeVerticalAlign), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["widthSelect"])(width, onChangeWidth), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["heightSelect"])(height, onChangeHeight), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["positionSelect"])(position, onChangePosition), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["top0Toggle"])(isTop0, onChangeIsTop0), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["bottom0Toggle"])(isBottom0, onChangeIsBottom0), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["left0Toggle"])(isLeft0, onChangeIsLeft0), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["right0Toggle"])(isRight0, onChangeIsRight0), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(SelectControl, {
+    }, __('Use in addition to Alignment toolbar.', 'bsx-blocks'))), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["breakpointsSelect"])(resTextAlignBreakpoint, onChangeResTextAlignBreakpoint), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["textAlignSelect"])(resTextAlign, onChangeResTextAlign))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(InspectorAdvancedControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(TextControl, {
+      label: __('ID', 'bsx-blocks'),
+      value: id,
+      onChange: onChangeId
+    }), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["nodeNameSelect"])(nodeName, onChangeNodeName, ['div', 'section', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6']), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["displaySelect"])(display, onChangeDisplay), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["verticalAlignSelect"])(verticalAlign, onChangeVerticalAlign), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["widthSelect"])(width, onChangeWidth), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["heightSelect"])(height, onChangeHeight), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["positionSelect"])(position, onChangePosition), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["top0Toggle"])(isTop0, onChangeIsTop0), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["bottom0Toggle"])(isBottom0, onChangeIsBottom0), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["left0Toggle"])(isLeft0, onChangeIsLeft0), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["right0Toggle"])(isRight0, onChangeIsRight0), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(SelectControl, {
       label: __('Speech bubble', 'bsx-blocks'),
       value: speechBubble,
       onChange: onChangeSpeechBubble,
@@ -15488,7 +15501,8 @@ registerBlockType('bsx-blocks/wrapper', {
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])("div", {
       class: "bsxui-alert"
     }, __('dataFn is deactivated since element is image gallery parent.', 'bsx-blocks'))), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["multilayerSelect"])(multilayer, onChangeMultilayer), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["zIndexSelect"])(zIndex, onChangeZIndex), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["bannerInnerToggle"])(isBannerInner, onChangeIsBannerInner), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["dataFnOptionsInput"])(dataFnOptions, onChangeDataFnOptions), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["dataFnTargetInput"])(dataFnTarget, onChangeDataFnTarget), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["dataTgInput"])(dataTg, onChangeDataTg), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["roleInput"])(role, onChangeRole), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["tabindexInput"])(tabindex, onChangeTabindex), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["hiddenToggle"])(hidden, onChangeHidden), Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_6__["overflowSelect"])(overflow, onChangeOverflow))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(TagName, {
-      className: wrapperClassName
+      className: wrapperClassName,
+      id: id
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(InnerBlocks, null))];
   },
   save: function save(props) {
@@ -15603,6 +15617,7 @@ registerBlockType('bsx-blocks/wrapper', {
       // href: href, 
       // target: ref ? target : '', 
       // rel: href ? ( rel ? rel + ' noopener noreferrer' : 'noopener noreferrer' ) : '',
+      id: id,
       'data-fn': isGalleryParent ? 'photoswipe' : dataFn,
       'data-fn-options': dataFnOptions,
       'data-fn-target': dataFnTarget,
