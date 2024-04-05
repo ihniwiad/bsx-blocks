@@ -59,7 +59,7 @@ const publishConfig = {
         "!**/node_modules/**", 
     ],
     "base": ".",
-    "folderName": "bsx-blocks"
+    "folderName": !! envConfig.FOLDER_NAME ? envConfig.FOLDER_NAME : 'bsx-blocks'
 };
 
 

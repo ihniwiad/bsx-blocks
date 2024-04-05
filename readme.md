@@ -25,12 +25,14 @@ Example workspace setting (using publishing from workspace to WordPress):
 
 You need the following variables:
 
+* `FOLDER_NAME` ...Folder name to publish into your WordPress Plugins folder
 * `THEME_PACKAGE_PATH` ... Path to your compatible Theme folder
 * `VARIABLES_PATH_AND_FILE` ... Path to your SCSS varibles file including file name (relative path inside your Theme folder)
 
 Example:
 
 ```
+FOLDER_NAME=bsx-blocks
 THEME_PACKAGE_PATH=../../bsx-wordpress/
 VARIABLES_PATH_AND_FILE=src/scss/variables
 ```
