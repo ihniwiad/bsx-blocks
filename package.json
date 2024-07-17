@@ -1,6 +1,6 @@
 {
   "name": "bsx-blocks",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "BSX Blocks",
   "scripts": {
     "wp-build": "wp-scripts build",

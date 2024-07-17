@@ -274,9 +274,13 @@ registerBlockType( 'bsx-blocks/button', {
             disabled,
         }, buttonClassNames );
 
+        let newContent = '';
+        // let newButtonClassNames = '';
+
         // get content if is empty since content is spam protected email, get content from href instead of from html
         if ( ! ignoreMailtoSpamProtection && ! isSelected && typeof content == 'object' && content.length == 0 && hrefIsEmailIsContent ) {
-            setAttributes( { content: href.substring( 7 ) } );
+            // setAttributes( { content: href.substring( 7 ) } );
+            newContent = href.substring( 7 )
         }
 
         return [
@@ -342,7 +346,7 @@ registerBlockType( 'bsx-blocks/button', {
                         className={ buttonClassNames }
                         multiline={ false }
                         placeholder={ __( 'Add Title...', 'bsx-blocks' ) }
-                        value={ content }
+                        value={ ( newContent ? newContent : content ) }
                         onChange={ onChangeContent }
                         allowedFormats={ [] }
                         keepPlaceholderOnFocus
