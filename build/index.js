@@ -727,19 +727,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__);
 
 // attribute functions 
-
 // returns list of non empty attributes to add to html element
 function makeSaveAttributes(attributes) {
   var nonEmptyAttributes = {};
+
   for (var _i = 0, _Object$entries = Object.entries(attributes); _i < _Object$entries.length; _i++) {
     var _Object$entries$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_Object$entries[_i], 2),
-      key = _Object$entries$_i[0],
-      value = _Object$entries$_i[1];
+        key = _Object$entries$_i[0],
+        value = _Object$entries$_i[1];
+
     //console.log( 'key: "' + key + '", val: "' + value + '"' );
     if (value) {
       nonEmptyAttributes[key] = value;
     }
   }
+
   return nonEmptyAttributes;
 }
 
@@ -2712,6 +2714,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getFileName", function() { return getFileName; });
 var filterByAllowedValueKeys = function filterByAllowedValueKeys(mapArray, allowedValues) {
   var filteredValues = [];
+
   if (typeof allowedValues !== 'undefined' && allowedValues != null && Array.isArray(allowedValues) && allowedValues.length > 0) {
     mapArray.forEach(function (item) {
       if (typeof allowedValues.find(function (key) {
@@ -2723,6 +2726,7 @@ var filterByAllowedValueKeys = function filterByAllowedValueKeys(mapArray, allow
   } else {
     filteredValues = mapArray;
   }
+
   return filteredValues;
 };
 var getTemplate = function getTemplate(templates, currentTemplateName) {
@@ -2764,9 +2768,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
 
 // svg icons
-
 function svgIcon(iconKey) {
   var icon = '';
+
   switch (iconKey) {
     case 'default':
       icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
@@ -2783,7 +2787,6 @@ function svgIcon(iconKey) {
         d: "M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9V14h30V34z M22.49,31.03h2.35v-2.21h-2.35V31.03z M22.51,19.38c0.36-0.28,0.81-0.42,1.35-0.42c0.63,0,1.1,0.17,1.43,0.5s0.49,0.81,0.49,1.44 c0,0.54-0.14,1.03-0.43,1.45s-0.68,0.89-1.18,1.38c-0.71,0.6-1.16,1.09-1.35,1.46s-0.3,1.02-0.3,1.94h2.3 c0-0.56,0.04-0.97,0.13-1.25s0.32-0.58,0.68-0.9c0.72-0.58,1.31-1.21,1.77-1.88c0.46-0.67,0.69-1.42,0.69-2.23 c0-1.22-0.37-2.16-1.09-2.83c-0.73-0.67-1.77-1-3.12-1c-1.25,0-2.26,0.31-3.02,0.94c-0.76,0.62-1.15,1.52-1.17,2.69h2.3 C21.97,20.09,22.15,19.66,22.51,19.38z"
       }));
       break;
-
     // badge
 
     case 'badge':
@@ -2799,7 +2802,6 @@ function svgIcon(iconKey) {
         d: "M14.5,7.5c0,0,0,0-9,0C4.12,7.5,3,8.62,3,10c0,1.38,1.12,2.5,2.5,2.5c9,0,9,0,9,0c1.38,0,2.5-1.12,2.5-2.5 C17,8.62,15.88,7.5,14.5,7.5z M14.5,10.5c0,0,0,0-9,0v0C5.22,10.5,5,10.28,5,10c0-0.28,0.22-0.5,0.5-0.5c9,0,9,0,9,0 c0.28,0,0.5,0.22,0.5,0.5C15,10.27,14.78,10.5,14.5,10.5z"
       }));
       break;
-
     // button
 
     case 'buttons':
@@ -2815,6 +2817,7 @@ function svgIcon(iconKey) {
         d: "M16,7H4C2.9,7,2,7.9,2,9v2c0,1.11,0.9,2,2,2h12c1.1,0,2-0.89,2-2V9C18,7.9,17.1,7,16,7z M13,11c0,0,0,0-6,0v0 c-0.55,0-1-0.45-1-1c0-0.55,0.45-1,1-1c6,0,6,0,6,0c0.55,0,1,0.45,1,1C14,10.55,13.55,11,13,11z"
       }));
       break;
+
     case 'button':
       icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
         xmlns: "http://www.w3.org/2000/svg",
@@ -2828,6 +2831,7 @@ function svgIcon(iconKey) {
         d: "M16,7H4C2.9,7,2,7.9,2,9v2c0,1.11,0.9,2,2,2h12c1.1,0,2-0.89,2-2V9C18,7.9,17.1,7,16,7z M15,11H5V9h10V11z"
       }));
       break;
+
     case 'button-label':
       icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
         xmlns: "http://www.w3.org/2000/svg",
@@ -2841,6 +2845,7 @@ function svgIcon(iconKey) {
         d: "M4,3v3.5h1v-1c0-0.55,0.45-1,1-1h3.25V15c0,0.55-0.45,1-1,1h-1v1h5.5v-1h-1c-0.55,0-1-0.45-1-1V4.5H14c0.55,0,1,0.45,1,1v1 h1V3H4z"
       }));
       break;
+
     case 'buttons-one-button':
       icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
         xmlns: "http://www.w3.org/2000/svg",
@@ -2856,6 +2861,7 @@ function svgIcon(iconKey) {
         d: "M30,20H18c-1.1,0-2,0.9-2,2v4c0,1.11,0.9,2,2,2h12c1.1,0,2-0.89,2-2v-4C32,20.9,31.1,20,30,20z M29,25.5H19v-3h10V25.5z"
       }));
       break;
+
     case 'buttons-two-buttons':
       icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
         xmlns: "http://www.w3.org/2000/svg",
@@ -2871,6 +2877,7 @@ function svgIcon(iconKey) {
         d: "M21,20H9c-1.1,0-2,0.9-2,2v4c0,1.11,0.9,2,2,2h12c1.1,0,2-0.89,2-2v-4C23,20.9,22.1,20,21,20z M20,25.5H10v-3h10V25.5z M39,20H27c-1.1,0-2,0.9-2,2v4c0,1.11,0.9,2,2,2h12c1.1,0,2-0.89,2-2v-4C41,20.9,40.1,20,39,20z M38,25.5H28v-3h10V25.5z"
       }));
       break;
+
     case 'buttons-text-link':
       icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
         xmlns: "http://www.w3.org/2000/svg",
@@ -2886,6 +2893,7 @@ function svgIcon(iconKey) {
         d: "M19,20c0-0.55,0.45-1,1-1h2.5v7c0,0.55-0.45,1-1,1h-1v1h7v-1h-1c-0.55,0-1-0.45-1-1v-7H28c0.55,0,1,0.45,1,1v1h1v-5H18v5h1 V20z M17,30v2h14v-2H17z"
       }));
       break;
+
     case 'buttons-label-text-link':
       icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
         xmlns: "http://www.w3.org/2000/svg",
@@ -2901,7 +2909,6 @@ function svgIcon(iconKey) {
         d: "M27,21c0-0.55,0.45-1,1-1h2.5v7c0,0.55-0.45,1-1,1h-1v1h7v-1h-1c-0.55,0-1-0.45-1-1v-7H36c0.55,0,1,0.45,1,1v1h1v-5H26v5h1 V21z M10,22h1v-1c0-0.55,0.45-1,1-1h2.5v7c0,0.55-0.45,1-1,1h-1v1h7v-1h-1c-0.55,0-1-0.45-1-1v-7H20c0.55,0,1,0.45,1,1v1h1v-5H10V22 z M25,31v2h14v-2H25z"
       }));
       break;
-
     // button icons (wp ui button)
 
     case 'carret-left':
@@ -2917,6 +2924,7 @@ function svgIcon(iconKey) {
         d: "M14 5l-5 5 5 5-1 2-7-7 7-7z"
       }));
       break;
+
     case 'carret-right':
       icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
         xmlns: "http://www.w3.org/2000/svg",
@@ -2930,6 +2938,7 @@ function svgIcon(iconKey) {
         d: "M6 15l5-5-5-5 1-2 7 7-7 7z"
       }));
       break;
+
     case 'trash':
       icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
         xmlns: "http://www.w3.org/2000/svg",
@@ -2943,7 +2952,6 @@ function svgIcon(iconKey) {
         d: "M12 4h3c.6 0 1 .4 1 1v1H3V5c0-.6.5-1 1-1h3c.2-1.1 1.3-2 2.5-2s2.3.9 2.5 2zM8 4h3c-.2-.6-.9-1-1.5-1S8.2 3.4 8 4zM4 7h11l-.9 10.1c0 .5-.5.9-1 .9H5.9c-.5 0-.9-.4-1-.9L4 7z"
       }));
       break;
-
     // banner
 
     case 'banner':
@@ -2959,6 +2967,7 @@ function svgIcon(iconKey) {
         d: "M17,5H3C1.9,5,1,5.9,1,7v6c0,1.11,0.9,2,2,2h14c1.1,0,2-0.89,2-2V7C19,5.9,18.1,5,17,5z M4.5,7C5.33,7,6,7.67,6,8.5 C6,9.33,5.33,10,4.5,10C3.67,10,3,9.33,3,8.5C3,7.67,3.67,7,4.5,7z M17,13H3l-0.02-1L7,10l2,1l5-3l3,2V13z"
       }));
       break;
+
     case 'banner-empty':
       icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
         xmlns: "http://www.w3.org/2000/svg",
@@ -2974,6 +2983,7 @@ function svgIcon(iconKey) {
         d: "M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9V14h30V34z M22.49,31.03h2.35v-2.21h-2.35V31.03z M22.51,19.38c0.36-0.28,0.81-0.42,1.35-0.42c0.63,0,1.1,0.17,1.43,0.5s0.49,0.81,0.49,1.44 c0,0.54-0.14,1.03-0.43,1.45s-0.68,0.89-1.18,1.38c-0.71,0.6-1.16,1.09-1.35,1.46s-0.3,1.02-0.3,1.94h2.3 c0-0.56,0.04-0.97,0.13-1.25s0.32-0.58,0.68-0.9c0.72-0.58,1.31-1.21,1.77-1.88c0.46-0.67,0.69-1.42,0.69-2.23 c0-1.22-0.37-2.16-1.09-2.83c-0.73-0.67-1.77-1-3.12-1c-1.25,0-2.26,0.31-3.02,0.94c-0.76,0.62-1.15,1.52-1.17,2.69h2.3 C21.97,20.09,22.15,19.66,22.51,19.38z"
       }));
       break;
+
     case 'banner-container-with-heading':
       icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
         xmlns: "http://www.w3.org/2000/svg",
@@ -2989,6 +2999,7 @@ function svgIcon(iconKey) {
         d: "M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9V14h30V34z M22.49,31.03h2.35v-2.21h-2.35V31.03z M22.51,19.38c0.36-0.28,0.81-0.42,1.35-0.42c0.63,0,1.1,0.17,1.43,0.5s0.49,0.81,0.49,1.44 c0,0.54-0.14,1.03-0.43,1.45s-0.68,0.89-1.18,1.38c-0.71,0.6-1.16,1.09-1.35,1.46s-0.3,1.02-0.3,1.94h2.3 c0-0.56,0.04-0.97,0.13-1.25s0.32-0.58,0.68-0.9c0.72-0.58,1.31-1.21,1.77-1.88c0.46-0.67,0.69-1.42,0.69-2.23 c0-1.22-0.37-2.16-1.09-2.83c-0.73-0.67-1.77-1-3.12-1c-1.25,0-2.26,0.31-3.02,0.94c-0.76,0.62-1.15,1.52-1.17,2.69h2.3 C21.97,20.09,22.15,19.66,22.51,19.38z"
       }));
       break;
+
     case 'banner-static-container-with-heading':
       icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
         xmlns: "http://www.w3.org/2000/svg",
@@ -3004,6 +3015,7 @@ function svgIcon(iconKey) {
         d: "M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9V14h30V34z M22.49,31.03h2.35v-2.21h-2.35V31.03z M22.51,19.38c0.36-0.28,0.81-0.42,1.35-0.42c0.63,0,1.1,0.17,1.43,0.5s0.49,0.81,0.49,1.44 c0,0.54-0.14,1.03-0.43,1.45s-0.68,0.89-1.18,1.38c-0.71,0.6-1.16,1.09-1.35,1.46s-0.3,1.02-0.3,1.94h2.3 c0-0.56,0.04-0.97,0.13-1.25s0.32-0.58,0.68-0.9c0.72-0.58,1.31-1.21,1.77-1.88c0.46-0.67,0.69-1.42,0.69-2.23 c0-1.22-0.37-2.16-1.09-2.83c-0.73-0.67-1.77-1-3.12-1c-1.25,0-2.26,0.31-3.02,0.94c-0.76,0.62-1.15,1.52-1.17,2.69h2.3 C21.97,20.09,22.15,19.66,22.51,19.38z"
       }));
       break;
+
     case 'column-row-banner':
       icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
         xmlns: "http://www.w3.org/2000/svg",
@@ -3019,7 +3031,6 @@ function svgIcon(iconKey) {
         d: "M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9V14h30V34z M22.49,31.03h2.35v-2.21h-2.35V31.03z M22.51,19.38c0.36-0.28,0.81-0.42,1.35-0.42c0.63,0,1.1,0.17,1.43,0.5s0.49,0.81,0.49,1.44 c0,0.54-0.14,1.03-0.43,1.45s-0.68,0.89-1.18,1.38c-0.71,0.6-1.16,1.09-1.35,1.46s-0.3,1.02-0.3,1.94h2.3 c0-0.56,0.04-0.97,0.13-1.25s0.32-0.58,0.68-0.9c0.72-0.58,1.31-1.21,1.77-1.88c0.46-0.67,0.69-1.42,0.69-2.23 c0-1.22-0.37-2.16-1.09-2.83c-0.73-0.67-1.77-1-3.12-1c-1.25,0-2.26,0.31-3.02,0.94c-0.76,0.62-1.15,1.52-1.17,2.69h2.3 C21.97,20.09,22.15,19.66,22.51,19.38z"
       }));
       break;
-
     // check-list
 
     case 'check-list':
@@ -3035,7 +3046,6 @@ function svgIcon(iconKey) {
         d: "M10,3v3h8V3H10z M5.79,2.79L4,4.58L3.71,4.29c-0.39-0.39-1.03-0.39-1.42,0c-0.39,0.39-0.39,1.02,0,1.41h0l1,1 C3.48,6.9,3.73,7,4,7s0.52-0.1,0.71-0.29l2.5-2.5c0.39-0.39,0.39-1.02,0-1.41C6.82,2.4,6.18,2.4,5.79,2.79z M10,12h8V9h-8V12z M3.29,12.71C3.48,12.89,3.73,13,4,13c0.27,0,0.52-0.1,0.71-0.29l2.5-2.5c0.39-0.39,0.39-1.02,0-1.41c-0.39-0.39-1.02-0.39-1.41,0 L4,10.58l-0.29-0.29c-0.39-0.39-1.02-0.39-1.41,0c-0.39,0.39-0.39,1.02,0,1.41L3.29,12.71z M10,18h8v-3h-8V18z M5.79,14.79L4,16.58 l-0.29-0.29c-0.39-0.39-1.02-0.39-1.41,0c-0.39,0.39-0.39,1.02,0,1.41l1,1C3.48,18.89,3.73,19,4,19c0.27,0,0.52-0.1,0.71-0.29 l2.5-2.5c0.39-0.39,0.39-1.02,0-1.41C6.82,14.4,6.18,14.4,5.79,14.79z"
       }));
       break;
-
     // container
 
     case 'container':
@@ -3051,7 +3061,6 @@ function svgIcon(iconKey) {
         d: "M6,5H4v2h2V5z M6,9H4v2h2V9z M4,15h2v-2H4V15z M16,5h-2v2h2V5z M16,9h-2v2h2V9z M14,15h2v-2h-2V15z M2,4h16 c0.55,0,1-0.45,1-1c0-0.55-0.45-1-1-1H2C1.45,2,1,2.45,1,3C1,3.55,1.45,4,2,4z M18,16H2c-0.55,0-1,0.45-1,1c0,0.55,0.45,1,1,1h16 c0.55,0,1-0.45,1-1C19,16.45,18.55,16,18,16z"
       }));
       break;
-
     // column-rows
 
     case 'column-rows':
@@ -3067,7 +3076,6 @@ function svgIcon(iconKey) {
         d: "M1.29,1.29C1.11,1.48,1,1.74,1,2v16c0,0.26,0.11,0.52,0.29,0.71C1.48,18.89,1.74,19,2,19h16c0.26,0,0.52-0.11,0.71-0.29  C18.89,18.52,19,18.26,19,18V2c0-0.26-0.11-0.52-0.29-0.71C18.52,1.11,18.26,1,18,1H2C1.74,1,1.48,1.11,1.29,1.29z M3,8h14v4H3V8z M3,17v-3h14v3H3z M17,6H3V3l14,0V6z"
       }));
       break;
-
     // columns
 
     case 'row-with-cols-col':
@@ -3083,7 +3091,6 @@ function svgIcon(iconKey) {
         d: "M18.71,1.29C18.52,1.11,18.26,1,18,1H2C1.74,1,1.48,1.11,1.29,1.29C1.11,1.48,1,1.74,1,2v16c0,0.26,0.11,0.52,0.29,0.71 C1.48,18.89,1.74,19,2,19h16c0.26,0,0.52-0.11,0.71-0.29C18.89,18.52,19,18.26,19,18V2C19,1.74,18.89,1.48,18.71,1.29z M12,3v14H8V3 H12z M3,3h3v14H3V3z M14,17V3h3l0,14H14z"
       }));
       break;
-
     // icon
 
     case 'icon':
@@ -3099,7 +3106,6 @@ function svgIcon(iconKey) {
         d: "M10,3c-3.87,0-7,3.13-7,7c0,3.87,3.13,7,7,7c3.87,0,7-3.13,7-7C17,6.13,13.87,3,10,3z M13.08,9.08l-3.75,3.75 c-0.19,0.19-0.44,0.29-0.71,0.29c-0.27,0-0.52-0.1-0.71-0.29l-1.5-1.5c-0.39-0.39-0.39-1.02,0-1.41c0.39-0.39,1.02-0.39,1.42,0 l0.79,0.79l3.04-3.04c0.39-0.39,1.02-0.39,1.41,0C13.47,8.06,13.47,8.69,13.08,9.08z"
       }));
       break;
-
     // icon-list
 
     case 'icon-list':
@@ -3115,6 +3121,7 @@ function svgIcon(iconKey) {
         d: "M10,3v3h8V3H10z M4.75,1.88L3.9,3.61L2,3.88l1.37,1.34L3.05,7.12l1.7-0.89l1.7,0.89L6.13,5.22L7.5,3.88L5.6,3.61L4.75,1.88z M10,12h8V9h-8V12z M5.79,8.79L4,10.58l-0.29-0.29c-0.39-0.39-1.02-0.39-1.41,0c-0.39,0.39-0.39,1.02,0,1.41l1,1 C3.48,12.89,3.73,13,4,13c0.27,0,0.52-0.1,0.71-0.29l2.5-2.5c0.39-0.39,0.39-1.02,0-1.41C6.82,8.4,6.18,8.4,5.79,8.79z M10,18h8v-3 h-8V18z M6.71,14.54c-0.39-0.39-1.02-0.39-1.41,0l-0.54,0.54l-0.54-0.54c-0.39-0.39-1.02-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.42 l0.54,0.54l-0.54,0.54c-0.39,0.39-0.39,1.02,0,1.41c0.2,0.2,0.45,0.29,0.71,0.29c0.26,0,0.51-0.1,0.71-0.29l0.54-0.54l0.54,0.54 c0.19,0.2,0.45,0.29,0.71,0.29s0.51-0.1,0.71-0.29c0.39-0.39,0.39-1.02,0-1.41L6.16,16.5l0.54-0.54C7.1,15.57,7.1,14.93,6.71,14.54z "
       }));
       break;
+
     case 'icon-list-item':
       icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
         xmlns: "http://www.w3.org/2000/svg",
@@ -3128,7 +3135,6 @@ function svgIcon(iconKey) {
         d: "M10,9v3h8V9H10z M4.8,7.9L3.9,9.6L2,9.9l1.4,1.3L3,13.1l1.7-0.9l1.7,0.9l-0.3-1.9l1.4-1.3L5.6,9.6L4.8,7.9z"
       }));
       break;
-
     // slider
 
     case 'slider':
@@ -3144,7 +3150,6 @@ function svgIcon(iconKey) {
         d: "M10,17c-0.55,0-1,0.45-1,1s0.45,1,1,1c0.55,0,1-0.45,1-1S10.55,17,10,17z M7,17c-0.55,0-1,0.45-1,1s0.45,1,1,1 c0.55,0,1-0.45,1-1S7.55,17,7,17z M13,17c-0.55,0-1,0.45-1,1s0.45,1,1,1s1-0.45,1-1S13.55,17,13,17z M12.61,11.57 c-0.23-0.56-0.1-1.21,0.33-1.63L14.88,8l-1.94-1.94c-0.43-0.43-0.56-1.07-0.33-1.63S13.39,3.5,14,3.5h2V2c0-0.55-0.45-1-1-1H5 C4.45,1,4,1.45,4,2v1.5h2c0.61,0,1.15,0.37,1.39,0.93c0.23,0.56,0.1,1.21-0.33,1.63L5.12,8l1.94,1.94 c0.43,0.43,0.56,1.07,0.33,1.63C7.15,12.13,6.61,12.5,6,12.5H4V14c0,0.55,0.45,1,1,1h10c0.55,0,1-0.45,1-1v-1.5h-2 C13.39,12.5,12.85,12.13,12.61,11.57z M3,8l3-3H3L0,8l3,3h3L3,8z M17,5h-3l3,3l-3,3h3l3-3L17,5z"
       }));
       break;
-
     // gallery
 
     case 'gallery':
@@ -3160,7 +3165,6 @@ function svgIcon(iconKey) {
         d: "M8,10L6,9l-2,1v2.99h9V9l-2-1L8,10z M7,8c1.1,0,2-0.9,2-2c0-1.1-0.9-2-2-2S5,4.9,5,6C5,7.1,5.9,8,7,8z M18.71,4.29 C18.52,4.1,18.27,4,18,4h-2V2c0-0.27-0.1-0.52-0.29-0.71C15.52,1.1,15.27,1,15,1H2C1.74,1,1.48,1.11,1.29,1.29C1.11,1.48,1,1.74,1,2 v13c0,0.26,0.11,0.52,0.29,0.71C1.48,15.89,1.74,16,2,16h2v2c0,0.26,0.11,0.52,0.29,0.71C4.48,18.89,4.74,19,5,19h13 c0.27,0,0.52-0.1,0.71-0.29C18.9,18.52,19,18.27,19,18V5C19,4.73,18.9,4.48,18.71,4.29z M3,14V3h11v11H3z M17,17H6v-1h9 c0.27,0,0.52-0.1,0.71-0.29C15.9,15.52,16,15.27,16,15V6h1V17z"
       }));
       break;
-
     // groups
 
     case 'groups':
@@ -3176,6 +3180,7 @@ function svgIcon(iconKey) {
         d: "M7,7h6c0.55,0,1-0.45,1-1V4c0-0.55-0.45-1-1-1H7C6.45,3,6,3.45,6,4v2C6,6.55,6.45,7,7,7z M13,13H7c-0.55,0-1,0.45-1,1v2 c0,0.55,0.45,1,1,1h6c0.55,0,1-0.45,1-1v-2C14,13.45,13.55,13,13,13z M9.5,11V9c0-0.55-0.45-1-1-1H3C2.45,8,2,8.45,2,9v2 c0,0.55,0.45,1,1,1h5.5C9.05,12,9.5,11.55,9.5,11z M17,8h-5.5c-0.55,0-1,0.45-1,1v2c0,0.55,0.45,1,1,1H17c0.55,0,1-0.45,1-1V9 C18,8.45,17.55,8,17,8z"
       }));
       break;
+
     case 'groups-lazy-img-paragraph-button':
       icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
         xmlns: "http://www.w3.org/2000/svg",
@@ -3191,6 +3196,7 @@ function svgIcon(iconKey) {
         d: "M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9V14h30V34z M22.49,31.03h2.35v-2.21h-2.35V31.03z M22.51,19.38c0.36-0.28,0.81-0.42,1.35-0.42c0.63,0,1.1,0.17,1.43,0.5s0.49,0.81,0.49,1.44 c0,0.54-0.14,1.03-0.43,1.45s-0.68,0.89-1.18,1.38c-0.71,0.6-1.16,1.09-1.35,1.46s-0.3,1.02-0.3,1.94h2.3 c0-0.56,0.04-0.97,0.13-1.25s0.32-0.58,0.68-0.9c0.72-0.58,1.31-1.21,1.77-1.88c0.46-0.67,0.69-1.42,0.69-2.23 c0-1.22-0.37-2.16-1.09-2.83c-0.73-0.67-1.77-1-3.12-1c-1.25,0-2.26,0.31-3.02,0.94c-0.76,0.62-1.15,1.52-1.17,2.69h2.3 C21.97,20.09,22.15,19.66,22.51,19.38z"
       }));
       break;
+
     case 'groups-lazy-img-heading-paragraph':
       icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
         xmlns: "http://www.w3.org/2000/svg",
@@ -3206,7 +3212,6 @@ function svgIcon(iconKey) {
         d: "M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9V14h30V34z M22.49,31.03h2.35v-2.21h-2.35V31.03z M22.51,19.38c0.36-0.28,0.81-0.42,1.35-0.42c0.63,0,1.1,0.17,1.43,0.5s0.49,0.81,0.49,1.44 c0,0.54-0.14,1.03-0.43,1.45s-0.68,0.89-1.18,1.38c-0.71,0.6-1.16,1.09-1.35,1.46s-0.3,1.02-0.3,1.94h2.3 c0-0.56,0.04-0.97,0.13-1.25s0.32-0.58,0.68-0.9c0.72-0.58,1.31-1.21,1.77-1.88c0.46-0.67,0.69-1.42,0.69-2.23 c0-1.22-0.37-2.16-1.09-2.83c-0.73-0.67-1.77-1-3.12-1c-1.25,0-2.26,0.31-3.02,0.94c-0.76,0.62-1.15,1.52-1.17,2.69h2.3 C21.97,20.09,22.15,19.66,22.51,19.38z"
       }));
       break;
-
     // lazy img
 
     case 'lazy-img':
@@ -3222,6 +3227,7 @@ function svgIcon(iconKey) {
         d: "M18.71,1.29C18.52,1.11,18.26,1,18,1H2C1.74,1,1.48,1.11,1.29,1.29C1.11,1.48,1,1.74,1,2v16c0,0.26,0.11,0.52,0.29,0.71 C1.48,18.89,1.74,19,2,19h16c0.26,0,0.52-0.11,0.71-0.29C18.89,18.52,19,18.26,19,18V2C19,1.74,18.89,1.48,18.71,1.29z M3,17V3h14 l0,14H3z M9,12l-2-1l-3,2v2.98h12V11l-3-2L9,12z M7.5,9C8.88,9,10,7.88,10,6.5S8.88,4,7.5,4S5,5.12,5,6.5S6.12,9,7.5,9z"
       }));
       break;
+
     case 'img-placeholder':
       icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
         xmlns: "http://www.w3.org/2000/svg",
@@ -3236,7 +3242,6 @@ function svgIcon(iconKey) {
         d: "M0,0v240h360V0H0z M129.9,40c16.51,0,29.89,13.39,29.89,29.9c0,16.51-13.38,29.89-29.89,29.89 c-16.52,0-29.9-13.38-29.9-29.89C100,53.39,113.38,40,129.9,40z M340,220H20v-40l80-40l80,20l80-60l80,40V220z"
       }));
       break;
-
     // row with columns
 
     case 'row-with-cols':
@@ -3252,7 +3257,6 @@ function svgIcon(iconKey) {
         d: "M18.71,1.29C18.52,1.11,18.26,1,18,1H2C1.74,1,1.48,1.11,1.29,1.29C1.11,1.48,1,1.74,1,2v16c0,0.26,0.11,0.52,0.29,0.71 C1.48,18.89,1.74,19,2,19h16c0.26,0,0.52-0.11,0.71-0.29C18.89,18.52,19,18.26,19,18V2C19,1.74,18.89,1.48,18.71,1.29z M12,3v14H8V3 H12z M3,3h3v14H3V3z M14,17V3h3l0,14H14z"
       }));
       break;
-
     // section
 
     case 'section':
@@ -3268,6 +3272,7 @@ function svgIcon(iconKey) {
         d: "M14,4h-3v2h3V4z M8.29,5.71C8.48,5.9,8.73,6,9,6h0V3.59L7.71,2.29C7.52,2.1,7.26,2,7,2H6v2h0.58L8.29,5.71z M19,7V5 c0-0.27-0.1-0.52-0.29-0.71C18.52,4.1,18.27,4,18,4h-2v2h1v9L3,15v-2H1v3c0,0.26,0.11,0.52,0.29,0.71C1.48,16.89,1.74,17,2,17h2v-2 h2v2h3v-2h2v2h3v-2h2v2h2c0.27,0,0.52-0.1,0.71-0.29C18.89,16.52,19,16.27,19,16v-2h-2v-2h2V9h-2V7H19z M3,4h1V2H2 C1.74,2,1.48,2.11,1.29,2.29C1.11,2.48,1,2.74,1,3v3h2V4z M3,8H1v3h2V8z"
       }));
       break;
+
     case 'section-empty':
       icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
         xmlns: "http://www.w3.org/2000/svg",
@@ -3283,6 +3288,7 @@ function svgIcon(iconKey) {
         d: "M38.96,30h2l0.01-3h-2L38.96,30z M23,18h3v-2h-3V18z M28,36h3v-2h-3V36z M33,36h3v-2h-3V36z M23,36h3v-2h-3V36z M40.71,16.29C40.52,16.1,40.27,16,40,16h-2v2h1l0,2h2L41,17C41,16.73,40.9,16.48,40.71,16.29z M13,36h3v-2h-3V36z M33,18h3v-2h-3 V18z M18,36h3v-2h-3V36z M28,18h3v-2h-3V18z M9,33H7v2c0,0.26,0.1,0.52,0.29,0.71C7.48,35.89,7.74,36,8,36h3v-2H9V33z M9,23H7v3h2 V23z M9,18H7v3h2V18z M38.95,34H38v2h1.95c0.55,0,1-0.45,1-1l0.01-3h-2L38.95,34z M15.58,14L17,12.59l-0.29-0.29 C16.52,12.11,16.26,12,16,12h-4v2L15.58,14L15.58,14z M9,28H7v3h2V28z M38.98,25h2l0.01-3h-2L38.98,25z M18.41,14L17,15.41 l2.29,2.29C19.48,17.9,19.73,18,20,18h1v-2h-0.59L18.41,14z M9,14h1v-2H8c-0.26,0-0.52,0.1-0.71,0.29C7.11,12.48,7,12.74,7,13v3h2 V14z"
       }));
       break;
+
     case 'section-container-heading':
       icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
         xmlns: "http://www.w3.org/2000/svg",
@@ -3298,6 +3304,7 @@ function svgIcon(iconKey) {
         d: "M13,24h22v-3H13V24z M9,23H7v3h2V23z M9,28H7v3h2V28z M9,33H7v2c0,0.26,0.1,0.52,0.29,0.71C7.48,35.89,7.74,36,8,36h3v-2H9 V33z M9,18H7v3h2V18z M9,14h1v-2H8c-0.26,0-0.52,0.1-0.71,0.29C7.11,12.48,7,12.74,7,13v3h2V14z M31,16h-3v2h3V16z M26,16h-3v2h3V16 z M19.29,17.71C19.48,17.9,19.73,18,20,18h1v-2h-0.59l-2-2L17,15.41L19.29,17.71z M15.58,14L17,12.59l-0.29-0.29 C16.52,12.11,16.26,12,16,12h-4v2L15.58,14L15.58,14z M23,36h3v-2h-3V36z M38.96,30h2l0.01-3h-2L38.96,30z M38.95,34H38v2h1.95 c0.55,0,1-0.45,1-1l0.01-3h-2L38.95,34z M38.98,25h2l0.01-3h-2L38.98,25z M33,18h3v-2h-3V18z M33,36h3v-2h-3V36z M13,36h3v-2h-3V36z M40.71,16.29C40.52,16.1,40.27,16,40,16h-2v2h1l0,2h2L41,17C41,16.73,40.9,16.48,40.71,16.29z M18,36h3v-2h-3V36z M28,36h3v-2h-3 V36z"
       }));
       break;
+
     case 'section-container-heading-text-gallery':
       icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
         xmlns: "http://www.w3.org/2000/svg",
@@ -3313,6 +3320,7 @@ function svgIcon(iconKey) {
         d: "M35,20H13v3h22V20z M9,23H7v3h2V23z M9,28H7v3h2V28z M9,18H7v3h2V18z M26,16h-3v2h3V16z M9,14h1v-2H8 c-0.26,0-0.52,0.1-0.71,0.29C7.11,12.48,7,12.74,7,13v3h2V14z M31,16h-3v2h3V16z M19.29,17.71C19.48,17.9,19.73,18,20,18h1v-2h-0.59 l-2-2L17,15.41L19.29,17.71z M9,33H7v2c0,0.26,0.1,0.52,0.29,0.71C7.48,35.89,7.74,36,8,36h3v-2H9V33z M38.95,34H38v2h1.95 c0.55,0,1-0.45,1-1l0.01-3h-2L38.95,34z M38.96,30h2l0.01-3h-2L38.96,30z M15.58,14L17,12.59l-0.29-0.29C16.52,12.11,16.26,12,16,12 h-4v2L15.58,14L15.58,14z M38.98,25h2l0.01-3h-2L38.98,25z M33,18h3v-2h-3V18z M40.71,16.29C40.52,16.1,40.27,16,40,16h-2v2h1l0,2h2 L41,17C41,16.73,40.9,16.48,40.71,16.29z M18,36h3v-2h-3V36z M13,36h3v-2h-3V36z M33,36h3v-2h-3V36z M23,36h3v-2h-3V36z M28,36h3v-2 h-3V36z M35,31v-3h-6v3H35z M21,31h6v-3h-6V31z M13,31h6v-3h-6V31z M35,24H13v1h22V24z M35,26H13v1h22V26z"
       }));
       break;
+
     case 'section-container-rounded-colored-banner':
       icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
         xmlns: "http://www.w3.org/2000/svg",
@@ -3328,7 +3336,6 @@ function svgIcon(iconKey) {
         d: "M9,23H7v3h2V23z M9,28H7v3h2V28z M9,18H7v3h2V18z M31,16h-3v2h3V16z M9,14h1v-2H8c-0.26,0-0.52,0.1-0.71,0.29 C7.11,12.48,7,12.74,7,13v3h2V14z M26,16h-3v2h3V16z M9,33H7v2c0,0.26,0.1,0.52,0.29,0.71C7.48,35.89,7.74,36,8,36h3v-2H9V33z M19.29,17.71C19.48,17.9,19.73,18,20,18h1v-2h-0.59l-2-2L17,15.41L19.29,17.71z M15.58,14L17,12.59l-0.29-0.29 C16.52,12.11,16.26,12,16,12h-4v2L15.58,14L15.58,14z M38.96,30h2l0.01-3h-2L38.96,30z M38.95,34H38v2h1.95c0.55,0,1-0.45,1-1 l0.01-3h-2L38.95,34z M40.71,16.29C40.52,16.1,40.27,16,40,16h-2v2h1l0,2h2L41,17C41,16.73,40.9,16.48,40.71,16.29z M38.98,25h2 l0.01-3h-2L38.98,25z M33,18h3v-2h-3V18z M18,36h3v-2h-3V36z M13,36h3v-2h-3V36z M23,36h3v-2h-3V36z M28,36h3v-2h-3V36z M33,36h3v-2 h-3V36z M13,22v5c0,0.55,0.45,1,1,1h20c0.55,0,1-0.45,1-1v-5c0-0.55-0.45-1-1-1H14C13.45,21,13,21.45,13,22z M26,27h-4v-1h4V27z M20,22h8v1h-8V22z M15,24h18v1H15V24z"
       }));
       break;
-
     // video
 
     case 'video':
@@ -3352,6 +3359,7 @@ function svgIcon(iconKey) {
         d: "M17,4H3C1.9,4,1,5.07,1,6.4v7.2C1,14.93,1.9,16,3,16h14c1.1,0,2-1.07,2-2.4V6.4C19,5.07,18.1,4,17,4z M8,13V7l5.2,3L8,13z"
       })));
       break;
+
     case 'video-placeholder':
       icon = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("svg", {
         xmlns: "http://www.w3.org/2000/svg",
@@ -3366,7 +3374,6 @@ function svgIcon(iconKey) {
         d: "M0,0v240h360V0H0z M160,160V80l69.28,40L160,160z"
       }));
       break;
-
     // wrapper
 
     case 'wrapper':
@@ -3382,7 +3389,6 @@ function svgIcon(iconKey) {
         d: "M11,5h3V3h-3V5z M3,9H1v3h2V9z M6,5h3V3H6V5z M6,17h3v-2H6V17z M18.71,3.29C18.52,3.1,18.27,3,18,3h-2v2h1v1h2V4 C19,3.73,18.9,3.48,18.71,3.29z M17,11h2V8h-2V11z M3,14H1v2c0,0.26,0.11,0.52,0.29,0.71C1.48,16.89,1.74,17,2,17h2v-2H3V14z M17,15 h-1v2h2c0.27,0,0.52-0.1,0.71-0.29C18.9,16.52,19,16.27,19,16v-3h-2V15z M11,17h3v-2h-3V17z M1.29,3.29C1.11,3.48,1,3.74,1,4v3h2V5 h1V3H2C1.74,3,1.48,3.11,1.29,3.29z"
       }));
       break;
-
     // default
 
     default:
@@ -3400,6 +3406,7 @@ function svgIcon(iconKey) {
         d: "M39,12H9c-1.1,0-2,0.9-2,2v20c0,1.1,0.9,2,2,2h30c1.1,0,2-0.9,2-2V14C41,12.9,40.1,12,39,12z M39,34H9V14h30V34z M22.49,31.03h2.35v-2.21h-2.35V31.03z M22.51,19.38c0.36-0.28,0.81-0.42,1.35-0.42c0.63,0,1.1,0.17,1.43,0.5s0.49,0.81,0.49,1.44 c0,0.54-0.14,1.03-0.43,1.45s-0.68,0.89-1.18,1.38c-0.71,0.6-1.16,1.09-1.35,1.46s-0.3,1.02-0.3,1.94h2.3 c0-0.56,0.04-0.97,0.13-1.25s0.32-0.58,0.68-0.9c0.72-0.58,1.31-1.21,1.77-1.88c0.46-0.67,0.69-1.42,0.69-2.23 c0-1.22-0.37-2.16-1.09-2.83c-0.73-0.67-1.77-1-3.12-1c-1.25,0-2.26,0.31-3.02,0.94c-0.76,0.62-1.15,1.52-1.17,2.69h2.3 C21.97,20.09,22.15,19.66,22.51,19.38z"
       }));
   }
+
   return icon;
 }
 
@@ -4327,8 +4334,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../_functions/wp-icons.js */ "./src/_functions/wp-icons.js");
 // wp import
 var _wp$i18n = wp.i18n,
-  __ = _wp$i18n.__,
-  setLocaleData = _wp$i18n.setLocaleData; // functions
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData; // functions
+
 
 var templates = [{
   name: 'empty',
@@ -4500,17 +4508,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions_controls_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../_functions/controls.js */ "./src/_functions/controls.js");
 
 var _wp$i18n = wp.i18n,
-  __ = _wp$i18n.__,
-  setLocaleData = _wp$i18n.setLocaleData;
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData;
 var registerBlockType = wp.blocks.registerBlockType;
 var _wp$blockEditor = wp.blockEditor,
-  InspectorControls = _wp$blockEditor.InspectorControls,
-  RichText = _wp$blockEditor.RichText;
+    InspectorControls = _wp$blockEditor.InspectorControls,
+    RichText = _wp$blockEditor.RichText;
 var _wp$components = wp.components,
-  PanelBody = _wp$components.PanelBody,
-  SelectControl = _wp$components.SelectControl,
-  SVG = _wp$components.SVG,
-  Path = _wp$components.Path; // functions imports
+    PanelBody = _wp$components.PanelBody,
+    SelectControl = _wp$components.SelectControl,
+    SVG = _wp$components.SVG,
+    Path = _wp$components.Path; // functions imports
+
 
 
 
@@ -4548,50 +4557,58 @@ registerBlockType('bsx-blocks/button-label', {
   },
   edit: function edit(props) {
     var _props$attributes = props.attributes,
-      className = _props$attributes.className,
-      content = _props$attributes.content,
-      display = _props$attributes.display,
-      marginLeft = _props$attributes.marginLeft,
-      marginRight = _props$attributes.marginRight,
-      marginBefore = _props$attributes.marginBefore,
-      marginAfter = _props$attributes.marginAfter,
-      setAttributes = props.setAttributes,
-      isSelected = props.isSelected;
+        className = _props$attributes.className,
+        content = _props$attributes.content,
+        display = _props$attributes.display,
+        marginLeft = _props$attributes.marginLeft,
+        marginRight = _props$attributes.marginRight,
+        marginBefore = _props$attributes.marginBefore,
+        marginAfter = _props$attributes.marginAfter,
+        setAttributes = props.setAttributes,
+        isSelected = props.isSelected;
+
     var onChangeContent = function onChangeContent(value) {
       setAttributes({
         content: value
       });
     };
+
     var onChangeDisplay = function onChangeDisplay(value) {
       setAttributes({
         display: value
       });
     };
+
     var onChangeMarginLeft = function onChangeMarginLeft(value) {
       setAttributes({
         marginLeft: value
       });
     };
+
     var onChangeMarginRight = function onChangeMarginRight(value) {
       setAttributes({
         marginRight: value
       });
     };
+
     var onChangeMarginBefore = function onChangeMarginBefore(value) {
       setAttributes({
         marginBefore: value
       });
     };
+
     var onChangeMarginAfter = function onChangeMarginAfter(value) {
       setAttributes({
         marginAfter: value
       });
     };
+
     var onChangeIgnoreMailtoSpamProtection = function onChangeIgnoreMailtoSpamProtection(value) {
       setAttributes({
         ignoreMailtoSpamProtection: !value
       });
     };
+
     var labelClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__["addClassNames"])({
       display: display,
       marginLeft: marginLeft,
@@ -4616,13 +4633,13 @@ registerBlockType('bsx-blocks/button-label', {
   },
   save: function save(props) {
     var _props$attributes2 = props.attributes,
-      className = _props$attributes2.className,
-      content = _props$attributes2.content,
-      display = _props$attributes2.display,
-      marginLeft = _props$attributes2.marginLeft,
-      marginRight = _props$attributes2.marginRight,
-      marginBefore = _props$attributes2.marginBefore,
-      marginAfter = _props$attributes2.marginAfter;
+        className = _props$attributes2.className,
+        content = _props$attributes2.content,
+        display = _props$attributes2.display,
+        marginLeft = _props$attributes2.marginLeft,
+        marginRight = _props$attributes2.marginRight,
+        marginBefore = _props$attributes2.marginBefore,
+        marginAfter = _props$attributes2.marginAfter;
     var labelClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__["addClassNames"])({
       display: display,
       marginLeft: marginLeft,
@@ -5033,33 +5050,36 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _templates__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./templates */ "./src/buttons/buttons/templates.js");
 
 
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
 // TODO: enable inheritance of default attribute values to allow precomposed blocks of equal buttons ?
 var _wp$i18n = wp.i18n,
-  __ = _wp$i18n.__,
-  setLocaleData = _wp$i18n.setLocaleData;
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData;
 var registerBlockType = wp.blocks.registerBlockType;
 var _wp$blockEditor = wp.blockEditor,
-  InnerBlocks = _wp$blockEditor.InnerBlocks,
-  InspectorControls = _wp$blockEditor.InspectorControls,
-  BlockControls = _wp$blockEditor.BlockControls,
-  AlignmentToolbar = _wp$blockEditor.AlignmentToolbar;
+    InnerBlocks = _wp$blockEditor.InnerBlocks,
+    InspectorControls = _wp$blockEditor.InspectorControls,
+    BlockControls = _wp$blockEditor.BlockControls,
+    AlignmentToolbar = _wp$blockEditor.AlignmentToolbar;
 var _wp$components = wp.components,
-  TextControl = _wp$components.TextControl,
-  PanelBody = _wp$components.PanelBody,
-  SelectControl = _wp$components.SelectControl,
-  Button = _wp$components.Button,
-  SVG = _wp$components.SVG,
-  Path = _wp$components.Path;
+    TextControl = _wp$components.TextControl,
+    PanelBody = _wp$components.PanelBody,
+    SelectControl = _wp$components.SelectControl,
+    Button = _wp$components.Button,
+    SVG = _wp$components.SVG,
+    Path = _wp$components.Path;
 var Fragment = wp.element.Fragment;
 var withSelect = wp.data.withSelect; // functions imports
 
 
 
 
+ // data
 
-// data
 
 registerBlockType('bsx-blocks/buttons', {
   title: __('BSX Buttons', 'bsx-blocks'),
@@ -5084,9 +5104,9 @@ registerBlockType('bsx-blocks/buttons', {
   },
   getEditWrapperProps: function getEditWrapperProps(attributes) {
     var templateName = attributes.templateName,
-      textAlign = attributes.textAlign,
-      marginBefore = attributes.marginBefore,
-      marginAfter = attributes.marginAfter;
+        textAlign = attributes.textAlign,
+        marginBefore = attributes.marginBefore,
+        marginAfter = attributes.marginAfter;
     return {
       'data-template-name': templateName,
       'data-text-align': textAlign,
@@ -5096,28 +5116,34 @@ registerBlockType('bsx-blocks/buttons', {
   },
   edit: withSelect(function (select, _ref) {
     var clientId = _ref.clientId;
+
     var _select = select('core/block-editor'),
-      getBlocksByClientId = _select.getBlocksByClientId;
+        getBlocksByClientId = _select.getBlocksByClientId;
+
     var children = getBlocksByClientId(clientId)[0] ? getBlocksByClientId(clientId)[0].innerBlocks : [];
     return {
       children: children
     };
   })(function (props) {
     var className = props.className,
-      _props$attributes = props.attributes,
-      templateName = _props$attributes.templateName,
-      textAlign = _props$attributes.textAlign,
-      marginBefore = _props$attributes.marginBefore,
-      marginAfter = _props$attributes.marginAfter,
-      setAttributes = props.setAttributes,
-      children = props.children;
+        _props$attributes = props.attributes,
+        templateName = _props$attributes.templateName,
+        textAlign = _props$attributes.textAlign,
+        marginBefore = _props$attributes.marginBefore,
+        marginAfter = _props$attributes.marginAfter,
+        setAttributes = props.setAttributes,
+        children = props.children;
+
     var hasInnerBlocks = function hasInnerBlocks(children) {
       return children.length > 0;
     };
+
     var allowedBlocks = ['bsx-blocks/button-label', 'bsx-blocks/button'];
     var template = Object(_functions_utilities_js__WEBPACK_IMPORTED_MODULE_5__["getTemplate"])(_templates__WEBPACK_IMPORTED_MODULE_6__["default"], templateName).template;
+
     var onChangeTemplate = function onChangeTemplate(value) {
       var currentTemplateMap = Object(_functions_utilities_js__WEBPACK_IMPORTED_MODULE_5__["getTemplate"])(_templates__WEBPACK_IMPORTED_MODULE_6__["default"], value);
+
       if (currentTemplateMap.template != undefined && currentTemplateMap.attributes != undefined) {
         template = currentTemplateMap.template;
         setAttributes(_objectSpread({
@@ -5125,10 +5151,9 @@ registerBlockType('bsx-blocks/buttons', {
         }, currentTemplateMap.attributes));
       } else {
         console.log('Error: Template change failed.');
-      }
-
-      // console.log( 'changed templateName: ' + value );
+      } // console.log( 'changed templateName: ' + value );
       // console.log( 'changed template: ' + template );
+
     };
 
     var onChangeTextAlign = function onChangeTextAlign(value) {
@@ -5136,16 +5161,19 @@ registerBlockType('bsx-blocks/buttons', {
         textAlign: value
       });
     };
+
     var onChangeMarginBefore = function onChangeMarginBefore(value) {
       setAttributes({
         marginBefore: value
       });
     };
+
     var onChangeMarginAfter = function onChangeMarginAfter(value) {
       setAttributes({
         marginAfter: value
       });
     };
+
     var wrapperClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_3__["addClassNames"])({
       textAlign: textAlign,
       marginBefore: marginBefore,
@@ -5199,11 +5227,11 @@ registerBlockType('bsx-blocks/buttons', {
   }),
   save: function save(props) {
     var className = props.className,
-      _props$attributes2 = props.attributes,
-      templateName = _props$attributes2.templateName,
-      textAlign = _props$attributes2.textAlign,
-      marginBefore = _props$attributes2.marginBefore,
-      marginAfter = _props$attributes2.marginAfter;
+        _props$attributes2 = props.attributes,
+        templateName = _props$attributes2.templateName,
+        textAlign = _props$attributes2.textAlign,
+        marginBefore = _props$attributes2.marginBefore,
+        marginAfter = _props$attributes2.marginAfter;
     var wrapperClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_3__["addClassNames"])({
       textAlign: textAlign,
       marginBefore: marginBefore,
@@ -5229,8 +5257,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../_functions/wp-icons.js */ "./src/_functions/wp-icons.js");
 // wp import
 var _wp$i18n = wp.i18n,
-  __ = _wp$i18n.__,
-  setLocaleData = _wp$i18n.setLocaleData; // functions
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData; // functions
+
 
 var templates = [{
   name: 'one-button',
@@ -5301,26 +5330,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../_functions/wp-icons.js */ "./src/_functions/wp-icons.js");
 
 var _wp$i18n = wp.i18n,
-  __ = _wp$i18n.__,
-  setLocaleData = _wp$i18n.setLocaleData;
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData;
 var registerBlockType = wp.blocks.registerBlockType;
 var _wp$blockEditor = wp.blockEditor,
-  InnerBlocks = _wp$blockEditor.InnerBlocks,
-  InspectorControls = _wp$blockEditor.InspectorControls;
+    InnerBlocks = _wp$blockEditor.InnerBlocks,
+    InspectorControls = _wp$blockEditor.InspectorControls;
 var _wp$components = wp.components,
-  TextControl = _wp$components.TextControl,
-  PanelBody = _wp$components.PanelBody,
-  RangeControl = _wp$components.RangeControl,
-  ToggleControl = _wp$components.ToggleControl,
-  Button = _wp$components.Button,
-  SelectControl = _wp$components.SelectControl;
+    TextControl = _wp$components.TextControl,
+    PanelBody = _wp$components.PanelBody,
+    RangeControl = _wp$components.RangeControl,
+    ToggleControl = _wp$components.ToggleControl,
+    Button = _wp$components.Button,
+    SelectControl = _wp$components.SelectControl;
 var withSelect = wp.data.withSelect;
+
 
 var makeColumnRowClassNames = function makeColumnRowClassNames(attributes) {
   var columnRowType = attributes.columnRowType,
-    alignItems = attributes.alignItems,
-    display = attributes.display;
+      alignItems = attributes.alignItems,
+      display = attributes.display;
   var classNames = [];
+
   if (columnRowType != 'unset') {
     if (!!columnRowType) {
       classNames.push('column-row-' + columnRowType);
@@ -5329,17 +5360,19 @@ var makeColumnRowClassNames = function makeColumnRowClassNames(attributes) {
       classNames.push('column-row');
     }
   }
+
   if (!!alignItems) {
     classNames.push('align-items-' + alignItems);
   }
+
   if (!!display) {
     classNames.push('d-' + display);
-  }
+  } //console.log( 'classNames.join( \' \' ): "' + classNames.join( ' ' ) + '"' );
 
-  //console.log( 'classNames.join( \' \' ): "' + classNames.join( ' ' ) + '"' );
 
   return classNames.join(' ');
 };
+
 registerBlockType('bsx-blocks/column-row', {
   title: __('BSX Column Row', 'bsx-blocks'),
   icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_1__["svgIcon"])('column-rows'),
@@ -5359,8 +5392,8 @@ registerBlockType('bsx-blocks/column-row', {
   },
   getEditWrapperProps: function getEditWrapperProps(attributes) {
     var columnRowType = attributes.columnRowType,
-      alignItems = attributes.alignItems,
-      display = attributes.display;
+        alignItems = attributes.alignItems,
+        display = attributes.display;
     return {
       'data-column-row-type': columnRowType,
       'data-align-items': alignItems,
@@ -5369,35 +5402,39 @@ registerBlockType('bsx-blocks/column-row', {
   },
   edit: function edit(props) {
     var className = props.className,
-      _props$attributes = props.attributes,
-      columnRowType = _props$attributes.columnRowType,
-      alignItems = _props$attributes.alignItems,
-      display = _props$attributes.display,
-      setAttributes = props.setAttributes;
+        _props$attributes = props.attributes,
+        columnRowType = _props$attributes.columnRowType,
+        alignItems = _props$attributes.alignItems,
+        display = _props$attributes.display,
+        setAttributes = props.setAttributes;
+
     var hasInnerBlocks = function hasInnerBlocks(children) {
       return children.length > 0;
     };
+
     var onChangeColumnRowType = function onChangeColumnRowType(value) {
       setAttributes({
         columnRowType: value
       });
     };
+
     var onChangeAlignItems = function onChangeAlignItems(value) {
       setAttributes({
         alignItems: value
       });
     };
+
     var onChangeDisplay = function onChangeDisplay(value) {
       setAttributes({
         display: value
       });
     };
+
     var columnRowClassNames = makeColumnRowClassNames({
       columnRowType: columnRowType,
       alignItems: alignItems,
       display: display
     });
-
     /*
     if ( !! props.attributes ) {
         console.log( 'build col: ' );
@@ -5464,10 +5501,10 @@ registerBlockType('bsx-blocks/column-row', {
   },
   save: function save(props) {
     var className = props.className,
-      _props$attributes2 = props.attributes,
-      columnRowType = _props$attributes2.columnRowType,
-      alignItems = _props$attributes2.alignItems,
-      display = _props$attributes2.display;
+        _props$attributes2 = props.attributes,
+        columnRowType = _props$attributes2.columnRowType,
+        alignItems = _props$attributes2.alignItems,
+        display = _props$attributes2.display;
     var columnRowClassNames = makeColumnRowClassNames({
       columnRowType: columnRowType,
       alignItems: alignItems,
@@ -5845,8 +5882,9 @@ __webpack_require__.r(__webpack_exports__);
 
 // wp import
 var _wp$i18n = wp.i18n,
-  __ = _wp$i18n.__,
-  setLocaleData = _wp$i18n.setLocaleData; // functions
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData; // functions
+
 
 var templates = [{
   name: 'default-auto',
@@ -6239,29 +6277,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _templates__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./templates */ "./src/groups/templates.js");
 
 
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
 var _wp$i18n = wp.i18n,
-  __ = _wp$i18n.__,
-  setLocaleData = _wp$i18n.setLocaleData;
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData;
 var registerBlockType = wp.blocks.registerBlockType;
 var _wp$blockEditor = wp.blockEditor,
-  InnerBlocks = _wp$blockEditor.InnerBlocks,
-  InspectorControls = _wp$blockEditor.InspectorControls;
+    InnerBlocks = _wp$blockEditor.InnerBlocks,
+    InspectorControls = _wp$blockEditor.InspectorControls;
 var _wp$components = wp.components,
-  PanelBody = _wp$components.PanelBody,
-  TextControl = _wp$components.TextControl,
-  ToggleControl = _wp$components.ToggleControl,
-  SelectControl = _wp$components.SelectControl,
-  Button = _wp$components.Button,
-  SVG = _wp$components.SVG,
-  Path = _wp$components.Path;
+    PanelBody = _wp$components.PanelBody,
+    TextControl = _wp$components.TextControl,
+    ToggleControl = _wp$components.ToggleControl,
+    SelectControl = _wp$components.SelectControl,
+    Button = _wp$components.Button,
+    SVG = _wp$components.SVG,
+    Path = _wp$components.Path;
 var Fragment = wp.element.Fragment;
 var withSelect = wp.data.withSelect;
 
+ // data
 
-
-// data
 
 registerBlockType('bsx-blocks/groups', {
   title: __('BSX Groups', 'bsx-blocks'),
@@ -6274,23 +6314,29 @@ registerBlockType('bsx-blocks/groups', {
   },
   edit: withSelect(function (select, _ref) {
     var clientId = _ref.clientId;
+
     var _select = select('core/block-editor'),
-      getBlocksByClientId = _select.getBlocksByClientId;
+        getBlocksByClientId = _select.getBlocksByClientId;
+
     var children = getBlocksByClientId(clientId)[0] ? getBlocksByClientId(clientId)[0].innerBlocks : [];
     return {
       children: children
     };
   })(function (props) {
     var className = props.className,
-      templateName = props.attributes.templateName,
-      setAttributes = props.setAttributes,
-      children = props.children;
+        templateName = props.attributes.templateName,
+        setAttributes = props.setAttributes,
+        children = props.children;
+
     var hasInnerBlocks = function hasInnerBlocks(children) {
       return children.length > 0;
     };
+
     var template = Object(_functions_utilities_js__WEBPACK_IMPORTED_MODULE_3__["getTemplate"])(_templates__WEBPACK_IMPORTED_MODULE_4__["default"], templateName).template;
+
     var onChangeTemplate = function onChangeTemplate(value) {
       var currentTemplateMap = Object(_functions_utilities_js__WEBPACK_IMPORTED_MODULE_3__["getTemplate"])(_templates__WEBPACK_IMPORTED_MODULE_4__["default"], value);
+
       if (currentTemplateMap.template != undefined && currentTemplateMap.attributes != undefined) {
         template = currentTemplateMap.template;
         setAttributes(_objectSpread({
@@ -6298,10 +6344,9 @@ registerBlockType('bsx-blocks/groups', {
         }, currentTemplateMap.attributes));
       } else {
         console.log('Error: Template change failed.');
-      }
-
-      // console.log( 'changed templateName: ' + value );
+      } // console.log( 'changed templateName: ' + value );
       // console.log( 'changed template: ' + template );
+
     };
 
     return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
@@ -6347,7 +6392,7 @@ registerBlockType('bsx-blocks/groups', {
   }),
   save: function save(props) {
     var className = props.className,
-      templateName = props.attributes.templateName;
+        templateName = props.attributes.templateName;
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerBlocks.Content, null);
   }
 });
@@ -6366,8 +6411,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../_functions/wp-icons.js */ "./src/_functions/wp-icons.js");
 // wp import
 var _wp$i18n = wp.i18n,
-  __ = _wp$i18n.__,
-  setLocaleData = _wp$i18n.setLocaleData; // functions
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData; // functions
+
 
 var templates = [{
   name: 'lazy-img-paragraph-button',
@@ -6427,17 +6473,18 @@ __webpack_require__.r(__webpack_exports__);
 
 // TODO: add state classes for text-link button
 var _wp$i18n = wp.i18n,
-  __ = _wp$i18n.__,
-  setLocaleData = _wp$i18n.setLocaleData;
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData;
 var registerBlockType = wp.blocks.registerBlockType;
 var _wp$blockEditor = wp.blockEditor,
-  InspectorControls = _wp$blockEditor.InspectorControls,
-  RichText = _wp$blockEditor.RichText;
+    InspectorControls = _wp$blockEditor.InspectorControls,
+    RichText = _wp$blockEditor.RichText;
 var _wp$components = wp.components,
-  PanelBody = _wp$components.PanelBody,
-  SVG = _wp$components.SVG,
-  Path = _wp$components.Path;
+    PanelBody = _wp$components.PanelBody,
+    SVG = _wp$components.SVG,
+    Path = _wp$components.Path;
 var withSelect = wp.data.withSelect; // functions imports
+
 
 
 
@@ -6475,12 +6522,13 @@ registerBlockType('bsx-blocks/icon-list-item', {
   },
   edit: withSelect(function (select, _ref) {
     var clientId = _ref.clientId;
-    var _select = select('core/block-editor'),
-      getBlockParentsByBlockName = _select.getBlockParentsByBlockName,
-      getBlockAttributes = _select.getBlockAttributes;
-    var ancestorClientIds = getBlockParentsByBlockName(clientId, 'bsx-blocks/icon-list');
 
-    // get last item which is parent
+    var _select = select('core/block-editor'),
+        getBlockParentsByBlockName = _select.getBlockParentsByBlockName,
+        getBlockAttributes = _select.getBlockAttributes;
+
+    var ancestorClientIds = getBlockParentsByBlockName(clientId, 'bsx-blocks/icon-list'); // get last item which is parent
+
     var parentClientId = ancestorClientIds[ancestorClientIds.length - 1];
     var parentAttributes = getBlockAttributes(parentClientId);
     return {
@@ -6488,40 +6536,45 @@ registerBlockType('bsx-blocks/icon-list-item', {
     };
   })(function (props) {
     var _props$attributes = props.attributes,
-      className = _props$attributes.className,
-      content = _props$attributes.content,
-      iconKey = _props$attributes.iconKey,
-      iconFamily = _props$attributes.iconFamily,
-      calcIconFamily = _props$attributes.calcIconFamily,
-      itemTextColor = _props$attributes.itemTextColor,
-      iconTextColor = _props$attributes.iconTextColor,
-      calcIconTextColor = _props$attributes.calcIconTextColor,
-      setAttributes = props.setAttributes,
-      isSelected = props.isSelected,
-      parentAttributes = props.parentAttributes; // console.log( JSON.stringify( parentAttributes, null, 2 ) );
+        className = _props$attributes.className,
+        content = _props$attributes.content,
+        iconKey = _props$attributes.iconKey,
+        iconFamily = _props$attributes.iconFamily,
+        calcIconFamily = _props$attributes.calcIconFamily,
+        itemTextColor = _props$attributes.itemTextColor,
+        iconTextColor = _props$attributes.iconTextColor,
+        calcIconTextColor = _props$attributes.calcIconTextColor,
+        setAttributes = props.setAttributes,
+        isSelected = props.isSelected,
+        parentAttributes = props.parentAttributes; // console.log( JSON.stringify( parentAttributes, null, 2 ) );
     // console.log( JSON.stringify( props.attributes, null, 2 ) );
     // initial settings
+
     if (!calcIconFamily) {
       setAttributes({
         calcIconFamily: !iconFamily && typeof parentAttributes.globalIconFamily != 'undefined' ? parentAttributes.globalIconFamily : ''
       });
     }
+
     if (!calcIconTextColor && !itemTextColor) {
       // do not set icon color if item color is set, inherit icon color instead
       setAttributes({
         calcIconTextColor: !iconTextColor && typeof parentAttributes.globalIconTextColor != 'undefined' ? parentAttributes.globalIconTextColor : ''
       });
     }
+
     var onChangeContent = function onChangeContent(value) {
       setAttributes({
         content: value
       });
     };
+
     var onChangeIconKey = function onChangeIconKey(value) {
       setAttributes({
         iconKey: value
       });
     };
+
     var onChangeIconFamily = function onChangeIconFamily(value) {
       // get icon family from item config or from parent config
       setAttributes({
@@ -6529,12 +6582,14 @@ registerBlockType('bsx-blocks/icon-list-item', {
         calcIconFamily: !value && typeof parentAttributes.globalIconFamily != 'undefined' ? parentAttributes.globalIconFamily : value
       });
     };
+
     var onChangeIconTextColor = function onChangeIconTextColor(value) {
       setAttributes({
         iconTextColor: value,
         calcIconTextColor: !value && typeof parentAttributes.globalIconTextColor != 'undefined' ? parentAttributes.globalIconTextColor : value
       });
     };
+
     var onChangeItemTextColor = function onChangeItemTextColor(value) {
       // reset icon color if all item has text color
       setAttributes({
@@ -6543,6 +6598,7 @@ registerBlockType('bsx-blocks/icon-list-item', {
         calcIconTextColor: ''
       });
     };
+
     var itemClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__["addClassNames"])({
       textColor: itemTextColor
     }, className);
@@ -6569,14 +6625,14 @@ registerBlockType('bsx-blocks/icon-list-item', {
   }),
   save: function save(props) {
     var _props$attributes2 = props.attributes,
-      className = _props$attributes2.className,
-      content = _props$attributes2.content,
-      iconKey = _props$attributes2.iconKey,
-      iconFamily = _props$attributes2.iconFamily,
-      calcIconFamily = _props$attributes2.calcIconFamily,
-      itemTextColor = _props$attributes2.itemTextColor,
-      iconTextColor = _props$attributes2.iconTextColor,
-      calcIconTextColor = _props$attributes2.calcIconTextColor;
+        className = _props$attributes2.className,
+        content = _props$attributes2.content,
+        iconKey = _props$attributes2.iconKey,
+        iconFamily = _props$attributes2.iconFamily,
+        calcIconFamily = _props$attributes2.calcIconFamily,
+        itemTextColor = _props$attributes2.itemTextColor,
+        iconTextColor = _props$attributes2.iconTextColor,
+        calcIconTextColor = _props$attributes2.calcIconTextColor;
     var itemClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__["addClassNames"])({
       textColor: itemTextColor
     }, className);
@@ -6615,25 +6671,26 @@ __webpack_require__.r(__webpack_exports__);
 
 // TODO: enable inheritance of default attribute values to allow precomposed blocks of equal buttons ?
 var _wp$i18n = wp.i18n,
-  __ = _wp$i18n.__,
-  setLocaleData = _wp$i18n.setLocaleData;
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData;
 var registerBlockType = wp.blocks.registerBlockType;
 var _wp$blockEditor = wp.blockEditor,
-  InnerBlocks = _wp$blockEditor.InnerBlocks,
-  InspectorControls = _wp$blockEditor.InspectorControls,
-  BlockControls = _wp$blockEditor.BlockControls,
-  AlignmentToolbar = _wp$blockEditor.AlignmentToolbar;
+    InnerBlocks = _wp$blockEditor.InnerBlocks,
+    InspectorControls = _wp$blockEditor.InspectorControls,
+    BlockControls = _wp$blockEditor.BlockControls,
+    AlignmentToolbar = _wp$blockEditor.AlignmentToolbar;
 var _wp$components = wp.components,
-  TextControl = _wp$components.TextControl,
-  PanelBody = _wp$components.PanelBody,
-  SelectControl = _wp$components.SelectControl,
-  Button = _wp$components.Button,
-  SVG = _wp$components.SVG,
-  Path = _wp$components.Path;
+    TextControl = _wp$components.TextControl,
+    PanelBody = _wp$components.PanelBody,
+    SelectControl = _wp$components.SelectControl,
+    Button = _wp$components.Button,
+    SVG = _wp$components.SVG,
+    Path = _wp$components.Path;
 var Fragment = wp.element.Fragment;
 var _wp$data = wp.data,
-  withSelect = _wp$data.withSelect,
-  withDispatch = _wp$data.withDispatch; // functions imports
+    withSelect = _wp$data.withSelect,
+    withDispatch = _wp$data.withDispatch; // functions imports
+
 
 
 
@@ -6675,7 +6732,6 @@ registerBlockType('bsx-blocks/icon-list', {
   //         marginBefore,
   //         marginAfter,
   //     } = attributes;
-
   //     return {
   //         'data-template-name': templateName,
   //         'data-text-align': textAlign,
@@ -6683,13 +6739,14 @@ registerBlockType('bsx-blocks/icon-list', {
   //         'data-margin-after': marginAfter,
   //     };
   // },
-
   // TODO: remove?
   edit: withSelect(function (select, _ref) {
     var clientId = _ref.clientId;
+
     var _select = select('core/block-editor'),
-      getBlocksByClientId = _select.getBlocksByClientId,
-      getBlockAttributes = _select.getBlockAttributes;
+        getBlocksByClientId = _select.getBlocksByClientId,
+        getBlockAttributes = _select.getBlockAttributes;
+
     var children = getBlocksByClientId(clientId)[0] ? getBlocksByClientId(clientId)[0].innerBlocks : [];
     return {
       children: children,
@@ -6697,43 +6754,46 @@ registerBlockType('bsx-blocks/icon-list', {
     };
   })(withDispatch(function (dispatch) {
     var _dispatch = dispatch('core/block-editor'),
-      updateBlockAttributes = _dispatch.updateBlockAttributes;
+        updateBlockAttributes = _dispatch.updateBlockAttributes;
+
     return {
       updateBlockAttributes: updateBlockAttributes
     };
   })(function (props) {
     var _props$attributes = props.attributes,
-      className = _props$attributes.className,
-      globalIconFamily = _props$attributes.globalIconFamily,
-      globalIconTextColor = _props$attributes.globalIconTextColor,
-      textAlign = _props$attributes.textAlign,
-      display = _props$attributes.display,
-      marginLeft = _props$attributes.marginLeft,
-      marginRight = _props$attributes.marginRight,
-      marginBefore = _props$attributes.marginBefore,
-      marginAfter = _props$attributes.marginAfter,
-      setAttributes = props.setAttributes,
-      children = props.children,
-      getBlockAttributes = props.getBlockAttributes,
-      updateBlockAttributes = props.updateBlockAttributes;
+        className = _props$attributes.className,
+        globalIconFamily = _props$attributes.globalIconFamily,
+        globalIconTextColor = _props$attributes.globalIconTextColor,
+        textAlign = _props$attributes.textAlign,
+        display = _props$attributes.display,
+        marginLeft = _props$attributes.marginLeft,
+        marginRight = _props$attributes.marginRight,
+        marginBefore = _props$attributes.marginBefore,
+        marginAfter = _props$attributes.marginAfter,
+        setAttributes = props.setAttributes,
+        children = props.children,
+        getBlockAttributes = props.getBlockAttributes,
+        updateBlockAttributes = props.updateBlockAttributes;
+
     var hasInnerBlocks = function hasInnerBlocks(children) {
       return children.length > 0;
     };
+
     var allowedBlocks = ['icon-list-item'];
+
     var onChangeGlobalIconFamily = function onChangeGlobalIconFamily(value) {
       setAttributes({
         globalIconFamily: value
       });
     };
+
     var onChangeGlobalIconTextColor = function onChangeGlobalIconTextColor(value) {
       // change childrens calcIconTextColor
       setAttributes({
         globalIconTextColor: value
       });
       children.forEach(function (child, index) {
-        var childAttributes = getBlockAttributes(child.clientId);
-
-        // console.log( 'child[ ' + index + ' ] attributes: \n' );
+        var childAttributes = getBlockAttributes(child.clientId); // console.log( 'child[ ' + index + ' ] attributes: \n' );
         // console.log( JSON.stringify( childAttributes, null, 2 ) );
 
         if (!childAttributes.iconTextColor && !childAttributes.itemTextColor) {
@@ -6745,36 +6805,43 @@ registerBlockType('bsx-blocks/icon-list', {
         }
       });
     };
+
     var onChangeTextAlign = function onChangeTextAlign(value) {
       setAttributes({
         textAlign: value
       });
     };
+
     var onChangeDisplay = function onChangeDisplay(value) {
       setAttributes({
         display: value
       });
     };
+
     var onChangeMarginLeft = function onChangeMarginLeft(value) {
       setAttributes({
         marginLeft: value
       });
     };
+
     var onChangeMarginRight = function onChangeMarginRight(value) {
       setAttributes({
         marginRight: value
       });
     };
+
     var onChangeMarginBefore = function onChangeMarginBefore(value) {
       setAttributes({
         marginBefore: value
       });
     };
+
     var onChangeMarginAfter = function onChangeMarginAfter(value) {
       setAttributes({
         marginAfter: value
       });
     };
+
     var ulClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__["addClassNames"])({
       textAlign: textAlign,
       display: display,
@@ -6795,15 +6862,15 @@ registerBlockType('bsx-blocks/icon-list', {
   })),
   save: function save(props) {
     var _props$attributes2 = props.attributes,
-      className = _props$attributes2.className,
-      globalIconFamily = _props$attributes2.globalIconFamily,
-      globalIconTextColor = _props$attributes2.globalIconTextColor,
-      textAlign = _props$attributes2.textAlign,
-      display = _props$attributes2.display,
-      marginLeft = _props$attributes2.marginLeft,
-      marginRight = _props$attributes2.marginRight,
-      marginBefore = _props$attributes2.marginBefore,
-      marginAfter = _props$attributes2.marginAfter;
+        className = _props$attributes2.className,
+        globalIconFamily = _props$attributes2.globalIconFamily,
+        globalIconTextColor = _props$attributes2.globalIconTextColor,
+        textAlign = _props$attributes2.textAlign,
+        display = _props$attributes2.display,
+        marginLeft = _props$attributes2.marginLeft,
+        marginRight = _props$attributes2.marginRight,
+        marginBefore = _props$attributes2.marginBefore,
+        marginAfter = _props$attributes2.marginAfter;
     var ulClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__["addClassNames"])({
       textAlign: textAlign,
       display: display,
@@ -6857,22 +6924,24 @@ __webpack_require__.r(__webpack_exports__);
 
 // TODO: get caption or more data from html? (thumb data will not be available from noscript)
 var _wp$i18n = wp.i18n,
-  __ = _wp$i18n.__,
-  setLocaleData = _wp$i18n.setLocaleData;
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData;
 var registerBlockType = wp.blocks.registerBlockType;
 var _wp$blockEditor = wp.blockEditor,
-  RichText = _wp$blockEditor.RichText,
-  MediaUpload = _wp$blockEditor.MediaUpload,
-  InspectorControls = _wp$blockEditor.InspectorControls,
-  InspectorAdvancedControls = _wp$blockEditor.InspectorAdvancedControls;
+    RichText = _wp$blockEditor.RichText,
+    MediaUpload = _wp$blockEditor.MediaUpload,
+    InspectorControls = _wp$blockEditor.InspectorControls,
+    InspectorAdvancedControls = _wp$blockEditor.InspectorAdvancedControls;
 var _wp$components = wp.components,
-  Button = _wp$components.Button,
-  TextControl = _wp$components.TextControl,
-  SelectControl = _wp$components.SelectControl,
-  PanelBody = _wp$components.PanelBody,
-  ToggleControl = _wp$components.ToggleControl,
-  SVG = _wp$components.SVG,
-  Path = _wp$components.Path; // functions imports
+    Button = _wp$components.Button,
+    TextControl = _wp$components.TextControl,
+    SelectControl = _wp$components.SelectControl,
+    PanelBody = _wp$components.PanelBody,
+    ToggleControl = _wp$components.ToggleControl,
+    SVG = _wp$components.SVG,
+    Path = _wp$components.Path; // functions imports
+
+
 
 
 
@@ -6880,16 +6949,20 @@ var _wp$components = wp.components,
 var makeClassName = function makeClassName(attributes) {
   var galleryType = attributes.galleryType;
   var classNames = ['bsx-gallery'];
+
   if (!!galleryType) {
     if (galleryType == 'floating') {
       classNames.push('bsx-floating-gallery');
     }
   }
+
   return classNames.join(' ');
 };
+
 var makeInnerClassName = function makeInnerClassName(attributes) {
   var galleryType = attributes.galleryType;
   var classNames = [];
+
   if (!!galleryType) {
     if (galleryType == 'floating') {
       classNames.push('bsx-floating-gallery-inner');
@@ -6897,11 +6970,14 @@ var makeInnerClassName = function makeInnerClassName(attributes) {
       classNames.push('row');
     }
   }
+
   return classNames.join(' ');
 };
+
 var makeItemClassName = function makeItemClassName(attributes) {
   var galleryType = attributes.galleryType;
   var classNames = [];
+
   if (!!galleryType) {
     if (galleryType == 'floating') {
       classNames.push('bsx-floating-gallery-figure d-inline-block');
@@ -6910,11 +6986,14 @@ var makeItemClassName = function makeItemClassName(attributes) {
       classNames.push('col-6 col-sm-3 mb-4');
     }
   }
+
   return classNames.join(' ');
 };
+
 var makeLinkClassName = function makeLinkClassName(attributes) {
   var galleryType = attributes.galleryType;
   var classNames = [];
+
   if (!!galleryType) {
     if (galleryType == 'floating') {
       classNames.push('d-inline-block');
@@ -6922,11 +7001,14 @@ var makeLinkClassName = function makeLinkClassName(attributes) {
       classNames.push('d-block text-center');
     }
   }
+
   return classNames.join(' ');
 };
+
 var makeImgClassName = function makeImgClassName(attributes) {
   var galleryType = attributes.galleryType;
   var classNames = [];
+
   if (!!galleryType) {
     if (galleryType == 'floating') {
       classNames.push('bsx-floating-gallery-img-md');
@@ -6934,18 +7016,23 @@ var makeImgClassName = function makeImgClassName(attributes) {
       classNames.push('img-fluid');
     }
   }
+
   return classNames.join(' ');
 };
+
 var makeUploadElementClassName = function makeUploadElementClassName(attributes) {
   var galleryType = attributes.galleryType;
   var classNames = ['bsxui-inline-control'];
+
   if (!!galleryType) {
     if (galleryType == 'floating') {
       classNames.push('bsxui-mt-3');
     }
   }
+
   return classNames.join(' ');
 };
+
 registerBlockType('bsx-blocks/img-gallery', {
   title: __('BSX Image Gallery', 'bsx-blocks'),
   icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_3__["svgIcon"])('gallery'),
@@ -7015,19 +7102,19 @@ registerBlockType('bsx-blocks/img-gallery', {
   },
   edit: function edit(props) {
     var className = props.className,
-      _props$attributes = props.attributes,
-      mediaList = _props$attributes.mediaList,
-      galleryType = _props$attributes.galleryType,
-      figcaption = _props$attributes.figcaption,
-      rounded = _props$attributes.rounded,
-      imgThumbnail = _props$attributes.imgThumbnail,
-      borderState = _props$attributes.borderState,
-      hoverShadow = _props$attributes.hoverShadow,
-      hoverMove = _props$attributes.hoverMove,
-      marginBefore = _props$attributes.marginBefore,
-      marginAfter = _props$attributes.marginAfter,
-      setAttributes = props.setAttributes,
-      isSelected = props.isSelected; // TEST – TODO: remove
+        _props$attributes = props.attributes,
+        mediaList = _props$attributes.mediaList,
+        galleryType = _props$attributes.galleryType,
+        figcaption = _props$attributes.figcaption,
+        rounded = _props$attributes.rounded,
+        imgThumbnail = _props$attributes.imgThumbnail,
+        borderState = _props$attributes.borderState,
+        hoverShadow = _props$attributes.hoverShadow,
+        hoverMove = _props$attributes.hoverMove,
+        marginBefore = _props$attributes.marginBefore,
+        marginAfter = _props$attributes.marginAfter,
+        setAttributes = props.setAttributes,
+        isSelected = props.isSelected; // TEST – TODO: remove
     // console.log( 'typeof itemData: ' + typeof itemData );
     // itemData.forEach( ( item, index ) => {
     //     console.log( index + ' : ' + item );
@@ -7047,6 +7134,7 @@ registerBlockType('bsx-blocks/img-gallery', {
     //         console.log( '----- key: "' + key + '", val: "' + value + '"' );
     //     }
     // } );
+
     var onAddImage = function onAddImage(mediaStack) {
       var addMedia = [];
       mediaStack.forEach(function (media) {
@@ -7064,6 +7152,7 @@ registerBlockType('bsx-blocks/img-gallery', {
       });
       addMediaListItem(addMedia);
     };
+
     var onUpdateImage = function onUpdateImage(media, index) {
       updateMediaListItem({
         id: media.id,
@@ -7077,22 +7166,26 @@ registerBlockType('bsx-blocks/img-gallery', {
         caption: media.alt
       }, index);
     };
+
     var onClickDelete = function onClickDelete(index) {
       var response = confirm(__('Delete item') + ' ' + (index + 1) + '?');
+
       if (response == true) {
         deleteMediaListItem(index);
-      } else {
-        // do nothing
+      } else {// do nothing
       }
     };
+
     var onClickMoveUp = function onClickMoveUp(index) {
       var newIndex = index > 0 ? index - 1 : mediaList.length - 1;
       mediaListItemMoveTo(index, newIndex);
     };
+
     var onClickMoveDown = function onClickMoveDown(index) {
       var newIndex = index < mediaList.length - 1 ? index + 1 : 0;
       mediaListItemMoveTo(index, newIndex);
     };
+
     var onChangeCaption = function onChangeCaption(value, index) {
       var newMediaList = [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(mediaList.slice(0, index)), [{
         id: mediaList[index].id,
@@ -7109,23 +7202,27 @@ registerBlockType('bsx-blocks/img-gallery', {
         mediaList: newMediaList
       });
     };
+
     var addMediaListItem = function addMediaListItem(newItem) {
       return setAttributes({
         mediaList: [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(mediaList), _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(newItem))
       });
     };
+
     var updateMediaListItem = function updateMediaListItem(newItem, index) {
       var newMediaList = [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(mediaList.slice(0, index)), [newItem], _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(mediaList.slice(index + 1)));
       setAttributes({
         mediaList: newMediaList
       });
     };
+
     var deleteMediaListItem = function deleteMediaListItem(index) {
       var newMediaList = [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(mediaList.slice(0, index)), _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(mediaList.slice(index + 1)));
       setAttributes({
         mediaList: newMediaList
       });
     };
+
     var mediaListItemMoveTo = function mediaListItemMoveTo(index, newIndex) {
       var newMediaList = [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(mediaList.slice(0, index)), _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(mediaList.slice(index + 1)));
       var newMediaList2 = [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(newMediaList.slice(0, newIndex)), [mediaList[index]], _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(newMediaList.slice(newIndex)));
@@ -7133,53 +7230,61 @@ registerBlockType('bsx-blocks/img-gallery', {
         mediaList: newMediaList2
       });
     };
+
     var onChangeGalleryType = function onChangeGalleryType(value) {
       setAttributes({
         galleryType: value
       });
     };
+
     var onChangeFigcaption = function onChangeFigcaption(value) {
       setAttributes({
         figcaption: value
       });
     };
+
     var onChangeRounded = function onChangeRounded(value) {
       setAttributes({
         rounded: value
       });
     };
+
     var onChangeImgThumbnail = function onChangeImgThumbnail(value) {
       setAttributes({
         imgThumbnail: value
       });
     };
+
     var onChangeBorderState = function onChangeBorderState(value) {
       setAttributes({
         borderState: value
       });
     };
+
     var onChangeHoverShadow = function onChangeHoverShadow(value) {
       setAttributes({
         hoverShadow: value
       });
     };
+
     var onChangeHoverMove = function onChangeHoverMove(value) {
       setAttributes({
         hoverMove: value
       });
     };
+
     var onChangeMarginBefore = function onChangeMarginBefore(value) {
       setAttributes({
         marginBefore: value
       });
     };
+
     var onChangeMarginAfter = function onChangeMarginAfter(value) {
       setAttributes({
         marginAfter: value
       });
-    };
+    }; // class names
 
-    // class names
 
     var galleryClassName = makeClassName({
       galleryType: galleryType
@@ -7328,17 +7433,18 @@ registerBlockType('bsx-blocks/img-gallery', {
   },
   save: function save(props) {
     var className = props.className,
-      _props$attributes2 = props.attributes,
-      mediaList = _props$attributes2.mediaList,
-      galleryType = _props$attributes2.galleryType,
-      figcaption = _props$attributes2.figcaption,
-      rounded = _props$attributes2.rounded,
-      imgThumbnail = _props$attributes2.imgThumbnail,
-      borderState = _props$attributes2.borderState,
-      hoverShadow = _props$attributes2.hoverShadow,
-      hoverMove = _props$attributes2.hoverMove,
-      marginBefore = _props$attributes2.marginBefore,
-      marginAfter = _props$attributes2.marginAfter; // class names
+        _props$attributes2 = props.attributes,
+        mediaList = _props$attributes2.mediaList,
+        galleryType = _props$attributes2.galleryType,
+        figcaption = _props$attributes2.figcaption,
+        rounded = _props$attributes2.rounded,
+        imgThumbnail = _props$attributes2.imgThumbnail,
+        borderState = _props$attributes2.borderState,
+        hoverShadow = _props$attributes2.hoverShadow,
+        hoverMove = _props$attributes2.hoverMove,
+        marginBefore = _props$attributes2.marginBefore,
+        marginAfter = _props$attributes2.marginAfter; // class names
+
     var galleryClassName = makeClassName({
       galleryType: galleryType
     });
@@ -7601,14 +7707,27 @@ var makeSrcset = function makeSrcset(attributes) {
   // console.log( 'imgSizeIndex: ' + imgSizeIndex );
   var srcsetList = [];
   calcImgSizes.forEach(function (imgSize, index) {
-    if (imgSizeIndex == 0 && index == 0 || imgSize.width == imgSize.height || imgSizeIndex > 0 && index > 0) {
-      // add square thumb img if is selected size (imgSizeIndex == 0) or original img has square format too, else skip
-      srcsetList.push(imgSize.url + ' ' + imgSize.width + 'w');
-      if (imgSizeIndex == 0) {
-        // skip other sizes but square
-        return; // do not use `break` since will cause error “Unsyntactic break.”
+    if (index === 0) {
+      // first loop, thumbnail image – add only if selected or if image has square format (use largest size since current loop size will always be square at first loop)
+      if (imgSizeIndex == 0 || calcImgSizes[calcImgSizes.length - 1].width == calcImgSizes[calcImgSizes.length - 1].height) {
+        // add thumbnail to srcset
+        srcsetList.push(imgSize.url + ' ' + imgSize.width + 'w');
       }
+    } else {
+      // other loops, non thumbnail images
+      srcsetList.push(imgSize.url + ' ' + imgSize.width + 'w');
     }
+    // if ( 
+    //     ( ( imgSizeIndex == 0 && index == 0 ) || ( imgSize.width == imgSize.height ) )
+    //     || ( imgSizeIndex > 0 && index > 0 )
+    // ) {
+    //     // add square thumb img if is selected size (imgSizeIndex == 0) or original img has square format too, else skip
+    //     srcsetList.push( imgSize.url + ' ' + imgSize.width + 'w' );
+    //     if ( imgSizeIndex == 0 ) {
+    //         // skip other sizes but square
+    //         return; // do not use `break` since will cause error “Unsyntactic break.”
+    //     }
+    // }
   });
 
   return srcsetList.join(', ');
@@ -9516,20 +9635,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions_controls_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../_functions/controls.js */ "./src/_functions/controls.js");
 
 var _wp$i18n = wp.i18n,
-  __ = _wp$i18n.__,
-  setLocaleData = _wp$i18n.setLocaleData;
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData;
 var registerBlockType = wp.blocks.registerBlockType;
 var _wp$blockEditor = wp.blockEditor,
-  InnerBlocks = _wp$blockEditor.InnerBlocks,
-  InspectorControls = _wp$blockEditor.InspectorControls;
+    InnerBlocks = _wp$blockEditor.InnerBlocks,
+    InspectorControls = _wp$blockEditor.InspectorControls;
 var _wp$components = wp.components,
-  TextControl = _wp$components.TextControl,
-  PanelBody = _wp$components.PanelBody,
-  RangeControl = _wp$components.RangeControl,
-  ToggleControl = _wp$components.ToggleControl,
-  Button = _wp$components.Button,
-  SelectControl = _wp$components.SelectControl;
+    TextControl = _wp$components.TextControl,
+    PanelBody = _wp$components.PanelBody,
+    RangeControl = _wp$components.RangeControl,
+    ToggleControl = _wp$components.ToggleControl,
+    Button = _wp$components.Button,
+    SelectControl = _wp$components.SelectControl;
 var withSelect = wp.data.withSelect; // functions
+
+
 
 
 
@@ -9540,24 +9661,26 @@ var makeColClassNames = function makeColClassNames(sizesArray) {
   sizesArray.forEach(function (value, index) {
     var sizeInterval = sizeIntervals[index];
     var buildClassName = '';
+
     if (value) {
       buildClassName += 'col';
-      if (sizeInterval == 'xs') {
-        // do nothing 
+
+      if (sizeInterval == 'xs') {// do nothing 
       } else {
         buildClassName += '-' + sizeInterval;
       }
+
       if (value != 'null') {
         buildClassName += '-' + value;
       }
+
       colClassNames.push(buildClassName);
     }
-  });
-
-  //console.log( 'colClassNames.join( \' \' ): "' + colClassNames.join( ' ' ) + '"' );
+  }); //console.log( 'colClassNames.join( \' \' ): "' + colClassNames.join( ' ' ) + '"' );
 
   return colClassNames.join(' ');
 };
+
 registerBlockType('bsx-blocks/col', {
   title: __('BSX Column', 'bsx-blocks'),
   icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_1__["svgIcon"])('row-with-cols-col'),
@@ -9606,11 +9729,11 @@ registerBlockType('bsx-blocks/col', {
   },
   getEditWrapperProps: function getEditWrapperProps(attributes) {
     var sizeXs = attributes.sizeXs,
-      sizeSm = attributes.sizeSm,
-      sizeMd = attributes.sizeMd,
-      sizeLg = attributes.sizeLg,
-      sizeXl = attributes.sizeXl,
-      display = attributes.display;
+        sizeSm = attributes.sizeSm,
+        sizeMd = attributes.sizeMd,
+        sizeLg = attributes.sizeLg,
+        sizeXl = attributes.sizeXl,
+        display = attributes.display;
     return {
       'data-size': sizeXs,
       'data-size-sm': sizeSm,
@@ -9622,26 +9745,22 @@ registerBlockType('bsx-blocks/col', {
   },
   edit: withSelect(function (select, _ref) {
     var clientId = _ref.clientId;
+
     var _select = select('core/block-editor'),
-      getBlockParentsByBlockName = _select.getBlockParentsByBlockName,
-      getBlocksByClientId = _select.getBlocksByClientId,
-      getBlockAttributes = _select.getBlockAttributes;
-    var children = getBlocksByClientId(clientId)[0] ? getBlocksByClientId(clientId)[0].innerBlocks : [];
+        getBlockParentsByBlockName = _select.getBlockParentsByBlockName,
+        getBlocksByClientId = _select.getBlocksByClientId,
+        getBlockAttributes = _select.getBlockAttributes;
 
-    // console.log( 'parentClientId: "' + parentClientId + '"' );
+    var children = getBlocksByClientId(clientId)[0] ? getBlocksByClientId(clientId)[0].innerBlocks : []; // console.log( 'parentClientId: "' + parentClientId + '"' );
 
-    var ancestorClientIds = getBlockParentsByBlockName(clientId, 'bsx-blocks/row-with-cols');
-
-    // console.log( 'ancestorClientIds: "' + ancestorClientIds + '"' );
+    var ancestorClientIds = getBlockParentsByBlockName(clientId, 'bsx-blocks/row-with-cols'); // console.log( 'ancestorClientIds: "' + ancestorClientIds + '"' );
     // ancestorClientIds.forEach( ( ancestorClientId, index ) => {
     //     console.log( 'ancestorClientId[ ' + index + ' ]: "' + ancestorClientId + '"' );
     // } ); 
-
     // get last item which is parent
-    var parentClientId = ancestorClientIds[ancestorClientIds.length - 1];
-    var parentAttributes = getBlockAttributes(parentClientId);
 
-    // console.log( 'parentAttributes: "' + parentAttributes + '"' );
+    var parentClientId = ancestorClientIds[ancestorClientIds.length - 1];
+    var parentAttributes = getBlockAttributes(parentClientId); // console.log( 'parentAttributes: "' + parentAttributes + '"' );
     // if ( !! parentAttributes ) {
     //     for ( let [ key, value ] of Object.entries( parentAttributes ) ) {
     //         console.log( 'key: "' + key + '", value: "' + value + '"' );
@@ -9655,30 +9774,32 @@ registerBlockType('bsx-blocks/col', {
     };
   })(function (props) {
     var className = props.className,
-      _props$attributes = props.attributes,
-      colType = _props$attributes.colType,
-      enableInheritanceFromRow = _props$attributes.enableInheritanceFromRow,
-      sizeXs = _props$attributes.sizeXs,
-      sizeSm = _props$attributes.sizeSm,
-      sizeMd = _props$attributes.sizeMd,
-      sizeLg = _props$attributes.sizeLg,
-      sizeXl = _props$attributes.sizeXl,
-      nodeName = _props$attributes.nodeName,
-      marginAfter = _props$attributes.marginAfter,
-      display = _props$attributes.display,
-      setAttributes = props.setAttributes,
-      parentAttributes = props.parentAttributes,
-      children = props.children;
+        _props$attributes = props.attributes,
+        colType = _props$attributes.colType,
+        enableInheritanceFromRow = _props$attributes.enableInheritanceFromRow,
+        sizeXs = _props$attributes.sizeXs,
+        sizeSm = _props$attributes.sizeSm,
+        sizeMd = _props$attributes.sizeMd,
+        sizeLg = _props$attributes.sizeLg,
+        sizeXl = _props$attributes.sizeXl,
+        nodeName = _props$attributes.nodeName,
+        marginAfter = _props$attributes.marginAfter,
+        display = _props$attributes.display,
+        setAttributes = props.setAttributes,
+        parentAttributes = props.parentAttributes,
+        children = props.children;
+
     var hasInnerBlocks = function hasInnerBlocks(children) {
       return children.length > 0;
-    };
+    }; // xs
 
-    // xs
+
     var onChangeXsColSize = function onChangeXsColSize(value) {
       setAttributes({
         sizeXs: !!value ? value.toString() : ''
       });
     };
+
     var onChangeXsEqualSize = function onChangeXsEqualSize(value) {
       if (value) {
         setAttributes({
@@ -9690,6 +9811,7 @@ registerBlockType('bsx-blocks/col', {
         });
       }
     };
+
     var onChangeXsAutoSize = function onChangeXsAutoSize(value) {
       if (value) {
         setAttributes({
@@ -9700,14 +9822,15 @@ registerBlockType('bsx-blocks/col', {
           sizeXs: ''
         });
       }
-    };
+    }; // sm
 
-    // sm
+
     var onChangeSmColSize = function onChangeSmColSize(value) {
       setAttributes({
         sizeSm: !!value ? value.toString() : ''
       });
     };
+
     var onChangeSmEqualSize = function onChangeSmEqualSize(value) {
       if (value) {
         setAttributes({
@@ -9719,6 +9842,7 @@ registerBlockType('bsx-blocks/col', {
         });
       }
     };
+
     var onChangeSmAutoSize = function onChangeSmAutoSize(value) {
       if (value) {
         setAttributes({
@@ -9729,14 +9853,15 @@ registerBlockType('bsx-blocks/col', {
           sizeSm: ''
         });
       }
-    };
+    }; // md
 
-    // md
+
     var onChangeMdColSize = function onChangeMdColSize(value) {
       setAttributes({
         sizeMd: !!value ? value.toString() : ''
       });
     };
+
     var onChangeMdEqualSize = function onChangeMdEqualSize(value) {
       if (value) {
         setAttributes({
@@ -9748,6 +9873,7 @@ registerBlockType('bsx-blocks/col', {
         });
       }
     };
+
     var onChangeMdAutoSize = function onChangeMdAutoSize(value) {
       if (value) {
         setAttributes({
@@ -9758,14 +9884,15 @@ registerBlockType('bsx-blocks/col', {
           sizeMd: ''
         });
       }
-    };
+    }; // lg
 
-    // lg
+
     var onChangeLgColSize = function onChangeLgColSize(value) {
       setAttributes({
         sizeLg: !!value ? value.toString() : ''
       });
     };
+
     var onChangeLgEqualSize = function onChangeLgEqualSize(value) {
       if (value) {
         setAttributes({
@@ -9777,6 +9904,7 @@ registerBlockType('bsx-blocks/col', {
         });
       }
     };
+
     var onChangeLgAutoSize = function onChangeLgAutoSize(value) {
       if (value) {
         setAttributes({
@@ -9787,14 +9915,15 @@ registerBlockType('bsx-blocks/col', {
           sizeLg: ''
         });
       }
-    };
+    }; // xl
 
-    // xl
+
     var onChangeXlColSize = function onChangeXlColSize(value) {
       setAttributes({
         sizeXl: !!value ? value.toString() : ''
       });
     };
+
     var onChangeXlEqualSize = function onChangeXlEqualSize(value) {
       if (value) {
         setAttributes({
@@ -9806,6 +9935,7 @@ registerBlockType('bsx-blocks/col', {
         });
       }
     };
+
     var onChangeXlAutoSize = function onChangeXlAutoSize(value) {
       if (value) {
         setAttributes({
@@ -9817,14 +9947,15 @@ registerBlockType('bsx-blocks/col', {
         });
       }
     };
+
     var onChangeEnableInheritanceFromRow = function onChangeEnableInheritanceFromRow(value) {
       setAttributes({
         enableInheritanceFromRow: value
       });
     };
+
     var onClickEnableInheritanceFromRow = function onClickEnableInheritanceFromRow(value) {
       //console.log( 'onClickEnableInheritanceFromRow' );
-
       setAttributes({
         sizeXs: parentAttributes.sizeXs,
         sizeSm: parentAttributes.sizeSm,
@@ -9835,21 +9966,25 @@ registerBlockType('bsx-blocks/col', {
         marginAfter: parentAttributes.colsMarginAfter
       });
     };
+
     var onChangeNodeName = function onChangeNodeName(value) {
       setAttributes({
         nodeName: value
       });
     };
+
     var onChangeMarginAfter = function onChangeMarginAfter(value) {
       setAttributes({
         marginAfter: value
       });
     };
+
     var onChangeDisplay = function onChangeDisplay(value) {
       setAttributes({
         display: value
       });
     };
+
     var colClassName = makeColClassNames([sizeXs, sizeSm, sizeMd, sizeLg, sizeXl]);
     colClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__["addClassNames"])({
       marginAfter: marginAfter,
@@ -9859,7 +9994,6 @@ registerBlockType('bsx-blocks/col', {
       fromRowConfig: parentAttributes.fromRowConfig
     });
     var TagName = nodeName;
-
     /*
     if ( !! props.attributes ) {
         console.log( 'build col: ' );
@@ -9990,17 +10124,17 @@ registerBlockType('bsx-blocks/col', {
   }),
   save: function save(props) {
     var className = props.className,
-      _props$attributes2 = props.attributes,
-      colType = _props$attributes2.colType,
-      enableInheritanceFromRow = _props$attributes2.enableInheritanceFromRow,
-      sizeXs = _props$attributes2.sizeXs,
-      sizeSm = _props$attributes2.sizeSm,
-      sizeMd = _props$attributes2.sizeMd,
-      sizeLg = _props$attributes2.sizeLg,
-      sizeXl = _props$attributes2.sizeXl,
-      nodeName = _props$attributes2.nodeName,
-      marginAfter = _props$attributes2.marginAfter,
-      display = _props$attributes2.display;
+        _props$attributes2 = props.attributes,
+        colType = _props$attributes2.colType,
+        enableInheritanceFromRow = _props$attributes2.enableInheritanceFromRow,
+        sizeXs = _props$attributes2.sizeXs,
+        sizeSm = _props$attributes2.sizeSm,
+        sizeMd = _props$attributes2.sizeMd,
+        sizeLg = _props$attributes2.sizeLg,
+        sizeXl = _props$attributes2.sizeXl,
+        nodeName = _props$attributes2.nodeName,
+        marginAfter = _props$attributes2.marginAfter,
+        display = _props$attributes2.display;
     var colClassName = makeColClassNames([sizeXs, sizeSm, sizeMd, sizeLg, sizeXl]);
     colClassName = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_2__["addClassNames"])({
       marginAfter: marginAfter,
@@ -10048,62 +10182,72 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../_functions/add-class-names.js */ "./src/_functions/add-class-names.js");
 
 
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
 var _wp$i18n = wp.i18n,
-  __ = _wp$i18n.__,
-  setLocaleData = _wp$i18n.setLocaleData;
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData;
 var registerBlockType = wp.blocks.registerBlockType;
 var _wp$blockEditor = wp.blockEditor,
-  InnerBlocks = _wp$blockEditor.InnerBlocks,
-  InspectorControls = _wp$blockEditor.InspectorControls,
-  InspectorAdvancedControls = _wp$blockEditor.InspectorAdvancedControls;
+    InnerBlocks = _wp$blockEditor.InnerBlocks,
+    InspectorControls = _wp$blockEditor.InspectorControls,
+    InspectorAdvancedControls = _wp$blockEditor.InspectorAdvancedControls;
 var _wp$components = wp.components,
-  TextControl = _wp$components.TextControl,
-  PanelBody = _wp$components.PanelBody,
-  RangeControl = _wp$components.RangeControl,
-  ToggleControl = _wp$components.ToggleControl,
-  SelectControl = _wp$components.SelectControl,
-  Button = _wp$components.Button,
-  SVG = _wp$components.SVG,
-  Path = _wp$components.Path;
+    TextControl = _wp$components.TextControl,
+    PanelBody = _wp$components.PanelBody,
+    RangeControl = _wp$components.RangeControl,
+    ToggleControl = _wp$components.ToggleControl,
+    SelectControl = _wp$components.SelectControl,
+    Button = _wp$components.Button,
+    SVG = _wp$components.SVG,
+    Path = _wp$components.Path;
 var _wp$data = wp.data,
-  withSelect = _wp$data.withSelect,
-  withDispatch = _wp$data.withDispatch; // functions
+    withSelect = _wp$data.withSelect,
+    withDispatch = _wp$data.withDispatch; // functions
+
+
 
 
 var makeRowClassNames = function makeRowClassNames(attributes) {
   var alignItems = attributes.alignItems,
-    justifyContent = attributes.justifyContent,
-    noGutters = attributes.noGutters,
-    formRow = attributes.formRow,
-    rowReverse = attributes.rowReverse;
+      justifyContent = attributes.justifyContent,
+      noGutters = attributes.noGutters,
+      formRow = attributes.formRow,
+      rowReverse = attributes.rowReverse;
   var prefix = 'col';
   var classNames = ['row'];
+
   if (alignItems) {
     classNames.push('align-items-' + alignItems);
   }
+
   if (justifyContent) {
     classNames.push('justify-content-' + justifyContent);
   }
+
   if (noGutters) {
     classNames.push('no-gutters');
   }
+
   if (formRow) {
     classNames.push('form-row');
   }
+
   if (rowReverse) {
     if (rowReverse == 'xs') {
       classNames.push('flex-row-reverse');
     } else {
       classNames.push('flex-' + rowReverse + '-row-reverse');
     }
-  }
+  } //console.log( 'classNames.join( \' \' ): "' + classNames.join( ' ' ) + '"' );
 
-  //console.log( 'classNames.join( \' \' ): "' + classNames.join( ' ' ) + '"' );
 
   return classNames.join(' ');
 };
+
 registerBlockType('bsx-blocks/row-with-cols', {
   title: __('BSX Columns', 'bsx-blocks'),
   icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_2__["svgIcon"])('row-with-cols'),
@@ -10178,10 +10322,10 @@ registerBlockType('bsx-blocks/row-with-cols', {
   },
   getEditWrapperProps: function getEditWrapperProps(attributes) {
     var alignItems = attributes.alignItems,
-      justifyContent = attributes.justifyContent,
-      noGutters = attributes.noGutters,
-      formRow = attributes.formRow,
-      rowReverse = attributes.rowReverse;
+        justifyContent = attributes.justifyContent,
+        noGutters = attributes.noGutters,
+        formRow = attributes.formRow,
+        rowReverse = attributes.rowReverse;
     return {
       'data-align-items': alignItems,
       'data-justify-content': justifyContent,
@@ -10192,14 +10336,13 @@ registerBlockType('bsx-blocks/row-with-cols', {
   },
   edit: withSelect(function (select, _ref) {
     var clientId = _ref.clientId;
+
     // TODO: get only children’s config `enableInheritanceFromRow`?
     var _select = select('core/block-editor'),
-      getBlocksByClientId = _select.getBlocksByClientId,
-      getBlockAttributes = _select.getBlockAttributes;
-    var children = getBlocksByClientId(clientId)[0] ? getBlocksByClientId(clientId)[0].innerBlocks : [];
+        getBlocksByClientId = _select.getBlocksByClientId,
+        getBlockAttributes = _select.getBlockAttributes;
 
-    // const childrenAttributes = [];
-
+    var children = getBlocksByClientId(clientId)[0] ? getBlocksByClientId(clientId)[0].innerBlocks : []; // const childrenAttributes = [];
     // children.forEach( ( column, index ) => {
     //     // childrenAttributes.push( getBlockAttributes( column.clientId ) );
     //     const currentChildAttributes = getBlockAttributes( column.clientId );
@@ -10209,39 +10352,41 @@ registerBlockType('bsx-blocks/row-with-cols', {
       children: children,
       // childrenAttributes, // HAD TO BE FIXED: React doesn’t seem to like this
       getBlockAttributes: getBlockAttributes // FIX: return function instead and get attributes later
+
     };
   })(withDispatch(function (dispatch) {
     var _dispatch = dispatch('core/block-editor'),
-      updateBlockAttributes = _dispatch.updateBlockAttributes;
+        updateBlockAttributes = _dispatch.updateBlockAttributes;
+
     return {
       updateBlockAttributes: updateBlockAttributes
     };
   })(function (props) {
     var className = props.className,
-      _props$attributes = props.attributes,
-      templateName = _props$attributes.templateName,
-      enableInheritanceToCols = _props$attributes.enableInheritanceToCols,
-      alignItems = _props$attributes.alignItems,
-      justifyContent = _props$attributes.justifyContent,
-      noGutters = _props$attributes.noGutters,
-      formRow = _props$attributes.formRow,
-      rowReverse = _props$attributes.rowReverse,
-      sizeXs = _props$attributes.sizeXs,
-      sizeSm = _props$attributes.sizeSm,
-      sizeMd = _props$attributes.sizeMd,
-      sizeLg = _props$attributes.sizeLg,
-      sizeXl = _props$attributes.sizeXl,
-      colsNodeName = _props$attributes.colsNodeName,
-      colsMarginAfter = _props$attributes.colsMarginAfter,
-      marginBefore = _props$attributes.marginBefore,
-      marginAfter = _props$attributes.marginAfter,
-      paddingBefore = _props$attributes.paddingBefore,
-      paddingAfter = _props$attributes.paddingAfter,
-      setAttributes = props.setAttributes,
-      isSelected = props.isSelected,
-      children = props.children,
-      updateBlockAttributes = props.updateBlockAttributes,
-      getBlockAttributes = props.getBlockAttributes;
+        _props$attributes = props.attributes,
+        templateName = _props$attributes.templateName,
+        enableInheritanceToCols = _props$attributes.enableInheritanceToCols,
+        alignItems = _props$attributes.alignItems,
+        justifyContent = _props$attributes.justifyContent,
+        noGutters = _props$attributes.noGutters,
+        formRow = _props$attributes.formRow,
+        rowReverse = _props$attributes.rowReverse,
+        sizeXs = _props$attributes.sizeXs,
+        sizeSm = _props$attributes.sizeSm,
+        sizeMd = _props$attributes.sizeMd,
+        sizeLg = _props$attributes.sizeLg,
+        sizeXl = _props$attributes.sizeXl,
+        colsNodeName = _props$attributes.colsNodeName,
+        colsMarginAfter = _props$attributes.colsMarginAfter,
+        marginBefore = _props$attributes.marginBefore,
+        marginAfter = _props$attributes.marginAfter,
+        paddingBefore = _props$attributes.paddingBefore,
+        paddingAfter = _props$attributes.paddingAfter,
+        setAttributes = props.setAttributes,
+        isSelected = props.isSelected,
+        children = props.children,
+        updateBlockAttributes = props.updateBlockAttributes,
+        getBlockAttributes = props.getBlockAttributes;
     var templates = [{
       name: '1-1-1',
       title: __('3 Columns (1:1:1)', 'bsx-blocks'),
@@ -10442,35 +10587,34 @@ registerBlockType('bsx-blocks/row-with-cols', {
       }]],
       templateLock: false
     }];
+
     var getColsTemplate = function getColsTemplate(currentTemplateName) {
       var currentTemplate = templates.find(function (item) {
         return item.name === currentTemplateName;
       });
       return currentTemplate ? currentTemplate.template : [];
     };
+
     var getColsTemplateLock = function getColsTemplateLock(currentTemplateName) {
       var currentTemplate = templates.find(function (item) {
         return item.name === currentTemplateName;
       });
       return currentTemplate ? currentTemplate.templateLock : false;
     };
+
     var colsTemplate = getColsTemplate(templateName);
     var colsTemplateLock = getColsTemplateLock(templateName);
     var allowedBlocks = ['bsx-blocks/col'];
+
     var onColsTemplateChange = function onColsTemplateChange(value) {
       colsTemplate = getColsTemplate(value);
-      var colType = value == 'custom' ? 'custom' : 'default';
-
-      // console.log( 'onColsTemplateChange: "' + value + '"' );
+      var colType = value == 'custom' ? 'custom' : 'default'; // console.log( 'onColsTemplateChange: "' + value + '"' );
       // console.log( 'colType: "' + colType + '"' );
-
       // console.log( 'value: "' + value + '"' );
       // console.log( 'colsTemplate: "' + colsTemplate + '"' );
       // console.log( 'colsTemplate.length: "' + colsTemplate.length + '"' );
-
       // colsTemplate.forEach( ( item, index ) => {
       //     console.log( 'item[ ' + index + ' ]: "' + item + '"' );
-
       //     if ( !! item ) {
       //         for ( let [ key, value ] of Object.entries( item ) ) {
       //             console.log( 'key: "' + key + '", value: "' + value + '"' );
@@ -10497,11 +10641,10 @@ registerBlockType('bsx-blocks/row-with-cols', {
           updateBlockAttributes(column.clientId, newAttributes);
         });
       }
+
       setAttributes({
         templateName: value
-      });
-
-      // console.log( 'DONE onColsTemplateChange' )
+      }); // console.log( 'DONE onColsTemplateChange' )
     };
 
     var onChangeAlignItems = function onChangeAlignItems(value) {
@@ -10509,69 +10652,78 @@ registerBlockType('bsx-blocks/row-with-cols', {
         alignItems: value
       });
     };
+
     var onChangeJustifyContent = function onChangeJustifyContent(value) {
       setAttributes({
         justifyContent: value
       });
     };
+
     var onChangeNoGutters = function onChangeNoGutters(value) {
       setAttributes({
         noGutters: value
       });
+
       if (value === true) {
         setAttributes({
           formRow: false
         });
       }
     };
+
     var onChangeFormRow = function onChangeFormRow(value) {
       setAttributes({
         formRow: value
       });
+
       if (value === true) {
         setAttributes({
           noGutters: false
         });
       }
     };
+
     var onChangeRowReverse = function onChangeRowReverse(value) {
       setAttributes({
         rowReverse: value
       });
     };
+
     var onChangeMarginBefore = function onChangeMarginBefore(value) {
       setAttributes({
         marginBefore: value
       });
     };
+
     var onChangeMarginAfter = function onChangeMarginAfter(value) {
       setAttributes({
         marginAfter: value
       });
     };
+
     var onChangePaddingBefore = function onChangePaddingBefore(value) {
       setAttributes({
         paddingBefore: value
       });
     };
+
     var onChangePaddingAfter = function onChangePaddingAfter(value) {
       setAttributes({
         paddingAfter: value
       });
     };
+
     var onChangeEnableInheritanceToCols = function onChangeEnableInheritanceToCols(value) {
       setAttributes({
         enableInheritanceToCols: value
       });
-    };
+    }; // value = { sizeXX: 'newValue' }
 
-    // value = { sizeXX: 'newValue' }
+
     var inheritToCols = function inheritToCols(value) {
       //console.log( 'inheritToCols: ' + typeof value );
-
       children.forEach(function (column, index) {
         //console.log( 'childrenAttributes[' + index + ' ]: "' + childrenAttributes[ index ] + '"' );
-
         // if ( childrenAttributes[ index ].enableInheritanceFromRow ) {
         // FIX: get attributes here
         if (getBlockAttributes(column.clientId).enableInheritanceFromRow) {
@@ -10587,9 +10739,9 @@ registerBlockType('bsx-blocks/row-with-cols', {
           updateBlockAttributes(column.clientId, newAttributes);
         }
       });
-    };
+    }; // xs
 
-    // xs
+
     var onChangeXsColSize = function onChangeXsColSize(value) {
       var attr = {
         sizeXs: !!value ? value.toString() : ''
@@ -10597,6 +10749,7 @@ registerBlockType('bsx-blocks/row-with-cols', {
       setAttributes(attr);
       inheritToCols(attr);
     };
+
     var onChangeXsEqualSize = function onChangeXsEqualSize(value) {
       if (enableInheritanceToCols) {
         if (value) {
@@ -10614,6 +10767,7 @@ registerBlockType('bsx-blocks/row-with-cols', {
         }
       }
     };
+
     var onChangeXsAutoSize = function onChangeXsAutoSize(value) {
       if (enableInheritanceToCols) {
         if (value) {
@@ -10630,9 +10784,9 @@ registerBlockType('bsx-blocks/row-with-cols', {
           inheritToCols(_attr2);
         }
       }
-    };
+    }; // sm
 
-    // sm
+
     var onChangeSmColSize = function onChangeSmColSize(value) {
       var attr = {
         sizeSm: !!value ? value.toString() : ''
@@ -10640,6 +10794,7 @@ registerBlockType('bsx-blocks/row-with-cols', {
       setAttributes(attr);
       inheritToCols(attr);
     };
+
     var onChangeSmEqualSize = function onChangeSmEqualSize(value) {
       if (enableInheritanceToCols) {
         if (value) {
@@ -10657,6 +10812,7 @@ registerBlockType('bsx-blocks/row-with-cols', {
         }
       }
     };
+
     var onChangeSmAutoSize = function onChangeSmAutoSize(value) {
       if (enableInheritanceToCols) {
         if (value) {
@@ -10673,9 +10829,9 @@ registerBlockType('bsx-blocks/row-with-cols', {
           inheritToCols(_attr4);
         }
       }
-    };
+    }; // md
 
-    // md
+
     var onChangeMdColSize = function onChangeMdColSize(value) {
       var attr = {
         sizeMd: !!value ? value.toString() : ''
@@ -10683,6 +10839,7 @@ registerBlockType('bsx-blocks/row-with-cols', {
       setAttributes(attr);
       inheritToCols(attr);
     };
+
     var onChangeMdEqualSize = function onChangeMdEqualSize(value) {
       if (enableInheritanceToCols) {
         if (value) {
@@ -10700,6 +10857,7 @@ registerBlockType('bsx-blocks/row-with-cols', {
         }
       }
     };
+
     var onChangeMdAutoSize = function onChangeMdAutoSize(value) {
       if (enableInheritanceToCols) {
         if (value) {
@@ -10716,9 +10874,9 @@ registerBlockType('bsx-blocks/row-with-cols', {
           inheritToCols(_attr6);
         }
       }
-    };
+    }; // lg
 
-    // lg
+
     var onChangeLgColSize = function onChangeLgColSize(value) {
       var attr = {
         sizeLg: !!value ? value.toString() : ''
@@ -10726,6 +10884,7 @@ registerBlockType('bsx-blocks/row-with-cols', {
       setAttributes(attr);
       inheritToCols(attr);
     };
+
     var onChangeLgEqualSize = function onChangeLgEqualSize(value) {
       if (enableInheritanceToCols) {
         if (value) {
@@ -10743,6 +10902,7 @@ registerBlockType('bsx-blocks/row-with-cols', {
         }
       }
     };
+
     var onChangeLgAutoSize = function onChangeLgAutoSize(value) {
       if (enableInheritanceToCols) {
         if (value) {
@@ -10759,9 +10919,9 @@ registerBlockType('bsx-blocks/row-with-cols', {
           inheritToCols(_attr8);
         }
       }
-    };
+    }; // xl
 
-    // xl
+
     var onChangeXlColSize = function onChangeXlColSize(value) {
       var attr = {
         sizeXl: !!value ? value.toString() : ''
@@ -10769,6 +10929,7 @@ registerBlockType('bsx-blocks/row-with-cols', {
       setAttributes(attr);
       inheritToCols(attr);
     };
+
     var onChangeXlEqualSize = function onChangeXlEqualSize(value) {
       if (enableInheritanceToCols) {
         if (value) {
@@ -10786,6 +10947,7 @@ registerBlockType('bsx-blocks/row-with-cols', {
         }
       }
     };
+
     var onChangeXlAutoSize = function onChangeXlAutoSize(value) {
       if (enableInheritanceToCols) {
         if (value) {
@@ -10802,9 +10964,9 @@ registerBlockType('bsx-blocks/row-with-cols', {
           inheritToCols(_attr10);
         }
       }
-    };
+    }; // cols node name bottom
 
-    // cols node name bottom
+
     var onChangeColsNodeName = function onChangeColsNodeName(value) {
       if (enableInheritanceToCols) {
         var attr = {
@@ -10813,9 +10975,9 @@ registerBlockType('bsx-blocks/row-with-cols', {
         setAttributes(attr);
         inheritToCols(attr);
       }
-    };
+    }; // cols margin bottom
 
-    // cols margin bottom
+
     var onChangeColsMarginAfter = function onChangeColsMarginAfter(value) {
       if (enableInheritanceToCols) {
         var attr = {
@@ -10825,6 +10987,7 @@ registerBlockType('bsx-blocks/row-with-cols', {
         inheritToCols(attr);
       }
     };
+
     var rowClassNames = makeRowClassNames({
       alignItems: alignItems,
       justifyContent: justifyContent,
@@ -11200,25 +11363,25 @@ registerBlockType('bsx-blocks/row-with-cols', {
   })),
   save: function save(props) {
     var className = props.className,
-      _props$attributes2 = props.attributes,
-      templateName = _props$attributes2.templateName,
-      enableInheritanceToCols = _props$attributes2.enableInheritanceToCols,
-      alignItems = _props$attributes2.alignItems,
-      justifyContent = _props$attributes2.justifyContent,
-      noGutters = _props$attributes2.noGutters,
-      formRow = _props$attributes2.formRow,
-      rowReverse = _props$attributes2.rowReverse,
-      sizeXs = _props$attributes2.sizeXs,
-      sizeSm = _props$attributes2.sizeSm,
-      sizeMd = _props$attributes2.sizeMd,
-      sizeLg = _props$attributes2.sizeLg,
-      sizeXl = _props$attributes2.sizeXl,
-      colsNodeName = _props$attributes2.colsNodeName,
-      colsMarginAfter = _props$attributes2.colsMarginAfter,
-      marginBefore = _props$attributes2.marginBefore,
-      marginAfter = _props$attributes2.marginAfter,
-      paddingBefore = _props$attributes2.paddingBefore,
-      paddingAfter = _props$attributes2.paddingAfter;
+        _props$attributes2 = props.attributes,
+        templateName = _props$attributes2.templateName,
+        enableInheritanceToCols = _props$attributes2.enableInheritanceToCols,
+        alignItems = _props$attributes2.alignItems,
+        justifyContent = _props$attributes2.justifyContent,
+        noGutters = _props$attributes2.noGutters,
+        formRow = _props$attributes2.formRow,
+        rowReverse = _props$attributes2.rowReverse,
+        sizeXs = _props$attributes2.sizeXs,
+        sizeSm = _props$attributes2.sizeSm,
+        sizeMd = _props$attributes2.sizeMd,
+        sizeLg = _props$attributes2.sizeLg,
+        sizeXl = _props$attributes2.sizeXl,
+        colsNodeName = _props$attributes2.colsNodeName,
+        colsMarginAfter = _props$attributes2.colsMarginAfter,
+        marginBefore = _props$attributes2.marginBefore,
+        marginAfter = _props$attributes2.marginAfter,
+        paddingBefore = _props$attributes2.paddingBefore,
+        paddingAfter = _props$attributes2.paddingAfter;
     var rowClassNames = makeRowClassNames({
       alignItems: alignItems,
       justifyContent: justifyContent,
@@ -11529,8 +11692,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../_functions/wp-icons.js */ "./src/_functions/wp-icons.js");
 // wp import
 var _wp$i18n = wp.i18n,
-  __ = _wp$i18n.__,
-  setLocaleData = _wp$i18n.setLocaleData; // functions
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData; // functions
+
 
 var templates = [{
   name: 'empty',
@@ -11816,22 +11980,24 @@ __webpack_require__.r(__webpack_exports__);
 
 // TODO: get caption or more data from html? (thumb data will not be available from noscript)
 var _wp$i18n = wp.i18n,
-  __ = _wp$i18n.__,
-  setLocaleData = _wp$i18n.setLocaleData;
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData;
 var registerBlockType = wp.blocks.registerBlockType;
 var _wp$blockEditor = wp.blockEditor,
-  RichText = _wp$blockEditor.RichText,
-  MediaUpload = _wp$blockEditor.MediaUpload,
-  InspectorControls = _wp$blockEditor.InspectorControls,
-  InspectorAdvancedControls = _wp$blockEditor.InspectorAdvancedControls;
+    RichText = _wp$blockEditor.RichText,
+    MediaUpload = _wp$blockEditor.MediaUpload,
+    InspectorControls = _wp$blockEditor.InspectorControls,
+    InspectorAdvancedControls = _wp$blockEditor.InspectorAdvancedControls;
 var _wp$components = wp.components,
-  Button = _wp$components.Button,
-  TextControl = _wp$components.TextControl,
-  SelectControl = _wp$components.SelectControl,
-  PanelBody = _wp$components.PanelBody,
-  ToggleControl = _wp$components.ToggleControl,
-  SVG = _wp$components.SVG,
-  Path = _wp$components.Path; // functions imports
+    Button = _wp$components.Button,
+    TextControl = _wp$components.TextControl,
+    SelectControl = _wp$components.SelectControl,
+    PanelBody = _wp$components.PanelBody,
+    ToggleControl = _wp$components.ToggleControl,
+    SVG = _wp$components.SVG,
+    Path = _wp$components.Path; // functions imports
+
+
 
 
 
@@ -11839,13 +12005,16 @@ var _wp$components = wp.components,
 var makeClassName = function makeClassName(attributes) {
   var sliderType = attributes.sliderType;
   var classNames = ['bsx-slider-wrapper'];
+
   if (!!sliderType) {
     if (sliderType == 'citation') {
       classNames.push('bsx-citation-slider');
     }
   }
+
   return classNames.join(' ');
 };
+
 registerBlockType('bsx-blocks/slider', {
   title: __('BSX Slider', 'bsx-blocks'),
   icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_3__["svgIcon"])('slider'),
@@ -11939,15 +12108,14 @@ registerBlockType('bsx-blocks/slider', {
           selector: 'a',
           source: 'attribute',
           attribute: 'rel'
-        }
-        // size: {
+        } // size: {
         //     type: 'string',
         //     selector: 'a',
         //     source: 'attribute',
         //     attribute: 'data-size',
         // },
-      },
 
+      },
       default: []
     },
     hint: {
@@ -11983,21 +12151,21 @@ registerBlockType('bsx-blocks/slider', {
   },
   edit: function edit(props) {
     var className = props.className,
-      _props$attributes = props.attributes,
-      sliderType = _props$attributes.sliderType,
-      imgSize = _props$attributes.imgSize,
-      itemData = _props$attributes.itemData,
-      hint = _props$attributes.hint,
-      prevText = _props$attributes.prevText,
-      nextText = _props$attributes.nextText,
-      rounded = _props$attributes.rounded,
-      imgThumbnail = _props$attributes.imgThumbnail,
-      borderState = _props$attributes.borderState,
-      bgColor = _props$attributes.bgColor,
-      marginBefore = _props$attributes.marginBefore,
-      marginAfter = _props$attributes.marginAfter,
-      setAttributes = props.setAttributes,
-      isSelected = props.isSelected; // TEST – TODO: remove
+        _props$attributes = props.attributes,
+        sliderType = _props$attributes.sliderType,
+        imgSize = _props$attributes.imgSize,
+        itemData = _props$attributes.itemData,
+        hint = _props$attributes.hint,
+        prevText = _props$attributes.prevText,
+        nextText = _props$attributes.nextText,
+        rounded = _props$attributes.rounded,
+        imgThumbnail = _props$attributes.imgThumbnail,
+        borderState = _props$attributes.borderState,
+        bgColor = _props$attributes.bgColor,
+        marginBefore = _props$attributes.marginBefore,
+        marginAfter = _props$attributes.marginAfter,
+        setAttributes = props.setAttributes,
+        isSelected = props.isSelected; // TEST – TODO: remove
     // console.log( 'typeof itemData: ' + typeof itemData );
     // itemData.forEach( ( item, index ) => {
     //     console.log( index + ' : ' + item );
@@ -12018,28 +12186,26 @@ registerBlockType('bsx-blocks/slider', {
     //     }
     // } );
     // initial overwrites
+
     itemData.forEach(function (item, index) {
       if (item.subline === '&nbsp;') {
         item.subline = '';
       }
-    });
+    }); // update itemData all `item` at position `index`
 
-    // update itemData all `item` at position `index`
     var updateItemDataItem = function updateItemDataItem(index, newItem) {
       var newItemData = [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(itemData.slice(0, index)), [newItem], _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(itemData.slice(index + 1)));
       setAttributes({
         itemData: newItemData
       });
-    };
+    }; // update itemData single `value` for `key` at position `index`
 
-    // update itemData single `value` for `key` at position `index`
+
     var updateItemDataValue = function updateItemDataValue(index, key, value) {
       var newItem = itemData[index];
       newItem[key] = value;
       updateItemDataItem(index, newItem);
-    };
-
-    // // update imgList all `item` at position `index`
+    }; // // update imgList all `item` at position `index`
     // const updateImgListItem = ( index, newItem ) => {
     //     const newImgList = [
     //         ...imgList.slice( 0, index ),
@@ -12048,13 +12214,13 @@ registerBlockType('bsx-blocks/slider', {
     //     ];
     //     setAttributes( { imgList: newImgList } );
     // }
-
     // // update imgList single `value` for `key` at position `index`
     // const updateImgListValue = ( index, key, value ) => {
     //     let newItem = imgList[ index ];
     //     newItem[ key ] = value;
     //     updateImgListItem( index, newItem );
     // }
+
 
     var onChangeSliderType = function onChangeSliderType(value) {
       if (value === 'product-gallery') {
@@ -12068,21 +12234,21 @@ registerBlockType('bsx-blocks/slider', {
         });
       }
     };
+
     var onChangeImgSize = function onChangeImgSize(value) {
       setAttributes({
         imgSize: value
-      });
-
-      // TODO: change all img urls & sizes
+      }); // TODO: change all img urls & sizes
 
       itemData.forEach(function (item, index) {
         console.log('imgId: ' + item.imgId);
       });
     };
+
     var onChangeImg = function onChangeImg(index, img) {
       // TODO: make img url configurable
-
       var newImg = {};
+
       if (sliderType === 'product-gallery') {
         newImg.url = img.sizes.medium.url;
         newImg.width = img.sizes.medium.width;
@@ -12092,6 +12258,7 @@ registerBlockType('bsx-blocks/slider', {
         newImg.width = img.sizes.thumbnail.width;
         newImg.height = img.sizes.thumbnail.height;
       }
+
       updateItemDataItem(index, {
         imgId: img.id,
         imgUrl: newImg.url,
@@ -12103,8 +12270,7 @@ registerBlockType('bsx-blocks/slider', {
         text: itemData[index].text,
         footerText_1: itemData[index].footerText_1,
         footerText_2: itemData[index].footerText_2
-      });
-      // updateImgListItem( index, { 
+      }); // updateImgListItem( index, { 
       //     imgId: img.id,
       //     imgUrl: img.sizes.thumbnail.url,
       //     imgWidth: img.sizes.thumbnail.width,
@@ -12114,50 +12280,60 @@ registerBlockType('bsx-blocks/slider', {
     };
 
     var onChangeAlt = function onChangeAlt(index, value) {
-      updateItemDataValue(index, 'imgAlt', value);
-      // updateImgListValue( index, 'imgAlt', value );
+      updateItemDataValue(index, 'imgAlt', value); // updateImgListValue( index, 'imgAlt', value );
     };
 
     var onChangeText = function onChangeText(index, value) {
       updateItemDataValue(index, 'text', value);
     };
+
     var onChangeHeading = function onChangeHeading(index, value) {
       updateItemDataValue(index, 'heading', value);
     };
+
     var onChangeSubline = function onChangeSubline(index, value) {
       updateItemDataValue(index, 'subline', value);
     };
+
     var onChangeFooterText_1 = function onChangeFooterText_1(index, value) {
       updateItemDataValue(index, 'footerText_1', value);
     };
+
     var onChangeFooterText_2 = function onChangeFooterText_2(index, value) {
       updateItemDataValue(index, 'footerText_2', value);
     };
+
     var onChangeUrl = function onChangeUrl(index, value) {
       updateItemDataValue(index, 'url', value);
     };
+
     var onChangeTarget = function onChangeTarget(index, value) {
       updateItemDataValue(index, 'target', value);
     };
+
     var onChangeRel = function onChangeRel(index, value) {
       updateItemDataValue(index, 'rel', value);
     };
+
     var onChangeBgColor = function onChangeBgColor(value) {
       setAttributes({
         bgColor: value
       });
     };
+
     var onAddItem = function onAddItem() {
       setAttributes({
         itemData: [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(itemData), [{}])
       });
     };
+
     var deleteItemDataItem = function deleteItemDataItem(index) {
       var newMediaList = [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(itemData.slice(0, index)), _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(itemData.slice(index + 1)));
       setAttributes({
         itemData: newMediaList
       });
     };
+
     var itemDataItemMoveTo = function itemDataItemMoveTo(index, newIndex) {
       var newMediaList = [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(itemData.slice(0, index)), _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(itemData.slice(index + 1)));
       var newMediaList2 = [].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(newMediaList.slice(0, newIndex)), [itemData[index]], _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(newMediaList.slice(newIndex)));
@@ -12165,64 +12341,74 @@ registerBlockType('bsx-blocks/slider', {
         itemData: newMediaList2
       });
     };
+
     var onClickDelete = function onClickDelete(index) {
       var response = confirm(__('Delete item') + ' ' + (index + 1) + '?');
+
       if (response == true) {
         deleteItemDataItem(index);
-      } else {
-        // do nothing
+      } else {// do nothing
       }
     };
+
     var onClickMoveUp = function onClickMoveUp(index) {
       var newIndex = index > 0 ? index - 1 : itemData.length - 1;
       itemDataItemMoveTo(index, newIndex);
     };
+
     var onClickMoveDown = function onClickMoveDown(index) {
       var newIndex = index < itemData.length - 1 ? index + 1 : 0;
       itemDataItemMoveTo(index, newIndex);
     };
+
     var onChangeHint = function onChangeHint(value) {
       setAttributes({
         hint: value
       });
     };
+
     var onChangePrevText = function onChangePrevText(value) {
       setAttributes({
         prevText: value
       });
     };
+
     var onChangeNextText = function onChangeNextText(value) {
       setAttributes({
         nextText: value
       });
     };
+
     var onChangeRounded = function onChangeRounded(value) {
       setAttributes({
         rounded: value
       });
     };
+
     var onChangeImgThumbnail = function onChangeImgThumbnail(value) {
       setAttributes({
         imgThumbnail: value
       });
     };
+
     var onChangeBorderState = function onChangeBorderState(value) {
       setAttributes({
         borderState: value
       });
     };
+
     var onChangeMarginBefore = function onChangeMarginBefore(value) {
       setAttributes({
         marginBefore: value
       });
     };
+
     var onChangeMarginAfter = function onChangeMarginAfter(value) {
       setAttributes({
         marginAfter: value
       });
-    };
+    }; // class names
 
-    // class names
 
     var sliderWrapperClassName = makeClassName({
       sliderType: sliderType
@@ -12237,12 +12423,9 @@ registerBlockType('bsx-blocks/slider', {
       rounded: rounded,
       imgThumbnail: imgThumbnail,
       borderState: borderState
-    }, imgClassName);
+    }, imgClassName); // must contain .item to get attributes from html
 
-    // must contain .item to get attributes from html
-    var itemClassName = sliderType === 'citation' ? 'item d-block text-center' : 'item px-3 py-2 text-center' + (typeof bgColor !== 'undefined' && !!bgColor ? ' bg-' + bgColor : '');
-
-    // const textClassName = 'h4 font-weight-normal font-italic mb-4';
+    var itemClassName = sliderType === 'citation' ? 'item d-block text-center' : 'item px-3 py-2 text-center' + (typeof bgColor !== 'undefined' && !!bgColor ? ' bg-' + bgColor : ''); // const textClassName = 'h4 font-weight-normal font-italic mb-4';
     // const headingClassName = 'test-1';
     // const sublineClassName = 'test-2';
     // const footer1ClassName = 'font-weight-bold text-uppercase';
@@ -12485,19 +12668,20 @@ registerBlockType('bsx-blocks/slider', {
   },
   save: function save(props) {
     var className = props.className,
-      _props$attributes2 = props.attributes,
-      sliderType = _props$attributes2.sliderType,
-      imgSize = _props$attributes2.imgSize,
-      itemData = _props$attributes2.itemData,
-      hint = _props$attributes2.hint,
-      prevText = _props$attributes2.prevText,
-      nextText = _props$attributes2.nextText,
-      rounded = _props$attributes2.rounded,
-      imgThumbnail = _props$attributes2.imgThumbnail,
-      borderState = _props$attributes2.borderState,
-      bgColor = _props$attributes2.bgColor,
-      marginBefore = _props$attributes2.marginBefore,
-      marginAfter = _props$attributes2.marginAfter; // class names
+        _props$attributes2 = props.attributes,
+        sliderType = _props$attributes2.sliderType,
+        imgSize = _props$attributes2.imgSize,
+        itemData = _props$attributes2.itemData,
+        hint = _props$attributes2.hint,
+        prevText = _props$attributes2.prevText,
+        nextText = _props$attributes2.nextText,
+        rounded = _props$attributes2.rounded,
+        imgThumbnail = _props$attributes2.imgThumbnail,
+        borderState = _props$attributes2.borderState,
+        bgColor = _props$attributes2.bgColor,
+        marginBefore = _props$attributes2.marginBefore,
+        marginAfter = _props$attributes2.marginAfter; // class names
+
     var sliderWrapperClassName = makeClassName({
       sliderType: sliderType
     });
@@ -12511,9 +12695,8 @@ registerBlockType('bsx-blocks/slider', {
       rounded: rounded,
       imgThumbnail: imgThumbnail,
       borderState: borderState
-    }, imgClassName);
+    }, imgClassName); // must contain .item to get attributes from html
 
-    // must contain .item to get attributes from html
     var itemClassName = sliderType === 'citation' ? 'item d-block text-center' : 'item d-block px-3 py-2 text-center' + (typeof bgColor !== 'undefined' && !!bgColor ? ' bg-' + bgColor : '');
     var textClassName = 'h4 font-weight-normal font-italic mb-4';
     var headingClassName = 'h4 text-center';
@@ -12525,12 +12708,10 @@ registerBlockType('bsx-blocks/slider', {
     var prevLabel = !!prevText ? prevText : __('Prev', 'bsx-blocks');
     var nextLabel = !!nextText ? nextText : __('Next', 'bsx-blocks');
     var prevHtml = '<i class="fa fa-chevron-left" aria-label="' + prevLabel + '"></i>';
-    var nextHtml = '<i class="fa fa-chevron-right" aria-label="' + nextLabel + '"></i>';
-
-    // if lazyLoad: true use data-src="..." data-g-fn="lazyload"
+    var nextHtml = '<i class="fa fa-chevron-right" aria-label="' + nextLabel + '"></i>'; // if lazyLoad: true use data-src="..." data-g-fn="lazyload"
     // if lazyLoad: false, multiLazyload: true use class="... owl-lazy" data-g-src="..." loading="lazy"
-    var options = sliderType === 'citation' ? "{ lazyLoad: false, multiLazyload: true, responsive: { 0: { items: 1 } }, margin: 0, encodeUriNavText: [ '" + encodeURI(prevHtml) + "', '" + encodeURI(nextHtml) + "' ], navClass: [ 'btn btn-link is-prev', 'btn btn-link is-next' ] }" : "{ lazyLoad: true, responsive: { 0: { items: 1 }, 480: { items: 2 }, 768: { items: 3 }, 992: { items: 4 } }, encodeUriNavText: [ '" + encodeURI(prevHtml) + "', '" + encodeURI(nextHtml) + "' ], navClass: [ 'btn btn-primary is-prev', 'btn btn-primary is-next' ], navSpeed: 300, autoplaySpeed: 400, dotsSpeed: 400, smartSpeed: 300, fluidSpeed: 400, dragEndSpeed: 200 }";
-    // makeBase64PreloadImgSrc( item.imgWidth, item.imgHeight )
+
+    var options = sliderType === 'citation' ? "{ lazyLoad: false, multiLazyload: true, responsive: { 0: { items: 1 } }, margin: 0, encodeUriNavText: [ '" + encodeURI(prevHtml) + "', '" + encodeURI(nextHtml) + "' ], navClass: [ 'btn btn-link is-prev', 'btn btn-link is-next' ] }" : "{ lazyLoad: true, responsive: { 0: { items: 1 }, 480: { items: 2 }, 768: { items: 3 }, 992: { items: 4 } }, encodeUriNavText: [ '" + encodeURI(prevHtml) + "', '" + encodeURI(nextHtml) + "' ], navClass: [ 'btn btn-primary is-prev', 'btn btn-primary is-next' ], navSpeed: 300, autoplaySpeed: 400, dotsSpeed: 400, smartSpeed: 300, fluidSpeed: 400, dragEndSpeed: 200 }"; // makeBase64PreloadImgSrc( item.imgWidth, item.imgHeight )
 
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(TagName, {
       className: sliderWrapperClassName
@@ -12661,39 +12842,43 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var _wp$i18n = wp.i18n,
-  __ = _wp$i18n.__,
-  setLocaleData = _wp$i18n.setLocaleData;
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData;
 var registerBlockType = wp.blocks.registerBlockType;
 var _wp$blockEditor = wp.blockEditor,
-  InspectorControls = _wp$blockEditor.InspectorControls,
-  RichText = _wp$blockEditor.RichText;
+    InspectorControls = _wp$blockEditor.InspectorControls,
+    RichText = _wp$blockEditor.RichText;
 var _wp$components = wp.components,
-  PanelBody = _wp$components.PanelBody,
-  SVG = _wp$components.SVG,
-  Path = _wp$components.Path,
-  SelectControl = _wp$components.SelectControl; // functions imports
+    PanelBody = _wp$components.PanelBody,
+    SVG = _wp$components.SVG,
+    Path = _wp$components.Path,
+    SelectControl = _wp$components.SelectControl; // functions imports
 
 
 
 
-
-// functions
+ // functions
 
 var makeBadgeClassNames = function makeBadgeClassNames(attributes, className) {
   var state = attributes.state,
-    badgeType = attributes.badgeType;
+      badgeType = attributes.badgeType;
   var classNames = ['badge'];
+
   if (!!state) {
     classNames.push('badge-' + state);
   }
+
   if (!!badgeType) {
     classNames.push('badge-' + badgeType);
   }
+
   if (!!className) {
     classNames.push(className);
   }
+
   return classNames.join(' ');
 };
+
 registerBlockType('bsx-blocks/badge', {
   title: __('BSX Badge', 'bsx-blocks'),
   icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_2__["svgIcon"])('badge'),
@@ -12742,87 +12927,100 @@ registerBlockType('bsx-blocks/badge', {
   },
   edit: function edit(props) {
     var _props$attributes = props.attributes,
-      className = _props$attributes.className,
-      href = _props$attributes.href,
-      content = _props$attributes.content,
-      state = _props$attributes.state,
-      badgeType = _props$attributes.badgeType,
-      marginLeft = _props$attributes.marginLeft,
-      marginRight = _props$attributes.marginRight,
-      marginBefore = _props$attributes.marginBefore,
-      marginAfter = _props$attributes.marginAfter,
-      textColor = _props$attributes.textColor,
-      bgColor = _props$attributes.bgColor,
-      iconKey = _props$attributes.iconKey,
-      iconFamily = _props$attributes.iconFamily,
-      setAttributes = props.setAttributes,
-      isSelected = props.isSelected;
+        className = _props$attributes.className,
+        href = _props$attributes.href,
+        content = _props$attributes.content,
+        state = _props$attributes.state,
+        badgeType = _props$attributes.badgeType,
+        marginLeft = _props$attributes.marginLeft,
+        marginRight = _props$attributes.marginRight,
+        marginBefore = _props$attributes.marginBefore,
+        marginAfter = _props$attributes.marginAfter,
+        textColor = _props$attributes.textColor,
+        bgColor = _props$attributes.bgColor,
+        iconKey = _props$attributes.iconKey,
+        iconFamily = _props$attributes.iconFamily,
+        setAttributes = props.setAttributes,
+        isSelected = props.isSelected;
+
     var onChangeContent = function onChangeContent(value) {
       setAttributes({
         content: value
       });
     };
+
     var onChangeHref = function onChangeHref(value) {
       setAttributes({
         href: value
       });
-    };
-    // const onChangeTarget = ( value ) => {
+    }; // const onChangeTarget = ( value ) => {
     //     setAttributes( { target: !! value ? '_blank' : '' } );
     // };
     // const onChangeRel = ( value ) => {
     //     setAttributes( { rel: value } );
     // };
+
+
     var onChangeState = function onChangeState(value) {
       setAttributes({
         state: value
       });
     };
+
     var onChangeBadgeType = function onChangeBadgeType(value) {
       setAttributes({
         badgeType: value
       });
     };
+
     var onChangeMarginLeft = function onChangeMarginLeft(value) {
       setAttributes({
         marginLeft: value
       });
     };
+
     var onChangeMarginRight = function onChangeMarginRight(value) {
       setAttributes({
         marginRight: value
       });
     };
+
     var onChangeMarginBefore = function onChangeMarginBefore(value) {
       setAttributes({
         marginBefore: value
       });
     };
+
     var onChangeMarginAfter = function onChangeMarginAfter(value) {
       setAttributes({
         marginAfter: value
       });
     };
+
     var onChangeTextColor = function onChangeTextColor(value) {
       setAttributes({
         textColor: value
       });
     };
+
     var onChangeBgColor = function onChangeBgColor(value) {
       setAttributes({
         bgColor: value
       });
     };
+
     var onChangeIconKey = function onChangeIconKey(value) {
       setAttributes({
         iconKey: value
       });
     };
+
     var onChangeIconFamily = function onChangeIconFamily(value) {
       setAttributes({
         iconFamily: value
       });
     };
+
     var badgeClassNames = makeBadgeClassNames({
       state: state,
       badgeType: badgeType
@@ -12835,9 +13033,11 @@ registerBlockType('bsx-blocks/badge', {
       textColor: textColor,
       bgColor: bgColor
     }, badgeClassNames);
+
     if (!iconKey) {
       badgeClassNames += ' badge-content';
     }
+
     var TagName = href ? 'a' : 'span';
     var iconFamilyClassName = !!iconFamily ? 'fa' + iconFamily : 'fa';
     var iconClassNames = iconFamilyClassName + ' ' + (iconKey ? 'fa-' + iconKey : '') + ' pr-1';
@@ -12888,19 +13088,19 @@ registerBlockType('bsx-blocks/badge', {
   },
   save: function save(props) {
     var _props$attributes2 = props.attributes,
-      className = _props$attributes2.className,
-      href = _props$attributes2.href,
-      content = _props$attributes2.content,
-      state = _props$attributes2.state,
-      badgeType = _props$attributes2.badgeType,
-      marginLeft = _props$attributes2.marginLeft,
-      marginRight = _props$attributes2.marginRight,
-      marginBefore = _props$attributes2.marginBefore,
-      marginAfter = _props$attributes2.marginAfter,
-      textColor = _props$attributes2.textColor,
-      bgColor = _props$attributes2.bgColor,
-      iconKey = _props$attributes2.iconKey,
-      iconFamily = _props$attributes2.iconFamily;
+        className = _props$attributes2.className,
+        href = _props$attributes2.href,
+        content = _props$attributes2.content,
+        state = _props$attributes2.state,
+        badgeType = _props$attributes2.badgeType,
+        marginLeft = _props$attributes2.marginLeft,
+        marginRight = _props$attributes2.marginRight,
+        marginBefore = _props$attributes2.marginBefore,
+        marginAfter = _props$attributes2.marginAfter,
+        textColor = _props$attributes2.textColor,
+        bgColor = _props$attributes2.bgColor,
+        iconKey = _props$attributes2.iconKey,
+        iconFamily = _props$attributes2.iconFamily;
     var badgeClassNames = makeBadgeClassNames({
       state: state,
       badgeType: badgeType
@@ -12913,15 +13113,16 @@ registerBlockType('bsx-blocks/badge', {
       textColor: textColor,
       bgColor: bgColor
     }, badgeClassNames);
+
     if (!iconKey) {
       badgeClassNames += ' badge-content';
     }
-    var saveAttributes = Object(_functions_attributes_js__WEBPACK_IMPORTED_MODULE_4__["makeSaveAttributes"])({
-      href: href
-      // target: target, 
-      // rel: href ? ( rel ? rel + ' noopener noreferrer' : 'noopener noreferrer' ) : '',
-    });
 
+    var saveAttributes = Object(_functions_attributes_js__WEBPACK_IMPORTED_MODULE_4__["makeSaveAttributes"])({
+      href: href // target: target, 
+      // rel: href ? ( rel ? rel + ' noopener noreferrer' : 'noopener noreferrer' ) : '',
+
+    });
     var TagName = href ? 'a' : 'span';
     var iconFamilyClassName = !!iconFamily ? 'fa' + iconFamily : 'fa';
     var iconClassNames = iconFamilyClassName + ' ' + (iconKey ? 'fa-' + iconKey : '') + ' pr-1';
@@ -13139,47 +13340,49 @@ __webpack_require__.r(__webpack_exports__);
 
 // TODO: add title (to be used if link)
 var _wp$i18n = wp.i18n,
-  __ = _wp$i18n.__,
-  setLocaleData = _wp$i18n.setLocaleData;
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData;
 var registerBlockType = wp.blocks.registerBlockType;
 var _wp$blockEditor = wp.blockEditor,
-  InspectorControls = _wp$blockEditor.InspectorControls,
-  InspectorAdvancedControls = _wp$blockEditor.InspectorAdvancedControls,
-  RichText = _wp$blockEditor.RichText;
+    InspectorControls = _wp$blockEditor.InspectorControls,
+    InspectorAdvancedControls = _wp$blockEditor.InspectorAdvancedControls,
+    RichText = _wp$blockEditor.RichText;
 var _wp$components = wp.components,
-  PanelBody = _wp$components.PanelBody,
-  SVG = _wp$components.SVG,
-  Path = _wp$components.Path,
-  SelectControl = _wp$components.SelectControl,
-  TextControl = _wp$components.TextControl; // functions imports
+    PanelBody = _wp$components.PanelBody,
+    SVG = _wp$components.SVG,
+    Path = _wp$components.Path,
+    SelectControl = _wp$components.SelectControl,
+    TextControl = _wp$components.TextControl; // functions imports
 
 
 
 
-
-// functions
+ // functions
 
 var makeIconClassNames = function makeIconClassNames(attributes) {
   var state = attributes.state,
-    hoverState = attributes.hoverState,
-    iconSize = attributes.iconSize;
+      hoverState = attributes.hoverState,
+      iconSize = attributes.iconSize;
   var classNames = [];
+
   if (!!hoverState) {
     classNames.push('hover-text-' + hoverState);
   }
+
   if (!!state) {
     classNames.push('text-' + state);
-  }
-
-  // if ( !! iconType ) {
+  } // if ( !! iconType ) {
   //     classNames.push( 'fa-' + iconType );
   // }
+
 
   if (!!iconSize) {
     classNames.push('fa-' + iconSize);
   }
+
   return classNames.join(' ');
 };
+
 registerBlockType('bsx-blocks/icon', {
   title: __('BSX Icon', 'bsx-blocks'),
   icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_2__["svgIcon"])('icon'),
@@ -13232,93 +13435,108 @@ registerBlockType('bsx-blocks/icon', {
   },
   edit: function edit(props) {
     var className = props.className,
-      _props$attributes = props.attributes,
-      iconKey = _props$attributes.iconKey,
-      iconFamily = _props$attributes.iconFamily,
-      href = _props$attributes.href,
-      target = _props$attributes.target,
-      rel = _props$attributes.rel,
-      state = _props$attributes.state,
-      hoverState = _props$attributes.hoverState,
-      iconType = _props$attributes.iconType,
-      iconSize = _props$attributes.iconSize,
-      marginLeft = _props$attributes.marginLeft,
-      marginRight = _props$attributes.marginRight,
-      marginBefore = _props$attributes.marginBefore,
-      marginAfter = _props$attributes.marginAfter,
-      verticalAlign = _props$attributes.verticalAlign,
-      setAttributes = props.setAttributes,
-      isSelected = props.isSelected;
+        _props$attributes = props.attributes,
+        iconKey = _props$attributes.iconKey,
+        iconFamily = _props$attributes.iconFamily,
+        href = _props$attributes.href,
+        target = _props$attributes.target,
+        rel = _props$attributes.rel,
+        state = _props$attributes.state,
+        hoverState = _props$attributes.hoverState,
+        iconType = _props$attributes.iconType,
+        iconSize = _props$attributes.iconSize,
+        marginLeft = _props$attributes.marginLeft,
+        marginRight = _props$attributes.marginRight,
+        marginBefore = _props$attributes.marginBefore,
+        marginAfter = _props$attributes.marginAfter,
+        verticalAlign = _props$attributes.verticalAlign,
+        setAttributes = props.setAttributes,
+        isSelected = props.isSelected;
+
     var onChangeIconKey = function onChangeIconKey(value) {
       setAttributes({
         iconKey: value
       });
     };
+
     var onChangeIconFamily = function onChangeIconFamily(value) {
       setAttributes({
         iconFamily: value
       });
     };
+
     var onChangeHref = function onChangeHref(value) {
       setAttributes({
         href: value
       });
     };
+
     var onChangeTarget = function onChangeTarget(value) {
       setAttributes({
         target: !!value ? '_blank' : ''
       });
     };
+
     var onChangeRel = function onChangeRel(value) {
       setAttributes({
         rel: value
       });
     };
+
     var onChangeState = function onChangeState(value) {
       setAttributes({
         state: value
       });
     };
+
     var onChangeHoverState = function onChangeHoverState(value) {
       setAttributes({
         hoverState: value
       });
     };
+
     var onChangeIconType = function onChangeIconType(value) {
       setAttributes({
         iconType: value
       });
     };
+
     var onChangeIconSize = function onChangeIconSize(value) {
       setAttributes({
         iconSize: value
       });
     };
+
     var onChangeMarginLeft = function onChangeMarginLeft(value) {
       setAttributes({
         marginLeft: value
       });
     };
+
     var onChangeMarginRight = function onChangeMarginRight(value) {
       setAttributes({
         marginRight: value
       });
     };
+
     var onChangeMarginBefore = function onChangeMarginBefore(value) {
       setAttributes({
         marginBefore: value
       });
     };
+
     var onChangeMarginAfter = function onChangeMarginAfter(value) {
       setAttributes({
         marginAfter: value
       });
     };
+
     var onChangeVerticalAlign = function onChangeVerticalAlign(value) {
       setAttributes({
         verticalAlign: value
       });
     };
+
     var iconClassNames = makeIconClassNames({
       state: state,
       hoverState: hoverState,
@@ -13333,11 +13551,10 @@ registerBlockType('bsx-blocks/icon', {
       verticalAlign: verticalAlign
     }, iconClassNames);
     var saveAttributes = Object(_functions_attributes_js__WEBPACK_IMPORTED_MODULE_4__["makeSaveAttributes"])({
-      href: 'javascript:void( 0 );'
-      // target: target, 
+      href: 'javascript:void( 0 );' // target: target, 
       // rel: href ? ( rel ? rel + ' noopener noreferrer' : 'noopener noreferrer' ) : '',
-    });
 
+    });
     var familyClassName = !!iconFamily ? 'fa' + iconFamily : 'fa';
     var mergedIconClassName = iconType == 'circle' ? 'fa-stack ' + iconClassNames : familyClassName + ' fa-' + iconKey + ' ' + iconClassNames;
     var iconInnerClassName = iconType == 'circle' ? familyClassName + ' fa-' + iconKey + ' fa-stack-1x fa-inverse' : '';
@@ -13418,21 +13635,21 @@ registerBlockType('bsx-blocks/icon', {
   },
   save: function save(props) {
     var className = props.className,
-      _props$attributes2 = props.attributes,
-      iconKey = _props$attributes2.iconKey,
-      iconFamily = _props$attributes2.iconFamily,
-      href = _props$attributes2.href,
-      target = _props$attributes2.target,
-      rel = _props$attributes2.rel,
-      state = _props$attributes2.state,
-      hoverState = _props$attributes2.hoverState,
-      iconType = _props$attributes2.iconType,
-      iconSize = _props$attributes2.iconSize,
-      marginLeft = _props$attributes2.marginLeft,
-      marginRight = _props$attributes2.marginRight,
-      marginBefore = _props$attributes2.marginBefore,
-      marginAfter = _props$attributes2.marginAfter,
-      verticalAlign = _props$attributes2.verticalAlign;
+        _props$attributes2 = props.attributes,
+        iconKey = _props$attributes2.iconKey,
+        iconFamily = _props$attributes2.iconFamily,
+        href = _props$attributes2.href,
+        target = _props$attributes2.target,
+        rel = _props$attributes2.rel,
+        state = _props$attributes2.state,
+        hoverState = _props$attributes2.hoverState,
+        iconType = _props$attributes2.iconType,
+        iconSize = _props$attributes2.iconSize,
+        marginLeft = _props$attributes2.marginLeft,
+        marginRight = _props$attributes2.marginRight,
+        marginBefore = _props$attributes2.marginBefore,
+        marginAfter = _props$attributes2.marginAfter,
+        verticalAlign = _props$attributes2.verticalAlign;
     var iconClassNames = makeIconClassNames({
       state: state,
       hoverState: hoverState,
@@ -13511,25 +13728,24 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var _wp$i18n = wp.i18n,
-  __ = _wp$i18n.__,
-  setLocaleData = _wp$i18n.setLocaleData;
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData;
 var registerBlockType = wp.blocks.registerBlockType;
 var _wp$blockEditor = wp.blockEditor,
-  InspectorControls = _wp$blockEditor.InspectorControls,
-  InspectorAdvancedControls = _wp$blockEditor.InspectorAdvancedControls,
-  RichText = _wp$blockEditor.RichText,
-  PlainText = _wp$blockEditor.PlainText,
-  BlockControls = _wp$blockEditor.BlockControls;
+    InspectorControls = _wp$blockEditor.InspectorControls,
+    InspectorAdvancedControls = _wp$blockEditor.InspectorAdvancedControls,
+    RichText = _wp$blockEditor.RichText,
+    PlainText = _wp$blockEditor.PlainText,
+    BlockControls = _wp$blockEditor.BlockControls;
 var _wp$components = wp.components,
-  PanelBody = _wp$components.PanelBody,
-  SVG = _wp$components.SVG,
-  Path = _wp$components.Path,
-  SelectControl = _wp$components.SelectControl,
-  TextControl = _wp$components.TextControl,
-  TextareaControl = _wp$components.TextareaControl;
+    PanelBody = _wp$components.PanelBody,
+    SVG = _wp$components.SVG,
+    Path = _wp$components.Path,
+    SelectControl = _wp$components.SelectControl,
+    TextControl = _wp$components.TextControl,
+    TextareaControl = _wp$components.TextareaControl;
+ // functions imports
 
-
-// functions imports
 
 
 
@@ -13546,6 +13762,7 @@ var unwrapContent = function unwrapContent(content) {
     return content;
   }
 };
+
 registerBlockType('bsx-blocks/svg-img', {
   title: __('BSX SVG Image', 'bsx-blocks'),
   icon: Object(_functions_wp_icons_js__WEBPACK_IMPORTED_MODULE_2__["svgIcon"])('svg'),
@@ -13589,78 +13806,91 @@ registerBlockType('bsx-blocks/svg-img', {
   },
   edit: function edit(props) {
     var className = props.className,
-      _props$attributes = props.attributes,
-      content = _props$attributes.content,
-      nodeName = _props$attributes.nodeName,
-      href = _props$attributes.href,
-      target = _props$attributes.target,
-      rel = _props$attributes.rel,
-      state = _props$attributes.state,
-      marginBefore = _props$attributes.marginBefore,
-      marginAfter = _props$attributes.marginAfter,
-      verticalAlign = _props$attributes.verticalAlign,
-      textAlign = _props$attributes.textAlign,
-      display = _props$attributes.display,
-      setAttributes = props.setAttributes,
-      isSelected = props.isSelected; // unwrap content (remove wrapping outer element)
+        _props$attributes = props.attributes,
+        content = _props$attributes.content,
+        nodeName = _props$attributes.nodeName,
+        href = _props$attributes.href,
+        target = _props$attributes.target,
+        rel = _props$attributes.rel,
+        state = _props$attributes.state,
+        marginBefore = _props$attributes.marginBefore,
+        marginAfter = _props$attributes.marginAfter,
+        verticalAlign = _props$attributes.verticalAlign,
+        textAlign = _props$attributes.textAlign,
+        display = _props$attributes.display,
+        setAttributes = props.setAttributes,
+        isSelected = props.isSelected; // unwrap content (remove wrapping outer element)
+
     setAttributes({
       content: unwrapContent(content)
     });
+
     var onChangeContent = function onChangeContent(value) {
       setAttributes({
         content: value
       });
     };
+
     var onChangeHref = function onChangeHref(value) {
       setAttributes({
         href: value
       });
     };
+
     var onChangeTarget = function onChangeTarget(value) {
       setAttributes({
         target: !!value ? '_blank' : ''
       });
     };
+
     var onChangeRel = function onChangeRel(value) {
       setAttributes({
         rel: value
       });
     };
+
     var onChangeState = function onChangeState(value) {
       setAttributes({
         state: value
       });
     };
+
     var onChangeMarginBefore = function onChangeMarginBefore(value) {
       setAttributes({
         marginBefore: value
       });
     };
+
     var onChangeMarginAfter = function onChangeMarginAfter(value) {
       setAttributes({
         marginAfter: value
       });
     };
+
     var onChangeVerticalAlign = function onChangeVerticalAlign(value) {
       setAttributes({
         verticalAlign: value
       });
     };
+
     var onChangeNodeName = function onChangeNodeName(value) {
       setAttributes({
         nodeName: value
       });
     };
+
     var onChangeTextAlign = function onChangeTextAlign(value) {
       setAttributes({
         textAlign: value
       });
     };
+
     var onChangeDisplay = function onChangeDisplay(value) {
       setAttributes({
         display: value
       });
     };
+
     var wrapperClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_3__["addClassNames"])({
       state: state,
       marginBefore: marginBefore,
@@ -13668,18 +13898,18 @@ registerBlockType('bsx-blocks/svg-img', {
       verticalAlign: verticalAlign,
       textAlign: textAlign,
       display: display
-    }, 'svg-wrap');
-
-    // const saveAttributes = makeSaveAttributes( {
+    }, 'svg-wrap'); // const saveAttributes = makeSaveAttributes( {
     //     href: href, 
     //     target: target, 
     //     rel: href ? ( rel ? rel + ' noopener noreferrer' : 'noopener noreferrer' ) : '',
     // } );
 
     var TagName = !!nodeName ? nodeName : '';
+
     if (!!href) {
       TagName = 'a';
     }
+
     return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(BlockControls, null, Object(_functions_controls_js__WEBPACK_IMPORTED_MODULE_5__["textAlignToolbar"])(textAlign, onChangeTextAlign)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
       title: __('Content', 'bsx-blocks')
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(TextareaControl, {
@@ -13698,18 +13928,19 @@ registerBlockType('bsx-blocks/svg-img', {
   },
   save: function save(props) {
     var className = props.className,
-      _props$attributes2 = props.attributes,
-      content = _props$attributes2.content,
-      nodeName = _props$attributes2.nodeName,
-      href = _props$attributes2.href,
-      target = _props$attributes2.target,
-      rel = _props$attributes2.rel,
-      state = _props$attributes2.state,
-      marginBefore = _props$attributes2.marginBefore,
-      marginAfter = _props$attributes2.marginAfter,
-      verticalAlign = _props$attributes2.verticalAlign,
-      textAlign = _props$attributes2.textAlign,
-      display = _props$attributes2.display; // unwrap content (remove wrapping outer element)
+        _props$attributes2 = props.attributes,
+        content = _props$attributes2.content,
+        nodeName = _props$attributes2.nodeName,
+        href = _props$attributes2.href,
+        target = _props$attributes2.target,
+        rel = _props$attributes2.rel,
+        state = _props$attributes2.state,
+        marginBefore = _props$attributes2.marginBefore,
+        marginAfter = _props$attributes2.marginAfter,
+        verticalAlign = _props$attributes2.verticalAlign,
+        textAlign = _props$attributes2.textAlign,
+        display = _props$attributes2.display; // unwrap content (remove wrapping outer element)
+
     var unwrappedContent = unwrapContent(content);
     var wrapperClassNames = Object(_functions_add_class_names_js__WEBPACK_IMPORTED_MODULE_3__["addClassNames"])({
       state: state,
@@ -13725,9 +13956,11 @@ registerBlockType('bsx-blocks/svg-img', {
       rel: href ? rel ? rel + ' noopener noreferrer' : 'noopener noreferrer' : ''
     });
     var TagName = !!nodeName ? nodeName : '';
+
     if (!!href) {
       TagName = 'a';
     }
+
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, TagName ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(TagName, _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
       className: wrapperClassNames
     }, saveAttributes), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["RawHTML"], null, unwrappedContent)) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["RawHTML"], null, unwrappedContent));
